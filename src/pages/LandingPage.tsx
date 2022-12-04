@@ -1,35 +1,67 @@
 import { FC } from 'react';
-import { Button, Typography } from '@mui/material';
+import { Button, Typography, Box } from '@mui/material';
 import style from '../styles/LandingPage.module.css';
 
 
 const buttonSignUp = {
-    background: 'yellow',
+    background: '#ffd700',
     border: 'none',
-    color: 'black'
+    color: '#252525',
+    fontWeight: 700,
+    '&:hover': {
+      background: '#272727',
+      border: 'none'
+    }
 }
 const buttonSignIn = {
-    background: 'none',
-    border: '1px solid black',
-    color: 'black'
+    background: '#252525',
+    color: '#ffd700',
+    border: 'none',
+    fontWeight: 700,
+    '&:hover': {
+      background: '#272727',
+      border: 'none'
+    }
 }
+
 
 export const LandingPage: FC = () => {
   return (
-    <div className={style.container}>
-      <div className={style.content}>
-        <div className={style.content_left}>
-          <Typography variant='h5'>
-            <h1>Welcome to the Henry app</h1>
-          </Typography>
-          <h3>Mira mama soy un incompetente 2</h3>
+    
+      <Box 
+        height='100vh' 
+        display='flex' 
+        justifyContent='space-around' 
+        sx={{background: '#cccac5'}}>
 
-          <Button className={style.button_sign_in} sx={buttonSignIn} variant='outlined'>Sign in</Button>
-          <span>or</span>
-          <Button className={style.button_sign_up} sx={buttonSignUp} variant='outlined'>Sing up</Button>
-        </div>
-        <div className={style.content_right}></div>
-      </div>
-    </div>
+            <div className={style.content_left}>
+              <Typography>
+                <h1>Welcome to the Henry app</h1>
+              </Typography>
+              <h3>Conectamos los mejores talentos independientes con las mejores empresas.</h3>
+
+              <Button
+              className={style.button_sign_in} 
+              sx={buttonSignIn} 
+              variant='outlined'>
+                Ser parte del proyecto
+              </Button>
+              <span>or</span>
+              <Button 
+                className={style.button_sign_up} 
+                sx={buttonSignUp} 
+                variant='outlined'>
+                  Crear proyecto
+                </Button>
+            </div> 
+         
+            <div className={style.content_right}></div>
+
+      </Box>
+    
+
+    
+
+
   );
 };
