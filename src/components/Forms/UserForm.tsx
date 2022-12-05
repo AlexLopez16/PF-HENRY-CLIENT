@@ -1,7 +1,7 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { FC } from "react";
-import { Container, Typography, Grid, Button, Box } from "@mui/material";
-import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik";
+import { Grid, Button, Box, Paper, FormHelperText } from "@mui/material";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import { FieldProps, getIn } from "formik";
 
@@ -59,13 +59,44 @@ export const FormTextField: React.FC<FieldProps & TextFieldProps> = (props) => {
 };
 
 export const UserForm: FC = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+  const initialValues = {
+    name: "",
+    apellido: "",
+    email: "",
+    contraseña: "",
+  };
+  const validationSchema = yup.object().shape({
+    name: yup.string().required("Nombre requerido"),
+    apellido: yup.string().required("Apellido requerido"),
+    email: yup.string().email("email invalido").required("Email requerido"),
+    contraseña: yup
+      .string()
+      .required("Contraseña requerida")
+      .min(8, "Debe contener min. 8 caracter")
+      .matches(/[0-9]/, "Se requiere un numero")
+      .matches(/[a-z]/, "Se requiere una letra minuscula")
+      .matches(/[A-Z]/, "Se requiere una letra mayuscula")
+      .matches(/[^\w]/, "Se requiere un simbolo"),
+  });
+  const onSubmit = (values: any) => {
+    values;
+  };
   return (
-    <Container maxWidth="md">
-      <Box mb={3} p={2}>
-        <Typography
-          align="center"
-          variant="h5"
-          style={{ lineHeight: 1.25, marginBottom: 16 }}
+    <div>
+      <Grid>
+        <Paper
+          elevation={10}
+          style={{
+            width: 400,
+            height: "100%",
+            padding: 20,
+            margin: "50px auto",
+          }}
         >
           login de alumnos <br />
           como viene el front papa!!!!!!!!!!!!!!
@@ -95,61 +126,72 @@ export const UserForm: FC = () => {
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Field
+                  as={TextField}
                   name="name"
                   label="Nombre"
                   size="small"
-                  component={FormTextField}
+                  sx={{ width: "100%" }}
+                  helperText={<ErrorMessage name="name" />}
                 />
-              </Grid>
-              <Grid item xs={12}>
+
                 <Field
+                  as={TextField}
                   name="apellido"
                   label="Apellido"
                   size="small"
-                  component={FormTextField}
+                  sx={{ width: "100%" }}
+                  helperText={<ErrorMessage name="apellido" />}
                 />
-              </Grid>
-              <Grid item xs={12}>
-                <Field
-                  name="email"
-                  label="email"
-                  size="small"
-                  component={FormTextField}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Field
-                  name="password"
-                  label="Contraseña"
-                  size="small"
-                  component={FormTextField}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Field
-                  name="passwordRepeat"
-                  label="Repetir contraseña"
-                  size="small"
-                  component={FormTextField}
-                />
-              </Grid>
 
-              <Grid item xs={12}>
+                <Field
+                  as={TextField}
+                  name="email"
+                  label="Email"
+                  size="small"
+                  sx={{ width: "100%" }}
+                  helperText={<ErrorMessage name="email" />}
+                />
+                <FormControl sx={{ width: "100%" }}>
+                  <InputLabel htmlFor="contraseña">Contraseña</InputLabel>
+                  <Field
+                    as={OutlinedInput}
+                    name="contraseña"
+                    label="contraseña"
+                    placeholder="Contraseña"
+                    type={showPassword ? "text" : "password"}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                  />
+                  {"contraseña" in props.errors && (
+                    <FormHelperText error>
+                      {props.errors.contraseña}
+                    </FormHelperText>
+                  )}
+                </FormControl>
                 <Button
                   type="submit"
-                  variant="outlined"
-                  size="large"
+                  variant="contained"
+                  fullWidth
                   color="primary"
-                  disabled={formikProps.isSubmitting}
+                  disabled={props.isSubmitting}
                 >
-                  Submit
+                  Crear cuenta
                 </Button>
-              </Grid>
-            </Grid>
-          </Form>
-        )}
-      </Formik>
-    </Container>
+              </Form>
+            )}
+          </Formik>
+        </Paper>
+      </Grid>
+    </div>
   );
 };
 
