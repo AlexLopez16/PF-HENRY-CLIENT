@@ -49,10 +49,28 @@ const buttonSignIn = {
     }
 }
 
+const buttonSing = {
+  display: 'block'
+}
+
 
 
 const LandingPage: FC = () => {
   return (
+    <>
+    {/* <div>
+      <Link 
+        to='/loginCompany'
+        className={style.link}>
+         <Button 
+         className={style.button_sign} 
+         sx={buttonSing} 
+         variant='outlined'>
+          Ingresar
+         </Button>
+      </Link> 
+
+    </div> */}
     
       <Box 
         height='100vh' 
@@ -100,20 +118,10 @@ const LandingPage: FC = () => {
             </div> 
 
          
-            <div className={style.content_right}>
-            {/* <Link 
-                  to='/loginCompany'
-                  className={style.link}>
-                  <Button 
-                    className={style.button_sign} 
-                    sx={buttonSing} 
-                    variant='outlined'>
-                      Ingresar
-                    </Button>
-                </Link> */}
-            </div>
+            <div className={style.content_right}></div>
 
       </Box>
+    </>
   );
 };
 
