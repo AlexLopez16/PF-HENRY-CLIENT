@@ -5,8 +5,11 @@ export const AppRouter = () => {
     return (
         <BrowserRouter>
             <div>
-                <Routes>
-                    <Route path='/' element={<LandingPage />} />
+                <Routes>        
+                   
+                    {/* <Route path='/' element={<LandingPage />} /> */}
+                    
+
                 </Routes>
             </div>
         </BrowserRouter>
