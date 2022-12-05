@@ -9,12 +9,6 @@ import { GitHubLogin } from './GitHubLogin';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup'
 
-// interface State {
-//     email: string;
-//     password: string;
-//     showPassword: boolean;
-// }
-
 export const LoginScreen: FC = () => {
 
     const paperStyle = {
@@ -24,27 +18,9 @@ export const LoginScreen: FC = () => {
         margin: '50px auto'
     }
 
-    // const initialState = {
-    //     email: '',
-    //     password: '',
-    //     showPassword: false
-    // }
-
-    // const [values, setValues] = useState<State>(initialState)
     const [showPassword, setShowPassword] = useState(false)
 
-    // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //     setValues({
-    //         ...values,
-    //         [e.target.name]: e.target.value
-    //     })
-    // }
-
     const handleClickShowPassword = () => {
-        // setValues({
-        //     ...values,
-        //     showPassword: !values.showPassword
-        // })
         setShowPassword(!showPassword)
     }
 
@@ -55,7 +31,6 @@ export const LoginScreen: FC = () => {
 
     const validationSchema = Yup.object().shape({
         email: Yup.string().email('Por favor ingresa un email válido.').required('Este valor debe ser un correo válido.'),
-        // password: Yup.string().required('Este valor es requerido.')
     })
 
     const onSubmit = (values: any, props: any) => {
@@ -101,7 +76,6 @@ export const LoginScreen: FC = () => {
                                     <InputLabel htmlFor='password'>Password</InputLabel>
                                     <Field as={OutlinedInput}
                                         name='password'
-                                        // type={values.showPassword ? 'text' : 'password'}
                                         type={showPassword ? 'text' : 'password'}
                                         required
                                         endAdornment={
