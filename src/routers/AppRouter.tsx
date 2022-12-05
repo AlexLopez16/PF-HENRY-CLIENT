@@ -7,7 +7,7 @@ export const AppRouter = () => {
             <div>
                 <Routes>        
                    
-                    {/* <Route path='/' element={<LandingPage />} /> */}
+                    <Route path='/' element={<LandingPage />} />
                     
 
                 </Routes>

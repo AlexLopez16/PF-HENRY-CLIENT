@@ -1,11 +1,10 @@
-import React, { useState } from "react";
-import { FC } from "react";
-import { Grid, Button, Box, Paper, FormHelperText } from "@mui/material";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as yup from "yup";
-import { FieldProps, getIn } from "formik";
-
+import { useState, FC } from "react";
 import {
+  Grid,
+  Button,
+  Paper,
+  FormHelperText,
+  Divider,
   TextField,
   InputLabel,
   FormControl,
@@ -13,7 +12,11 @@ import {
   InputAdornment,
   IconButton,
 } from "@mui/material";
-import { VisibilityOff, Visibility } from "@mui/icons-material";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as yup from "yup";
+import { VisibilityOff, Visibility, Message } from "@mui/icons-material";
+import { GitHubLogin } from "../auth/GitHubLogin";
+import { GoogleLogin } from "../auth/GoogleLogin";
 
 export const UserForm: FC = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -49,16 +52,20 @@ export const UserForm: FC = () => {
         <Paper
           elevation={10}
           style={{
-            width: 400,
+            width: 380,
             height: "100%",
             padding: 20,
             margin: "50px auto",
           }}
         >
           <Grid textAlign="center">
-            <h5>Crear cuenta</h5>
+            <h2>Crear cuenta</h2>
           </Grid>
-
+          <GitHubLogin />
+          <GoogleLogin />
+          <Divider>
+            <span>O</span>
+          </Divider>
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
@@ -71,8 +78,14 @@ export const UserForm: FC = () => {
                   name="name"
                   label="Nombre"
                   size="small"
-                  sx={{ width: "100%" }}
-                  helperText={<ErrorMessage name="name" />}
+                  sx={{ width: "100%", margin: "10px 0" }}
+                  helperText={
+                    <ErrorMessage name="name">
+                      {(message) => (
+                        <span style={{ color: "red" }}>{message}</span>
+                      )}
+                    </ErrorMessage>
+                  }
                 />
 
                 <Field
@@ -80,8 +93,14 @@ export const UserForm: FC = () => {
                   name="apellido"
                   label="Apellido"
                   size="small"
-                  sx={{ width: "100%" }}
-                  helperText={<ErrorMessage name="apellido" />}
+                  sx={{ width: "100%", margin: "10px 0" }}
+                  helperText={
+                    <ErrorMessage name="apellido">
+                      {(message) => (
+                        <span style={{ color: "red" }}>{message}</span>
+                      )}
+                    </ErrorMessage>
+                  }
                 />
 
                 <Field
@@ -89,10 +108,16 @@ export const UserForm: FC = () => {
                   name="email"
                   label="Email"
                   size="small"
-                  sx={{ width: "100%" }}
-                  helperText={<ErrorMessage name="email" />}
+                  sx={{ width: "100%", margin: "10px 0" }}
+                  helperText={
+                    <ErrorMessage name="email">
+                      {(message) => (
+                        <span style={{ color: "red" }}>{message}</span>
+                      )}
+                    </ErrorMessage>
+                  }
                 />
-                <FormControl sx={{ width: "100%" }}>
+                <FormControl sx={{ width: "100%", margin: "10px 0" }}>
                   <InputLabel htmlFor="contraseña">Contraseña</InputLabel>
                   <Field
                     as={OutlinedInput}
