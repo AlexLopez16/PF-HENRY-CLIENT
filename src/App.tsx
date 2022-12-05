@@ -1,5 +1,6 @@
 
 import { Provider } from "react-redux"
+import { LoginScreen } from "./components/auth/LoginScreen"
 
 import { UserForm } from "./components/Forms/UserForm"
 
@@ -11,6 +12,8 @@ function App() {
   return (
     <Provider store={store}>
       <div className="App">
+        <LoginScreen />
+        {/* <AppRouter /> */}
         {/* <AppRouter /> */}
 
       <UserForm/>
@@ -26,4 +29,4 @@ function App() {
 
 
 
-export default App
+export default App;
