@@ -1,215 +1,191 @@
-import * as React from "react";
-import { useDispatch } from "react-redux";
-import { FC } from 'react'
-import { Formik, FormikHelpers, FormikProps, Form, Field } from "formik";
-import { FieldProps, getIn } from 'formik'
+import React, { useState } from "react";
+import { FC } from "react";
+import { Grid, Button, Box, Paper, FormHelperText } from "@mui/material";
+import {
+    Formik,
+    Form,
+    Field,
+    ErrorMessage,
+} from "formik";
 import * as yup from "yup";
+import { FieldProps, getIn } from "formik";
 
-import { Select, Container, Typography, Grid, Button, Box, TextFieldProps, TextField, MenuItem, SelectChangeEvent, InputLabel, FormControl } from '@mui/material';
+import {
+    TextField,
+    InputLabel,
+    FormControl,
+    OutlinedInput,
+    InputAdornment,
+    IconButton,
+    SelectChangeEvent,
+    Select,
+    MenuItem
+} from "@mui/material";
+import { VisibilityOff, Visibility } from "@mui/icons-material";
+import { margin } from "@mui/system";
 
-
-
-
-
-
-interface FormValues {
-    name: string,
-    email: string,
-    pass: string,
-    passRepeat: string,
-}
-// the Formik component supports yup validation out-of-the-box via the `validationSchema` prop
-const validationSchema = yup.object().shape({
-    name: yup.string().required("Requerido"),
-    email: yup.string().email().required("Requerido"),
-    pass: yup
-    .string()
-    .min(8, 'Debe contener min. 8 caracter')
-    .matches(/[0-9]/, 'Se requiere un numero')
-    .matches(/[a-z]/, 'Se requiere una letra minuscula')
-    .matches(/[A-Z]/, 'Se requiere una letra mayuscula')
-    .matches(/[^\w]/, 'Se requiere un simbolo'),
-
-    passRepeat:yup
-          .string()
-          .oneOf([yup.ref('pass'), null], 'No coinciden las contraseñas'),
-
-});
-
-
-/**
- * Material TextField Component with Formik Support including Errors.
- * Intended to be specified via the `component` prop in a Formik <Field> or <FastField> component.
- * Material-UI specific props are passed through.
- */
-const FormTextField: React.FC<FieldProps & TextFieldProps> = props => {
-    const isTouched = getIn(props.form.touched, props.field.name)
-    const errorMessage = getIn(props.form.errors, props.field.name)
-
-    const { error, helperText, field, form, ...rest } = props
-
-    return (
-        <TextField
-            variant="outlined"
-            error={error ?? Boolean(isTouched && errorMessage)}
-            helperText={helperText ?? ((isTouched && errorMessage) ? errorMessage : undefined)}
-            {...rest}
-            {...field}
-        />
-    )
-}
 
 
 const CompanyForm: FC = () => {
 
-    const dispatch = useDispatch()
-
-
-
     const paises: string[] = ["Argentina", "Bolivia", "Brasil", "Chile", "Colombia", "Costa Rica", "Cuba", "Ecuador", "El Salvador", "Guatemala", "Honduras", "México", "Nicaragua", "Panamá", "Paraguay", "Perú", "Puerto Rico", "República Dominicana", "Uruguay", "Venezuela"];
+    const [pais, setPais] = useState('');
 
-    const [pais, setPais] = React.useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
-
-
-    // const initialValues={
-    //     name: "",
-    //     email: "",
-    //     password: "",
-    //     passwordRepeat: ""
-    // }
-
-    const [input, setInput] = React.useState("")
-
-    const handleChange = (event: SelectChangeEvent) => {
-        setPais(event.target.value as string);
+    const handleClickShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
+    const initialValues = {
+        name: "",
+        apellido: "",
+        email: "",
+        contraseña: "",
+        Rcontraseña: "",
     };
 
+    const validationSchema = yup.object().shape({
+        name: yup.string().required("Nombre requerido"),
+        apellido: yup.string().required("Apellido requerido"),
+        email: yup.string().email("email invalido").required("Email requerido"),
+        contraseña: yup
+            .string()
+            .required("Contraseña requerida")
+            .min(8, "Debe contener min. 8 caracter")
+            .matches(/[0-9]/, "Se requiere un numero")
+            .matches(/[a-z]/, "Se requiere una letra minuscula")
+            .matches(/[A-Z]/, "Se requiere una letra mayuscula")
+            .matches(/[^\w]/, "Se requiere un simbolo"),
 
+    });
 
+    const onSubmit = (values: any) => {
+        values;
 
-    return (
-        <Container maxWidth="md">
+        
+       
+};
 
-            <Box mb={3} p={2}>
-                <Typography
-                    align="center"
-                    variant="h5"
-                    style={{ lineHeight: 1.25, marginBottom: 16 }}
+const handleChange = (event: SelectChangeEvent) => {
+    setPais(event.target.value as string);
+};
+
+return (
+    <div>
+        <Grid>
+            <Paper elevation={10} style={{ width: 400, height: "100%", padding: 20, margin: "50px auto" }}>
+                <Grid textAlign="center">
+                    <h5>
+                        Crear cuenta
+                    </h5>
+                </Grid>
+                <Formik
+                    initialValues={initialValues}
+                    validationSchema={validationSchema}
+                    onSubmit={onSubmit}
                 >
-                    Completa el formulario con tus datos correspondientes
-                </Typography>
-                <Typography align="center">
-                    {/* Submit the form with empty fields to view validation errors. */}
-                </Typography>
-            </Box>
-            <Formik
+                    {(props) => (
+                        <Form>
+                            <Field
+                            
+                                as={TextField}
+                                name="name"
+                                label="Nombre"
+                                size="small"
+                                sx={{ width: "100%", marginTop:1}}
+                                helperText={
+                                    <ErrorMessage name="name">
+                                      {(message) => (
+                                        <span style={{ color: "red" }}>{message}</span>
+                                      )}
+                                    </ErrorMessage>
+                                  }
 
-                initialValues={{
-                    name: "",
-                    email: "",
-                    pass: "",
-                    passRepeat: "",
-                }}
+                            />
 
-                validationSchema={validationSchema}
+                            <Field
+                                as={TextField}
+                                name="email"
+                                label="Email"
+                                size="small"
+                                sx={{ width: "100%" ,marginTop:1}}
+                                helperText={
+                                    <ErrorMessage name="email">
+                                      {(message) => (
+                                        <span style={{ color: "red" }}>{message}</span>
+                                      )}
+                                    </ErrorMessage>
+                                  }
+                            />
+                            <FormControl sx={{ width: "100%" ,marginTop:1,marginBottom:0.5}}>
 
-
-                onSubmit={(
-                    values: FormValues,
-                    formikHelpers: FormikHelpers<FormValues>
-                ) => {
-                    alert(JSON.stringify(values, null, 2));
-                    formikHelpers.setSubmitting(false);
-
-
-                    //         dispatch(
-                    //             // post_videogames({
-                    //             name:values.name,
-                    // email:values.email,
-                    // password:values.password,
-                    // passwordRepeat:values.passwordRepeat,
-                    // createdInDb: true
-                    // // })
-                    // )
-                }}
-            >
-                {(formikProps: FormikProps<FormValues>) => (
-                    <Form noValidate autoComplete="off">
-                        <Grid container spacing={1} marginLeft={40}>
-                            <Grid item xs={12}>
+                                <InputLabel htmlFor="contraseña">
+                                    Contraseña
+                                </InputLabel>
                                 <Field
-                                    name="name"
-                                    label="Name"
-                                    size="small"
-                                    component={FormTextField}
+                                    as={OutlinedInput}
+                                    name="contraseña"
+                                    label="contraseña"
+                                    placeholder="Contraseña"
+                                    type={showPassword ? "text" : "password"}
+                                    endAdornment={
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                aria-label="toggle password visibility"
+                                                onClick={handleClickShowPassword}
+                                                edge="end"
+                                            >
+                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    }
                                 />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Field
-                                    name="email"
-                                    label="email"
-                                    size="small"
-                                    component={FormTextField}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Field
-                                    name="pass"
-                                    label="Password"
-                                    size="small"
-                                    component={FormTextField}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Field
-                                    name="passRepeat"
-                                    label="Password repeat"
-                                    size="small"
-                                    component={FormTextField}
-                                />
-                            </Grid>
+                                {
+                                    "contraseña" in props.errors && (
+                                        <FormHelperText error>
+                                            {props.errors.contraseña}
+                                        </FormHelperText>
+                                    )
+                                }
+                            </FormControl>
 
+                            <FormControl sx={{ width: "100%",marginTop:1 }}>
+                                <InputLabel id="demo-simple-select-label">Nacionalidad</InputLabel>
+                                <Select
+                                    id="demo-simple-select"
+                                    labelId="demo-simple-select-label"
+                                    label="Nacionalidad"
+                                    value={pais}
+                                    onChange={handleChange}
 
-                            <Box sx={{ ml: 1, width: 210,pt:1 }} >
-                                <FormControl fullWidth>
-                                    <InputLabel id="demo-simple-select-label">Nacionalidad</InputLabel>
-                                    <Select
-                                        id="demo-simple-select"
-                                        labelId="demo-simple-select-label"
-                                        label="Nacionalidad"
-                                        value={pais}
-                                        onChange={handleChange}
-
-                                    >
-
-                                        {paises.map(pais => (
-                                            <MenuItem value={pais}>{pais}</MenuItem>
-                                        ))}
-
-                                    </Select>
-                                </FormControl>
-                            </Box>
-
-
-
-                            <Grid item xs={12}>
-                                <Button
-                                    type="submit"
-                                    variant="outlined"
-                                    size="large"
-                                    color="primary"
-                                    disabled={formikProps.isSubmitting}
                                 >
-                                    Submit
-                                </Button>
-                            </Grid>
-                        </Grid>
-                    </Form>
-                )}
-            </Formik>
-        </Container >
-    );
-}
+
+                                    {paises.map(pais => (
+                                        <MenuItem value={pais}>{pais}</MenuItem>
+                                    ))}
+
+                                </Select>
+                            </FormControl>
+
+
+
+                            <Button
+                            sx={{marginTop:10}}
+                                type="submit"
+                                variant="contained"
+                                fullWidth
+                                color="primary"
+                                disabled={props.isSubmitting}
+                            >
+                                Crear cuenta
+                            </Button>
+                        </Form>
+                    )}
+                </Formik>
+            </Paper>
+        </Grid>
+    </div>
+);
+};
 
 export default CompanyForm;

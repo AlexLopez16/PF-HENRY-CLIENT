@@ -13,6 +13,7 @@ interface FormValues {
   email: string;
   password: string;
   passwordRepeat: string;
+  showPassword:boolean;
 }
 
 // the Formik component supports yup validation out-of-the-box via the `validationSchema` prop
@@ -78,6 +79,7 @@ export const UserForm: FC = () => {
           email: "",
           password: "",
           passwordRepeat: "",
+          showPassword:false,
         }}
         validationSchema={validationSchema}
         onSubmit={(
