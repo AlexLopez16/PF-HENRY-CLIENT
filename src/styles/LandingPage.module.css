@@ -1,5 +1,6 @@
 .content_left {
     height: 50vh;
+    width:50vw ;
     padding: 1em;
     transform: translateY(40%);
     transition: all 1s;
@@ -7,7 +8,13 @@
 }
 
 .content_left h1{
-    font-size: 50px ;
+    font-size: 65px ;
+    color: #252525;
+    padding: 0;
+}
+
+.content_left h3{
+    font-size: 35px ;
     color: #252525;
 }
 
@@ -42,13 +49,21 @@
     border-radius: 30% 70% 70% 30% / 30% 30% 70% 70% ;
 }
 
+.buttons_login{
+    margin-top: 50px;
+}
+
 .button_sign_in {
     animation: fade-in-bottom .85s;
 }
 
-.button_sign_up {
-    animation: fade-in-bottom 1s;
+.link {
+    text-decoration: none;
 }
+
+/* .button_sign_up {
+    animation: fade-in-bottom 1s;
+} */
 
 @keyframes fade-in-bottom {
     0% {
@@ -88,3 +103,8 @@
     }
 }
 
+
+
+.button_sign {
+    color: #fff;background-color: red;
+}

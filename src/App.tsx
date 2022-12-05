@@ -1,7 +1,7 @@
 
 import { Provider } from "react-redux"
 
-import { UserForm } from "./components/Forms/UserForm"
+// import { UserForm } from "./components/Forms/UserForm"
 
 
 import { AppRouter } from "./routers/AppRouter"
@@ -11,9 +11,9 @@ function App() {
   return (
     <Provider store={store}>
       <div className="App">
-        {/* <AppRouter /> */}
+        <AppRouter /> 
 
-      <UserForm/>
+      {/* <UserForm/> */}
 
         
 
