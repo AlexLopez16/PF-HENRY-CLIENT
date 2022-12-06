@@ -42,6 +42,7 @@ const CompanyForm: FC = () => {
         email: "",
         contraseña: "",
         Rcontraseña: "",
+        Urlpagina:"",
     };
 
     const validationSchema = yup.object().shape({
@@ -101,6 +102,20 @@ return (
                                     </ErrorMessage>
                                   }
 
+                            />
+                             <Field
+                                as={TextField}
+                                name="Urlpagina"
+                                label="Url-pagina"
+                                size="small"
+                                sx={{ width: "100%" ,marginTop:1}}
+                                helperText={
+                                    <ErrorMessage name="Url-pagina">
+                                      {(message) => (
+                                        <span style={{ color: "red" }}>{message}</span>
+                                      )}
+                                    </ErrorMessage>
+                                  }
                             />
 
                             <Field
