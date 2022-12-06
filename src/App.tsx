@@ -1,6 +1,5 @@
 
 import { Provider } from "react-redux"
-import { LoginScreen } from "./components/auth/LoginScreen"
 
 
 
@@ -12,11 +11,6 @@ function App() {
     <Provider store={store}>
       <div className="App">
         <AppRouter />
-
-
-
-        
-
       </div>
     </Provider>
 
