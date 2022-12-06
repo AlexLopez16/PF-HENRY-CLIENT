@@ -50,7 +50,21 @@ const buttonSignIn = {
 }
 
 const buttonSing = {
-  display: 'block'
+  display: 'block',
+  position: 'absolute',
+  right: 20,
+  top: 10,
+  borderRadius: 8,
+  background: '#ffd700',
+  color: '#111',
+  border: 'none',
+  '&:hover': {
+    background: '#272727',
+    border: 'none',
+    color: '#ffd700',
+    TransitionEvent: 1,
+  }
+
 }
 
 
@@ -58,19 +72,19 @@ const buttonSing = {
 const LandingPage: FC = () => {
   return (
     <>
-    {/* <div>
+    <div>
       <Link 
-        to='/loginCompany'
+        to='/any'
         className={style.link}>
          <Button 
-         className={style.button_sign} 
-         sx={buttonSing} 
-         variant='outlined'>
+          className={style.button_sign} 
+          sx={buttonSing} 
+          variant='outlined'>
           Ingresar
          </Button>
       </Link> 
 
-    </div> */}
+    </div> 
     
       <Box 
         height='100vh' 

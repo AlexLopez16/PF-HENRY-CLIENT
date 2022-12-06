@@ -5,12 +5,14 @@
     transform: translateY(40%);
     transition: all 1s;
     animation: fade-in 1s;
+    
 }
 
 .content_left h1{
     font-size: 65px ;
     color: #252525;
     padding: 0;
+    font-weight: 700;
 }
 
 .content_left h3{
@@ -61,9 +63,9 @@
     text-decoration: none;
 }
 
-/* .button_sign_up {
+.button_sign_up {
     animation: fade-in-bottom 1s;
-} */
+} 
 
 @keyframes fade-in-bottom {
     0% {
