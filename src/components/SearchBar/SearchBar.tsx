@@ -7,9 +7,10 @@ import { useState } from "react";
 const StyledBox = {
     justifyContent: 'flex-end',
     alignItems: 'center',
-    background: '#f5f5f5',
     height: 65,
-    boxShadow: 3
+    boxShadow: 2,
+    
+    
 }
 
 const styledInput = {
@@ -29,7 +30,7 @@ const SearchBar: FC = () => {
 
     return (
         <>
-          <Box display='flex' 
+          <Box display='block' 
             sx={StyledBox}>
 
             <Input 

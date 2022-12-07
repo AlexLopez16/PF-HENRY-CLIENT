@@ -21,7 +21,8 @@ const SideBar: FC = () => {
                 width: 250,
                 height: '100vh',
                 color: '#272727',
-                pt: 7
+                pt: 7,
+                boxShadow: 1
 
                 }}>
                 <List>

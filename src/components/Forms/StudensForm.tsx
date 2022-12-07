@@ -18,7 +18,7 @@ import { VisibilityOff, Visibility, Message } from "@mui/icons-material";
 import { GitHubLogin } from "../auth/GitHubLogin";
 import { GoogleLogin } from "../auth/GoogleLogin";
 
-export const UserForm: FC = () => {
+export const StudensForm: FC = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => {
@@ -161,4 +161,4 @@ export const UserForm: FC = () => {
   );
 };
 
-export default UserForm;
+export default StudensForm;
