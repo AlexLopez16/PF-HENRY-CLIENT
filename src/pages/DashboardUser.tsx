@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import StudentCard from "../components/StudentCard/StudentCard";
 
 
 
@@ -6,10 +7,7 @@ const DashboardUser: FC = () => {
 
 
     return (
-
-        <div>
-            <h1>dash</h1>
-        </div>
+        <StudentCard />
     )
 
 }
