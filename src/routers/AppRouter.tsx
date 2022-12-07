@@ -18,7 +18,6 @@ export const AppRouter = () => {
 
                 <Routes>        
                    
-
                     <Route path='/' element={<LandingPage />} />
                     <Route path='/loginStudent' element={<StudensForm />} />
                     <Route path='/loginCompany' element={<CompanyForm />} />
@@ -26,7 +25,6 @@ export const AppRouter = () => {
                     <Route path='/search' element={<SearchBar />} />
                     <Route path='/dashboardUser' element={<DashboardUser/>}/>
                  <Route path="/dashboardStudens" element={<DashboardStudens/>}/>
-                 
 
 
                 </Routes>
