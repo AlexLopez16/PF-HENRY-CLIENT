@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import  ProyectCard from "../components/ProyectCard/ProyectCard";
+import  ProyectCard from "../components/Card/ProyectCard";
 import {RadioGroupRating} from "../components/Rating/Rating";
 
 
