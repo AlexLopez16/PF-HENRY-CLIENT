@@ -32,10 +32,6 @@ const StudentCard: FC <StudentProps> = ({name,email,descripcion,skill}:StudentPr
 
 
 
-  
-
-
-
   const [open, setOpen] = React.useState(true);
 
   const handleClick = () => {

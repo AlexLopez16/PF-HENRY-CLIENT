@@ -34,7 +34,6 @@ const DashboardCompany: FC = () => {
     )
 
 
-    
 }
 
 export default DashboardCompany;   
