@@ -16,8 +16,22 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 
+interface StudentProps{
 
-const StudentCard: FC = () => {
+name:string,
+email:string,
+descripcion:string,
+skill:string,
+
+}
+
+
+
+const StudentCard: FC <StudentProps> = ({name,email,descripcion,skill}:StudentProps) => {
+
+
+
+
 
 
 
@@ -30,7 +44,7 @@ const StudentCard: FC = () => {
 
   return (
 
-    <Paper elevation={10} style={{ width: 400, height: "100%", padding: 20, margin: "50px auto" }}>
+    <Paper elevation={10} style={{ width: 400, height: "100%", padding: 20, margin: "50px 5px 0 5px",display:"inline-block"}}>
 
 
       <CardHeader
@@ -40,13 +54,13 @@ const StudentCard: FC = () => {
           />
         }
 
-        title="nombre de alumno"
+        title={name}
       // subheader="September 14, 2016"
       />
 
       <Box sx={{ width: '100%', maxWidth: 360, }}>
         <div>
-          <Typography variant="h6">Alumno@nabijash.com</Typography>
+          <Typography variant="h6">{email}</Typography>
         </div>
       </Box>
 
@@ -66,11 +80,11 @@ const StudentCard: FC = () => {
               <Typography
                 sx={{ maxWidth: 360, display: 'flex' }}
 
-                variant="body1">Descripcion: Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit, iste eligendi eius officiis similique veritatis placeat, autem nesciunt consectetur architecto distinctio atque assumenda! Illum tempora repellendus est nesciunt. Exercitationem, totam.</Typography>
+                variant="body1">{descripcion}</Typography>
             </List>
 
             <List >
-              <Typography variant="body1">Skill: javascript, typescript</Typography>
+              <Typography variant="body1">{skill}</Typography>
             </List>
           </List>
         </Collapse>
