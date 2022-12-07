@@ -5,6 +5,7 @@ import CompanyForm from '../components/Forms/CompanyForm';
 import SearchBar from '../components/SearchBar/SearchBar';
 import ProjectForm from '../components/Forms/ProjectForm';
 import DashboardUser from '../pages/DashboardUser';
+import DashboardStudens from '../pages/DashboardStudens';
 
 /**
  * 
@@ -23,8 +24,9 @@ export const AppRouter = () => {
                     <Route path='/loginCompany' element={<CompanyForm />} />
                     <Route path='/project' element={<ProjectForm />} />
                     <Route path='/search' element={<SearchBar />} />
-                    <Route path='/dashboardStudent' element={<DashboardUser/>}/>
-                
+                    <Route path='/dashboardUser' element={<DashboardUser/>}/>
+                 <Route path="/dashboardStudens" element={<DashboardStudens/>}/>
+                 
 
 
                 </Routes>

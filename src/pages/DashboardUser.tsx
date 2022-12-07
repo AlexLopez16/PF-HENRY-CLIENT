@@ -10,7 +10,7 @@ const DashboardUser: FC = () => {
     return (
         <div>
         <StudentCard />
-        <ProyectCard />
+       
         </div>
     )
 
