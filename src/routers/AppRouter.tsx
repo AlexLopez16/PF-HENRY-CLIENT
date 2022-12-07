@@ -5,6 +5,7 @@ import CompanyForm from '../components/Forms/CompanyForm';
 import SearchBar from '../components/SearchBar/SearchBar';
 import ProjectForm from '../components/Forms/ProjectForm';
 import DashboardUser from '../pages/DashboardUser';
+import SideBar from '../components/SideBar/SideBar';
 
 
 export const AppRouter = () => {
@@ -16,7 +17,12 @@ export const AppRouter = () => {
                     <Route path='/' element={<LandingPage />} />
                     <Route path='/loginStudent' element={<UserForm />} />
                     <Route path='/loginCompany' element={<CompanyForm />} />
+                    {/* VISUALIZE PROJECTFORM COMPONENT */}
                     <Route path='/project' element={<ProjectForm />} />
+
+                    {/* VISUALIZE SIDEBAR COMPONENT */}
+                    <Route path='/sidebar' element={<SideBar />}/>
+
                     <Route path='/search' element={<SearchBar />} />
                     <Route path='/dashboardStudent' element={<DashboardUser/>}/>
 
