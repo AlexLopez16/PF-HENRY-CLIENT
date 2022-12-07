@@ -32,6 +32,7 @@ const StudentCard: FC <StudentProps> = ({name,email,descripcion,skill}:StudentPr
 
 
 
+  
 
 
 

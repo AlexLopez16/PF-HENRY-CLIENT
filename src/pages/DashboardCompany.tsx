@@ -33,6 +33,8 @@ const DashboardCompany: FC = () => {
         </div>
     )
 
+
+    
 }
 
 export default DashboardCompany;   
