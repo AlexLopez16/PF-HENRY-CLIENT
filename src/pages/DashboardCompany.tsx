@@ -1,6 +1,6 @@
 
 import React, { FC } from "react";
-import StudentCard from "../components/StudentCard/StudentCard";
+import StudentCard from "../components/Card/StudentCard";
 
 
 
