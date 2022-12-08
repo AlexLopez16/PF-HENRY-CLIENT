@@ -3,12 +3,22 @@ import { Box } from "@mui/material";
 import SearchBar from "../SearchBar/SearchBar";
 import SideBar from "../SideBar/SideBar";
 
-const NavBar:FC = () => {
+
+interface props {
+    children?: JSX.Element | JSX.Element[]
+}
+
+const NavBar:FC<props> = ({children}) => { 
     return (
-        <Box sx={{position: 'relative'}}>
-            <SearchBar />
+
+    <>
+        <SearchBar/>
+        <Box display='flex'>
             <SideBar />
+            {children}
         </Box>
+    </>
+
     )
 }
 

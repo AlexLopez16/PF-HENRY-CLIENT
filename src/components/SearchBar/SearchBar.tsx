@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Box, TextField, Input } from '@mui/material';
+import { Box, Input } from '@mui/material';
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
@@ -9,8 +9,6 @@ const StyledBox = {
     alignItems: 'center',
     height: 65,
     boxShadow: 2,
-    
-    
 }
 
 const styledInput = {
@@ -30,7 +28,7 @@ const SearchBar: FC = () => {
 
     return (
         <>
-          <Box display='block' 
+          <Box display='flex' 
             sx={StyledBox}>
 
             <Input 
