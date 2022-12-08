@@ -4,7 +4,7 @@ import StudensForm from '../components/Forms/StudensForm';
 import CompanyForm from '../components/Forms/CompanyForm';
 import SearchBar from '../components/SearchBar/SearchBar';
 import ProjectForm from '../components/Forms/ProjectForm';
-import DashboardUser from '../pages/DashboardUser';
+import DashboardCompany from '../pages/DashboardCompany';
 import DashboardStudens from '../pages/DashboardStudens';
 
 /**
@@ -18,13 +18,15 @@ export const AppRouter = () => {
 
                 <Routes>        
                    
+
                     <Route path='/' element={<LandingPage />} />
                     <Route path='/loginStudent' element={<StudensForm />} />
                     <Route path='/loginCompany' element={<CompanyForm />} />
                     <Route path='/project' element={<ProjectForm />} />
                     <Route path='/search' element={<SearchBar />} />
-                    <Route path='/dashboardUser' element={<DashboardUser/>}/>
+                    <Route path='/dashboardUser' element={<DashboardCompany/>}/>
                  <Route path="/dashboardStudens" element={<DashboardStudens/>}/>
+                 
 
 
                 </Routes>
