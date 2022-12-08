@@ -1,12 +1,12 @@
 import { FC } from "react";
 import DashboardStudens from "./DashboardStudens";
-import DashboardUser from "./DashboardUser";
+import DashboardCompany from "./DashboardCompany";
 
 const userRole: 'Student' | 'Company' = 'Student';
 
 const DashboardPage: FC = () => {
     return (
-        userRole == 'Student' ? <DashboardStudens/> : <DashboardUser/>
+        userRole == 'Student' ? <DashboardStudens/> : <DashboardCompany/>
     )
 }
 
