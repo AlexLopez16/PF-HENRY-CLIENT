@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FC } from "react";
-import { Grid, Button, Paper } from "@mui/material";
+import { Grid, Button, Paper, IconButton } from "@mui/material";
 import {
     Formik,
     Form,
@@ -19,6 +19,7 @@ import {
     Box,
     Chip,
 } from "@mui/material";
+import { PhotoCamera } from "@mui/icons-material";
 
 
 
@@ -84,7 +85,7 @@ const ProjectForm: FC = () => {
                 <Paper elevation={10} style={{ width: 400, height: "100%", padding: 20, margin: "50px auto" }}>
                     <Grid textAlign="center">
                         <h5>
-                            Crear cuenta
+                            Crear proyecto
                         </h5>
                     </Grid>
                     <Formik
@@ -103,6 +104,31 @@ const ProjectForm: FC = () => {
                                     sx={{ width: "100%", marginTop: 1 }}
                                     helperText={
                                         <ErrorMessage name="name">
+                                            {(message) => (
+                                                <span style={{ color: "red" }}>{message}</span>
+                                            )}
+                                        </ErrorMessage>
+                                    }
+
+                                />
+
+
+                                <IconButton aria-label="upload picture" component="label" sx={{ marginLeft: 20 }}>
+                                    <input hidden accept="image/*" type="file" />
+                                    <PhotoCamera />
+
+
+                                </IconButton>
+
+                                <Field
+
+                                    as={TextField}
+                                    name="UrlE"
+                                    label="Url empresarial"
+                                    size="small"
+                                    sx={{ width: "100%", marginTop: 1 }}
+                                    helperText={
+                                        <ErrorMessage name="Url">
                                             {(message) => (
                                                 <span style={{ color: "red" }}>{message}</span>
                                             )}
@@ -185,8 +211,9 @@ const ProjectForm: FC = () => {
                                     fullWidth
                                     color="primary"
                                     disabled={props.isSubmitting}
+
                                 >
-                                    Crear cuenta
+                                    Crear Proyecto
                                 </Button>
                             </Form>
                         )}
