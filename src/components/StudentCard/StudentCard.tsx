@@ -77,11 +77,11 @@ const StudentCard: FC <StudentProps> = ({name,email,descripcion,skill}:StudentPr
               <Typography
                 sx={{ maxWidth: 360, display: 'flex' }}
 
-                variant="body1">{descripcion}</Typography>
+                variant="body1">Descripcion: {descripcion}</Typography>
             </List>
 
             <List >
-              <Typography variant="body1">{skill}</Typography>
+              <Typography variant="body1">Skills: {skill}</Typography>
             </List>
           </List>
         </Collapse>
