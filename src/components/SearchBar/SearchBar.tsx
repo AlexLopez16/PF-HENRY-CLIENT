@@ -9,6 +9,8 @@ const StyledBox = {
     alignItems: 'center',
     height: 65,
     boxShadow: 2,
+    background: '#fff',
+    zIndex: 9999
 }
 
 const styledInput = {

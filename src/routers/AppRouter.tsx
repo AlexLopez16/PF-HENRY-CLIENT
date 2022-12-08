@@ -6,6 +6,7 @@ import ProjectDetail from "../components/ProyectDetail/ProyectDetail";
 import NavBar from '../components/NavBar/NavBar';
 import DashboardPage from '../pages/DashboardPage';
 import ProyectCard from '../components/ProyectCard/ProyectCard';
+import { Profile } from "../components/profile/Profile";
 
 const ejemplo = {
   name: "E-Comers",
@@ -33,11 +34,11 @@ export const AppRouter = () => {
           <Route path="/loginStudent" element={<StudensForm />} />
           <Route path="/loginCompany" element={<CompanyForm />} />
           <Route path='/dashboard' element={<NavBar/>}>
-                <Route index element={<DashboardPage/>}/>
+                <Route index element={<DashboardPage role="Student"/>}/>
                     {/* Aca va las cartas de las propuestas empresas/alumnos */}
-                    <Route path='proyectos' element={<ProyectCard />}/>
+                    <Route path='proyectos' element={<DashboardPage role="Student" />}/>
                     {/* Aca va el componente de rivo empresas/alumnos */}
-                    <Route path='student' element={<ProyectCard />}/>
+                    <Route path='student' element={<Profile/>}/>
                     {/* Aca va las cartas de las empresas/alumnos */}
                     <Route path='empresas' element={<ProyectCard />}/>
                 </Route>

@@ -12,14 +12,18 @@ interface props {
 const NavBar:FC<props> = ({children}) => { 
     return (
 
-    <>
-        <SearchBar/>
-        <Box display='flex'>
-            <SideBar />
+    <Box>
+        <Box sx={{position: 'fixed', left: 0, right: 0}}>
+            <SearchBar />
+        </Box>
+        <Box sx={{position: 'fixed', top: 0, bottom: 0 }}>
+        <SideBar />
+        </Box>
+        <Box display='flex' sx={{ pt: '65px', pl: '250px' }}>
             {children}
             <Outlet/>
         </Box>
-    </>
+    </Box>
 
     )
 }

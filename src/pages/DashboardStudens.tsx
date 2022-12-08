@@ -1,7 +1,6 @@
 import { FC } from "react";
 import ProjectCard from "../components/Card/ProyectCard";
 
-
 const ejemplo = [
   {
     name: "E-Comers",

@@ -2,8 +2,6 @@
 import { FC } from "react";
 import StudentCard from "../components/Card/StudentCard";
 
-
-
 const DashboardCompany: FC = () => {
 
 

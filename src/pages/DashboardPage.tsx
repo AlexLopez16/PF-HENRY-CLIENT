@@ -2,11 +2,15 @@ import { FC } from "react";
 import DashboardStudens from "./DashboardStudens";
 import DashboardCompany from "./DashboardCompany";
 
-const userRole: 'Student' | 'Company' = 'Student';
+//let userRole: ('Student' | 'Company') = 'Company';
 
-const DashboardPage: FC = () => {
+interface props {
+    role: ('Student' | 'Company')
+}
+
+const DashboardPage: FC<props> = ({ role }) => {
     return (
-        userRole == 'Student' ? <DashboardStudens/> : <DashboardCompany/>
+        role === 'Student' ? <DashboardStudens/> : <DashboardCompany/>
     )
 }
 
