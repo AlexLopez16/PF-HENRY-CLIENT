@@ -52,7 +52,7 @@ const ProjectCard: FC<CardProjectProps> = ({name,
       <Box sx={{ display: 'flex' }}>
         <div>
           <Typography variant="body2"> Requerimientos: {lenguajes} </Typography>
-          <Typography variant= "h4"> Participantes: {cantidadDeEstudiantes}</Typography>
+          <Typography variant= "h4"> Participantes del proyecto: {cantidadDeEstudiantes}</Typography>
           <Typography variant="body2">Estado: {estado} </Typography>
 
         </div>
