@@ -106,7 +106,7 @@ const ProjectDetail: FC<ProjectProps> = ({name,
          aplicar
         </Button>
 
-        <Link to ="/dashboardStudens">
+        <Link to ="/dashboard">
         <Button
           sx={{ marginTop: 10 }}
           type="submit"
