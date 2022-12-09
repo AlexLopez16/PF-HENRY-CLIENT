@@ -7,6 +7,7 @@ import NavBar from '../components/NavBar/NavBar';
 import DashboardPage from '../pages/DashboardPage';
 import ProyectCard from '../components/ProyectCard/ProyectCard';
 import { Profile } from "../components/profile/Profile";
+import { LoginScreen } from "../components/auth/LoginScreen";
 
 const ejemplo = {
   name: "E-Comers",
@@ -31,6 +32,7 @@ export const AppRouter = () => {
       <div>
         <Routes>
           <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<LoginScreen/>} />
           <Route path="/loginStudent" element={<StudensForm />} />
           <Route path="/loginCompany" element={<CompanyForm />} />
           <Route path='/dashboard' element={<NavBar/>}>
