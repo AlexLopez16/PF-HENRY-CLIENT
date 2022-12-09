@@ -23,7 +23,8 @@ import {
 } from "@mui/material";
 import { VisibilityOff, Visibility } from "@mui/icons-material";
 import { margin } from "@mui/system";
-
+import { useDispatch } from "react-redux";
+import { CompanyFields,companySingUp } from "../../reducers/companySingUp";
 
 
 const CompanyForm: FC = () => {
@@ -33,6 +34,8 @@ const CompanyForm: FC = () => {
 
     const [showPassword, setShowPassword] = useState(false);
 
+    const dispatch = useDispatch()
+
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
     };
@@ -40,14 +43,17 @@ const CompanyForm: FC = () => {
         name: "",
         email: "",
         password: "",
+
         Urlpage: "",
+
+        country:""
+
     };
 
     const validationSchema = yup.object().shape({
         name: yup.string().required("Nombre requerido"),
-        apellido: yup.string().required("Apellido requerido"),
         email: yup.string().email("email invalido").required("Email requerido"),
-        contraseña: yup
+       password: yup
             .string()
             .required("Contraseña requerida")
             .min(8, "Debe contener min. 8 caracter")
@@ -57,6 +63,7 @@ const CompanyForm: FC = () => {
             .matches(/[^\w]/, "Se requiere un simbolo"),
 
     });
+
 
     const onSubmit = (values: any) => {
         values;
@@ -115,6 +122,112 @@ const CompanyForm: FC = () => {
                                         </ErrorMessage>
                                     }
                                 />
+=======
+    const onSubmit = (values: CompanyFields) => {
+        console.log(values)
+dispatch(companySingUp({
+    name: values.name,
+    email: values.email,
+    password:values.password,
+    country: pais
+}))
+};
+
+
+
+
+const handleChange = (event: SelectChangeEvent) => {
+    setPais(event.target.value as string);
+};
+
+return (
+    <div>
+        <Grid>
+            <Paper elevation={10} style={{ width: 400, height: "100%", padding: 20, margin: "50px auto" }}>
+                <Grid textAlign="center">
+                    <h5>
+                        Crear cuenta
+                    </h5>
+                </Grid>
+                <Formik
+                    initialValues={initialValues}
+                    validationSchema={validationSchema}
+                    onSubmit={onSubmit}
+                >
+                    {(props) => (
+                        <Form>
+                            <Field
+                            
+                                as={TextField}
+                                name="name"
+                                label="Nombre"
+                                size="small"
+                                sx={{ width: "100%", marginTop:1}}
+                                helperText={
+                                    <ErrorMessage name="name">
+                                      {(message) => (
+                                        <span style={{ color: "red" }}>{message}</span>
+                                      )}
+                                    </ErrorMessage>
+                                  }
+
+                            />
+
+                            <Field
+                                as={TextField}
+                                name="email"
+                                label="Email"
+                                size="small"
+                                sx={{ width: "100%" ,marginTop:1}}
+                                helperText={
+                                    <ErrorMessage name="email">
+                                      {(message) => (
+                                        <span style={{ color: "red" }}>{message}</span>
+                                      )}
+                                    </ErrorMessage>
+                                  }
+                            />
+                            <FormControl sx={{ width: "100%" ,marginTop:1,marginBottom:0.5}}>
+
+                                <InputLabel htmlFor="contraseña">
+                                    Contraseña
+                                </InputLabel>
+                                <Field
+                                    as={OutlinedInput}
+                                    name="password"
+                                    label="contraseña"
+                                    placeholder="Contraseña"
+                                    type={showPassword ? "text" : "password"}
+                                    endAdornment={
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                aria-label="toggle password visibility"
+                                                onClick={handleClickShowPassword}
+                                                edge="end"
+                                            >
+                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    }
+                                />
+                                {
+                                    "password" in props.errors && (
+                                        <FormHelperText error>
+                                            {props.errors.password}
+                                        </FormHelperText>
+                                    )
+                                }
+                            </FormControl>
+
+                            <FormControl sx={{ width: "100%",marginTop:1 }}>
+                                <InputLabel id="demo-simple-select-label">Nacionalidad</InputLabel>
+                                <Select
+                                    id="demo-simple-select"
+                                    labelId="demo-simple-select-label"
+                                    label="Nacionalidad"
+                                    value={pais}
+                                    onChange={handleChange}
+
 
                                 <Field
                                     as={TextField}
