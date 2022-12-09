@@ -60,65 +60,71 @@ const CompanyForm: FC = () => {
 
     });
 
-    const onSubmit = (values: any) => {
-        values;
-
-        
-       
+    const onSubmit = (values: CompanyFields) => {
+        console.log(values)
+dispatch(companySingUp({
+    name: values.name,
+    email: values.email,
+    password:values.password,
+    country: pais
+}))
 };
+
+
+
 
 const handleChange = (event: SelectChangeEvent) => {
     setPais(event.target.value as string);
 };
 
-    return (
-        <div>
-            <Grid>
-                <Paper elevation={10} style={{ width: 400, height: "100%", padding: 20, margin: "50px auto" }}>
-                    <Grid textAlign="center">
-                        <h5>
-                            Crear cuenta
-                        </h5>
-                    </Grid>
-                    <Formik
-                        initialValues={initialValues}
-                        validationSchema={validationSchema}
-                        onSubmit={onSubmit}
-                    >
-                        {(props) => (
-                            <Form>
-                                <Field
-
-                                    as={TextField}
-                                    name="name"
-                                    label="Nombre"
-                                    size="small"
-                                    sx={{ width: "100%", marginTop: 1 }}
-                                    helperText={
-                                        <ErrorMessage name="name">
-                                            {(message) => (
-                                                <span style={{ color: "red" }}>{message}</span>
-                                            )}
-                                        </ErrorMessage>
-                                    }
+return (
+    <div>
+        <Grid>
+            <Paper elevation={10} style={{ width: 400, height: "100%", padding: 20, margin: "50px auto" }}>
+                <Grid textAlign="center">
+                    <h5>
+                        Crear cuenta
+                    </h5>
+                </Grid>
+                <Formik
+                    initialValues={initialValues}
+                    validationSchema={validationSchema}
+                    onSubmit={onSubmit}
+                >
+                    {(props) => (
+                        <Form>
+                            <Field
+                            
+                                as={TextField}
+                                name="name"
+                                label="Nombre"
+                                size="small"
+                                sx={{ width: "100%", marginTop:1}}
+                                helperText={
+                                    <ErrorMessage name="name">
+                                      {(message) => (
+                                        <span style={{ color: "red" }}>{message}</span>
+                                      )}
+                                    </ErrorMessage>
+                                  }
 
                             />
 
-                                <Field
-                                    as={TextField}
-                                    name="email"
-                                    label="Email"
-                                    size="small"
-                                    sx={{ width: "100%", marginTop: 1 }}
-                                    helperText={
-                                        <ErrorMessage name="email">
-                                            {(message) => (
-                                                <span style={{ color: "red" }}>{message}</span>
-                                            )}
-                                        </ErrorMessage>
-                                    }
-                                />
-                                <FormControl sx={{ width: "100%", marginTop: 1, marginBottom: 0.5 }}>
+                            <Field
+                                as={TextField}
+                                name="email"
+                                label="Email"
+                                size="small"
+                                sx={{ width: "100%" ,marginTop:1}}
+                                helperText={
+                                    <ErrorMessage name="email">
+                                      {(message) => (
+                                        <span style={{ color: "red" }}>{message}</span>
+                                      )}
+                                    </ErrorMessage>
+                                  }
+                            />
+                            <FormControl sx={{ width: "100%" ,marginTop:1,marginBottom:0.5}}>
 
                                 <InputLabel htmlFor="contraseña">
                                     Contraseña
@@ -150,43 +156,43 @@ const handleChange = (event: SelectChangeEvent) => {
                                 }
                             </FormControl>
 
-                                <FormControl sx={{ width: "100%", marginTop: 1 }}>
-                                    <InputLabel id="demo-simple-select-label">Nacionalidad</InputLabel>
-                                    <Select
-                                        id="demo-simple-select"
-                                        labelId="demo-simple-select-label"
-                                        label="Nacionalidad"
-                                        value={pais}
-                                        onChange={handleChange}
+                            <FormControl sx={{ width: "100%",marginTop:1 }}>
+                                <InputLabel id="demo-simple-select-label">Nacionalidad</InputLabel>
+                                <Select
+                                    id="demo-simple-select"
+                                    labelId="demo-simple-select-label"
+                                    label="Nacionalidad"
+                                    value={pais}
+                                    onChange={handleChange}
 
-                                    >
-
-                                        {paises.map(pais => (
-                                            <MenuItem value={pais}>{pais}</MenuItem>
-                                        ))}
-
-                                    </Select>
-                                </FormControl>
-
-
-
-                                <Button
-                                    sx={{ marginTop: 10 }}
-                                    type="submit"
-                                    variant="contained"
-                                    fullWidth
-                                    color="primary"
-                                    disabled={props.isSubmitting}
                                 >
-                                    Crear cuenta
-                                </Button>
-                            </Form>
-                        )}
-                    </Formik>
-                </Paper>
-            </Grid>
-        </div>
-    );
+
+                                    {paises.map(pais => (
+                                        <MenuItem value={pais}>{pais}</MenuItem>
+                                    ))}
+
+                                </Select>
+                            </FormControl>
+
+
+
+                            <Button
+                            sx={{marginTop:10}}
+                                type="submit"
+                                variant="contained"
+                                fullWidth
+                                color="primary"
+                                disabled={props.isSubmitting}
+                            >
+                                Crear cuenta
+                            </Button>
+                        </Form>
+                    )}
+                </Formik>
+            </Paper>
+        </Grid>
+    </div>
+);
 };
 
 export default CompanyForm;
