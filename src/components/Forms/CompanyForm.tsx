@@ -23,7 +23,8 @@ import {
 } from "@mui/material";
 import { VisibilityOff, Visibility } from "@mui/icons-material";
 import { margin } from "@mui/system";
-
+import { useDispatch } from "react-redux";
+import { CompanyFields,companySingUp } from "../../reducers/companySingUp";
 
 
 const CompanyForm: FC = () => {
@@ -33,23 +34,22 @@ const CompanyForm: FC = () => {
 
     const [showPassword, setShowPassword] = useState(false);
 
+    const dispatch = useDispatch()
+
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
     };
     const initialValues = {
         name: "",
-        apellido: "",
         email: "",
-        contraseña: "",
-        Rcontraseña: "",
-        Urlpagina:"",
+        password: "",
+        country:""
     };
 
     const validationSchema = yup.object().shape({
         name: yup.string().required("Nombre requerido"),
-        apellido: yup.string().required("Apellido requerido"),
         email: yup.string().email("email invalido").required("Email requerido"),
-        contraseña: yup
+       password: yup
             .string()
             .required("Contraseña requerida")
             .min(8, "Debe contener min. 8 caracter")
@@ -60,12 +60,18 @@ const CompanyForm: FC = () => {
 
     });
 
-    const onSubmit = (values: any) => {
-        values;
-
-        
-       
+    const onSubmit = (values: CompanyFields) => {
+        console.log(values)
+dispatch(companySingUp({
+    name: values.name,
+    email: values.email,
+    password:values.password,
+    country: pais
+}))
 };
+
+
+
 
 const handleChange = (event: SelectChangeEvent) => {
     setPais(event.target.value as string);
@@ -103,20 +109,6 @@ return (
                                   }
 
                             />
-                             <Field
-                                as={TextField}
-                                name="Urlpagina"
-                                label="Url-pagina"
-                                size="small"
-                                sx={{ width: "100%" ,marginTop:1}}
-                                helperText={
-                                    <ErrorMessage name="Url-pagina">
-                                      {(message) => (
-                                        <span style={{ color: "red" }}>{message}</span>
-                                      )}
-                                    </ErrorMessage>
-                                  }
-                            />
 
                             <Field
                                 as={TextField}
@@ -139,7 +131,7 @@ return (
                                 </InputLabel>
                                 <Field
                                     as={OutlinedInput}
-                                    name="contraseña"
+                                    name="password"
                                     label="contraseña"
                                     placeholder="Contraseña"
                                     type={showPassword ? "text" : "password"}
@@ -156,9 +148,9 @@ return (
                                     }
                                 />
                                 {
-                                    "contraseña" in props.errors && (
+                                    "password" in props.errors && (
                                         <FormHelperText error>
-                                            {props.errors.contraseña}
+                                            {props.errors.password}
                                         </FormHelperText>
                                     )
                                 }
