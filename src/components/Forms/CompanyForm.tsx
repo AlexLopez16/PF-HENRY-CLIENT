@@ -23,7 +23,8 @@ import {
 } from "@mui/material";
 import { VisibilityOff, Visibility } from "@mui/icons-material";
 import { margin } from "@mui/system";
-
+import { useDispatch } from "react-redux";
+import { CompanyFields,companySingUp } from "../../reducers/companySingUp";
 
 
 const CompanyForm: FC = () => {
@@ -33,6 +34,8 @@ const CompanyForm: FC = () => {
 
     const [showPassword, setShowPassword] = useState(false);
 
+    const dispatch = useDispatch()
+
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
     };
@@ -40,14 +43,13 @@ const CompanyForm: FC = () => {
         name: "",
         email: "",
         password: "",
-        Urlpage: "",
+        country:""
     };
 
     const validationSchema = yup.object().shape({
         name: yup.string().required("Nombre requerido"),
-        apellido: yup.string().required("Apellido requerido"),
         email: yup.string().email("email invalido").required("Email requerido"),
-        contraseña: yup
+       password: yup
             .string()
             .required("Contraseña requerida")
             .min(8, "Debe contener min. 8 caracter")
@@ -61,13 +63,13 @@ const CompanyForm: FC = () => {
     const onSubmit = (values: any) => {
         values;
 
+        
+       
+};
 
-
-    };
-
-    const handleChange = (event: SelectChangeEvent) => {
-        setPais(event.target.value as string);
-    };
+const handleChange = (event: SelectChangeEvent) => {
+    setPais(event.target.value as string);
+};
 
     return (
         <div>
@@ -100,21 +102,7 @@ const CompanyForm: FC = () => {
                                         </ErrorMessage>
                                     }
 
-                                />
-                                <Field
-                                    as={TextField}
-                                    name="Urlpage"
-                                    label="Url-pagina"
-                                    size="small"
-                                    sx={{ width: "100%", marginTop: 1 }}
-                                    helperText={
-                                        <ErrorMessage name="Url-pagina">
-                                            {(message) => (
-                                                <span style={{ color: "red" }}>{message}</span>
-                                            )}
-                                        </ErrorMessage>
-                                    }
-                                />
+                            />
 
                                 <Field
                                     as={TextField}
@@ -132,35 +120,35 @@ const CompanyForm: FC = () => {
                                 />
                                 <FormControl sx={{ width: "100%", marginTop: 1, marginBottom: 0.5 }}>
 
-                                    <InputLabel htmlFor="contraseña">
-                                        Contraseña
-                                    </InputLabel>
-                                    <Field
-                                        as={OutlinedInput}
-                                        name="password"
-                                        label="contraseña"
-                                        placeholder="Contraseña"
-                                        type={showPassword ? "text" : "password"}
-                                        endAdornment={
-                                            <InputAdornment position="end">
-                                                <IconButton
-                                                    aria-label="toggle password visibility"
-                                                    onClick={handleClickShowPassword}
-                                                    edge="end"
-                                                >
-                                                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                                                </IconButton>
-                                            </InputAdornment>
-                                        }
-                                    />
-                                    {
-                                        "contraseña" in props.errors && (
-                                            <FormHelperText error>
-                                                {props.errors.password}
-                                            </FormHelperText>
-                                        )
+                                <InputLabel htmlFor="contraseña">
+                                    Contraseña
+                                </InputLabel>
+                                <Field
+                                    as={OutlinedInput}
+                                    name="password"
+                                    label="contraseña"
+                                    placeholder="Contraseña"
+                                    type={showPassword ? "text" : "password"}
+                                    endAdornment={
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                aria-label="toggle password visibility"
+                                                onClick={handleClickShowPassword}
+                                                edge="end"
+                                            >
+                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
                                     }
-                                </FormControl>
+                                />
+                                {
+                                    "password" in props.errors && (
+                                        <FormHelperText error>
+                                            {props.errors.password}
+                                        </FormHelperText>
+                                    )
+                                }
+                            </FormControl>
 
                                 <FormControl sx={{ width: "100%", marginTop: 1 }}>
                                     <InputLabel id="demo-simple-select-label">Nacionalidad</InputLabel>
