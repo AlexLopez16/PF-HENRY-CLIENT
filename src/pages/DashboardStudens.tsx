@@ -1,6 +1,5 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import ProjectCard from "../components/Card/ProyectCard";
-
 
 const ejemplo = [
   {
@@ -31,7 +30,7 @@ const ejemplo = [
 
 const DashboardStudens: FC = () => {
   return (
-    <div>
+    <>
       {ejemplo.map((e) => (
         <ProjectCard
           name={e.name}
@@ -44,7 +43,7 @@ const DashboardStudens: FC = () => {
           email={e.email}
         />
       ))}
-    </div>
+    </>
   );
 };
 
