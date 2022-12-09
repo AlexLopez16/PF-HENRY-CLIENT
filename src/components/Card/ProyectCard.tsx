@@ -38,10 +38,11 @@ const ProjectCard: FC<CardProjectProps> = ({name,
     <Paper elevation={10} style={{ width: 400, height: "100%", padding: 20, margin: "50px auto" }}>
 
       <Typography  sx={{ mb: 0.5}}>
-       <h2> {name} </h2>
-       <h6> {empresa}</h6>
-      </Typography>
-      
+        <h2> {name} </h2>    </Typography>
+    
+  
+      <Typography  sx={{ mb: 0.5}}>
+        <h2> {empresa} </h2>    </Typography>
       {/* <CardMedia
           component="img"
           height="140"
