@@ -17,12 +17,12 @@ import * as yup from "yup";
 import { VisibilityOff, Visibility, Message } from "@mui/icons-material";
 import { GitHubLogin } from "../auth/GitHubLogin";
 import { GoogleLogin } from "../auth/GoogleLogin";
-import { useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../types/types";
 import { StudentFields, StudentSingUp } from "../../reducers/StudentSingUp";
 
 
 export const StudensForm: FC = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -54,7 +54,7 @@ export const StudensForm: FC = () => {
 
 
   const onSubmit = (values: StudentFields) => {
-    dispatch(StudentSingUp(values))
+    dispatch(StudentSingUp(values));
 
   };
 
