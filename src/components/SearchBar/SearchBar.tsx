@@ -5,12 +5,12 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
 
 const StyledBox = {
+    zIndex: 'tooltip',
     justifyContent: 'flex-end',
     alignItems: 'center',
     height: 65,
     boxShadow: 2,
     background: '#fff',
-    zIndex: 9999
 }
 
 const styledInput = {
