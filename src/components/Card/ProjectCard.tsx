@@ -9,6 +9,8 @@ import {
 
 import Button from "@mui/material/Button"
 import { Link } from "react-router-dom";
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+
 
 
 interface CardProjectProps {
@@ -52,9 +54,9 @@ const ProjectCard: FC<CardProjectProps> = ({
 
       <Box sx={{ display: 'flex' }}>
         <div>
-          <Typography variant="body2"> Requerimientos: {requirements} </Typography>
-          <Typography variant="h4"> Participantes del proyecto: {participants}</Typography>
-          <Typography variant="body2">Estado:  </Typography>
+          <Typography variant="subtitle2"> Requerimientos: {requirements} </Typography>
+          <Typography variant="subtitle2"> Participantes del proyecto: {participants}</Typography>
+          <Typography variant="subtitle2">Estado:  </Typography>
 
         </div>
         <Link to="/projectDetail">
