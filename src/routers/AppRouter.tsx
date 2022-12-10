@@ -31,9 +31,10 @@ export const AppRouter = () => {
       <div>
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<LoginScreen/>} />
+          <Route path="/login" element={<LoginScreen />} />
           <Route path="/loginStudent" element={<StudensForm />} />
           <Route path="/loginCompany" element={<CompanyForm />} />
+
           <Route path='/dashboard' element={<NavBar/>}>
                 <Route index element={<DashboardPage role="Student"/>}/>
                     {/* Aca va las cartas de las propuestas empresas/alumnos */}
@@ -42,6 +43,7 @@ export const AppRouter = () => {
                     <Route path='student' element={<Profile/>}/>
                     {/* Aca va las cartas de las empresas/alumnos */}
                 </Route>
+
           <Route
             path="/projectdetail"
             element={
