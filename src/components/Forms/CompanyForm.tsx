@@ -22,8 +22,7 @@ import {
     MenuItem
 } from "@mui/material";
 import { VisibilityOff, Visibility } from "@mui/icons-material";
-import { margin } from "@mui/system";
-import { useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../types/types";
 import { CompanyFields,companySingUp } from "../../reducers/companySingUp";
 
 
@@ -34,7 +33,7 @@ const CompanyForm: FC = () => {
 
     const [showPassword, setShowPassword] = useState(false);
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
