@@ -7,6 +7,9 @@ import ProjectForm from "../components/Forms/ProjectForm";
 import DashboardCompany from "../pages/DashboardCompany";
 import DashboardStudens from "../pages/DashboardStudens";
 import ProjectDetail from "../components/ProyectDetail/ProyectDetail";
+import { LoginScreen } from '../components/auth/LoginScreen';
+import { PublicRoute } from "./PublicRoute";
+import { PrivateRoute } from "./PrivateRoute";
 
 const ejemplo = {
   name: "E-Comers",
@@ -31,12 +34,33 @@ export const AppRouter = () => {
       <div>
         <Routes>
           <Route path="/" element={<LandingPage />} />
+
+          <Route path="login" element={
+            <PublicRoute>
+              <LoginScreen />
+            </PublicRoute>
+          }
+          />
+
           <Route path="/loginStudent" element={<StudensForm />} />
           <Route path="/loginCompany" element={<CompanyForm />} />
           <Route path="/project" element={<ProjectForm />} />
           <Route path="/search" element={<SearchBar />} />
-          <Route path="/dashboardCompany" element={<DashboardCompany />} />
-          <Route path="/dashboardStudens" element={<DashboardStudens />} />
+
+          <Route path="/dashboardCompany" element={
+            <PrivateRoute>
+              <DashboardCompany />
+            </PrivateRoute>
+          }
+          />
+
+          <Route path="/dashboardStudens" element={
+            <PrivateRoute>
+              <DashboardStudens />
+            </PrivateRoute>
+          }
+          />
+
           <Route
             path="/projectdetail"
             element={

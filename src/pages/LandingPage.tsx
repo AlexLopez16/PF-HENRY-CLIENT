@@ -74,7 +74,7 @@ const LandingPage: FC = () => {
     <>
     <div>
       <Link 
-        to='/any'
+        to='/login'
         className={style.link}>
          <Button 
           className={style.button_sign} 

@@ -26,6 +26,7 @@ const DashboardCompany: FC = () => {
             {prueba.map(p =>
                 <StudentCard name={p.name} email={p.email} descripcion={p.descripcion} skill={p.skill} />)
             }
+
         </div>
     )
 
