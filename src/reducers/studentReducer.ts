@@ -3,28 +3,27 @@ import { types } from "../types/types";
 
 
 interface State {
-  projects:object[]
+    user:object
 
 }
 
 const initialState = {
-    projects:[]
+    user:{}
 }
 
 
 type Action = {
     type: string,
-    payload?: []
+    payload?: {}
 
 }
 
-export const projectReducers = (state: State = initialState, action: Action) => {
+export const studentReducer = (state: State = initialState, action: Action) => {
     switch (action.type) {
-        case types.getProjects:
-            
+        case types.studentRegister:
             return {
                 ...state,
-                projects:[...action.payload]
+                user:action.payload
             }
 
         default:

@@ -19,6 +19,7 @@ import { GitHubLogin } from "../auth/GitHubLogin";
 import { GoogleLogin } from "../auth/GoogleLogin";
 import { useDispatch } from "react-redux";
 import { StudentFields, StudentSingUp } from "../../reducers/StudentSingUp";
+import { studentRegister } from "../../actions/student";
 
 
 export const StudensForm: FC = () => {
@@ -54,7 +55,7 @@ export const StudensForm: FC = () => {
 
 
   const onSubmit = (values: StudentFields) => {
-    dispatch(StudentSingUp(values))
+    dispatch(studentRegister(values))
 
   };
 
