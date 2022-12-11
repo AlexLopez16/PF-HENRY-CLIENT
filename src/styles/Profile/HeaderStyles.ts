@@ -14,7 +14,8 @@ export const avatarStyle = {
     height: '100px',
     marginRight: '20px',
     margin: '0 50px',
-    fontSize: '50px'
+    fontSize: '50px',
+
 }
 
 export const paperStyle = {
@@ -24,10 +25,11 @@ export const paperStyle = {
 }
 
 export const container = {
+    zIndex: 'modal',
     fontSize: '20px',
     display: 'flex',
     justifyContent: 'left',
     alignItems: 'center',
     marginLeft: '10px',
-    marginBottom: '20px'
+    marginBottom: '20px',
 }
