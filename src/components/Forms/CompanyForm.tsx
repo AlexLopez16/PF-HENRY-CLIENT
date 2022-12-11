@@ -23,11 +23,11 @@ import {
 } from "@mui/material";
 import { VisibilityOff, Visibility } from "@mui/icons-material";
 import { useAppDispatch, useAppSelector } from "../../types/types";
-import { CompanyFields,companySingUp } from "../../reducers/companySingUp";
-
+import { CompanyFields, companySingUp } from "../../reducers/loginReducer";
+import { useNavigate } from "react-router-dom";
 
 const CompanyForm: FC = () => {
-
+    const navigate = useNavigate();
     const paises: string[] = ["Argentina", "Bolivia", "Brasil", "Chile", "Colombia", "Costa Rica", "Cuba", "Ecuador", "El Salvador", "Guatemala", "Honduras", "México", "Nicaragua", "Panamá", "Paraguay", "Perú", "Puerto Rico", "República Dominicana", "Uruguay", "Venezuela"];
     const [pais, setPais] = useState('');
 
@@ -59,18 +59,17 @@ const CompanyForm: FC = () => {
 
     });
 
-    const onSubmit = (values: CompanyFields) => {
-        console.log(values)
-dispatch(companySingUp({
-    name: values.name,
-    email: values.email,
-    password:values.password,
-    country: pais
-}))
-};
-
-
-
+    const onSubmit = async (values: CompanyFields) => {
+        // console.log(values)
+        dispatch(companySingUp({
+            name: values.name,
+            email: values.email,
+            password:values.password,
+            country: pais
+        }));
+        
+        navigate('/dashboard/proyectos');
+    };
 
 const handleChange = (event: SelectChangeEvent) => {
     setPais(event.target.value as string);

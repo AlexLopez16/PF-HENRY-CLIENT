@@ -1,16 +1,17 @@
 import { FC } from "react";
 import DashboardStudens from "./DashboardStudens";
 import DashboardCompany from "./DashboardCompany";
+import { useAppSelector } from '../types/types'
 
-//let userRole: ('Student' | 'Company') = 'Company';
+const DashboardPage: FC = () => {
+    const role =  useAppSelector(state => state.loginSlice.role) 
+    
 
-interface props {
-    role: ('Student' | 'Company')
-}
 
-const DashboardPage: FC<props> = ({ role }) => {
+    console.log('ROOOL: ' + role);
+
     return (
-        role === 'Student' ? <DashboardStudens/> : <DashboardCompany/>
+        role === 'STUDENT_ROL' ? <DashboardStudens/> : <DashboardCompany/>
     )
 }
 

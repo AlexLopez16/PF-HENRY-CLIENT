@@ -10,9 +10,11 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup'
 import { useAppDispatch, useAppSelector } from "../../types/types";
 import { LoginFields, loginUser } from '../../reducers/loginReducer';
+import { useNavigate } from 'react-router-dom';
 
 export const LoginScreen: FC = () => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     const paperStyle = {
         padding: 20,
         height: '100%',
@@ -35,13 +37,15 @@ export const LoginScreen: FC = () => {
         email: Yup.string().email('Por favor ingresa un email válido.').required('Este valor debe ser un correo válido.'),
     })
 
-    const onSubmit = (values: any, props: any) => {
-        dispatch(loginUser(values as LoginFields)).then(value => console.log(value));
+    const onSubmit = async (values: any, props: any) => {
+        await dispatch(loginUser(values as LoginFields));
 
-        setTimeout(() => {
-            props.resetForm()
-            props.setSubmitting(false)
-        }, 2000)
+        navigate('/dashboard/proyectos');
+
+        // setTimeout(() => {
+        //     props.resetForm()
+        //     props.setSubmitting(false)
+        // }, 2000)
     }
 
     return (

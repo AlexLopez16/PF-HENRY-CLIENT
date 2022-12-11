@@ -1,12 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-    user: {
-        name: 'test',
-        role: 'Student',
+export type Role = '' | 'COMPANY_ROL' | 'STUDENT_ROL';
 
+interface appState {
+    user: {
+        token: string;
+        role: Role;
     }
 }
+
+const initialState = {
+    user: {
+        token: localStorage.getItem('token'),
+        role: ''
+    }
+} as appState;
 
 
 const appSlice = createSlice({
@@ -14,7 +22,13 @@ const appSlice = createSlice({
     initialState,
      reducers: {
         setUser: (state, action) => {
-            return { ...state, user: action.payload }
+            const user = { ...state.user };
+            user.token = action.payload.token;
+            user.role = action.payload.rol;
+
+            localStorage.setItem('token', user.token);            
+
+            return { ...state, user };
         }
      }
 });

@@ -18,7 +18,7 @@ import { VisibilityOff, Visibility, Message } from "@mui/icons-material";
 import { GitHubLogin } from "../auth/GitHubLogin";
 import { GoogleLogin } from "../auth/GoogleLogin";
 import { useAppDispatch, useAppSelector } from "../../types/types";
-import { StudentFields, StudentSingUp } from "../../reducers/StudentSingUp";
+import { StudentFields, StudentSingUp } from "../../reducers/loginReducer";
 
 
 export const StudensForm: FC = () => {

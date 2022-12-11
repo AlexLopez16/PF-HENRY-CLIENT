@@ -4,15 +4,15 @@ import axios from "axios";
 export interface CompanyFields {
   name:String
   email: String;
- password: String;
-country:String
+  password: String;
+  country:String
 }
 
 const initialState = {
   name:"",
   email: "",
- password: "",
-country:"" 
+  password: "",
+  country:"" 
 };
 
 export const companySingUp = createAsyncThunk(
@@ -34,7 +34,6 @@ const companySlice = createSlice({
       state.email = action.payload.email
       state.password = action.payload.password
       state.country = action.payload.country
-      console.log(action.payload)
     })
   }
 })
