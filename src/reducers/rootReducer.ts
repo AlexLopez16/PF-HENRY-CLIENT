@@ -1,12 +1,6 @@
 import { combineReducers } from 'redux'
-import appSlice from './appReducer';
-import loginReducer from "./loginReducer";
-import StudentSingUp  from './StudentSingUp'
-import companySingUp from './companySingUp'
+import { reducerLogin } from './reducerLogin';
 
 export const rootReducer = combineReducers({
-    StudentSingUp,
-    appSlice,
-    loginReducer,
-    companySingUp
+    login: reducerLogin
 });

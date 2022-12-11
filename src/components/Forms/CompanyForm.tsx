@@ -1,15 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FC } from "react";
-import { Grid, Button, Box, Paper, FormHelperText } from "@mui/material";
+import { Grid, Button, Paper, FormHelperText } from "@mui/material";
 import {
     Formik,
     Form,
     Field,
     ErrorMessage,
 } from "formik";
-import * as yup from "yup";
-import { FieldProps, getIn } from "formik";
-
 import {
     TextField,
     InputLabel,
@@ -21,9 +18,9 @@ import {
     Select,
     MenuItem
 } from "@mui/material";
+import * as yup from "yup";
 import { VisibilityOff, Visibility } from "@mui/icons-material";
-import { useAppDispatch, useAppSelector } from "../../types/types";
-import { CompanyFields, companySingUp } from "../../reducers/loginReducer";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const CompanyForm: FC = () => {
@@ -33,7 +30,7 @@ const CompanyForm: FC = () => {
 
     const [showPassword, setShowPassword] = useState(false);
 
-    const dispatch = useAppDispatch()
+    const dispatch = useDispatch()
 
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
@@ -59,14 +56,13 @@ const CompanyForm: FC = () => {
 
     });
 
-    const onSubmit = async (values: CompanyFields) => {
-        // console.log(values)
-        dispatch(companySingUp({
-            name: values.name,
-            email: values.email,
-            password:values.password,
-            country: pais
-        }));
+    const onSubmit = async (values: any) => {
+        // dispatch(companySingUp({
+        //     name: values.name,
+        //     email: values.email,
+        //     password:values.password,
+        //     country: pais
+        // }));
         
         navigate('/dashboard/proyectos');
     };

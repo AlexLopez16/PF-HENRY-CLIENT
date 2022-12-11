@@ -7,7 +7,7 @@ import NavBar from '../components/NavBar/NavBar';
 import DashboardPage from '../pages/DashboardPage';
 import { Profile } from "../components/profile/Profile";
 import { LoginScreen } from "../components/auth/LoginScreen";
-import { useAppSelector } from "../types/types";
+import ProjectForm from "../components/Forms/ProjectForm";
 import DashboardStudens from "../pages/DashboardStudens";
 
 const ejemplo = {
@@ -28,7 +28,7 @@ const ejemplo = {
  * @returns
  */
 export const AppRouter = () => {
-  const userRole = useAppSelector(state => state.loginSlice.role);
+
 
   return (
     <BrowserRouter>
@@ -38,8 +38,9 @@ export const AppRouter = () => {
           <Route path="/login" element={<LoginScreen/>} />
           <Route path="/loginStudent" element={<StudensForm />} />
           <Route path="/loginCompany" element={<CompanyForm />} />
+          <Route path="/project" element={<ProjectForm />} />
           <Route path="/dashboard" element={<NavBar/>}>
-            {
+            {/* {
               userRole === 'STUDENT_ROL'
               ?
               <>
@@ -50,7 +51,12 @@ export const AppRouter = () => {
               <>
                 
               </>
-            }
+            } */}
+
+                    <Route path='proyectos' element={<DashboardPage/>}/>
+                    {/* Aca va el componente de rivo empresas/alumnos */}
+                    <Route path='student' element={<Profile/>}/>
+                    {/* Aca va las cartas de las empresas/alumnos */}
           </Route>
           {/* <Route path='/dashboard' element={<><NavBar><DashboardPage/></NavBar></>}>
                 {/* <Route index element={<DashboardPage role="Student"/>}/> */}

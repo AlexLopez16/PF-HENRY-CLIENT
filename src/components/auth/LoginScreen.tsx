@@ -1,20 +1,21 @@
-import React, { FC, useState } from 'react'
-import { Grid, InputLabel, OutlinedInput, Paper, TextField, InputAdornment, IconButton, FormControl, Button, Typography, Link, FormHelperText } from '@mui/material'
+import { FC, useState } from 'react'
+import { Grid, InputLabel, OutlinedInput, Paper, TextField, InputAdornment, IconButton, FormControl, Button, Typography, Link } from '@mui/material'
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import Divider from '@mui/material/Divider';
-
 import { GoogleLogin } from './GoogleLogin';
 import { GitHubLogin } from './GitHubLogin';
-
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup'
-import { useAppDispatch, useAppSelector } from "../../types/types";
-import { LoginFields, loginUser } from '../../reducers/loginReducer';
+import * as Yup from 'yup';
+import { loginUser  } from '../../actions/login';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
+import type {} from 'redux-thunk/extend-redux';
 
 export const LoginScreen: FC = () => {
-    const dispatch = useAppDispatch();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+
     const paperStyle = {
         padding: 20,
         height: '100%',
@@ -31,21 +32,17 @@ export const LoginScreen: FC = () => {
     const initialValues = {
         email: '',
         password: ''
-    }
+    } 
 
     const validationSchema = Yup.object().shape({
         email: Yup.string().email('Por favor ingresa un email válido.').required('Este valor debe ser un correo válido.'),
     })
 
-    const onSubmit = async (values: any, props: any) => {
-        await dispatch(loginUser(values as LoginFields));
+    const onSubmit = (values: any, props: any) => {
+        dispatch(loginUser(values));
 
         navigate('/dashboard/proyectos');
 
-        // setTimeout(() => {
-        //     props.resetForm()
-        //     props.setSubmitting(false)
-        // }, 2000)
     }
 
     return (

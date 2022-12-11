@@ -14,15 +14,14 @@ import {
 } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
-import { VisibilityOff, Visibility, Message } from "@mui/icons-material";
+import { VisibilityOff, Visibility } from "@mui/icons-material";
 import { GitHubLogin } from "../auth/GitHubLogin";
 import { GoogleLogin } from "../auth/GoogleLogin";
-import { useAppDispatch, useAppSelector } from "../../types/types";
-import { StudentFields, StudentSingUp } from "../../reducers/loginReducer";
-
+import { useDispatch } from "react-redux";
+import type {} from 'redux-thunk/extend-redux';
 
 export const StudensForm: FC = () => {
-  const dispatch = useAppDispatch()
+  const dispatch = useDispatch()
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -53,8 +52,8 @@ export const StudensForm: FC = () => {
 
 
 
-  const onSubmit = (values: StudentFields) => {
-    dispatch(StudentSingUp(values));
+  const onSubmit = (values: any) => {
+    // dispatch(StudentSingUp(values));
 
   };
 
