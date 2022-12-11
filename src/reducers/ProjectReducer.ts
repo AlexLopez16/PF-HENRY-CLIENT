@@ -3,7 +3,7 @@ import { types } from "../types/types";
 
 
 interface State {
-  projects:object[]
+  projects:{}[]
 
 }
 
