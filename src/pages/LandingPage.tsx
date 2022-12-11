@@ -126,6 +126,17 @@ const LandingPage: FC = () => {
                       Crear proyecto
                     </Button>
                 </Link>
+
+
+                
+                <Link 
+                  to='/projectForm'
+              >
+                  <Button 
+                    variant='outlined'>
+                      Crear proyecto de enserio
+                    </Button>
+                </Link>
                 
 
               </div>

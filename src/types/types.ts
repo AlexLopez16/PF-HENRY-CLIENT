@@ -1,10 +1,8 @@
+export const types = {
+  registerCompany: "[company],register company",
+  registerProject: "[project], register project",
 
-export const types={
+  studentRegister: "[students],register Student",
 
-
-
-studentRegister:"[students],register Student",
-
-getProjects:"[projects], get Projects"
-
- }
+  getProjects: "[projects], get Projects",
+};
