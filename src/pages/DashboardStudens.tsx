@@ -1,20 +1,19 @@
-import { Description } from "@mui/icons-material";
 import { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { string } from "yup";
+import { getProject } from "../actions/projects";
 import ProjectCard from "../components/Card/ProjectCard";
-import { getProjects } from "../reducers/ProjectReducer";
 import { State } from "../reducers/rootReducer"
 
 const DashboardStudens: FC = () => {
 
   const dispatch = useDispatch()
 
+  const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQ29tbnBhbnkyIiwiaWQiOiI2MzkyNzU3NGU3M2RkNjVmMzkwNDA4NTciLCJpYXQiOjE2NzA3MzM0MzIsImV4cCI6MTY3MDc0MDYzMn0.d88cV9USr-5OkWqfTcqmc124Q3FHPqKiWtB_Yg3FCGI"
 
 
   useEffect(() => {
 
-    dispatch(getProjects())
+    dispatch(getProject(token))
 
   }, [dispatch])
 
@@ -31,30 +30,30 @@ const DashboardStudens: FC = () => {
 
   }
 
-  const { project } = useSelector((state: State) => state.project);
-  console.log(project);
+  const { projects } = useSelector((state: State) => state.project);
+  console.log(projects);
 
 
-  // name
+  // name -
   // Description
-  // participants
-  // requirements
-  // students 
+  // participants-
+  // requirements-
+  // students -
   // company
 
   return (
     <>
-      {project.map((e:any) => (
-        <ProjectCard
-          name={e.name}
-          // empresa={e.empresa}
-          // imagen={e.imagen}
-          // detalle={e.detalle}
-          participants={e.participants}
-          requirements={e.requirements}
-          state={e.state}
-        // email={e.email}
-        />
+      {projects.map((e: any) => (
+        <div >
+          <ProjectCard
+            name={e.name}
+            participants={e.participants}
+            requirements={e.requirements}
+            students={e.students}
+            company={e.company}
+            state={e.state}
+          />
+        </div>
       ))}
     </>
   );

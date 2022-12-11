@@ -9,7 +9,7 @@ import {
 
 import Button from "@mui/material/Button"
 import { Link } from "react-router-dom";
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+
 
 
 
@@ -18,29 +18,28 @@ interface CardProjectProps {
   name?: string,
   Description?: string,
   participants?: number
-  requirements?: string[],
+  requirements?: any,
   students?: number,
   company?: string,
-  state?:boolean
+  state?: boolean
 }
 
 
 const ProjectCard: FC<CardProjectProps> = ({
   name,
   Description,
-  participants,
+  participants,//lo que se necesitan para el proyecto
   requirements,
-  students,
+  students,//los aceptados por la empresa para el project
   company,
   state
 }: CardProjectProps) => {
 
 
   return (
-    <Paper elevation={10} style={{ width: 400, height: "100%", padding: 20, margin: "50px auto" }}>
+    <Paper elevation={10} style={{ width: 400, height: "100%", padding: 20, marginLeft: 50, marginTop: 50 }}>
 
-      <Typography sx={{ mb: 0.5 }}>
-        <h2> {name} </h2>    </Typography>
+      <Typography sx={{ mb: 0.5 }} variant="h6">{name}</Typography>
 
 
       <Typography sx={{ mb: 0.5 }}>
@@ -48,20 +47,22 @@ const ProjectCard: FC<CardProjectProps> = ({
       {/* <CardMedia
           component="img"
           height="140"
-          image={imagen}
+          // image="null"
           alt="green iguana"
         /> */}
 
       <Box sx={{ display: 'flex' }}>
         <div>
-          <Typography variant="subtitle2"> Requerimientos: {requirements} </Typography>
-          <Typography variant="subtitle2"> Participantes del proyecto: {participants}</Typography>
+          <Typography variant="subtitle2">
+            Requerimientos: {requirements.join(", ")}
+          </Typography>
+          <Typography variant="subtitle2"> Participantes requeridos: {participants}</Typography>
           <Typography variant="subtitle2">Estado:  </Typography>
-
+          <Typography variant="subtitle2"> aceptados: {students}/{participants} </Typography>
         </div>
         <Link to="/projectDetail">
           <Button
-            sx={{ ml: 'auto', fontWeight: 600, color: "yellow", background: "black", mt: 2 }}
+            sx={{ ml: 'auto', fontWeight: 600, color: "yellow", background: "black", top: 100 }}
             size="small"
             color="primary"
             variant="text"
