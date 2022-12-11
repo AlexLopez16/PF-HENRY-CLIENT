@@ -26,11 +26,5 @@ export const userItemsList: JSX.Element = (
                         </ListItemButton>
                     </ListItem>
 
-                    <ListItem >
-                        <ListItemButton component="a" href="/dashboard/empresas">
-                            <BusinessIcon/>
-                            <ListItemText primary="Empresas" sx={{pl: 2}}/>
-                        </ListItemButton>
-                    </ListItem>
                 </List>
 );

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
+
 export interface StudentFields {
     name: string,
     lastName: string,
@@ -32,11 +33,10 @@ const studentSlice = createSlice({
     },
     extraReducers:(builder)=>{
         builder.addCase(StudentSingUp.fulfilled,(state,action)=>{
-            state.name= action.payload.name
-            state.lastName= action.payload.lastName
-            state.email= action.payload.email
-            state.password= action.payload.password
-            console.log(action.payload);
+            state.name= action.payload.name;
+            state.lastName= action.payload.lastName;
+            state.email= action.payload.email;
+            state.password= action.payload.password;
             
         })
     }

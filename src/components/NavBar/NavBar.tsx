@@ -10,6 +10,7 @@ interface props {
 }
 
 const NavBar:FC<props> = ({children}) => { 
+
     return (
 
     <Box>
@@ -26,6 +27,7 @@ const NavBar:FC<props> = ({children}) => {
     </Box>
 
     )
+
 }
 
 export default NavBar;
