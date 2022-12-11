@@ -1,4 +1,3 @@
-
 import { types } from "../types/types";
 
 
@@ -26,8 +25,14 @@ export const projectReducers = (state: State = initialState, action: Action) => 
                 ...state,
                 projects:[...action.payload]
             }
+        case types.registerProject:
 
+        return{
+            ...state,
+            ...action.payload
+        }
         default:
             return state;
     }
+
 }
