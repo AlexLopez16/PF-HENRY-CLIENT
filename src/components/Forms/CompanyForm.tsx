@@ -16,9 +16,9 @@ import {
   MenuItem,
 } from "@mui/material";
 import { VisibilityOff, Visibility } from "@mui/icons-material";
-import { useAppDispatch, useAppSelector } from "../../types/types";
-import { CompanyFields } from "../../reducers/companySingUp";
+
 import { registerCompany } from "../../actions/conpany";
+import { useDispatch } from "react-redux";
 
 const CompanyForm: FC = () => {
   const paises: string[] = [
@@ -47,7 +47,7 @@ const CompanyForm: FC = () => {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -72,7 +72,7 @@ const CompanyForm: FC = () => {
       .matches(/[^\w]/, "Se requiere un simbolo"),
   });
 
-  const onSubmit = (values: CompanyFields) => {
+  const onSubmit = (values:any) => {
     dispatch(
       registerCompany({
         ...values,
@@ -177,7 +177,7 @@ const CompanyForm: FC = () => {
                     onChange={handleChange}
                   >
                     {paises.map((pais) => (
-                      <MenuItem value={pais}>{pais}</MenuItem>
+                      <MenuItem key ={pais} value={pais}>{pais}</MenuItem>
                     ))}
                   </Select>
                 </FormControl>

@@ -1,12 +1,11 @@
 import { combineReducers } from 'redux'
+import { studentReducer } from './studentReducer';
+import { projectReducers } from './projectReducer';
 import { companyReducer } from './companyReducer';
-
 export const rootReducer = combineReducers({
-    // StudentSingUp,
-    // appSlice,
-    // loginReducer,
-    // companySingUp,
-    // project: ProjectReducer
-company:companyReducer 
+    company:companyReducer,
+    student: studentReducer,
+    project: projectReducers
+
 });
-export type State=ReturnType<typeof rootReducer>
+export type State = ReturnType<typeof rootReducer>

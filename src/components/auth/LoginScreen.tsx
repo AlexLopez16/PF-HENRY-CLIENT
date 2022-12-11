@@ -8,11 +8,10 @@ import { GitHubLogin } from './GitHubLogin';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup'
-import { useAppDispatch, useAppSelector } from "../../types/types";
-import { LoginFields, loginUser } from '../../reducers/loginReducer';
+
 
 export const LoginScreen: FC = () => {
-    const dispatch = useAppDispatch();
+
     const paperStyle = {
         padding: 20,
         height: '100%',
@@ -36,7 +35,6 @@ export const LoginScreen: FC = () => {
     })
 
     const onSubmit = (values: any, props: any) => {
-        dispatch(loginUser(values as LoginFields)).then(value => console.log(value));
 
         setTimeout(() => {
             props.resetForm()

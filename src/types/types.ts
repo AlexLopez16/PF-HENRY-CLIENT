@@ -1,10 +1,8 @@
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
-import { RootState, AppDispatch } from "../store/store";
+export const types = {
+  registerCompany: "[company],register company",
+  registerProject: "[project], register project",
 
-export const useAppDispatch: () => AppDispatch = useDispatch
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
-export const types ={
+  studentRegister: "[students],register Student",
 
-    registerCompany:"[company],register company",
-    registerProject:"[project], register project"
-}
+  getProjects: "[projects], get Projects",
+};

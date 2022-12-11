@@ -17,12 +17,13 @@ import * as yup from "yup";
 import { VisibilityOff, Visibility, Message } from "@mui/icons-material";
 import { GitHubLogin } from "../auth/GitHubLogin";
 import { GoogleLogin } from "../auth/GoogleLogin";
-import { useAppDispatch, useAppSelector } from "../../types/types";
-
+import { useDispatch } from "react-redux";
+import type {} from 'redux-thunk/extend-redux'
+import {studentRegister} from "../../actions/student"
 
 
 export const StudensForm: FC = () => {
-  const dispatch = useAppDispatch()
+
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -58,10 +59,10 @@ export const StudensForm: FC = () => {
 
  }
 
-
+ const dispatch = useDispatch()
 
   const onSubmit = (values:Values) => {
-    dispatch(registerCompany(values));
+    dispatch(studentRegister(values));
 
   };
 
