@@ -1,14 +1,15 @@
 
+import { userInfo } from "os";
 import { types } from "../types/types";
 
 
 interface State {
-    user:object
+    user: object
 
 }
 
 const initialState = {
-    user:{}
+    user: {}
 }
 
 
@@ -23,7 +24,19 @@ export const studentReducer = (state: State = initialState, action: Action) => {
         case types.studentRegister:
             return {
                 ...state,
-                user:action.payload
+                user: action.payload
+            }
+
+        case types.studentGetInfo:
+            return {
+                ...state,
+                user: action.payload
+            }
+
+        case types.studentUpdateInfo:
+            return {
+                ...state,
+                user: { ...state.user, ...action.payload }
             }
 
         default:

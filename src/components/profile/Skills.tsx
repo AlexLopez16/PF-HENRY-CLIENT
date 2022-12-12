@@ -26,8 +26,8 @@ export const Skills: FC<Props> = ({ edit, setEdit }) => {
         >
             <div style={container}>
 
-                <Typography sx={{ fontWeight: 'bold' }}>
-                    <h3>Habilidades</h3>
+                <Typography sx={{ fontWeight: 'bold' }} variant='h6'>
+                    Habilidades
                 </Typography>
                 <IconButton aria-label="settings" onClick={handlerEdit}>
                     <EditIcon sx={iconStyle} color='primary' fontSize='medium' />

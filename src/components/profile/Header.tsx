@@ -4,13 +4,18 @@ import EditIcon from '@mui/icons-material/Edit';
 
 
 import { paperStyle, iconStyle, container, avatarStyle } from '../../styles/Profile/HeaderStyles';
+import { useSelector } from 'react-redux';
+import { State } from '../../reducers/rootReducer';
 
 interface Props {
     edit: { header: boolean, about: boolean, skills: boolean },
     setEdit: Dispatch<SetStateAction<{ header: boolean, about: boolean, skills: boolean }>>
+    name?: string,
+    lastName?: string,
+    country?: string,
 }
 
-export const Header: FC<Props> = ({ edit, setEdit }) => {
+export const Header: FC<Props> = ({ edit, setEdit, name, lastName, country }) => {
 
     const handlerEdit = () => {
         setEdit({
@@ -32,7 +37,7 @@ export const Header: FC<Props> = ({ edit, setEdit }) => {
             <div style={container}>
                 <div>
                     <Avatar sx={avatarStyle}>
-                        A
+                        {name?.slice(0, 1).toUpperCase()}
                     </Avatar>
                 </div>
 
@@ -43,10 +48,10 @@ export const Header: FC<Props> = ({ edit, setEdit }) => {
                             fontWeight: 'bold'
                         }}
                     >
-                        Antonio Alejandro Lopez Rodriguez
+                        {name}&nbsp;{lastName}
                     </Typography>
                     <Typography>
-                        México
+                        {country}
                     </Typography>
                 </div>
             </div>

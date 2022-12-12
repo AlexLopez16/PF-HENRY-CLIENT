@@ -1,5 +1,8 @@
 import React, { FC } from 'react'
 import { Button, Icon, Link } from '@mui/material';
+// import { GoogleLogin } from '@react-oauth/google';
+
+
 
 export const GoogleLogin: FC = () => {
     return (
@@ -23,5 +26,13 @@ export const GoogleLogin: FC = () => {
                 </span>
             </Button>
         </Link>
+        // <GoogleLogin
+        //     onSuccess={credentialResponse => {
+        //         console.log(credentialResponse);
+        //     }}
+        //     onError={() => {
+        //         console.log('Login Failed');
+        //     }}
+        // />
     )
 }

@@ -1,27 +1,46 @@
-// import { types } from "../types/types"
-// import { AnyAction, Dispatch } from "redux"
-// import axios from "axios"
+import { Dispatch } from 'redux'
+import axios from 'axios'
+import { types } from '../types/types';
 
-// interface studentProps {
-//     name: string,
-//     lastName: string,
-//     email: string,
-//     password: string
+export const startLogin = (values: object) => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const { data, status } = await axios.post('/auth', values)
+            const { token } = data;
+            if (status) {
+                localStorage.setItem('token', token);
+                dispatch(login({ data, status }))
+            }
+        } catch (error: any) {
+            dispatch({
+                type: types.authLogin,
+                logged: false,
+                payload: {
+                    status: error.response.status
+                }
+            })
+        }
+    }
+}
 
-// }
+export const githubLogin = () => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const res = await axios.get('https://github.com/login/oauth/authorize?client_id=87e69cf79c2019d84894&redirect_uri=http://localhost:3001/api/auth?&scope=user:email')
 
-// export const startRegister = (user: studentProps) => {
-//     return async (dispatch:Dispatch<AnyAction>) => {
-//         try {
-//             const response = await axios.post("http://localhost:3001/api/student", user)
-//             console.log(response);
+            console.log(res)
+
+            dispatch({
+                type: types.authLoginGit
+            })
             
-//         } catch (error) {
-//             console.log(error);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
 
-//         }
-     
-//     }
-
-
-// }
+const login = (data: object) => ({
+    type: types.authLogin,
+    payload: data
+})
