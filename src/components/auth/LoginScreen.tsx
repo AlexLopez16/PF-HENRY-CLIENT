@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import type {} from 'redux-thunk/extend-redux'
+import type { } from 'redux-thunk/extend-redux'
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup'
@@ -9,8 +9,10 @@ import { Grid, InputLabel, OutlinedInput, Paper, TextField, InputAdornment, Icon
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import Divider from '@mui/material/Divider';
 
-import { GoogleLogin } from './GoogleLogin';
+// import { GoogleLogin } from './GoogleLogin';
 import { GitHubLogin } from './GitHubLogin';
+import { GoogleLogin } from '@react-oauth/google';
+
 
 import { startLogin } from '../../actions/auth';
 import { State } from '../../reducers/rootReducer';
@@ -66,14 +68,24 @@ export const LoginScreen: FC = () => {
                     <Grid textAlign='center'>
                         <h2 style={{ fontFamily: 'Roboto' }}>Ingresa</h2>
                     </Grid>
-                    <GoogleLogin />
+                    {/* <GoogleLogin /> */}
+                    <GoogleLogin
+                        onSuccess={credentialResponse => {
+                            console.log(credentialResponse);
+                        }}
+                        onError={() => {
+                            console.log('Login Failed');
+                        }}
+                        text='continue_with'
+                        auto_select={false}
+                    />
                     <GitHubLogin />
                     <Divider>
                         <span style={{ color: '#8d8a8a' }}>O</span>
                     </Divider>
                     {
                         isError && (
-                            <Grid sx={{display: 'flex', justifyContent: 'center'}}>
+                            <Grid sx={{ display: 'flex', justifyContent: 'center' }}>
                                 <FormHelperText error sx={{ width: 'auto', fontSize: '15px' }}>
                                     El correo/contraseña son incorrectos
                                 </FormHelperText>

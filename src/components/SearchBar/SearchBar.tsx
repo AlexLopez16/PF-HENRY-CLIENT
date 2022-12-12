@@ -1,15 +1,16 @@
 import { FC } from "react";
-import { Box, TextField, Input } from '@mui/material';
+import { Box, Input } from '@mui/material';
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
 
 const StyledBox = {
+    zIndex: 'tooltip',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    background: '#f5f5f5',
     height: 65,
-    boxShadow: 3
+    boxShadow: 2,
+    background: '#fff',
 }
 
 const styledInput = {

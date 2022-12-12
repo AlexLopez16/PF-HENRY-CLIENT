@@ -135,7 +135,8 @@ const ProjectForm: FC = () => {
                                         </ErrorMessage>
                                     }
 
-                                />
+
+/>
 
                                 <Field
                                     as={TextField}

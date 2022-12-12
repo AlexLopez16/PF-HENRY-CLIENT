@@ -1,13 +1,12 @@
 import { Dispatch } from 'redux'
-import axios, { AxiosError } from 'axios'
+import axios from 'axios'
 import { types } from '../types/types';
 
 export const startLogin = (values: object) => {
     return async (dispatch: Dispatch) => {
         try {
-            const { data, status } = await axios.post('http://localhost:3001/api/auth', values)
+            const { data, status } = await axios.post('/auth', values)
             const { token } = data;
-            console.log(status);
             if (status) {
                 localStorage.setItem('token', token);
                 dispatch(login({ data, status }))
@@ -20,6 +19,23 @@ export const startLogin = (values: object) => {
                     status: error.response.status
                 }
             })
+        }
+    }
+}
+
+export const githubLogin = () => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const res = await axios.get('https://github.com/login/oauth/authorize?client_id=87e69cf79c2019d84894&redirect_uri=http://localhost:3001/api/auth?&scope=user:email')
+
+            console.log(res)
+
+            dispatch({
+                type: types.authLoginGit
+            })
+            
+        } catch (error) {
+            console.log(error)
         }
     }
 }

@@ -7,7 +7,6 @@ export const iconStyle = {
 
 export const paperStyle = {
     padding: 10,
-    height: '100%',
     maxWidth: '60%',
     margin: '50px auto'
 }

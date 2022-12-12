@@ -17,8 +17,13 @@ import * as yup from "yup";
 import { VisibilityOff, Visibility, Message } from "@mui/icons-material";
 import { GitHubLogin } from "../auth/GitHubLogin";
 import { GoogleLogin } from "../auth/GoogleLogin";
+import { studentRegister } from "../../actions/student";
+import { useDispatch } from 'react-redux';
+
 
 export const StudensForm: FC = () => {
+  const dispatch = useDispatch()
+
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => {
@@ -26,15 +31,15 @@ export const StudensForm: FC = () => {
   };
   const initialValues = {
     name: "",
-    apellido: "",
+    lastName: "",
     email: "",
-    contraseña: "",
+    password: "",
   };
   const validationSchema = yup.object().shape({
     name: yup.string().required("Nombre requerido"),
-    apellido: yup.string().required("Apellido requerido"),
+    lastName: yup.string().required("Apellido requerido"),
     email: yup.string().email("email invalido").required("Email requerido"),
-    contraseña: yup
+    password: yup
       .string()
       .required("Contraseña requerida")
       .min(8, "Debe contener min. 8 caracter")
@@ -43,9 +48,15 @@ export const StudensForm: FC = () => {
       .matches(/[A-Z]/, "Se requiere una letra mayuscula")
       .matches(/[^\w]/, "Se requiere un simbolo"),
   });
+
+
+
+
+
   const onSubmit = (values: any) => {
-    values;
+    dispatch(studentRegister(values))
   };
+
   return (
     <div>
       <Grid>
@@ -90,12 +101,12 @@ export const StudensForm: FC = () => {
 
                 <Field
                   as={TextField}
-                  name="apellido"
+                  name="lastName"
                   label="Apellido"
                   size="small"
                   sx={{ width: "100%", margin: "10px 0" }}
                   helperText={
-                    <ErrorMessage name="apellido">
+                    <ErrorMessage name="lastName">
                       {(message) => (
                         <span style={{ color: "red" }}>{message}</span>
                       )}
@@ -121,7 +132,7 @@ export const StudensForm: FC = () => {
                   <InputLabel htmlFor="contraseña">Contraseña</InputLabel>
                   <Field
                     as={OutlinedInput}
-                    name="contraseña"
+                    name="password"
                     label="contraseña"
                     placeholder="Contraseña"
                     type={showPassword ? "text" : "password"}
@@ -137,9 +148,9 @@ export const StudensForm: FC = () => {
                       </InputAdornment>
                     }
                   />
-                  {"contraseña" in props.errors && (
+                  {"password" in props.errors && (
                     <FormHelperText error>
-                      {props.errors.contraseña}
+                      {props.errors.password}
                     </FormHelperText>
                   )}
                 </FormControl>

@@ -2,12 +2,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from "../pages/LandingPage";
 import StudensForm from "../components/Forms/StudensForm";
 import CompanyForm from "../components/Forms/CompanyForm";
-import SearchBar from "../components/SearchBar/SearchBar";
-import ProjectForm from "../components/Forms/ProjectForm";
-import DashboardCompany from "../pages/DashboardCompany";
-import DashboardStudens from "../pages/DashboardStudens";
 import ProjectDetail from "../components/ProyectDetail/ProyectDetail";
-import { LoginScreen } from '../components/auth/LoginScreen';
+import NavBar from '../components/NavBar/NavBar';
+import DashboardPage from '../pages/DashboardPage';
+import { Profile } from "../components/profile/Profile";
+import { LoginScreen } from "../components/auth/LoginScreen";
 import { PublicRoute } from "./PublicRoute";
 import { PrivateRoute } from "./PrivateRoute";
 
@@ -44,22 +43,15 @@ export const AppRouter = () => {
 
           <Route path="/loginStudent" element={<StudensForm />} />
           <Route path="/loginCompany" element={<CompanyForm />} />
-          <Route path="/project" element={<ProjectForm />} />
-          <Route path="/search" element={<SearchBar />} />
 
-          <Route path="/dashboardCompany" element={
-            <PrivateRoute>
-              <DashboardCompany />
-            </PrivateRoute>
-          }
-          />
-
-          <Route path="/dashboardStudens" element={
-            <PrivateRoute>
-              <DashboardStudens />
-            </PrivateRoute>
-          }
-          />
+          <Route path='/dashboard' element={<NavBar />}>
+            <Route index element={<DashboardPage role="Student" />} />
+            {/* Aca va las cartas de las propuestas empresas/alumnos */}
+            <Route path='proyectos' element={<DashboardPage role="Student" />} />
+            {/* Aca va el componente de rivo empresas/alumnos */}
+            <Route path='student' element={<Profile />} />
+            {/* Aca va las cartas de las empresas/alumnos */}
+          </Route>
 
           <Route
             path="/projectdetail"
@@ -76,6 +68,10 @@ export const AppRouter = () => {
               />
             }
           />
+
+
+          <Route path="/profile" element={<Profile />} />
+
         </Routes>
       </div>
     </BrowserRouter>

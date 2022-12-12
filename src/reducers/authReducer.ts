@@ -1,31 +1,40 @@
 import { types } from "../types/types";
 
 interface State {
-    // user: string[]
-    logged: boolean
-    status: number
+    logged: boolean;
+    status: number;
+    data: {
+        id: string,
+        rol: string
+    };
 }
 
 const initialState = {
-    // user: [],
     logged: false,
-    status: 0
+    status: 0,
+    data: {
+        id: '',
+        rol: ''
+    }
 }
 
 type Action = {
     type: string,
-    payload?: {},
+    payload: {
+        data: {}
+    },
 }
 
 export const authReducer = (state: State = initialState, action: Action) => {
     switch (action.type) {
         case types.authLogin:
             const { status }: any = action.payload;
+            const { id, rol }: any = action.payload.data
             return {
                 ...state,
-                ...action.payload,
                 logged: status === 200 ? true : false,
-                status: status
+                status: status,
+                data: { id, rol }
             };
 
         default:

@@ -1,50 +1,61 @@
-import React, { FC } from "react";
-import ProjectCard from "../components/Card/ProyectCard";
-
-
-const ejemplo = [
-  {
-    name: "E-Comers",
-    empresa: "Mercado libre",
-    imagen:
-      "https://thumbs.dreamstime.com/z/c%C3%B3digo-fuente-de-escritorio-y-papel-pintado-por-lenguaje-programaci%C3%B3n-con-codi-124706065.jpg",
-    detalle:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum veniam adipisci eos labore tempora repellat alias neque hic voluptatibus laborum reiciendis quas dolor voluptatum totam, cum molestias excepturi cumque illo      Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum veniam adipisci eos labore tempora repellat alias neque hic voluptatibus laborum reiciendis quas dolor voluptatum totam, cum molestias excepturi cumque illo.",
-    cantidadDeEstudiantes: "4",
-    lenguajes: "java",
-    estado: "reclutando",
-    email: "fulanito@nabijash.com",
-  },
-  {
-    name: "E-Comers",
-    empresa: "Mercado libre",
-    imagen:
-      "https://thumbs.dreamstime.com/z/c%C3%B3digo-fuente-de-escritorio-y-papel-pintado-por-lenguaje-programaci%C3%B3n-con-codi-124706065.jpg",
-    detalle:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum veniam adipisci eos labore tempora repellat alias neque hic voluptatibus laborum reiciendis quas dolor voluptatum totam, cum molestias excepturi cumque illo      Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum veniam adipisci eos labore tempora repellat alias neque hic voluptatibus laborum reiciendis quas dolor voluptatum totam, cum molestias excepturi cumque illo.",
-    cantidadDeEstudiantes: "4",
-    lenguajes: "java",
-    estado: "reclutando",
-    email: "fulanito@nabijash.com",
-  },
-];
+import { FC, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getProject } from "../actions/projects";
+import ProjectCard from "../components/Card/ProjectCard";
+import { State } from "../reducers/rootReducer"
 
 const DashboardStudens: FC = () => {
+
+  const dispatch = useDispatch()
+
+  const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQ29tbnBhbnkyIiwiaWQiOiI2MzkyNzU3NGU3M2RkNjVmMzkwNDA4NTciLCJpYXQiOjE2NzA3MzM0MzIsImV4cCI6MTY3MDc0MDYzMn0.d88cV9USr-5OkWqfTcqmc124Q3FHPqKiWtB_Yg3FCGI"
+
+
+  useEffect(() => {
+
+    dispatch(getProject(token))
+
+  }, [dispatch])
+
+
+  interface props {
+    description?: string
+    name?: string
+    participants?: number
+    requirements?: string[]
+    state?: boolean
+    students?: string[]
+    uid?: string
+
+
+  }
+
+  const { projects } = useSelector((state: State) => state.project);
+  console.log(projects);
+
+
+  // name -
+  // Description
+  // participants-
+  // requirements-
+  // students -
+  // company
+
   return (
-    <div>
-      {ejemplo.map((e) => (
-        <ProjectCard
-          name={e.name}
-          empresa={e.empresa}
-          imagen={e.imagen}
-          detalle={e.detalle}
-          cantidadDeEstudiantes={e.cantidadDeEstudiantes}
-          lenguajes={e.lenguajes}
-          estado={e.estado}
-          email={e.email}
-        />
+    <>
+      {projects.map((e: any) => (
+        <div >
+          <ProjectCard
+            name={e.name}
+            participants={e.participants}
+            requirements={e.requirements}
+            students={e.students}
+            company={e.company}
+            state={e.state}
+          />
+        </div>
       ))}
-    </div>
+    </>
   );
 };
 
