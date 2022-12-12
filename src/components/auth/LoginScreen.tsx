@@ -1,16 +1,28 @@
-import React, { FC, useState } from 'react'
-import { Grid, InputLabel, OutlinedInput, Paper, TextField, InputAdornment, IconButton, FormControl, Button, Typography, Link, FormHelperText } from '@mui/material'
-import { VisibilityOff, Visibility } from '@mui/icons-material';
-import Divider from '@mui/material/Divider';
-
-import { GoogleLogin } from './GoogleLogin';
-import { GitHubLogin } from './GitHubLogin';
+import { FC, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import type { } from 'redux-thunk/extend-redux'
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup'
 
+import { Grid, InputLabel, OutlinedInput, Paper, TextField, InputAdornment, IconButton, FormControl, Button, Typography, Link, FormHelperText } from '@mui/material'
+import { VisibilityOff, Visibility } from '@mui/icons-material';
+import Divider from '@mui/material/Divider';
+
+// import { GoogleLogin } from './GoogleLogin';
+import { GitHubLogin } from './GitHubLogin';
+import { GoogleLogin } from '@react-oauth/google';
+
+
+
+import { startLogin } from '../../actions/auth';
+import { State } from '../../reducers/rootReducer';
 
 export const LoginScreen: FC = () => {
+
+    const dispatch = useDispatch()
+    const { status } = useSelector((state: State) => state.auth)
+    const [isError, setIsError] = useState(false)
 
     const paperStyle = {
         padding: 20,
@@ -27,7 +39,7 @@ export const LoginScreen: FC = () => {
 
     const initialValues = {
         email: '',
-        password: ''
+        password: '',
     }
 
     const validationSchema = Yup.object().shape({
@@ -35,11 +47,20 @@ export const LoginScreen: FC = () => {
     })
 
     const onSubmit = (values: any, props: any) => {
+        dispatch(startLogin(values))
 
         setTimeout(() => {
-            props.resetForm()
+            if (status === '200') {
+                props.resetForm()
+            } else {
+                setIsError(true)
+            }
             props.setSubmitting(false)
-        }, 2000)
+        }, 1000)
+    }
+
+    const onChangeHandler = () => {
+        setIsError(false)
     }
 
     return (
@@ -49,18 +70,43 @@ export const LoginScreen: FC = () => {
                     <Grid textAlign='center'>
                         <h2 style={{ fontFamily: 'Roboto' }}>Ingresa</h2>
                     </Grid>
-                    <GoogleLogin />
+                    {/* <GoogleLogin /> */}
+                    <GoogleLogin
+                        onSuccess={credentialResponse => {
+                            console.log(credentialResponse);
+                        }}
+                        onError={() => {
+                            console.log('Login Failed');
+                        }}
+                        text='continue_with'
+                        auto_select={false}
+                    />
                     <GitHubLogin />
                     <Divider>
                         <span style={{ color: '#8d8a8a' }}>O</span>
                     </Divider>
-                    <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+                    {
+                        isError && (
+                            <Grid sx={{ display: 'flex', justifyContent: 'center' }}>
+                                <FormHelperText error sx={{ width: 'auto', fontSize: '15px' }}>
+                                    El correo/contraseña son incorrectos
+                                </FormHelperText>
+                            </Grid>
+                        )
+                    }
+                    <Formik
+                        initialValues={initialValues}
+                        onSubmit={onSubmit}
+                        validationSchema={validationSchema}
+                    >
                         {(props) => (
                             <Form>
                                 <Field as={TextField}
                                     name='email'
                                     label='Email'
                                     placeholder='Email'
+                                    error={isError}
+                                    onChange={(e: React.FormEvent<HTMLInputElement>) => { props.handleChange(e); onChangeHandler() }}
                                     sx={{ margin: '10px 0px', width: '100%' }}
                                     helperText={
                                         <ErrorMessage name='email' >
@@ -79,6 +125,8 @@ export const LoginScreen: FC = () => {
                                         name='password'
                                         type={showPassword ? 'text' : 'password'}
                                         required
+                                        error={isError}
+                                        onChange={(e: React.FormEvent<HTMLInputElement>) => { props.handleChange(e); onChangeHandler() }}
                                         endAdornment={
                                             <InputAdornment position='end'>
                                                 <IconButton

@@ -25,9 +25,10 @@ const ProjectForm: FC = () => {
     description: yup.string().required("Descripcion requerida"),
   });
   const dispatch = useDispatch();
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiRW1wcmVzYSBQYXRpdG8iLCJpZCI6IjYzOTU3NDkwODVhMGI2MzU2ZTVhZTU3YSIsImlhdCI6MTY3MDc3NTc5NywiZXhwIjoxNjcwNzgyOTk3fQ.-3U29Vy6b4jJbgltg1svwNdHTSz6jvPvhLeQeDBLhIg";
-  const formik = useFormik({
+  
+  const token =localStorage.getItem("token") || ""
+
+     const formik = useFormik({
     initialValues: {
       name: "",
       description: "",

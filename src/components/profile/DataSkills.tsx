@@ -1,27 +1,24 @@
 import { TableContainer, Paper, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import { useSelector } from 'react-redux';
+import { State } from '../../reducers/rootReducer';
+import { FC } from 'react';
 
-export const DataSkills = () => {
+export const DataSkills: FC = () => {
 
-    const array = [
-        {
-            skill: 'JavaScript',
-            exp: 'Principiante'
-        },
-        {
-            skill: 'Mongo',
-            exp: 'Avanzado'
-        },
-        {
-            skill: 'Node',
-            exp: 'Principiante'
-        }
-    ]
+    interface Props {
+        tecnologies: []
+    }
+
+    const { user } = useSelector((state: State) => state.student)
+
+    let { tecnologies } = user as Props
+    tecnologies ||= [];
 
     const createData = (skill: string, exp: string) => {
         return { skill, exp };
     }
 
-    const data = array.map(({ skill, exp }) => (
+    const data = tecnologies?.map(({ skill, exp }) => (
         createData(skill, exp)
     ))
 

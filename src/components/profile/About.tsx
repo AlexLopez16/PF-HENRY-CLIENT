@@ -3,13 +3,16 @@ import { Paper, IconButton, Typography } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit';
 
 import { paperStyle, container, iconStyle } from '../../styles/Profile/AboutStyles';
+import { useSelector } from 'react-redux';
+import { State } from '../../reducers/rootReducer';
 
 interface Props {
     edit: { header: boolean, about: boolean, skills: boolean },
     setEdit: Dispatch<SetStateAction<{ header: boolean, about: boolean, skills: boolean }>>
+    description?: string
 }
 
-export const About: FC<Props> = ({ edit, setEdit }) => {
+export const About: FC<Props> = ({ edit, setEdit, description }) => {
 
     const handlerEdit = () => {
         setEdit({
@@ -17,25 +20,22 @@ export const About: FC<Props> = ({ edit, setEdit }) => {
             about: !edit.about
         })
     }
-
+    
     return (
         <Paper
             elevation={5}
             style={paperStyle}
         >
             <div style={container}>
-
-                <Typography sx={{ fontWeight: 'bold' }}>
-                    <h3>Sobre mí</h3>
+                <Typography sx={{ fontWeight: 'bold' }} variant='h6'>
+                    Sobre mí
                 </Typography>
                 <IconButton aria-label="settings" onClick={handlerEdit}>
                     <EditIcon sx={iconStyle} color='primary' fontSize='medium' />
                 </IconButton>
             </div>
             <Typography sx={{ marginLeft: '10px', marginRight: '50px' }}>
-                Aute proident nisi nulla aliqua sunt. Proident exercitation eu eu dolor ullamco. Quis velit ea et veniam culpa esse labore fugiat reprehenderit eiusmod adipisicing proident officia aliquip.
-                Aute proident nisi nulla aliqua sunt. Proident exercitation eu eu dolor ullamco. Quis velit ea et veniam culpa esse labore fugiat reprehenderit eiusmod adipisicing proident officia aliquip.
-                Aute proident nisi nulla aliqua sunt. Proident exercitation eu eu dolor ullamco. Quis velit ea et veniam culpa esse labore fugiat reprehenderit eiusmod adipisicing proident officia aliquip.
+                {description}
             </Typography>
         </Paper>
     )

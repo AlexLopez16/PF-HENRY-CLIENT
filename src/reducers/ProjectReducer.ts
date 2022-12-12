@@ -1,15 +1,13 @@
 import { types } from "../types/types";
 
-
 interface State {
-  projects:object[]
+    projects: object[]
 
 }
 
 const initialState = {
-    projects:[]
+    projects: []
 }
-
 
 type Action = {
     type: string,
@@ -17,13 +15,12 @@ type Action = {
 
 }
 
-export const projectReducers = (state: State = initialState, action: Action) => {
+export const projectReducer = (state: State = initialState, action: Action) => {
     switch (action.type) {
         case types.getProjects:
-            
             return {
                 ...state,
-                projects:[...action.payload]
+                projects: [...action.payload]
             }
         case types.registerProject:
 
