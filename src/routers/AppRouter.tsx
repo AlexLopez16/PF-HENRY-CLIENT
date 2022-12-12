@@ -7,7 +7,7 @@ import NavBar from '../components/NavBar/NavBar';
 import DashboardPage from '../pages/DashboardPage';
 import { Profile } from "../components/profile/Profile";
 import { LoginScreen } from "../components/auth/LoginScreen";
-import ProjectForm from "../components/Forms/ProjectForm";//
+import { Register } from "../components/Register/register";//
 
 const ejemplo = {
   name: "E-Comers",
@@ -31,11 +31,11 @@ export const AppRouter = () => {
     <BrowserRouter>
       <div>
         <Routes>
+          <Route path="/register" element={< Register />}/>    
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginScreen />} />
           <Route path="/loginStudent" element={<StudensForm />} />
           <Route path="/loginCompany" element={<CompanyForm />} /> 
-          <Route path="/projectForm" element={<ProjectForm />} />
           <Route path='/dashboard' element={<NavBar/>}>
                 <Route index element={<DashboardPage role="Student"/>}/>
                     {/* Aca va las cartas de las propuestas empresas/alumnos */}

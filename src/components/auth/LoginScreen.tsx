@@ -119,7 +119,7 @@ export const LoginScreen: FC = () => {
                     <hr />
                     <Typography textAlign='center' m='20px 50px 0 50px'>
                         ¿Aún no has creado tu cuenta?
-                        <Link href='#register'>
+                        <Link href='/register'>
                             Regístrate
                         </Link>
                     </Typography>
