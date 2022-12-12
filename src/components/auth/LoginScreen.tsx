@@ -38,7 +38,7 @@ export const LoginScreen: FC = () => {
         email: Yup.string().email('Por favor ingresa un email válido.').required('Este valor debe ser un correo válido.'),
     })
 
-    const onSubmit = (values: any, props: any) => {
+    const onSubmit = (values: any) => {
         dispatch(loginUser(values));
 
         navigate('/dashboard/proyectos');

@@ -74,7 +74,7 @@ const LandingPage: FC = () => {
     <>
     <div>
       <Link 
-        to='/'
+        to='/login'
         className={style.link}>
          <Button 
           className={style.button_sign} 
@@ -124,6 +124,17 @@ const LandingPage: FC = () => {
                     sx={buttonSignUp} 
                     variant='outlined'>
                       Crear proyecto
+                    </Button>
+                </Link>
+
+
+                
+                <Link 
+                  to='/projectForm'
+              >
+                  <Button 
+                    variant='outlined'>
+                      Crear proyecto de enserio
                     </Button>
                 </Link>
                 

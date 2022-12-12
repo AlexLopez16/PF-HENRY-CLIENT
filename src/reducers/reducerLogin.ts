@@ -1,5 +1,5 @@
 import { string } from "yup"
-import types from "../types/types"
+import {types} from "../types/types"
 
 interface LoginFields {
     token: string,
