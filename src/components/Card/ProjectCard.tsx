@@ -58,7 +58,7 @@ const ProjectCard: FC<CardProjectProps> = ({
           </Typography>
           <Typography variant="subtitle2"> Participantes requeridos: {participants}</Typography>
           <Typography variant="subtitle2">Estado:  </Typography>
-          <Typography variant="subtitle2"> aceptados: {students}/{participants} </Typography>
+          <Typography variant="subtitle2"> aceptados: {students.length}/{participants} </Typography>
         </div>
         <Link to="/projectDetail">
           <Button
