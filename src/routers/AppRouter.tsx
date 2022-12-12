@@ -7,7 +7,12 @@ import NavBar from '../components/NavBar/NavBar';
 import DashboardPage from '../pages/DashboardPage';
 import { Profile } from "../components/profile/Profile";
 import { LoginScreen } from "../components/auth/LoginScreen";
+
+import { PublicRoute } from "./PublicRoute";
+import { PrivateRoute } from "./PrivateRoute";
+
 import ProjectForm from "../components/Forms/ProjectForm";//
+
 
 const ejemplo = {
   name: "E-Comers",
@@ -32,8 +37,16 @@ export const AppRouter = () => {
       <div>
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<LoginScreen />} />
+
+          <Route path="login" element={
+            <PublicRoute>
+              <LoginScreen />
+            </PublicRoute>
+          }
+          />
+
           <Route path="/loginStudent" element={<StudensForm />} />
+
           <Route path="/loginCompany" element={<CompanyForm />} /> 
           <Route path="/projectForm" element={<ProjectForm />} />
           <Route path='/dashboard' element={<NavBar/>}>
@@ -44,6 +57,7 @@ export const AppRouter = () => {
                     <Route path='student' element={<Profile/>}/>
                     {/* Aca va las cartas de las empresas/alumnos */}
                 </Route>
+
 
           <Route
             path="/projectdetail"
@@ -60,6 +74,10 @@ export const AppRouter = () => {
               />
             }
           />
+
+
+          <Route path="/profile" element={<Profile />} />
+
         </Routes>
       </div>
     </BrowserRouter>

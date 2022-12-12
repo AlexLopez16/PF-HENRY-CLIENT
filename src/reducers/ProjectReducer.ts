@@ -1,7 +1,6 @@
 
 import { types } from "../types/types";
 
-
 interface State {
     projects: {}[],
     projectsFilter: {}[]
@@ -13,14 +12,13 @@ const initialState = {
     projectsFilter: []
 }
 
-
 type Action = {
     type: string,
     payload?: any
 
 }
 
-export const projectReducers = (state: State = initialState, action: Action) => {
+export const projectReducer = (state: State = initialState, action: Action) => {
     switch (action.type) {
         case types.getProjects:
 
