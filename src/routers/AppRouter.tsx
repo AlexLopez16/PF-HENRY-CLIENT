@@ -7,8 +7,7 @@ import NavBar from '../components/NavBar/NavBar';
 import DashboardPage from '../pages/DashboardPage';
 import { Profile } from '../components/profile/Profile';
 import { LoginScreen } from '../components/auth/LoginScreen';
-import ProjectForm from '../components/Forms/ProjectForm';
-import DashboardStudens from '../pages/DashboardStudens';
+import AccountConfirm from '../components/AccountConfirm/AccountConfirm';
 
 const ejemplo = {
   name: 'E-Comers',
@@ -36,12 +35,10 @@ export const AppRouter = () => {
           <Route path='/login' element={<LoginScreen />} />
           <Route path='/loginStudent' element={<StudensForm />} />
           <Route path='/loginCompany' element={<CompanyForm />} />
-          <Route path='/project' element={<ProjectForm />} />
+          <Route path='/error' element={<AccountConfirm/>}/>
           <Route path='/dashboard' element={<NavBar />}>
             <Route path='proyectos' element={<DashboardPage />} />
-            {/* Aca va el componente de rivo empresas/alumnos */}
             <Route path='student' element={<Profile />} />
-            {/* Aca va las cartas de las empresas/alumnos */}
           </Route>
 
           <Route

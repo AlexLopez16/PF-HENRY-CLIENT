@@ -14,7 +14,7 @@ export const studentRegister = (values: object) => {
                 payload: res.data
             })
         } catch (error) {
-            console.log(error.response.data);
+            // console.log(error.response.data);
 
         }
 

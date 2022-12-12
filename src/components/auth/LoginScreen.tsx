@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import React, { FC, useState } from 'react'
 import { Grid, InputLabel, OutlinedInput, Paper, TextField, InputAdornment, IconButton, FormControl, Button, Typography, Link } from '@mui/material'
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import Divider from '@mui/material/Divider';
@@ -8,13 +8,25 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { loginUser  } from '../../actions/login';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { State } from '../../reducers/rootReducer';
 import type {} from 'redux-thunk/extend-redux';
 
 export const LoginScreen: FC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const token = useSelector((state:State) => state.login.token)
+    const verify = useSelector((state:State) => state.login.verify)
+
+    React.useEffect(() => {
+        if(token !== '') {
+            if(verify) {
+                navigate('/dashboard/proyectos');
+            } else {
+                navigate('/error')
+            }
+        }
+    }, [token]);
 
     const paperStyle = {
         padding: 20,
@@ -40,9 +52,7 @@ export const LoginScreen: FC = () => {
 
     const onSubmit = (values: any) => {
         dispatch(loginUser(values));
-
-        navigate('/dashboard/proyectos');
-
+        //verify ? navigate('/dashboard/proyectos') : <p>Dale man logeate no seas puto</p>         
     }
 
     return (

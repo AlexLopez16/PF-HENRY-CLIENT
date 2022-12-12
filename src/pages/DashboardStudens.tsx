@@ -10,7 +10,6 @@ const DashboardStudens: FC = () => {
 
   const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQ29tbnBhbnkyIiwiaWQiOiI2MzkyNzU3NGU3M2RkNjVmMzkwNDA4NTciLCJpYXQiOjE2NzA3MzM0MzIsImV4cCI6MTY3MDc0MDYzMn0.d88cV9USr-5OkWqfTcqmc124Q3FHPqKiWtB_Yg3FCGI"
 
-
   useEffect(() => {
 
     dispatch(getProject(token))
@@ -32,14 +31,6 @@ const DashboardStudens: FC = () => {
 
   const { projects } = useSelector((state: State) => state.project);
   console.log(projects);
-
-
-  // name -
-  // Description
-  // participants-
-  // requirements-
-  // students -
-  // company
 
   return (
     <>
