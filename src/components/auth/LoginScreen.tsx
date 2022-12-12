@@ -14,6 +14,7 @@ import { GitHubLogin } from './GitHubLogin';
 import { GoogleLogin } from '@react-oauth/google';
 
 
+
 import { startLogin } from '../../actions/auth';
 import { State } from '../../reducers/rootReducer';
 
@@ -47,6 +48,7 @@ export const LoginScreen: FC = () => {
 
     const onSubmit = (values: any, props: any) => {
         dispatch(startLogin(values))
+
         setTimeout(() => {
             if (status === '200') {
                 props.resetForm()

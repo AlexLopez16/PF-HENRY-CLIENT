@@ -17,12 +17,15 @@ import * as yup from "yup";
 import { VisibilityOff, Visibility, Message } from "@mui/icons-material";
 import { GitHubLogin } from "../auth/GitHubLogin";
 import { GoogleLogin } from "../auth/GoogleLogin";
-import { studentRegister } from "../../actions/student";
-import { useDispatch } from 'react-redux';
+
+import { useDispatch } from "react-redux";
+import type {} from 'redux-thunk/extend-redux'
+import {studentRegister} from "../../actions/student"
 
 
 export const StudensForm: FC = () => {
-  const dispatch = useDispatch()
+
+
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -49,12 +52,22 @@ export const StudensForm: FC = () => {
       .matches(/[^\w]/, "Se requiere un simbolo"),
   });
 
+ type Values= {
+
+  name: string;
+  lastName:string;
+  email: string;
+  password: string;
+
+ }
+
+ const dispatch = useDispatch()
 
 
+  const onSubmit = (values:Values) => {
+    dispatch(studentRegister(values));
 
 
-  const onSubmit = (values: any) => {
-    dispatch(studentRegister(values))
   };
 
   return (

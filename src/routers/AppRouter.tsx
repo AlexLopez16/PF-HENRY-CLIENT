@@ -7,8 +7,12 @@ import NavBar from '../components/NavBar/NavBar';
 import DashboardPage from '../pages/DashboardPage';
 import { Profile } from "../components/profile/Profile";
 import { LoginScreen } from "../components/auth/LoginScreen";
+
 import { PublicRoute } from "./PublicRoute";
 import { PrivateRoute } from "./PrivateRoute";
+
+import ProjectForm from "../components/Forms/ProjectForm";//
+
 
 const ejemplo = {
   name: "E-Comers",
@@ -42,16 +46,18 @@ export const AppRouter = () => {
           />
 
           <Route path="/loginStudent" element={<StudensForm />} />
-          <Route path="/loginCompany" element={<CompanyForm />} />
 
-          <Route path='/dashboard' element={<NavBar />}>
-            <Route index element={<DashboardPage role="Student" />} />
-            {/* Aca va las cartas de las propuestas empresas/alumnos */}
-            <Route path='proyectos' element={<DashboardPage role="Student" />} />
-            {/* Aca va el componente de rivo empresas/alumnos */}
-            <Route path='student' element={<Profile />} />
-            {/* Aca va las cartas de las empresas/alumnos */}
-          </Route>
+          <Route path="/loginCompany" element={<CompanyForm />} /> 
+          <Route path="/projectForm" element={<ProjectForm />} />
+          <Route path='/dashboard' element={<NavBar/>}>
+                <Route index element={<DashboardPage role="Student"/>}/>
+                    {/* Aca va las cartas de las propuestas empresas/alumnos */}
+                    <Route path='proyectos' element={<DashboardPage role="Student" />}/>
+                    {/* Aca va el componente de rivo empresas/alumnos */}
+                    <Route path='student' element={<Profile/>}/>
+                    {/* Aca va las cartas de las empresas/alumnos */}
+                </Route>
+
 
           <Route
             path="/projectdetail"
