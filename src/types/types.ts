@@ -8,6 +8,7 @@ export const types = {
     studentGetInfo: '[student] Get Info',
     studentUpdateInfo: '[student] Update Info',
 
-    getProjects: "[projects] Get Projects"
+    getProjects: "[project] Get Projects",
+    newProject: "[project] Create new project"
 
 }

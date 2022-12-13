@@ -7,7 +7,7 @@ import {
   Button,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import { RadioGroupRating } from "../Rating/Rating";
+import { RadioGroupRating } from "./Rating";
 import { Box } from "@mui/system";
 
 

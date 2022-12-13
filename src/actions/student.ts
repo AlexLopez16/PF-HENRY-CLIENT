@@ -1,6 +1,7 @@
 import axios from "axios"
 import { Dispatch } from "redux"
 import { types } from "../types/types"
+import { fileUpload } from '../helpers/fileUpload';
 
 
 export const studentRegister = (values: object) => {
@@ -47,3 +48,18 @@ export const updateStudentInfo = (id: string, token: string, data: object) => {
     }
 }
 
+export const updatePhotoStudent = (id: string, token: string, file: any) => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const photoUrl = await fileUpload(file, "users")
+            const res = await axios.put(`/student/${id}`, { image: photoUrl }, { headers: { 'user-token': token } })
+
+            dispatch({
+                type: types.studentUpdateInfo,
+                payload: res.data
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}

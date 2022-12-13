@@ -3,9 +3,7 @@ import { Paper, Grid, IconButton, Avatar, Typography, Button } from '@mui/materi
 import EditIcon from '@mui/icons-material/Edit';
 
 
-import { paperStyle, iconStyle, container, avatarStyle } from '../../styles/Profile/HeaderStyles';
-import { useSelector } from 'react-redux';
-import { State } from '../../reducers/rootReducer';
+import { paperStyle, iconStyle, container, avatarStyle } from '../../../styles/Profile/HeaderStyles';
 
 interface Props {
     edit: { header: boolean, about: boolean, skills: boolean },
@@ -13,9 +11,10 @@ interface Props {
     name?: string,
     lastName?: string,
     country?: string,
+    image?: string
 }
 
-export const Header: FC<Props> = ({ edit, setEdit, name, lastName, country }) => {
+export const Header: FC<Props> = ({ edit, setEdit, name, lastName, country, image }) => {
 
     const handlerEdit = () => {
         setEdit({
@@ -36,7 +35,7 @@ export const Header: FC<Props> = ({ edit, setEdit, name, lastName, country }) =>
             </Grid>
             <div style={container}>
                 <div>
-                    <Avatar sx={avatarStyle}>
+                    <Avatar sx={avatarStyle} src={image}>
                         {name?.slice(0, 1).toUpperCase()}
                     </Avatar>
                 </div>

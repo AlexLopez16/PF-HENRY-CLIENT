@@ -1,10 +1,10 @@
 import { Dispatch, FC, SetStateAction, useState } from 'react';
 import { Paper, Typography, Button, TextField, MenuItem } from '@mui/material';
 
-import { paperStyle, container, buttonStyle, typographyStyle, spanStyle } from '../../styles/Profile/SkillsFormStyles';
+import { paperStyle, container, buttonStyle, typographyStyle, spanStyle } from '../../../styles/Profile/SkillsFormStyles';
 import { useDispatch, useSelector } from 'react-redux';
-import { State } from '../../reducers/rootReducer';
-import { updateStudentInfo } from '../../actions/student';
+import { State } from '../../../reducers/rootReducer';
+import { updateStudentInfo } from '../../../actions/student';
 
 
 interface Props {

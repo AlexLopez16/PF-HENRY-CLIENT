@@ -1,10 +1,10 @@
 import { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProject } from "../actions/projects";
-import ProjectCard from "../components/Card/ProjectCard";
-import { State } from "../reducers/rootReducer"
+import { getProject } from "../../actions/projects";
+import ProjectCard from "../project/ProjectCard";
+import { State } from "../../reducers/rootReducer"
 
-const DashboardStudens: FC = () => {
+const DashboardStudent: FC = () => {
 
   const dispatch = useDispatch()
 
@@ -59,4 +59,4 @@ const DashboardStudens: FC = () => {
   );
 };
 
-export default DashboardStudens;
+export default DashboardStudent;

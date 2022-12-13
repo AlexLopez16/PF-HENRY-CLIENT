@@ -1,14 +1,18 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from "../pages/LandingPage";
-import StudensForm from "../components/Forms/StudensForm";
-import CompanyForm from "../components/Forms/CompanyForm";
-import ProjectDetail from "../components/ProyectDetail/ProyectDetail";
-import NavBar from '../components/NavBar/NavBar';
+import StudensForm from "../components/student/StudentForm";
+import CompanyForm from "../components/company/CompanyForm";
+import ProjectDetail from "../components/project/ProjectDetail";
+import NavBar from '../components/ui/NavBar';
 import DashboardPage from '../pages/DashboardPage';
-import { Profile } from "../components/profile/Profile";
+import { Profile } from "../components/student/profile/Profile";
 import { LoginScreen } from "../components/auth/LoginScreen";
 import { PublicRoute } from "./PublicRoute";
 import { PrivateRoute } from "./PrivateRoute";
+import ProjectForm from '../components/project/ProjectForm';
+import ProjectCard from "../components/project/ProjectCard";
+import { HomePage } from "../pages/HomePage";
+import { Nabvar } from "../components/maquetas/Nabvar";
 
 const ejemplo = {
   name: "E-Comers",
@@ -41,19 +45,81 @@ export const AppRouter = () => {
           }
           />
 
-          <Route path="/loginStudent" element={<StudensForm />} />
-          <Route path="/loginCompany" element={<CompanyForm />} />
+          <Route path="/signup/student" element={
+            <PublicRoute>
+              <StudensForm />
+            </PublicRoute>
+          }
+          />
+          <Route path="/signup/company" element={
+            <PublicRoute>
+              <CompanyForm />
+            </PublicRoute>
+          }
+          />
 
-          <Route path='/dashboard' element={<NavBar />}>
-            <Route index element={<DashboardPage role="Student" />} />
-            {/* Aca va las cartas de las propuestas empresas/alumnos */}
-            <Route path='proyectos' element={<DashboardPage role="Student" />} />
-            {/* Aca va el componente de rivo empresas/alumnos */}
-            <Route path='student' element={<Profile />} />
-            {/* Aca va las cartas de las empresas/alumnos */}
-          </Route>
+          <Route path="/home" element={
+            // <PrivateRoute>
+            <HomePage />
+            // </PrivateRoute>
+          }
+          />
 
-          <Route
+          <Route path="/dashboard" element={
+            // <PrivateRoute>
+            <DashboardPage
+              role="Student"
+            />
+            // </PrivateRoute>
+          }
+          />
+
+          <Route path="/project" element={
+            // <PrivateRoute>
+            <>
+              <Nabvar />
+              <ProjectDetail
+                name={ejemplo.name}
+                empresa={ejemplo.empresa}
+                imagen={ejemplo.imagen}
+                detalle={ejemplo.detalle}
+                cantidadDeEstudiantes={ejemplo.cantidadDeEstudiantes}
+                lenguajes={ejemplo.lenguajes}
+                estado={ejemplo.estado}
+                email={ejemplo.email}
+              />
+            </>
+            // </PrivateRoute>
+          }
+          />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          {/* <Route path='/dashboard' element={<NavBar />}> */}
+          {/* <Route index element={<DashboardPage role="Student" />} /> */}
+
+          {/* Aca va las cartas de las propuestas empresas/alumnos */}
+
+          {/* <Route path='proyectos' element={<DashboardPage role="Student" />} /> */}
+          {/* Aca va el componente de rivo empresas/alumnos */}
+          {/* <Route path='student' element={<Profile />} /> */}
+          {/* Aca va las cartas de las empresas/alumnos */}
+          {/* </Route> */}
+
+          {/* <Route
             path="/projectdetail"
             element={
               <ProjectDetail
@@ -67,10 +133,12 @@ export const AppRouter = () => {
                 email={ejemplo.email}
               />
             }
-          />
+          /> */}
 
 
           <Route path="/profile" element={<Profile />} />
+          <Route path="/newProject" element={<ProjectForm />} />
+          {/* <Route path="/project" element={<ProjectCard />} /> */}
 
         </Routes>
       </div>

@@ -12,6 +12,6 @@ export const PublicRoute: FC<Props> = ({ children }) => {
     const { logged } = useSelector((state: State) => state.auth);
 
     return (logged)
-        ? <Navigate to="/profile" />
+        ? <Navigate to="/home" />
         : children
 }
