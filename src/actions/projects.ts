@@ -1,6 +1,6 @@
-import axios from "axios"
-import { Dispatch } from "redux"
-import { types } from "../types/types"
+import axios from "axios";
+import { Dispatch } from "redux";
+import { types } from "../types/types";
 
 export const getProject = (token: string) => {
     return async (dispatch: Dispatch) => {
@@ -31,4 +31,5 @@ export const newProject = (data: object, token: string) => {
             console.log(error)
         }
     }
-}
+  };
+};

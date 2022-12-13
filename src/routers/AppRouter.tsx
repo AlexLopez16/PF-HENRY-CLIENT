@@ -7,12 +7,16 @@ import NavBar from '../components/ui/NavBar';
 import DashboardPage from '../pages/DashboardPage';
 import { Profile } from "../components/student/profile/Profile";
 import { LoginScreen } from "../components/auth/LoginScreen";
+
 import { PublicRoute } from "./PublicRoute";
 import { PrivateRoute } from "./PrivateRoute";
 import ProjectForm from '../components/project/ProjectForm';
 import ProjectCard from "../components/project/ProjectCard";
 import { HomePage } from "../pages/HomePage";
 import { Nabvar } from "../components/maquetas/Nabvar";
+
+import ProjectForm from "../components/Forms/ProjectForm";//
+
 
 const ejemplo = {
   name: "E-Comers",

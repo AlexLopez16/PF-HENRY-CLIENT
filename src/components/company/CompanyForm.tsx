@@ -1,31 +1,28 @@
 import React, { useState } from "react";
 import { FC } from "react";
 import { Grid, Button, Box, Paper, FormHelperText } from "@mui/material";
-import {
-    Formik,
-    Form,
-    Field,
-    ErrorMessage,
-} from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
-import { FieldProps, getIn } from "formik";
 
 import {
-    TextField,
-    InputLabel,
-    FormControl,
-    OutlinedInput,
-    InputAdornment,
-    IconButton,
-    SelectChangeEvent,
-    Select,
-    MenuItem
+  TextField,
+  InputLabel,
+  FormControl,
+  OutlinedInput,
+  InputAdornment,
+  IconButton,
+  SelectChangeEvent,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import { VisibilityOff, Visibility } from "@mui/icons-material";
-import { useDispatch } from 'react-redux';
 
+
+import { registerCompany } from "../../actions/conpany";
+import { useDispatch } from "react-redux";
 
 const CompanyForm: FC = () => {
+
 
     const paises: string[] = ["Argentina", "Bolivia", "Brasil", "Chile", "Colombia", "Costa Rica", "Cuba", "Ecuador", "El Salvador", "Guatemala", "Honduras", "México", "Nicaragua", "Panamá", "Paraguay", "Perú", "Puerto Rico", "República Dominicana", "Uruguay", "Venezuela"];
     const [pais, setPais] = useState('');
@@ -191,6 +188,7 @@ const CompanyForm: FC = () => {
             </Grid>
         </div>
     );
+
 };
 
 export default CompanyForm;
