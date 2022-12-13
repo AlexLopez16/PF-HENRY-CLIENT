@@ -17,16 +17,10 @@ import { useDispatch } from "react-redux";
 import { getProjectsFilter } from "../../actions/projects";
 
 
-
-
-
-
 const FiltroDashStudent: FC = () => {
     const dispatch = useDispatch();
 
-
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiRW1wcmVzYSIsImlkIjoiNjM5Njc2ZmNhOGM5Yzc4NDIyYjczNTdhIiwiaWF0IjoxNjcwODYxNDQyLCJleHAiOjE2NzA4Njg2NDJ9.76q1VIwChV-OU_srFnSn2TqgvfnbOcUqyJ6vRZv-hDE"
-
+    let token:string = localStorage.getItem('token');
     const [tecnologias, setTecnologias] = useState({
 
         Python: false,
@@ -74,29 +68,19 @@ const FiltroDashStudent: FC = () => {
 
     const [order, setOrder] = useState()
 
-
     const handleOrder = (e: any) => {
         setOrder(e.target.value)
 
     }
 
-
-
-
     const handlesubmit = () => {
 
         let tecnologies = Object.keys(tecnologias).filter(el => tecnologias[el] === true);//me devuelve los true
-
-
-
         dispatch(getProjectsFilter(order, tecnologies, token))
-
-
-
     }
+
     return (
         <>
-
             <Box>
                 <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
                     <FormLabel component="legend">Tecnologias</FormLabel>
