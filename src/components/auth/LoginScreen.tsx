@@ -11,14 +11,12 @@ import Divider from '@mui/material/Divider';
 
 // import { GoogleLogin } from './GoogleLogin';
 import { GitHubLogin } from './GitHubLogin';
-
+import { GoogleLogin } from '@react-oauth/google';
 
 
 
 import { startLogin } from '../../actions/auth';
 import { State } from '../../reducers/rootReducer';
-
-
 
 export const LoginScreen: FC = () => {
 
@@ -73,7 +71,7 @@ export const LoginScreen: FC = () => {
                         <h2 style={{ fontFamily: 'Roboto' }}>Ingresa</h2>
                     </Grid>
                     {/* <GoogleLogin /> */}
-                    {/* <GoogleLoginin
+                    <GoogleLogin
                         onSuccess={credentialResponse => {
                             console.log(credentialResponse);
                         }}
@@ -82,7 +80,7 @@ export const LoginScreen: FC = () => {
                         }}
                         text='continue_with'
                         auto_select={false}
-                    /> */}
+                    />
                     <GitHubLogin />
                     <Divider>
                         <span style={{ color: '#8d8a8a' }}>O</span>

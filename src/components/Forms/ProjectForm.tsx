@@ -1,23 +1,26 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Grid, Button, Paper, IconButton } from "@mui/material";
 import { Field, useFormik } from "formik";
 import * as yup from "yup";
 import {
-    TextField,
-    InputLabel,
-    FormControl,
-    Select,
-    MenuItem,
-    OutlinedInput,
-    Box,
-    Chip,
+  TextField,
+  InputLabel,
+  FormControl,
+  Select,
+  MenuItem,
+  OutlinedInput,
+  Box,
+  Chip,
 } from "@mui/material";
 import { PhotoCamera } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
 import { registerProject } from "../../actions/projects";
 import InputAdornment from "@mui/material/InputAdornment";
 import AttachFileRoundedIcon from "@mui/icons-material/AttachFileRounded";
+import axios from "axios";
+
 const ProjectForm: FC = () => {
+
     const validationSchema = yup.object().shape({
         name: yup.string().required("Nombre requerido"),
         description: yup.string().required("Descripcion requerida"),
@@ -87,11 +90,14 @@ const ProjectForm: FC = () => {
                         />
 
                         {/* <IconButton aria-label="upload picture" component="label" sx={{ marginLeft: 20 }}>
+
                                     <input hidden accept="image/*" type="file" />
                                     <PhotoCamera />
                                 </IconButton> */}
 
+
                         {/* <TextField
+
                                     name="UrlE"
                                     label="Url empresarial"
                                     size="small"
@@ -102,6 +108,7 @@ const ProjectForm: FC = () => {
                                     helperText={formik.touched.name && formik.errors.name}
 
                                 /> */}
+
 
                         <TextField
                             id="outlined-multiline-flexible"
@@ -202,6 +209,8 @@ const ProjectForm: FC = () => {
             </Grid>
         </div>
     );
+
+
 };
 
 export default ProjectForm;

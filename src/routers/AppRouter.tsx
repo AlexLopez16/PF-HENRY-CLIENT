@@ -9,6 +9,10 @@ import { Profile } from "../components/profile/Profile";
 import { LoginScreen } from "../components/auth/LoginScreen";
 
 import { PublicRoute } from "./PublicRoute";
+import { PrivateRoute } from "./PrivateRoute";
+
+import ProjectForm from "../components/Forms/ProjectForm";//
+
 
 const ejemplo = {
   name: 'E-Comers',
@@ -54,6 +58,7 @@ export const AppRouter = () => {
             {/* Aca va las cartas de las empresas/alumnos */}
           </Route>
 
+
           <Route
             path='/projectdetail'
             element={
@@ -69,6 +74,8 @@ export const AppRouter = () => {
               />
             }
           />
+
+
           <Route path="/profile" element={<Profile />} />
 
         </Routes>
