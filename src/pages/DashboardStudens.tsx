@@ -8,7 +8,8 @@ const DashboardStudens: FC = () => {
 
   const dispatch = useDispatch()
 
-  const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQ29tbnBhbnkyIiwiaWQiOiI2MzkyNzU3NGU3M2RkNjVmMzkwNDA4NTciLCJpYXQiOjE2NzA3MzM0MzIsImV4cCI6MTY3MDc0MDYzMn0.d88cV9USr-5OkWqfTcqmc124Q3FHPqKiWtB_Yg3FCGI"
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiRW1wcmVzYSIsImlkIjoiNjM5Njc2ZmNhOGM5Yzc4NDIyYjczNTdhIiwiaWF0IjoxNjcwODYxNDQyLCJleHAiOjE2NzA4Njg2NDJ9.76q1VIwChV-OU_srFnSn2TqgvfnbOcUqyJ6vRZv-hDE"
+
 
   useEffect(() => {
 
@@ -30,11 +31,24 @@ const DashboardStudens: FC = () => {
   }
 
   const { projects } = useSelector((state: State) => state.project);
-  console.log(projects);
+  const { projectsFilter } = useSelector((state: State) => state.project);
+  // projectsFilter ||=[]
+
+
+  let info;
+  projectsFilter.length
+  ? info=projectsFilter
+  :info=projects 
+  if (!projectsFilter.length) { info = projectsFilter }
+  else { info = projects }
+
+
+  projectsFilter.length ? info = projectsFilter : info = projects
+  console.log(info);
 
   return (
     <>
-      {projects.map((e: any) => (
+      {info.map((e: any) => (
         <div >
           <ProjectCard
             name={e.name}
@@ -46,7 +60,10 @@ const DashboardStudens: FC = () => {
           />
         </div>
       ))}
+
+
     </>
+
   );
 };
 

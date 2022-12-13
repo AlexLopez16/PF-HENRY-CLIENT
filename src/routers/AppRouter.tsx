@@ -5,9 +5,10 @@ import CompanyForm from '../components/Forms/CompanyForm';
 import ProjectDetail from '../components/ProyectDetail/ProyectDetail';
 import NavBar from '../components/NavBar/NavBar';
 import DashboardPage from '../pages/DashboardPage';
-import { Profile } from '../components/profile/Profile';
-import { LoginScreen } from '../components/auth/LoginScreen';
-import AccountConfirm from '../components/AccountConfirm/AccountConfirm';
+import { Profile } from "../components/profile/Profile";
+import { LoginScreen } from "../components/auth/LoginScreen";
+
+import { PublicRoute } from "./PublicRoute";
 
 const ejemplo = {
   name: 'E-Comers',
@@ -31,14 +32,26 @@ export const AppRouter = () => {
     <BrowserRouter>
       <div>
         <Routes>
-          <Route path='/' element={<LandingPage />} />
-          <Route path='/login' element={<LoginScreen />} />
-          <Route path='/loginStudent' element={<StudensForm />} />
-          <Route path='/loginCompany' element={<CompanyForm />} />
-          <Route path='/error' element={<AccountConfirm/>}/>
-          <Route path='/dashboard' element={<NavBar />}>
-            <Route path='proyectos' element={<DashboardPage />} />
-            <Route path='student' element={<Profile />} />
+  
+          <Route path="/" element={<LandingPage />} />
+
+          <Route path="login" element={
+            <PublicRoute>
+              <LoginScreen />
+            </PublicRoute>
+          }
+          />
+
+          <Route path="/loginStudent" element={<StudensForm />} />
+
+          <Route path="/loginCompany" element={<CompanyForm />} /> 
+          <Route path='/dashboard' element={<NavBar/>}>
+            <Route index element={<DashboardPage/>}/>
+            {/* Aca va las cartas de las propuestas empresas/alumnos */}
+            <Route path='proyectos' element={<DashboardPage/>}/>
+            {/* Aca va el componente de rivo empresas/alumnos */}
+            <Route path='student' element={<Profile/>}/>
+            {/* Aca va las cartas de las empresas/alumnos */}
           </Route>
 
           <Route
@@ -56,6 +69,8 @@ export const AppRouter = () => {
               />
             }
           />
+          <Route path="/profile" element={<Profile />} />
+
         </Routes>
       </div>
     </BrowserRouter>
