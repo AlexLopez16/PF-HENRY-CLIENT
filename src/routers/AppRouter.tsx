@@ -15,8 +15,6 @@ import ProjectCard from "../components/project/ProjectCard";
 import { HomePage } from "../pages/HomePage";
 import { Nabvar } from "../components/maquetas/Nabvar";
 
-import ProjectForm from "../components/Forms/ProjectForm";//
-
 
 const ejemplo = {
   name: "E-Comers",

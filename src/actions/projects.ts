@@ -31,5 +31,4 @@ export const newProject = (data: object, token: string) => {
             console.log(error)
         }
     }
-  };
-};
+}
