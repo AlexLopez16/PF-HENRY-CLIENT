@@ -1,15 +1,15 @@
-import { Dispatch, FC, SetStateAction } from 'react';
+import { Dispatch, FC, SetStateAction, useEffect } from 'react';
 import { Paper, IconButton, Avatar, Typography, TextField, Button } from '@mui/material';
 import { PhotoCamera } from '@mui/icons-material';
 
 
-import { avatarStyle, buttonStyle, container, iconStyle, paperStyle } from './../../styles/Profile/HeaderFormStyles';
+import { avatarStyle, buttonStyle, container, iconStyle, paperStyle } from '../../../styles/Profile/HeaderFormStyles';
 
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from "yup";
 import { useDispatch, useSelector } from 'react-redux';
-import { updateStudentInfo } from '../../actions/student';
-import { State } from '../../reducers/rootReducer';
+import { getStudentInfo, updatePhotoStudent, updateStudentInfo } from '../../../actions/student';
+import { State } from '../../../reducers/rootReducer';
 
 interface Props {
     edit: { header: boolean, about: boolean, skills: boolean },
@@ -23,7 +23,9 @@ export const HeaderForm: FC<Props> = ({ edit, setEdit, name, lastName, country }
 
     const dispatch = useDispatch();
     const { data } = useSelector((state: State) => state.auth)
+    const { user } = useSelector((state: State) => state.student)
     const { id } = data;
+    const { image } = user
     const token = localStorage.getItem('token') || ''
 
     const handlerEdit = () => {
@@ -53,6 +55,16 @@ export const HeaderForm: FC<Props> = ({ edit, setEdit, name, lastName, country }
         })
     }
 
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement | {}>) => {
+        const file = event.target.files[0]
+        if (file) {
+            dispatch(updatePhotoStudent(id, token, file))
+        }
+        setTimeout(() => {
+            dispatch(getStudentInfo(id, token))
+        }, 1000);
+    }
+
     return (
         <Paper
             elevation={5}
@@ -66,13 +78,21 @@ export const HeaderForm: FC<Props> = ({ edit, setEdit, name, lastName, country }
                 {(props) => (
                     <Form>
                         <div style={container}>
-                            <div>
-                                <Avatar sx={avatarStyle}>
-                                    <IconButton style={iconStyle} aria-label="upload picture" component="label">
-                                        <input hidden accept="image/*" type="file" />
-                                        <PhotoCamera />
-                                    </IconButton>
+                            <div style={{
+                                display: "flex",
+                                flexWrap: "wrap",
+                                flexDirection: "column",
+                                alignItems: 'center'
+                            }}>
+                                <Avatar
+                                    sx={avatarStyle}
+                                    src={image}
+                                >
                                 </Avatar>
+                                <IconButton style={iconStyle} aria-label="upload picture" component="label">
+                                    <input hidden accept="image/*" type="file" onChange={handleFileChange} />
+                                    <PhotoCamera />
+                                </IconButton>
                             </div>
 
                             <div>

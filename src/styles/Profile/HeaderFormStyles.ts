@@ -3,6 +3,8 @@ export const iconStyle = {
     backgroundColor: '#ef5350',
     color: '#fff',
     padding: '5px',
+    width: "fit-content",
+    marginTop: "10px"
 }
 
 export const avatarStyle = {

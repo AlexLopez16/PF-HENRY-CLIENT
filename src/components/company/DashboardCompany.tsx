@@ -1,6 +1,6 @@
 
 import { FC } from "react";
-import StudentCard from "../components/Card/StudentCard";
+import StudentCard from "../student/StudentCard";
 
 const DashboardCompany: FC = () => {
 

@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Box } from '@mui/material';
 import { userItemsList } from "./userItemsList";
-import FiltroDashStudent from "../FiltroDashStudent/FiltroDashStudent";
+import FiltroDashStudent from "../../pages/FiltrosSideBar";
 
 const SideBar: FC = () => {
     return (        
@@ -15,7 +15,7 @@ const SideBar: FC = () => {
                 boxShadow: 1,
 
                 }}>
-                {userItemsList}
+                {/* {userItemsList} */}
 
                 <FiltroDashStudent />
             </Box>

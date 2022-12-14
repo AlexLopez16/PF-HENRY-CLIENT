@@ -4,18 +4,18 @@ import { types } from "../types/types";
 interface State {
     projects: {}[],
     projectsFilter: {}[]
-
+    projectId: {}
 }
 
 const initialState = {
     projects: [],
-    projectsFilter: []
+    projectsFilter: [],
+    projectId: {}
 }
 
 type Action = {
     type: string,
     payload?: any
-
 }
 
 export const projectReducer = (state: State = initialState, action: Action) => {
@@ -26,14 +26,21 @@ export const projectReducer = (state: State = initialState, action: Action) => {
                 ...state,
                 projects: [...action.payload]
             }
-        case types.registerProject:
+
+        case types.getProjectById:
+            return {
+                ...state,
+                projectId: action.payload
+            }
+
+        case types.newProject:
 
             return {
                 ...state,
                 ...action.payload
             }
 
-        case types.ProjectsFilter:
+        case types.projectsFilter:
             return {
                 ...state,
                 projectsFilter: [...action.payload]

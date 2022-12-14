@@ -1,11 +1,11 @@
 import { FC, Dispatch, SetStateAction } from 'react';
 import { Paper, Typography, Button, TextField } from '@mui/material';
-import { paperStyle, container, buttonStyle } from '../../styles/Profile/AboutFormStyles';
+import { paperStyle, container, buttonStyle } from '../../../styles/Profile/AboutFormStyles';
 
 import * as Yup from 'yup'
 import { useDispatch, useSelector } from 'react-redux';
-import { updateStudentInfo } from '../../actions/student';
-import { State } from '../../reducers/rootReducer';
+import { updateStudentInfo } from '../../../actions/student';
+import { State } from '../../../reducers/rootReducer';
 import { Field, Form, Formik, ErrorMessage } from 'formik';
 
 interface Props {

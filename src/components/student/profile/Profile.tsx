@@ -8,8 +8,8 @@ import { HeaderForm } from './HeaderForm';
 import { AboutForm } from './AboutForm';
 import { SkillsForm } from './SkillsForm';
 import { useDispatch, useSelector } from 'react-redux';
-import { getStudentInfo } from '../../actions/student';
-import { State } from '../../reducers/rootReducer';
+import { getStudentInfo } from '../../../actions/student';
+import { State } from '../../../reducers/rootReducer';
 
 export const Profile: FC = () => {
     const [edit, setEdit] = useState({
@@ -33,10 +33,11 @@ export const Profile: FC = () => {
         lastName: string
         tecnologies: []
         country: string
+        image: string
     }
 
     const { user } = useSelector((state: State) => state.student)
-    const { description, name, lastName, country, tecnologies } = user as Props
+    const { description, name, lastName, country, tecnologies, image } = user as Props
 
     return (
         <Grid>
@@ -55,6 +56,7 @@ export const Profile: FC = () => {
                         name={name}
                         lastName={lastName}
                         country={country}
+                        image={image}
                     />
             }
             {

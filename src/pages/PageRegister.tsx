@@ -40,14 +40,14 @@ export const Register: FC = () => {
         sx={{ background: "#e8ca68" }}
       >
         <div className={style.content_left}>
-          <Link className={style.link} to="/loginStudent">
+          <Link className={style.link} to="/signup/student">
             <Button sx={buttonSignIn} variant="outlined">
               Estudiante
             </Button>
           </Link>
         </div>
         <div className={style.content_right}>
-          <Link className={style.link} to="/loginCompany">
+          <Link className={style.link} to="/signup/company">
             <Button sx={buttonSignIn} variant="outlined">
               Empresa
             </Button>

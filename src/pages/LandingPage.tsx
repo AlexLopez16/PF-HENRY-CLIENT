@@ -104,7 +104,7 @@ const LandingPage: FC = () => {
               <div className={style.buttons_login}>
                 
                 <Link
-                to= '/loginStudent'
+                to= '/signup/student'
                 className={style.link}>
                   <Button
                   className={style.button_sign_in} 
@@ -117,7 +117,7 @@ const LandingPage: FC = () => {
                   <span>o</span>
 
                 <Link 
-                  to='/loginCompany'
+                  to='/signup/company'
                   className={style.link}>
                   <Button 
                     className={style.button_sign_up} 

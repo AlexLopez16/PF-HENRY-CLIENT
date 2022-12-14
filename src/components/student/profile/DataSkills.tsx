@@ -1,6 +1,6 @@
 import { TableContainer, Paper, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { State } from '../../reducers/rootReducer';
+import { State } from '../../../reducers/rootReducer';
 import { FC } from 'react';
 
 export const DataSkills: FC = () => {

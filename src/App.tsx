@@ -2,7 +2,7 @@
 import { Provider } from "react-redux"
 import { LoginScreen } from "./components/auth/LoginScreen";
 // import { ProyectForm } from "./components/Forms/ProyectForm";
-import { Profile } from "./components/profile/Profile";
+import { Profile } from "./components/student/profile/Profile";
 
 
 

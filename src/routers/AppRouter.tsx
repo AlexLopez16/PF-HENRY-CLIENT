@@ -1,42 +1,29 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import LandingPage from '../pages/LandingPage';
-import StudensForm from '../components/Forms/StudensForm';
-import CompanyForm from '../components/Forms/CompanyForm';
-import ProjectDetail from '../components/ProyectDetail/ProyectDetail';
-import NavBar from '../components/NavBar/NavBar';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import LandingPage from "../pages/LandingPage";
+import StudensForm from "../components/student/StudentForm";
+import CompanyForm from "../components/company/CompanyForm";
+import ProjectDetail from "../components/project/ProjectDetail";
+import NavBar from '../components/ui/NavBar';
 import DashboardPage from '../pages/DashboardPage';
-import { Profile } from "../components/profile/Profile";
+import { Profile } from "../components/student/profile/Profile";
 import { LoginScreen } from "../components/auth/LoginScreen";
 
 import { PublicRoute } from "./PublicRoute";
 import { PrivateRoute } from "./PrivateRoute";
+import ProjectForm from '../components/project/ProjectForm';
+import ProjectCard from "../components/project/ProjectCard";
+import { HomePage } from "../pages/HomePage";
+import { Nabvar } from "../components/maquetas/Nabvar";
+import { Register } from "../pages/PageRegister";
+import { ProjectPage } from "../pages/ProjectPage";
 
-import ProjectForm from "../components/Forms/ProjectForm";//
 
-
-const ejemplo = {
-  name: 'E-Comers',
-  empresa: 'Mercado libre',
-  imagen:
-    'https://thumbs.dreamstime.com/z/c%C3%B3digo-fuente-de-escritorio-y-papel-pintado-por-lenguaje-programaci%C3%B3n-con-codi-124706065.jpg',
-  detalle:
-    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum veniam adipisci eos labore tempora repellat alias neque hic voluptatibus laborum reiciendis quas dolor voluptatum totam, cum molestias excepturi cumque illo      Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum veniam adipisci eos labore tempora repellat alias neque hic voluptatibus laborum reiciendis quas dolor voluptatum totam, cum molestias excepturi cumque illo.',
-  cantidadDeEstudiantes: '4',
-  lenguajes: 'java',
-  estado: 'reclutando',
-  email: 'fulanito@nabijash.com',
-};
-
-/**
- *
- * @returns
- */
 export const AppRouter = () => {
   return (
     <BrowserRouter>
       <div>
         <Routes>
-  
+
           <Route path="/" element={<LandingPage />} />
 
           <Route path="login" element={
@@ -46,37 +33,54 @@ export const AppRouter = () => {
           }
           />
 
-          <Route path="/loginStudent" element={<StudensForm />} />
+          <Route path="/signup/student" element={
+            <PublicRoute>
+              <StudensForm />
+            </PublicRoute>
+          }
+          />
+          <Route path="/signup/company" element={
+            <PublicRoute>
+              <CompanyForm />
+            </PublicRoute>
+          }
+          />
 
-          <Route path="/loginCompany" element={<CompanyForm />} /> 
-          <Route path='/dashboard' element={<NavBar/>}>
-            <Route index element={<DashboardPage/>}/>
-            {/* Aca va las cartas de las propuestas empresas/alumnos */}
-            <Route path='proyectos' element={<DashboardPage/>}/>
-            {/* Aca va el componente de rivo empresas/alumnos */}
-            <Route path='student' element={<Profile/>}/>
-            {/* Aca va las cartas de las empresas/alumnos */}
-          </Route>
+          <Route path="/home" element={
+            <PrivateRoute>
+              <HomePage />
+            </PrivateRoute>
+          }
+          />
 
+          <Route path="/dashboard" element={
+            <PrivateRoute>
+              <DashboardPage />
+            </PrivateRoute>
+          }
+          />
 
-          <Route
-            path='/projectdetail'
-            element={
-              <ProjectDetail
-                name={ejemplo.name}
-                empresa={ejemplo.empresa}
-                imagen={ejemplo.imagen}
-                detalle={ejemplo.detalle}
-                cantidadDeEstudiantes={ejemplo.cantidadDeEstudiantes}
-                lenguajes={ejemplo.lenguajes}
-                estado={ejemplo.estado}
-                email={ejemplo.email}
-              />
-            }
+          <Route path="/register" element={
+            <PublicRoute>
+              <Register />
+            </PublicRoute>
+          }
           />
 
 
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/project" element={
+            <PrivateRoute>
+              <ProjectPage />
+            </PrivateRoute>
+          }
+          />
+
+          <Route path="/newProject" element={
+            // <PrivateRoute>
+              <ProjectForm />
+            // </PrivateRoute>
+          }
+          />
 
         </Routes>
       </div>

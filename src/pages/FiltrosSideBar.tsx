@@ -14,13 +14,13 @@ import {
 
 } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { getProjectsFilter } from "../../actions/projects";
+import { getProjectsFilter } from "../actions/projects";
 
 
 const FiltroDashStudent: FC = () => {
     const dispatch = useDispatch();
 
-    let token:string = localStorage.getItem('token');
+    let token = localStorage.getItem('token') || '';
     const [tecnologias, setTecnologias] = useState({
 
         Python: false,
@@ -35,7 +35,7 @@ const FiltroDashStudent: FC = () => {
         Kotlin: false,
         Cobol: false,
         Sql: false,
-        Typescript: false,
+        TypeScript: false,
         AWS: false,
     })
 
@@ -62,7 +62,7 @@ const FiltroDashStudent: FC = () => {
         Kotlin,
         Cobol,
         Sql,
-        Typescript,
+        TypeScript,
         AWS,
     } = tecnologias;
 
@@ -111,7 +111,7 @@ const FiltroDashStudent: FC = () => {
                         />
                         <FormControlLabel
                             control={
-                                <Checkbox checked={Typescript} onChange={handleChange} name="Typescript" />
+                                <Checkbox checked={TypeScript} onChange={handleChange} name="TypeScript" />
                             }
                             label="Typescript"
                         />
