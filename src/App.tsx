@@ -1,8 +1,9 @@
 
 import { Provider } from "react-redux"
-import { LoginScreen } from "./components/auth/LoginScreen"
+import { LoginScreen } from "./components/auth/LoginScreen";
+// import { ProyectForm } from "./components/Forms/ProyectForm";
+import { Profile } from "./components/student/profile/Profile";
 
-import { UserForm } from "./components/Forms/UserForm"
 
 
 import { AppRouter } from "./routers/AppRouter"
@@ -12,20 +13,16 @@ function App() {
   return (
     <Provider store={store}>
       <div className="App">
-        <LoginScreen />
-        {/* <AppRouter /> */}
-        {/* <AppRouter /> */}
 
-      <UserForm/>
+        {/* <Profile /> */}
 
-        
+        {/* <LoginScreen /> */}
 
+        <AppRouter />
       </div>
     </Provider>
-
-
-
-)}
+  )
+}
 
 
 
