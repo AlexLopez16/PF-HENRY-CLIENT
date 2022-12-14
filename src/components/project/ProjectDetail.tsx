@@ -1,134 +1,136 @@
 import React, { FC } from "react";
 
 import {
-  Typography,
-  Paper,
-  List,
-  Button,
+    Typography,
+    Paper,
+    List,
+    Button,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { RadioGroupRating } from "./Rating";
 import { Box } from "@mui/system";
 
-
-
-
-
 interface ProjectProps {
-  name: String;
-  empresa: String;
-  imagen: String;
-  detalle: String;
-  cantidadDeEstudiantes:String;
-  lenguajes: String;
-  estado: String;
-  email: String;
+    name?: string;
+    empresa?: string;
+    imagen?: string;
+    detalle?: string;
+    cantidadDeEstudiantes?: string;
+    lenguajes?: [];
+    estado?: string;
+    email?: string;
+    categoria?: string
 }
 
-const ProjectDetail: FC<ProjectProps> = ({name,
-    empresa,
-    imagen,
-    detalle,
-    cantidadDeEstudiantes,
-    lenguajes,
-    estado,
-    email}:ProjectProps) => {
-  
-   let activo = null
-  estado === "reclutando"?activo=false:activo=true
+const ProjectDetail: FC<ProjectProps> = ({ name, empresa, imagen, detalle, cantidadDeEstudiantes, lenguajes = ['Java'], estado, email, categoria }: ProjectProps) => {
 
-  // const [open, setOpen] = React.useState(true);
+    let activo = null
+    estado === "reclutando" ? activo = false : activo = true
 
-  // const handleClick = () => {
-  //   setOpen(!open);
-  // };
+    // const [open, setOpen] = React.useState(true);
 
-  return (
-    <div>
-      <Paper
-        elevation={12}
-        style={{
-          width: 1200,
-          height: 1200,
-          padding: 20,
-          margin: "100px 70px 100px 150px",
-          display: "inline-block",
-        }}
-      >
-        <List>
-          <Typography variant="body1">proyecto:{name}</Typography>
-        </List>
+    // const handleClick = () => {
+    //   setOpen(!open);
+    // };
 
-        <List>
-          <Typography variant="body1">empresa:{empresa}</Typography>
-        </List>
-      
-          <Box>
+    return (
+        <div>
+            <Paper
+                elevation={12}
+                style={{
+                    width: 1200,
+                    height: 'fit-content',
+                    padding: 20,
+                    margin: "100px 70px 100px 150px",
+                    display: "inline-block",
+                }}
+            >
+                <List>
+                    <Typography variant="h4">
+                        {name}
+                    </Typography>
+                </List>
 
-        {imagen}
-          </Box>
-         
+                <List>
+                    <Typography variant="h5">
+                        {empresa}
+                    </Typography>
+                </List>
 
-        <List>
-          <Typography variant="body1">
-            Detalle del proyecto :{detalle}
-          </Typography>
-        </List>
-        <List>
-              <Typography variant="body1">cantidadDeEstudiantes:{cantidadDeEstudiantes}</Typography>
-            </List>
+                <Box>
+                    {imagen}
+                </Box>
 
-        <List>
-          <List component="div" disablePadding>
-           
-            <List>
-              <Typography variant="body1">
-                Lenguajes:{lenguajes}
-              </Typography>
-            </List>
-            <List>
-              <Typography variant="body1">Estado:{estado}</Typography>
-            </List>
-            <List>
-              <Typography variant="body1">E-mail:{email}</Typography>
-            </List>
-          </List>
-        </List>
 
-        <Button
-          sx={{ marginTop: 10 }}
-          type="submit"
-          variant="contained"
-          fullWidth
-          color="primary" 
-          disabled={activo}
-        >
-         aplicar
-        </Button>
+                <List>
+                    <Typography variant="body1">
+                        <b>Descripcion: </b>
+                        {detalle}
+                    </Typography>
+                </List>
 
-        <Link to ="/dashboard">
-        <Button
-          sx={{ marginTop: 10 }}
-          type="submit"
-          variant="contained"
-          fullWidth
-          color="primary" 
-          >
-         otros proyectos
-        </Button>
-            </Link>
-  
-          <Box >
+                <List>
+                    <Typography variant="body1">
+                        <b>Requerimientos: </b> {lenguajes.join(', ')}
+                    </Typography>
+                </List>
 
-            <RadioGroupRating />
-            
-           
-          </Box>
-         
-     
-      </Paper>
-    </div>
-  );
+                <List>
+                    <Typography variant="body1">
+                        <b>Participantes: </b> {cantidadDeEstudiantes}
+                    </Typography>
+                </List>
+
+                <List>
+                    <Typography variant="body1">
+                        <b>Categoria: </b> {categoria}
+                    </Typography>
+                </List>
+
+                <List>
+                    <Typography variant="body1">
+                        <b>Estado del proyecto: </b> {estado}
+                    </Typography>
+                </List>
+
+                {/* <List>
+                    <Typography variant="body1">E-mail:{email}</Typography>
+                </List> */}
+
+                <Button
+                    sx={{ marginTop: 10 }}
+                    type="submit"
+                    variant="contained"
+                    fullWidth
+                    color="primary"
+                    // disabled={activo}
+                >
+                    aplicar
+                </Button>
+
+                {/* <Link to="/dashboard">
+                    <Button
+                        sx={{ marginTop: 10 }}
+                        type="submit"
+                        variant="contained"
+                        fullWidth
+                        color="primary"
+                    >
+                        otros proyectos
+                    </Button>
+                </Link>
+
+                <Box >
+
+                    <RadioGroupRating />
+
+
+                </Box> */}
+
+
+            </Paper>
+        </div>
+    );
 };
 
 export default ProjectDetail;

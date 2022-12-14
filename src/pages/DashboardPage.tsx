@@ -4,15 +4,13 @@ import DashboardCompany from "../components/company/DashboardCompany";
 import { DashStudent } from "../components/maquetas/DashStudent";
 import { DashCompany } from "../components/maquetas/DashCompany";
 
-//let userRole: ('Student' | 'Company') = 'Company';
 
-interface props {
-    role: ('Student' | 'Company')
-}
+const DashboardPage: FC = () => {
 
-const DashboardPage: FC<props> = ({ role }) => {
+const role = 'STUDENT_ROL'
+
     return (
-        // role === 'Student' ? <DashboardStudens/> : <DashboardCompany/>
+        // role === 'STUDENT_ROL' ? <DashboardStudens/> : <DashboardCompany/>
         role === 'Student' ? <DashStudent/> : <DashCompany/>
     )
 }

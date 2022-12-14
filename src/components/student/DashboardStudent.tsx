@@ -7,55 +7,47 @@ import { State } from "../../reducers/rootReducer"
 const DashboardStudent: FC = () => {
 
   const dispatch = useDispatch()
-
-  const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQ29tbnBhbnkyIiwiaWQiOiI2MzkyNzU3NGU3M2RkNjVmMzkwNDA4NTciLCJpYXQiOjE2NzA3MzM0MzIsImV4cCI6MTY3MDc0MDYzMn0.d88cV9USr-5OkWqfTcqmc124Q3FHPqKiWtB_Yg3FCGI"
-
+  let token = localStorage.getItem('token') || '';
 
   useEffect(() => {
-
     dispatch(getProject(token))
-
   }, [dispatch])
 
+  // interface props {
+  //   description?: string
+  //   name?: string
+  //   participants?: number
+  //   requirements?: string[]
+  //   state?: boolean
+  //   students?: string[]
+  //   uid?: string
+  //   stateOfProject: string
 
-  interface props {
-    description?: string
-    name?: string
-    participants?: number
-    requirements?: string[]
-    state?: boolean
-    students?: string[]
-    uid?: string
-
-
-  }
+  // }
 
   const { projects } = useSelector((state: State) => state.project);
-  console.log(projects);
+  const { projectsFilter } = useSelector((state: State) => state.project);
 
-
-  // name -
-  // Description
-  // participants-
-  // requirements-
-  // students -
-  // company
+  let info = projectsFilter.length ? projectsFilter : projects
 
   return (
-    <>
-      {projects.map((e: any) => (
-        <div >
-          <ProjectCard
-            name={e.name}
-            participants={e.participants}
-            requirements={e.requirements}
-            students={e.students}
-            company={e.company}
-            state={e.state}
-          />
-        </div>
+    <div>
+      {info.map((e: any) => (
+        <ProjectCard
+          name={e.name}
+          participants={e.participants}
+          requirements={e.requirements}
+          students={e.students}
+          company={e.company.name}
+          state={e.state}
+          stateOfProject={e.stateOfProject}
+          id={e.uid}
+        />
       ))}
-    </>
+
+
+    </div>
+
   );
 };
 

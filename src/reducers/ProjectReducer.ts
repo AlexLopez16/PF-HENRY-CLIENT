@@ -1,33 +1,50 @@
+
 import { types } from "../types/types";
 
 interface State {
-    projects: object[]
-
+    projects: {}[],
+    projectsFilter: {}[]
+    projectId: {}
 }
 
 const initialState = {
-    projects: []
+    projects: [],
+    projectsFilter: [],
+    projectId: {}
 }
 
 type Action = {
     type: string,
-    payload?: []
-
+    payload?: any
 }
 
 export const projectReducer = (state: State = initialState, action: Action) => {
     switch (action.type) {
         case types.getProjects:
+
             return {
                 ...state,
                 projects: [...action.payload]
             }
-        case types.registerProject:
 
-        return{
-            ...state,
-            ...action.payload
-        }
+        case types.getProjectById:
+            return {
+                ...state,
+                projectId: action.payload
+            }
+
+        case types.newProject:
+
+            return {
+                ...state,
+                ...action.payload
+            }
+
+        case types.projectsFilter:
+            return {
+                ...state,
+                projectsFilter: [...action.payload]
+            }
         default:
             return state;
     }

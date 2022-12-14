@@ -14,9 +14,9 @@ import {
 } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
-import { VisibilityOff, Visibility, Message } from "@mui/icons-material";
+import { VisibilityOff, Visibility } from "@mui/icons-material";
 import { GitHubLogin } from "../auth/GitHubLogin";
-import { GoogleLogin } from "../auth/GoogleLogin";
+// import { GoogleLogin } from "../auth/GoogleLogin";
 
 import { useDispatch } from "react-redux";
 import type {} from 'redux-thunk/extend-redux'
@@ -86,7 +86,7 @@ export const StudensForm: FC = () => {
             <h2>Crear cuenta</h2>
           </Grid>
           <GitHubLogin />
-          <GoogleLogin />
+          {/* <GoogleLogin /> */}
           <Divider>
             <span>O</span>
           </Divider>
