@@ -10,10 +10,6 @@ import { Link } from "react-router-dom";
 import { RadioGroupRating } from "../Rating/Rating";
 import { Box } from "@mui/system";
 
-
-
-
-
 interface ProjectProps {
   name: String;
   empresa: String;

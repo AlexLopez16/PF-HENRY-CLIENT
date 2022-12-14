@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FC } from "react";
 import { Grid, Button, Box, Paper, FormHelperText } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -20,6 +20,7 @@ import { VisibilityOff, Visibility } from "@mui/icons-material";
 
 import { registerCompany } from "../../actions/conpany";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const CompanyForm: FC = () => {
 

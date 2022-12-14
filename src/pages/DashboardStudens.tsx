@@ -36,12 +36,8 @@ const DashboardStudens: FC = () => {
   console.log(info);
 
 
-  // name -
-  // Description
-  // participants-
-  // requirements-
-  // students -
-  // company
+  projectsFilter.length ? info = projectsFilter : info = projects
+  console.log(info);
 
   return (
     <>

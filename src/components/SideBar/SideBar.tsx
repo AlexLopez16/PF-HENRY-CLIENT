@@ -9,9 +9,10 @@ const SideBar: FC = () => {
                 background: '#ffffff',
                 width: 250,
                 height: '100vh',
+                mt: '68px',
                 color: '#272727',
                 pt: 7,
-                boxShadow: 1
+                boxShadow: 1,
 
                 }}>
                 {userItemsList}
