@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Button, Typography, Box } from "@mui/material";
 import { Link } from "react-router-dom";
-import style from "./register.module.css";
+import style from "../styles/register.module.css";
 
 const buttonSignIn = {
   alignItems: "center",
