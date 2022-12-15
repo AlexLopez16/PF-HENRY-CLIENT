@@ -26,7 +26,7 @@ export const AppRouter = () => {
 
           <Route path="/" element={<LandingPage />} />
 
-          <Route path="login" element={
+          <Route path="/login" element={
             <PublicRoute>
               <LoginScreen />
             </PublicRoute>
