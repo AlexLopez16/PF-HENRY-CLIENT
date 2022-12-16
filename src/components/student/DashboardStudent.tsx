@@ -3,16 +3,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProject } from "../../actions/projects";
 import ProjectCard from "../project/ProjectCard";
 import { State } from "../../reducers/rootReducer"
+import { Navigate, useSearchParams } from "react-router-dom";
 
 const DashboardStudent: FC = () => {
-
+ 
   const dispatch = useDispatch()
-  let token = localStorage.getItem('token') || '';
+  let token: String | null = localStorage.getItem('token');
+  
+  
+ 
 
   useEffect(() => {
     dispatch(getProject(token))
-  }, [dispatch])
-
+  }, [dispatch,token])
   // interface props {
   //   description?: string
   //   name?: string

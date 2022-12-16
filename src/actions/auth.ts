@@ -6,10 +6,12 @@ export const startLogin = (values: object) => {
     return async (dispatch: Dispatch) => {
         try {
             const { data, status } = await axios.post('/auth', values)
-            const { token } = data;
+            const { token,id,rol} = data;
             if (status) {
                 localStorage.setItem('token', token);
-                dispatch(login({ data, status }))
+                localStorage.setItem('id', id);
+                localStorage.setItem('rol', rol);
+                dispatch(login({ data, status,id,rol }))
             }
         } catch (error: any) {
             dispatch({
@@ -23,24 +25,39 @@ export const startLogin = (values: object) => {
     }
 }
 
-export const githubLogin = () => {
+export const githubLogin = ({id,rol,token,status}) => {
+            return login({data:{id,rol,token},status})         
+}
+
+export const gmailLogin=(tok:String,userType:String)=>{
     return async (dispatch: Dispatch) => {
+        console.log("tok",tok)
+        console.log("userType",userType)
         try {
-            const res = await axios.get('https://github.com/login/oauth/authorize?client_id=87e69cf79c2019d84894&redirect_uri=http://localhost:3001/api/auth?&scope=user:email')
-
-            console.log(res)
-
+            const { data, status } = await axios.post('/auth', {from:'gmail',tok,userType})
+            const { token,id,rol } = data;
+            console.log('hola',token )
+            if (status) {
+                localStorage.setItem('token', token);
+                localStorage.setItem('id', id);
+                localStorage.setItem('rol', rol);
+                dispatch(login({ data,status,token,id,rol  }))
+            }
+        } catch (error: any) {
             dispatch({
-                type: types.authLoginGit
+                type: types.authLogin,
+                logged: false,
+                payload: {
+                    status: error.response.status
+                }
             })
-            
-        } catch (error) {
-            console.log(error)
         }
     }
+
 }
 
 const login = (data: object) => ({
     type: types.authLogin,
     payload: data
 })
+

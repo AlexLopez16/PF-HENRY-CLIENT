@@ -21,6 +21,8 @@ import { GitHubLogin } from "../auth/GitHubLogin";
 import { useDispatch } from "react-redux";
 import type {} from 'redux-thunk/extend-redux'
 import {studentRegister} from "../../actions/student"
+import { GoogleLogin } from "@react-oauth/google";
+import { gmailLogin } from '../../actions/auth';
 
 
 export const StudensForm: FC = () => {
@@ -86,7 +88,14 @@ export const StudensForm: FC = () => {
             <h2>Crear cuenta</h2>
           </Grid>
           <GitHubLogin />
-          {/* <GoogleLogin /> */}
+          <GoogleLogin onSuccess={credentialResponse => {
+                            dispatch(gmailLogin(credentialResponse.credential,'student'));
+                        }}
+                        onError={() => {
+                            console.log('Login Failed');
+                        }}
+                        text='continue_with'
+                        auto_select={false}/>
           <Divider>
             <span>O</span>
           </Divider>

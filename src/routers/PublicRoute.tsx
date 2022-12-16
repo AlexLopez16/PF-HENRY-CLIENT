@@ -8,9 +8,8 @@ type Props = {
 }
 
 export const PublicRoute: FC<Props> = ({ children }) => {
-
     const { logged } = useSelector((state: State) => state.auth);
-
+    
     return (logged)
         ? <Navigate to="/home" />
         : children

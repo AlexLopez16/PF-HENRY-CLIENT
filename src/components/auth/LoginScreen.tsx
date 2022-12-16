@@ -15,8 +15,9 @@ import { GoogleLogin } from '@react-oauth/google';
 
 
 
-import { startLogin } from '../../actions/auth';
+import { startLogin,gmailLogin } from '../../actions/auth';
 import { State } from '../../reducers/rootReducer';
+import { Navigate } from 'react-router-dom';
 
 export const LoginScreen: FC = () => {
 
@@ -73,7 +74,8 @@ export const LoginScreen: FC = () => {
                     {/* <GoogleLogin /> */}
                     <GoogleLogin
                         onSuccess={credentialResponse => {
-                            console.log(credentialResponse);
+                            dispatch(gmailLogin(credentialResponse.credential));
+                            
                         }}
                         onError={() => {
                             console.log('Login Failed');
