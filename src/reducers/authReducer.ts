@@ -10,7 +10,7 @@ interface State {
 }
 
 const initialState = {
-    logged: false,
+    logged: localStorage.getItem('token')!=null,
     status: 0,
     data: {
         id: '',
@@ -32,7 +32,7 @@ export const authReducer = (state: State = initialState, action: Action) => {
             const { id, rol }: any = action.payload.data
             return {
                 ...state,
-                logged: status === 200 ? true : false,
+                logged: localStorage.getItem('token') == null ? false : true,
                 status: status,
                 data: { id, rol }
             };
