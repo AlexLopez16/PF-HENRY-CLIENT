@@ -1,29 +1,32 @@
-
-import { Provider } from "react-redux"
-import { LoginScreen } from "./components/auth/LoginScreen";
+import { Provider } from 'react-redux';
+import { LoginScreen } from './components/auth/LoginScreen';
 // import { ProyectForm } from "./components/Forms/ProyectForm";
-import { Profile } from "./components/student/profile/Profile";
+import { Profile } from './components/student/profile/Profile';
 
+import { AppRouter } from './routers/AppRouter';
+import { store } from './store/store';
+import { ThemeProvider } from '@mui/material/styles';
+import theme from './styles/themeProvider';
 
+import Footer from './pages/Footer';
 
-import { AppRouter } from "./routers/AppRouter"
-import { store } from "./store/store"
 
 function App() {
   return (
     <Provider store={store}>
-      <div className="App">
+      <ThemeProvider theme={theme}>
+        <div className='App'>
+          {/* <Profile /> */}
 
-        {/* <Profile /> */}
+          {/* <LoginScreen /> */}
 
-        {/* <LoginScreen /> */}
-
-        <AppRouter />
-      </div>
+          <AppRouter />
+          
+          <Footer />
+        </div>
+      </ThemeProvider>
     </Provider>
-  )
+  );
 }
-
-
 
 export default App;
