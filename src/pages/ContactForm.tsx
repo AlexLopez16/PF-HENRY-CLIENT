@@ -1,4 +1,5 @@
 import { Box, Button, Container, FormControl, TextField, Typography } from '@mui/material';
+import Header from '../components/NavbarLandingPage/HeaderLanding';
 
 export default function ContactForm() {
   const handleOnChange = (e) => {
@@ -7,30 +8,31 @@ export default function ContactForm() {
   };
 
   return (
-    <form onSubmit={(e) => handleOnChange(e)}>
+    <>
+    <Header /><form onSubmit={(e) => handleOnChange(e)}>
       <Box
         component='form'
         sx={{
-            backgroundColor: '#e2e2e2',
+          backgroundColor: '#e2e2e2',
           px: 70,
           pb: 10,
-          pt: 5,
+          pt: 25,
         }}
         noValidate
         autoComplete='off'
       >
         <Typography
-        variant='h4'
-        sx={{
-          textAlign: 'center',
-          pt: 5,
-          pb: 4,
-          color: '#1b384a',
-          fontWeight: 'bold',
-        }}
-      >
-        CONTÁCTANOS
-      </Typography>
+          variant='h4'
+          sx={{
+            textAlign: 'center',
+            pt: 5,
+            pb: 4,
+            color: '#1b384a',
+            fontWeight: 'bold',
+          }}
+        >
+          CONTÁCTANOS
+        </Typography>
         <FormControl
           sx={{
             display: 'flex',
@@ -42,16 +44,14 @@ export default function ContactForm() {
             id='name'
             label='Nombre'
             variant='outlined'
-            margin='normal'
-          />
+            margin='normal' />
 
           <TextField
             color='secondary'
             id='email'
             label='Email'
             variant='outlined'
-            margin='normal'
-          />
+            margin='normal' />
 
           <TextField
             color='secondary'
@@ -59,8 +59,7 @@ export default function ContactForm() {
             label='Escribe tu mensaje'
             multiline
             rows={4}
-            margin='normal'
-          />
+            margin='normal' />
           <Button
             type='submit'
             size='small'
@@ -75,6 +74,6 @@ export default function ContactForm() {
           </Button>
         </FormControl>
       </Box>
-    </form>
+    </form></>
   );
 }
