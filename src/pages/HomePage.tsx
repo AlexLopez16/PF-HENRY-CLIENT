@@ -7,7 +7,6 @@ import SearchBar from '../components/ui/SearchBar';
 import DashboardStudent from './../components/student/DashboardStudent';
 
 
-
 export const HomePage = () => {
     return (
         <>

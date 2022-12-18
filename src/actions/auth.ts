@@ -25,7 +25,7 @@ export const startLogin = (values: object) => {
     }
 }
 export const githubLogin = ({id,rol,token}) => {
-            return login({data:{id,rol,token},status})         
+            return login({data:{id,rol,token}})         
 }
 
 export const gmailLogin=(tok:String,userType:String)=>{

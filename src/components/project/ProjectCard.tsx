@@ -21,7 +21,7 @@ interface CardProjectProps {
     Description?: string,
     participants?: number
     requirements?: any,
-    students?: number,
+    students:string[]|undefined,
     company?: string,
     state?: boolean
     stateOfProject?: string

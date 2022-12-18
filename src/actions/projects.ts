@@ -1,6 +1,6 @@
-import axios from "axios";
-import { Dispatch } from "redux";
-import { types } from "../types/types";
+import axios from 'axios';
+import { Dispatch } from 'redux';
+import { types } from '../types/types';
 
 export const getProject = (token: string) => {
   return async (dispatch: Dispatch) => {
@@ -38,19 +38,22 @@ export const getProjectByID = (token: string, id: string) => {
 };
 
 export const newProject = (data: object, token: string) => {
-  return async (dispatch: Dispatch) => {
-    try {
-      const res = await axios.post("/project", data, {
-        headers: { "user-token": token },
-      });
-      dispatch({
-        type: types.newProject,
-        payload: res.data,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    return async (dispatch: Dispatch) => {
+        try {
+            const res: any = await axios.post('/project', data, {
+                headers: { 'user-token': token },
+            });
+            dispatch({
+                type: types.newProject,
+                payload: res.data,
+            });
+        } catch (error: any) {
+            dispatch({
+                type: types.showError,
+                payload: error.response,
+            });
+        }
+    };
 };
 
 // name=proyect&

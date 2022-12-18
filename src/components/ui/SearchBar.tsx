@@ -36,7 +36,7 @@ const SearchBar: FC = () => {
 
     const handleSubmit = (e:any) => {
         e.preventDefault();
-        !search ? alert('no se ingreso un busqueda') : dispatch(getProjectsFilter(undefined,undefined,token,search))  
+        !search ? alert('no se ingreso un busqueda') : dispatch(getProjectsFilter(undefined,undefined,token,search,undefined,undefined))  
     }
     return (
         <>

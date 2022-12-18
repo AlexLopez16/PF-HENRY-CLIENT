@@ -19,11 +19,18 @@
     "@reduxjs/toolkit": "^1.9.1",
     "axios": "^1.2.1",
     "dotenv": "^16.0.3",
+    "eslint": "^8.29.0",
     "formik": "^2.2.9",
+    "formik-mui": "^5.0.0-alpha.0",
+<<<<<<< HEAD
+    "mui-formik": "^0.1.1",
+=======
+>>>>>>> desarrollo
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.3",
+    "react-scroll-parallax": "^3.3.2",
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.2",
     "yup": "^0.32.11"
