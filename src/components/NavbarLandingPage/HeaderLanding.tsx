@@ -17,19 +17,22 @@ const Header = () => {
   const ContactClick = () => {
     navigate('/contact');
   };
+   const signInClick = () => {
+    navigate('/login');
+  };
 
   return (
     <React.Fragment>
-      <AppBar sx={{ background: '#ffff01' }}>
-        <Toolbar>
+      <AppBar sx={{ 
+  
+    }}>
+        <Toolbar
+        sx={{
+          justifyContent: 'space-around'
+        }}>
           <>
             <Tabs
-              sx={{
-                justifyContent: 'center',
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                alignContent: 'space-around',
-              }}
+     
               indicatorColor='secondary'
               textColor='inherit'
               value={value}
@@ -39,7 +42,7 @@ const Header = () => {
               <Tab onClick={AboutClick} label='Nosotros' />
               <Tab onClick={ContactClick} label='Contacto' />
             </Tabs>
-            <Button variant='contained'>Login</Button>
+            <Button onClick={signInClick} variant='contained'>Login</Button>
           </>
         </Toolbar>
       </AppBar>

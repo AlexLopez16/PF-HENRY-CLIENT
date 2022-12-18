@@ -4,7 +4,7 @@ import Header from '../components/NavbarLandingPage/HeaderLanding';
 export default function ContactForm() {
   const handleOnChange = (e) => {
     e.preventDefault();
-    alert('alerta');
+   
   };
 
   return (
@@ -71,7 +71,7 @@ export default function ContactForm() {
               ml: '80%',
             }}
           >
-            Enviar comentario
+            Enviar
           </Button>
         </FormControl>
       </Box>

@@ -2,15 +2,13 @@ import { FC } from 'react';
 import { Button, Typography, Box } from '@mui/material';
 import { useNavigate } from 'react-router';
 import nabijashbg from '../../public/assets/nabijashbg.png';
-import ContactForm from './ContactForm';
+
 import Header from '../components/NavbarLandingPage/HeaderLanding';
 
 const LandingPage: FC = () => {
   const navigate = useNavigate();
 
-  const signInClick = () => {
-    navigate('/login');
-  };
+ 
   const studentClick = () => {
     navigate('/signup/student');
   };
@@ -24,6 +22,7 @@ const LandingPage: FC = () => {
       <Box
         sx={{
           backgroundImage: `url(${nabijashbg})`,
+      
         }}
       >
         <Box
@@ -34,17 +33,6 @@ const LandingPage: FC = () => {
             pr: 20,
           }}
         >
-          <Button
-            size='small'
-            variant='contained'
-            onClick={signInClick}
-            sx={{
-              color: 'black',
-              borderRadius: '10px',
-            }}
-          >
-            Ingresar
-          </Button>
         </Box>
 
         <Box
@@ -81,25 +69,19 @@ const LandingPage: FC = () => {
             puedan conectar de forma segura y generar crear relaciones
             profesionales con grandes oportunidades laborales
           </Typography>
+        
           <Button
             size='small'
             variant='contained'
             onClick={studentClick}
             sx={{
               borderRadius: '10px',
+              p: 1,
+              mr: 2
             }}
           >
             Ser parte del proyecto
           </Button>
-
-          <Typography
-            sx={{
-              px: 2,
-              color: 'white',
-            }}
-          >
-            o
-          </Typography>
 
           <Button
             size='small'
@@ -108,15 +90,17 @@ const LandingPage: FC = () => {
             sx={{
               color: 'black',
               borderRadius: '10px',
+              ml:2
             }}
           >
             Crear proyecto
           </Button>
+        
         </Box>
 
         <Box
           sx={{
-            backgroundColor: 'black',
+            
             pb: 10,
           }}
         >
@@ -323,7 +307,7 @@ const LandingPage: FC = () => {
           </Box>
         </Box>
       </Box>
-
+     
     </>
   );
 };
