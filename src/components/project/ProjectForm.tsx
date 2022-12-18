@@ -30,6 +30,7 @@ import {
     spanStyle,
     typographyStyle,
 } from '../../styles/Profile/SkillsFormStyles';
+import Error from '../ui/Error';
 
 const ProjectForm: FC = () => {
     const nParticipants = [...Array(8)].map((_, index) => index + 1);
@@ -107,6 +108,7 @@ const ProjectForm: FC = () => {
     ];
     return (
         <div>
+            <Error />
             <Grid>
                 <Paper
                     elevation={10}

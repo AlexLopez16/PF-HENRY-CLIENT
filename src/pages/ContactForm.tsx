@@ -4,12 +4,13 @@ import Header from '../components/NavbarLandingPage/HeaderLanding';
 export default function ContactForm() {
   const handleOnChange = (e) => {
     e.preventDefault();
-    alert('añerta');
+    alert('alerta');
   };
 
   return (
     <>
-    <Header /><form onSubmit={(e) => handleOnChange(e)}>
+    <Header />
+    <form onSubmit={(e) => handleOnChange(e)}>
       <Box
         component='form'
         sx={{
