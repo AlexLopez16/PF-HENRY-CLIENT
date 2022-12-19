@@ -72,7 +72,11 @@ export const LoginScreen: FC = () => {
                         <h2 style={{ fontFamily: 'Roboto' }}>Ingresa</h2>
                     </Grid>
                     {/* <GoogleLogin /> */}
-                    <GoogleLogin
+                    <div style={{marginTop:'10px'}}>
+                    <GoogleLogin width='340px'
+                      logo_alignment="center"
+                      theme='outline'
+                      type='standard'
                         onSuccess={credentialResponse => {
                             dispatch(gmailLogin(credentialResponse.credential));
                             
@@ -82,7 +86,9 @@ export const LoginScreen: FC = () => {
                         }}
                         text='continue_with'
                         auto_select={false}
+                        
                     />
+                    </div>
                     <GitHubLogin />
                     <Divider>
                         <span style={{ color: '#8d8a8a' }}>O</span>

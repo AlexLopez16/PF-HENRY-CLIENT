@@ -23,7 +23,7 @@ export const PrivateRoute: FC<Props> = ({ children }) => {
         let rol:any=queryParameters.get('rol');
         let status:any=queryParameters.get('status');
         if (tokenQuery != null){
-            obj={tokenQuery,id,rol,status}
+            obj={tokenQuery,id,rol}
             localStorage.setItem('token', tokenQuery);
             localStorage.setItem('id', id);
             localStorage.setItem('rol', rol);

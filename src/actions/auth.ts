@@ -24,19 +24,17 @@ export const startLogin = (values: object) => {
         }
     }
 }
-
-export const githubLogin = ({id,rol,token,status}) => {
-            return login({data:{id,rol,token},status})         
+export const githubLogin = ({id,rol,token}) => {
+            return login({data:{id,rol,token}})         
 }
 
 export const gmailLogin=(tok:String,userType:String)=>{
     return async (dispatch: Dispatch) => {
-        console.log("tok",tok)
-        console.log("userType",userType)
+      
         try {
             const { data, status } = await axios.post('/auth', {from:'gmail',tok,userType})
             const { token,id,rol } = data;
-            console.log('hola',token )
+    
             if (status) {
                 localStorage.setItem('token', token);
                 localStorage.setItem('id', id);

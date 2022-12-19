@@ -3,6 +3,8 @@ import { Box, Input, Typography } from '@mui/material';
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { getProjectsFilter } from "../../actions/projects";
 
 
 
@@ -25,13 +27,16 @@ const styledInput = {
 
 const SearchBar: FC = () => {
     const [search, setSearch] = useState('')
+    const dispatch=useDispatch()
+    let token = localStorage.getItem('token') || '';
 
     const handleInput = (e:string) => {
         setSearch(e)
     }
 
-    const handleSubmit = () => {
-        !search ? alert('no se ingreso un busqueda') : <></>
+    const handleSubmit = (e:any) => {
+        e.preventDefault();
+        !search ? alert('no se ingreso un busqueda') : dispatch(getProjectsFilter(undefined,undefined,token,search,undefined,undefined))  
     }
     return (
         <>
@@ -63,7 +68,7 @@ const SearchBar: FC = () => {
                     <Input 
                         placeholder="Search..." 
                         onChange={(e) => handleInput(e.target.value)}
-                        sx={styledInput}></Input>
+                        sx={styledInput} value={search}></Input>
                     <IconButton type="submit" aria-label="search">
                         <SearchIcon/>
                     </IconButton>
