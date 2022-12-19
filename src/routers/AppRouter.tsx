@@ -17,6 +17,15 @@ import { Nabvar } from '../components/maquetas/Nabvar';
 import { Register } from '../pages/PageRegister';
 import { ProjectPage } from '../pages/ProjectPage';
 import ContactForm from '../pages/ContactForm';
+import Ale from '../pages/Profiles/Ale';
+import Ampi from '../pages/Profiles/Ale';
+import Brian from '../pages/Profiles/Ale';
+import Hugo from '../pages/Profiles/Ale';
+import Jona from '../pages/Profiles/Ale';
+import Nachito from '../pages/Profiles/Ale';
+import Nacho from '../pages/Profiles/Ale';
+import Sil from '../pages/Profiles/Ale';
+
 
 export const AppRouter = () => {
   return (
@@ -111,14 +120,25 @@ export const AppRouter = () => {
               // </PrivateRoute>
             }
           />
-           <Route
+          <Route
             path='/contact'
             element={
               // <PrivateRoute>
-              <ContactForm/>
+              <ContactForm />
               // </PrivateRoute>
             }
           />
+
+          {/* PROFILE ROUTES */}
+
+          <Route path='/Ale' element={<Ale />} />
+          <Route path='/Ampi' element={<Ampi />} />
+          <Route path='/Brian' element={<Brian />} />
+          <Route path='/Hugo' element={<Hugo />} />
+          <Route path='/Jona' element={<Jona />} />
+          <Route path='/Nachito' element={<Nachito />} />
+          <Route path='/Nacho' element={<Nacho />} />
+          <Route path='/Sil' element={<Sil />} />
         </Routes>
       </div>
     </BrowserRouter>
