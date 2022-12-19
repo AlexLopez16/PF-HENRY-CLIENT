@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router';
 
 const Header = () => {
   const [value, setValue] = useState();
-
   const navigate = useNavigate();
 
   const AboutClick = () => {
@@ -17,32 +16,35 @@ const Header = () => {
   const ContactClick = () => {
     navigate('/contact');
   };
-   const signInClick = () => {
+  const signInClick = () => {
     navigate('/login');
   };
 
   return (
     <React.Fragment>
-      <AppBar sx={{ 
-  
-    }}>
+      <AppBar>
         <Toolbar
-        sx={{
-          justifyContent: 'space-around'
-        }}>
+          sx={{
+            justifyContent: 'space-between',
+          }}
+        >
           <>
             <Tabs
-     
               indicatorColor='secondary'
-              textColor='inherit'
+              textColor='secondary'
               value={value}
-              onChange={(e, value) => setValue(value)}
+              onChange={(e, value) => {
+                console.log(value);
+                setValue(value);
+              }}
             >
               <Tab onClick={HomeClick} label='Inicio' />
               <Tab onClick={AboutClick} label='Nosotros' />
               <Tab onClick={ContactClick} label='Contacto' />
             </Tabs>
-            <Button onClick={signInClick} variant='contained'>Login</Button>
+            <Button onClick={signInClick} variant='contained'>
+              Login
+            </Button>
           </>
         </Toolbar>
       </AppBar>
