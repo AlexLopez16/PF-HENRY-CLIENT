@@ -78,7 +78,7 @@ export const LoginScreen: FC = () => {
                       theme='outline'
                       type='standard'
                         onSuccess={credentialResponse => {
-                            dispatch(gmailLogin(credentialResponse.credential));
+                            dispatch(gmailLogin(credentialResponse.credential,undefined));
                             
                         }}
                         onError={() => {
@@ -156,7 +156,7 @@ export const LoginScreen: FC = () => {
                                 </FormControl>
 
                                 <Typography fontSize='11px' textAlign='right' mb='10px'>
-                                    <Link href='#forgot' color='inherit'>
+                                    <Link  href='/forgotPassword' color='inherit'>
                                         ¿Olvidaste tu contraseña?
                                     </Link>
                                 </Typography>

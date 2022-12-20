@@ -1,6 +1,7 @@
 export const types = {
     authLogin: '[auth] Login User',
     authLoginGit: '[auth] GitHub Login',
+    clearAuthLogin:'[auth] Clear Auth Login',
 
     studentRegister: '[student] Register Student',
     studentGetInfo: '[student] Get Info Student',
@@ -15,4 +16,5 @@ export const types = {
 
     showError: '[error] Show Error',
     clearError: '[error] Clear Error',
+    
 };

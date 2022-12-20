@@ -13,15 +13,21 @@ import MenuItem from "@mui/material/MenuItem/MenuItem";
 import { Box } from "@mui/system";
 import Alert from "@mui/material/Alert/Alert";
 import Stack from "@mui/material/Stack/Stack";
+import { Navigate, useSearchParams } from "react-router-dom";
+import { types } from "../../types/types";
 
 // let state: string[] | undefined = undefined;
 // let tecnologies: string[] | undefined = undefined;
 // let typeOfOrder: string | undefined = undefined;
-
 const DashboardStudent: FC = () => {
   const dispatch = useDispatch();
   let token: String | null = localStorage.getItem("token");
-  const [inputFilter,setInput]=useState({state:undefined,tecnologies:undefined,typeOfOrder:undefined,categorie:undefined})
+  const [inputFilter, setInput] = useState({
+    state: undefined,
+    tecnologies: undefined,
+    typeOfOrder: undefined,
+    categorie: undefined,
+  });
   useEffect(() => {
     // dispatch(getProject(token));
     dispatch(
@@ -46,7 +52,7 @@ const DashboardStudent: FC = () => {
   //   stateOfProject: string
 
   // }
-  const categorys=["desarrollo web","data science","Desarrollo Movil"]
+  const categorys = ["desarrollo web", "data science", "Desarrollo Movil"];
 
   const tecnologias = [
     "Python",
@@ -68,43 +74,51 @@ const DashboardStudent: FC = () => {
   const stateOfProject = ["Reclutamiento", "En desarrollo", "Terminado"];
 
   // const { projects } = useSelector((state: State) => state.project);
-  
-  const { projectsFilter } = useSelector((state: State) => state.project);
-  
 
-  let info = projectsFilter
- 
+  const { projectsFilter } = useSelector((state: State) => state.project);
+
+  const {status} = useSelector((state: State) => state.auth);
+//   console.log('logged', logged);
+  if (status===401){  
+        console.log('401',401)
+    localStorage.clear();   
+    dispatch({
+      type: types.authLogin,
+    });
+    return <Navigate to='/login' />
+ }   
+
+  let info = projectsFilter;
 
   const handlerchange = (e: string, value: any) => {
-    
     if (e === "e") {
       if (value.length) {
-        // state = value; 
-        setInput({...inputFilter,state:value})
+        // state = value;
+        setInput({ ...inputFilter, state: value });
       } else {
-        setInput({...inputFilter,state:undefined})
+        setInput({ ...inputFilter, state: undefined });
       }
     }
     if (e === "t") {
       if (value.length) {
-        setInput({...inputFilter,tecnologies:value})
+        setInput({ ...inputFilter, tecnologies: value });
       } else {
-        setInput({...inputFilter,tecnologies:undefined})
+        setInput({ ...inputFilter, tecnologies: undefined });
       }
     }
     if (e === "o") {
       let val = value.props.value;
       if (val) {
-        setInput({...inputFilter,typeOfOrder:val})
+        setInput({ ...inputFilter, typeOfOrder: val });
       } else {
-        setInput({...inputFilter,typeOfOrder:undefined})
+        setInput({ ...inputFilter, typeOfOrder: undefined });
       }
     }
-    if(e==="c"){
+    if (e === "c") {
       if (value.length) {
-        setInput({...inputFilter,categorie:value})
+        setInput({ ...inputFilter, categorie: value });
       } else {
-        setInput({...inputFilter,categorie:undefined})
+        setInput({ ...inputFilter, categorie: undefined });
       }
     }
     // dispatch(
@@ -198,7 +212,7 @@ const DashboardStudent: FC = () => {
         <div style={{ width: 255 }}>
           <FormControl sx={{ width: "100%", padding: 0 }}>
             <InputLabel id="vacantes-label" size="small" sx={{ padding: 0 }}>
-               Ordenar por participantes
+              Ordenar por participantes
             </InputLabel>
             <Select
               size="small"
@@ -224,20 +238,27 @@ const DashboardStudent: FC = () => {
           pl: 30,
         }}
       >
-        {info.length?info.map((e: any) => (
-          <ProjectCard
-            name={e.name}
-            participants={e.participants}
-            requirements={e.requirements}
-            students={e.students}
-            company={e.company.name}
-            state={e.state}
-            stateOfProject={e.stateOfProject}
-            id={e.uid}
-            category={e.category}
-            
-          />
-        )):<Stack sx={{ width: '100%' }} spacing={2}><Alert severity="info">No hay proyectos con los filtros aplicados!</Alert></Stack>}
+        {info.length ? (
+          info.map((e: any) => (
+            <ProjectCard
+              name={e.name}
+              participants={e.participants}
+              requirements={e.requirements}
+              students={e.students}
+              company={e.company.name}
+              state={e.state}
+              stateOfProject={e.stateOfProject}
+              id={e.uid}
+              category={e.category}
+            />
+          ))
+        ) : (
+          <Stack sx={{ width: "100%" }} spacing={2}>
+            <Alert severity="info">
+              No hay proyectos con los filtros aplicados!
+            </Alert>
+          </Stack>
+        )}
       </Box>
     </div>
   );
