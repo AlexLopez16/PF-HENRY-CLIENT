@@ -41,6 +41,8 @@ export const projectReducer = (state: State = initialState, action: Action) => {
             }
 
         case types.projectsFilter:
+            
+            
             return {
                 ...state,
                 projectsFilter: [...action.payload]

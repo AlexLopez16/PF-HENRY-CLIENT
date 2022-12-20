@@ -9,6 +9,7 @@ import DashboardCompany from '../components/company/DashboardCompany';
 import { useSelector } from 'react-redux';
 import { State } from '../reducers/rootReducer';
 
+
 export const HomePage = () => {
     const { rol } = useSelector((state: State) => state.auth.data);
     console.log(rol);
