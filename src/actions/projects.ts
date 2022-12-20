@@ -1,6 +1,7 @@
-import axios from 'axios';
-import { Dispatch } from 'redux';
-import { types } from '../types/types';
+import axios from "axios";
+import { Dispatch } from "redux";
+import { types } from "../types/types";
+import { Navigate } from "react-router-dom";
 
 export const getProject = (token: string) => {
   return async (dispatch: Dispatch) => {
@@ -38,32 +39,32 @@ export const getProjectByID = (token: string, id: string) => {
 };
 
 export const newProject = (data: object, token: string) => {
-    return async (dispatch: Dispatch) => {
-        try {
-            const res: any = await axios.post('/project', data, {
-                headers: { 'user-token': token },
-            });
-            dispatch({
-                type: types.newProject,
-                payload: res.data,
-            });
-        } catch (error: any) {
-            dispatch({
-                type: types.showError,
-                payload: error.response,
-            });
-        }
-    };
+  return async (dispatch: Dispatch) => {
+    try {
+      const res: any = await axios.post("/project", data, {
+        headers: { "user-token": token },
+      });
+      dispatch({
+        type: types.newProject,
+        payload: res.data,
+      });
+    } catch (error: any) {
+      dispatch({
+        type: types.showError,
+        payload: error.response,
+      });
+    }
+  };
 };
 
 // name=proyect&
 export const getProjectsFilter = (
-  typeOfOrder: string|undefined,
-  tecnologies: string[]|undefined,
-  token: String|null,
-  name: string|undefined,
-  category: string[]|undefined,
-  stateOfProject: string[]|undefined
+  typeOfOrder: string | undefined,
+  tecnologies: string[] | undefined,
+  token: String | null,
+  name: string | undefined,
+  category: string[] | undefined,
+  stateOfProject: string[] | undefined
 ) => {
   return async (dispatch: Dispatch) => {
     try {
@@ -74,7 +75,7 @@ export const getProjectsFilter = (
       }
 
       if (tecnologies) {
-        console.log(tecnologies)
+        console.log(tecnologies);
         let tecnologias: string = "";
         tecnologies.forEach((e: string) => (tecnologias += e + ","));
         //tranforma el array a string con comas
@@ -113,7 +114,7 @@ export const getProjectsFilter = (
       }
 
       let url = `/project`;
-      if (query){
+      if (query) {
         url += `?${query}`;
       }
       const res = await axios.get(url, {
@@ -124,8 +125,14 @@ export const getProjectsFilter = (
         type: types.projectsFilter,
         payload: res.data.projects,
       });
-    } catch (error) {
-      console.log(error);
+    } catch (error:any) {
+      console.log(error.response.data.errors[0].msg);
+      if (error.response.status === 401) {
+        dispatch({
+          type: types.clearAuthLogin,
+          payload:error.response.status,
+        });
+      }
     }
   };
 };
