@@ -19,6 +19,15 @@ import { ProjectPage } from "../pages/ProjectPage";
 import ContactForm from "../pages/ContactForm";
 import { ForgotPassword } from "../components/auth/ForgotPaswword";
 import { PasswordRecover } from "../components/auth/PasswordRecover";
+import Ale from '../pages/Profiles/Ale';
+import Ampi from '../pages/Profiles/Ale';
+import Brian from '../pages/Profiles/Ale';
+import Hugo from '../pages/Profiles/Ale';
+import Jona from '../pages/Profiles/Ale';
+import Nachito from '../pages/Profiles/Ale';
+import Nacho from '../pages/Profiles/Ale';
+import Sil from '../pages/Profiles/Ale';
+
 
 export const AppRouter = () => {
   return (
@@ -114,13 +123,24 @@ export const AppRouter = () => {
             }
           />
           <Route
-            path="/contact"
+            path='/contact'
             element={
               // <PrivateRoute>
               <ContactForm />
               // </PrivateRoute>
             }
           />
+
+          {/* PROFILE ROUTES */}
+
+          <Route path='/Ale' element={<Ale />} />
+          <Route path='/Ampi' element={<Ampi />} />
+          <Route path='/Brian' element={<Brian />} />
+          <Route path='/Hugo' element={<Hugo />} />
+          <Route path='/Jona' element={<Jona />} />
+          <Route path='/Nachito' element={<Nachito />} />
+          <Route path='/Nacho' element={<Nacho />} />
+          <Route path='/Sil' element={<Sil />} />
 
           <Route path="/forgotPassword" element={<ForgotPassword />} />
 

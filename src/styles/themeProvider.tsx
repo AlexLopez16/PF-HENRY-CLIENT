@@ -6,29 +6,18 @@ const customThemProvider = createTheme({
       light: '#000',
       main: '#FFFF01',
       dark:'#fff',
+      contrastText: '#000'
       
     },
     secondary: {
-      light: '#000',
-      main: '#000',
-      dark:'#fff',
+      light: '#fff',
+      main: '#fff',
+      dark:'#FFFF01',
+      contrastText: '#000'
     },
   },
   
-  typography: {
-    fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Montserrat',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(','),
-  },
+
 });
 
 const theme = responsiveFontSizes(customThemProvider);

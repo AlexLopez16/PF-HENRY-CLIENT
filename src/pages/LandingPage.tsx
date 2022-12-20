@@ -2,15 +2,12 @@ import { FC } from 'react';
 import { Button, Typography, Box } from '@mui/material';
 import { useNavigate } from 'react-router';
 import nabijashbg from '../../public/assets/nabijashbg.png';
-import ContactForm from './ContactForm';
 import Header from '../components/NavbarLandingPage/HeaderLanding';
+
 
 const LandingPage: FC = () => {
   const navigate = useNavigate();
 
-  const signInClick = () => {
-    navigate('/login');
-  };
   const studentClick = () => {
     navigate('/signup/student');
   };
@@ -33,19 +30,7 @@ const LandingPage: FC = () => {
             pt: 10,
             pr: 20,
           }}
-        >
-          <Button
-            size='small'
-            variant='contained'
-            onClick={signInClick}
-            sx={{
-              color: 'black',
-              borderRadius: '10px',
-            }}
-          >
-            Ingresar
-          </Button>
-        </Box>
+        ></Box>
 
         <Box
           sx={{
@@ -61,7 +46,7 @@ const LandingPage: FC = () => {
 
             <Typography
               variant='h4'
-              sx={{ textAlign: 'center', pt: 20, color: 'white' }}
+              sx={{ textAlign: 'center', pt: 20, color: 'white', fontFamily: 'poppins' }}
             >
               OPORTUNIDADES PARA TODOS
             </Typography>
@@ -75,31 +60,26 @@ const LandingPage: FC = () => {
               pb: 5,
               textAlign: 'center',
               color: 'white',
+              fontFamily:'montserrat'
             }}
           >
             NABIJASH ofrece una herramienta para que empresas y estudiantes se
             puedan conectar de forma segura y generar crear relaciones
             profesionales con grandes oportunidades laborales
           </Typography>
+
           <Button
             size='small'
             variant='contained'
             onClick={studentClick}
             sx={{
               borderRadius: '10px',
+              p: 1,
+              mr: 2,
             }}
           >
             Ser parte del proyecto
           </Button>
-
-          <Typography
-            sx={{
-              px: 2,
-              color: 'white',
-            }}
-          >
-            o
-          </Typography>
 
           <Button
             size='small'
@@ -108,6 +88,7 @@ const LandingPage: FC = () => {
             sx={{
               color: 'black',
               borderRadius: '10px',
+              ml: 2,
             }}
           >
             Crear proyecto
@@ -116,10 +97,10 @@ const LandingPage: FC = () => {
 
         <Box
           sx={{
-            backgroundColor: 'black',
             pb: 10,
           }}
         >
+       
           <Typography
             variant='h4'
             sx={{
@@ -132,6 +113,7 @@ const LandingPage: FC = () => {
           >
             EL OBJETIVO
           </Typography>
+      
           <Box
             sx={{
               textAlign: 'right',
@@ -311,6 +293,7 @@ const LandingPage: FC = () => {
                 flexDirection: 'row',
                 flexWrap: 'wrap',
                 color: '#fcf75e',
+                fontFamily: 'montserrat'
               }}
             >
               Otorgar a las empresas un punto de encuentro rápido y sencillo de
@@ -321,9 +304,27 @@ const LandingPage: FC = () => {
               entre si y crear vinculos profesionales.
             </Typography>
           </Box>
+          <Box
+            sx={{
+              justifyContent: 'center',
+              display: 'flex',
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              pt: '100px'
+            }}
+          >
+            <img
+              src='../../public/assets/s.webp'
+              style={{
+                height: '350px',
+                borderRadius: '50px',
+                boxShadow:
+                  'rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px',
+              }}
+            />
+          </Box>
         </Box>
       </Box>
-
     </>
   );
 };
