@@ -8,7 +8,6 @@ import { ThemeProvider } from '@mui/material/styles';
 import theme from './styles/themeProvider';
 import Footer from './pages/Footer';
 
-
 function App() {
   return (
     <Provider store={store}>
@@ -19,7 +18,7 @@ function App() {
           {/* <LoginScreen /> */}
 
           <AppRouter />
-          
+
           <Footer />
         </div>
       </ThemeProvider>
