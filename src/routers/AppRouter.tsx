@@ -18,13 +18,13 @@ import { Register } from '../pages/PageRegister';
 import { ProjectPage } from '../pages/ProjectPage';
 import ContactForm from '../pages/ContactForm';
 import Ale from '../pages/Profiles/Ale';
-import Ampi from '../pages/Profiles/Ale';
-import Brian from '../pages/Profiles/Ale';
-import Hugo from '../pages/Profiles/Ale';
-import Jona from '../pages/Profiles/Ale';
-import Nachito from '../pages/Profiles/Ale';
-import Nacho from '../pages/Profiles/Ale';
-import Sil from '../pages/Profiles/Ale';
+import Ampi from '../pages/Profiles/Ampi';
+import Brian from '../pages/Profiles/Brian';
+import Hugo from '../pages/Profiles/Hugo';
+import Jona from '../pages/Profiles/Jona';
+import Nachito from '../pages/Profiles/Nachito';
+import Nacho from '../pages/Profiles/Nacho';
+import Sil from '../pages/Profiles/Sil';
 
 
 export const AppRouter = () => {
