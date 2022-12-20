@@ -26,12 +26,11 @@ import { Autocomplete } from 'formik-mui';
 
 import { newProject } from '../../actions/projects';
 
-
-import { spanStyle, typographyStyle } from '../../styles/Profile/SkillsFormStyles';
-import SearchBar from '../ui/SearchBar';
-
+import {
+    spanStyle,
+    typographyStyle,
+} from '../../styles/Profile/SkillsFormStyles';
 import Error from '../ui/Error';
-
 
 const ProjectForm: FC = () => {
     const nParticipants = [...Array(8)].map((_, index) => index + 1);
