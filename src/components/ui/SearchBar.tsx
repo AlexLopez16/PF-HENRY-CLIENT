@@ -1,8 +1,14 @@
 import { FC } from "react";
-import { Box, Input, Typography } from '@mui/material';
+import { Box, Button, Input, Typography } from '@mui/material';
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
+import ProjectForm from "../project/ProjectForm";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { State } from "../../reducers/rootReducer";
+import AccountMenu from "../AdminBar/AdminBar";
+
 
 
 
@@ -33,6 +39,11 @@ const SearchBar: FC = () => {
     const handleSubmit = () => {
         !search ? alert('no se ingreso un busqueda') : <></>
     }
+
+    const { rol } = useSelector((state: State) => state.auth.data);
+    
+    let role = rol
+
     return (
         <>
           <Box display='flex' 
@@ -68,8 +79,7 @@ const SearchBar: FC = () => {
                         <SearchIcon/>
                     </IconButton>
                 </form>
-
-
+            <AccountMenu/>
         </Box>
         </>
     )

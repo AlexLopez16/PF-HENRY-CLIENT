@@ -30,6 +30,8 @@ export const authReducer = (state: State = initialState, action: Action) => {
         case types.authLogin:
             const { status }: any = action.payload;
             const { id, rol }: any = action.payload.data
+            console.log(rol);
+            
             return {
                 ...state,
                 logged: status === 200 ? true : false,

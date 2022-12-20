@@ -6,10 +6,12 @@ export const startLogin = (values: object) => {
     return async (dispatch: Dispatch) => {
         try {
             const { data, status } = await axios.post('/auth', values)
-            const { token } = data;
+            const { token, id, rol} = data;
+            console.log(rol);
+            
             if (status) {
                 localStorage.setItem('token', token);
-                dispatch(login({ data, status }))
+                dispatch(login({ data:{id, rol} , status }))
             }
         } catch (error: any) {
             dispatch({

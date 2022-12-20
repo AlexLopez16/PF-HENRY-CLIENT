@@ -9,6 +9,7 @@ import { Grid, Button, Paper, FormControlLabel, Radio, RadioGroup, SelectChangeE
 import { newProject } from '../../actions/projects';
 
 import { spanStyle, typographyStyle } from '../../styles/Profile/SkillsFormStyles';
+import SearchBar from '../ui/SearchBar';
 
 
 const ProjectForm: FC = () => {

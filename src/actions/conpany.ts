@@ -1,6 +1,6 @@
 import  axios  from "axios";
 import { Dispatch } from "redux";
-import {types} from "../types/types"
+import { types } from "../types/types"
 
 
 export const registerCompany= (values:Object
