@@ -72,9 +72,13 @@ export const LoginScreen: FC = () => {
                         <h2 style={{ fontFamily: 'Roboto' }}>Ingresa</h2>
                     </Grid>
                     {/* <GoogleLogin /> */}
-                    <GoogleLogin
+                    <div style={{marginTop:'10px'}}>
+                    <GoogleLogin width='340px'
+                      logo_alignment="center"
+                      theme='outline'
+                      type='standard'
                         onSuccess={credentialResponse => {
-                            dispatch(gmailLogin(credentialResponse.credential));
+                            dispatch(gmailLogin(credentialResponse.credential,undefined));
                             
                         }}
                         onError={() => {
@@ -82,7 +86,9 @@ export const LoginScreen: FC = () => {
                         }}
                         text='continue_with'
                         auto_select={false}
+                        
                     />
+                    </div>
                     <GitHubLogin />
                     <Divider>
                         <span style={{ color: '#8d8a8a' }}>O</span>
@@ -150,7 +156,7 @@ export const LoginScreen: FC = () => {
                                 </FormControl>
 
                                 <Typography fontSize='11px' textAlign='right' mb='10px'>
-                                    <Link href='#forgot' color='inherit'>
+                                    <Link  href='/forgotPassword' color='inherit'>
                                         ¿Olvidaste tu contraseña?
                                     </Link>
                                 </Typography>
