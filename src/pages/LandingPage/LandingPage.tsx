@@ -222,11 +222,10 @@ const LandingPage: FC = () => {
                 fontFamily: 'montserrat',
               }}
             >
-              Nuestra propuesta es brindar a los alumnos la oportunidad de
-              adquirir experiencia en proyectos reales y colaborar con talento
-              digital a PyMES, Emprendedores, Asociaciones u ONG’s. Podrán
-              disponer de un equipo de #Programadores y/o #DataScientists con
-              dedicación full-time.
+              Lograr que empresas y estudiantes se
+              conecten, por eso queremos ayudar directamente a esos talentos
+              nacientes del bootcamp y compañias que estén dispuestas a
+              participar de esta nueva propuesta.
             </Typography>
           </Box>
           <Box
@@ -256,7 +255,7 @@ const LandingPage: FC = () => {
               Como usuarios, los estudiantes tendrán a disposicion todos los
               conocimientos y skills que la empresa solicita para sus distintos
               puestos a cubrir. En la plataforma tendrán filtros de experiencia,
-              idiomas y demás conocimientos habituales que son requeridos en el mundo IT-
+              idiomas y demás conocimientos habituales que son requeridos en el mundo IT.
             </Typography>
             <Box
               sx={{
@@ -487,7 +486,7 @@ const LandingPage: FC = () => {
                     color: '#ffff01',
                   }}
                 >
-                  RESPETO
+                  FLEXIBILIDAD
                 </Typography>
                 <Typography
                   sx={{
@@ -502,9 +501,7 @@ const LandingPage: FC = () => {
                     px: 2,
                   }}
                 >
-                  Somos relajados (y hasta políticamente incorrectos) pero
-                  siempre nos movemos con respeto hacia los demás: hay un lugar
-                  y un momento para todo.
+                 No le tememos al cambio. Por eso no entramos en crisis cuando lo vivimos: reconocemos los desafíos y los transformamos en oportunidades.
                 </Typography>
               </Box>
             </Box>
