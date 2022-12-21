@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import LandingPage from '../pages/LandingPage';
+import LandingPage from '../pages/LandingPage/LandingPage';
 import StudensForm from '../components/student/StudentForm';
 import CompanyForm from '../components/company/CompanyForm';
 import ProjectDetail from '../components/project/ProjectDetail';
@@ -7,7 +7,7 @@ import ProjectDetail from '../components/project/ProjectDetail';
 import DashboardPage from '../pages/DashboardPage';
 import { Profile } from '../components/student/profile/Profile';
 import { LoginScreen } from '../components/auth/LoginScreen';
-import AboutUsPage from '../pages/AboutUsPage';
+import AboutUsPage from '../pages/LandingPage/AboutUsPage';
 import { PublicRoute } from './PublicRoute';
 import { PrivateRoute } from './PrivateRoute';
 import ProjectForm from '../components/project/ProjectForm';
@@ -17,7 +17,7 @@ import { HomePage } from '../pages/HomePage';
 import NavBar from '../components/NavBar/NavBar';
 import { Register } from '../pages/PageRegister';
 import { ProjectPage } from '../pages/ProjectPage';
-import ContactForm from '../pages/ContactForm';
+import ContactForm from '../pages/LandingPage/ContactForm';
 import { ForgotPassword } from '../components/auth/ForgotPaswword';
 import { PasswordRecover } from '../components/auth/PasswordRecover';
 import Ale from '../pages/Profiles/Ale';
@@ -32,169 +32,165 @@ import { Button } from '@mui/material';
 import MyProject from '../components/student/MyProject';
 
 export const AppRouter = () => {
-    const rol = localStorage.getItem('rol');
+  const rol = localStorage.getItem('rol');
 
-    return (
-        <BrowserRouter>
-            <div>
-                <Routes>
-                    <Route path="/" element={<LandingPage />} />
+  return (
+    <BrowserRouter>
+      <div>
+        <Routes>
+          <Route path='/' element={<LandingPage />} />
 
-                    <Route
-                        path="/login"
-                        element={
-                            <PublicRoute>
-                                <LoginScreen />
-                            </PublicRoute>
-                        }
-                    />
+          <Route
+            path='/login'
+            element={
+              <PublicRoute>
+                <LoginScreen />
+              </PublicRoute>
+            }
+          />
 
-                    <Route
-                        path="/signup/student"
-                        element={
-                            <PublicRoute>
-                                <StudensForm />
-                            </PublicRoute>
-                        }
-                    />
-                    <Route
-                        path="/signup/company"
-                        element={
-                            <PublicRoute>
-                                <CompanyForm />
-                            </PublicRoute>
-                        }
-                    />
+          <Route
+            path='/signup/student'
+            element={
+              <PublicRoute>
+                <StudensForm />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path='/signup/company'
+            element={
+              <PublicRoute>
+                <CompanyForm />
+              </PublicRoute>
+            }
+          />
 
-                    <Route
-                        path="/home"
-                        element={
-                            <PrivateRoute>
-                                <HomePage />
-                            </PrivateRoute>
-                        }
-                    />
+          <Route
+            path='/home'
+            element={
+              <PrivateRoute>
+                <HomePage />
+              </PrivateRoute>
+            }
+          />
 
-                    <Route
-                        path="/dashboard"
-                        element={
-                            <PrivateRoute>
-                                <NavBar />
-                                <DashboardPage />
-                            </PrivateRoute>
-                        }
-                    />
+          <Route
+            path='/dashboard'
+            element={
+              <>
+                <NavBar />
+                <PrivateRoute>
+                  <DashboardPage />
+                </PrivateRoute>
+              </>
+            }
+          />
 
-                    <Route
-                        path="/projects"
-                        element={
-                            // <PrivateRoute>
-                            <>
-                                <NavBar />
-                                <DashboardPage />
-                            </>
-                            // </PrivateRoute>
-                        }
-                    />
+          <Route
+            path='/projects'
+            element={
+              // <PrivateRoute>
+              <>
+                <NavBar />
+                <DashboardPage />
+              </>
+              // </PrivateRoute>
+            }
+          />
 
-                    <Route
-                        path="/myproject"
-                        element={
-                            // <PrivateRoute>
-                            <>
-                                <NavBar />
-                                <MyProject />
-                            </>
-                            // </PrivateRoute>
-                        }
-                    />
+          <Route
+            path='/myproject'
+            element={
+              // <PrivateRoute>
+              <>
+                <NavBar />
+                <MyProject />
+              </>
+              // </PrivateRoute>
+            }
+          />
 
-                    <Route
-                        path="/register"
-                        element={
-                            <PublicRoute>
-                                <Register />
-                            </PublicRoute>
-                        }
-                    />
+          <Route
+            path='/register'
+            element={
+              <PublicRoute>
+                <Register />
+              </PublicRoute>
+            }
+          />
 
-                    <Route
-                        path="/project"
-                        element={
-                            <PrivateRoute>
-                                <ProjectPage />
-                            </PrivateRoute>
-                        }
-                    />
+          <Route
+            path='/project'
+            element={
+              <PrivateRoute>
+                <ProjectPage />
+              </PrivateRoute>
+            }
+          />
 
-                    <Route
-                        path="/newproject"
-                        element={
-                            // <PrivateRoute>
-                            <ProjectForm />
-                            // </PrivateRoute>
-                        }
-                    />
+          <Route
+            path='/newproject'
+            element={
+              // <PrivateRoute>
+              <ProjectForm />
+              // </PrivateRoute>
+            }
+          />
 
-                    <Route
-                        path="/requests"
-                        element={
-                            // <PrivateRoute>
-                            <>
-                                <NavBar />
-                                <MyProject />
-                            </>
-                            // </PrivateRoute>
-                        }
-                    />
+          <Route
+            path='/requests'
+            element={
+              // <PrivateRoute>
+              <>
+                <NavBar />
+                <MyProject />
+              </>
+              // </PrivateRoute>
+            }
+          />
 
-                    <Route
-                        path="/aboutUs"
-                        element={
-                            // <PrivateRoute>
-                            <AboutUsPage />
-                            // </PrivateRoute>
-                        }
-                    />
-                    <Route
-                        path="/landing"
-                        element={
-                            // <PrivateRoute>
-                            <LandingPage />
-                            // </PrivateRoute>
-                        }
-                    />
-                    <Route
-                        path="/contact"
-                        element={
-                            // <PrivateRoute>
-                            <ContactForm />
-                            // </PrivateRoute>
-                        }
-                    />
+          <Route
+            path='/aboutUs'
+            element={
+              // <PrivateRoute>
+              <AboutUsPage />
+              // </PrivateRoute>
+            }
+          />
+          <Route
+            path='/landing'
+            element={
+              // <PrivateRoute>
+              <LandingPage />
+              // </PrivateRoute>
+            }
+          />
+          <Route
+            path='/contact'
+            element={
+              // <PrivateRoute>
+              <ContactForm />
+              // </PrivateRoute>
+            }
+          />
 
-                    {/* PROFILE ROUTES */}
+          {/* PROFILE ROUTES */}
 
-                    <Route path="/Ale" element={<Ale />} />
-                    <Route path="/Ampi" element={<Ampi />} />
-                    <Route path="/Brian" element={<Brian />} />
-                    <Route path="/Hugo" element={<Hugo />} />
-                    <Route path="/Jona" element={<Jona />} />
-                    <Route path="/Nachito" element={<Nachito />} />
-                    <Route path="/Nacho" element={<Nacho />} />
-                    <Route path="/Sil" element={<Sil />} />
+          <Route path='/Ale' element={<Ale />} />
+          <Route path='/Ampi' element={<Ampi />} />
+          <Route path='/Brian' element={<Brian />} />
+          <Route path='/Hugo' element={<Hugo />} />
+          <Route path='/Jona' element={<Jona />} />
+          <Route path='/Nachito' element={<Nachito />} />
+          <Route path='/Nacho' element={<Nacho />} />
+          <Route path='/Sil' element={<Sil />} />
 
-                    <Route
-                        path="/forgotPassword"
-                        element={<ForgotPassword />}
-                    />
+          <Route path='/forgotPassword' element={<ForgotPassword />} />
 
-                    <Route
-                        path="/recoverPassword"
-                        element={<PasswordRecover />}
-                    />
-                </Routes>
-            </div>
-        </BrowserRouter>
-    );
+          <Route path='/recoverPassword' element={<PasswordRecover />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
+  );
 };
