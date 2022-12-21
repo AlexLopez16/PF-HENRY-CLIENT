@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProject, getProjectsFilter } from "../../actions/projects";
+import { getCategory, getProject, getProjectsFilter } from "../../actions/projects";
 import ProjectCard from "../project/ProjectCard";
 import { State } from "../../reducers/rootReducer";
 import Autocomplete from "@mui/material/Autocomplete";
@@ -40,6 +40,7 @@ const DashboardStudent: FC = () => {
         inputFilter.state
       )
     );
+    dispatch(getCategory(token))
   }, [dispatch, token, inputFilter]);
   // interface props {
   //   description?: string
@@ -52,7 +53,9 @@ const DashboardStudent: FC = () => {
   //   stateOfProject: string
 
   // }
-  const categorys = ["desarrollo web", "data science", "Desarrollo Movil"];
+
+  const { category} = useSelector((state: State) => state.project);
+  const categorys = category;
 
   const tecnologias = [
     "Python",
@@ -80,6 +83,8 @@ const DashboardStudent: FC = () => {
   // const { projects } = useSelector((state: State) => state.project);
 
   const { projectsFilter } = useSelector((state: State) => state.project);
+  let info = projectsFilter;
+  
 
   const {status} = useSelector((state: State) => state.auth);
 //   console.log('logged', logged);
@@ -92,7 +97,7 @@ const DashboardStudent: FC = () => {
     return <Navigate to='/login' />
  }   
 
-  let info = projectsFilter;
+  
 
   const handlerchange = (e: string, value: any) => {
     if (e === "e") {

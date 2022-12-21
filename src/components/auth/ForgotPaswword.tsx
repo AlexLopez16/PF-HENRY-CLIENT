@@ -16,8 +16,7 @@ import {
 import { paperStyle } from "../../styles/Profile/HeaderStyles";
 import { ErrorMessage, Field, Form, Formik, FormikValues } from "formik";
 import * as yup from "yup";
-import { GridEvents } from "@mui/x-data-grid";
-import { AlignHorizontalCenter } from "@mui/icons-material";
+
 
 export const ForgotPassword: FC = () => {
   const [sendRequest, setSendRequest] = useState(false);
@@ -31,7 +30,6 @@ export const ForgotPassword: FC = () => {
   const onSubmit = (valores: string, { resetForm }) => {
     resetForm();
     console.log(valores);
-    console.log("hola");
     setSendRequest(true);
     setTimeout(() => 
       setSendRequest(false), 5000

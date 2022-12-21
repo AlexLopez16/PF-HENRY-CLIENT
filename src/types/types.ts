@@ -13,6 +13,7 @@ export const types = {
     getProjects: '[project] Get Projects',
     projectsFilter: '[projects], get filtered projects',
     getProjectById: '[project] Get Project By Id',
+    getCategory:'[project] Get Category',
 
     showError: '[error] Show Error',
     clearError: '[error] Clear Error',

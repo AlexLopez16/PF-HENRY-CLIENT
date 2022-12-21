@@ -136,3 +136,20 @@ export const getProjectsFilter = (
     }
   };
 };
+
+export const getCategory = (token: string) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      const res = await axios.get("/project/category", {
+        headers: { "user-token": token },
+      });
+      console.log(res.data)
+      dispatch({
+        type: types.getCategory,
+        payload: res.data,
+      });
+    } catch (error: any) {
+      console.log(error.res.data);
+    }
+  };
+};

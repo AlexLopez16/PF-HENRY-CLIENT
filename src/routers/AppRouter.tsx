@@ -34,7 +34,7 @@ export const AppRouter = () => {
     <BrowserRouter>
       <div>
         <Routes>
-          <Route path="/" element={<LandingPage />} />
+          <Route path="/" element={<LandingPage/>} />
 
           <Route
             path="/login"
