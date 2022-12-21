@@ -1,8 +1,10 @@
 import { Box, Button, FormControl, TextField, Typography } from '@mui/material';
-import Header from '../components/NavbarLandingPage/HeaderLanding';
+import { FormEvent } from 'react';
+import Header from '../../components/NavbarLandingPage/HeaderLanding';
+import Footer from './Footer';
 
 export default function ContactForm() {
-  const handleOnChange = (e) => {
+  const handleOnChange = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
 
@@ -98,6 +100,7 @@ export default function ContactForm() {
           </FormControl>
         </Box>
       </form>
+      <Footer />
     </>
   );
 }
