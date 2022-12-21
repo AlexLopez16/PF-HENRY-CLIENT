@@ -8,9 +8,8 @@ axios.defaults.baseURL = import.meta.env.REACT_APP_API || 'http://localhost:3001
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-
-    <GoogleOAuthProvider clientId="316124498443-409fkpen7gaa3drbpcu5lg31mj8oruq8.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT as string}>
       <App />
-    </GoogleOAuthProvider>;
+    </GoogleOAuthProvider>
   </React.StrictMode>
 )

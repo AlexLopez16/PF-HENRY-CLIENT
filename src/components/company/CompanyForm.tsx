@@ -5,15 +5,15 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 
 import {
-  TextField,
-  InputLabel,
-  FormControl,
-  OutlinedInput,
-  InputAdornment,
-  IconButton,
-  SelectChangeEvent,
-  Select,
-  MenuItem,
+    TextField,
+    InputLabel,
+    FormControl,
+    OutlinedInput,
+    InputAdornment,
+    IconButton,
+    SelectChangeEvent,
+    Select,
+    MenuItem,
 } from "@mui/material";
 import { VisibilityOff, Visibility } from "@mui/icons-material";
 
@@ -35,6 +35,7 @@ const CompanyForm: FC = () => {
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
     };
+
     const initialValues = {
         name: "",
         email: "",
@@ -58,7 +59,7 @@ const CompanyForm: FC = () => {
 
     const onSubmit = (values: any) => {
         console.log(values)
-        dispatch(companySingUp({
+        dispatch(registerCompany({
             name: values.name,
             email: values.email,
             password: values.password,
@@ -99,7 +100,9 @@ const CompanyForm: FC = () => {
                                     helperText={
                                         <ErrorMessage name="name">
                                             {(message) => (
-                                                <span style={{ color: "red" }}>{message}</span>
+                                                <span style={{ color: "red" }}>
+                                                    {message}
+                                                </span>
                                             )}
                                         </ErrorMessage>
                                     }

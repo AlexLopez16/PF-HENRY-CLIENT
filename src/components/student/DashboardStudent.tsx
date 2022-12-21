@@ -25,8 +25,8 @@ const DashboardStudent: FC = () => {
 
   // }
 
-  const { projects } = useSelector((state: State) => state.project);
-  const { projectsFilter } = useSelector((state: State) => state.project);
+  const { projects, projectsFilter } = useSelector((state: State) => state.project);
+  // const { projectsFilter } = useSelector((state: State) => state.project);
 
   let info = projectsFilter.length ? projectsFilter : projects
 
