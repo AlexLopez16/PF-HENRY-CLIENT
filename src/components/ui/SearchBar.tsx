@@ -1,14 +1,8 @@
 import { FC } from "react";
-import { Box, Button, Input, Typography } from '@mui/material';
+import { Box, Input, Typography } from '@mui/material';
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
-import ProjectForm from "../project/ProjectForm";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { State } from "../../reducers/rootReducer";
-import AccountMenu from "../AdminBar/AdminBar";
-
 import { useDispatch } from "react-redux";
 import { getProjectsFilter } from "../../actions/projects";
 
@@ -44,11 +38,6 @@ const SearchBar: FC = () => {
         e.preventDefault();
         !search ? alert('no se ingreso un busqueda') : dispatch(getProjectsFilter(undefined,undefined,token,search,undefined,undefined))  
     }
-
-    const { rol } = useSelector((state: State) => state.auth.data);
-    
-    let role = rol
-
     return (
         <>
           <Box display='flex' 
@@ -84,7 +73,8 @@ const SearchBar: FC = () => {
                         <SearchIcon/>
                     </IconButton>
                 </form>
-            <AccountMenu/>
+
+
         </Box>
         </>
     )

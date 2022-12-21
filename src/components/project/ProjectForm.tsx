@@ -25,7 +25,6 @@ import {
 import { Autocomplete } from 'formik-mui';
 
 import { newProject } from '../../actions/projects';
-import SearchBar from '../ui/SearchBar';
 
 import {
     spanStyle,
