@@ -1,15 +1,16 @@
 import {
-  Card,
   CardMedia,
   CardContent,
   Typography,
   Button,
   CardActions,
+  FormControl,
+  Grid,
 } from '@mui/material';
 import { Box, Container } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
 import aboutbg from '../../../public/assets/aboutbg.png';
-import rivo from '../../../public/assets/team/rivo.png';
+
 export default function Ale() {
   const navigate = useNavigate();
 
@@ -17,14 +18,121 @@ export default function Ale() {
     navigate('/AboutUs');
   };
   return (
-    <>
-      <Box
+    <Grid
+      container
+      direction='column'
+      justifyContent='flex-start'
+      alignItems='center'
+      sx={{
+        backgroundImage: `url(${aboutbg})`,
+        height: '870px',
+      }}
+    >
+      <FormControl
         sx={{
-          backgroundImage: `url(${aboutbg})`,
-          height: '1200px',
-          alignItems: 'center',
+          px: 50,
+          mt: 10,
         }}
       >
+        <Typography
+          sx={{
+            textAlign: 'center',
+            color: 'white',
+            fontFamily: 'montserrat',
+            fontSize: '20px',
+            fontStyle: 'italic',
+          }}
+        >
+          "Es muy satisfactorio lograr objetivos, y para ello hay que esforzarse
+          cada día más. Si necesitas ayuda con algo, dime."
+        </Typography>
+      </FormControl>
+      <Box
+        sx={{
+          height: '450px',
+          width: '450px',
+          backgroundColor: '#1b384a',
+          borderRadius: '20px',
+          boxShadow:
+            'box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;',
+          mt: 10,
+        }}
+      >
+        <Typography
+          gutterBottom
+          variant='h5'
+          color='white'
+          fontFamily='montserrat'
+          textAlign='center'
+          marginTop='20px'
+        >
+          Alejandro Lopez
+        </Typography>
+        <CardMedia
+          sx={{
+            height: '300px',
+            width: '300px',
+            borderRadius: '20px',
+            mt: '10px',
+            boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+            ml: 9.3,
+          }}
+          component='img'
+          image='../../public/assets/team/rivo.png'
+          alt='profilephoto'
+        />
+        <CardContent>
+          <Typography
+            gutterBottom
+            variant='subtitle1'
+            color='white'
+            fontFamily='montserrat'
+            textAlign='center'
+          ></Typography>
+          <CardActions
+            sx={{
+              justifyContent: 'center',
+            }}
+          >
+            <Button
+              href='https://github.com/AlexLopez16'
+              rel='noopener noreferrer'
+              target='_blank'
+              size='small'
+              variant='contained'
+              color='secondary'
+              sx={{
+                boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+                fontFamily: 'montserrat',
+                fontWeight: 'bold',
+              }}
+            >
+              GitHub
+            </Button>
+            <Button
+              href='https://www.linkedin.com/in/alexlopzr/'
+              rel='noopener noreferrer'
+              target='_blank'
+              size='small'
+              variant='contained'
+              color='secondary'
+              sx={{
+                boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+                fontFamily: 'montserrat',
+                fontWeight: 'bold',
+              }}
+            >
+              LinkedIn
+            </Button>
+          </CardActions>
+          <Container
+            sx={{
+              textAlign: 'center',
+            }}
+          ></Container>
+        </CardContent>
+      </Box>
+      <FormControl>
         <Button
           onClick={back}
           size='small'
@@ -34,87 +142,13 @@ export default function Ale() {
             boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
             fontFamily: 'montserrat',
             fontWeight: 'bold',
-            mt: 5,
-            justifyContent: 'center',
-            textAlign: ' center',
-            alignItems: 'center',
-            ml: '47.5%',
+            mt: 8,
           }}
         >
           Regresar
         </Button>
-        <Container
-          sx={{
-            px: 12,
-            justifyContent: 'center',
-          }}
-        >
-          <Box
-          sx={{
-            justifyContent: 'center',
-            alignItems: 'center',
-         
-            mt: 10
-          }}>   <Typography
-              sx={{
-                mt: 10,
-                justifyContent: 'center',
-                alignItems: 'center',
-                textAlign: 'center',
-                color: 'white',
-                fontFamily: 'montserrat',
-                fontSize: '20px',
-              }}
-            >
-              Lorem Ipsum es simplemente el texto de relleno de las imprentas y
-              archivos de texto. Lorem Ipsum ha sido el texto de relleno
-              estándar de las industrias desde el año 1500, cuando un impresor
-              (N. del T. persona que se dedica a la imprenta) desconocido usó
-              una galería de textos y los mezcló de tal manera que logró hacer
-              un libro de textos especimen. No sólo sobrevivió 500 años, sino
-              que tambien ingresó como texto de relleno en documentos
-              electrónicos, quedando esencialmente igual al original. Fue
-              popularizado en los 60s con la creación de las hojas "Letraset",
-              las cuales contenian pasajes de Lorem Ipsum, y más recientemente
-              con software de autoedición, como por ejemplo Aldus PageMaker, el
-              cual incluye versiones de Lorem Ipsum.
-            </Typography>
-            <img
-              src='../../public/assets/team/rivo.png'
-              height={400}
-              width={350}
-            />
-            
-          </Box>
-          <Box>
-            <Typography
-              sx={{
-                mt: 10,
-                justifyContent: 'center',
-                alignItems: 'center',
-                textAlign: 'center',
-                color: 'white',
-                fontFamily: 'montserrat',
-                fontSize: '20px',
-              }}
-            >
-              Lorem Ipsum es simplemente el texto de relleno de las imprentas y
-              archivos de texto. Lorem Ipsum ha sido el texto de relleno
-              estándar de las industrias desde el año 1500, cuando un impresor
-              (N. del T. persona que se dedica a la imprenta) desconocido usó
-              una galería de textos y los mezcló de tal manera que logró hacer
-              un libro de textos especimen. No sólo sobrevivió 500 años, sino
-              que tambien ingresó como texto de relleno en documentos
-              electrónicos, quedando esencialmente igual al original. Fue
-              popularizado en los 60s con la creación de las hojas "Letraset",
-              las cuales contenian pasajes de Lorem Ipsum, y más recientemente
-              con software de autoedición, como por ejemplo Aldus PageMaker, el
-              cual incluye versiones de Lorem Ipsum.
-            </Typography>
-          </Box>
-        </Container>
-      </Box>
-    </>
+      </FormControl>
+    </Grid>
   );
 }
 

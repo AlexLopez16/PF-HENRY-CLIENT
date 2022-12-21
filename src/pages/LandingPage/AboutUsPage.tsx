@@ -1,4 +1,3 @@
-import { SignLanguageTwoTone } from '@mui/icons-material';
 import {
   Card,
   CardMedia,
@@ -7,11 +6,12 @@ import {
   Button,
   CardActions,
 } from '@mui/material';
-import { Box, Container } from '@mui/system';
+import { Box } from '@mui/system';
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from '../components/NavbarLandingPage/HeaderLanding';
-import aboutbg from '../../public/assets/aboutbg.png';
+import Header from '../../components/NavbarLandingPage/HeaderLanding';
+import aboutbg from '../../../public/assets/aboutbg.png';
+import Footer from './Footer';
 
 const AboutUsPage: FC = () => {
   const navigate = useNavigate();
@@ -655,6 +655,7 @@ const AboutUsPage: FC = () => {
           </Box>
         </Box>
       </Box>
+      <Footer />
     </>
   );
 };

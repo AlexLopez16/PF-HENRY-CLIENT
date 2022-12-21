@@ -1,82 +1,159 @@
 import {
-    Card,
-    CardMedia,
-    CardContent,
-    Typography,
-    Button,
-    CardActions,
-  } from '@mui/material';
-  import { Box, Container } from '@mui/system';
-  import { FC } from 'react';
-  import { useNavigate } from 'react-router-dom';
-  
-  export default function Ale() {
-    const navigate = useNavigate();
-  
-    const AleClick = () => {
-      navigate('/Ale');
-    };
-    return (
-      <>
-        <Box sx={{ backgroundColor: 'black' }}>
-          <Box
+  CardMedia,
+  CardContent,
+  Typography,
+  Button,
+  CardActions,
+  FormControl,
+  Grid,
+} from '@mui/material';
+import { Box, Container } from '@mui/system';
+import { useNavigate } from 'react-router-dom';
+import aboutbg from '../../../public/assets/aboutbg.png';
+
+export default function Jona() {
+  const navigate = useNavigate();
+
+  const back = () => {
+    navigate('/AboutUs');
+  };
+  return (
+    <Grid
+      container
+      direction='column'
+      justifyContent='flex-start'
+      alignItems='center'
+      sx={{
+        backgroundImage: `url(${aboutbg})`,
+        height: '870px',
+      }}
+    >
+      <FormControl
+        sx={{
+          px: 50,
+          mt: 10,
+        }}
+      >
+        <Typography
+          sx={{
+            textAlign: 'center',
+            color: 'white',
+            fontFamily: 'montserrat',
+            fontSize: '20px',
+            fontStyle: 'italic',
+          }}
+        >
+          "Soy una persona proactiva en
+          todo sentido, mi objetivo más fuerte es crecer en el ámbito en el que
+          me desarrolle, generar un buen grupo y aportar mi conocimiento pleno
+          para la empresa. Siempre con ganas de aprender día a día y obteniendo
+          resultados óptimos. Me gusta trabajar en equipo, me interesa que todos
+          formemos parte de un mismo objetivo y llegar a tener la satisfacción
+          de un desafío superado. Me considero eficaz en cada tarea a realizar,
+          resolutivo, práctico y rápido."
+        </Typography>
+      </FormControl>
+      <Box
+        sx={{
+          height: '450px',
+          width: '450px',
+          backgroundColor: '#1b384a',
+          borderRadius: '20px',
+          boxShadow:
+            'box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;',
+          mt: 10,
+        }}
+      >
+        <Typography
+          gutterBottom
+          variant='h5'
+          color='white'
+          fontFamily='montserrat'
+          textAlign='center'
+          marginTop='20px'
+        >
+          Jonathan Garcia
+        </Typography>
+        <CardMedia
+          sx={{
+            height: '300px',
+            width: '300px',
+            borderRadius: '20px',
+            mt: '10px',
+            boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+            ml: 9.3,
+          }}
+          component='img'
+          image='../../public/assets/team/jona.png'
+          alt='profilephoto'
+        />
+        <CardContent>
+          <Typography
+            gutterBottom
+            variant='subtitle1'
+            color='white'
+            fontFamily='montserrat'
+            textAlign='center'
+          ></Typography>
+          <CardActions
             sx={{
-              px: 12,
+              justifyContent: 'center',
             }}
           >
-            <Box
+            <Button
+              href='https://github.com/GarciaJona'
+              rel='noopener noreferrer'
+              target='_blank'
+              size='small'
+              variant='contained'
+              color='secondary'
               sx={{
-                flexDirection: 'row',
-                display: 'inline-flex',
-                flexWrap: 'wrap',
-                gap: '100px',
-                pb: 10,
-                pt: 20,
-                pl: 12,
-                alignItems: 'center',
-                justifyContent: 'center',
+                boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+                fontFamily: 'montserrat',
+                fontWeight: 'bold',
               }}
             >
-           <Card
+              GitHub
+            </Button>
+            <Button
+              href='https://www.linkedin.com/in/jonathan-alexis-garcia/'
+              rel='noopener noreferrer'
+              target='_blank'
+              size='small'
+              variant='contained'
+              color='secondary'
               sx={{
-                height: '400px',
-                width: '300px',
-                backgroundColor: '#1b384a',
-                borderRadius: '20px',
-                boxShadow:
-                  'rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;',
+                boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+                fontFamily: 'montserrat',
+                fontWeight: 'bold',
               }}
             >
-              <CardMedia
-           sx={{ height: 260, width: 300 }}
-                component='img'
-                image='../../public/assets/team/jona.png'
-                alt='profilephoto'
-              />
-              <CardContent>
-                <Typography
-                  gutterBottom
-                  variant='h5'
-                  component='div'
-                  color='white'
-                >
-                  Jonathan
-                </Typography>
-                <CardActions>
-                  <Button onClick={Jona} size='small'>
-                    Más info
-                  </Button>
-                </CardActions>
-                <Typography variant='body2' color='white'>
-                  Siempre hay que saber aprovechar las oportunidades que se dan
-                  en nuestro camino. La vida es una sola y el tiempo no se
-                  recupera. Soy perseverante y aplicado a mis objetivos.
-                </Typography>
-              </CardContent>
-            </Card>
-            </Box>
-          </Box>
-        </Box>
-      </>
-    );
-  };
+              LinkedIn
+            </Button>
+          </CardActions>
+          <Container
+            sx={{
+              textAlign: 'center',
+            }}
+          ></Container>
+        </CardContent>
+      </Box>
+      <FormControl>
+        <Button
+          onClick={back}
+          size='small'
+          variant='contained'
+          color='secondary'
+          sx={{
+            boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+            fontFamily: 'montserrat',
+            fontWeight: 'bold',
+            mt: 8,
+          }}
+        >
+          Regresar
+        </Button>
+      </FormControl>
+    </Grid>
+  );
+}

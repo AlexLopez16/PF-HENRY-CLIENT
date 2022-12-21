@@ -3,12 +3,11 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
     <Paper
-      sx={{ bottom: 0, backgroundColor: '#e2e2e2' }}
+      sx={{ bottom: 0, backgroundColor: '#1b384a' }}
       component='footer'
       square
       variant='outlined'
@@ -28,12 +27,12 @@ export default function Footer() {
             justifyContent: 'center',
             display: 'flex',
             pb: 2,
-            backgroundColor: '#e2e2e2',
+            backgroundColor: '#1b384a',
           }}
         >
           <Typography
             sx={{
-              color: 'black',
+              color: 'white',
               fontSize: '20px',
             }}
             variant='caption'

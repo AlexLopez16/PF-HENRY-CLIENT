@@ -1,83 +1,155 @@
 import {
-    Card,
-    CardMedia,
-    CardContent,
-    Typography,
-    Button,
-    CardActions,
-  } from '@mui/material';
-  import { Box, Container } from '@mui/system';
-  import { FC } from 'react';
-  import { useNavigate } from 'react-router-dom';
-  
-  export default function Ale() {
-    const navigate = useNavigate();
-  
-    const AleClick = () => {
-      navigate('/Ale');
-    };
-    return (
-      <>
-        <Box sx={{ backgroundColor: 'black' }}>
-          <Box
+  CardMedia,
+  CardContent,
+  Typography,
+  Button,
+  CardActions,
+  FormControl,
+  Grid,
+} from '@mui/material';
+import { Box, Container } from '@mui/system';
+import { useNavigate } from 'react-router-dom';
+import aboutbg from '../../../public/assets/aboutbg.png';
+
+export default function Brian() {
+  const navigate = useNavigate();
+
+  const back = () => {
+    navigate('/AboutUs');
+  };
+  return (
+    <Grid
+      container
+      direction='column'
+      justifyContent='flex-start'
+      alignItems='center'
+      sx={{
+        backgroundImage: `url(${aboutbg})`,
+        height: '870px',
+      }}
+    >
+      
+      <FormControl
+        sx={{
+          px: 50,
+          mt: 10,
+        }}
+      >
+        <Typography
+          sx={{
+            textAlign: 'center',
+            color: 'white',
+            fontFamily: 'montserrat',
+            fontSize: '20px',
+            fontStyle: 'italic',
+          }}
+        >
+          "Me caracterizo por ser una persona perseverante la cual no sabe
+          rendirse, por más que este casi todo perdido. Mis valores y mi familia
+          son los motivos por los cuales jamas bajaré los brazos."
+        </Typography>
+      </FormControl>
+      <Box
+        sx={{
+          height: '450px',
+          width: '450px',
+          backgroundColor: '#1b384a',
+          borderRadius: '20px',
+          boxShadow:
+            'box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;',
+          mt: 10,
+        }}
+      >
+        <Typography
+          gutterBottom
+          variant='h5'
+          color='white'
+          fontFamily='montserrat'
+          textAlign='center'
+          marginTop='20px'
+        >
+          Brian Paez
+        </Typography>
+        <CardMedia
+          sx={{
+            height: '300px',
+            width: '300px',
+            borderRadius: '20px',
+            mt: '10px',
+            boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+            ml: 9.3,
+          }}
+          component='img'
+          image='../../public/assets/team/brian.png'
+          alt='profilephoto'
+        />
+        <CardContent>
+          <Typography
+            gutterBottom
+            variant='subtitle1'
+            color='white'
+            fontFamily='montserrat'
+            textAlign='center'
+          ></Typography>
+          <CardActions
             sx={{
-              px: 12,
+              justifyContent: 'center',
             }}
           >
-            <Box
+            <Button
+              href=' https://github.com/br1an17'
+              rel='noopener noreferrer'
+              target='_blank'
+              size='small'
+              variant='contained'
+              color='secondary'
               sx={{
-                flexDirection: 'row',
-                display: 'inline-flex',
-                flexWrap: 'wrap',
-                gap: '100px',
-                pb: 10,
-                pt: 20,
-                pl: 12,
-                alignItems: 'center',
-                justifyContent: 'center',
+                boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+                fontFamily: 'montserrat',
+                fontWeight: 'bold',
               }}
             >
-          <Card
+              GitHub
+            </Button>
+            <Button
+              href=' https://www.linkedin.com/in/brian-paez'
+              rel='noopener noreferrer'
+              target='_blank'
+              size='small'
+              variant='contained'
+              color='secondary'
               sx={{
-                height: '400px',
-                width: '300px',
-                backgroundColor: '#1b384a',
-                borderRadius: '20px',
-                boxShadow:
-                  'rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;',
+                boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+                fontFamily: 'montserrat',
+                fontWeight: 'bold',
               }}
             >
-              <CardMedia
-             sx={{ height: 260, width: 300 }}
-                component='img'
-                image='../../public/assets/team/brian.png'
-                alt='profilephoto'
-              />
-              <CardContent>
-                <Typography
-                  gutterBottom
-                  variant='h5'
-                  component='div'
-                  color='white'
-                >
-                  Brian
-                </Typography>
-                <CardActions>
-                  <Button onClick={Brian} size='small'>
-                    Más info
-                  </Button>
-                </CardActions>
-                <Typography gutterBottom variant='body2' color='white'>
-                  Me caracterizo por ser una persona perseverante la cual no
-                  sabe rendirse, por más que este casi todo perdido. Mis valores
-                  y mi familia son los motivos por los cuales jamas bajaré los
-                  brazos.
-                </Typography>
-              </CardContent>
-            </Card>
-            </Box>
-          </Box>
-        </Box>
-      </>
-    );
-  };
+              LinkedIn
+            </Button>
+          </CardActions>
+          <Container
+            sx={{
+              textAlign: 'center',
+            }}
+          ></Container>
+        </CardContent>
+      </Box>
+      <FormControl>
+        <Button
+          onClick={back}
+          size='small'
+          variant='contained'
+          color='secondary'
+          sx={{
+            boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+            fontFamily: 'montserrat',
+            fontWeight: 'bold',
+            mt: 8,
+          }}
+        >
+          Regresar
+        </Button>
+      </FormControl>
+    </Grid>
+  );
+}
