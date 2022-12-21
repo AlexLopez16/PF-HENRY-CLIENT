@@ -135,6 +135,19 @@ export const AppRouter = () => {
                             // </PrivateRoute>
                         }
                     />
+
+                    <Route
+                        path="/requests"
+                        element={
+                            // <PrivateRoute>
+                            <>
+                                <NavBar />
+                                <MyProject />
+                            </>
+                            // </PrivateRoute>
+                        }
+                    />
+
                     <Route
                         path="/aboutUs"
                         element={
