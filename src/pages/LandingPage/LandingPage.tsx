@@ -161,10 +161,11 @@ const LandingPage: FC = () => {
                 fontFamily: 'montserrat',
               }}
             >
-              Nuestro propósito es lograr que empresas y estudiantes se
-              conecten, por eso queremos ayudar directamente a esos talentos
-              nacientes del bootcamp y empresas que estén dispuestas a
-              participar de esta nueva propuesta.
+             Nuestra propuesta es brindar a los alumnos la oportunidad de
+              adquirir experiencia en proyectos reales y colaborar con talento digital a PyMES,
+              Emprendedores, Asociaciones u ONG’s. Podrán disponer de un
+              equipo de #Programadores y/o #DataScientists con dedicación
+              full-time.
             </Typography>
 
             <Box
@@ -255,8 +256,7 @@ const LandingPage: FC = () => {
               Como usuarios, los estudiantes tendrán a disposicion todos los
               conocimientos y skills que la empresa solicita para sus distintos
               puestos a cubrir. En la plataforma tendrán filtros de experiencia,
-              idiomas y demás conocimientos habituales en las busquedas
-              laborales.
+              idiomas y demás conocimientos habituales que son requeridos en el mundo IT-
             </Typography>
             <Box
               sx={{
