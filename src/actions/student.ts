@@ -63,3 +63,18 @@ export const updatePhotoStudent = (id: string, token: string, file: any) => {
         }
     }
 }
+
+export const searchProject = (name: string, token: string) => {
+    return async (dispatch: Dispatch)=> {
+        try {
+            const res = await axios.get(`/student/${name}`, { headers: {'user-token': token } })
+
+            dispatch({
+                type: types.studentSearch,
+                payload: res.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
