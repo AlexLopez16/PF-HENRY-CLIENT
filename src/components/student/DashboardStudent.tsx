@@ -69,6 +69,10 @@ const DashboardStudent: FC = () => {
     "Sql",
     "TypeScript",
     "AWS",
+    "Mongo",
+    "NodeJS",
+    "React",
+    "Postgress"
   ];
 
   const stateOfProject = ["Reclutamiento", "En desarrollo", "Terminado"];
@@ -141,7 +145,7 @@ const DashboardStudent: FC = () => {
           height: "10%",
           padding: 20,
           marginRight: "0px",
-          marginLeft: "29px",
+          marginLeft: "200px",
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "space-between",

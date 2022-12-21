@@ -3,7 +3,7 @@ import LandingPage from '../pages/LandingPage/LandingPage';
 import StudensForm from '../components/student/StudentForm';
 import CompanyForm from '../components/company/CompanyForm';
 import ProjectDetail from '../components/project/ProjectDetail';
-import NavBar from '../components/ui/NavBar';
+// import NavBar from '../components/ui/NavBar';
 import DashboardPage from '../pages/DashboardPage';
 import { Profile } from '../components/student/profile/Profile';
 import { LoginScreen } from '../components/auth/LoginScreen';
@@ -13,7 +13,8 @@ import { PrivateRoute } from './PrivateRoute';
 import ProjectForm from '../components/project/ProjectForm';
 import ProjectCard from '../components/project/ProjectCard';
 import { HomePage } from '../pages/HomePage';
-import { Nabvar } from '../components/maquetas/Nabvar';
+// import { Nabvar } from '../components/maquetas/Nabvar';
+import NavBar from '../components/NavBar/NavBar';
 import { Register } from '../pages/PageRegister';
 import { ProjectPage } from '../pages/ProjectPage';
 import ContactForm from '../pages/LandingPage/ContactForm';
@@ -27,8 +28,12 @@ import Jona from '../pages/Profiles/Jona';
 import Nachito from '../pages/Profiles/Nachito';
 import Nacho from '../pages/Profiles/Nacho';
 import Sil from '../pages/Profiles/Sil';
+import { Button } from '@mui/material';
+import MyProject from '../components/student/MyProject';
 
 export const AppRouter = () => {
+  const rol = localStorage.getItem('rol');
+
   return (
     <BrowserRouter>
       <div>
@@ -73,9 +78,36 @@ export const AppRouter = () => {
           <Route
             path='/dashboard'
             element={
-              <PrivateRoute>
+              <>
+                <NavBar />
+                <PrivateRoute>
+                  <DashboardPage />
+                </PrivateRoute>
+              </>
+            }
+          />
+
+          <Route
+            path='/projects'
+            element={
+              // <PrivateRoute>
+              <>
+                <NavBar />
                 <DashboardPage />
-              </PrivateRoute>
+              </>
+              // </PrivateRoute>
+            }
+          />
+
+          <Route
+            path='/myproject'
+            element={
+              // <PrivateRoute>
+              <>
+                <NavBar />
+                <MyProject />
+              </>
+              // </PrivateRoute>
             }
           />
 
@@ -98,13 +130,26 @@ export const AppRouter = () => {
           />
 
           <Route
-            path='/newProject'
+            path='/newproject'
             element={
               // <PrivateRoute>
               <ProjectForm />
               // </PrivateRoute>
             }
           />
+
+          <Route
+            path='/requests'
+            element={
+              // <PrivateRoute>
+              <>
+                <NavBar />
+                <MyProject />
+              </>
+              // </PrivateRoute>
+            }
+          />
+
           <Route
             path='/aboutUs'
             element={

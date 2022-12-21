@@ -89,9 +89,9 @@ const FiltroDashStudent: FC = () => {
     return (
         <>
             <Box>
-                <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+                {/* <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
                     <FormLabel component="legend">Tecnologias</FormLabel>
-                    <FormGroup>
+                    <FormGroup> */}
                         {/* <FormControlLabel
                             control={
                                 <Checkbox checked={Python} onChange={handleChange} name="Python" />
@@ -105,7 +105,7 @@ const FiltroDashStudent: FC = () => {
                             label="java"
                         /> */}
                         
-                       {tecnologias&&Object.entries(tecnologias).map((t)=> <FormControlLabel control={<Checkbox checked={t[1]} onChange={handleChange} name={t[0]}/> } label={t[0]}/>)} 
+                       {/* {tecnologias&&Object.entries(tecnologias).map((t)=> <FormControlLabel control={<Checkbox checked={t[1]} onChange={handleChange} name={t[0]}/> } label={t[0]}/>)}  */}
                        {/* <FormControlLabel
                             control={
                                 <Checkbox checked={JavaScript} onChange={handleChange} name="JavaScript" />
@@ -131,10 +131,10 @@ const FiltroDashStudent: FC = () => {
                             }
                             label="Sql"
                         /> */}
-                    </FormGroup>
-                </FormControl>
+                    {/* </FormGroup>
+                </FormControl> */}
 
-                <FormControl sx={{ width: "100%", marginTop: 1 }}>
+                {/* <FormControl sx={{ width: "100%", marginTop: 1 }}>
                     <InputLabel id="vacantes-label">Participantes</InputLabel>
                     <Select
                         id="vacantes"
@@ -152,9 +152,9 @@ const FiltroDashStudent: FC = () => {
 
 
                     </Select>
-                </FormControl>
+                </FormControl> */}
 
-                <Button
+                {/* <Button
                     sx={{ marginTop: 5 }}
                     type="submit"
                     variant="contained"
@@ -163,7 +163,7 @@ const FiltroDashStudent: FC = () => {
                     onClick={handlesubmit}
                 >
                     buscar
-                </Button>
+                </Button> */}
             </Box>
 
         </>

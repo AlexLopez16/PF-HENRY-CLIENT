@@ -9,21 +9,19 @@ import theme from './styles/themeProvider';
 import Footer from './pages/LandingPage/Footer';
 
 function App() {
-  return (
-    <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <div className='App'>
-          {/* <Profile /> */}
+    return (
+        <Provider store={store}>
+            <ThemeProvider theme={theme}>
+                <div className="App">
+                    {/* <Profile /> */}
 
-          {/* <LoginScreen /> */}
+                    {/* <LoginScreen /> */}
 
-          <AppRouter />
-
-         
-        </div>
-      </ThemeProvider>
-    </Provider>
-  );
+                    <AppRouter />
+                </div>
+            </ThemeProvider>
+        </Provider>
+    );
 }
 
 export default App;
