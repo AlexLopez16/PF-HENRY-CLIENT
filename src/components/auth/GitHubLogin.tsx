@@ -16,8 +16,9 @@ export const GitHubLogin: FC = () => {
     return (
         <Link href='https://github.com/login/oauth/authorize?client_id=87e69cf79c2019d84894&redirect_uri=http://localhost:3001/api/auth?&scope=user:email' underline='none'>
             <Button
-                variant='outlined'
+                variant='contained'
                 fullWidth
+                color='secondary'
                 style={{ textTransform: 'none', margin: '10px 0px' }}
                 // onClick={login}
             >

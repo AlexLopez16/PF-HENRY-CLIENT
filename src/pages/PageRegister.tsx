@@ -5,36 +5,15 @@ import style from '../styles/register.module.css';
 import registerbg from '../../public/assets/registerbg.png';
 import Header from '../components/NavbarLandingPage/HeaderLanding';
 
-const buttonSignIn = {
-  alignItems: 'center',
-  background: 'black',
-  borderRadius: 8,
-  color: '#ffff01',
-  cursor: 'pointer',
-  fontSize: 14,
-  height: 35,
-  mt: 35,
-  justifyContent: 'center',
-  maxWidth: '100%',
-  position: 'relative',
-  userSelect: 'none',
-  fontWeight: 500,
-  '&:hover': {
-    background: '#ffd700',
-    border: 'none',
-    color: '#272727',
-    TransitionEvent: 1,
-  },
-};
 export const Register: FC = () => {
   return (
     <>
-    <Header/>
+      <Header />
       <Box
         sx={{
           backgroundImage: `url(${registerbg})`,
           height: '940px',
-          textAlign: 'center'
+          textAlign: 'center',
         }}
       >
         <Grid
@@ -66,14 +45,29 @@ export const Register: FC = () => {
           >
             <div className={style.content_left}>
               <Link className={style.link} to='/signup/student'>
-                <Button sx={buttonSignIn} variant='outlined'>
+                <Button
+                  color='primary'
+                  style={{
+                    fontFamily: 'poppins',
+                    marginTop: 280,
+                    position: 'relative',
+                  }}
+                  variant='contained'
+                >
                   Estudiante
                 </Button>
               </Link>
             </div>
             <div className={style.content_right}>
               <Link className={style.link} to='/signup/company'>
-                <Button className={style.buttonRegister} sx={buttonSignIn} variant='outlined'
+                <Button
+                  color='primary'
+                  style={{
+                    fontFamily: 'poppins',
+                    marginTop: 280,
+                    position: 'relative',
+                  }}
+                  variant='contained'
                 >
                   Empresa
                 </Button>
