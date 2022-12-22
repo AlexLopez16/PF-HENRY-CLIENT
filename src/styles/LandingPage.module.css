@@ -1,4 +1,4 @@
-.content_left {
+/* .content_left {
     height: 50vh;
     width:50vw ;
     padding: 1em;
@@ -28,12 +28,12 @@
 }
 
 .content_right {
-    margin: 0 1em;
+
     align-self: center;
     box-shadow: inset 0px 0px 10px 1px #cccac5;
     border-radius: 30% 70% 70% 30% / 30% 30% 70% 70% ;
-    width: 80vh;
-    height: 64vh; 
+    width: 70vh;
+    height: 54vh; 
     background: url(../assets/s.webp);
     background-position: 50%;
     transition: all 1s;
@@ -103,6 +103,6 @@
     100% {
         background-position: 50%;
     }
-}
+} */
 
 

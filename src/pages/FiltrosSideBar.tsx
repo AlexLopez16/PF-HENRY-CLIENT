@@ -41,6 +41,8 @@ const FiltroDashStudent: FC = () => {
 
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        console.log(event.target.name)
+        console.log(event.target.checked)
         setTecnologias({
             ...tecnologias,
             [event.target.name]: event.target.checked,
@@ -65,6 +67,8 @@ const FiltroDashStudent: FC = () => {
         TypeScript,
         AWS,
     } = tecnologias;
+  console.log(tecnologias)
+
 
     const [order, setOrder] = useState()
 
@@ -74,30 +78,35 @@ const FiltroDashStudent: FC = () => {
     }
 
     const handlesubmit = () => {
-
+        console.log(order)
         let tecnologies = Object.keys(tecnologias).filter(el => tecnologias[el] === true);//me devuelve los true
         dispatch(getProjectsFilter(order, tecnologies, token))
     }
 
+    
+    // console.log(Object.entries(tecnologias))
+
     return (
         <>
             <Box>
-                <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+                {/* <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
                     <FormLabel component="legend">Tecnologias</FormLabel>
-                    <FormGroup>
-                        <FormControlLabel
+                    <FormGroup> */}
+                        {/* <FormControlLabel
                             control={
                                 <Checkbox checked={Python} onChange={handleChange} name="Python" />
                             }
                             label="Python"
-                        />
+                        /> */}
                         {/* <FormControlLabel
                             control={
                                 <Checkbox checked={java} onChange={handleChange} name="java" />
                             }
                             label="java"
                         /> */}
-                        <FormControlLabel
+                        
+                       {/* {tecnologias&&Object.entries(tecnologias).map((t)=> <FormControlLabel control={<Checkbox checked={t[1]} onChange={handleChange} name={t[0]}/> } label={t[0]}/>)}  */}
+                       {/* <FormControlLabel
                             control={
                                 <Checkbox checked={JavaScript} onChange={handleChange} name="JavaScript" />
                             }
@@ -121,30 +130,31 @@ const FiltroDashStudent: FC = () => {
                                 />
                             }
                             label="Sql"
-                        />
-                    </FormGroup>
-                </FormControl>
+                        /> */}
+                    {/* </FormGroup>
+                </FormControl> */}
 
-                <FormControl sx={{ width: "100%", marginTop: 1 }}>
-                    <InputLabel id="vacantes-label">vacantes</InputLabel>
+                {/* <FormControl sx={{ width: "100%", marginTop: 1 }}>
+                    <InputLabel id="vacantes-label">Participantes</InputLabel>
                     <Select
                         id="vacantes"
                         labelId="vacantes-label"
                         label="vacantes"
                         name='vacantes'
+                        
 
                         onChange={(e) => { handleOrder(e) }}
                     >
 
-                        <MenuItem value={"mayor"}>mayor</MenuItem>
+                        <MenuItem value={"desc"}>Mayor a Menor</MenuItem>
 
-                        <MenuItem value={"menor"}>menor</MenuItem>
+                        <MenuItem value={"asc"}>Menor a Mayor</MenuItem>
 
 
                     </Select>
-                </FormControl>
+                </FormControl> */}
 
-                <Button
+                {/* <Button
                     sx={{ marginTop: 5 }}
                     type="submit"
                     variant="contained"
@@ -153,7 +163,7 @@ const FiltroDashStudent: FC = () => {
                     onClick={handlesubmit}
                 >
                     buscar
-                </Button>
+                </Button> */}
             </Box>
 
         </>

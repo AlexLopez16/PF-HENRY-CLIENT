@@ -21,6 +21,8 @@ import { VisibilityOff, Visibility } from "@mui/icons-material";
 import { registerCompany } from "../../actions/conpany";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { GoogleLogin } from "@react-oauth/google";
+import { gmailLogin } from "../../actions/auth";
 
 const CompanyForm: FC = () => {
 
@@ -83,6 +85,14 @@ const CompanyForm: FC = () => {
                             Crear cuenta
                         </h5>
                     </Grid>
+                    <GoogleLogin onSuccess={credentialResponse => {
+                            dispatch(gmailLogin(credentialResponse.credential,'company'));
+                        }}
+                        onError={() => {
+                            console.log('Login Failed');
+                        }}
+                        text='continue_with'
+                        auto_select={false}/>
                     <Formik
                         initialValues={initialValues}
                         validationSchema={validationSchema}

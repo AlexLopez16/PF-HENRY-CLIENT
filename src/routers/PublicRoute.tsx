@@ -4,14 +4,10 @@ import { FC } from 'react';
 import { State } from '../reducers/rootReducer';
 
 type Props = {
-    children: JSX.Element
-}
+    children: JSX.Element;
+};
 
 export const PublicRoute: FC<Props> = ({ children }) => {
-
     const { logged } = useSelector((state: State) => state.auth);
-
-    return (logged)
-        ? <Navigate to="/home" />
-        : children
-}
+    return logged ? <Navigate to="/dashboard" /> : children;
+};

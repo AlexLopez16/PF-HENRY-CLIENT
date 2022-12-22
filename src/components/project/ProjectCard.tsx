@@ -16,15 +16,17 @@ import { getProjectByID } from "../../actions/projects";
 
 
 interface CardProjectProps {
+    
     name?: string,
     Description?: string,
     participants?: number
     requirements?: any,
-    students?: number,
+    students:string[]|undefined,
     company?: string,
     state?: boolean
     stateOfProject?: string
     id?: string
+    category?:string
 }
 
 
@@ -36,7 +38,8 @@ const ProjectCard: FC<CardProjectProps> = ({
     students,//los aceptados por la empresa para el project
     company,
     stateOfProject,
-    id
+    id,
+    category
 }: CardProjectProps) => {
 
     const dispatch = useDispatch()
@@ -84,6 +87,7 @@ const ProjectCard: FC<CardProjectProps> = ({
                         Requerimientos: {requirements.join(", ")}
                     </Typography>
                     <Typography variant="subtitle2">Estado: {stateOfProject} </Typography>
+                    <Typography variant="subtitle2">Category: {category} </Typography>
                     <Typography variant="subtitle2"> Participantes: {students.length}/{participants} </Typography>
                 </div>
             </Box>
