@@ -15,6 +15,8 @@ export const DashCompany = () => {
                     margin: '20px',
                     padding: '10px'
                 }}>
+
+
                     <div style={{ display: 'flex', alignItems: 'center', width: '250px', margin: '20px', cursor: 'pointer' }}>
                         <InboxIcon />&nbsp;
                         <span>Mis proyectos publicados</span>
@@ -31,6 +33,11 @@ export const DashCompany = () => {
                     marginTop: '20px',
                     padding: '50px',
                 }}>
+
+                    <button style={{ backgroundColor: '#457b9d', border: 'none', padding: '10px', borderRadius: '10px', color: '#fff', cursor: 'pointer' }}>
+                        CREAR PROYECTO
+                    </button>
+
                     <div style={{ border: '1px solid black', padding: '20px', borderRadius: '10px', marginBottom: '20px' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <h3 style={{ textDecoration: 'underline', cursor: 'pointer' }}> <a href='/project'>Desarrollo de un e-commerce</a> </h3>
@@ -75,7 +82,7 @@ export const DashCompany = () => {
 
                         <br />
                         <div><b>Pais:</b> <span style={{ padding: '3px', borderRadius: ' 5px' }}>México</span></div>
-                        <br/>
+                        <br />
                         <div><b>Habilidades:</b> <span style={{ padding: '3px', borderRadius: ' 5px' }}>Express - Postgress - HTML</span></div>
                     </div>
 
@@ -87,7 +94,7 @@ export const DashCompany = () => {
 
                         <br />
                         <div><b>Pais:</b> <span style={{ padding: '3px', borderRadius: ' 5px' }}>Argentina</span></div>
-                        <br/>
+                        <br />
                         <div><b>Habilidades:</b> <span style={{ padding: '3px', borderRadius: ' 5px' }}>React - Mongo - Node</span></div>
                     </div>
 
@@ -99,7 +106,7 @@ export const DashCompany = () => {
 
                         <br />
                         <div><b>Pais:</b> <span style={{ padding: '3px', borderRadius: ' 5px' }}>Argentina</span></div>
-                        <br/>
+                        <br />
                         <div><b>Habilidades:</b> <span style={{ padding: '3px', borderRadius: ' 5px' }}>React - MaterialUI - TypeScript</span></div>
                     </div>
 
@@ -111,7 +118,7 @@ export const DashCompany = () => {
 
                         <br />
                         <div><b>Pais:</b> <span style={{ padding: '3px', borderRadius: ' 5px' }}>Argentina</span></div>
-                        <br/>
+                        <br />
                         <div><b>Habilidades:</b> <span style={{ padding: '3px', borderRadius: ' 5px' }}>React - MySQL - Express</span></div>
                     </div>
 

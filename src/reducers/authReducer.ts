@@ -10,11 +10,11 @@ interface State {
 }
 
 const initialState = {
-    logged: localStorage.getItem('token') != null,
+    logged: false,
     status: 0,
     data: {
-        id: '',
-        rol: '',
+        id: "",
+        rol: "",
     },
 };
 
@@ -28,22 +28,26 @@ type Action = {
 export const authReducer = (state: State = initialState, action: Action) => {
     switch (action.type) {
         case types.authLogin:
-            console.log(action.payload);
             const { status }: any = action.payload;
-            console.log('en el reducer', status);
-            const { id, rol }: any = action.payload.data
-                ? action.payload.data
-                : {};
+            const { id, rol }: any = action.payload.data ? action.payload.data : {};
             return {
                 ...state,
                 logged: status === 200 ? true : false,
                 status: status,
+                data: { id, rol }
+            };
+
+        case types.clearAuthLogin:
+            console.log("clearAuthLogin", "logged");
+            return { ...state, logged: false, status: action.payload };
                 data: { id, rol },
             };
         case types.clearAuthLogin:
-            console.log('clearAuthLogin', 'logged');
-
-            return { ...state, logged: false, status: action.payload };
+            return { 
+            ...state, 
+            logged: false, 
+            status: action.payload 
+            };
 
         default:
             return state;

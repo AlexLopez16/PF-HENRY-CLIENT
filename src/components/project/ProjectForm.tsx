@@ -2,6 +2,8 @@ import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Autocomplete } from 'formik-mui';
+
 import * as Yup from 'yup';
 
 import {
@@ -18,19 +20,19 @@ import {
     MenuItem,
     Select,
     TextField,
-    Typography,
-    AutocompleteRenderInputParams,
+    FilledInput,
+    IconButton,
+    InputAdornment,
+    TextFieldProps
 } from '@mui/material';
 
-import { Autocomplete } from 'formik-mui';
+import ImageIcon from '@mui/icons-material/Image';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 
 import { newProject } from '../../actions/projects';
-
-import {
-    spanStyle,
-    typographyStyle,
-} from '../../styles/Profile/SkillsFormStyles';
 import Error from '../ui/Error';
+import deleteIcon from "../../assets/delete-icon.svg";
+import { fileUpload } from '../../helpers/fileUpload';
 
 const ProjectForm: FC = () => {
     const nParticipants = [...Array(8)].map((_, index) => index + 1);
@@ -38,9 +40,16 @@ const ProjectForm: FC = () => {
     const dispatch = useDispatch();
 
     const [participants, setParticipants] = useState('1');
-    const [input, setInput] = useState('');
-    const [requirements, setRequirements] = useState<string[]>([]);
     const [category, setCategory] = useState('programacion-web');
+
+    //Upload Images Init
+    interface data {
+        name: string
+        size: number
+    }
+
+    const [images, setImages] = useState<data[]>([])
+    // Upload Images End
 
     const token = localStorage.getItem('token') || '';
 
@@ -52,25 +61,10 @@ const ProjectForm: FC = () => {
         setParticipants(event.target.value);
     };
 
-    const handleClick = () => {
-        setRequirements([...requirements, input]);
-        setInput('');
-    };
-
-    const removeRequirement = (event: React.MouseEvent<HTMLButtonElement>) => {
-        const id = (event.target as HTMLElement).id;
-        const filter = requirements.filter((requirement) => requirement !== id);
-        setRequirements(filter);
-    };
-
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setInput(event.target.value);
-    };
-
     const initialValues = {
         name: '',
         description: '',
-        category: '',
+        requirements: []
     };
 
     const validationSchema = Yup.object().shape({
@@ -80,23 +74,36 @@ const ProjectForm: FC = () => {
         ),
     });
 
-    const onSubmit = (values: any, props: any) => {
+    const onSubmit = async (values: any, props: any) => {
         const listRequeriments: any = values.requirements?.map(
             (e: any) => e.name
         );
+
+        //Cloudinary Images
+        const imagesUrl: string[] = []
+
+        for (const image of images) {
+            await fileUpload(image, 'projects')
+                .then(res => imagesUrl.push(res))
+                .catch(err => console.log(err))
+        }
+
         const data = {
             name: values.name,
             description: values.description,
             participants: participants,
             requirements: listRequeriments,
             category: values?.category || category,
+            images: imagesUrl
         };
+
         dispatch(newProject(data, token));
+
         setTimeout(() => {
             props.resetForm();
             props.setSubmitting(false);
-            setRequirements([]);
             setParticipants('1');
+            setImages([]);
         }, 1000);
     };
 
@@ -106,6 +113,25 @@ const ProjectForm: FC = () => {
         { name: 'React' },
         { name: 'TypeScript' },
     ];
+
+    //Upload Images
+    const handleFilesChange = async (event: React.ChangeEvent<HTMLInputElement | {}>) => {
+        const files = (event.target as HTMLInputElement).files || [];
+        const data = Array.from(files)
+
+        setImages([
+            ...images,
+            ...data
+        ])
+    }
+
+    const imageClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event.preventDefault()
+        const id = (event.target as HTMLButtonElement).id
+        const filter = images.filter(image => image.name !== id)
+        setImages(filter)
+    }
+
     return (
         <div>
             <Error />
@@ -212,74 +238,26 @@ const ProjectForm: FC = () => {
                                     />
                                 )}
 
-                                {/* <div>
-                                    <TextField
-                                        name="requirement"
-                                        label="Requerimientos"
-                                        variant="outlined"
-                                        placeholder="Ejemplo: React"
-                                        value={input}
-                                        size="small"
-                                        onChange={handleInputChange}
-                                        sx={{ mb: 2, mr: 1, width: '79%' }}
-                                    />
-                                    <Button
-                                        variant="contained"
-                                        onClick={handleClick}
-                                        disabled={input === ''}
-                                    >
-                                        Agregar
-                                    </Button>
-                                </div> */}
-
                                 <Field
                                     name="requirements"
-                                    multiple
-                                    size="small"
                                     component={Autocomplete}
                                     options={tecnologies}
-                                    getOptionLabel={(option: any) =>
-                                        option.name
-                                    }
+                                    getOptionLabel={(option: any) => option.name}
+                                    multiple
+                                    size="small"
                                     renderInput={(
-                                        params: AutocompleteRenderInputParams
+                                        // params: AutocompleteRenderInputParams
+                                        params: TextFieldProps
                                     ) => (
                                         <TextField
                                             {...params}
                                             name="requirements"
-                                            label="Select Languajes"
-                                            placeholder="Requires"
+                                            label="Requerimientos"
+                                            placeholder="Requerimientos"
                                         />
                                     )}
                                     sx={{ mb: 2 }}
                                 />
-
-                                <div
-                                    style={{
-                                        width: '96%',
-                                        margin: '0px auto',
-                                        marginBottom: '10px',
-                                        display: 'flex',
-                                        flexWrap: 'wrap',
-                                    }}
-                                >
-                                    {requirements.map((requirement) => (
-                                        <Typography
-                                            key={requirement}
-                                            sx={typographyStyle}
-                                            textAlign="center"
-                                        >
-                                            {requirement}
-                                            <span
-                                                style={spanStyle}
-                                                id={requirement}
-                                                onClick={removeRequirement}
-                                            >
-                                                X
-                                            </span>
-                                        </Typography>
-                                    ))}
-                                </div>
 
                                 <FormControl fullWidth>
                                     <InputLabel id="demo-simple-select-label">
@@ -304,12 +282,52 @@ const ProjectForm: FC = () => {
                                     </Select>
                                 </FormControl>
 
+                                {/* IMAGES */}
+                                <FormControl fullWidth>
+                                    <InputLabel>Images</InputLabel>
+                                    <FilledInput
+                                        disabled
+                                        endAdornment={
+                                            <InputAdornment position="end">
+                                                <IconButton aria-label="upload picture" component="label">
+                                                    <input
+                                                        hidden
+                                                        accept="image/*"
+                                                        multiple
+                                                        type="file"
+                                                        onChange={handleFilesChange}
+                                                    />
+                                                    <FileUploadIcon />
+                                                </IconButton>
+                                            </InputAdornment>
+                                        }
+                                    />
+                                </FormControl>
+
+                                {
+                                    images && (
+                                        images.map(image => (
+                                            <div key={image.name} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#e5e5e5', marginTop: '10px', padding: '10px' }}>
+                                                <ImageIcon />
+                                                <div style={{ fontSize: '12px' }}>
+                                                    <p>{image.name}</p>
+                                                    <p>{image.size / 1000} KB</p>
+                                                </div>
+                                                <button id={image.name} onClick={imageClick} style={{ width: '25px', border: 'none', background: 'inherit', cursor: 'pointer' }}>
+                                                    <img src={deleteIcon} id={image.name} alt='Delete' />
+                                                </button>
+                                            </div>
+                                        ))
+                                    )
+                                }
+
                                 <Button
                                     type="submit"
                                     variant="contained"
                                     fullWidth
                                     color="primary"
                                     disabled={props.isSubmitting}
+                                    sx={{ mt: 2 }}
                                 >
                                     Publicar Proyecto
                                 </Button>
@@ -321,5 +339,6 @@ const ProjectForm: FC = () => {
         </div>
     );
 };
+
 
 export default ProjectForm;
