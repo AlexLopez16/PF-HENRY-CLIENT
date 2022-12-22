@@ -18,8 +18,8 @@ function App() {
 
                     {/* <LoginScreen /> */}
 
-                    {/* <AppRouter /> */}
-                    <ProjectForm />
+                    <AppRouter />
+                    {/* <ProjectForm /> */}
                 </div>
             </ThemeProvider>
         </Provider>
