@@ -8,10 +8,14 @@ import {
     Typography,
 } from '@mui/material';
 import { Link, NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { State } from '../../reducers/rootReducer';
 
 const NavBar: FC = () => {
     // Traemos el rol.
-    const rol = localStorage.getItem('rol');
+    //const rol = localStorage.getItem('rol');
+    const { data } = useSelector((state: State) => state.auth);
+    const rol = data.rol;
 
     // Paths y opciones de boton para el student.
     const studentButtons = [
@@ -81,23 +85,24 @@ const NavBar: FC = () => {
                     {/* <AdbIcon
                         sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
                     /> */}
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="a"
-                        href="/"
-                        sx={{
-                            mr: 2,
-                            display: { xs: 'none', md: 'flex' },
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
-                        }}
-                    >
-                        LOGO
-                    </Typography>
+                    <NavLink style={{ textDecoration: 'none' }} to="/dashboard">
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="a"
+                            sx={{
+                                mr: 2,
+                                display: { xs: 'none', md: 'flex' },
+                                fontFamily: 'monospace',
+                                fontWeight: 700,
+                                letterSpacing: '.3rem',
+                                color: 'inherit',
+                                textDecoration: 'none',
+                            }}
+                        >
+                            LOGO
+                        </Typography>
+                    </NavLink>
 
                     <Box
                         sx={{

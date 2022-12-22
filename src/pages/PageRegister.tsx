@@ -3,22 +3,22 @@ import { Button, Typography, Box, Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
 import style from '../styles/register.module.css';
 import registerbg from '../../public/assets/registerbg.png';
+import Header from '../components/NavbarLandingPage/HeaderLanding';
 
 const buttonSignIn = {
   alignItems: 'center',
-  background: '#272727',
-  border: 2,
+  background: 'black',
   borderRadius: 8,
-  color: '#ffd700',
+  color: '#ffff01',
   cursor: 'pointer',
-  fontSize: 16,
-  height: 48,
+  fontSize: 14,
+  height: 35,
+  mt: 35,
   justifyContent: 'center',
   maxWidth: '100%',
-  p: '0 25px',
   position: 'relative',
   userSelect: 'none',
-  fontWeight: 700,
+  fontWeight: 500,
   '&:hover': {
     background: '#ffd700',
     border: 'none',
@@ -29,42 +29,41 @@ const buttonSignIn = {
 export const Register: FC = () => {
   return (
     <>
+    <Header/>
       <Box
-        height='100vh'
-        display='flex'
-        justifyContent='space-around'
         sx={{
           backgroundImage: `url(${registerbg})`,
+          height: '940px',
+          textAlign: 'center'
         }}
       >
-        {/* <div className={style.card_transition}>
-        <Typography textAlign='center' variant='h4' color='primary'>
-          Como empresa crea un proyecto o como alumno se parte de uno.
-        </Typography>
-      </div>
-        <div className={style.content_left}>
-          <Link className={style.link} to='/signup/student'>
-            <Button sx={buttonSignIn} variant='outlined'>
-              Estudiante
-            </Button>
-          </Link>
-        </div>
-        <div className={style.content_right}>
-          <Link className={style.link} to='/signup/company'>
-            <Button sx={buttonSignIn} variant='outlined'>
-              Empresa
-            </Button>
-          </Link>
-        </div> */}
-      
         <Grid
           container
-          direction='row'
+          direction='column'
           justifyContent='center'
           alignItems='center'
-          textAlign='center'
         >
-          <Grid item xs={4}>
+          <Typography
+            sx={{
+              color: 'white',
+              mt: 20,
+              mb: 10,
+              fontFamily: 'montserrat',
+              fontSize: '25px',
+              textAlign: 'center',
+              justifyContent: 'center',
+              display: 'flex',
+            }}
+          >
+            Como empresa crea un proyecto, o como alumno se parte de uno.
+          </Typography>
+
+          <Grid
+            container
+            direction='row'
+            justifyContent='center'
+            alignItems='center'
+          >
             <div className={style.content_left}>
               <Link className={style.link} to='/signup/student'>
                 <Button sx={buttonSignIn} variant='outlined'>
@@ -72,18 +71,16 @@ export const Register: FC = () => {
                 </Button>
               </Link>
             </div>
-          </Grid>
-          <Grid item xs={3}>
             <div className={style.content_right}>
               <Link className={style.link} to='/signup/company'>
-                <Button sx={buttonSignIn} variant='outlined' color='secondary'>
+                <Button className={style.buttonRegister} sx={buttonSignIn} variant='outlined'
+                >
                   Empresa
                 </Button>
               </Link>
             </div>
           </Grid>
         </Grid>
-        
       </Box>
     </>
   );
