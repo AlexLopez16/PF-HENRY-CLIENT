@@ -23,15 +23,8 @@ export const validaToken = (token: any) => {
                 dispatch(login({ data, status, id, rol }));
             }
         } catch (error: any) {
-            console.log(error);
+            // Cerramos sesion si el usuario no tiene un token valido.
             dispatch(logout());
-            // dispatch({
-            //     type: types.authLogin,
-            //     logged: false,
-            //     payload: {
-            //         status: error.response.status,
-            //     },
-            // });
         }
     };
 };

@@ -28,19 +28,19 @@ const DashboardStudent: FC = () => {
         typeOfOrder: undefined,
         categorie: undefined,
     });
-    // useEffect(() => {
-    //     // dispatch(getProject(token));
-    //     dispatch(
-    //         getProjectsFilter(
-    //             inputFilter.typeOfOrder,
-    //             inputFilter.tecnologies,
-    //             token,
-    //             undefined,
-    //             inputFilter.categorie,
-    //             inputFilter.state
-    //         )
-    //     );
-    // }, [dispatch, token, inputFilter]);
+    useEffect(() => {
+        // dispatch(getProject(token));
+        dispatch(
+            getProjectsFilter(
+                inputFilter.typeOfOrder,
+                inputFilter.tecnologies,
+                token,
+                undefined,
+                inputFilter.categorie,
+                inputFilter.state
+            )
+        );
+    }, [dispatch, token, inputFilter]);
     // interface props {
     //   description?: string
     //   name?: string
