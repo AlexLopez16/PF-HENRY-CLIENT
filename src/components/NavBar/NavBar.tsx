@@ -10,6 +10,7 @@ import {
 import { Link, NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { State } from '../../reducers/rootReducer';
+import AccountMenu from '../AdminBar/AdminBar';
 
 const NavBar: FC = () => {
     // Traemos el rol.
@@ -29,7 +30,7 @@ const NavBar: FC = () => {
         },
         {
             option: 'My Project',
-            path: '/myproject',
+            path: '/myprojects',
         },
     ];
 
@@ -46,6 +47,10 @@ const NavBar: FC = () => {
         {
             option: 'Create Project',
             path: '/newproject',
+        },
+        {
+            option: 'My Projects',
+            path: '/myprojects',
         },
         {
             option: 'Request',
@@ -127,6 +132,7 @@ const NavBar: FC = () => {
                                     </Button>
                                 </NavLink>
                             ))}
+                            <AccountMenu/>
                     </Box>
                 </Toolbar>
             </Container>

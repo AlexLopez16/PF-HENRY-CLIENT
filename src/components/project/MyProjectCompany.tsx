@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { getMyProjectsCompany } from "../../actions/projects";
-import ProjectCard from "../project/ProjectCard";
+import ProjectCard from "./ProjectCard";
 import { State } from "../../reducers/rootReducer";
 
 import { Box } from "@mui/system";
@@ -13,7 +13,7 @@ import { useEffect,FC } from "react";
 //   right: 10,
 //   "&:hover": {},
 // };
-export const ProjectCompany: FC = () => {
+export const MyProjectCompany: FC = () => {
   const dispatch = useDispatch();
   let token: String | null = localStorage.getItem("token");
   useEffect(() => {

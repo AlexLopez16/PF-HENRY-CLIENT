@@ -28,10 +28,10 @@ import Jona from "../pages/Profiles/Jona";
 import Nachito from "../pages/Profiles/Nachito";
 import Nacho from "../pages/Profiles/Nacho";
 import Sil from "../pages/Profiles/Sil";
-import { ProjectCompany } from "../components/project/ProjectCompany";
 
 import MyProject from "../components/student/MyProject";
 import ProjectsPage from "../pages/ProjectsPage";
+import MyProjectsPage from "../pages/MyProjectsPage";
 
 export const AppRouter = () => {
   return (
@@ -91,20 +91,22 @@ export const AppRouter = () => {
             path="/projects"
             element={
               <PrivateRoute>
-              <>
-                <NavBar />
-                <ProjectsPage />
-              </>
+                <>
+                  <NavBar />
+                  <ProjectsPage />
+                </>
               </PrivateRoute>
             }
           />
 
           <Route
-            path="/myproject"
+            path="/myprojects"
             element={
               <PrivateRoute>
-                {/* <NavBar /> */}
-                <MyProject />
+                <>
+                  <NavBar />
+                  <MyProjectsPage />
+                </>
               </PrivateRoute>
             }
           />
