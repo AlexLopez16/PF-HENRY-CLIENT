@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from 'react';
 import { State } from "../../reducers/rootReducer";
 import { getStudentInfo } from "../../actions/student";
+import { useNavigate } from "react-router-dom";
 
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -24,28 +25,26 @@ export default function AccountMenu() {
     setAnchorEl(null);
   };
 
-  const { rol } = useSelector((state: State) => state.auth.data);
-
-    let role = rol
-
     const dispatch = useDispatch()
     const { data } = useSelector((state: State) => state.auth)
-    const { id } = data;
+    const { user } = useSelector((state: State) => state.student)
+    const { id, rol } = data;
     const token = localStorage.getItem('token') || ''
 
+    //TODO: eliminar cuando el mamon de nacho suba sus cambios
     useEffect(()=>{
-      (role === 'STUDENT_ROL')
+      (rol === 'STUDENT_ROL')
       ?dispatch(getStudentInfo(id, token))
       :null
       // dispatch(getConpanyInfo(id, token))
     }
-    , [dispatch])
+    ,[dispatch])
+    const navigate = useNavigate()
     
-
-  interface Props {
-      name: string
-      image: string
-  }
+    const handlerLogout = () => {
+      localStorage.clear()
+      navigate("/landing")
+    }
 
   return (
     <React.Fragment>
@@ -59,7 +58,7 @@ export default function AccountMenu() {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}></Avatar>
+            <Avatar src={user.image} sx={{ width: 32, height: 32 }}></Avatar>
           </IconButton>
         </Tooltip>
       </Box>
@@ -98,24 +97,22 @@ export default function AccountMenu() {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem>
-          <Avatar></Avatar>
-          My account
-
+          <Avatar>{user.name?.slice(0, 1).toUpperCase()}</Avatar>
         </MenuItem>
         <Divider />
         <MenuItem>
           <ListItemIcon>
             <AutoAwesomeMotionIcon fontSize="small" />
           </ListItemIcon>
-          {role === 'STUDENT_ROL' 
+          {rol === 'STUDENT_ROL' 
           ? 'Administrar solicitudes' 
           : 'Administrar proyectos'}
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={handlerLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-          Cerrar sesion
+          Cerrar sesion 
         </MenuItem>
       </Menu>
     </React.Fragment>
