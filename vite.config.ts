@@ -13,7 +13,7 @@ export default defineConfig(({ command, mode }) => {
       'process.env.REACT_APP_API': `'${env.REACT_APP_API}'`
     },
     server: {
-      port : env.PORT as unknown as number 
+      port : env.CLIENT_PORT as unknown as number 
     },
     plugins: [react()]
   }
