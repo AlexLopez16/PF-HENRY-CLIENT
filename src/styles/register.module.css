@@ -1,35 +1,41 @@
 .content_right {
   margin: 0 1em;
   align-self: center;
-  box-shadow: inset 0px 0px 10px 1px #cccac5;
-  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-  width: 40vh;
-  height: 40vh;
-  background: url(https://e7.pngegg.com/pngimages/811/112/png-clipart-vista360health-company-cartoon-comics-illustration-company-cartoon-comics-company.png);
+  
+  border-radius: 10% 10% 10% 10%;
+  width: 35vh;
+  height: 35vh;
+  background: url('../../public/assets/companyLogin.jpg');
   background-position: 50%;
-  transition: all 1s;
+  transition: all 1s ease;
   animation: image-move 1s;
 }
 .content_right:hover {
-  background-position: 40% !important;
+  -webkit-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
+  transition: 1s ease;
 }
 
 .content_left {
   margin: 0 1em;
   align-self: center;
-  box-shadow: inset 0px 0px 10px 1px #cccac5;
-  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-  width: 40vh;
-  height: 40vh;
-  background: url(https://insightssuccess.com/wp-content/uploads/2022/02/Software-Developers.jpg);
+ 
+  border-radius: 10% 10% 10% 10%;
+  width: 35vh;
+  height: 35vh;
+  background: url('../../public/assets/studentLogin.jpg');
   background-position: 50%;
-  transition: all 1s;
+  transition: all 1s ease;
   animation: image-move 1s;
 }
 
 .content_left:hover {
-  background-position: 40% !important;
-}
+  -webkit-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
+  transition: 1s ease;
+  }
 .content_top {
   position: absolute;
 }
