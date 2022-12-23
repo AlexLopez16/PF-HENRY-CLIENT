@@ -84,7 +84,7 @@ const NavBar: FC = () => {
             : null;
 
     return (
-        <AppBar position="static" sx={{ bgcolor: 'white' }}>
+        <AppBar position="sticky" sx={{ bgcolor: '#ffff01' }}>
             <Container maxWidth="lg">
                 <Toolbar disableGutters>
                     {/* <AdbIcon
