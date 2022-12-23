@@ -18,7 +18,7 @@ import {
 import { VisibilityOff, Visibility } from "@mui/icons-material";
 
 
-import { registerCompany } from "../../actions/conpany";
+import { registerCompany } from "../../actions/company";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
@@ -60,7 +60,7 @@ const CompanyForm: FC = () => {
 
     const onSubmit = (values: any) => {
         console.log(values)
-        dispatch(companySingUp({
+        dispatch(registerCompany({
             name: values.name,
             email: values.email,
             password: values.password,

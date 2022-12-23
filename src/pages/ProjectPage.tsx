@@ -8,6 +8,7 @@ import { State } from '../reducers/rootReducer';
 export const ProjectPage = () => {
 
     const { projectId } = useSelector((state: State) => state.project)
+    console.log(projectId)
 
     const {state, students, ...data} = projectId;
 
