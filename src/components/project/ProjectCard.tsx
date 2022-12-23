@@ -99,49 +99,53 @@ const ProjectCard: FC<CardProjectProps> = ({
             </Box>
         </Paper>
     : 
-        
-    <Paper elevation={10} style={{
-        width: '50vh',
-        height: "fit-content",
-        padding: 20,
-        marginLeft: 50,
-        marginTop: 50
-    }}>
 
-        <Typography sx={{ mb: 0.5, display: 'flex', justifyContent: 'space-between' }} variant="h6">
-            {name}
-            <Link to="/project">
-                <Button
-                    sx={{ ml: 'auto', fontWeight: 600, color: "yellow", background: "black", }}
-                    size="small"
-                    color="primary"
-                    variant="text"
-                    onClick={handleClick}
-                >
-                    Mas info
-                </Button>
-            </Link>
-        </Typography>
+    <Box display='flex'>
+            
+        <Paper elevation={10} style={{
+            width: '50vh',
+            height: "fit-content",
+            padding: 20,
+            marginLeft: 50,
+            marginTop: 50
+        }}>
 
-        <Typography sx={{ mb: 0.5 }}>
-            {company?.name}
-        </Typography>
+            <Typography sx={{ mb: 0.5, display: 'flex', justifyContent: 'space-between' }} variant="h6">
+                {name}
+                <Link to="/project">
+                    <Button
+                        sx={{ ml: 'auto', fontWeight: 600, color: "yellow", background: "black", }}
+                        size="small"
+                        color="primary"
+                        variant="text"
+                        onClick={handleClick}
+                    >
+                        Mas info
+                    </Button>
+                </Link>
+            </Typography>
 
-        <Typography sx={{ mb: 0.5 }}>
-            <h2> {description} </h2>
-        </Typography>
+            <Typography sx={{ mb: 0.5 }}>
+                {company?.name}
+            </Typography>
 
-        <Box sx={{ display: 'flex' }}>
-            <div>
-                <Typography variant="subtitle2">
-                    Requerimientos: {requirements.join(", ")}
-                </Typography>
-                <Typography variant="subtitle2">Estado: {stateOfProject} </Typography>
-                <Typography variant="subtitle2">Category: {category} </Typography>
-                <Typography variant="subtitle2"> Participantes: {students?.length}/{participants} </Typography>
-            </div>
-        </Box> 
-    </Paper>
+            <Typography sx={{ mb: 0.5 }}>
+                <h2> {description} </h2>
+            </Typography>
+
+            <Box sx={{ display: 'flex' }}>
+                <div>
+                    <Typography variant="subtitle2">
+                        Requerimientos: {requirements.join(", ")}
+                    </Typography>
+                    <Typography variant="subtitle2">Estado: {stateOfProject} </Typography>
+                    <Typography variant="subtitle2">Category: {category} </Typography>
+                    <Typography variant="subtitle2"> Participantes: {students?.length}/{participants} </Typography>
+                </div>
+            </Box> 
+        </Paper>
+
+    </Box>
 
 }
 

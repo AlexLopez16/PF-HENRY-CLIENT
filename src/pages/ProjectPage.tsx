@@ -4,13 +4,18 @@ import SearchBar from '../components/ui/SearchBar'
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../reducers/rootReducer';
+import { getProjectByID } from '../actions/projects';
 
 export const ProjectPage = () => {
 
+    const dispatch = useDispatch()
     const { projectId } = useSelector((state: State) => state.project)
-    console.log(projectId)
-
     const {state, students, ...data} = projectId;
+    const token = localStorage.getItem('token')
+    
+    useEffect(() => {
+        dispatch(getProjectByID())
+    })
 
     const company = data.company?.name || 'Empresa';
 
