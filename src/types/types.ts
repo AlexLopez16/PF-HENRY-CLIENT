@@ -6,8 +6,10 @@ export const types = {
     studentRegister: '[student] Register Student',
     studentGetInfo: '[student] Get Info Student',
     studentUpdateInfo: '[student] Update Info Student',
+    studentSearch: '[student] Search Company', //-VERIFICAR-//
 
     registerCompany: '[company] Register Company',
+    companySearch: '[company] Serch Company', //-VERIFICAR-//
 
     newProject: '[project] Create New Project',
     getProjects: '[project] Get Projects',

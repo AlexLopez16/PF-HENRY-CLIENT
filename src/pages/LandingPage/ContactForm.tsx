@@ -10,16 +10,17 @@ export default function ContactForm() {
 
   return (
     <>
+    <Box sx={{
+      backgroundColor: 'black'
+    }}>
       <Header />
       <form onSubmit={(e) => handleOnChange(e)}>
         <Box
           component='form'
           sx={{
-            backgroundColor: 'black',
-            px: 70,
-            pb: 10,
-            pt: 25,
-            height: '870px',
+            px: 80,
+           mt: 25,
+           mb:27.9,
           }}
           noValidate
           autoComplete='off'
@@ -101,6 +102,7 @@ export default function ContactForm() {
         </Box>
       </form>
       <Footer />
+      </Box>
     </>
   );
 }

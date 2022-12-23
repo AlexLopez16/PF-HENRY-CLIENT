@@ -39,6 +39,12 @@ export const studentReducer = (state: State = initialState, action: Action) => {
                 user: { ...state.user, ...action.payload }
             }
 
+        case types.studentSearch:
+            return{
+                ...state,
+                user: action.payload
+            }
+
         default:
             return state;
     }

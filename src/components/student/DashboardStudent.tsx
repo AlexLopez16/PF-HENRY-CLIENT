@@ -90,9 +90,9 @@ const DashboardStudent: FC = () => {
     "Postgress",
   ];
 
-  const stateOfProject = ["Reclutamiento", "En desarrollo", "Terminado"];
+    const stateOfProject = ['Reclutamiento', 'En desarrollo', 'Terminado'];
 
-  // const { projects } = useSelector((state: State) => state.project);
+    // const { projects } = useSelector((state: State) => state.project);
 
   const { projectsFilter } = useSelector((state: State) => state.project);
   let info = projectsFilter;
@@ -214,43 +214,47 @@ const DashboardStudent: FC = () => {
           />
         </div>
 
-        <div style={{ width: 255 }}>
-          <Autocomplete
-            onChange={(e, value) => {
-              handlerchange("c", value);
-            }}
-            multiple={true}
-            size="small"
-            id="tags-outlined"
-            options={categorys}
-            getOptionLabel={(option) => option}
-            filterSelectedOptions
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Filtar por Categoría "
-                placeholder="Categoría"
-              />
-            )}
-          />
-        </div>
-        <div style={{ width: 255 }}>
-          <FormControl sx={{ width: "100%", padding: 0 }}>
-            <InputLabel id="vacantes-label" size="small" sx={{ padding: 0 }}>
-              Ordenar por participantes
-            </InputLabel>
-            <Select
-              size="small"
-              sx={{ padding: 0 }}
-              id="vacantes"
-              labelId="vacantes-label"
-              label="vacantes"
-              name="vacantes"
-              onChange={(e, value) => {
-                handlerchange("o", value);
-              }}
-            >
-              <MenuItem value={"desc"}>Mayor a Menor</MenuItem>
+                <div style={{ width: 255 }}>
+                    <Autocomplete
+                        onChange={(e, value) => {
+                            handlerchange('c', value);
+                        }}
+                        multiple={true}
+                        size="small"
+                        id="tags-outlined"
+                        options={categorys}
+                        getOptionLabel={(option) => option}
+                        filterSelectedOptions
+                        renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                label="Filtar por Categoría "
+                                placeholder="Categoría"
+                            />
+                        )}
+                    />
+                </div>
+                <div style={{ width: 255 }}>
+                    <FormControl sx={{ width: '100%', padding: 0 }}>
+                        <InputLabel
+                            id="vacantes-label"
+                            size="small"
+                            sx={{ padding: 0 }}
+                        >
+                            Ordenar por participantes
+                        </InputLabel>
+                        <Select
+                            size="small"
+                            sx={{ padding: 0 }}
+                            id="vacantes"
+                            labelId="vacantes-label"
+                            label="vacantes"
+                            name="vacantes"
+                            onChange={(e, value) => {
+                                handlerchange('o', value);
+                            }}
+                        >
+                            <MenuItem value={'desc'}>Mayor a Menor</MenuItem>
 
               <MenuItem value={"asc"}>Menor a Mayor</MenuItem>
             </Select>
@@ -266,35 +270,35 @@ const DashboardStudent: FC = () => {
         </div>
       </div>
 
-      <Box
-        sx={{
-          pl: 30,
-        }}
-      >
-        {info.length ? (
-          info.map((e: any) => (
-            <ProjectCard
-              name={e.name}
-              participants={e.participants}
-              requirements={e.requirements}
-              students={e.students}
-              company={e.company.name}
-              state={e.state}
-              stateOfProject={e.stateOfProject}
-              id={e.uid}
-              category={e.category}
-            />
-          ))
-        ) : (
-          <Stack sx={{ width: "100%" }} spacing={2}>
-            <Alert severity="info">
-              No hay proyectos con los filtros aplicados!
-            </Alert>
-          </Stack>
-        )}
-      </Box>
-    </div>
-  );
+            <Box
+                sx={{
+                    pl: 30,
+                }}
+            >
+                {info.length ? (
+                    info.map((e: any) => (
+                        <ProjectCard
+                            name={e.name}
+                            participants={e.participants}
+                            requirements={e.requirements}
+                            students={e.students}
+                            company={e.company.name}
+                            state={e.state}
+                            stateOfProject={e.stateOfProject}
+                            id={e.uid}
+                            category={e.category}
+                        />
+                    ))
+                ) : (
+                    <Stack sx={{ width: '100%' }} spacing={2}>
+                        <Alert severity="info">
+                            No hay proyectos con los filtros aplicados!
+                        </Alert>
+                    </Stack>
+                )}
+            </Box>
+        </div>
+    );
 };
 
 export default DashboardStudent;
