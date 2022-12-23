@@ -8,12 +8,11 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip"
 import Logout from "@mui/icons-material/Logout";
-import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import AutoAwesomeMotionIcon from '@mui/icons-material/AutoAwesomeMotion';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from 'react';
 import { State } from "../../reducers/rootReducer";
-import { Link } from "react-router-dom"
-import { Typography } from "@mui/material";
+import { getStudentInfo } from "../../actions/student";
 
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -29,9 +28,28 @@ export default function AccountMenu() {
 
     let role = rol
 
+    const dispatch = useDispatch()
+    const { data } = useSelector((state: State) => state.auth)
+    const { id } = data;
+    const token = localStorage.getItem('token') || ''
+
+    useEffect(()=>{
+      (role === 'STUDENT_ROL')
+      ?dispatch(getStudentInfo(id, token))
+      :null
+      // dispatch(getConpanyInfo(id, token))
+    }
+    , [dispatch])
+    
+
+  interface Props {
+      name: string
+      image: string
+  }
+
   return (
     <React.Fragment>
-      <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
+      <Box sx={{ justifyContent: "right", display: "flex", alignItems: "right", textAlign: "center" }}>
         <Tooltip title ="Account settings">
           <IconButton
             onClick={handleClick}
@@ -80,36 +98,18 @@ export default function AccountMenu() {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem>
-          <Avatar /> My account
+          <Avatar></Avatar>
+          My account
+
         </MenuItem>
         <Divider />
         <MenuItem>
           <ListItemIcon>
             <AutoAwesomeMotionIcon fontSize="small" />
           </ListItemIcon>
-          {role === 'STUDENT_ROL' ? 'Administrar solicitudes' : 'Administrar proyectos'}
-        </MenuItem>
-        <MenuItem>
-          {/* <ListItemIcon>
-            <CreateNewFolderIcon fontSize="small" />
-          </ListItemIcon> */}
           {role === 'STUDENT_ROL' 
-          ? null
-          :  <>
-            <Link to = "/newProject">
-              <ListItemIcon>
-                <CreateNewFolderIcon fontSize="small" /> 
-              <Typography 
-              variant="body1"
-              sx={{display: 'flex', marginLeft: 2, textDecoration:'Typography' }}>
-              Nuevo proyecto
-              </Typography>
-                </ListItemIcon>
-            </Link>
-            </>
-
-
-          }
+          ? 'Administrar solicitudes' 
+          : 'Administrar proyectos'}
         </MenuItem>
         <MenuItem>
           <ListItemIcon>

@@ -8,6 +8,7 @@ import {
     Typography,
 } from '@mui/material';
 import { Link, NavLink } from 'react-router-dom';
+import AccountMenu from '../AdminBar/AdminBar';
 
 const NavBar: FC = () => {
     // Traemos el rol.
@@ -96,7 +97,7 @@ const NavBar: FC = () => {
                             textDecoration: 'none',
                         }}
                     >
-                        LOGO
+                        NABIJASH
                     </Typography>
 
                     <Box
@@ -122,6 +123,14 @@ const NavBar: FC = () => {
                                     </Button>
                                 </NavLink>
                             ))}
+                            <Box
+                            sx={{
+                                ml: 65,
+                                display: { xs: 'none', md: 'flex' }
+                            }}
+                            >
+                            <AccountMenu/>
+                            </Box>
                     </Box>
                 </Toolbar>
             </Container>
