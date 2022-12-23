@@ -67,7 +67,7 @@ const Header = () => {
               onClick={signInClick}
               variant='contained'
             >
-              Login
+              Ingresar
             </Button>
           </>
         </Toolbar>
