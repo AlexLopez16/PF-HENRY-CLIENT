@@ -11,6 +11,7 @@ const initialState = {
   projectsFilter: [],
   projectId: {},
   category: [],
+  myProjectCompany:[]
 };
 
 type Action = {
@@ -49,6 +50,11 @@ export const projectReducer = (state: State = initialState, action: Action) => {
         ...state,
         category: action.payload,
       };
+    
+      case types.getMyProjectCompany:
+        return {
+          ...state,myProjectCompany:action.payload
+        }
     default:
       return state;
   }

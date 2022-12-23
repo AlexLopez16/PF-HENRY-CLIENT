@@ -1,6 +1,10 @@
 import { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCategory, getProject, getProjectsFilter } from "../../actions/projects";
+import {
+  getCategory,
+  getProject,
+  getProjectsFilter,
+} from "../../actions/projects";
 import ProjectCard from "../project/ProjectCard";
 import { State } from "../../reducers/rootReducer";
 import Autocomplete from "@mui/material/Autocomplete";
@@ -15,10 +19,17 @@ import Alert from "@mui/material/Alert/Alert";
 import Stack from "@mui/material/Stack/Stack";
 import { Navigate, useSearchParams } from "react-router-dom";
 import { types } from "../../types/types";
+import { IconButton, Input, Typography } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 
 // let state: string[] | undefined = undefined;
 // let tecnologies: string[] | undefined = undefined;
 // let typeOfOrder: string | undefined = undefined;
+const styledInput = {
+  position: "relative",
+  right: 10,
+  "&:hover": {},
+};
 const DashboardStudent: FC = () => {
   const dispatch = useDispatch();
   let token: String | null = localStorage.getItem("token");
@@ -27,6 +38,7 @@ const DashboardStudent: FC = () => {
     tecnologies: undefined,
     typeOfOrder: undefined,
     categorie: undefined,
+    search: undefined,
   });
   useEffect(() => {
     // dispatch(getProject(token));
@@ -35,12 +47,12 @@ const DashboardStudent: FC = () => {
         inputFilter.typeOfOrder,
         inputFilter.tecnologies,
         token,
-        undefined,
+        inputFilter.search,
         inputFilter.categorie,
         inputFilter.state
       )
     );
-    dispatch(getCategory(token))
+    dispatch(getCategory(token));
   }, [dispatch, token, inputFilter]);
   // interface props {
   //   description?: string
@@ -54,7 +66,7 @@ const DashboardStudent: FC = () => {
 
   // }
 
-  const { category} = useSelector((state: State) => state.project);
+  const { category } = useSelector((state: State) => state.project);
   const categorys = category;
 
   const tecnologias = [
@@ -75,7 +87,7 @@ const DashboardStudent: FC = () => {
     "Mongo",
     "NodeJS",
     "React",
-    "Postgress"
+    "Postgress",
   ];
 
   const stateOfProject = ["Reclutamiento", "En desarrollo", "Terminado"];
@@ -84,20 +96,17 @@ const DashboardStudent: FC = () => {
 
   const { projectsFilter } = useSelector((state: State) => state.project);
   let info = projectsFilter;
-  
 
-  const {status} = useSelector((state: State) => state.auth);
-//   console.log('logged', logged);
-  if (status===401){  
-        console.log('401',401)
-    localStorage.clear();   
+  const { status } = useSelector((state: State) => state.auth);
+  //   console.log('logged', logged);
+  if (status === 401) {
+    console.log("401", 401);
+    localStorage.clear();
     dispatch({
       type: types.authLogin,
     });
-    return <Navigate to='/login' />
- }   
-
-  
+    return <Navigate to="/login" />;
+  }
 
   const handlerchange = (e: string, value: any) => {
     if (e === "e") {
@@ -130,6 +139,13 @@ const DashboardStudent: FC = () => {
         setInput({ ...inputFilter, categorie: undefined });
       }
     }
+    if (e === "n") {
+      if (value) {
+        setInput({ ...inputFilter, search: value });
+      } else {
+        setInput({ ...inputFilter, search: undefined });
+      }
+    }
     // dispatch(
     //   getProjectsFilter(
     //     inputFilter.typeOfOrder,
@@ -146,11 +162,11 @@ const DashboardStudent: FC = () => {
     <div>
       <div
         style={{
-          width: 1100,
+          width: 1350,
           height: "10%",
           padding: 20,
           marginRight: "0px",
-          marginLeft: "200px",
+          marginLeft: "90px",
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "space-between",
@@ -239,6 +255,14 @@ const DashboardStudent: FC = () => {
               <MenuItem value={"asc"}>Menor a Mayor</MenuItem>
             </Select>
           </FormControl>
+        </div>
+        <div style={{marginLeft:10}}>
+          <Input
+            placeholder="Search..."
+            onChange={(e) => handlerchange("n", e.target.value)}
+            sx={styledInput}
+            value={inputFilter.search}
+          ></Input>
         </div>
       </div>
 

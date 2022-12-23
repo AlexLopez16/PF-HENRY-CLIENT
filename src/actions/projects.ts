@@ -153,3 +153,21 @@ export const getCategory = (token: string) => {
     }
   };
 };
+
+export const getMyProjectsCompany=(token)=>{
+  return async (dispatch: Dispatch) => {
+    try {
+      console.log("en la action",token)
+      const res = await axios.get("/company/login", {
+        headers: { "user-token": token },
+      });
+       console.log("en la action",res.data)
+      dispatch({
+        type: types.getMyProjectCompany,
+        payload: res.data,
+      });
+    } catch (error: any) {
+      console.log(error.res.data);
+    }
+  };
+}

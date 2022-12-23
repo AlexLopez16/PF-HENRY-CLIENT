@@ -29,8 +29,25 @@ import {
   Visibility,
   VisibilityOff,
 } from "@mui/icons-material";
+import { useSearchParams,Navigate } from "react-router-dom";
+import { recoverPassword } from "../../actions/auth";
+import { useDispatch } from "react-redux";
 
 export const PasswordRecover: FC = () => {
+  const dispatch=useDispatch()
+  const [queryParameters] = useSearchParams();
+
+  let tokenQuery = queryParameters.get("token");
+  let id: any = queryParameters.get("id");
+  let rol: any = queryParameters.get("rol");
+  if (tokenQuery != null) {
+    localStorage.setItem("token", tokenQuery);
+    localStorage.setItem("id", id);
+    localStorage.setItem("rol", rol);
+  }
+9
+  let token: String | null = localStorage.getItem("token");
+  
   const [sendRequest, setSendRequest] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const initialValues = {
@@ -64,11 +81,13 @@ export const PasswordRecover: FC = () => {
     setShowPassword(!showPassword);
   };
 
-  const onSubmit = (valores:any,{ resetForm }) => {
+  const onSubmit = (valores: any, { resetForm }) => {
     resetForm();
     console.log(valores);
+    dispatch(recoverPassword(valores.confirmPassword,token))
     setSendRequest(true);
     setTimeout(() => setSendRequest(false), 5000);
+    return <Navigate to="/login" />;
   };
   return (
     <>

@@ -1,42 +1,44 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import LandingPage from '../pages/LandingPage/LandingPage';
-import StudensForm from '../components/student/StudentForm';
-import CompanyForm from '../components/company/CompanyForm';
-import ProjectDetail from '../components/project/ProjectDetail';
-import NavBar from '../components/ui/NavBar';
-import DashboardPage from '../pages/DashboardPage';
-import { Profile } from '../components/student/profile/Profile';
-import { LoginScreen } from '../components/auth/LoginScreen';
-import AboutUsPage from '../pages/LandingPage/AboutUsPage';
-import { PublicRoute } from './PublicRoute';
-import { PrivateRoute } from './PrivateRoute';
-import ProjectForm from '../components/project/ProjectForm';
-import ProjectCard from '../components/project/ProjectCard';
-import { HomePage } from '../pages/HomePage';
-import { Nabvar } from '../components/maquetas/Nabvar';
-import { Register } from '../pages/PageRegister';
-import { ProjectPage } from '../pages/ProjectPage';
-import ContactForm from '../pages/LandingPage/ContactForm';
-import { ForgotPassword } from '../components/auth/ForgotPaswword';
-import { PasswordRecover } from '../components/auth/PasswordRecover';
-import Ale from '../pages/Profiles/Ale';
-import Ampi from '../pages/Profiles/Ampi';
-import Brian from '../pages/Profiles/Brian';
-import Hugo from '../pages/Profiles/Hugo';
-import Jona from '../pages/Profiles/Jona';
-import Nachito from '../pages/Profiles/Nachito';
-import Nacho from '../pages/Profiles/Nacho';
-import Sil from '../pages/Profiles/Sil';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import LandingPage from "../pages/LandingPage/LandingPage";
+import StudensForm from "../components/student/StudentForm";
+import CompanyForm from "../components/company/CompanyForm";
+import ProjectDetail from "../components/project/ProjectDetail";
+import NavBar from "../components/ui/NavBar";
+import DashboardPage from "../pages/DashboardPage";
+import { Profile } from "../components/student/profile/Profile";
+import { LoginScreen } from "../components/auth/LoginScreen";
+import AboutUsPage from "../pages/LandingPage/AboutUsPage";
+import { PublicRoute } from "./PublicRoute";
+import { PrivateRoute } from "./PrivateRoute";
+import ProjectForm from "../components/project/ProjectForm";
+import ProjectCard from "../components/project/ProjectCard";
+import { HomePage } from "../pages/HomePage";
+import { Nabvar } from "../components/maquetas/Nabvar";
+import { Register } from "../pages/PageRegister";
+import { ProjectPage } from "../pages/ProjectPage";
+import ContactForm from "../pages/LandingPage/ContactForm";
+import { ForgotPassword } from "../components/auth/ForgotPaswword";
+import { PasswordRecover } from "../components/auth/PasswordRecover";
+import Ale from "../pages/Profiles/Ale";
+import Ampi from "../pages/Profiles/Ampi";
+import Brian from "../pages/Profiles/Brian";
+import Hugo from "../pages/Profiles/Hugo";
+import Jona from "../pages/Profiles/Jona";
+import Nachito from "../pages/Profiles/Nachito";
+import Nacho from "../pages/Profiles/Nacho";
+import Sil from "../pages/Profiles/Sil";
+import { ProjectCompany } from "../components/project/ProjectCompany";
+
 
 export const AppRouter = () => {
   return (
     <BrowserRouter>
       <div>
         <Routes>
-          <Route path='/' element={<LandingPage />} />
+          <Route path="/" element={<LandingPage />} />
 
           <Route
-            path='/login'
+            path="/login"
             element={
               <PublicRoute>
                 <LoginScreen />
@@ -45,7 +47,7 @@ export const AppRouter = () => {
           />
 
           <Route
-            path='/signup/student'
+            path="/signup/student"
             element={
               <PublicRoute>
                 <StudensForm />
@@ -53,7 +55,7 @@ export const AppRouter = () => {
             }
           />
           <Route
-            path='/signup/company'
+            path="/signup/company"
             element={
               <PublicRoute>
                 <CompanyForm />
@@ -62,7 +64,7 @@ export const AppRouter = () => {
           />
 
           <Route
-            path='/home'
+            path="/home"
             element={
               <PrivateRoute>
                 <HomePage />
@@ -71,7 +73,7 @@ export const AppRouter = () => {
           />
 
           <Route
-            path='/dashboard'
+            path="/dashboard"
             element={
               <PrivateRoute>
                 <DashboardPage />
@@ -80,7 +82,7 @@ export const AppRouter = () => {
           />
 
           <Route
-            path='/register'
+            path="/register"
             element={
               <PublicRoute>
                 <Register />
@@ -89,7 +91,7 @@ export const AppRouter = () => {
           />
 
           <Route
-            path='/project'
+            path="/project"
             element={
               <PrivateRoute>
                 <ProjectPage />
@@ -98,15 +100,17 @@ export const AppRouter = () => {
           />
 
           <Route
-            path='/newProject'
+            path="/newProject"
             element={
               // <PrivateRoute>
               <ProjectForm />
               // </PrivateRoute>
             }
           />
+
+          />
           <Route
-            path='/aboutUs'
+            path="/aboutUs"
             element={
               // <PrivateRoute>
               <AboutUsPage />
@@ -114,7 +118,7 @@ export const AppRouter = () => {
             }
           />
           <Route
-            path='/landing'
+            path="/landing"
             element={
               // <PrivateRoute>
               <LandingPage />
@@ -122,7 +126,7 @@ export const AppRouter = () => {
             }
           />
           <Route
-            path='/contact'
+            path="/contact"
             element={
               // <PrivateRoute>
               <ContactForm />
@@ -132,18 +136,19 @@ export const AppRouter = () => {
 
           {/* PROFILE ROUTES */}
 
-          <Route path='/Ale' element={<Ale />} />
-          <Route path='/Ampi' element={<Ampi />} />
-          <Route path='/Brian' element={<Brian />} />
-          <Route path='/Hugo' element={<Hugo />} />
-          <Route path='/Jona' element={<Jona />} />
-          <Route path='/Nachito' element={<Nachito />} />
-          <Route path='/Nacho' element={<Nacho />} />
-          <Route path='/Sil' element={<Sil />} />
+          <Route path="/Ale" element={<Ale />} />
+          <Route path="/Ampi" element={<Ampi />} />
+          <Route path="/Brian" element={<Brian />} />
+          <Route path="/Hugo" element={<Hugo />} />
+          <Route path="/Jona" element={<Jona />} />
+          <Route path="/Nachito" element={<Nachito />} />
+          <Route path="/Nacho" element={<Nacho />} />
+          <Route path="/Sil" element={<Sil />} />
 
-          <Route path='/forgotPassword' element={<ForgotPassword />} />
+          <Route path="/forgotPassword" element={<ForgotPassword />} />
 
-          <Route path='/recoverPassword' element={<PasswordRecover />} />
+          <Route path="/recoverPassword" element={<PasswordRecover />} />
+          <Route path="/companyProject" element={ <ProjectCompany/>} />
         </Routes>
       </div>
     </BrowserRouter>
