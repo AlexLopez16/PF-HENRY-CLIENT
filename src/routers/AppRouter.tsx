@@ -108,7 +108,6 @@ export const AppRouter = () => {
             }
           />
 
-          />
           <Route
             path="/aboutUs"
             element={
