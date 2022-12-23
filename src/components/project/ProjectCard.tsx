@@ -1,15 +1,10 @@
 import { FC } from "react";
 
-import {
-    Box,
-    Typography,
-    Paper,
-    CardMedia,
-} from "@mui/material";
+import { Box, Typography, Paper, CardMedia } from "@mui/material";
 
-import Button from "@mui/material/Button"
+import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import { getProjectByID } from "../../actions/projects";
 
 
@@ -32,7 +27,6 @@ interface CardProjectProps {
     category?:string
 }
 
-
 const ProjectCard: FC<CardProjectProps> = ({
     name,
     description,
@@ -49,9 +43,9 @@ const ProjectCard: FC<CardProjectProps> = ({
     const token = localStorage.getItem('token') || '';
     const rol = localStorage.getItem('rol');
 
-    const handleClick = () => {
-        dispatch(getProjectByID(token, id))
-    }
+  const handleClick = () => {
+    dispatch(getProjectByID(token, id));
+  };
 
 
     return  rol === 'STUDENT_ROL' ? 
@@ -61,6 +55,7 @@ const ProjectCard: FC<CardProjectProps> = ({
             height: "fit-content",
             padding: 20,
             marginLeft: 50,
+            marginRight:30,
             marginTop: 50
         }}>
 
