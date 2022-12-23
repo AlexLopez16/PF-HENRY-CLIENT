@@ -21,8 +21,12 @@ import { GridEvents } from '@mui/x-data-grid';
 import { AlignHorizontalCenter } from '@mui/icons-material';
 import Header from '../NavbarLandingPage/HeaderLanding';
 import Footer from '../../pages/LandingPage/Footer';
+import { useDispatch } from 'react-redux';
+import { forgotPassword } from '../../actions/auth';
 
 export const ForgotPassword: FC = () => {
+  const dispatch=useDispatch()
+  
   const [sendRequest, setSendRequest] = useState(false);
   const validationSchema = yup.object().shape({
     Email: yup.string().email('Email invalido').required('Email requerido'),
@@ -33,8 +37,7 @@ export const ForgotPassword: FC = () => {
 
   const onSubmit = (valores: string, { resetForm }) => {
     resetForm();
-    console.log(valores);
-    console.log('hola');
+    dispatch(forgotPassword(valores.Email));    
     setSendRequest(true);
     setTimeout(() => setSendRequest(false), 5000);
   };
