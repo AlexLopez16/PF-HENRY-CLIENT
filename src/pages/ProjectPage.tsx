@@ -13,9 +13,9 @@ export const ProjectPage = () => {
     const {state, students, ...data} = projectId;
     const token = localStorage.getItem('token')
     
-    useEffect(() => {
-        dispatch(getProjectByID())
-    })
+    // useEffect(() => {
+    //     dispatch(getProjectByID())
+    // })
 
     const company = data.company?.name || 'Empresa';
 
