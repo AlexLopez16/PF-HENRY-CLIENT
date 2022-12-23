@@ -15,6 +15,7 @@ import Alert from "@mui/material/Alert/Alert";
 import Stack from "@mui/material/Stack/Stack";
 import { Navigate, useSearchParams } from "react-router-dom";
 import { types } from "../../types/types";
+import { getStudentInfo } from "../../actions/student";
 
 // let state: string[] | undefined = undefined;
 // let tecnologies: string[] | undefined = undefined;
@@ -22,14 +23,22 @@ import { types } from "../../types/types";
 const DashboardStudent: FC = () => {
   const dispatch = useDispatch();
   let token: String | null = localStorage.getItem("token");
+  // let id: any = localStorage.getItem("id");
+  let id: String = useSelector((state: State) => state.auth.data.id);
+
   const [inputFilter, setInput] = useState({
     state: undefined,
     tecnologies: undefined,
     typeOfOrder: undefined,
     categorie: undefined,
   });
+
+
+
+
   useEffect(() => {
-    // dispatch(getProject(token));
+    dispatch(
+      getStudentInfo(id, token));
     dispatch(
       getProjectsFilter(
         inputFilter.typeOfOrder,
@@ -81,18 +90,19 @@ const DashboardStudent: FC = () => {
 
   const { projectsFilter } = useSelector((state: State) => state.project);
 
-  const {status} = useSelector((state: State) => state.auth);
-//   console.log('logged', logged);
-  if (status===401){  
-        console.log('401',401)
-    localStorage.clear();   
+  const { status } = useSelector((state: State) => state.auth);
+  //   console.log('logged', logged);
+  if (status === 401) {
+    console.log('401', 401)
+    localStorage.clear();
     dispatch({
       type: types.authLogin,
     });
     return <Navigate to='/login' />
- }   
+  }
 
   let info = projectsFilter;
+  console.log(info.uid);
 
   const handlerchange = (e: string, value: any) => {
     if (e === "e") {
@@ -244,6 +254,7 @@ const DashboardStudent: FC = () => {
       >
         {info.length ? (
           info.map((e: any) => (
+            
             <ProjectCard
               name={e.name}
               participants={e.participants}
@@ -255,7 +266,9 @@ const DashboardStudent: FC = () => {
               id={e.uid}
               category={e.category}
             />
+
           ))
+       
         ) : (
           <Stack sx={{ width: "100%" }} spacing={2}>
             <Alert severity="info">

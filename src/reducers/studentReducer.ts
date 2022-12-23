@@ -40,11 +40,13 @@ export const studentReducer = (state: State = initialState, action: Action) => {
             }
 
         case types.studentSearch:
-            return{
+            return {
                 ...state,
                 user: action.payload
             }
-
+        case types.AddStToPr:
+            return { ...state, 
+                user: action.payload }
         default:
             return state;
     }

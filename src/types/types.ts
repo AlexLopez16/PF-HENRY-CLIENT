@@ -19,4 +19,5 @@ export const types = {
     showError: '[error] Show Error',
     clearError: '[error] Clear Error',
     
+    AddStToPr:"[student] Add student to project"
 };

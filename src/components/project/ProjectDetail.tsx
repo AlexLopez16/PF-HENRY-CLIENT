@@ -6,9 +6,12 @@ import {
     List,
     Button,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { RadioGroupRating } from "./Rating";
 import { Box } from "@mui/system";
+import { useDispatch, useSelector } from "react-redux";
+import { State } from "../../reducers/rootReducer";
+import { addStudentToProject } from "../../actions/student";
 
 interface ProjectProps {
     name?: string;
@@ -16,22 +19,46 @@ interface ProjectProps {
     imagen?: string;
     detalle?: string;
     cantidadDeEstudiantes?: string;
-    lenguajes?: [];
+    lenguajes?: string[];
     estado?: string;
     email?: string;
-    categoria?: string
+    categoria?: string,
+    uid?: string
 }
 
-const ProjectDetail: FC<ProjectProps> = ({ name, empresa, imagen, detalle, cantidadDeEstudiantes, lenguajes = ['Java'], estado, email, categoria }: ProjectProps) => {
+const ProjectDetail: FC<ProjectProps> = ({ name, empresa, imagen, detalle, cantidadDeEstudiantes, lenguajes = ['Java'], estado, email, categoria,  }: ProjectProps) => {
 
-    let activo = null
-    estado === "reclutando" ? activo = false : activo = true
+    const dispatch = useDispatch()
 
-    // const [open, setOpen] = React.useState(true);
+    let activo = false;//activa el boton/desactiva el boton de aplica
 
-    // const handleClick = () => {
-    //   setOpen(!open);
-    // };
+    //verifica si no esta asociado a mas de 3 projectos//
+    const user: any = useSelector((state: State) => state.student);
+    // user.user.students[0].project.length === 3
+    // ? activo = false : true;
+    //-----------------//
+
+
+
+
+    let token: String | null = localStorage.getItem("token");
+
+    let rol = useSelector((state: State) => state.auth.data.rol);
+    // let rol="Company"
+
+
+    const handlerApply = () => {
+        console.log(token);
+
+        dispatch(addStudentToProject(id, token))
+        console.log("aplicado");
+    }
+
+    const handlerPostulated = () => {
+
+
+    }
+
 
     return (
         <div>
@@ -45,6 +72,7 @@ const ProjectDetail: FC<ProjectProps> = ({ name, empresa, imagen, detalle, canti
                     display: "inline-block",
                 }}
             >
+
                 <List>
                     <Typography variant="h4">
                         {name}
@@ -93,39 +121,32 @@ const ProjectDetail: FC<ProjectProps> = ({ name, empresa, imagen, detalle, canti
                     </Typography>
                 </List>
 
-                {/* <List>
-                    <Typography variant="body1">E-mail:{email}</Typography>
-                </List> */}
-
-                <Button
-                    sx={{ marginTop: 10 }}
-                    type="submit"
-                    variant="contained"
-                    fullWidth
-                    color="primary"
-                    // disabled={activo}
-                >
-                    aplicar
-                </Button>
-
-                {/* <Link to="/dashboard">
+                {rol === "STUDENT_ROL" ?
                     <Button
                         sx={{ marginTop: 10 }}
                         type="submit"
                         variant="contained"
                         fullWidth
                         color="primary"
+                        onClick={handlerApply}
+                        disabled={activo}
                     >
-                        otros proyectos
+                        aplicar
                     </Button>
-                </Link>
+                    :
+                    <Button
+                        sx={{ marginTop: 10 }}
+                        type="submit"
+                        variant="contained"
+                        fullWidth
+                        color="primary"
+                        onClick={handlerPostulated}
+                    // disabled={activo}
+                    >
+                        Postulados
+                    </Button>
+                }
 
-                <Box >
-
-                    <RadioGroupRating />
-
-
-                </Box> */}
 
 
             </Paper>

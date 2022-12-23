@@ -8,11 +8,12 @@ import {
     Typography,
 } from '@mui/material';
 import { Link, NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { State } from '../../reducers/rootReducer';
 
 const NavBar: FC = () => {
     // Traemos el rol.
-    const rol = localStorage.getItem('rol');
-
+    let rol = useSelector((state: State) => state.auth.data.rol);
     // Paths y opciones de boton para el student.
     const studentButtons = [
         {
@@ -59,20 +60,20 @@ const NavBar: FC = () => {
             option: 'Projects',
             path: '/projects',
         },
-        {
-            option: 'My Project',
-            path: '/myproject',
-        },
+        // {
+        //     option: 'My Project',
+        //     path: '/myproject',
+        // },
     ];
 
     const buttonList: any =
         rol === 'STUDENT_ROL'
             ? studentButtons
             : rol === 'COMPANY_ROL'
-            ? companyButtons
-            : rol === 'ADMIN_ROL'
-            ? adminButtons
-            : null;
+                ? companyButtons
+                : rol === 'ADMIN_ROL'
+                    ? adminButtons
+                    : null;
 
     return (
         <AppBar position="static" sx={{ bgcolor: 'white' }}>

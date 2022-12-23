@@ -60,7 +60,7 @@ const CompanyForm: FC = () => {
 
     const onSubmit = (values: any) => {
         console.log(values)
-        dispatch(companySingUp({
+        dispatch(registerCompany({
             name: values.name,
             email: values.email,
             password: values.password,
