@@ -32,6 +32,7 @@ import Sil from "../pages/Profiles/Sil";
 import MyProject from "../components/student/MyProject";
 import ProjectsPage from "../pages/ProjectsPage";
 import MyProjectsPage from "../pages/MyProjectsPage";
+import ProjectsStudents from "../components/student/ProjectsStudents";
 
 
 export const AppRouter = () => {
@@ -191,6 +192,7 @@ export const AppRouter = () => {
           <Route path="/forgotPassword" element={<ForgotPassword />} />
 
           <Route path="/recoverPassword" element={<PasswordRecover />} />
+          <Route path="/p" element={<ProjectsStudents/>} />
           {/* <Route
             path="/companyProject"
             element={

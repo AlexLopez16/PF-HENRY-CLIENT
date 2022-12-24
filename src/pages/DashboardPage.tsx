@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import DashboardStudens from '../components/student/DashboardStudent';
+import DashboardStudent from '../components/student/DashboardStudent';
 import DashboardCompany from '../components/company/DashboardCompany';
 import { useSelector } from 'react-redux';
 import { State } from '../reducers/rootReducer';
@@ -11,7 +11,7 @@ const DashboardPage: FC = () => {
 
     let role = rol
 
-    return rol === 'STUDENT_ROL' ? <DashboardStudens /> : <DashboardCompany />;
+    return rol === 'STUDENT_ROL' ? <DashboardStudent /> : <DashboardCompany />;
     //role === 'Student' ? <DashStudent/> : <DashCompany/>
 };
 
