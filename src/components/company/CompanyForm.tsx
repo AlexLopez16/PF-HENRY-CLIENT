@@ -24,7 +24,7 @@ import {
 } from '@mui/material';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 
-import { registerCompany } from '../../actions/conpany';
+import { registerCompany } from '../../actions/company';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
