@@ -16,7 +16,7 @@ interface ProjectProps {
     imagen?: string;
     detalle?: string;
     cantidadDeEstudiantes?: string;
-    lenguajes?: [];
+    lenguajes?: string[];
     estado?: string;
     email?: string;
     categoria?: string
