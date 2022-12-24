@@ -25,7 +25,7 @@ interface CardProjectProps {
     company?: string,
     state?: boolean
     stateOfProject?: string
-    id?: string
+    id: string
     category?:string
 }
 
@@ -47,6 +47,7 @@ const ProjectCard: FC<CardProjectProps> = ({
 
     const handleClick = () => {
         dispatch(getProjectByID(token, id))
+        
     }
 
     return (

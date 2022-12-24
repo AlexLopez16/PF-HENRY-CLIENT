@@ -7,6 +7,7 @@ import { store } from './store/store';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './styles/themeProvider';
 import Footer from './pages/LandingPage/Footer';
+import ProjectForm from './components/project/ProjectForm';
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
                     {/* <LoginScreen /> */}
 
                     <AppRouter />
+                    {/* <ProjectForm /> */}
                 </div>
             </ThemeProvider>
         </Provider>

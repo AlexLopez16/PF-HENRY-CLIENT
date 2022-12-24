@@ -25,6 +25,7 @@ export const ProjectPage = () => {
                 lenguajes={data.requirements}
                 estado={data.stateOfProject}
                 categoria={data.category}
+                uid={data.uid}
             />
         </>
     )

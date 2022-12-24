@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import {
     AppBar,
     Box,
@@ -8,12 +8,23 @@ import {
     Typography,
 } from '@mui/material';
 import { Link, NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../reducers/rootReducer';
+import { getStudentInfo } from '../../actions/student';
 
 const NavBar: FC = () => {
-    // Traemos el rol.
-    let rol = useSelector((state: State) => state.auth.data.rol);
+
+    const { data } = useSelector((state: State) => state.auth);
+    const rol = data.rol;
+    const dispatch = useDispatch();
+    const token: string = localStorage.getItem("token") || ""
+
+    useEffect(() => {
+        rol === "STUDENT_ROL"
+            ? dispatch(getStudentInfo(data.id, token))
+            : null
+    }, [dispatch])
+
     // Paths y opciones de boton para el student.
     const studentButtons = [
         {
@@ -82,23 +93,24 @@ const NavBar: FC = () => {
                     {/* <AdbIcon
                         sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
                     /> */}
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="a"
-                        href="/"
-                        sx={{
-                            mr: 2,
-                            display: { xs: 'none', md: 'flex' },
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
-                        }}
-                    >
-                        LOGO
-                    </Typography>
+                    <NavLink style={{ textDecoration: 'none' }} to="/dashboard">
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="a"
+                            sx={{
+                                mr: 2,
+                                display: { xs: 'none', md: 'flex' },
+                                fontFamily: 'monospace',
+                                fontWeight: 700,
+                                letterSpacing: '.3rem',
+                                color: 'inherit',
+                                textDecoration: 'none',
+                            }}
+                        >
+                            LOGO
+                        </Typography>
+                    </NavLink>
 
                     <Box
                         sx={{

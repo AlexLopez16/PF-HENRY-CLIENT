@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
 import LandingPage from '../pages/LandingPage/LandingPage';
 import StudensForm from '../components/student/StudentForm';
 import CompanyForm from '../components/company/CompanyForm';
@@ -28,169 +28,178 @@ import Jona from '../pages/Profiles/Jona';
 import Nachito from '../pages/Profiles/Nachito';
 import Nacho from '../pages/Profiles/Nacho';
 import Sil from '../pages/Profiles/Sil';
-import { Button } from '@mui/material';
 import MyProject from '../components/student/MyProject';
+import Postulated from '../components/company/Postulated';
 
 export const AppRouter = () => {
-  const rol = localStorage.getItem('rol');
+    let {id}=useParams()
+    // console.log(id);
+    
+    return (
+        <BrowserRouter>
+            <div>
+                <Routes>
+                    <Route path="/" element={<LandingPage />} />
 
-  return (
-    <BrowserRouter>
-      <div>
-        <Routes>
-          <Route path='/' element={<LandingPage />} />
+                    <Route
+                        path="/login"
+                        element={
+                            <PublicRoute>
+                                <LoginScreen />
+                            </PublicRoute>
+                        }
+                    />
 
-          <Route
-            path='/login'
-            element={
-              <PublicRoute>
-                <LoginScreen />
-              </PublicRoute>
-            }
-          />
+                    <Route
+                        path="/signup/student"
+                        element={
+                            <PublicRoute>
+                                <StudensForm />
+                            </PublicRoute>
+                        }
+                    />
+                    <Route
+                        path="/signup/company"
+                        element={
+                            <PublicRoute>
+                                <CompanyForm />
+                            </PublicRoute>
+                        }
+                    />
 
-          <Route
-            path='/signup/student'
-            element={
-              <PublicRoute>
-                <StudensForm />
-              </PublicRoute>
-            }
-          />
-          <Route
-            path='/signup/company'
-            element={
-              <PublicRoute>
-                <CompanyForm />
-              </PublicRoute>
-            }
-          />
+                    <Route
+                        path="/home"
+                        element={
+                            <PrivateRoute>
+                                <HomePage />
+                            </PrivateRoute>
+                        }
+                    />
 
-          <Route
-            path='/home'
-            element={
-              <PrivateRoute>
-                <HomePage />
-              </PrivateRoute>
-            }
-          />
+                    <Route
+                        path="/dashboard"
+                        element={
+                            <>
+                                <NavBar />
+                                <PrivateRoute>
+                                    <DashboardPage />
+                                </PrivateRoute>
+                            </>
+                        }
+                    />
 
-          <Route
-            path='/dashboard'
-            element={
-              <>
-                <NavBar />
-                <PrivateRoute>
-                  <DashboardPage />
-                </PrivateRoute>
-              </>
-            }
-          />
+                    <Route
+                        path="/projects"
+                        element={
+                            // <PrivateRoute>
+                            <>
+                                <NavBar />
+                                <DashboardPage />
+                            </>
+                            // </PrivateRoute>
+                        }
+                    />
 
-          <Route
-            path='/projects'
-            element={
-              // <PrivateRoute>
-              <>
-                <NavBar />
-                <DashboardPage />
-              </>
-              // </PrivateRoute>
-            }
-          />
+                    <Route
+                        path="/myproject"
+                        element={
+                            <PrivateRoute>
+                                <NavBar />
+                                <MyProject />
+                            </PrivateRoute>
+                        }
+                    />
 
-          <Route
-            path='/myproject'
-            element={
-              // <PrivateRoute>
-              <>
-                <NavBar />
-                <MyProject />
-              </>
-              // </PrivateRoute>
-            }
-          />
+                    <Route
+                        path="/register"
+                        element={
+                            <PublicRoute>
+                                <Register />
+                            </PublicRoute>
+                        }
+                    />
 
-          <Route
-            path='/register'
-            element={
-              <PublicRoute>
-                <Register />
-              </PublicRoute>
-            }
-          />
+                    <Route
+                        path="/project"
+                        element={
+                            <PrivateRoute>
+                                <ProjectPage />
+                            </PrivateRoute>
+                        }
+                    />
 
-          <Route
-            path='/project'
-            element={
-              <PrivateRoute>
-                <ProjectPage />
-              </PrivateRoute>
-            }
-          />
+                    <Route
+                        path="/newproject"
+                        element={
+                            // <PrivateRoute>
+                            <ProjectForm />
+                            // </PrivateRoute>
+                        }
+                    />
 
-          <Route
-            path='/newproject'
-            element={
-              // <PrivateRoute>
-              <ProjectForm />
-              // </PrivateRoute>
-            }
-          />
+                    <Route
+                        path="/requests"
+                        element={
+                            // <PrivateRoute>
+                            <>
+                                <NavBar />
+                                <MyProject />
+                            </>
+                            // </PrivateRoute>
+                        }
+                    />
 
-          <Route
-            path='/requests'
-            element={
-              // <PrivateRoute>
-              <>
-                <NavBar />
-                <MyProject />
-              </>
-              // </PrivateRoute>
-            }
-          />
+                    <Route
+                        path="/aboutUs"
+                        element={
+                            // <PrivateRoute>
+                            <AboutUsPage />
+                            // </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/landing"
+                        element={
+                            // <PrivateRoute>
+                            <LandingPage />
+                            // </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/contact"
+                        element={
+                            // <PrivateRoute>
+                            <ContactForm />
+                            // </PrivateRoute>
+                        }
+                    />
 
-          <Route
-            path='/aboutUs'
-            element={
-              // <PrivateRoute>
-              <AboutUsPage />
-              // </PrivateRoute>
-            }
-          />
-          <Route
-            path='/landing'
-            element={
-              // <PrivateRoute>
-              <LandingPage />
-              // </PrivateRoute>
-            }
-          />
-          <Route
-            path='/contact'
-            element={
-              // <PrivateRoute>
-              <ContactForm />
-              // </PrivateRoute>
-            }
-          />
+                    {/* PROFILE ROUTES */}
 
-          {/* PROFILE ROUTES */}
+                    <Route path="/Ale" element={<Ale />} />
+                    <Route path="/Ampi" element={<Ampi />} />
+                    <Route path="/Brian" element={<Brian />} />
+                    <Route path="/Hugo" element={<Hugo />} />
+                    <Route path="/Jona" element={<Jona />} />
+                    <Route path="/Nachito" element={<Nachito />} />
+                    <Route path="/Nacho" element={<Nacho />} />
+                    <Route path="/Sil" element={<Sil />} />
 
-          <Route path='/Ale' element={<Ale />} />
-          <Route path='/Ampi' element={<Ampi />} />
-          <Route path='/Brian' element={<Brian />} />
-          <Route path='/Hugo' element={<Hugo />} />
-          <Route path='/Jona' element={<Jona />} />
-          <Route path='/Nachito' element={<Nachito />} />
-          <Route path='/Nacho' element={<Nacho />} />
-          <Route path='/Sil' element={<Sil />} />
+                    <Route
+                        path="/forgotPassword"
+                        element={<ForgotPassword />}
+                    />
 
-          <Route path='/forgotPassword' element={<ForgotPassword />} />
-
-          <Route path='/recoverPassword' element={<PasswordRecover />} />
-        </Routes>
-      </div>
-    </BrowserRouter>
-  );
+                    <Route
+                        path="/recoverPassword"
+                        element={<PasswordRecover />}
+                    />
+                    <Route
+                        path = {`/postulated/:id`}
+                        element={<Postulated/>}
+                    />
+                </Routes>
+            </div>
+        </BrowserRouter>
+    );
 };

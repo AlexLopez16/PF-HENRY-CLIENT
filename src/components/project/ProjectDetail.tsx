@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 
 import {
     Typography,
@@ -6,8 +6,8 @@ import {
     List,
     Button,
 } from "@mui/material";
-import { Link, Navigate } from "react-router-dom";
-import { RadioGroupRating } from "./Rating";
+import { Link,} from "react-router-dom";
+
 import { Box } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../reducers/rootReducer";
@@ -23,42 +23,21 @@ interface ProjectProps {
     estado?: string;
     email?: string;
     categoria?: string,
-    uid?: string
+    uid: string
 }
 
-const ProjectDetail: FC<ProjectProps> = ({ name, empresa, imagen, detalle, cantidadDeEstudiantes, lenguajes = ['Java'], estado, email, categoria,  }: ProjectProps) => {
+const ProjectDetail: FC<ProjectProps> = ({ name, empresa, imagen, detalle, cantidadDeEstudiantes, lenguajes = ['Java'], estado, categoria, uid }: ProjectProps) => {
 
     const dispatch = useDispatch()
-
-    let activo = false;//activa el boton/desactiva el boton de aplica
-
-    //verifica si no esta asociado a mas de 3 projectos//
-    const user: any = useSelector((state: State) => state.student);
-    // user.user.students[0].project.length === 3
-    // ? activo = false : true;
-    //-----------------//
-
-
-
-
-    let token: String | null = localStorage.getItem("token");
-
+    let token = localStorage.getItem("token") || "";
     let rol = useSelector((state: State) => state.auth.data.rol);
-    // let rol="Company"
+    const { user } = useSelector((state: State) => state.student);
 
 
     const handlerApply = () => {
-        console.log(token);
-
-        dispatch(addStudentToProject(id, token))
+        dispatch(addStudentToProject(uid, token))
         console.log("aplicado");
     }
-
-    const handlerPostulated = () => {
-
-
-    }
-
 
     return (
         <div>
@@ -121,7 +100,7 @@ const ProjectDetail: FC<ProjectProps> = ({ name, empresa, imagen, detalle, canti
                     </Typography>
                 </List>
 
-                {rol === "STUDENT_ROL" ?
+                {rol === "TUDENT_ROL" ?
                     <Button
                         sx={{ marginTop: 10 }}
                         type="submit"
@@ -129,26 +108,24 @@ const ProjectDetail: FC<ProjectProps> = ({ name, empresa, imagen, detalle, canti
                         fullWidth
                         color="primary"
                         onClick={handlerApply}
-                        disabled={activo}
+                        disabled={user.project?.length === 3}
                     >
                         aplicar
                     </Button>
                     :
-                    <Button
-                        sx={{ marginTop: 10 }}
-                        type="submit"
-                        variant="contained"
-                        fullWidth
-                        color="primary"
-                        onClick={handlerPostulated}
-                    // disabled={activo}
-                    >
-                        Postulados
-                    </Button>
+                    <Link to={`/postulated/${uid}`}>
+
+                        <Button
+                            sx={{ marginTop: 10 }}
+                            type="submit"
+                            variant="contained"
+                            fullWidth
+                            color="primary"
+                        >
+                            Postulados
+                        </Button>
+                    </Link>
                 }
-
-
-
             </Paper>
         </div>
     );

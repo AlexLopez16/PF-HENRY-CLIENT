@@ -5,11 +5,10 @@ import { types } from "../types/types";
 
 interface State {
     user: object
-
 }
 
 const initialState = {
-    user: {}
+    user: {},
 }
 
 
@@ -44,9 +43,7 @@ export const studentReducer = (state: State = initialState, action: Action) => {
                 ...state,
                 user: action.payload
             }
-        case types.AddStToPr:
-            return { ...state, 
-                user: action.payload }
+        
         default:
             return state;
     }

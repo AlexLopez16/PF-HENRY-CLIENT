@@ -9,44 +9,51 @@ import {
   Collapse,
   List,
   ListItemButton,
- 
+  Button,
+
 } from "@mui/material";
 
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { useDispatch, useSelector } from "react-redux";
+import { State } from "../../reducers/rootReducer";
+import { acceptStudent } from "../../actions/conpany";
 
 
-interface StudentProps{
+interface StudentProps {
 
-name:string,
-email:string,
-descripcion:string,
-skill:string,
-
+  name: string,
+  email: string,
+  descripcion: string,
+  tecnologies: object[],
+  image: string,
 }
 
 
 
-const StudentCard: FC <StudentProps> = ({name,email,descripcion,skill}:StudentProps) => {
+const StudentCard: FC<StudentProps> = ({ name, email, descripcion, tecnologies, image }: StudentProps) => {
 
-
-
-
+  const dispatch = useDispatch()
   const [open, setOpen] = React.useState(true);
+  let rol = useSelector((state: State) => state.auth.data.rol);
 
   const handleClick = () => {
     setOpen(!open);
   };
 
+  const handlerAccept = () => {
+dispatch(acceptStudent())
+
+  }
 
   return (
 
-    <Paper elevation={10} style={{ width: 400, height: "100%", padding: 20, margin: "50px 5px 0 5px",display:"inline-block"}}>
+    <Paper elevation={10} style={{ width: 400, height: "100%", padding: 20, margin: "50px 5px 0 5px", display: "inline-block" }}>
 
 
       <CardHeader
         avatar={
-          <Avatar src="/broken-image.jpg"
+          <Avatar src={image}
             sx={{ width: 50, height: 50 }}
           />
         }
@@ -57,7 +64,23 @@ const StudentCard: FC <StudentProps> = ({name,email,descripcion,skill}:StudentPr
 
       <Box sx={{ width: '100%', maxWidth: 360, }}>
         <div>
-          <Typography variant="h6">{email}</Typography>
+          <Typography variant="h6">{email}
+
+
+
+            {rol === "STUDENT_ROL"
+              ? <Button
+                sx={{ ml: 'auto', fontWeight: 600, color: "yellow", background: "black", }}
+                size="small"
+                color="primary"
+                variant="text"
+                onClick={handlerAccept}
+              >
+                Aceptar
+              </Button>
+              : null
+            }
+          </Typography>
         </div>
       </Box>
 
@@ -81,7 +104,11 @@ const StudentCard: FC <StudentProps> = ({name,email,descripcion,skill}:StudentPr
             </List>
 
             <List >
-              <Typography variant="body1">Skills: {skill}</Typography>
+              <Typography variant="body1">Skills: {tecnologies.map(({ skill, exp }) => (<p>
+
+                {`${skill}: ${exp}`}
+
+              </p>))}</Typography>
             </List>
           </List>
         </Collapse>

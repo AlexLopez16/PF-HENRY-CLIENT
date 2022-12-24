@@ -85,13 +85,11 @@ export const addStudentToProject = (id: string, token: string) => {
         try {
             console.log("token",token);
             
-            const res = await axios.put(`/project/6399ef648e31a155ab06f9fc`,undefined, { headers: { 'user-token': token } });
-            console.log(res.data);
+            const res = await axios.put(`/project/${id}`,undefined, { headers: { 'user-token': token } });
             
 
             dispatch({
                 type: types.AddStToPr,
-                payload: res.data,
             })
         } catch (error) {
             console.log(error);

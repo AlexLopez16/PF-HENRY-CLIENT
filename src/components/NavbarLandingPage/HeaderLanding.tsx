@@ -22,7 +22,7 @@ const Header = () => {
 
   return (
     <React.Fragment>
-      <AppBar>
+      <AppBar component='nav' position='sticky' color='primary'>
         <Toolbar
           sx={{
             justifyContent: 'space-between',
@@ -34,15 +34,39 @@ const Header = () => {
               textColor='secondary'
               value={value}
               onChange={(e, value) => {
-                console.log(value);
                 setValue(value);
               }}
             >
-              <Tab onClick={HomeClick} label='Inicio' />
-              <Tab onClick={AboutClick} label='Nosotros' />
-              <Tab onClick={ContactClick} label='Contacto' />
+              <Tab
+                style={{
+                  fontFamily: 'poppins',
+                }}
+                onClick={HomeClick}
+                label='Inicio'
+              />
+              <Tab
+                style={{
+                  fontFamily: 'poppins',
+                }}
+                onClick={AboutClick}
+                label='Nosotros'
+              />
+              <Tab
+                style={{
+                  fontFamily: 'poppins',
+                }}
+                onClick={ContactClick}
+                label='Contacto'
+              />
             </Tabs>
-            <Button onClick={signInClick} variant='contained'>
+            <Button
+            color='primary'
+              style={{
+                fontFamily: 'poppins',
+              }}
+              onClick={signInClick}
+              variant='contained'
+            >
               Login
             </Button>
           </>
