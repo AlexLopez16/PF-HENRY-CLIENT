@@ -88,6 +88,30 @@ const login = (data: object) => ({
     payload: data,
 });
 
+
+export const forgotPassword=(email:String)=>{
+    return async (dispatch:Dispatch)=>{
+        try {
+            const res:any=await axios.get(`/recover/password?email=${email}`)
+              console.log(res.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+}
+
+export const recoverPassword=(password:String,token:String|any)=>{
+    return async (dispatch:Dispatch)=>{
+        try {
+            const res:any=await axios.put(`/recover/password`,{password:password},{ headers: { "user-token": token }})
+              console.log(res.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+}
 const logout = () => ({
     type: types.clearAuthLogin,
 });

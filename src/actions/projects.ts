@@ -138,6 +138,40 @@ export const getProjectsFilter = (
     };
 };
 
+export const getCategory = (token: string) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      const res = await axios.get("/project/category", {
+        headers: { "user-token": token },
+      });
+      console.log(res.data)
+      dispatch({
+        type: types.getCategory,
+        payload: res.data,
+      });
+    } catch (error: any) {
+      console.log(error.res.data);
+    }
+  };
+};
+
+export const getMyProjectsCompany=(token:string)=>{
+  return async (dispatch: Dispatch) => {
+    try {
+      console.log("en la action",token)
+      const res = await axios.get("/company/login", {
+        headers: { "user-token": token },
+      });
+       console.log("en la action",res.data)
+      dispatch({
+        type: types.getMyProjectCompany,
+        payload: res.data,
+      });
+    } catch (error: any) {
+      console.log(error.res.data);
+    }
+  };
+}
 // Update Images Project
 export const updateImagesProject = (id: string, token: string, file: any) => {
     return async (dispatch: Dispatch) => {

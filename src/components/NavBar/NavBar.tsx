@@ -10,6 +10,7 @@ import {
 import { Link, NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../reducers/rootReducer';
+import AccountMenu from '../AdminBar/AdminBar';
 import { getStudentInfo } from '../../actions/student';
 
 const NavBar: FC = () => {
@@ -37,7 +38,7 @@ const NavBar: FC = () => {
         },
         {
             option: 'My Project',
-            path: '/myproject',
+            path: '/myprojects',
         },
     ];
 
@@ -54,6 +55,10 @@ const NavBar: FC = () => {
         {
             option: 'Create Project',
             path: '/newproject',
+        },
+        {
+            option: 'My Projects',
+            path: '/myprojects',
         },
         {
             option: 'Request',
@@ -87,7 +92,7 @@ const NavBar: FC = () => {
                     : null;
 
     return (
-        <AppBar position="static" sx={{ bgcolor: 'white' }}>
+        <AppBar position="sticky" sx={{ bgcolor: '#ffff01' }}>
             <Container maxWidth="lg">
                 <Toolbar disableGutters>
                     {/* <AdbIcon
@@ -135,6 +140,7 @@ const NavBar: FC = () => {
                                     </Button>
                                 </NavLink>
                             ))}
+                            <AccountMenu/>
                     </Box>
                 </Toolbar>
             </Container>
