@@ -71,7 +71,7 @@ const SearchBar: FC = () => {
                 </Typography>
             </Box> */}
                     
-                <form onSubmit={handleSubmit}>
+                {/* <form onSubmit={handleSubmit}>
                     <Input 
                         placeholder="Search..." 
                         onChange={(e) => handleInput(e.target.value)}
@@ -79,7 +79,7 @@ const SearchBar: FC = () => {
                     <IconButton type="submit" aria-label="search">
                         <SearchIcon/>
                     </IconButton>
-                </form>
+                </form> */}
 
             <AccountMenu/>
         </Box>
