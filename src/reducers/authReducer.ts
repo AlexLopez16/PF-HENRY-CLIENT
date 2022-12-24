@@ -1,4 +1,4 @@
-import { types } from "../types/types";
+import { types } from '../types/types';
 
 interface State {
     logged: boolean;
@@ -39,8 +39,14 @@ export const authReducer = (state: State = initialState, action: Action) => {
 
         case types.clearAuthLogin:
             console.log("clearAuthLogin", "logged");
-
             return { ...state, logged: false, status: action.payload };
+  
+        case types.clearAuthLogin:
+            return { 
+            ...state, 
+            logged: false, 
+            status: action.payload 
+            };
 
         default:
             return state;

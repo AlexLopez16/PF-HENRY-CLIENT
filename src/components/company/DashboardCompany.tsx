@@ -1,28 +1,36 @@
 
-import { FC } from "react";
-import StudentCard from "../student/StudentCard";
+import React, { FC } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import ProjectCard from "../project/ProjectCard";
+import { getProject } from "../../actions/projects";
+// import StudentCard from "../student/StudentCard";
 
 const DashboardCompany: FC = () => {
 
+    let token = localStorage.getItem("token");
+    const dispatch = useDispatch();
+    const { projects } = useSelector((state: any) => state.project)
 
-    const prueba = [{
-        name: "fulanito", email: "fulanito@nabijash.com",
-        descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum veniam adipisci eos labore tempora repellat alias neque hic voluptatibus laborum reiciendis quas dolor voluptatum totam, cum molestias excepturi cumque illo.", skill: "javascript"
-    },
-    {
-        name: "fulanito2", email: "fulanito2@nabijash.com",
-        descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum veniam adipisci eos labore tempora repellat alias neque hic voluptatibus laborum reiciendis quas dolor voluptatum totam, cum molestias excepturi cumque illo.", skill: "javascript"
-    },
-    {
-        name: "fulanito3", email: "fulanito3@nabijash.com",
-        descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum veniam adipisci eos labore tempora repellat alias neque hic voluptatibus laborum reiciendis quas dolor voluptatum totam, cum molestias excepturi cumque illo.", skill: "javascript"
-    }]
-
+    React.useEffect(()=>{
+        dispatch(getProject(token as string))
+    }, []);
+    
+    console.log(projects)
     return (
 
         <div >
-            {prueba.map(p =>
-                <StudentCard name={p.name} email={p.email} descripcion={p.descripcion} skill={p.skill} />)
+            {projects.map((p: any) =>
+                <ProjectCard 
+                    name={p.name}
+                    description={p.description}
+                    participants={p.participants}
+                    requirements={p.requirements}
+                    students={p.students}
+                    company={p.company}
+                    stateOfProject={p.stateOfProject}
+                    id={p.id}
+                    category={p.category}
+                />)
             }
 
         </div>
