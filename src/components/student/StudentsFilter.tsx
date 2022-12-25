@@ -19,7 +19,7 @@ import Alert from "@mui/material/Alert/Alert";
 import Stack from "@mui/material/Stack/Stack";
 import { Navigate, useSearchParams } from "react-router-dom";
 import { types } from "../../types/types";
-import { IconButton, Input, Typography } from "@mui/material";
+import { Container, IconButton, Input, Typography } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
 // let state: string[] | undefined = undefined;
@@ -153,17 +153,18 @@ const StudentsFilter: FC = () => {
 
   return (
     <div>
-      <div
-        style={{
-          width: 1350,
-          height: "10%",
-          padding: 20,
-          marginRight: "0px",
-          marginLeft: "90px",
+      <Box
+    
+        sx={{
+          width:1300,
+          // padding: 20,
+          marginLeft: "280px",
+          marginTop: "15px",
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "space-between",
           alignItems: "center",
+       
         }}
       >
         <div style={{ width: 255 }}>
@@ -263,7 +264,7 @@ const StudentsFilter: FC = () => {
             </IconButton>
           </form>
         </div>
-      </div>
+      </Box>
     </div>
   );
 };

@@ -19,11 +19,9 @@ import Alert from "@mui/material/Alert/Alert";
 import Stack from "@mui/material/Stack/Stack";
 import { Navigate, useSearchParams } from "react-router-dom";
 import { types } from "../../types/types";
-import { IconButton, Input, Typography } from "@mui/material";
+import { Container, IconButton, Input, Typography } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import StudentsFilter from "./StudentsFilter";
-
-
 
 const ProjectsStudents: FC = () => {
   const dispatch = useDispatch();
@@ -36,10 +34,8 @@ const ProjectsStudents: FC = () => {
     categorie: undefined,
   });
   useEffect(() => {
-    console.log("bye")
     dispatch(
       getProjectsFilter(
-        
         inputFilter.typeOfOrder,
         inputFilter.tecnologies,
         token,
@@ -54,7 +50,6 @@ const ProjectsStudents: FC = () => {
   const { projectsFilter } = useSelector((state: State) => state.project);
 
   let info = projectsFilter;
- 
 
   const { status } = useSelector((state: State) => state.auth);
   //   console.log('logged', logged);
@@ -68,28 +63,9 @@ const ProjectsStudents: FC = () => {
   }
 
   return (
-    <div>
-      <div
-        style={{
-          width: 1350,
-          height: "10%",
-          padding: 20,
-          marginRight: "0px",
-          marginLeft: "90px",
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
+    <Box>
         <StudentsFilter />
-      </div>
-
-      <Box
-        sx={{
-          pl: 30,
-        }}
-      >
+      <Container maxWidth='lg'>
         {info.length ? (
           info.map((e: any) => (
             <ProjectCard
@@ -111,8 +87,8 @@ const ProjectsStudents: FC = () => {
             </Alert>
           </Stack>
         )}
-      </Box>
-    </div>
+      </Container>
+    </Box>
   );
 };
 

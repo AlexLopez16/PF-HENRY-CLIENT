@@ -4,6 +4,7 @@ import DashboardCompany from '../components/company/DashboardCompany';
 import { useSelector } from 'react-redux';
 import { State } from '../reducers/rootReducer';
 import { MyProjectCompany } from '../components/project/MyProjectCompany';
+import ProjectsStudents from '../components/student/ProjectsStudents';
 
 const ProjectsPage: FC = () => {
     // const rol = localStorage.getItem('rol');
@@ -12,7 +13,7 @@ const ProjectsPage: FC = () => {
 
     let role = rol
 
-    return rol === 'STUDENT_ROL' ? <DashboardStudens /> : <MyProjectCompany />;
+    return rol === 'STUDENT_ROL' ? <ProjectsStudents/> : <MyProjectCompany />;
     //role === 'Student' ? <DashStudent/> : <DashCompany/>
 };
 
