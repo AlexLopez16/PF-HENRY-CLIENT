@@ -64,8 +64,8 @@ const ProjectsStudents: FC = () => {
 
   return (
     <Box>
-        <StudentsFilter />
-      <Container maxWidth='lg'>
+      <StudentsFilter />
+      <Container maxWidth="lg">
         {info.length ? (
           info.map((e: any) => (
             <ProjectCard

@@ -31,134 +31,134 @@ const styledInput = {
   "&:hover": {},
 };
 const DashboardStudent: FC = () => {
-  const dispatch = useDispatch();
-  let token: String | null = localStorage.getItem("token");
-  const [search,setSearch]=useState("")
-  const [inputFilter, setInput] = useState({
-    state: undefined,
-    tecnologies: undefined,
-    typeOfOrder: undefined,
-    categorie: undefined,
+  // const dispatch = useDispatch();
+  // let token: String | null = localStorage.getItem("token");
+  // const [search,setSearch]=useState("")
+  // const [inputFilter, setInput] = useState({
+  //   state: undefined,
+  //   tecnologies: undefined,
+  //   typeOfOrder: undefined,
+  //   categorie: undefined,
     
-  });
-  useEffect(() => {
-    // dispatch(getProject(token));
-    dispatch(
-      getProjectsFilter(
-        inputFilter.typeOfOrder,
-        inputFilter.tecnologies,
-        token,
-        search,
-        inputFilter.categorie,
-        inputFilter.state
-      )
-    );
-    dispatch(getCategory(token));
-  }, [dispatch, token, inputFilter]);
-  // interface props {
-  //   description?: string
-  //   name?: string
-  //   participants?: number
-  //   requirements?: string[]
-  //   state?: boolean
-  //   students?: string[]
-  //   uid?: string
-  //   stateOfProject: string
+  // });
+  // useEffect(() => {
+  //   // dispatch(getProject(token));
+  //   dispatch(
+  //     getProjectsFilter(
+  //       inputFilter.typeOfOrder,
+  //       inputFilter.tecnologies,
+  //       token,
+  //       search,
+  //       inputFilter.categorie,
+  //       inputFilter.state
+  //     )
+  //   );
+  //   dispatch(getCategory(token));
+  // }, [dispatch, token, inputFilter]);
+  // // interface props {
+  // //   description?: string
+  // //   name?: string
+  // //   participants?: number
+  // //   requirements?: string[]
+  // //   state?: boolean
+  // //   students?: string[]
+  // //   uid?: string
+  // //   stateOfProject: string
 
+  // // }
+
+  // const { category } = useSelector((state: State) => state.project);
+  // const categorys = category;
+
+  // const tecnologias = [
+  //   "Python",
+  //   "Java",
+  //   "JavaScript",
+  //   "PHP",
+  //   "R",
+  //   "Swfit",
+  //   "Flutter",
+  //   "Net",
+  //   "MathLab",
+  //   "Kotlin",
+  //   "Cobol",
+  //   "Sql",
+  //   "TypeScript",
+  //   "AWS",
+  //   "Mongo",
+  //   "NodeJS",
+  //   "React",
+  //   "Postgress",
+  // ];
+
+  // const stateOfProject = ["Reclutamiento", "En desarrollo", "Terminado"];
+
+  // // const { projects } = useSelector((state: State) => state.project);
+
+  // const { projectsFilter } = useSelector((state: State) => state.project);
+
+  // let info = projectsFilter;
+  // console.log(info);
+
+  // const { status } = useSelector((state: State) => state.auth);
+  // //   console.log('logged', logged);
+  // if (status === 401) {
+  //   console.log("401", 401);
+  //   localStorage.clear();
+  //   dispatch({
+  //     type: types.authLogin,
+  //   });
+  //   return <Navigate to="/login" />;
+    
   // }
+  // const handlerchanges=(e:any)=>{
+  //   setSearch(e)
+  // }
+  // const handleSubmit = (e: any) => {
+  //   e.preventDefault();
+  //   dispatch(
+  //         getProjectsFilter(
+  //           inputFilter.typeOfOrder,
+  //           inputFilter.tecnologies,
+  //           token,
+  //           search,
+  //           inputFilter.categorie,
+  //           inputFilter.state
+  //         )
+  //       );
+  // };
 
-  const { category } = useSelector((state: State) => state.project);
-  const categorys = category;
-
-  const tecnologias = [
-    "Python",
-    "Java",
-    "JavaScript",
-    "PHP",
-    "R",
-    "Swfit",
-    "Flutter",
-    "Net",
-    "MathLab",
-    "Kotlin",
-    "Cobol",
-    "Sql",
-    "TypeScript",
-    "AWS",
-    "Mongo",
-    "NodeJS",
-    "React",
-    "Postgress",
-  ];
-
-  const stateOfProject = ["Reclutamiento", "En desarrollo", "Terminado"];
-
-  // const { projects } = useSelector((state: State) => state.project);
-
-  const { projectsFilter } = useSelector((state: State) => state.project);
-
-  let info = projectsFilter;
-  console.log(info);
-
-  const { status } = useSelector((state: State) => state.auth);
-  //   console.log('logged', logged);
-  if (status === 401) {
-    console.log("401", 401);
-    localStorage.clear();
-    dispatch({
-      type: types.authLogin,
-    });
-    return <Navigate to="/login" />;
-    
-  }
-  const handlerchanges=(e:any)=>{
-    setSearch(e)
-  }
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    dispatch(
-          getProjectsFilter(
-            inputFilter.typeOfOrder,
-            inputFilter.tecnologies,
-            token,
-            search,
-            inputFilter.categorie,
-            inputFilter.state
-          )
-        );
-  };
-
-  const handlerchange = (e: string, value: any) => {
-    if (e === "e") {
-      if (value.length) {
-        // state = value;
-        setInput({ ...inputFilter, state: value });
-      } else {
-        setInput({ ...inputFilter, state: undefined });
-      }
-    }
-    if (e === "t") {
-      if (value.length) {
-        setInput({ ...inputFilter, tecnologies: value });
-      } else {
-        setInput({ ...inputFilter, tecnologies: undefined });
-      }
-    }
-    if (e === "o") {
-      let val = value.props.value;
-      if (val) {
-        setInput({ ...inputFilter, typeOfOrder: val });
-      } else {
-        setInput({ ...inputFilter, typeOfOrder: undefined });
-      }
-    }
-    if (e === "c") {
-      if (value.length) {
-        setInput({ ...inputFilter, categorie: value });
-      } else {
-        setInput({ ...inputFilter, categorie: undefined });
-      }
-    }
+  // const handlerchange = (e: string, value: any) => {
+  //   if (e === "e") {
+  //     if (value.length) {
+  //       // state = value;
+  //       setInput({ ...inputFilter, state: value });
+  //     } else {
+  //       setInput({ ...inputFilter, state: undefined });
+  //     }
+  //   }
+  //   if (e === "t") {
+  //     if (value.length) {
+  //       setInput({ ...inputFilter, tecnologies: value });
+  //     } else {
+  //       setInput({ ...inputFilter, tecnologies: undefined });
+  //     }
+  //   }
+  //   if (e === "o") {
+  //     let val = value.props.value;
+  //     if (val) {
+  //       setInput({ ...inputFilter, typeOfOrder: val });
+  //     } else {
+  //       setInput({ ...inputFilter, typeOfOrder: undefined });
+  //     }
+  //   }
+  //   if (e === "c") {
+  //     if (value.length) {
+  //       setInput({ ...inputFilter, categorie: value });
+  //     } else {
+  //       setInput({ ...inputFilter, categorie: undefined });
+  //     }
+  //   }
     // if (e === "n") {
     //   if (value) {
     //     setInput({ ...inputFilter, search: value });
@@ -176,11 +176,13 @@ const DashboardStudent: FC = () => {
     //     inputFilter.state
     //   )
     // );
-  };
+ 
 
   return (
     <div>
-      <div
+
+      <h1>Aqui va la info que se va a colocar en la dashboard de student en el boton projects de la navbar quedo el componente que trae todos los proyectos y los filtros</h1>
+      {/* <div
         style={{
           width: 1350,
           height: "10%",
@@ -318,7 +320,7 @@ const DashboardStudent: FC = () => {
             </Alert>
           </Stack>
         )}
-      </Box>
+      </Box> */}
     </div>
   );
 };

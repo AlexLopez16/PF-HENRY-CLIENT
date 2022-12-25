@@ -33,28 +33,27 @@ const styledInput = {
 const StudentsFilter: FC = () => {
   const dispatch = useDispatch();
   let token: String | null = localStorage.getItem("token");
-  const [search,setSearch]=useState("")
+  const [search, setSearch] = useState("");
   const [inputFilter, setInput] = useState({
     state: undefined,
     tecnologies: undefined,
     typeOfOrder: undefined,
     categorie: undefined,
-    
   });
   useEffect(() => {
-    console.log("hola")
+    console.log("hola");
     dispatch(
-        getProjectsFilter(
-          inputFilter.typeOfOrder,
-          inputFilter.tecnologies,
-          token,
-          search,
-          inputFilter.categorie,
-          inputFilter.state
-        ))  
+      getProjectsFilter(
+        inputFilter.typeOfOrder,
+        inputFilter.tecnologies,
+        token,
+        search,
+        inputFilter.categorie,
+        inputFilter.state
+      )
+    );
     dispatch(getCategory(token));
   }, [dispatch, token, inputFilter]);
-
 
   const { category } = useSelector((state: State) => state.project);
   const categorys = category;
@@ -98,23 +97,22 @@ const StudentsFilter: FC = () => {
       type: types.authLogin,
     });
     return <Navigate to="/login" />;
-    
   }
-  const handlerchanges=(e:any)=>{
-    setSearch(e)
-  }
+  const handlerchanges = (e: any) => {
+    setSearch(e);
+  };
   const handleSubmit = (e: any) => {
     e.preventDefault();
     dispatch(
-          getProjectsFilter(
-            inputFilter.typeOfOrder,
-            inputFilter.tecnologies,
-            token,
-            search,
-            inputFilter.categorie,
-            inputFilter.state
-          )
-        );
+      getProjectsFilter(
+        inputFilter.typeOfOrder,
+        inputFilter.tecnologies,
+        token,
+        search,
+        inputFilter.categorie,
+        inputFilter.state
+      )
+    );
   };
 
   const handlerchange = (e: string, value: any) => {
@@ -148,23 +146,19 @@ const StudentsFilter: FC = () => {
         setInput({ ...inputFilter, categorie: undefined });
       }
     }
-    
   };
 
   return (
-    <div>
+    <Container>
       <Box
-    
         sx={{
-          width:1300,
-          // padding: 20,
-          marginLeft: "280px",
+          width: 1300,
+          marginLeft: "-80px",
           marginTop: "15px",
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "space-between",
           alignItems: "center",
-       
         }}
       >
         <div style={{ width: 255 }}>
@@ -251,21 +245,20 @@ const StudentsFilter: FC = () => {
           </FormControl>
         </div>
         <div style={{ marginLeft: 10 }}>
-        
           <form onSubmit={handleSubmit}>
-          <Input
-            placeholder="Search..."
-            onChange={(e) => handlerchanges(e.target.value)}
-            sx={styledInput}
-            // value={inputFilter.search}
-          ></Input>
+            <Input
+              placeholder="Search..."
+              onChange={(e) => handlerchanges(e.target.value)}
+              sx={styledInput}
+              // value={inputFilter.search}
+            ></Input>
             <IconButton type="submit" aria-label="search">
               <SearchIcon />
             </IconButton>
           </form>
         </div>
       </Box>
-    </div>
+    </Container>
   );
 };
 
