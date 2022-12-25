@@ -46,7 +46,7 @@ const ProjectCard: FC<CardProjectProps> = ({
   const handleClick = () => {
     dispatch(getProjectByID(token, id));
   };
-
+   
 
     return  rol === 'STUDENT_ROL' ? 
 
@@ -75,7 +75,8 @@ const ProjectCard: FC<CardProjectProps> = ({
             </Typography>
 
             <Typography sx={{ mb: 0.5 }}>
-                {company?.name}
+         
+                {company}
             </Typography>
 
             <Typography sx={{ mb: 0.5 }}>
@@ -121,7 +122,7 @@ const ProjectCard: FC<CardProjectProps> = ({
             </Typography>
 
             <Typography sx={{ mb: 0.5 }}>
-                {company?.name}
+                {company}
             </Typography>
 
             <Typography sx={{ mb: 0.5 }}>
