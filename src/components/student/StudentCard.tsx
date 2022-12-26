@@ -18,6 +18,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../reducers/rootReducer";
 import { acceptStudent } from "../../actions/company";
+import { useParams } from "react-router-dom";
 
 
 interface StudentProps {
@@ -27,25 +28,25 @@ interface StudentProps {
   descripcion: string,
   tecnologies: object[],
   image: string,
-  id:string,
+  idstd:string,
 }
 
 
 
-const StudentCard: FC<StudentProps> = ({ name, email, descripcion, tecnologies, image, id }: StudentProps) => {
+const StudentCard: FC<StudentProps> = ({ name, email, descripcion, tecnologies, image, idstd }: StudentProps) => {
 
   const dispatch = useDispatch()
   const [open, setOpen] = React.useState(true);
   let rol = useSelector((state: State) => state.auth.data.rol);
-  
-  console.log(id);
+ 
+  const {id:idpjt}=useParams()
 
   const handleClick = () => {
     setOpen(!open);
   };
 
   const handlerAccept = () => {
-    dispatch(acceptStudent(id))
+    dispatch(acceptStudent(idpjt,idstd))
   }
 
   return (
@@ -70,7 +71,7 @@ const StudentCard: FC<StudentProps> = ({ name, email, descripcion, tecnologies, 
 
 
 
-            {rol === "STUDENT_ROL"
+            {rol === "COMPANY_ROL"
               ? <Button
                 sx={{ ml: 'auto', fontWeight: 600, color: "yellow", background: "black", }}
                 size="small"

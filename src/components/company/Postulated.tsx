@@ -2,7 +2,7 @@
 import { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { postulatedProject } from "../../actions/projects";
+import { getAcceptstudent, postulatedProject } from "../../actions/projects";
 import { State } from "../../reducers/rootReducer";
 import StudentCard from "../student/StudentCard";
 
@@ -11,17 +11,17 @@ const Postulated: FC = () => {
 
 
     let token: string = localStorage.getItem('token') || "";
-    let  id = useParams()
-console.log(id);
+    let  id:any = useParams()
 
 
     useEffect(() => {
         dispatch(postulatedProject(id, token))
+        dispatch(getAcceptstudent(id,token))
     }, [dispatch])
 
 
+
     let { projectId } = useSelector((state: State) => state.project)
-    console.log(projectId.students);
 
     return (
         <div >
@@ -33,7 +33,7 @@ console.log(id);
                     descripcion={p.description}
                     tecnologies={p.tecnologies}
                     image={p.image}
-                    id={p._id}
+                    idstd={p._id}
                 />)
             }
 

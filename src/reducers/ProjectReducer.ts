@@ -1,3 +1,4 @@
+import { type } from "os";
 import { types } from "../types/types";
 
 interface State {
@@ -5,6 +6,7 @@ interface State {
   projectsFilter: {}[]
   projectId: {}
   postulated: {}[]
+  accepts: {}[]
 }
 
 const initialState = {
@@ -14,6 +16,7 @@ const initialState = {
   category: [],
   myProjectCompany: [],
   postulated: [],
+  accepts: []
 
 };
 
@@ -65,12 +68,12 @@ export const projectReducer = (state: State = initialState, action: Action) => {
         ...state,
         postulated: [...state.postulated, students]
       }
-      case types.acceptStudent:
-        return{
-          ...state,
-          projects:action.payload
-        }
-    default:
+    case types.acceptStudent:
+      return {
+        ...state,
+        projects: action.payload
+      }
+     
       return state;
   }
 };

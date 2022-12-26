@@ -19,11 +19,12 @@ export const registerCompany = (values: Object) => {
     }
 }
 
-export const acceptStudent=(id:string)=>{
+export const acceptStudent=(id:string,idstudent: string)=>{
+console.log("client lin23",idstudent);
 
     return async (dispatch: Dispatch) => {
         try {
-            const res = await axios.put(`/accepts/${id}`)
+            const res = await axios.put(`/project/accept/${id}`, {idstudent})
             console.log(res)
             dispatch({
                 type: types.registerCompany,

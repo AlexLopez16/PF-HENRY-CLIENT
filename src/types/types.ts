@@ -23,5 +23,6 @@ export const types = {
     
     AddStToPr:"[student] Add student to project",
     postulated: "[project] get student postulated",
-    acceptStudent:"[Company] Student Accept"
+    acceptStudent:"[Company] Student Accept",
+    getStudentsInProject:"[Company] get students in projects "
 };
