@@ -5,8 +5,6 @@ import { useSelector } from 'react-redux';
 import { State } from '../reducers/rootReducer';
 
 const DashboardPage: FC = () => {
-    // const rol = localStorage.getItem('rol');
-
     const { rol } = useSelector((state: State) => state.auth.data);
 
     let role = rol
