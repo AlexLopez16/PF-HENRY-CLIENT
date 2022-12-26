@@ -1,133 +1,110 @@
-import React, { FC } from "react";
+import { FC } from "react";
 
 import {
     Typography,
     Paper,
     List,
     Button,
+    ImageList,
+    ImageListItem,
 } from "@mui/material";
-import { Link } from "react-router-dom";
-import { RadioGroupRating } from "./Rating";
-import { Box } from "@mui/system";
 
 interface ProjectProps {
     name?: string;
     empresa?: string;
-    imagen?: string;
+    imagenes?: string[];
     detalle?: string;
     cantidadDeEstudiantes?: string;
     lenguajes?: string[];
     estado?: string;
-    email?: string;
     categoria?: string
 }
 
-const ProjectDetail: FC<ProjectProps> = ({ name, empresa, imagen, detalle, cantidadDeEstudiantes, lenguajes = ['Java'], estado, email, categoria }: ProjectProps) => {
-
-    let activo = null
-    estado === "reclutando" ? activo = false : activo = true
-
-    // const [open, setOpen] = React.useState(true);
-
-    // const handleClick = () => {
-    //   setOpen(!open);
-    // };
-
+const ProjectDetail: FC<ProjectProps> = ({ name, empresa, imagenes, detalle, cantidadDeEstudiantes, lenguajes, estado, categoria }: ProjectProps) => {
     return (
         <div>
             <Paper
                 elevation={12}
                 style={{
-                    width: 1200,
+                    width: 1000,
                     height: 'fit-content',
                     padding: 20,
-                    margin: "100px 70px 100px 150px",
-                    display: "inline-block",
+                    margin: "100px auto",
                 }}
             >
-                <List>
-                    <Typography variant="h4">
-                        {name}
-                    </Typography>
-                </List>
 
-                <List>
-                    <Typography variant="h5">
-                        {empresa}
-                    </Typography>
-                </List>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                    <div>
+                        <List>
+                            <Typography variant="h4">
+                                {name}
+                            </Typography>
+                        </List>
 
-                <Box>
-                    {imagen}
-                </Box>
+                        <Typography>
+                            {empresa}
+                        </Typography>
 
+                        <List>
+                            <Typography variant="body1">
+                                <b>Descripcion: </b>
+                                {detalle}
+                            </Typography>
+                        </List>
 
-                <List>
-                    <Typography variant="body1">
-                        <b>Descripcion: </b>
-                        {detalle}
-                    </Typography>
-                </List>
+                        <List>
+                            <Typography variant="body1">
+                                <b>Requerimientos: </b> {lenguajes?.map(lenguaje => lenguaje).join(', ')}
+                            </Typography>
+                        </List>
 
-                <List>
-                    <Typography variant="body1">
-                        <b>Requerimientos: </b> {lenguajes.join(', ')}
-                    </Typography>
-                </List>
+                        <List>
+                            <Typography variant="body1">
+                                <b>Participantes: </b> {cantidadDeEstudiantes}
+                            </Typography>
+                        </List>
 
-                <List>
-                    <Typography variant="body1">
-                        <b>Participantes: </b> {cantidadDeEstudiantes}
-                    </Typography>
-                </List>
+                        <List>
+                            <Typography variant="body1">
+                                <b>Categoria: </b> {categoria}
+                            </Typography>
+                        </List>
 
-                <List>
-                    <Typography variant="body1">
-                        <b>Categoria: </b> {categoria}
-                    </Typography>
-                </List>
-
-                <List>
-                    <Typography variant="body1">
-                        <b>Estado del proyecto: </b> {estado}
-                    </Typography>
-                </List>
-
-                {/* <List>
-                    <Typography variant="body1">E-mail:{email}</Typography>
-                </List> */}
+                        <List>
+                            <Typography variant="body1">
+                                <b>Estado del proyecto: </b> {estado}
+                            </Typography>
+                        </List>
+                    </div>
+                    {
+                        imagenes && (
+                            <div>
+                                <ImageList sx={{ width: 500, height: 280 }} cols={2} rowHeight={200}>
+                                    {imagenes.map((item) => (
+                                        <ImageListItem key={item}>
+                                            <img
+                                                src={`${item}?w=164&h=164&fit=crop&auto=format`}
+                                                srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                                                alt={item}
+                                                loading="lazy"
+                                            />
+                                        </ImageListItem>
+                                    ))}
+                                </ImageList>
+                            </div>
+                        )
+                    }
+                </div>
 
                 <Button
-                    sx={{ marginTop: 10 }}
+                    sx={{ marginTop: 5 }}
                     type="submit"
                     variant="contained"
                     fullWidth
                     color="primary"
-                    // disabled={activo}
                 >
-                    aplicar
+                    Aplicar
                 </Button>
-
-                {/* <Link to="/dashboard">
-                    <Button
-                        sx={{ marginTop: 10 }}
-                        type="submit"
-                        variant="contained"
-                        fullWidth
-                        color="primary"
-                    >
-                        otros proyectos
-                    </Button>
-                </Link>
-
-                <Box >
-
-                    <RadioGroupRating />
-
-
-                </Box> */}
-
-
             </Paper>
         </div>
     );
