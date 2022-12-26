@@ -204,6 +204,33 @@ export const updateImagesProject = (id: string, token: string, file: any) => {
     }
 }
 
+export const postulatedProject = (id:string,token:string)=>{
+    return async (dispatch: Dispatch) => {
+        try {
+            const res = await axios.get(`/project/${id}`,{ headers: { 'user-token': token } })
 
+            dispatch({
+                type: types.postulated,
+                payload: res.data
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
 
-// Update Images Project
+export const getAcceptstudent = (id:string,token:string)=>{
+    return async (dispatch: Dispatch) => {
+        try {
+            const res = await axios.get(`/project/accept/${id}`,{ headers: { 'user-token': token } })
+
+            dispatch({
+                type: types.postulated,
+                payload: res.data
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
