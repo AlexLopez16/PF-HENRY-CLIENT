@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import DashboardStudens from '../components/student/DashboardStudent';
+import DashboardStudent from '../components/student/DashboardStudent';
 import DashboardCompany from '../components/company/DashboardCompany';
 import DashboardAdmin from '../components/Admin/DashaboardAdmin';
 import { useSelect } from '@mui/base';
@@ -12,7 +12,7 @@ const DashboardPage: any = () => {
     let rol = useSelector((state: State) => state.auth.data.rol);
 
     return rol === 'STUDENT_ROL'
-        ? <DashboardStudens />
+        ? <DashboardStudent />
         : rol === 'ADMIN_ROL'
             ? <DashboardAdmin />
             : rol === 'COMPANY_ROL'

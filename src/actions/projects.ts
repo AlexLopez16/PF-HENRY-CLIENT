@@ -4,6 +4,7 @@ import { types } from "../types/types";
 import { Navigate } from "react-router-dom";
 import { fileUpload } from '../helpers/fileUpload';
 
+
 export const getProject = (token: string) => {
     return async (dispatch: Dispatch) => {
         try {
@@ -65,10 +66,13 @@ export const getProjectsFilter = (
     token: String | null,
     name: string | undefined,
     category: string[] | undefined,
-    stateOfProject: string[] | undefined
+    stateOfProject: string[] | undefined,
+    limit:number|undefined,
+    init:number|undefined
 ) => {
     return async (dispatch: Dispatch) => {
         try {
+            console.log(limit,init)
             let query;
 
             if (name) {
@@ -114,6 +118,16 @@ export const getProjectsFilter = (
                 }
             }
 
+            if(limit||init){
+                console.log(limit,init)
+                if(query){
+                    query+=`&limit=${limit}&init=${init}`
+                }
+                else{
+                    query=`limit=${limit}&init=${init}`
+                }
+            }
+
             let url = `/project`;
             if (query) {
                 url += `?${query}`;
@@ -121,11 +135,12 @@ export const getProjectsFilter = (
             const res = await axios.get(url, {
                 headers: { "user-token": token },
             });
-
+            console.log(res.data)
             dispatch({
                 type: types.projectsFilter,
-                payload: res.data.projects,
+                payload: res.data,
             });
+           
         } catch (error: any) {
             console.log(error.response.data.errors[0].msg);
             if (error.response.status === 401) {

@@ -5,6 +5,8 @@ import {
     Paper,
     List,
     Button,
+    ImageList,
+    ImageListItem,
 } from "@mui/material";
 import { Link,} from "react-router-dom";
 
@@ -16,7 +18,7 @@ import { addStudentToProject } from "../../actions/student";
 interface ProjectProps {
     name?: string;
     empresa?: string;
-    imagen?: string;
+    imagenes?: string[];
     detalle?: string;
     cantidadDeEstudiantes?: string;
     lenguajes?: string[];
@@ -44,11 +46,10 @@ const ProjectDetail: FC<ProjectProps> = ({ name, empresa, imagen, detalle, canti
             <Paper
                 elevation={12}
                 style={{
-                    width: 1200,
+                    width: 1000,
                     height: 'fit-content',
                     padding: 20,
-                    margin: "100px 70px 100px 150px",
-                    display: "inline-block",
+                    margin: "100px auto",
                 }}
             >
 
@@ -58,41 +59,34 @@ const ProjectDetail: FC<ProjectProps> = ({ name, empresa, imagen, detalle, canti
                     </Typography>
                 </List>
 
-                <List>
-                    <Typography variant="h5">
-                        {empresa}
-                    </Typography>
-                </List>
+                        <Typography>
+                            {empresa}
+                        </Typography>
 
-                <Box>
-                    {imagen}
-                </Box>
+                        <List>
+                            <Typography variant="body1">
+                                <b>Descripcion: </b>
+                                {detalle}
+                            </Typography>
+                        </List>
 
+                        <List>
+                            <Typography variant="body1">
+                                <b>Requerimientos: </b> {lenguajes?.map(lenguaje => lenguaje).join(', ')}
+                            </Typography>
+                        </List>
 
-                <List>
-                    <Typography variant="body1">
-                        <b>Descripcion: </b>
-                        {detalle}
-                    </Typography>
-                </List>
+                        <List>
+                            <Typography variant="body1">
+                                <b>Participantes: </b> {cantidadDeEstudiantes}
+                            </Typography>
+                        </List>
 
-                <List>
-                    <Typography variant="body1">
-                        <b>Requerimientos: </b> {lenguajes.join(', ')}
-                    </Typography>
-                </List>
-
-                <List>
-                    <Typography variant="body1">
-                        <b>Participantes: </b> {cantidadDeEstudiantes}
-                    </Typography>
-                </List>
-
-                <List>
-                    <Typography variant="body1">
-                        <b>Categoria: </b> {categoria}
-                    </Typography>
-                </List>
+                        <List>
+                            <Typography variant="body1">
+                                <b>Categoria: </b> {categoria}
+                            </Typography>
+                        </List>
 
                 <List>
                     <Typography variant="body1">

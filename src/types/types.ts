@@ -17,6 +17,7 @@ export const types = {
     getProjectById: '[project] Get Project By Id',
     getCategory:'[project] Get Category',
     getMyProjectCompany:'[project]  Get My Project Company',
+    
 
     showError: '[error] Show Error',
     clearError: '[error] Clear Error',
