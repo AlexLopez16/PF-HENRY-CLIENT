@@ -140,7 +140,14 @@ const NavBar: FC = () => {
                                     </Button>
                                 </NavLink>
                             ))}
-                            <AccountMenu/>
+                        <Box
+                            sx={{
+                                ml: 65,
+                                display: { xs: 'none', md: 'flex' }
+                            }}
+                        >
+                            <AccountMenu />
+                        </Box>
                     </Box>
                 </Toolbar>
             </Container>

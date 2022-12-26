@@ -19,7 +19,19 @@ export const registerCompany = (values: Object) => {
     }
 }
 
-export const acceptStudent=()=>{
+export const acceptStudent=(id:string)=>{
 
-    
+    return async (dispatch: Dispatch) => {
+        try {
+            const res = await axios.put(`/accepts/${id}`)
+            console.log(res)
+            dispatch({
+                type: types.registerCompany,
+                payload: res.data,
+
+            });
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }

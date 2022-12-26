@@ -11,7 +11,8 @@ const Postulated: FC = () => {
 
 
     let token: string = localStorage.getItem('token') || "";
-    let { id } = useParams()
+    let  id = useParams()
+console.log(id);
 
 
     useEffect(() => {
@@ -25,13 +26,14 @@ const Postulated: FC = () => {
     return (
         <div >
             
-            {projectId.students.map(p =>
+            {projectId.students.map((p: any) =>
                 <StudentCard
                     name={p.name}
                     email={p.email}
                     descripcion={p.description}
                     tecnologies={p.tecnologies}
                     image={p.image}
+                    id={p._id}
                 />)
             }
 

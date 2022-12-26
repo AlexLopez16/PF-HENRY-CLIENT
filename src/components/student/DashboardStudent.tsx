@@ -32,7 +32,7 @@ const styledInput = {
 };
 const DashboardStudent: FC = () => {
   const dispatch = useDispatch();
-  let token: String | null = localStorage.getItem("token");
+  let token: String = localStorage.getItem("token");
   const [inputFilter, setInput] = useState({
     state: undefined,
     tecnologies: undefined,

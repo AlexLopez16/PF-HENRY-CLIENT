@@ -48,6 +48,7 @@ const ProjectCard: FC<CardProjectProps> = ({
         
     }
 
+    return rol==="STUDENT_ROL"?
         <Paper elevation={10} style={{
             width: '100vh',
             height: "fit-content",

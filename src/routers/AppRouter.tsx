@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
 import LandingPage from "../pages/LandingPage/LandingPage";
 import StudensForm from "../components/student/StudentForm";
 import CompanyForm from "../components/company/CompanyForm";
@@ -33,48 +33,13 @@ import MyProject from "../components/student/MyProject";
 import ProjectsPage from "../pages/ProjectsPage";
 import MyProjectsPage from "../pages/MyProjectsPage";
 
-import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
-import LandingPage from '../pages/LandingPage/LandingPage';
-import StudensForm from '../components/student/StudentForm';
-import CompanyForm from '../components/company/CompanyForm';
-import ProjectDetail from '../components/project/ProjectDetail';
-// import NavBar from '../components/ui/NavBar';
-import DashboardPage from '../pages/DashboardPage';
-import { Profile } from '../components/student/profile/Profile';
-import { LoginScreen } from '../components/auth/LoginScreen';
-import AboutUsPage from '../pages/LandingPage/AboutUsPage';
-import { PublicRoute } from './PublicRoute';
-import { PrivateRoute } from './PrivateRoute';
-import ProjectForm from '../components/project/ProjectForm';
-import ProjectCard from '../components/project/ProjectCard';
-import { HomePage } from '../pages/HomePage';
-// import { Nabvar } from '../components/maquetas/Nabvar';
-import NavBar from '../components/NavBar/NavBar';
-import { Register } from '../pages/PageRegister';
-import { ProjectPage } from '../pages/ProjectPage';
-import ContactForm from '../pages/LandingPage/ContactForm';
-import { ForgotPassword } from '../components/auth/ForgotPaswword';
-import { PasswordRecover } from '../components/auth/PasswordRecover';
-import Ale from '../pages/Profiles/Ale';
-import Ampi from '../pages/Profiles/Ampi';
-import Brian from '../pages/Profiles/Brian';
-import Hugo from '../pages/Profiles/Hugo';
-import Jona from '../pages/Profiles/Jona';
-import Nachito from '../pages/Profiles/Nachito';
-import Nacho from '../pages/Profiles/Nacho';
-import Sil from '../pages/Profiles/Sil';
-import MyProject from '../components/student/MyProject';
+
 import Postulated from '../components/company/Postulated';
 
 export const AppRouter = () => {
-    let {id}=useParams()
-    // console.log(id);
-    
-    return (
-        <BrowserRouter>
-            <div>
-                <Routes>
-                    <Route path="/" element={<LandingPage />} />
+  let { id } = useParams()
+  // console.log(id);
+
   return (
     <BrowserRouter>
       <div>
@@ -242,6 +207,9 @@ export const AppRouter = () => {
               </>
             }
           /> */}
+          <Route path='/postulated/:id'
+            element={<Postulated />}
+          />
         </Routes>
       </div>
     </BrowserRouter>

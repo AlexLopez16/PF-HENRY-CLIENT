@@ -17,7 +17,7 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../reducers/rootReducer";
-import { acceptStudent } from "../../actions/conpany";
+import { acceptStudent } from "../../actions/company";
 
 
 interface StudentProps {
@@ -27,23 +27,25 @@ interface StudentProps {
   descripcion: string,
   tecnologies: object[],
   image: string,
+  id:string,
 }
 
 
 
-const StudentCard: FC<StudentProps> = ({ name, email, descripcion, tecnologies, image }: StudentProps) => {
+const StudentCard: FC<StudentProps> = ({ name, email, descripcion, tecnologies, image, id }: StudentProps) => {
 
   const dispatch = useDispatch()
   const [open, setOpen] = React.useState(true);
   let rol = useSelector((state: State) => state.auth.data.rol);
+  
+  console.log(id);
 
   const handleClick = () => {
     setOpen(!open);
   };
 
   const handlerAccept = () => {
-dispatch(acceptStudent())
-
+    dispatch(acceptStudent(id))
   }
 
   return (
