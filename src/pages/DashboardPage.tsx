@@ -5,14 +5,11 @@ import { useSelector } from 'react-redux';
 import { State } from '../reducers/rootReducer';
 
 const DashboardPage: FC = () => {
-    // const rol = localStorage.getItem('rol');
-
     const { rol } = useSelector((state: State) => state.auth.data);
-
-    let role = rol
-
-    return rol === 'STUDENT_ROL' ? <DashboardStudens /> : <DashboardCompany />;
-    //role === 'Student' ? <DashStudent/> : <DashCompany/>
+    
+    return rol === 'STUDENT_ROL'
+        ? <DashboardStudens />
+        : <DashboardCompany />
 };
 
 export default DashboardPage;
