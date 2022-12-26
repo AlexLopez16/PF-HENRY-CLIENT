@@ -3,10 +3,10 @@ import React, { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProjectCard from "../project/ProjectCard";
 import { getProject } from "../../actions/projects";
-import { Box } from "@mui/system";
+
 // import StudentCard from "../student/StudentCard";
 
-import { Grid } from "@mui/material";
+import { Grid, Pagination } from "@mui/material";
 
 const DashboardCompany: FC = () => {
 
@@ -18,7 +18,7 @@ const DashboardCompany: FC = () => {
         dispatch(getProject(token as string))
     }, []);
     
-    console.log(projects)
+
     return (
         <Grid container sx={{justifyContent: 'center'}}>
             {projects.map((p: any) =>
