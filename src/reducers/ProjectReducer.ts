@@ -11,7 +11,8 @@ const initialState = {
   projectsFilter: [],
   projectId: {},
   category: [],
-  myProjectCompany:[]
+  myProjectCompany: [],
+  total: 0,
 };
 
 type Action = {
@@ -40,9 +41,11 @@ export const projectReducer = (state: State = initialState, action: Action) => {
       };
 
     case types.projectsFilter:
+      console.log(action.payload.total);
       return {
         ...state,
-        projectsFilter: [...action.payload],
+        projectsFilter: [...action.payload.projects],
+        total: action.payload.total,
       };
 
     case types.getCategory:
@@ -50,11 +53,13 @@ export const projectReducer = (state: State = initialState, action: Action) => {
         ...state,
         category: action.payload,
       };
-    
-      case types.getMyProjectCompany:
-        return {
-          ...state,myProjectCompany:action.payload
-        }
+
+    case types.getMyProjectCompany:
+      return {
+        ...state,
+        myProjectCompany: action.payload,
+      };
+
     default:
       return state;
   }
