@@ -22,10 +22,13 @@ import { types } from "../../types/types";
 import { Container, IconButton, Input, Typography } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import StudentsFilter from "./StudentsFilter";
+import Pages from "../ui/Pagination";
+
 
 const ProjectsStudents: FC = () => {
   const dispatch = useDispatch();
   let token: String | null = localStorage.getItem("token");
+
   const [search, setSearch] = useState("");
   const [inputFilter, setInput] = useState({
     state: undefined,
@@ -41,7 +44,9 @@ const ProjectsStudents: FC = () => {
         token,
         search,
         inputFilter.categorie,
-        inputFilter.state
+        inputFilter.state,
+        6,
+        0
       )
     );
     // dispatch(getCategory(token));
@@ -50,8 +55,10 @@ const ProjectsStudents: FC = () => {
   const { projectsFilter } = useSelector((state: State) => state.project);
 
   let info = projectsFilter;
+  console.log(info)
 
   const { status } = useSelector((state: State) => state.auth);
+  
   //   console.log('logged', logged);
   if (status === 401) {
     console.log("401", 401);
@@ -65,6 +72,7 @@ const ProjectsStudents: FC = () => {
   return (
     <Box>
       <StudentsFilter />
+      <Pages/>
       <Container maxWidth="lg">
         {info.length ? (
           info.map((e: any) => (

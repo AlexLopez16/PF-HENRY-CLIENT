@@ -49,7 +49,9 @@ const StudentsFilter: FC = () => {
         token,
         search,
         inputFilter.categorie,
-        inputFilter.state
+        inputFilter.state,
+        undefined,
+        undefined
       )
     );
     dispatch(getCategory(token));
@@ -84,6 +86,9 @@ const StudentsFilter: FC = () => {
   // const { projects } = useSelector((state: State) => state.project);
 
   const { projectsFilter } = useSelector((state: State) => state.project);
+  // const {page}=useSelector((state:State)=>state.project)
+  // const limit=page*6;
+  // const init=limit-6
 
   let info = projectsFilter;
   console.log(info);
@@ -110,10 +115,13 @@ const StudentsFilter: FC = () => {
         token,
         search,
         inputFilter.categorie,
-        inputFilter.state
+        inputFilter.state,
+        undefined,
+        undefined,
       )
     );
   };
+  
 
   const handlerchange = (e: string, value: any) => {
     if (e === "e") {
