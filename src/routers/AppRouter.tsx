@@ -131,7 +131,10 @@ export const AppRouter = () => {
                         path="/project"
                         element={
                             <PrivateRoute>
-                                <ProjectPage />
+                                <>
+                                    <NavBar />
+                                    <ProjectPage />
+                                </>
                             </PrivateRoute>
                         }
                     />
@@ -185,7 +188,10 @@ export const AppRouter = () => {
                         path="/profileCompany"
                         element={
                             <PrivateRoute>
-                                <ProfileCompany />
+                                <>
+                                    <NavBar />
+                                    <ProfileCompany />
+                                </>
                             </PrivateRoute>
                         }
                     />
