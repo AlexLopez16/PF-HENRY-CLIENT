@@ -1,6 +1,6 @@
 import { FC, useState, useEffect } from 'react';
 import * as React from 'react';
-import MuiAlert, { AlertProps } from '@mui/material/Alert';
+import MuiAlert, { AlertColor, AlertProps } from '@mui/material/Alert';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearError } from '../../actions/error';
 
@@ -33,7 +33,7 @@ const Error: FC<props> = (props) => {
     }, [status]);
 
     // Definimos que tipo de error mostrar.
-    let typeError = '';
+    let typeError: AlertColor = 'info';
     if (status === (401 || 500)) typeError = 'error';
     else if (status === 400) typeError = 'info';
 
@@ -66,7 +66,7 @@ const Error: FC<props> = (props) => {
                     horizontal: 'right',
                 }}
             >
-                <Alert severity={`${typeError}`} onClose={handleClose}>
+                <Alert severity={typeError} onClose={handleClose}>
                     {status} - {message}
                 </Alert>
             </Snackbar>
