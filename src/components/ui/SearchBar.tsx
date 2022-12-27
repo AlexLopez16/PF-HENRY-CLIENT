@@ -49,7 +49,7 @@ const SearchBar: FC = () => {
         <>
           <Box display='flex' 
             sx={StyledBox}>
-            <Box>
+            {/* <Box>
             <img src="/ISOLOGO_HENRY_BLACK.png" alt="" />
                 
                 <Typography
@@ -69,7 +69,7 @@ const SearchBar: FC = () => {
                     >
                     NABIJASH
                 </Typography>
-            </Box>
+            </Box> */}
                     
                 {/* <form onSubmit={handleSubmit}>
                     <Input 

@@ -195,14 +195,43 @@ export const updateImagesProject = (id: string, token: string, file: any) => {
         { headers: { "user-token": token } }
       );
 
-      dispatch({
-        type: types.studentUpdateInfo,
-        payload: res.data,
-      });
-    } catch (error) {
-      console.log(error);
+            dispatch({
+                type: types.studentUpdateInfo,
+                payload: res.data
+            })
+        } catch (error) {
+            console.log(error);
+        }
     }
-  };
-};
+}
 
-// Update Images Project
+export const postulatedProject = (id:string,token:string)=>{
+    return async (dispatch: Dispatch) => {
+        try {
+            const res = await axios.get(`/project/${id}`,{ headers: { 'user-token': token } })
+
+            dispatch({
+                type: types.postulated,
+                payload: res.data
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+export const getAcceptstudent = (id:string,token:string)=>{
+    return async (dispatch: Dispatch) => {
+        try {
+            const res = await axios.get(`/project/accept/${id}`,{ headers: { 'user-token': token } })
+
+            dispatch({
+                type: types.postulated,
+                payload: res.data
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+

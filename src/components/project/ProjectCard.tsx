@@ -23,7 +23,7 @@ interface CardProjectProps {
     company?: CompanyData,
     state?: boolean
     stateOfProject?: string
-    id?: string
+    id: string
     category?:string
 }
 
@@ -43,13 +43,12 @@ const ProjectCard: FC<CardProjectProps> = ({
     const token = localStorage.getItem('token') || '';
     const rol = localStorage.getItem('rol');
 
-  const handleClick = () => {
-    dispatch(getProjectByID(token, id));
-  };
-   
+    const handleClick = () => {
+        dispatch(getProjectByID(token, id))
+        
+    }
 
-    return  rol === 'STUDENT_ROL' ? 
-
+    return rol==="STUDENT_ROL"?
         <Paper elevation={10} style={{
             width: '100vh',
             height: "fit-content",

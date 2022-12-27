@@ -8,6 +8,12 @@ import {
     ImageList,
     ImageListItem,
 } from "@mui/material";
+import { Link,} from "react-router-dom";
+
+import { Box } from "@mui/system";
+import { useDispatch, useSelector } from "react-redux";
+import { State } from "../../reducers/rootReducer";
+import { addStudentToProject } from "../../actions/student";
 
 interface ProjectProps {
     name?: string;
@@ -17,10 +23,24 @@ interface ProjectProps {
     cantidadDeEstudiantes?: string;
     lenguajes?: string[];
     estado?: string;
-    categoria?: string
+    email?: string;
+    categoria?: string,
+    uid: string
 }
 
-const ProjectDetail: FC<ProjectProps> = ({ name, empresa, imagenes, detalle, cantidadDeEstudiantes, lenguajes, estado, categoria }: ProjectProps) => {
+const ProjectDetail: FC<ProjectProps> = ({ name, empresa, imagen, detalle, cantidadDeEstudiantes, lenguajes = ['Java'], estado, categoria, uid }: ProjectProps) => {
+
+    const dispatch = useDispatch()
+    let token = localStorage.getItem("token") || "";
+    let rol = useSelector((state: State) => state.auth.data.rol);
+    const { user } = useSelector((state: State) => state.student);
+
+
+    const handlerApply = () => {
+        dispatch(addStudentToProject(uid, token))
+        console.log("aplicado");
+    }
+
     return (
         <div>
             <Paper
@@ -33,13 +53,11 @@ const ProjectDetail: FC<ProjectProps> = ({ name, empresa, imagenes, detalle, can
                 }}
             >
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                    <div>
-                        <List>
-                            <Typography variant="h4">
-                                {name}
-                            </Typography>
-                        </List>
+                <List>
+                    <Typography variant="h4">
+                        {name}
+                    </Typography>
+                </List>
 
                         <Typography>
                             {empresa}
@@ -70,41 +88,38 @@ const ProjectDetail: FC<ProjectProps> = ({ name, empresa, imagenes, detalle, can
                             </Typography>
                         </List>
 
-                        <List>
-                            <Typography variant="body1">
-                                <b>Estado del proyecto: </b> {estado}
-                            </Typography>
-                        </List>
-                    </div>
-                    {
-                        imagenes && (
-                            <div>
-                                <ImageList sx={{ width: 500, height: 280 }} cols={2} rowHeight={200}>
-                                    {imagenes.map((item) => (
-                                        <ImageListItem key={item}>
-                                            <img
-                                                src={`${item}?w=164&h=164&fit=crop&auto=format`}
-                                                srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                                                alt={item}
-                                                loading="lazy"
-                                            />
-                                        </ImageListItem>
-                                    ))}
-                                </ImageList>
-                            </div>
-                        )
-                    }
-                </div>
+                <List>
+                    <Typography variant="body1">
+                        <b>Estado del proyecto: </b> {estado}
+                    </Typography>
+                </List>
 
-                <Button
-                    sx={{ marginTop: 5 }}
-                    type="submit"
-                    variant="contained"
-                    fullWidth
-                    color="primary"
-                >
-                    Aplicar
-                </Button>
+                {rol === "TUDENT_ROL" ?
+                    <Button
+                        sx={{ marginTop: 10 }}
+                        type="submit"
+                        variant="contained"
+                        fullWidth
+                        color="primary"
+                        onClick={handlerApply}
+                        disabled={user.project?.length === 3}
+                    >
+                        aplicar
+                    </Button>
+                    :
+                    <Link to={`/postulated/${uid}`}>
+
+                        <Button
+                            sx={{ marginTop: 10 }}
+                            type="submit"
+                            variant="contained"
+                            fullWidth
+                            color="primary"
+                        >
+                            Postulados
+                        </Button>
+                    </Link>
+                }
             </Paper>
         </div>
     );
