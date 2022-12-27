@@ -32,6 +32,7 @@ import Sil from "../pages/Profiles/Sil";
 import MyProject from "../components/student/MyProject";
 import ProjectsPage from "../pages/ProjectsPage";
 import MyProjectsPage from "../pages/MyProjectsPage";
+import { ProfileCompany } from "../components/company/Profile/ProfileCompany";
 
 
 export const AppRouter = () => {
@@ -172,6 +173,22 @@ export const AppRouter = () => {
             element={
               // <PrivateRoute>
               <ContactForm />
+              // </PrivateRoute>
+            }
+          />
+            <Route
+            path="/profileCompany"
+            element={
+              // <PrivateRoute>
+              <ProfileCompany />
+              // </PrivateRoute>
+            }
+          />
+           <Route
+            path="/profile"
+            element={
+              // <PrivateRoute>
+              <Profile/>
               // </PrivateRoute>
             }
           />
