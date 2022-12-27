@@ -16,7 +16,7 @@ const initialState = {
   category: [],
   myProjectCompany: [],
   postulated: [],
-  accepts:  [],
+  accepts: [],
   total: 0,
 };
 
@@ -66,12 +66,8 @@ export const projectReducer = (state: State = initialState, action: Action) => {
         myProjectCompany: action.payload,
       };
 
-    default:
 
-    case types.getMyProjectCompany:
-      return {
-        ...state, myProjectCompany: action.payload
-      }
+
     case types.postulated:
       const { students } = action.payload
       return {
@@ -83,7 +79,8 @@ export const projectReducer = (state: State = initialState, action: Action) => {
         ...state,
         projects: action.payload
       }
-     
+
+    default:
       return state;
   }
 };
