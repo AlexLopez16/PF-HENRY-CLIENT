@@ -1,91 +1,92 @@
-import React, { FC } from "react";
+import { FC } from "react";
 
 import {
     Typography,
     Paper,
     List,
     Button,
+    ImageList,
+    ImageListItem,
 } from "@mui/material";
-import { Link } from "react-router-dom";
-import { RadioGroupRating } from "./Rating";
+import { Link,} from "react-router-dom";
+
 import { Box } from "@mui/system";
+import { useDispatch, useSelector } from "react-redux";
+import { State } from "../../reducers/rootReducer";
+import { addStudentToProject } from "../../actions/student";
 
 interface ProjectProps {
     name?: string;
     empresa?: string;
-    imagen?: string;
+    imagenes?: string[];
     detalle?: string;
     cantidadDeEstudiantes?: string;
     lenguajes?: string[];
     estado?: string;
     email?: string;
-    categoria?: string
+    categoria?: string,
+    uid: string
 }
 
-const ProjectDetail: FC<ProjectProps> = ({ name, empresa, imagen, detalle, cantidadDeEstudiantes, lenguajes = ['Java'], estado, email, categoria }: ProjectProps) => {
+const ProjectDetail: FC<ProjectProps> = ({ name, empresa, imagen, detalle, cantidadDeEstudiantes, lenguajes = ['Java'], estado, categoria, uid }: ProjectProps) => {
 
-    let activo = null
-    estado === "reclutando" ? activo = false : activo = true
+    const dispatch = useDispatch()
+    let token = localStorage.getItem("token") || "";
+    let rol = useSelector((state: State) => state.auth.data.rol);
+    const { user } = useSelector((state: State) => state.student);
 
-    // const [open, setOpen] = React.useState(true);
 
-    // const handleClick = () => {
-    //   setOpen(!open);
-    // };
+    const handlerApply = () => {
+        dispatch(addStudentToProject(uid, token))
+        console.log("aplicado");
+    }
 
     return (
         <div>
             <Paper
                 elevation={12}
                 style={{
-                    width: 1200,
+                    width: 1000,
                     height: 'fit-content',
                     padding: 20,
-                    margin: "100px 70px 100px 150px",
-                    display: "inline-block",
+                    margin: "100px auto",
                 }}
             >
+
                 <List>
                     <Typography variant="h4">
                         {name}
                     </Typography>
                 </List>
 
-                <List>
-                    <Typography variant="h5">
-                        {empresa}
-                    </Typography>
-                </List>
+                        <Typography>
+                            {empresa}
+                        </Typography>
 
-                <Box>
-                    {imagen}
-                </Box>
+                        <List>
+                            <Typography variant="body1">
+                                <b>Descripcion: </b>
+                                {detalle}
+                            </Typography>
+                        </List>
 
+                        <List>
+                            <Typography variant="body1">
+                                <b>Requerimientos: </b> {lenguajes?.map(lenguaje => lenguaje).join(', ')}
+                            </Typography>
+                        </List>
 
-                <List>
-                    <Typography variant="body1">
-                        <b>Descripcion: </b>
-                        {detalle}
-                    </Typography>
-                </List>
+                        <List>
+                            <Typography variant="body1">
+                                <b>Participantes: </b> {cantidadDeEstudiantes}
+                            </Typography>
+                        </List>
 
-                <List>
-                    <Typography variant="body1">
-                        <b>Requerimientos: </b> {lenguajes.join(', ')}
-                    </Typography>
-                </List>
-
-                <List>
-                    <Typography variant="body1">
-                        <b>Participantes: </b> {cantidadDeEstudiantes}
-                    </Typography>
-                </List>
-
-                <List>
-                    <Typography variant="body1">
-                        <b>Categoria: </b> {categoria}
-                    </Typography>
-                </List>
+                        <List>
+                            <Typography variant="body1">
+                                <b>Categoria: </b> {categoria}
+                            </Typography>
+                        </List>
 
                 <List>
                     <Typography variant="body1">
@@ -93,41 +94,32 @@ const ProjectDetail: FC<ProjectProps> = ({ name, empresa, imagen, detalle, canti
                     </Typography>
                 </List>
 
-                {/* <List>
-                    <Typography variant="body1">E-mail:{email}</Typography>
-                </List> */}
-
-                <Button
-                    sx={{ marginTop: 10 }}
-                    type="submit"
-                    variant="contained"
-                    fullWidth
-                    color="primary"
-                    // disabled={activo}
-                >
-                    aplicar
-                </Button>
-
-                {/* <Link to="/dashboard">
+                {rol === "TUDENT_ROL" ?
                     <Button
                         sx={{ marginTop: 10 }}
                         type="submit"
                         variant="contained"
                         fullWidth
                         color="primary"
+                        onClick={handlerApply}
+                        disabled={user.project?.length === 3}
                     >
-                        otros proyectos
+                        aplicar
                     </Button>
-                </Link>
+                    :
+                    <Link to={`/postulated/${uid}`}>
 
-                <Box >
-
-                    <RadioGroupRating />
-
-
-                </Box> */}
-
-
+                        <Button
+                            sx={{ marginTop: 10 }}
+                            type="submit"
+                            variant="contained"
+                            fullWidth
+                            color="primary"
+                        >
+                            Postulados
+                        </Button>
+                    </Link>
+                }
             </Paper>
         </div>
     );

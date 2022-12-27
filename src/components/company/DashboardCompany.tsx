@@ -15,7 +15,6 @@ const DashboardCompany: FC = () => {
         dispatch(getProject(token as string))
     }, []);
     
-    console.log(projects)
     return (
 
         <div >

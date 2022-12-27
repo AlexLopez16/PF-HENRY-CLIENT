@@ -6,14 +6,12 @@ import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip"
+import Tooltip from "@mui/material/Tooltip";
 import Logout from "@mui/icons-material/Logout";
-import AutoAwesomeMotionIcon from '@mui/icons-material/AutoAwesomeMotion';
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from 'react';
 import { State } from "../../reducers/rootReducer";
+import { Link, useNavigate } from "react-router-dom";
 import { getStudentInfo } from "../../actions/student";
-import { useNavigate } from "react-router-dom";
 
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -25,27 +23,26 @@ export default function AccountMenu() {
     setAnchorEl(null);
   };
 
-    const dispatch = useDispatch()
-    const { data } = useSelector((state: State) => state.auth)
-    const { user } = useSelector((state: State) => state.student)
-    const { id, rol } = data;
-    const token = localStorage.getItem('token') || ''
+  const dispatch = useDispatch();
+  const { data } = useSelector((state: State) => state.auth);
+  const { user } = useSelector((state: State) => state.student);
+  const { id, rol } = data;
+  const token = localStorage.getItem('token') || ''
 
-    //TODO: eliminar cuando el mamon de nacho suba sus cambios
-    useEffect(()=>{
-      (rol === 'STUDENT_ROL')
-      ?dispatch(getStudentInfo(id, token))
-      :null
-      // dispatch(getConpanyInfo(id, token))
-    }
-    ,[dispatch])
-    const navigate = useNavigate()
-    
-    //TODO: Creemos que por no estar verificada la ruta el logout de company no funciona bien 
-    const handlerLogout = () => {
-      localStorage.clear()
-      navigate("/landing")
-    }
+  //TODO: eliminar cuando el mamon de nacho suba sus cambios
+  React.useEffect(() => {
+    (rol === 'STUDENT_ROL')
+      ? dispatch(getStudentInfo(id, token))
+      : null
+    // dispatch(getConpanyInfo(id, token))
+  }
+    , [dispatch])
+  const navigate = useNavigate()
+
+  const handlerLogout = () => {
+    localStorage.clear()
+    navigate("/landing")
+  }
 
   return (
     <React.Fragment>
@@ -101,14 +98,6 @@ export default function AccountMenu() {
           <Avatar>{user.name?.slice(0, 1).toUpperCase()}</Avatar>
         </MenuItem>
         <Divider />
-        {/* <MenuItem>
-          <ListItemIcon>
-            <AutoAwesomeMotionIcon fontSize="small" />
-          </ListItemIcon>
-          {rol === 'STUDENT_ROL' 
-          ? 'Administrar solicitudes' 
-          : 'Administrar proyectos'}
-        </MenuItem> */}
         <MenuItem onClick={handlerLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />
