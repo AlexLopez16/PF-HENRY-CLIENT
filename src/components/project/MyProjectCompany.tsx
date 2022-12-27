@@ -6,7 +6,9 @@ import { State } from "../../reducers/rootReducer";
 import { Box } from "@mui/system";
 import Alert from "@mui/material/Alert/Alert";
 import Stack from "@mui/material/Stack/Stack";
-import { useEffect,FC } from "react";
+import { useEffect, FC } from "react";
+import Pages from "../ui/Pagination";
+import { Container } from "@mui/material";
 
 // const styledInput = {
 //   position: "relative",
@@ -21,8 +23,9 @@ export const MyProjectCompany: FC = () => {
     dispatch(getMyProjectsCompany(token));
   }, [dispatch, token]);
 
-  const { myProjectCompany} = useSelector((state: State) => state.project);
-  let info = myProjectCompany;
+  const { projectsFilter } = useSelector((state: State) => state.project);
+  let info = projectsFilter;
+  console.log(info)
 
   return (
     <div>
@@ -40,10 +43,9 @@ export const MyProjectCompany: FC = () => {
         }}
       ></div>
 
-      <Box
-        sx={{
-          pl: 30,
-        }}
+      <Pages />
+      <Container
+       maxWidth="lg" sx={{marginLeft:80}}
       >
         {info.length ? (
           info.map((e: any) => (
@@ -57,6 +59,7 @@ export const MyProjectCompany: FC = () => {
               stateOfProject={e.stateOfProject}
               id={e.uid}
               category={e.category}
+              image={e.images}
             />
           ))
         ) : (
@@ -64,7 +67,7 @@ export const MyProjectCompany: FC = () => {
             <Alert severity="info">No hay proyectos creados!</Alert>
           </Stack>
         )}
-      </Box>
+      </Container>
     </div>
   );
 };

@@ -13,10 +13,10 @@ const DashboardPage: any = () => {
 
     return rol === 'STUDENT_ROL'
         ? <DashboardStudent />
-        : rol === 'ADMIN_ROL'
-            ? <DashboardAdmin />
-            : rol === 'COMPANY_ROL'
-            ?? <DashboardCompany />
+        : rol === 'COMPANY_ROL'
+            ? <DashboardCompany />
+            : rol === 'ADMIN_ROL'
+            ?? <DashboardAdmin />
 };
 
 export default DashboardPage;

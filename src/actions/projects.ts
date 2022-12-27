@@ -12,8 +12,8 @@ export const getProject = (token: string) => {
       });
 
       dispatch({
-        type: types.getProjects,
-        payload: res.data.projects,
+        type: types.projectsFilter,
+        payload: res.data,
       });
     } catch (error: any) {
       console.log(error.res.data);
@@ -176,7 +176,7 @@ export const getMyProjectsCompany = (token: string) => {
       });
       console.log("en la action", res.data);
       dispatch({
-        type: types.getMyProjectCompany,
+        type: types.projectsFilter,
         payload: res.data,
       });
     } catch (error: any) {

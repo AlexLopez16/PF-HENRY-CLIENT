@@ -24,7 +24,8 @@ interface CardProjectProps {
     state?: boolean
     stateOfProject?: string
     id: string
-    category?:string
+    category?:string,
+    image?:string[]
 }
 
 const ProjectCard: FC<CardProjectProps> = ({
@@ -36,7 +37,8 @@ const ProjectCard: FC<CardProjectProps> = ({
     company,
     stateOfProject,
     id,
-    category
+    category,
+    image
 }: CardProjectProps) => {
 
     const dispatch = useDispatch()
@@ -73,7 +75,7 @@ const ProjectCard: FC<CardProjectProps> = ({
                     </Button>
                 </Link>
             </Typography>
-
+             
             <Typography sx={{ mb: 0.5 }}>
          
                 {company}
@@ -118,6 +120,7 @@ const ProjectCard: FC<CardProjectProps> = ({
                     >
                         Mas info
                     </Button>
+                   
                 </Link>
             </Typography>
 
