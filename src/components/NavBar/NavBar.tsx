@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import {
     AppBar,
     Box,
@@ -7,7 +7,6 @@ import {
     Toolbar,
     Typography,
 } from '@mui/material';
-import { Link, NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../reducers/rootReducer';
 import AccountMenu from '../AdminBar/AdminBar';
