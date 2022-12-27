@@ -71,7 +71,8 @@ const ProjectCard: FC<CardProjectProps> = ({
             </Typography>
 
             <Typography sx={{ mb: 0.5 }}>
-                {company?.name}
+         
+                {company}
             </Typography>
 
             <Typography sx={{ mb: 0.5 }}>

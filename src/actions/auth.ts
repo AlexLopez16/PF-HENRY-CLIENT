@@ -11,13 +11,15 @@ export const validaToken = (token: string) => {
     return async (dispatch: Dispatch) => {
         try {
             const { data, status } = await axios.get(
-                'http://localhost:3001/api/token',
+                '/token',
                 {
                     headers: { 'user-token': token },
                 }
             );
             const { id, rol } = data;
             if (status) {
+                console.log(status)
+                console.log(rol)
                 localStorage.setItem('token', token);
                 dispatch(login({ data, status, id, rol }));
             }

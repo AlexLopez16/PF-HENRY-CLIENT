@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import { FC, useEffect } from 'react';
 import {
     AppBar,
     Box,
@@ -7,9 +7,11 @@ import {
     Toolbar,
     Typography,
 } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { Link, NavLink } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../reducers/rootReducer';
 import AccountMenu from '../AdminBar/AdminBar';
+import { getStudentInfo } from '../../actions/student';
 import { IconButton, MenuItem } from '@mui/material';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -21,6 +23,14 @@ const NavBar: FC = () => {
     // Traemos el rol.
     const { data } = useSelector((state: State) => state.auth);
     const rol = data.rol;
+    const dispatch = useDispatch();
+    const token: string = localStorage.getItem("token") || ""
+
+    useEffect(() => {
+        rol === "STUDENT_ROL"
+            ? dispatch(getStudentInfo(data.id, token))
+            : null
+    }, [dispatch])
 
     // Paths y opciones de boton para el student.
     const studentButtons = [
@@ -72,10 +82,10 @@ const NavBar: FC = () => {
             option: 'Projects',
             path: '/projects',
         },
-        {
-            option: 'My Project',
-            path: '/myproject',
-        },
+        // {
+        //     option: 'My Project',
+        //     path: '/myproject',
+        // },
     ];
 
     const buttonList =
