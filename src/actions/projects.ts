@@ -1,7 +1,6 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import { types } from "../types/types";
-import { Navigate } from "react-router-dom";
 import { fileUpload } from '../helpers/fileUpload';
 
 export const getProject = (token: string) => {
@@ -27,7 +26,6 @@ export const getProjectByID = (token: string, id: string) => {
             const res = await axios.get(`/project/${id}`, {
                 headers: { "user-token": token },
             });
-            console.log(res);
 
             dispatch({
                 type: types.getProjectById,
@@ -62,7 +60,7 @@ export const newProject = (data: object, token: string) => {
 export const getProjectsFilter = (
     typeOfOrder: string | undefined,
     tecnologies: string[] | undefined,
-    token: String | null,
+    token: string | null,
     name: string | undefined,
     category: string[] | undefined,
     stateOfProject: string[] | undefined
@@ -76,7 +74,6 @@ export const getProjectsFilter = (
             }
 
             if (tecnologies) {
-                console.log(tecnologies);
                 let tecnologias: string = "";
                 tecnologies.forEach((e: string) => (tecnologias += e + ","));
                 //tranforma el array a string con comas
@@ -139,38 +136,36 @@ export const getProjectsFilter = (
 };
 
 export const getCategory = (token: string) => {
-  return async (dispatch: Dispatch) => {
-    try {
-      const res = await axios.get("/project/category", {
-        headers: { "user-token": token },
-      });
-      console.log(res.data)
-      dispatch({
-        type: types.getCategory,
-        payload: res.data,
-      });
-    } catch (error: any) {
-      console.log(error.res.data);
-    }
-  };
+    return async (dispatch: Dispatch) => {
+        try {
+            const res = await axios.get("/project/category", {
+                headers: { "user-token": token },
+            });
+            dispatch({
+                type: types.getCategory,
+                payload: res.data,
+            });
+        } catch (error: any) {
+            console.log(error.res.data);
+        }
+    };
 };
 
-export const getMyProjectsCompany=(token:string)=>{
-  return async (dispatch: Dispatch) => {
-    try {
-      console.log("en la action",token)
-      const res = await axios.get("/company/login", {
-        headers: { "user-token": token },
-      });
-       console.log("en la action",res.data)
-      dispatch({
-        type: types.getMyProjectCompany,
-        payload: res.data,
-      });
-    } catch (error: any) {
-      console.log(error.res.data);
-    }
-  };
+export const getMyProjectsCompany = (token: string) => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const res = await axios.get("/company/login", {
+                headers: { "user-token": token },
+            });
+
+            dispatch({
+                type: types.getMyProjectCompany,
+                payload: res.data,
+            });
+        } catch (error: any) {
+            console.log(error.res.data);
+        }
+    };
 }
 // Update Images Project
 export const updateImagesProject = (id: string, token: string, file: any) => {
@@ -188,5 +183,3 @@ export const updateImagesProject = (id: string, token: string, file: any) => {
         }
     }
 }
-
-// Update Images Project

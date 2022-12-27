@@ -15,7 +15,7 @@ import { useEffect,FC } from "react";
 // };
 export const MyProjectCompany: FC = () => {
   const dispatch = useDispatch();
-  let token: String | null = localStorage.getItem("token");
+  let token = localStorage.getItem("token") || '';
   useEffect(() => {
     console.log("hola");
     dispatch(getMyProjectsCompany(token));

@@ -12,6 +12,7 @@ import {
   InputAdornment,
   IconButton,
   Box,
+  Typography,
 } from '@mui/material';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
@@ -20,12 +21,13 @@ import { GitHubLogin } from '../auth/GitHubLogin';
 // import { GoogleLogin } from "../auth/GoogleLogin";
 
 import { useDispatch } from 'react-redux';
-import type {} from 'redux-thunk/extend-redux';
+import type { } from 'redux-thunk/extend-redux';
 import { studentRegister } from '../../actions/student';
 import { GoogleLogin } from '@react-oauth/google';
 import { gmailLogin } from '../../actions/auth';
 import Header from '../NavbarLandingPage/HeaderLanding';
 import Footer from '../../pages/LandingPage/Footer';
+import { Link } from 'react-router-dom';
 
 export const StudensForm: FC = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -242,6 +244,22 @@ export const StudensForm: FC = () => {
                 </Form>
               )}
             </Formik>
+
+            <Typography
+              textAlign='center'
+              mt='20px'
+              fontFamily='poppins'
+              fontSize='15px'
+            >
+              ¿Ya tienes una cuenta?
+              <Link
+                to='/login'
+                style={{ textDecoration: 'underline', color: 'black' }}
+              >
+                <p>Ingresa</p>
+              </Link>
+            </Typography>
+
           </Paper>
         </Grid>
       </div>

@@ -7,14 +7,12 @@ import { MyProjectCompany } from '../components/project/MyProjectCompany';
 import MyProject from '../components/student/MyProject';
 
 const MyProjectsPage: FC = () => {
-    // const rol = localStorage.getItem('rol');
-
     const { rol } = useSelector((state: State) => state.auth.data);
 
-    let role = rol
 
-    return rol === 'STUDENT_ROL' ? <MyProject /> : <MyProjectCompany />;
-    //role === 'Student' ? <DashStudent/> : <DashCompany/>
+    return rol === 'STUDENT_ROL'
+        ? <MyProject />
+        : <MyProjectCompany />
 };
 
 export default MyProjectsPage;

@@ -7,8 +7,7 @@ import { types } from '../types/types';
  * NOTA: con infoToken() si tenemos un token valido en el local storage, vamos a mantener la sesion con ese token.
  */
 
-export const validaToken = (token: any) => {
-    console.log(token);
+export const validaToken = (token: string) => {
     return async (dispatch: Dispatch) => {
         try {
             const { data, status } = await axios.get(
@@ -36,8 +35,6 @@ export const startLogin = (values: object) => {
             const { token, id, rol } = data;
             if (status) {
                 localStorage.setItem('token', token);
-                localStorage.setItem('id', id);
-                localStorage.setItem('rol', rol);
                 dispatch(login({ data, status, id, rol }));
             }
         } catch (error: any) {
@@ -51,11 +48,12 @@ export const startLogin = (values: object) => {
         }
     };
 };
+
 export const githubLogin = ({ id, rol, token }) => {
     return login({ data: { id, rol, token } });
 };
 
-export const gmailLogin = (tok: String, userType: String) => {
+export const gmailLogin = (tok: string, userType: string) => {
     return async (dispatch: Dispatch) => {
         try {
             const { data, status } = await axios.post('/auth', {
@@ -89,11 +87,11 @@ const login = (data: object) => ({
 });
 
 
-export const forgotPassword=(email:String)=>{
-    return async (dispatch:Dispatch)=>{
+export const forgotPassword = (email: string) => {
+    return async (dispatch: Dispatch) => {
         try {
-            const res:any=await axios.get(`/recover/password?email=${email}`)
-              console.log(res.data)
+            const res = await axios.get(`/recover/password?email=${email}`)
+            console.log(res.data)
         } catch (error) {
             console.log(error)
         }
@@ -101,11 +99,11 @@ export const forgotPassword=(email:String)=>{
 
 }
 
-export const recoverPassword=(password:String,token:String|any)=>{
-    return async (dispatch:Dispatch)=>{
+export const recoverPassword = (password: string, token: string | any) => {
+    return async (dispatch: Dispatch) => {
         try {
-            const res:any=await axios.put(`/recover/password`,{password:password},{ headers: { "user-token": token }})
-              console.log(res.data)
+            const res: any = await axios.put(`/recover/password`, { password: password }, { headers: { "user-token": token } })
+            console.log(res.data)
         } catch (error) {
             console.log(error)
         }

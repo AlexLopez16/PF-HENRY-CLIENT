@@ -39,7 +39,12 @@ export const AppRouter = () => {
     <BrowserRouter>
       <div>
         <Routes>
-          <Route path="/" element={<LandingPage />} />
+          <Route
+            path="/"
+            element={
+              <LandingPage />
+            }
+          />
 
           <Route
             path="/login"
@@ -79,12 +84,12 @@ export const AppRouter = () => {
           <Route
             path="/dashboard"
             element={
-              <>
-                <NavBar />
-                <PrivateRoute>
+              <PrivateRoute>
+                <>
+                  <NavBar />
                   <DashboardPage />
-                </PrivateRoute>
-              </>
+                </>
+              </PrivateRoute>
             }
           />
 
@@ -133,9 +138,9 @@ export const AppRouter = () => {
           <Route
             path="/newproject"
             element={
-              // <PrivateRoute>
-              <ProjectForm />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <ProjectForm />
+              </PrivateRoute>
             }
           />
 

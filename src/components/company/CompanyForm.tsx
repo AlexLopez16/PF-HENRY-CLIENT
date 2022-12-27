@@ -7,6 +7,7 @@ import {
   Paper,
   FormHelperText,
   Divider,
+  Typography,
 } from '@mui/material';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
@@ -26,7 +27,7 @@ import { VisibilityOff, Visibility } from '@mui/icons-material';
 
 import { registerCompany } from '../../actions/company';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import { gmailLogin } from '../../actions/auth';
 import Header from '../NavbarLandingPage/HeaderLanding';
@@ -264,6 +265,22 @@ const CompanyForm: FC = () => {
                 </Form>
               )}
             </Formik>
+
+            <Typography
+              textAlign='center'
+              mt='20px'
+              fontFamily='poppins'
+              fontSize='15px'
+            >
+              ¿Ya tienes una cuenta?
+              <Link
+                to='/login'
+                style={{ textDecoration: 'underline', color: 'black' }}
+              >
+                <p>Ingresa</p>
+              </Link>
+            </Typography>
+
           </Paper>
         </Grid>
       </div>

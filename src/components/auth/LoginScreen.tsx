@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import type {} from 'redux-thunk/extend-redux';
+import type { } from 'redux-thunk/extend-redux';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -16,7 +16,6 @@ import {
   FormControl,
   Button,
   Typography,
-  Link,
   FormHelperText,
   Box,
 } from '@mui/material';
@@ -29,7 +28,7 @@ import { GoogleLogin } from '@react-oauth/google';
 
 import { startLogin, gmailLogin } from '../../actions/auth';
 import { State } from '../../reducers/rootReducer';
-import { Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Header from '../NavbarLandingPage/HeaderLanding';
 import Footer from '../../pages/LandingPage/Footer';
 
@@ -113,13 +112,12 @@ export const LoginScreen: FC = () => {
             }}
           >
             <Grid textAlign='center'>
-              <h2 
+              <h2
                 style={{ fontFamily: 'Montserrat', marginBottom: 5 }}>
                 Ingresar
               </h2>
             </Grid>
 
-            <Divider></Divider>
             {isError && (
               <Grid
                 color='primary'
@@ -163,8 +161,8 @@ export const LoginScreen: FC = () => {
                       </ErrorMessage>
                     }
                   />
-                  <FormControl sx={{ margin: '10px 0', width: '100%', fontFamily:'montserrat' }}>
-                    <InputLabel color='info'  htmlFor='password'>Password</InputLabel>
+                  <FormControl sx={{ margin: '10px 0', width: '100%', fontFamily: 'montserrat' }}>
+                    <InputLabel color='info' htmlFor='password'>Password</InputLabel>
                     <Field
                       as={OutlinedInput}
                       name='password'
@@ -193,7 +191,7 @@ export const LoginScreen: FC = () => {
                   </FormControl>
 
                   <Typography fontSize='11px' textAlign='right' mb='10px'>
-                    <Link href='/forgotPassword' color='inherit'>
+                    <Link to='/forgotPassword' color='inherit'>
                       ¿Olvidaste tu contraseña?
                     </Link>
                   </Typography>
@@ -217,11 +215,11 @@ export const LoginScreen: FC = () => {
                   <GitHubLogin />
                   <div style={{ marginTop: '10px' }}>
                     <GoogleLogin
-                       width='340px'
-                       logo_alignment='center'
-                       type='standard'
-                       theme='filled_blue'
-                       shape='square'
+                      width='340px'
+                      logo_alignment='center'
+                      type='standard'
+                      theme='filled_blue'
+                      shape='square'
                       size='large'
                       onSuccess={(credentialResponse) => {
                         dispatch(
@@ -238,23 +236,19 @@ export const LoginScreen: FC = () => {
                 </Form>
               )}
             </Formik>
-            
+
             <Typography
               textAlign='center'
               mt='20px'
-              ml='20'
-              mr='20'
               fontFamily='poppins'
               fontSize='15px'
             >
               ¿Aún no has creado tu cuenta?
               <Link
-                sx={{
-                  color: 'black',
-                }}
-                href='/register'
+                to='/register'
+                style={{ textDecoration: 'underline', color: 'black' }}
               >
-                Regístrate
+                <p>Regístrate</p>
               </Link>
             </Typography>
           </Paper>
