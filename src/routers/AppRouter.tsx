@@ -34,7 +34,7 @@ import ProjectsPage from '../pages/ProjectsPage';
 import MyProjectsPage from '../pages/MyProjectsPage';
 import ProjectsStudents from '../components/student/ProjectsStudents';
 import { ProfileCompany } from '../components/company/Profile/ProfileCompany';
-
+import AdminStudent from "../components/Admin/AdminStudent";
 import Postulated from '../components/company/Postulated';
 
 export const AppRouter = () => {
@@ -205,6 +205,15 @@ export const AppRouter = () => {
                                 </>
                             </PrivateRoute>
                         }
+                    />
+
+                    <Route 
+                      path="/adminSt"
+                      element={
+                        <PrivateRoute>
+                          <AdminStudent />
+                        </PrivateRoute>
+                      }
                     />
 
                     {/* PROFILE ROUTES */}
