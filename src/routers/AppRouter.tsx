@@ -33,6 +33,7 @@ import MyProject from "../components/student/MyProject";
 import ProjectsPage from "../pages/ProjectsPage";
 import MyProjectsPage from "../pages/MyProjectsPage";
 import ProjectsStudents from "../components/student/ProjectsStudents";
+import { ProfileCompany } from "../components/company/Profile/ProfileCompany";
 
 
 import Postulated from '../components/company/Postulated';
@@ -178,6 +179,22 @@ export const AppRouter = () => {
             element={
               // <PrivateRoute>
               <ContactForm />
+              // </PrivateRoute>
+            }
+          />
+            <Route
+            path="/profileCompany"
+            element={
+              <PrivateRoute>
+              <ProfileCompany />
+               </PrivateRoute>
+            }
+          />
+           <Route
+            path="/profile"
+            element={
+              // <PrivateRoute>
+              <Profile/>
               // </PrivateRoute>
             }
           />
