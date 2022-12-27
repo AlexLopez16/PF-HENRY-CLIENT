@@ -33,7 +33,7 @@ import MyProject from "../components/student/MyProject";
 import ProjectsPage from "../pages/ProjectsPage";
 import MyProjectsPage from "../pages/MyProjectsPage";
 import ProjectsStudents from "../components/student/ProjectsStudents";
-
+import AdminStudent from "../components/Admin/AdminStudent";
 
 import Postulated from '../components/company/Postulated';
 
@@ -179,6 +179,13 @@ export const AppRouter = () => {
               // <PrivateRoute>
               <ContactForm />
               // </PrivateRoute>
+            }
+          />
+
+          <Route 
+            path="/adminSt"
+            element={
+              <AdminStudent />
             }
           />
 

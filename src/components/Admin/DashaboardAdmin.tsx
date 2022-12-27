@@ -29,16 +29,16 @@ const DashboardAdmin: FC = () => {
     });
     useEffect(() => {
       // dispatch(getProject(token));
-      dispatch(
-        getProjectsFilter(
-          inputFilter.typeOfOrder,
-          inputFilter.tecnologies,
-          token,
-          undefined,
-          inputFilter.categorie,
-          inputFilter.state
-        )
-      );
+      // dispatch(
+        // getProjectsFilter(
+        //   inputFilter.typeOfOrder,
+        //   inputFilter.tecnologies,
+        //   token,
+        //   undefined,
+        //   inputFilter.categorie,
+        //   inputFilter.state
+        // )
+      // );
     }, [dispatch, token, inputFilter]);
     // interface props {
     //   description?: string
