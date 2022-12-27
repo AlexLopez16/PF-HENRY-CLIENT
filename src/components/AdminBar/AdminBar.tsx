@@ -111,12 +111,13 @@ export default function AccountMenu() {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-                <MenuItem>
+                <MenuItem onClick={handlerProfile}>
                     <Avatar>
-                        <IconButton onClick={handlerProfile}>
+                        <IconButton>
                             {user.name?.slice(0, 1).toUpperCase()}
                         </IconButton>
                     </Avatar>
+                    {user.name}
                 </MenuItem>
                 <Divider />
                 <MenuItem onClick={handlerLogout}>
