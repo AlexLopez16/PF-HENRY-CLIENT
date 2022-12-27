@@ -7,10 +7,12 @@ export const types = {
     studentGetInfo: '[student] Get Info Student',
     studentUpdateInfo: '[student] Update Info Student',
     studentSearch: '[student] Search Company', //-VERIFICAR-//
-
+    AddStToPr:"[student] Add student to project",
+    
     registerCompany: '[company] Register Company',
     companySearch: '[company] Serch Company', //-VERIFICAR-//
-
+    acceptStudent:"[Company] Student Accept",
+    
     newProject: '[project] Create New Project',
     getProjects: '[project] Get Projects',
     projectsFilter: '[projects], get filtered projects',
@@ -18,12 +20,8 @@ export const types = {
     getCategory:'[project] Get Category',
     getMyProjectCompany:'[project]  Get My Project Company',
     
-
     showError: '[error] Show Error',
     clearError: '[error] Clear Error',
     
-    AddStToPr:"[student] Add student to project",
-    postulated: "[project] get student postulated",
-    acceptStudent:"[Company] Student Accept",
-    getStudentsInProject:"[Company] get students in projects "
+    
 };

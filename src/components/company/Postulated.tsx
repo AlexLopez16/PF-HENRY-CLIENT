@@ -2,7 +2,7 @@
 import { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getAcceptstudent, postulatedProject } from "../../actions/projects";
+import { getProjectByID} from "../../actions/projects";
 import { State } from "../../reducers/rootReducer";
 import StudentCard from "../student/StudentCard";
 
@@ -11,12 +11,11 @@ const Postulated: FC = () => {
 
 
     let token: string = localStorage.getItem('token') || "";
-    let  id:any = useParams()
+    let id: any = useParams()
 
 
     useEffect(() => {
-        dispatch(postulatedProject(id, token))
-        dispatch(getAcceptstudent(id,token))
+        dispatch(getProjectByID(token, id))
     }, [dispatch])
 
 
@@ -25,17 +24,37 @@ const Postulated: FC = () => {
 
     return (
         <div >
-            
-            {projectId.students.map((p: any) =>
-                <StudentCard
-                    name={p.name}
-                    email={p.email}
-                    descripcion={p.description}
-                    tecnologies={p.tecnologies}
-                    image={p.image}
-                    idstd={p._id}
-                />)
-            }
+            <div >
+                {projectId.students.map((p: any) =>
+                    <StudentCard
+                        name={p.name}
+                        email={p.email}
+                        descripcion={p.description}
+                        tecnologies={p.tecnologies}
+                        image={p.image}
+                        idstd={p._id}
+                        working={p.working}
+                    />)
+                }
+            </div>
+
+
+            <div>
+                {
+                    projectId.accepts.length &&
+                        projectId.accepts.map((p: any) =>
+                            <StudentCard
+                                name={p.name}
+                                email={p.email}
+                                descripcion={p.description}
+                                tecnologies={p.tecnologies}
+                                image={p.image}
+                                idstd={p._id}
+                                working={p.working}
+                            />)
+                }
+
+            </div>
 
         </div>
     )

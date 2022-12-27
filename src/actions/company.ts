@@ -25,9 +25,8 @@ console.log("client lin23",idstudent);
     return async (dispatch: Dispatch) => {
         try {
             const res = await axios.put(`/project/accept/${id}`, {idstudent})
-            console.log(res)
             dispatch({
-                type: types.registerCompany,
+                type: types.acceptStudent,
                 payload: res.data,
 
             });
