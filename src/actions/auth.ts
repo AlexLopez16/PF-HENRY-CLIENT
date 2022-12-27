@@ -11,16 +11,13 @@ export const validaToken = (token: any) => {
     console.log(token);
     return async (dispatch: Dispatch) => {
         try {
-            const { data, status } = await axios.get(
-                '/token',
-                {
-                    headers: { 'user-token': token },
-                }
-            );
+            const { data, status } = await axios.get('/token', {
+                headers: { 'user-token': token },
+            });
             const { id, rol } = data;
             if (status) {
-                console.log(status)
-                console.log(rol)
+                console.log(status);
+                console.log(rol);
                 localStorage.setItem('token', token);
                 dispatch(login({ data, status, id, rol }));
             }
@@ -90,30 +87,33 @@ const login = (data: object) => ({
     payload: data,
 });
 
-
-export const forgotPassword=(email:String)=>{
-    return async (dispatch:Dispatch)=>{
+export const forgotPassword = (email: String) => {
+    return async (dispatch: Dispatch) => {
         try {
-            const res:any=await axios.get(`/recover/password?email=${email}`)
-              console.log(res.data)
+            const res: any = await axios.get(
+                `/recover/password?email=${email}`
+            );
+            console.log(res.data);
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
-    }
+    };
+};
 
-}
-
-export const recoverPassword=(password:String,token:String|any)=>{
-    return async (dispatch:Dispatch)=>{
+export const recoverPassword = (password: String, token: String | any) => {
+    return async (dispatch: Dispatch) => {
         try {
-            const res:any=await axios.put(`/recover/password`,{password:password},{ headers: { "user-token": token }})
-              console.log(res.data)
+            const res: any = await axios.put(
+                `/recover/password`,
+                { password: password },
+                { headers: { 'user-token': token } }
+            );
+            console.log(res.data);
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
-    }
-
-}
-const logout = () => ({
+    };
+};
+export const logout = () => ({
     type: types.clearAuthLogin,
 });
