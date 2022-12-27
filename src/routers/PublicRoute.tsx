@@ -10,13 +10,5 @@ type Props = {
 
 export const PublicRoute: FC<Props> = ({ children }) => {
     const { logged } = useSelector((state: State) => state.auth);
-    const dispatch = useDispatch();
-    let token = localStorage.getItem('token');
-
-    if (!status && token) {
-        console.log('Tenes token, ahora te validamos');
-        dispatch(validaToken(token));
-    }
-
     return logged ? <Navigate to="/dashboard" /> : children;
 };
