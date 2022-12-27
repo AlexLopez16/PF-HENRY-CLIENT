@@ -185,9 +185,9 @@ export const AppRouter = () => {
             <Route
             path="/profileCompany"
             element={
-              // <PrivateRoute>
+              <PrivateRoute>
               <ProfileCompany />
-              // </PrivateRoute>
+               </PrivateRoute>
             }
           />
            <Route

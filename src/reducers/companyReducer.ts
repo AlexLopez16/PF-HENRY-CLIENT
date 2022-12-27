@@ -26,7 +26,7 @@ export const companyReducer = (state: State = initialState, action: Action) => {
             user: action.payload
         }
 
-    case types.CompanyUpdateInfo:
+    case types.companyUpdateInfo:
         return {
             ...state,
             user: { ...state.user, ...action.payload }

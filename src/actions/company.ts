@@ -53,7 +53,7 @@ export const companyGetInfo= (id: string, token: string) => {
 export const CompanyUpdateInfo = (id: string, token: string, data: object) => {
     return async (dispatch: Dispatch) => {
         try {
-            const res = await axios.put(`/company/${id}`, {data}, { headers: { 'user-token': token } })
+            const res = await axios.put(`/company/${id}`, data, { headers: { 'user-token': token } })
             dispatch({
                 type: types.companyUpdateInfo,
                 payload: res.data
@@ -70,7 +70,6 @@ export const updatePhotoCompany = (id: string, token: string, file: any) => {
         try {
             const photoUrl = await fileUpload(file, "users")
             const res = await axios.put(`/company/${id}`, { image: photoUrl }, { headers: { 'user-token': token } })
-            console.log(res.data)
 
             dispatch({
                 type: types.companyUpdateInfo,
