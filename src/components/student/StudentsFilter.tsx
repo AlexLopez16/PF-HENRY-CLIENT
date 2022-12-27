@@ -50,8 +50,8 @@ const StudentsFilter: FC = () => {
         search,
         inputFilter.categorie,
         inputFilter.state,
-        undefined,
-        undefined
+        6,
+        0
       )
     );
     dispatch(getCategory(token));
