@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import {
     AppBar,
     Box,
@@ -8,15 +8,23 @@ import {
     Typography,
 } from '@mui/material';
 import { Link, NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../reducers/rootReducer';
 import AccountMenu from '../AdminBar/AdminBar';
+import { getStudentInfo } from '../../actions/student';
 
 const NavBar: FC = () => {
-    // Traemos el rol.
-    //const rol = localStorage.getItem('rol');
+
     const { data } = useSelector((state: State) => state.auth);
     const rol = data.rol;
+    const dispatch = useDispatch();
+    const token: string = localStorage.getItem("token") || ""
+
+    useEffect(() => {
+        rol === "STUDENT_ROL"
+            ? dispatch(getStudentInfo(data.id, token))
+            : null
+    }, [dispatch])
 
     // Paths y opciones de boton para el student.
     const studentButtons = [
@@ -68,20 +76,20 @@ const NavBar: FC = () => {
             option: 'Projects',
             path: '/projects',
         },
-        {
-            option: 'My Project',
-            path: '/myproject',
-        },
+        // {
+        //     option: 'My Project',
+        //     path: '/myproject',
+        // },
     ];
 
     const buttonList: any =
         rol === 'STUDENT_ROL'
             ? studentButtons
             : rol === 'COMPANY_ROL'
-            ? companyButtons
-            : rol === 'ADMIN_ROL'
-            ? adminButtons
-            : null;
+                ? companyButtons
+                : rol === 'ADMIN_ROL'
+                    ? adminButtons
+                    : null;
 
     return (
         <AppBar position="sticky" sx={{ bgcolor: '#ffff01' }}>
@@ -132,7 +140,14 @@ const NavBar: FC = () => {
                                     </Button>
                                 </NavLink>
                             ))}
-                            <AccountMenu/>
+                        <Box
+                            sx={{
+                                ml: 65,
+                                display: { xs: 'none', md: 'flex' }
+                            }}
+                        >
+                            <AccountMenu />
+                        </Box>
                     </Box>
                 </Toolbar>
             </Container>

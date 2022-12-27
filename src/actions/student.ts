@@ -65,9 +65,9 @@ export const updatePhotoStudent = (id: string, token: string, file: any) => {
 }
 
 export const searchProject = (name: string, token: string) => {
-    return async (dispatch: Dispatch)=> {
+    return async (dispatch: Dispatch) => {
         try {
-            const res = await axios.get(`/student/${name}`, { headers: {'user-token': token } })
+            const res = await axios.get(`/student/${name}`, { headers: { 'user-token': token } })
 
             dispatch({
                 type: types.studentSearch,
@@ -78,3 +78,21 @@ export const searchProject = (name: string, token: string) => {
         }
     }
 }
+
+export const addStudentToProject = (id: string, token: string) => {
+    return async (dispatch: Dispatch) => {
+    
+        try {
+            console.log("token",token);
+            
+            const res = await axios.put(`/project/${id}`,undefined, { headers: { 'user-token': token } });
+            
+
+            dispatch({
+                type: types.AddStToPr,
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+};

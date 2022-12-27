@@ -6,14 +6,12 @@ import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip"
+import Tooltip from "@mui/material/Tooltip";
 import Logout from "@mui/icons-material/Logout";
-import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
-import AutoAwesomeMotionIcon from '@mui/icons-material/AutoAwesomeMotion';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../reducers/rootReducer";
-import { Link } from "react-router-dom"
-import { Typography } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
+import { getStudentInfo } from "../../actions/student";
 
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -25,13 +23,30 @@ export default function AccountMenu() {
     setAnchorEl(null);
   };
 
-  const { rol } = useSelector((state: State) => state.auth.data);
+  const dispatch = useDispatch();
+  const { data } = useSelector((state: State) => state.auth);
+  const { user } = useSelector((state: State) => state.student);
+  const { id, rol } = data;
+  const token = localStorage.getItem('token') || ''
 
-    let role = rol
+  //TODO: eliminar cuando el mamon de nacho suba sus cambios
+  React.useEffect(() => {
+    (rol === 'STUDENT_ROL')
+      ? dispatch(getStudentInfo(id, token))
+      : null
+    // dispatch(getConpanyInfo(id, token))
+  }
+    , [dispatch])
+  const navigate = useNavigate()
+
+  const handlerLogout = () => {
+    localStorage.clear()
+    navigate("/landing")
+  }
 
   return (
     <React.Fragment>
-      <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
+      <Box sx={{ justifyContent: "right", display: "flex", alignItems: "right", textAlign: "center" }}>
         <Tooltip title ="Account settings">
           <IconButton
             onClick={handleClick}
@@ -41,7 +56,7 @@ export default function AccountMenu() {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}></Avatar>
+            <Avatar src={user.image} sx={{ width: 32, height: 32 }}></Avatar>
           </IconButton>
         </Tooltip>
       </Box>
@@ -80,42 +95,14 @@ export default function AccountMenu() {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem>
-          <Avatar /> My account
+          <Avatar>{user.name?.slice(0, 1).toUpperCase()}</Avatar>
         </MenuItem>
         <Divider />
-        <MenuItem>
-          <ListItemIcon>
-            <AutoAwesomeMotionIcon fontSize="small" />
-          </ListItemIcon>
-          {role === 'STUDENT_ROL' ? 'Administrar solicitudes' : 'Administrar proyectos'}
-        </MenuItem>
-        <MenuItem>
-          {/* <ListItemIcon>
-            <CreateNewFolderIcon fontSize="small" />
-          </ListItemIcon> */}
-          {role === 'STUDENT_ROL' 
-          ? null
-          :  <>
-            <Link to = "/newProject">
-              <ListItemIcon>
-                <CreateNewFolderIcon fontSize="small" /> 
-              <Typography 
-              variant="body1"
-              sx={{display: 'flex', marginLeft: 2, textDecoration:'Typography' }}>
-              Nuevo proyecto
-              </Typography>
-                </ListItemIcon>
-            </Link>
-            </>
-
-
-          }
-        </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={handlerLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-          Cerrar sesion
+          Cerrar sesion 
         </MenuItem>
       </Menu>
     </React.Fragment>
