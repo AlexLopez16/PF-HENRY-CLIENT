@@ -41,6 +41,7 @@ export default function AccountMenu() {
     ,[dispatch])
     const navigate = useNavigate()
     
+    //TODO: Creemos que por no estar verificada la ruta el logout de company no funciona bien 
     const handlerLogout = () => {
       localStorage.clear()
       navigate("/landing")
@@ -100,14 +101,14 @@ export default function AccountMenu() {
           <Avatar>{user.name?.slice(0, 1).toUpperCase()}</Avatar>
         </MenuItem>
         <Divider />
-        <MenuItem>
+        {/* <MenuItem>
           <ListItemIcon>
             <AutoAwesomeMotionIcon fontSize="small" />
           </ListItemIcon>
           {rol === 'STUDENT_ROL' 
           ? 'Administrar solicitudes' 
           : 'Administrar proyectos'}
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem onClick={handlerLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />
