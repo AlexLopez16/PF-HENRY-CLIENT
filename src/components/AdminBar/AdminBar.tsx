@@ -6,14 +6,11 @@ import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip"
+import Tooltip from "@mui/material/Tooltip";
 import Logout from "@mui/icons-material/Logout";
-import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
-import AutoAwesomeMotionIcon from '@mui/icons-material/AutoAwesomeMotion';
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../reducers/rootReducer";
-import { Link, useNavigate } from "react-router-dom"
-import { Typography } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
 import { getStudentInfo } from "../../actions/student";
 
 export default function AccountMenu() {
@@ -26,9 +23,9 @@ export default function AccountMenu() {
     setAnchorEl(null);
   };
 
-  const dispatch = useDispatch()
-  const { data } = useSelector((state: State) => state.auth)
-  const { user } = useSelector((state: State) => state.student)
+  const dispatch = useDispatch();
+  const { data } = useSelector((state: State) => state.auth);
+  const { user } = useSelector((state: State) => state.student);
   const { id, rol } = data;
   const token = localStorage.getItem('token') || ''
 
@@ -49,8 +46,8 @@ export default function AccountMenu() {
 
   return (
     <React.Fragment>
-      <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
-        <Tooltip title="Account settings">
+      <Box sx={{ justifyContent: "right", display: "flex", alignItems: "right", textAlign: "center" }}>
+        <Tooltip title ="Account settings">
           <IconButton
             onClick={handleClick}
             size="small"
@@ -101,19 +98,11 @@ export default function AccountMenu() {
           <Avatar>{user.name?.slice(0, 1).toUpperCase()}</Avatar>
         </MenuItem>
         <Divider />
-        <MenuItem>
-          <ListItemIcon>
-            <AutoAwesomeMotionIcon fontSize="small" />
-          </ListItemIcon>
-          {rol === 'STUDENT_ROL'
-            ? 'Administrar solicitudes'
-            : 'Administrar proyectos'}
-        </MenuItem>
         <MenuItem onClick={handlerLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-          Cerrar sesion
+          Cerrar sesion 
         </MenuItem>
       </Menu>
     </React.Fragment>
