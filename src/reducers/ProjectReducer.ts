@@ -5,8 +5,6 @@ interface State {
   projects: {}[]
   projectsFilter: {}[]
   projectId: {}
-  postulated: {}[]
-  accepts: {}[]
 }
 
 const initialState = {
@@ -15,8 +13,6 @@ const initialState = {
   projectId: {},
   category: [],
   myProjectCompany: [],
-  postulated: [],
-  accepts: [],
   total: 0,
 };
 
@@ -47,7 +43,6 @@ export const projectReducer = (state: State = initialState, action: Action) => {
       };
 
     case types.projectsFilter:
-      console.log(action.payload.total);
       return {
         ...state,
         projectsFilter: [...action.payload.projects],
@@ -65,20 +60,6 @@ export const projectReducer = (state: State = initialState, action: Action) => {
         ...state,
         myProjectCompany: action.payload,
       };
-
-
-
-    case types.postulated:
-      const { students } = action.payload
-      return {
-        ...state,
-        postulated: [...state.postulated, students]
-      }
-    case types.acceptStudent:
-      return {
-        ...state,
-        projects: action.payload
-      }
 
     default:
       return state;

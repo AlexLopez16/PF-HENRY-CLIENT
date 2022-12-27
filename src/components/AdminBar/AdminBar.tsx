@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../reducers/rootReducer";
 import { Link, useNavigate } from "react-router-dom";
 import { getStudentInfo } from "../../actions/student";
+import { Profile } from "../student/profile/Profile";
+import { ProfileCompany } from "../company/Profile/ProfileCompany";
 
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -27,27 +29,37 @@ export default function AccountMenu() {
   const { data } = useSelector((state: State) => state.auth);
   const { user } = useSelector((state: State) => state.student);
   const { id, rol } = data;
-  const token = localStorage.getItem('token') || ''
+  const token = localStorage.getItem("token") || "";
 
   //TODO: eliminar cuando el mamon de nacho suba sus cambios
   React.useEffect(() => {
-    (rol === 'STUDENT_ROL')
-      ? dispatch(getStudentInfo(id, token))
-      : null
+    rol === "STUDENT_ROL" ? dispatch(getStudentInfo(id, token)) : null;
     // dispatch(getConpanyInfo(id, token))
-  }
-    , [dispatch])
-  const navigate = useNavigate()
+  }, [dispatch]);
+  const navigate = useNavigate();
 
   const handlerLogout = () => {
-    localStorage.clear()
-    navigate("/landing")
+    localStorage.clear();
+    navigate("/landing");
+  };
+
+  const handlerProfile =()=>{
+  rol==="STUDENT_ROL"?navigate("/profile"):navigate("/profileCompany")
+
+
   }
 
   return (
     <React.Fragment>
-      <Box sx={{ justifyContent: "right", display: "flex", alignItems: "right", textAlign: "center" }}>
-        <Tooltip title ="Account settings">
+      <Box
+        sx={{
+          justifyContent: "right",
+          display: "flex",
+          alignItems: "right",
+          textAlign: "center",
+        }}
+      >
+        <Tooltip title="Account settings">
           <IconButton
             onClick={handleClick}
             size="small"
@@ -75,34 +87,38 @@ export default function AccountMenu() {
               width: 32,
               height: 32,
               ml: -0.5,
-              mr: 1
+              mr: 1,
             },
-            '&:before': {
+            "&:before": {
               content: '""',
-              display: 'block',
-              position: 'absolute',
+              display: "block",
+              position: "absolute",
               top: 0,
               right: 14,
               width: 10,
               height: 10,
-              bgcolor: 'background.paper',
-              transform: 'translateY(-50%) rotate(45deg)',
+              bgcolor: "background.paper",
+              transform: "translateY(-50%) rotate(45deg)",
               zIndex: 0,
             },
-          }
+          },
         }}
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem>
-          <Avatar>{user.name?.slice(0, 1).toUpperCase()}</Avatar>
+          <Avatar>
+            <IconButton onClick={handlerProfile}>
+              {user.name?.slice(0, 1).toUpperCase()}
+            </IconButton>
+          </Avatar>
         </MenuItem>
         <Divider />
         <MenuItem onClick={handlerLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-          Cerrar sesion 
+          Cerrar sesion
         </MenuItem>
       </Menu>
     </React.Fragment>

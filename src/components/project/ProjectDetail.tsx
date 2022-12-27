@@ -94,7 +94,7 @@ const ProjectDetail: FC<ProjectProps> = ({ name, empresa, imagen, detalle, canti
                     </Typography>
                 </List>
 
-                {rol === "TUDENT_ROL" ?
+                {rol === "STUDENT_ROL" ?
                     <Button
                         sx={{ marginTop: 10 }}
                         type="submit"
