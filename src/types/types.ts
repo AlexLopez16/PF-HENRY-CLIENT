@@ -13,13 +13,19 @@ export const types = {
   companyUpdateInfo: "[company] Update info company",
   companySearch: "[company] Serch Company", //-VERIFICAR-//
 
-  newProject: "[project] Create New Project",
-  getProjects: "[project] Get Projects",
-  projectsFilter: "[projects], get filtered projects",
-  getProjectById: "[project] Get Project By Id",
-  getCategory: "[project] Get Category",
-  getMyProjectCompany: "[project]  Get My Project Company",
+    newProject: '[project] Create New Project',
+    getProjects: '[project] Get Projects',
+    projectsFilter: '[projects], get filtered projects',
+    getProjectById: '[project] Get Project By Id',
+    getCategory:'[project] Get Category',
+    getMyProjectCompany:'[project]  Get My Project Company',
+    
 
-  showError: "[error] Show Error",
-  clearError: "[error] Clear Error",
+    showError: '[error] Show Error',
+    clearError: '[error] Clear Error',
+    
+    AddStToPr:"[student] Add student to project",
+    postulated: "[project] get student postulated",
+    acceptStudent:"[Company] Student Accept",
+    getStudentsInProject:"[Company] get students in projects "
 };

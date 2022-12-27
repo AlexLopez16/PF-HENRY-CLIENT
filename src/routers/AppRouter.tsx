@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
 import LandingPage from "../pages/LandingPage/LandingPage";
 import StudensForm from "../components/student/StudentForm";
 import CompanyForm from "../components/company/CompanyForm";
@@ -32,10 +32,16 @@ import Sil from "../pages/Profiles/Sil";
 import MyProject from "../components/student/MyProject";
 import ProjectsPage from "../pages/ProjectsPage";
 import MyProjectsPage from "../pages/MyProjectsPage";
+import ProjectsStudents from "../components/student/ProjectsStudents";
 import { ProfileCompany } from "../components/company/Profile/ProfileCompany";
 
 
+import Postulated from '../components/company/Postulated';
+
 export const AppRouter = () => {
+  let { id } = useParams()
+  // console.log(id);
+
   return (
     <BrowserRouter>
       <div>
@@ -208,6 +214,7 @@ export const AppRouter = () => {
           <Route path="/forgotPassword" element={<ForgotPassword />} />
 
           <Route path="/recoverPassword" element={<PasswordRecover />} />
+          <Route path="/p" element={<ProjectsStudents/>} />
           {/* <Route
             path="/companyProject"
             element={
@@ -219,6 +226,9 @@ export const AppRouter = () => {
               </>
             }
           /> */}
+          <Route path='/postulated/:id'
+            element={<Postulated />}
+          />
         </Routes>
       </div>
     </BrowserRouter>
