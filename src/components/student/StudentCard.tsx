@@ -27,6 +27,8 @@ interface StudentProps {
     image: string;
     idstd: string;
     working: boolean;
+    setRender: boolean | any;
+    render: boolean | any;
 }
 
 const StudentCard: FC<StudentProps> = ({
