@@ -2,17 +2,14 @@ import { useSelector } from 'react-redux';
 
 import { State } from '../reducers/rootReducer';
 
-import ProjectDetail from '../components/project/ProjectDetail'
-import SearchBar from '../components/ui/SearchBar'
+import ProjectDetail from '../components/project/ProjectDetail';
 
 export const ProjectPage = () => {
-
-    const { projectId } = useSelector((state: State) => state.project)
-    const {state, students, ...data} = projectId;
+    const { projectId } = useSelector((state: State) => state.project);
+    const { state, students, ...data } = projectId;
 
     return (
         <>
-            <SearchBar />
             <ProjectDetail
                 name={data.name}
                 empresa={data.company?.name}
@@ -25,5 +22,5 @@ export const ProjectPage = () => {
                 uid={data.uid}
             />
         </>
-    )
-}
+    );
+};

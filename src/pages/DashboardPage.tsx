@@ -5,6 +5,7 @@ import DashboardCompany from '../components/company/DashboardCompany';
 import { useSelect } from '@mui/base';
 import { useSelector } from 'react-redux';
 import { State } from '../reducers/rootReducer';
+import ProjectsStudents from '../components/student/ProjectsStudents';
 
 const DashboardPage: any = () => {
   // const rol = localStorage.getItem('rol');
