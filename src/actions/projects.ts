@@ -167,7 +167,7 @@ export const getCategory = (token: string) => {
     };
 };
 
-export const getMyProjectsCompany = (token: string, value: number) => {
+export const getMyProjectsCompany = (token: string, value) => {
     return async (dispatch: Dispatch) => {
         let val;
         if (value) {
@@ -209,7 +209,7 @@ export const updateImagesProject = (id: string, token: string, file: any) => {
     };
 };
 
-export const clearProjects = (obj: { projects: never[]; total: number; }) => {
+export const clearProjects = (obj) => {
     console.log('in clear');
     return {
         type: types.projectsFilter,
