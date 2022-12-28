@@ -3,6 +3,7 @@ export const types = {
   authLoginGit: "[auth] GitHub Login",
   clearAuthLogin: "[auth] Clear Auth Login",
 
+  studentsGetInfo: "[students] Get Info Students",
   studentRegister: "[student] Register Student",
   studentGetInfo: "[student] Get Info Student",
   studentUpdateInfo: "[student] Update Info Student",

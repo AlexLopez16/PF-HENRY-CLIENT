@@ -210,9 +210,9 @@ export const AppRouter = () => {
                     <Route 
                       path="/adminSt"
                       element={
-                        <PrivateRoute>
+                        // <PrivateRoute>
                           <AdminStudent />
-                        </PrivateRoute>
+                        // </PrivateRoute>
                       }
                     />
 

@@ -2,7 +2,23 @@ import axios from "axios"
 import { Dispatch } from "redux"
 import { types } from "../types/types"
 import { fileUpload } from '../helpers/fileUpload';
+import { type } from "os";
 
+
+export const getStudents = (token: string | null) => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const res = await axios.get('/student', { headers: { 'user-token': token } });
+
+            dispatch({
+                type: types.studentsGetInfo,
+                payload: res.data.students
+            })
+        } catch(error: any) {
+            console.log(error)
+        }
+    }
+}
 
 export const studentRegister = (values: object) => {
     return async (dispatch: Dispatch) => {
