@@ -20,7 +20,6 @@ export const registerCompany = (values: Object) => {
 }
 
 export const acceptStudent=(id:string,idstudent: string)=>{
-console.log("client lin23",idstudent);
 
     return async (dispatch: Dispatch) => {
         try {
@@ -79,3 +78,22 @@ export const updatePhotoCompany = (id: string, token: string, file: any) => {
         }
     }
 }
+
+export const DeleteStudent=(id:string,idstudent: string)=>{
+  console.log(id);
+  
+        return async (dispatch: Dispatch) => {
+            try {
+                const res = await axios.put(`/project/denied/${id}`, {idstudent})
+                dispatch({
+                    type: types.deleteStudent,
+                     payload: res.data,
+    
+                });
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    }
+
+

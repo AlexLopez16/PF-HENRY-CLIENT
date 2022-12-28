@@ -17,7 +17,7 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../reducers/rootReducer";
-import { acceptStudent } from "../../actions/company";
+import { acceptStudent, DeleteStudent } from "../../actions/company";
 import { useParams } from "react-router-dom";
 
 
@@ -29,17 +29,20 @@ interface StudentProps {
   tecnologies: object[],
   image: string,
   idstd: string,
-  working: boolean
+  working: boolean,
+
+  
 }
 
 
 
-const StudentCard: FC<StudentProps> = ({ name, email, descripcion, tecnologies, image, idstd,working }: StudentProps) => {
+const StudentCard: FC<StudentProps> = ({ name, email, descripcion, tecnologies, image, idstd, working,setRender ,render}: StudentProps) => {
 
   const dispatch = useDispatch()
   const [open, setOpen] = React.useState(true);
   let rol = useSelector((state: State) => state.auth.data.rol);
 
+  
   const { id: idpjt } = useParams()
 
   const handleClick = () => {
@@ -48,12 +51,17 @@ const StudentCard: FC<StudentProps> = ({ name, email, descripcion, tecnologies, 
 
   const handlerAccept = () => {
     dispatch(acceptStudent(idpjt, idstd))
+    setRender(!render)
+  }
+  const handlerDelete = () => {
+    dispatch(DeleteStudent(idpjt, idstd))
+    setRender(!render)
   }
 
-let style
-working===true
-? style={ width: 400, height: "100%", padding: 20, margin: "50px 5px 0 60%", display: "inline-block" }
-: { width: 400, height: "100%", padding: 20, margin: "50px 5px 0 5px", display: "inline-block" }
+  let style
+  working === true // si el alumno esta en postulado aparece con un style y si es aceptado (working) con otro
+    ? style = { width: 400, height: "100%", padding: 20, margin: "50px 5px 0 60%", display: "inline-block" }
+    :style={ width:"auto", height: "100%", padding: 20, margin: "50px 60% 0% 20px", display: "inline-block"}
 
   return (
 
@@ -76,9 +84,9 @@ working===true
 
 
 
-            {rol === "COMPANY_ROL" && working===false
+            {rol === "COMPANY_ROL" && working === false
               ? <Button
-                sx={{ ml: 'auto', fontWeight: 600, color: "yellow", background: "black", }}
+                sx={{ ml:"40px", fontWeight: 600, color: "yellow", background: "black", }}
                 size="small"
                 color="primary"
                 variant="text"
@@ -86,7 +94,15 @@ working===true
               >
                 Aceptar
               </Button>
-              : null
+              : <Button
+                sx={{ ml:"75%",b:"50px", fontWeight: 600, color: "yellow", background: "black", }}
+                size="small"
+                color="primary"
+                variant="text"
+                onClick={handlerDelete}
+              >
+                Rechazar
+              </Button>
             }
           </Typography>
         </div>

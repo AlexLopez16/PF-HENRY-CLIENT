@@ -252,9 +252,15 @@ export const AppRouter = () => {
               </>
             }
           /> */}
-                    <Route path="/postulated/:id" element={<Postulated />} />
-                </Routes>
-            </div>
-        </BrowserRouter>
-    );
+          <Route path='/postulated/:id'
+
+            element={<PrivateRoute>
+              <Postulated />
+            </PrivateRoute>}
+
+          />
+        </Routes>
+      </div>
+    </BrowserRouter>
+  );
 };
