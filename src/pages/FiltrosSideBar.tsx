@@ -69,26 +69,24 @@ const FiltroDashStudent: FC = () => {
         setOrder(e.target.value);
     };
 
-    const handlesubmit = () => {
-        console.log(order);
-        // let tecnologies = Object.keys(tecnologias).filter(
-        //     (el: any) => tecnologias[el] === true
-        // );
-        //me devuelve los true
-        dispatch(
-            getProjectsFilter(
-                order,
-                // tecnologies,
-                undefined,
-                token,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                undefined
-            )
-        );
-    };
+    // const handlesubmit = () => {
+    //     console.log(order);
+    //     let tecnologies = Object.keys(tecnologias).filter(
+    //         (el: any) => tecnologias[el] === true
+    //     ); //me devuelve los true
+    //     dispatch(
+    //         getProjectsFilter(
+    //             order,
+    //             tecnologies,
+    //             token,
+    //             undefined,
+    //             undefined,
+    //             undefined,
+    //             undefined,
+    //             undefined
+    //         )
+    //     );
+    // };
 
     // console.log(Object.entries(tecnologias))
 
