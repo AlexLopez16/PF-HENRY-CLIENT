@@ -18,7 +18,7 @@ const Pages: FC = () => {
     let location = useLocation();
     console.log(location);
     let dispatch = useDispatch();
-    let token: String | null = localStorage.getItem('token');
+    let token = localStorage.getItem('token');
     const [definePage, setPage] = useState({ limit: 6, init: 0 });
     let { projectsFilter } = useSelector((state: State) => state.project);
     // let { myProjectCompany } = useSelector((state: State) => state.project);
