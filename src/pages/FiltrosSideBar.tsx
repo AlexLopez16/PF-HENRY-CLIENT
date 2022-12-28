@@ -71,13 +71,15 @@ const FiltroDashStudent: FC = () => {
 
     const handlesubmit = () => {
         console.log(order);
-        let tecnologies = Object.keys(tecnologias).filter(
-            (el: any) => tecnologias[el] === true
-        ); //me devuelve los true
+        // let tecnologies = Object.keys(tecnologias).filter(
+        //     (el: any) => tecnologias[el] === true
+        // );
+        //me devuelve los true
         dispatch(
             getProjectsFilter(
                 order,
-                tecnologies,
+                // tecnologies,
+                undefined,
                 token,
                 undefined,
                 undefined,
