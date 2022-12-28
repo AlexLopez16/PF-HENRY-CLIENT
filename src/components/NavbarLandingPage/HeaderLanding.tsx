@@ -60,7 +60,7 @@ const Header = () => {
               />
             </Tabs>
             <Button
-            color='primary'
+              color='primary'
               style={{
                 fontFamily: 'poppins',
               }}
