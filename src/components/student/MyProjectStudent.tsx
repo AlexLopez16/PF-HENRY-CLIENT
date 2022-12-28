@@ -43,7 +43,7 @@ const MyProjectStudent: FC = () => {
                     <Typography
                         variant="h6"
                         align="center"
-                        sx={{ margin: '10px 0' }}
+                        sx={{ margin: '20px 0' }}
                     >
                         Mis Solicitudes
                     </Typography>
