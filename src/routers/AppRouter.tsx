@@ -182,19 +182,19 @@ export const AppRouter = () => {
               // </PrivateRoute>
             }
           />
-            <Route
+          <Route
             path="/profileCompany"
             element={
               <PrivateRoute>
-              <ProfileCompany />
-               </PrivateRoute>
+                <ProfileCompany />
+              </PrivateRoute>
             }
           />
-           <Route
+          <Route
             path="/profile"
             element={
               // <PrivateRoute>
-              <Profile/>
+              <Profile />
               // </PrivateRoute>
             }
           />
@@ -214,7 +214,7 @@ export const AppRouter = () => {
           <Route path="/forgotPassword" element={<ForgotPassword />} />
 
           <Route path="/recoverPassword" element={<PasswordRecover />} />
-          <Route path="/p" element={<ProjectsStudents/>} />
+          <Route path="/p" element={<ProjectsStudents />} />
           {/* <Route
             path="/companyProject"
             element={
@@ -227,7 +227,11 @@ export const AppRouter = () => {
             }
           /> */}
           <Route path='/postulated/:id'
-            element={<Postulated />}
+
+            element={<PrivateRoute>
+              <Postulated />
+            </PrivateRoute>}
+
           />
         </Routes>
       </div>
