@@ -7,6 +7,8 @@ import Pages from '../ui/Pagination';
 
 // import StudentCard from "../student/StudentCard";
 
+import { Grid, Pagination } from '@mui/material';
+
 const DashboardCompany: FC = () => {
     let token = localStorage.getItem('token');
     const dispatch = useDispatch();
