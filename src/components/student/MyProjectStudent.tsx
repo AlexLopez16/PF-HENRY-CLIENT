@@ -30,14 +30,21 @@ const MyProjectStudent: FC = () => {
         dispatch(getStudentInfo(auth.data.id, token));
     }, [dispatch]);
     // Definimos los objetos de informacion.
+    console.log(student.user.project);
     // Aca hay que trabajar con typescript para que quede mas limpia la sintaxis.
     return (
         <Container maxWidth="lg">
             {student.user.working ? (
-                <p>
-                    Estas trabajando en un proyecto, ahora falta mostrar el
-                    proyecto xd
-                </p>
+                <>
+                    <Typography
+                        variant="h6"
+                        align="center"
+                        sx={{ margin: '20px 0' }}
+                    >
+                        Mi proyecto:
+                    </Typography>
+                    <div></div>
+                </>
             ) : student.user.project.length ? (
                 <>
                     <Typography
@@ -45,7 +52,7 @@ const MyProjectStudent: FC = () => {
                         align="center"
                         sx={{ margin: '20px 0' }}
                     >
-                        Mis Solicitudes
+                        Mis solicitudes:
                     </Typography>
                     <div>
                         {student.user.project &&
