@@ -1,0 +1,47 @@
+{
+  "name": "final-project",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@fontsource/roboto": "^4.5.8",
+    "@mui/icons-material": "^5.10.16",
+    "@mui/material": "^5.10.16",
+    "@mui/x-data-grid": "^5.17.14",
+    "@react-oauth/google": "^0.5.1",
+    "@reduxjs/toolkit": "^1.9.1",
+    "axios": "^1.2.1",
+    "dotenv": "^16.0.3",
+    "eslint": "^8.29.0",
+    "formik": "^2.2.9",
+    "formik-mui": "^5.0.0-alpha.0",
+    "mui-formik": "^0.1.1",
+    "react": "^18.2.0",
+    "react-aos": "^1.0.1",
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.4.3",
+    "react-scroll-parallax": "^3.3.2",
+    "redux": "^4.2.0",
+    "redux-thunk": "^2.4.2",
+    "text-clipper": "^2.2.0",
+    "yup": "^0.32.11",
+    "vite": "4.0.3",
+    "@vitejs/plugin-react": "3.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.13",
+    "@types/react": "^18.0.24",
+    "@types/react-dom": "^18.0.8",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "redux-devtools-extension": "^2.13.9",
+    "typescript": "^4.6.4"
+  }
+}
