@@ -7,9 +7,8 @@ import SearchBar from '../components/ui/SearchBar'
 import NavBar from '../components/NavBar/NavBar';
 
 export const ProjectPage = () => {
-
-    const { projectId } = useSelector((state: State) => state.project)
-    const {state, students, ...data} = projectId;
+    const { projectId } = useSelector((state: State) => state.project);
+    const { state, students, ...data } = projectId;
 
     return (
         <>
@@ -26,5 +25,5 @@ export const ProjectPage = () => {
                 uid={data.uid}
             />
         </>
-    )
-}
+    );
+};

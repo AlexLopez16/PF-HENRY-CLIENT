@@ -10,16 +10,13 @@ import { types } from '../types/types';
 export const validaToken = (token: string) => {
     return async (dispatch: Dispatch) => {
         try {
-            const { data, status } = await axios.get(
-                '/token',
-                {
-                    headers: { 'user-token': token },
-                }
-            );
+            const { data, status } = await axios.get('/token', {
+                headers: { 'user-token': token },
+            });
             const { id, rol } = data;
             if (status) {
-                console.log(status)
-                console.log(rol)
+                console.log(status);
+                console.log(rol);
                 localStorage.setItem('token', token);
                 dispatch(login({ data, status, id, rol }));
             }
@@ -95,11 +92,10 @@ export const forgotPassword = (email: string) => {
             const res = await axios.get(`/recover/password?email=${email}`)
             console.log(res.data)
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
-    }
-
-}
+    };
+};
 
 export const recoverPassword = (password: string, token: string | any) => {
     return async (dispatch: Dispatch) => {
@@ -107,11 +103,10 @@ export const recoverPassword = (password: string, token: string | any) => {
             const res: any = await axios.put(`/recover/password`, { password: password }, { headers: { "user-token": token } })
             console.log(res.data)
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
-    }
-
-}
-const logout = () => ({
+    };
+};
+export const logout = () => ({
     type: types.clearAuthLogin,
 });

@@ -19,6 +19,18 @@ export const companyReducer = (state: State = initialState, action: Action) => {
         ...state,
         ...action.payload,
       };
+
+      case types.companyGetInfo:
+        return {
+            ...state,
+            user: action.payload
+        }
+
+    case types.companyUpdateInfo:
+        return {
+            ...state,
+            user: { ...state.user, ...action.payload }
+        }
     default:
       return state;
   }

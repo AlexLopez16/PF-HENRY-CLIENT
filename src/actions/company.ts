@@ -1,7 +1,8 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import { types } from "../types/types"
-
+import { fileUpload } from '../helpers/fileUpload';
+import { useNavigate } from 'react-router-dom';
 
 export const registerCompany = (values: Object) => {
     return async (dispatch: Dispatch) => {
@@ -19,20 +20,63 @@ export const registerCompany = (values: Object) => {
     }
 }
 
-export const acceptStudent=(id:string,idstudent: string)=>{
-console.log("client lin23",idstudent);
+export const acceptStudent = (id: string, idstudent: string) => {
+    console.log("client lin23", idstudent);
 
     return async (dispatch: Dispatch) => {
         try {
-            const res = await axios.put(`/project/accept/${id}`, {idstudent})
-            console.log(res)
+            const res = await axios.put(`/project/accept/${id}`, { idstudent })
             dispatch({
-                type: types.registerCompany,
+                type: types.acceptStudent,
                 payload: res.data,
 
             });
         } catch (error) {
             console.log(error)
+        }
+    }
+}
+export const companyGetInfo = (id: string, token: string) => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const res = await axios.get(`/company/${id}`, { headers: { 'user-token': token } })
+            dispatch({
+                type: types.companyGetInfo,
+                payload: res.data
+            })
+        } catch (error: any) {
+            console.log(error);
+        }
+    }
+}
+
+export const CompanyUpdateInfo = (id: string, token: string, data: object) => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const res = await axios.put(`/company/${id}`, data, { headers: { 'user-token': token } })
+            dispatch({
+                type: types.companyUpdateInfo,
+                payload: res.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
+export const updatePhotoCompany = (id: string, token: string, file: any) => {
+
+    return async (dispatch: Dispatch) => {
+        try {
+            const photoUrl = await fileUpload(file, "users")
+            const res = await axios.put(`/company/${id}`, { image: photoUrl }, { headers: { 'user-token': token } })
+
+            dispatch({
+                type: types.companyUpdateInfo,
+                payload: res.data
+            })
+        } catch (error) {
+            console.log(error);
         }
     }
 }

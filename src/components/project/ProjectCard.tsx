@@ -1,6 +1,7 @@
 import { FC } from "react";
 
-import { Box, Typography, Paper, CardMedia } from "@mui/material";
+import { Box, Typography, Paper, CardMedia, Chip } from "@mui/material";
+import clip from "text-clipper"
 
 import Button from "@mui/material/Button";
 import { Link, NavLink } from 'react-router-dom';
@@ -16,7 +17,7 @@ type CompanyData = {
 interface CardProjectProps {
 
     name?: string,
-    description?: string,
+    description: string,
     participants?: number
     requirements?: any,
     students: string[] | undefined,
@@ -41,6 +42,8 @@ const ProjectCard: FC<CardProjectProps> = ({
 
     const dispatch = useDispatch()
     const token = localStorage.getItem('token') || '';
+    const rol = localStorage.getItem('rol');
+    const clippedDescription = clip(description, 100)
 
     const handleClick = () => {
         dispatch(getProjectByID(token, id));
@@ -72,7 +75,7 @@ const ProjectCard: FC<CardProjectProps> = ({
 
             <Typography sx={{ mb: 0.5 }}>
          
-                {company}
+                {company?.name}
             </Typography>
 
             <Typography sx={{ mb: 0.5 }}>
