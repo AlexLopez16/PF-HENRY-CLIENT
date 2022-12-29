@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useState } from 'react';
+
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
@@ -15,6 +17,8 @@ import { getStudentInfo } from '../../actions/student';
 import { logout } from '../../actions/auth';
 import { Profile } from '../student/profile/Profile';
 import { ProfileCompany } from '../company/Profile/ProfileCompany';
+import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
+import { Premium } from '../Premium/Premium';
 
 export default function AccountMenu() {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -50,6 +54,9 @@ export default function AccountMenu() {
             ? navigate('/profile')
             : navigate('/profileCompany');
     };
+
+    // FUNCION PREMIUM
+    const [openModal, setOpenModal] = useState(false);
 
     return (
         <React.Fragment>
@@ -120,6 +127,18 @@ export default function AccountMenu() {
                     {user.name}
                 </MenuItem>
                 <Divider />
+
+                {
+                    rol === 'COMPANY_ROL' && (
+                        <MenuItem onClick={() => setOpenModal(true)}>
+                            <ListItemIcon>
+                                <SubscriptionsIcon fontSize="small" />
+                            </ListItemIcon>
+                            Premium
+                        </MenuItem>
+                    )
+                }
+
                 <MenuItem onClick={handlerLogout}>
                     <ListItemIcon>
                         <Logout fontSize="small" />
@@ -127,6 +146,12 @@ export default function AccountMenu() {
                     Cerrar sesion
                 </MenuItem>
             </Menu>
+
+            <Premium
+                openModal={openModal}
+                setOpenModal={setOpenModal}
+            />
+
         </React.Fragment>
     );
 }

@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import type {} from 'redux-thunk/extend-redux';
+import type { } from 'redux-thunk/extend-redux';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -29,7 +29,7 @@ import { GoogleLogin } from '@react-oauth/google';
 
 import { startLogin, gmailLogin } from '../../actions/auth';
 import { State } from '../../reducers/rootReducer';
-import { Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Header from '../NavbarLandingPage/HeaderLanding';
 import Footer from '../../pages/LandingPage/Footer';
 
@@ -80,48 +80,44 @@ export const LoginScreen: FC = () => {
         setIsError(false);
     };
 
-    return (
-        <Box
-            sx={{
-                backgroundColor: 'black',
-            }}
+  return (
+    <Box
+      sx={{
+        backgroundColor: 'black',
+      }}
+    >
+      <div>
+        <Header />
+        <Grid
+          container
+          direction='column'
+          justifyContent='center'
+          alignItems='center'
         >
-            <div>
-                <Header />
-                <Grid
-                    container
-                    direction="column"
-                    justifyContent="center"
-                    alignItems="center"
-                >
-                    <img
-                        src="../public/assets/NABIJASH.png"
-                        style={{
-                            justifyContent: 'center',
-                            marginTop: 10,
-                        }}
-                    />
-                    <Paper
-                        elevation={10}
-                        style={paperStyle}
-                        sx={{
-                            minWidth: 100,
-                            maxWidth: 400,
-                            mt: 8,
-                            p: 5,
-                            mb: 12.5,
-                        }}
-                    >
-                        <Grid textAlign="center">
-                            <h2
-                                style={{
-                                    fontFamily: 'Montserrat',
-                                    marginBottom: 5,
-                                }}
-                            >
-                                Ingresar
-                            </h2>
-                        </Grid>
+          <img
+            src='../public/assets/NABIJASH.png'
+            style={{
+              justifyContent: 'center',
+              marginTop: 10,
+            }}
+          />
+          <Paper
+            elevation={10}
+            style={paperStyle}
+            sx={{
+              minWidth: 100,
+              maxWidth: 400,
+              mt: 8,
+              p: 5,
+              mb: 12.5,
+            }}
+          >
+            <Grid textAlign='center'>
+              <h2
+                style={{ fontFamily: 'Montserrat', marginBottom: 5 }}>
+                Ingresar
+              </h2>
+            </Grid>
 
                         <Divider></Divider>
                         {isError && (
@@ -239,7 +235,7 @@ export const LoginScreen: FC = () => {
                                         mb="10px"
                                     >
                                         <Link
-                                            href="/forgotPassword"
+                                            to="/forgotPassword"
                                             color="inherit"
                                         >
                                             ¿Olvidaste tu contraseña?
