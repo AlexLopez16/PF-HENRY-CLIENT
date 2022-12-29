@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import type { } from 'redux-thunk/extend-redux';
+import type {} from 'redux-thunk/extend-redux';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -16,14 +16,12 @@ import {
     FormControl,
     Button,
     Typography,
-    Link,
     FormHelperText,
     Box,
 } from '@mui/material';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import Divider from '@mui/material/Divider';
 
-// import { GoogleLogin } from './GoogleLogin';
 import { GitHubLogin } from './GitHubLogin';
 import { GoogleLogin } from '@react-oauth/google';
 
@@ -80,44 +78,48 @@ export const LoginScreen: FC = () => {
         setIsError(false);
     };
 
-  return (
-    <Box
-      sx={{
-        backgroundColor: 'black',
-      }}
-    >
-      <div>
-        <Header />
-        <Grid
-          container
-          direction='column'
-          justifyContent='center'
-          alignItems='center'
-        >
-          <img
-            src='../public/assets/NABIJASH.png'
-            style={{
-              justifyContent: 'center',
-              marginTop: 10,
-            }}
-          />
-          <Paper
-            elevation={10}
-            style={paperStyle}
+    return (
+        <Box
             sx={{
-              minWidth: 100,
-              maxWidth: 400,
-              mt: 8,
-              p: 5,
-              mb: 12.5,
+                backgroundColor: 'black',
             }}
-          >
-            <Grid textAlign='center'>
-              <h2
-                style={{ fontFamily: 'Montserrat', marginBottom: 5 }}>
-                Ingresar
-              </h2>
-            </Grid>
+        >
+            <div>
+                <Header />
+                <Grid
+                    container
+                    direction="column"
+                    justifyContent="center"
+                    alignItems="center"
+                >
+                    <img
+                        src="../public/assets/NABIJASH.png"
+                        style={{
+                            justifyContent: 'center',
+                            marginTop: 10,
+                        }}
+                    />
+                    <Paper
+                        elevation={10}
+                        style={paperStyle}
+                        sx={{
+                            minWidth: 100,
+                            maxWidth: 400,
+                            mt: 8,
+                            p: 5,
+                            mb: 12.5,
+                        }}
+                    >
+                        <Grid textAlign="center">
+                            <h2
+                                style={{
+                                    fontFamily: 'Montserrat',
+                                    marginBottom: 5,
+                                }}
+                            >
+                                Ingresar
+                            </h2>
+                        </Grid>
 
                         <Divider></Divider>
                         {isError && (
