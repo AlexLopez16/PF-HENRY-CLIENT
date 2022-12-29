@@ -1,9 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    clearMyProjects,
-    clearProjects,
-    getMyProjectsCompany,
-} from '../../actions/projects';
+import { clearProjects, getMyProjectsCompany } from '../../actions/projects';
 import ProjectCard from './ProjectCard';
 import { State } from '../../reducers/rootReducer';
 
