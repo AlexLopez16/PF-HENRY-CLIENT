@@ -29,12 +29,12 @@ import Nachito from '../pages/Profiles/Nachito';
 import Nacho from '../pages/Profiles/Nacho';
 import Sil from '../pages/Profiles/Sil';
 
-import MyProject from '../components/student/MyProject';
+import MyProject from '../components/student/MyProjectStudent';
 import ProjectsPage from '../pages/ProjectsPage';
 import MyProjectsPage from '../pages/MyProjectsPage';
 import ProjectsStudents from '../components/student/ProjectsStudents';
 import { ProfileCompany } from '../components/company/Profile/ProfileCompany';
-import AdminStudent from "../components/Admin/AdminStudent";
+import AdminStudent from '../components/Admin/AdminStudent';
 import Postulated from '../components/company/Postulated';
 import { Checkout } from '../pages/Checkout';
 
@@ -154,17 +154,6 @@ export const AppRouter = () => {
                         }
                     />
 
-                    <Route
-                        path="/requests"
-                        element={
-                            // <PrivateRoute>
-                            <>
-                                <NavBar />
-                                <MyProject />
-                            </>
-                            // </PrivateRoute>
-                        }
-                    />
 
                     <Route
                         path="/aboutUs"
@@ -237,10 +226,6 @@ export const AppRouter = () => {
                         path="/forgotPassword"
                         element={<ForgotPassword />}
                     />
-                    <Route
-                        path="/forgotPassword"
-                        element={<ForgotPassword />}
-                    />
 
                     <Route
                         path="/recoverPassword"
@@ -258,15 +243,14 @@ export const AppRouter = () => {
               </>
             }
           /> */}
-                    <Route path="/postulated/:id" element={<Postulated />} />
-
-                    {/* STRIPE */}
-                    <Route path="/checkout/"
+                    <Route
+                        path="/postulated/:id"
                         element={
-                            <Checkout />
+                            <PrivateRoute>
+                                <Postulated />
+                            </PrivateRoute>
                         }
                     />
-
                 </Routes>
             </div>
         </BrowserRouter>

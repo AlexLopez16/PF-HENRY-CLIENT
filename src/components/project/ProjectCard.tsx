@@ -1,49 +1,49 @@
-import { FC } from "react";
+import { FC } from 'react';
 
-import { Box, Typography, Paper, CardMedia, Chip } from "@mui/material";
-import clip from "text-clipper"
+import { Box, Typography, Paper, CardMedia, Chip } from '@mui/material';
+import clip from 'text-clipper';
 
-import Button from "@mui/material/Button";
-import { Link, NavLink } from 'react-router-dom';
-import { useDispatch } from "react-redux";
-import { getProjectByID } from "../../actions/projects";
-
+import Button from '@mui/material/Button';
+import { NavLink, Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { getProjectByID } from '../../actions/projects';
+import { Container } from '@mui/system';
 
 type CompanyData = {
-    "_id": string,
-    "name": string
-}
+    _id: string;
+    name: string;
+};
 
 interface CardProjectProps {
-
-    name?: string,
-    description: string,
-    participants?: number
-    requirements?: any,
-    students: string[] | undefined,
-    company?: CompanyData,
-    state?: boolean
-    stateOfProject?: string
-    id: string
-    category?: string
+    name?: string;
+    description?: string | any;
+    participants?: number;
+    requirements?: any;
+    students: string[] | undefined;
+    company?: CompanyData | any;
+    state?: boolean;
+    stateOfProject?: string;
+    id: string;
+    category?: string;
+    image?: string[];
 }
 
 const ProjectCard: FC<CardProjectProps> = ({
     name,
     description,
-    participants,//lo que se necesitan para el proyecto
+    participants, //lo que se necesitan para el proyecto
     requirements,
-    students,//los aceptados por la empresa para el project
+    students, //los aceptados por la empresa para el project
     company,
     stateOfProject,
     id,
-    category
+    category,
+    image,
 }: CardProjectProps) => {
-
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const token = localStorage.getItem('token') || '';
     const rol = localStorage.getItem('rol');
-    const clippedDescription = clip(description, 100)
+    const clippedDescription = clip(description, 100);
 
     const handleClick = () => {
         dispatch(getProjectByID(token, id));
@@ -60,9 +60,18 @@ const ProjectCard: FC<CardProjectProps> = ({
 
             <Typography sx={{ mb: 0.5, display: 'flex', justifyContent: 'space-between' }} variant="h6">
                 {name}
-                <Link to="/project">
+                <NavLink
+                    to="/project"
+                    style={{ textDecoration: 'none', marginTop: 'auto' }}
+                >
                     <Button
-                        sx={{ ml: 'auto', fontWeight: 600, color: "yellow", background: "black", }}
+                        sx={{
+                            ml: 'auto',
+                            fontWeight: 600,
+                            color: 'yellow',
+                            background: 'black',
+                            width: '100px',
+                        }}
                         size="small"
                         color="primary"
                         variant="text"
@@ -70,26 +79,62 @@ const ProjectCard: FC<CardProjectProps> = ({
                     >
                         Mas info
                     </Button>
-                </Link>
+                </NavLink>
             </Typography>
 
-            <Typography sx={{ mb: 0.5 }}>
-         
-                {company?.name}
+            <Typography sx={{ m: 0.5 }} variant="h6">
+                {company}
             </Typography>
 
-            <Typography sx={{ mb: 0.5 }}>
-                <h2> {description} </h2>
-            </Typography>
+            <Typography sx={{ m: 0.5 }}>{clippedDescription}</Typography>
 
-            <Box sx={{ display: 'flex' }}>
+            <Box>
                 <div>
-                    <Typography variant="subtitle2">
-                        Requerimientos: {requirements.join(", ")}
+                    <Typography
+                        variant="subtitle1"
+                        sx={{ m: 0.5, color: '#898989' }}
+                    >
+                        {' '}
+                        Requerimientos:
                     </Typography>
-                    <Typography variant="subtitle2">Estado: {stateOfProject} </Typography>
-                    <Typography variant="subtitle2">Category: {category} </Typography>
-                    <Typography variant="subtitle2"> Participantes: {students?.length}/{participants} </Typography>
+                    {requirements.map((p: any) => (
+                        <Chip label={p} sx={{ mb: 1, mr: 0.5 }} />
+                    ))}
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'space-between 2',
+                        }}
+                    >
+                        <Typography
+                            variant="subtitle1"
+                            sx={{
+                                mt: 0.8,
+                                color: '#898989',
+                            }}
+                        >
+                            Estado:{' '}
+                        </Typography>
+                        <Typography variant="subtitle2" sx={{ m: 0.5 }}>
+                            {' '}
+                            <Chip label={stateOfProject} sx={{ mr: 0.5 }} />
+                        </Typography>
+                    </Box>
+                    <Typography
+                        variant="subtitle1"
+                        sx={{ mb: 0.5, color: '#898989' }}
+                    >
+                        {' '}
+                        Participantes:{' '}
+                    </Typography>
+                    <Typography variant="subtitle2" sx={{ m: 0.5 }}>
+                        {' '}
+                        <Chip
+                            label={`${students?.length}/${participants}`}
+                            sx={{ mr: 0.5 }}
+                        />
+                        {/* {students?.length}/{participants}{' '} */}
+                    </Typography>
                 </div>
             </Box>
         </Paper>

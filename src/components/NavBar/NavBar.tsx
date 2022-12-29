@@ -23,26 +23,20 @@ const NavBar: FC = () => {
     const { data } = useSelector((state: State) => state.auth);
     const rol = data.rol;
     const dispatch = useDispatch();
-    const token: string = localStorage.getItem("token") || ""
+    const token: string = localStorage.getItem('token') || '';
 
     useEffect(() => {
-        rol === "STUDENT_ROL"
-            ? dispatch(getStudentInfo(data.id, token))
-            : null
-    }, [dispatch])
+        rol === 'STUDENT_ROL' ? dispatch(getStudentInfo(data.id, token)) : null;
+    }, [dispatch]);
 
     // Paths y opciones de boton para el student.
     const studentButtons = [
         {
-            option: 'Dashboard',
-            path: '/dashboard',
-        },
-        {
-            option: 'Projects',
+            option: 'Proyectos',
             path: '/projects',
         },
         {
-            option: 'My Project',
+            option: 'Mis Proyectos',
             path: '/myprojects',
         },
     ];
@@ -50,24 +44,16 @@ const NavBar: FC = () => {
     // Paths y opciones de boton para el company.
     const companyButtons = [
         {
-            option: 'Dashboard',
-            path: '/dashboard',
-        },
-        {
-            option: 'Projects',
+            option: 'Proyectos',
             path: '/projects',
         },
         {
-            option: 'Create Project',
+            option: 'Crear Proyecto',
             path: '/newproject',
         },
         {
-            option: 'My Projects',
+            option: 'Mis Proyectos',
             path: '/myprojects',
-        },
-        {
-            option: 'Request',
-            path: '/requests',
         },
     ];
 
@@ -78,7 +64,7 @@ const NavBar: FC = () => {
             path: '/dashboard',
         },
         {
-            option: 'Projects',
+            option: 'Proyectos',
             path: '/projects',
         },
         // {

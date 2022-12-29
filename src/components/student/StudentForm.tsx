@@ -30,130 +30,142 @@ import Footer from '../../pages/LandingPage/Footer';
 import { Link } from 'react-router-dom';
 
 export const StudensForm: FC = () => {
-  const [showPassword, setShowPassword] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-  const initialValues = {
-    name: '',
-    lastName: '',
-    email: '',
-    password: '',
-  };
-  const validationSchema = yup.object().shape({
-    name: yup.string().required('Nombre requerido'),
-    lastName: yup.string().required('Apellido requerido'),
-    email: yup.string().email('email invalido').required('Email requerido'),
-    password: yup
-      .string()
-      .required('Contraseña requerida')
-      .min(8, 'Debe contener min. 8 caracter')
-      .matches(/[0-9]/, 'Se requiere un numero')
-      .matches(/[a-z]/, 'Se requiere una letra minuscula')
-      .matches(/[A-Z]/, 'Se requiere una letra mayuscula')
-      .matches(/[^\w]/, 'Se requiere un simbolo'),
-  });
+    const handleClickShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
+    const initialValues = {
+        name: '',
+        lastName: '',
+        email: '',
+        password: '',
+    };
+    const validationSchema = yup.object().shape({
+        name: yup.string().required('Nombre requerido'),
+        lastName: yup.string().required('Apellido requerido'),
+        email: yup.string().email('email invalido').required('Email requerido'),
+        password: yup
+            .string()
+            .required('Contraseña requerida')
+            .min(8, 'Debe contener min. 8 caracter')
+            .matches(/[0-9]/, 'Se requiere un numero')
+            .matches(/[a-z]/, 'Se requiere una letra minuscula')
+            .matches(/[A-Z]/, 'Se requiere una letra mayuscula')
+            .matches(/[^\w]/, 'Se requiere un simbolo'),
+    });
 
-  type Values = {
-    name: string;
-    lastName: string;
-    email: string;
-    password: string;
-  };
+    type Values = {
+        name: string;
+        lastName: string;
+        email: string;
+        password: string;
+    };
 
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-  const onSubmit = (values: Values) => {
-    dispatch(studentRegister(values));
-  };
+    const onSubmit = (values: Values) => {
+        dispatch(studentRegister(values));
+    };
 
-  return (
-    <Box
-      sx={{
-        backgroundColor: 'black',
-      }}
-    >
-      <div>
-        <Header />
-
-        <Grid
-          container
-          direction='column'
-          justifyContent='center'
-          alignItems='center'
-        >
-          <img
-            src='../public/assets/NABIJASH.png'
-            style={{
-              justifyContent: 'center',
-              marginTop: 10,
-            }}
-          />
-          <Paper
+    return (
+        <Box
             sx={{
-              minWidth: 100,
-              maxWidth: 400,
-              mt: 8,
-              padding: 5,
-              mb: 11.5,
+                backgroundColor: 'black',
             }}
-          >
-            <Grid
-              textAlign='center'
-              color='primary'
-              sx={{
-                fontFamily: 'montserrat',
-              }}
-            >
-              <h2
-                style={{
-                  fontFamily: 'montserrat',
-                  marginBottom: 5,
-                }}
-              >
-                Registrate
-              </h2>
-            </Grid>
+        >
+            <div>
+                <Header />
 
-            <Formik
-              initialValues={initialValues}
-              validationSchema={validationSchema}
-              onSubmit={onSubmit}
-            >
-              {(props) => (
-                <Form>
-                  <Field
-                    as={TextField}
-                    name='name'
-                    label='Nombre'
-                    size='small'
-                    color='info'
-                    sx={{ width: '100%', margin: '10px 0' }}
-                    helperText={
-                      <ErrorMessage name='name'>
-                        {(message) => (
-                          <span style={{ color: '#d6423e' }}>{message}</span>
-                        )}
-                      </ErrorMessage>
-                    }
-                  />
+                <Grid
+                    container
+                    direction="column"
+                    justifyContent="center"
+                    alignItems="center"
+                >
+                    <img
+                        src="../public/assets/NABIJASH.png"
+                        style={{
+                            justifyContent: 'center',
+                            marginTop: 10,
+                        }}
+                    />
+                    <Paper
+                        sx={{
+                            minWidth: 100,
+                            maxWidth: 400,
+                            mt: 8,
+                            padding: 5,
+                            mb: 11.5,
+                        }}
+                    >
+                        <Grid
+                            textAlign="center"
+                            color="primary"
+                            sx={{
+                                fontFamily: 'montserrat',
+                            }}
+                        >
+                            <h2
+                                style={{
+                                    fontFamily: 'montserrat',
+                                    marginBottom: 5,
+                                }}
+                            >
+                                Registrate
+                            </h2>
+                        </Grid>
 
-                  <Field
-                    as={TextField}
-                    name='lastName'
-                    label='Apellido'
-                    size='small'
-                    color='info'
-                    sx={{ width: '100%', margin: '10px 0' }}
-                    helperText={
-                      <ErrorMessage name='lastName'>
-                        {(message) => (
-                          <span style={{ color: '#d6423e' }}>{message}</span>
-                        )}
-                      </ErrorMessage>
-                    }
-                  />
+                        <Formik
+                            initialValues={initialValues}
+                            validationSchema={validationSchema}
+                            onSubmit={onSubmit}
+                        >
+                            {(props) => (
+                                <Form>
+                                    <Field
+                                        as={TextField}
+                                        name="name"
+                                        label="Nombre"
+                                        size="small"
+                                        color="info"
+                                        sx={{ width: '100%', margin: '10px 0' }}
+                                        helperText={
+                                            <ErrorMessage name="name">
+                                                {(message) => (
+                                                    <span
+                                                        style={{
+                                                            color: '#d6423e',
+                                                        }}
+                                                    >
+                                                        {message}
+                                                    </span>
+                                                )}
+                                            </ErrorMessage>
+                                        }
+                                    />
+
+                                    <Field
+                                        as={TextField}
+                                        name="lastName"
+                                        label="Apellido"
+                                        size="small"
+                                        color="info"
+                                        sx={{ width: '100%', margin: '10px 0' }}
+                                        helperText={
+                                            <ErrorMessage name="lastName">
+                                                {(message) => (
+                                                    <span
+                                                        style={{
+                                                            color: '#d6423e',
+                                                        }}
+                                                    >
+                                                        {message}
+                                                    </span>
+                                                )}
+                                            </ErrorMessage>
+                                        }
+                                    />
 
                   <Field
                     as={TextField}
