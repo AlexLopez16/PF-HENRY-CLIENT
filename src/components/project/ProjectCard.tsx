@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import { NavLink, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getProjectByID } from '../../actions/projects';
+import { Container } from '@mui/system';
 
 type CompanyData = {
     _id: string;
@@ -63,20 +64,34 @@ const ProjectCard: FC<CardProjectProps> = ({
         >
             <Typography
                 sx={{
-                    mb: 0.5,
+                    ml: 0.5,
+                    color: '#898989',
+                    justifyContent: 'space-between',
+                }}
+            >
+                {category}
+            </Typography>
+            <Typography
+                sx={{
+                    m: 0.5,
+                    fontWeight: 600,
                     display: 'flex',
                     justifyContent: 'space-between',
                 }}
-                variant="h6"
+                variant="h5"
             >
                 {name}
-                <Link to="/project">
+                <NavLink
+                    to="/project"
+                    style={{ textDecoration: 'none', marginTop: 'auto' }}
+                >
                     <Button
                         sx={{
                             ml: 'auto',
                             fontWeight: 600,
                             color: 'yellow',
                             background: 'black',
+                            width: '100px',
                         }}
                         size="small"
                         color="primary"
@@ -85,55 +100,11 @@ const ProjectCard: FC<CardProjectProps> = ({
                     >
                         Mas info
                     </Button>
-                </Link>
-            </Typography>
-
-            <Typography sx={{ mb: 0.5 }}>{company}</Typography>
-
-            <Typography sx={{ mb: 0.5 }}>
-                <h2> {description} </h2>
-            </Typography>
-
-            <Box sx={{ display: 'flex' }}>
-                <div>
-                    <Typography variant="subtitle2">
-                        Requerimientos: {requirements.join(', ')}
-                    </Typography>
-                    <Typography variant="subtitle2">
-                        Estado: {stateOfProject}{' '}
-                    </Typography>
-                    <Typography variant="subtitle2">
-                        Category: {category}{' '}
-                    </Typography>
-                    <Typography variant="subtitle2">
-                        {' '}
-                        Participantes: {students?.length}/{participants}{' '}
-                    </Typography>
-                </div>
-            </Box>
-        </Paper>
-    ) : (
-        <Paper
-            elevation={10}
-            style={{
-                width: '350px',
-                height: '500px',
-                padding: 20,
-                marginLeft: 50,
-                marginTop: 50,
-                display: 'flex',
-                flexDirection: 'column',
-            }}
-        >
-            <Typography sx={{ mb: 0.5, color: '#898989' }}>
-                {category}
-            </Typography>
-            <Typography sx={{ m: 0.5, fontWeight: 600 }} variant="h5">
-                {name}
+                </NavLink>
             </Typography>
 
             <Typography sx={{ m: 0.5 }} variant="h6">
-                {company?.name}
+                {company}
             </Typography>
 
             <Typography sx={{ m: 0.5 }}>{clippedDescription}</Typography>
@@ -150,16 +121,26 @@ const ProjectCard: FC<CardProjectProps> = ({
                     {requirements.map((p: any) => (
                         <Chip label={p} sx={{ mb: 1, mr: 0.5 }} />
                     ))}
-                    <Typography
-                        variant="subtitle1"
-                        sx={{ m: 0.5, color: '#898989' }}
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'space-between 2',
+                        }}
                     >
-                        Estado:{' '}
-                    </Typography>
-                    <Typography variant="subtitle2" sx={{ m: 0.5 }}>
-                        {' '}
-                        {stateOfProject}
-                    </Typography>
+                        <Typography
+                            variant="subtitle1"
+                            sx={{
+                                mt: 0.8,
+                                color: '#898989',
+                            }}
+                        >
+                            Estado:{' '}
+                        </Typography>
+                        <Typography variant="subtitle2" sx={{ m: 0.5 }}>
+                            {' '}
+                            <Chip label={stateOfProject} sx={{ mr: 0.5 }} />
+                        </Typography>
+                    </Box>
                     <Typography
                         variant="subtitle1"
                         sx={{ mb: 0.5, color: '#898989' }}
@@ -169,31 +150,124 @@ const ProjectCard: FC<CardProjectProps> = ({
                     </Typography>
                     <Typography variant="subtitle2" sx={{ m: 0.5 }}>
                         {' '}
-                        {students?.length}/{participants}{' '}
+                        <Chip
+                            label={`${students?.length}/${participants}`}
+                            sx={{ mr: 0.5 }}
+                        />
+                        {/* {students?.length}/{participants}{' '} */}
                     </Typography>
                 </div>
             </Box>
-
-            <NavLink
-                to="/project"
-                style={{ textDecoration: 'none', marginTop: 'auto' }}
+        </Paper>
+    ) : (
+        <Paper
+            elevation={10}
+            style={{
+                width: '100vh',
+                height: 'fit-content',
+                padding: 20,
+                marginLeft: 50,
+                marginRight: 30,
+                marginTop: 50,
+                alignSelf: 'center',
+            }}
+        >
+            <Typography
+                sx={{
+                    ml: 0.5,
+                    color: '#898989',
+                    justifyContent: 'space-between',
+                }}
             >
-                <Button
-                    sx={{
-                        ml: 'auto',
-                        fontWeight: 600,
-                        color: 'yellow',
-                        background: 'black',
-                        width: '100px',
-                    }}
-                    size="small"
-                    color="primary"
-                    variant="text"
-                    onClick={handleClick}
+                {category}
+            </Typography>
+            <Typography
+                sx={{
+                    m: 0.5,
+                    fontWeight: 600,
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                }}
+                variant="h5"
+            >
+                {name}
+                <NavLink
+                    to="/project"
+                    style={{ textDecoration: 'none', marginTop: 'auto' }}
                 >
-                    Mas info
-                </Button>
-            </NavLink>
+                    <Button
+                        sx={{
+                            ml: 'auto',
+                            fontWeight: 600,
+                            color: 'yellow',
+                            background: 'black',
+                            width: '100px',
+                        }}
+                        size="small"
+                        color="primary"
+                        variant="text"
+                        onClick={handleClick}
+                    >
+                        Mas info
+                    </Button>
+                </NavLink>
+            </Typography>
+
+            <Typography sx={{ m: 0.5 }} variant="h6">
+                {company}
+            </Typography>
+
+            <Typography sx={{ m: 0.5 }}>{clippedDescription}</Typography>
+
+            <Box>
+                <div>
+                    <Typography
+                        variant="subtitle1"
+                        sx={{ m: 0.5, color: '#898989' }}
+                    >
+                        {' '}
+                        Requerimientos:
+                    </Typography>
+                    {requirements.map((p: any) => (
+                        <Chip label={p} sx={{ mb: 1, mr: 0.5 }} />
+                    ))}
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'space-between 2',
+                        }}
+                    >
+                        <Typography
+                            variant="subtitle1"
+                            sx={{
+                                mt: 0.8,
+                                color: '#898989',
+                            }}
+                        >
+                            Estado:{' '}
+                        </Typography>
+                        <Typography variant="subtitle2" sx={{ m: 0.5 }}>
+                            {' '}
+                            <Chip label={stateOfProject} sx={{ mr: 0.5 }} />
+                        </Typography>
+                    </Box>
+                    <Typography
+                        variant="subtitle1"
+                        sx={{ mb: 0.5, color: '#898989' }}
+                    >
+                        {' '}
+                        Participantes:{' '}
+                    </Typography>
+                    <Typography variant="subtitle2" sx={{ m: 0.5 }}>
+                        {' '}
+                        <Chip
+                            label={`${students?.length}/${participants}`}
+                            sx={{ mr: 0.5 }}
+                        />
+                        {/* {students?.length}/{participants}{' '} */}
+                    </Typography>
+                </div>
+            </Box>
         </Paper>
     );
 };

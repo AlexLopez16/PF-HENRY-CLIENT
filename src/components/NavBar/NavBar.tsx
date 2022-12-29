@@ -26,11 +26,11 @@ const NavBar: FC = () => {
     // Paths y opciones de boton para el student.
     const studentButtons = [
         {
-            option: 'Projects',
+            option: 'Proyectos',
             path: '/projects',
         },
         {
-            option: 'My Project',
+            option: 'Mis Proyectos',
             path: '/myprojects',
         },
     ];
@@ -38,18 +38,17 @@ const NavBar: FC = () => {
     // Paths y opciones de boton para el company.
     const companyButtons = [
         {
-            option: 'Projects',
+            option: 'Proyectos',
             path: '/projects',
         },
         {
-            option: 'Create Project',
+            option: 'Crear Proyecto',
             path: '/newproject',
         },
         {
-            option: 'My Projects',
+            option: 'Mis Proyectos',
             path: '/myprojects',
         },
-
     ];
 
     // Paths y opciones de boton para el admin.
@@ -59,7 +58,7 @@ const NavBar: FC = () => {
             path: '/dashboard',
         },
         {
-            option: 'Projects',
+            option: 'Proyectos',
             path: '/projects',
         },
         // {
@@ -99,7 +98,7 @@ const NavBar: FC = () => {
                                 textDecoration: 'none',
                             }}
                         >
-                      NABIJAHS
+                            NABIJAHS
                         </Typography>
                     </NavLink>
 

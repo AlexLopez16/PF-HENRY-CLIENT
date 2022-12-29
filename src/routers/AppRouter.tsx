@@ -34,7 +34,7 @@ import ProjectsPage from '../pages/ProjectsPage';
 import MyProjectsPage from '../pages/MyProjectsPage';
 import ProjectsStudents from '../components/student/ProjectsStudents';
 import { ProfileCompany } from '../components/company/Profile/ProfileCompany';
-import AdminStudent from "../components/Admin/AdminStudent";
+import AdminStudent from '../components/Admin/AdminStudent';
 import Postulated from '../components/company/Postulated';
 
 export const AppRouter = () => {
@@ -196,13 +196,13 @@ export const AppRouter = () => {
                         }
                     />
 
-                    <Route 
-                      path="/adminSt"
-                      element={
-                        <PrivateRoute>
-                          <AdminStudent />
-                        </PrivateRoute>
-                      }
+                    <Route
+                        path="/adminSt"
+                        element={
+                            <PrivateRoute>
+                                <AdminStudent />
+                            </PrivateRoute>
+                        }
                     />
 
                     {/* PROFILE ROUTES */}
@@ -216,10 +216,6 @@ export const AppRouter = () => {
                     <Route path="/Nacho" element={<Nacho />} />
                     <Route path="/Sil" element={<Sil />} />
 
-                    <Route
-                        path="/forgotPassword"
-                        element={<ForgotPassword />}
-                    />
                     <Route
                         path="/forgotPassword"
                         element={<ForgotPassword />}
@@ -241,15 +237,16 @@ export const AppRouter = () => {
               </>
             }
           /> */}
-          <Route path='/postulated/:id'
-
-            element={<PrivateRoute>
-              <Postulated />
-            </PrivateRoute>}
-
-          />
-        </Routes>
-      </div>
-    </BrowserRouter>
-  );
+                    <Route
+                        path="/postulated/:id"
+                        element={
+                            <PrivateRoute>
+                                <Postulated />
+                            </PrivateRoute>
+                        }
+                    />
+                </Routes>
+            </div>
+        </BrowserRouter>
+    );
 };
