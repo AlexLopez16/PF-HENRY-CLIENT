@@ -302,10 +302,10 @@ export const LoginScreen: FC = () => {
                         >
                             ¿Aún no has creado tu cuenta?
                             <Link
-                                sx={{
+                                style={{
                                     color: 'black',
                                 }}
-                                href="/register"
+                                to="/register"
                             >
                                 Regístrate
                             </Link>
