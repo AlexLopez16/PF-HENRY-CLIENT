@@ -30,7 +30,7 @@ const MyProjectStudent: FC = () => {
         dispatch(getStudentInfo(auth.data.id, token));
     }, [dispatch]);
     // Definimos los objetos de informacion.
-    console.log(student.user.project);
+    console.log(student.user);
     // Aca hay que trabajar con typescript para que quede mas limpia la sintaxis.
     return (
         <Container maxWidth="lg">
