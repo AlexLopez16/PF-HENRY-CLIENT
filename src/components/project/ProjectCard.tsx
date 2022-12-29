@@ -15,11 +15,11 @@ type CompanyData = {
 
 interface CardProjectProps {
     name?: string;
-    description?: string;
+    description?: string | any;
     participants?: number;
     requirements?: any;
     students: string[] | undefined;
-    company?: CompanyData;
+    company?: CompanyData | any;
     state?: boolean;
     stateOfProject?: string;
     id: string;

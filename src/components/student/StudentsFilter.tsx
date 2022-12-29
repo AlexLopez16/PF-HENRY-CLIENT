@@ -237,7 +237,7 @@ const StudentsFilter: FC = () => {
                         size="small"
                         id="tags-outlined"
                         options={categorys}
-                        getOptionLabel={(option) => option}
+                        getOptionLabel={(option: any) => option}
                         filterSelectedOptions
                         renderInput={(params) => (
                             <TextField

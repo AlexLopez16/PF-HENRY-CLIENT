@@ -22,7 +22,7 @@ import { Link } from 'react-router-dom';
 const MyProjectStudent: FC = () => {
     const dispatch = useDispatch();
     // Traemos el id del estado.
-    const { auth, student } = useSelector((state: State) => state);
+    const { auth, student }: any = useSelector((state: State) => state);
     // Traemos el token del local storage.
     const token = localStorage.getItem('token') || '';
     // Traemos toda la info del student.
@@ -49,7 +49,7 @@ const MyProjectStudent: FC = () => {
                     </Typography>
                     <div>
                         {student.user.project &&
-                            student.user.project.map((project) => (
+                            student.user.project.map((project: any) => (
                                 <Paper
                                     elevation={10}
                                     style={{
