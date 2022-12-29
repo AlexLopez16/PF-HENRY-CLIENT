@@ -51,7 +51,7 @@ export const githubLogin = ({ id, rol, token }: string | any) => {
     return login({ data: { id, rol, token } });
 };
 
-export const gmailLogin = (tok: string, userType: string) => {
+export const gmailLogin = (tok: string | any, userType: string | any) => {
     return async (dispatch: Dispatch) => {
         try {
             const { data, status } = await axios.post('/auth', {
@@ -84,12 +84,11 @@ const login = (data: object) => ({
     payload: data,
 });
 
-
 export const forgotPassword = (email: string) => {
     return async (dispatch: Dispatch) => {
         try {
-            const res = await axios.get(`/recover/password?email=${email}`)
-            console.log(res.data)
+            const res = await axios.get(`/recover/password?email=${email}`);
+            console.log(res.data);
         } catch (error) {
             console.log(error);
         }
@@ -99,8 +98,12 @@ export const forgotPassword = (email: string) => {
 export const recoverPassword = (password: string, token: string | any) => {
     return async (dispatch: Dispatch) => {
         try {
-            const res: any = await axios.put(`/recover/password`, { password: password }, { headers: { "user-token": token } })
-            console.log(res.data)
+            const res: any = await axios.put(
+                `/recover/password`,
+                { password: password },
+                { headers: { 'user-token': token } }
+            );
+            console.log(res.data);
         } catch (error) {
             console.log(error);
         }
