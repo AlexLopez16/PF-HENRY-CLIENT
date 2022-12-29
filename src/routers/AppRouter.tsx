@@ -148,17 +148,6 @@ export const AppRouter = () => {
                         }
                     />
 
-                    <Route
-                        path="/requests"
-                        element={
-                            // <PrivateRoute>
-                            <>
-                                <NavBar />
-                                <MyProject />
-                            </>
-                            // </PrivateRoute>
-                        }
-                    />
 
                     <Route
                         path="/aboutUs"
