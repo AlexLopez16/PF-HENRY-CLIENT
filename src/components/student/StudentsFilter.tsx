@@ -261,7 +261,7 @@ const StudentsFilter: FC = () => {
                             sx={{ padding: 0 }}
                             id="vacantes"
                             labelId="vacantes-label"
-                            label="vacantes"
+                            label="Ordenar por participantes"
                             name="vacantes"
                             onChange={(e, value) => {
                                 handlerchange('o', value);

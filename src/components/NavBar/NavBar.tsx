@@ -38,10 +38,6 @@ const NavBar: FC = () => {
     // Paths y opciones de boton para el company.
     const companyButtons = [
         {
-            option: 'Dashboard',
-            path: '/dashboard',
-        },
-        {
             option: 'Proyectos',
             path: '/projects',
         },
@@ -53,10 +49,6 @@ const NavBar: FC = () => {
             option: 'Mis Proyectos',
             path: '/myprojects',
         },
-        {
-            option: 'Request',
-            path: '/requests',
-        },
     ];
 
     // Paths y opciones de boton para el admin.
@@ -66,7 +58,7 @@ const NavBar: FC = () => {
             path: '/dashboard',
         },
         {
-            option: 'Projects',
+            option: 'Proyectos',
             path: '/projects',
         },
         // {
@@ -106,7 +98,7 @@ const NavBar: FC = () => {
                                 textDecoration: 'none',
                             }}
                         >
-                            LOGO
+                            NABIJAHS
                         </Typography>
                     </NavLink>
 
