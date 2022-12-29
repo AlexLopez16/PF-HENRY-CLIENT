@@ -28,7 +28,7 @@ export default function AccountMenu() {
 
     const dispatch = useDispatch();
     const { data } = useSelector((state: State) => state.auth);
-    const { user } = useSelector((state: State) => state.student);
+    const { user }: any = useSelector((state: State) => state.student);
     const { id, rol } = data;
     const token = localStorage.getItem('token') || '';
 

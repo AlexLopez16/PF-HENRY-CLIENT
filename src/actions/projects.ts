@@ -62,7 +62,7 @@ export const newProject = (data: object, token: string) => {
 export const getProjectsFilter = (
     typeOfOrder: string | undefined,
     tecnologies: string[] | undefined,
-    token: String | null,
+    token: any,
     name: string | undefined,
     category: string[] | undefined,
     stateOfProject: string[] | undefined,
@@ -150,7 +150,7 @@ export const getProjectsFilter = (
     };
 };
 
-export const getCategory = (token: string) => {
+export const getCategory = (token: string | any) => {
     return async (dispatch: Dispatch) => {
         try {
             const res = await axios.get('/project/category', {
@@ -167,7 +167,7 @@ export const getCategory = (token: string) => {
     };
 };
 
-export const getMyProjectsCompany = (token: string, value) => {
+export const getMyProjectsCompany = (token: any, value: any) => {
     return async (dispatch: Dispatch) => {
         let val;
         if (value) {
@@ -209,7 +209,7 @@ export const updateImagesProject = (id: string, token: string, file: any) => {
     };
 };
 
-export const clearProjects = (obj) => {
+export const clearProjects = (obj: any) => {
     console.log('in clear');
     return {
         type: types.projectsFilter,

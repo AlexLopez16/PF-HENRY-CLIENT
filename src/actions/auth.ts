@@ -50,11 +50,11 @@ export const startLogin = (values: object) => {
         }
     };
 };
-export const githubLogin = ({ id, rol, token }) => {
+export const githubLogin = ({ id, rol, token }: string | any) => {
     return login({ data: { id, rol, token } });
 };
 
-export const gmailLogin = (tok: String, userType: String) => {
+export const gmailLogin = (tok: String | any, userType: any) => {
     return async (dispatch: Dispatch) => {
         try {
             const { data, status } = await axios.post('/auth', {
