@@ -1,0 +1,48 @@
+.content_right {
+  margin: 0 1em;
+  align-self: center;
+  
+  border-radius: 10% 10% 10% 10%;
+  width: 35vh;
+  height: 35vh;
+  background: url('../../public/assets/companyLogin.jpg');
+  background-position: 50%;
+  transition: all 1s ease;
+  animation: image-move 1s;
+}
+.content_right:hover {
+  -webkit-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
+  transition: 1s ease;
+}
+
+.content_left {
+  margin: 0 1em;
+  align-self: center;
+ 
+  border-radius: 10% 10% 10% 10%;
+  width: 35vh;
+  height: 35vh;
+  background: url('../../public/assets/studentLogin.jpg');
+  background-position: 50%;
+  transition: all 1s ease;
+  animation: image-move 1s;
+}
+
+.content_left:hover {
+  -webkit-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
+  transition: 1s ease;
+  }
+.content_top {
+  position: absolute;
+}
+
+.link {
+  text-decoration: none;
+}
+.content_button {
+  position: relative;
+}

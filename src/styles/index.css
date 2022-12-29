@@ -1,4 +1,22 @@
-@font-face {
-    font-family: 'Avenir Medium';
-    src: url('../assets/Avenir-Medium.woff2') format('woff2');
+/* @font-face {
+  font-family: 'Montserrat', sans-serif;
+  font-family: 'Poppins', sans-serif;
+  src: url('../assets/Avenir-Medium.woff2') format('woff2');
+} */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-family: 'Poppins', sans-serif;
+}
+
+a:-webkit-any-link {
+  color: -webkit-link;
+  cursor: pointer;
+  text-decoration: none;
 }

@@ -1,32 +1,19 @@
-
-import { Provider } from "react-redux"
-import { LoginScreen } from "./components/auth/LoginScreen"
-
-import { UserForm } from "./components/Forms/UserForm"
-
-
-import { AppRouter } from "./routers/AppRouter"
-import { store } from "./store/store"
+import { Provider } from 'react-redux';
+import { AppRouter } from './routers/AppRouter';
+import { store } from './store/store';
+import { ThemeProvider } from '@mui/material/styles';
+import theme from './styles/themeProvider';
 
 function App() {
-  return (
-    <Provider store={store}>
-      <div className="App">
-        <LoginScreen />
-        {/* <AppRouter /> */}
-        {/* <AppRouter /> */}
-
-      <UserForm/>
-
-        
-
-      </div>
-    </Provider>
-
-
-
-)}
-
-
+    return (
+        <Provider store={store}>
+            <ThemeProvider theme={theme}>
+                <div className="App">
+                    <AppRouter />
+                </div>
+            </ThemeProvider>
+        </Provider>
+    );
+}
 
 export default App;

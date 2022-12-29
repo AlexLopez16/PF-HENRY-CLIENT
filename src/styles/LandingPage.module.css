@@ -1,13 +1,22 @@
-.content_left {
+/* .content_left {
     height: 50vh;
+    width:50vw ;
     padding: 1em;
     transform: translateY(40%);
     transition: all 1s;
     animation: fade-in 1s;
+    
 }
 
 .content_left h1{
-    font-size: 50px ;
+    font-size: 65px ;
+    color: #252525;
+    padding: 0;
+    font-weight: 700;
+}
+
+.content_left h3{
+    font-size: 35px ;
     color: #252525;
 }
 
@@ -19,12 +28,12 @@
 }
 
 .content_right {
-    margin: 0 1em;
+
     align-self: center;
     box-shadow: inset 0px 0px 10px 1px #cccac5;
     border-radius: 30% 70% 70% 30% / 30% 30% 70% 70% ;
-    width: 80vh;
-    height: 64vh; 
+    width: 70vh;
+    height: 54vh; 
     background: url(../assets/s.webp);
     background-position: 50%;
     transition: all 1s;
@@ -42,13 +51,21 @@
     border-radius: 30% 70% 70% 30% / 30% 30% 70% 70% ;
 }
 
+.buttons_login{
+    margin-top: 50px;
+}
+
 .button_sign_in {
     animation: fade-in-bottom .85s;
 }
 
+.link {
+    text-decoration: none;
+}
+
 .button_sign_up {
     animation: fade-in-bottom 1s;
-}
+} 
 
 @keyframes fade-in-bottom {
     0% {
@@ -86,5 +103,6 @@
     100% {
         background-position: 50%;
     }
-}
+} */
+
 
