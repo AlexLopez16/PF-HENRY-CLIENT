@@ -17,7 +17,7 @@ import { Container, Typography } from '@mui/material';
 // };
 export const MyProjectCompany: FC = () => {
     const dispatch = useDispatch();
-    let token: String | null = localStorage.getItem('token');
+    let token = localStorage.getItem('token') || '';
     useEffect(() => {
         dispatch(getMyProjectsCompany(token, 1));
         return () => {
