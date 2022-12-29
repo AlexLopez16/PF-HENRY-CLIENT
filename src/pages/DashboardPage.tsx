@@ -13,7 +13,7 @@ const DashboardPage: any = () => {
     let rol = useSelector((state: State) => state.auth.data.rol);
 
     return rol === 'STUDENT_ROL' ? (
-        <DashboardStudent />
+        <ProjectsStudents />
     ) : rol === 'COMPANY_ROL' ? (
         <ProjectsStudents />
     ) : (

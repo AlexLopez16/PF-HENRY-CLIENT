@@ -26,15 +26,11 @@ const NavBar: FC = () => {
     // Paths y opciones de boton para el student.
     const studentButtons = [
         {
-            option: 'Dashboard',
-            path: '/dashboard',
-        },
-        {
-            option: 'Projects',
+            option: 'Proyectos',
             path: '/projects',
         },
         {
-            option: 'My Project',
+            option: 'Mis Proyectos',
             path: '/myprojects',
         },
     ];
@@ -46,15 +42,15 @@ const NavBar: FC = () => {
             path: '/dashboard',
         },
         {
-            option: 'Projects',
+            option: 'Proyectos',
             path: '/projects',
         },
         {
-            option: 'Create Project',
+            option: 'Crear Proyecto',
             path: '/newproject',
         },
         {
-            option: 'My Projects',
+            option: 'Mis Proyectos',
             path: '/myprojects',
         },
         {
