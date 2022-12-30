@@ -71,7 +71,7 @@ const StudentCard: FC<StudentProps> = ({
               display: 'inline-block',
           })
         : (style = {
-              width: 'auto',
+              width: 400,
               height: '100%',
               padding: 20,
               margin: '50px',

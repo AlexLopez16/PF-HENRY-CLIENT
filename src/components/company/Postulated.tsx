@@ -102,10 +102,14 @@ const Postulated: FC = () => {
                             />
                         ))
                     ) : (
-                        <Box sx={{ mt: 30 }}>
+                        <Box sx={{ mt: 25 }}>
                             <Typography
                                 variant="h6"
-                                sx={{ marginTop: 5, alignSelf: 'center' }}
+                                sx={{
+                                    marginTop: 5,
+                                    alignSelf: 'center',
+                                    marginLeft: 6,
+                                }}
                             >
                                 Todavia no haz aceptado estudiantes
                             </Typography>
