@@ -34,8 +34,9 @@ import ProjectsPage from '../pages/ProjectsPage';
 import MyProjectsPage from '../pages/MyProjectsPage';
 import ProjectsStudents from '../components/student/ProjectsStudents';
 import { ProfileCompany } from '../components/company/Profile/ProfileCompany';
-import AdminStudent from "../components/Admin/AdminStudent";
+import AdminStudent from '../components/Admin/AdminStudent';
 import Postulated from '../components/company/Postulated';
+import { Checkout } from '../pages/Checkout';
 
 export const AppRouter = () => {
     let { id } = useParams();
@@ -45,7 +46,12 @@ export const AppRouter = () => {
         <BrowserRouter>
             <div>
                 <Routes>
-                    <Route path="/" element={<LandingPage />} />
+                    <Route
+                        path="/"
+                        element={
+                            <LandingPage />
+                        }
+                    />
 
                     <Route
                         path="/login"
@@ -85,12 +91,12 @@ export const AppRouter = () => {
                     <Route
                         path="/dashboard"
                         element={
-                            <>
-                                <NavBar />
-                                <PrivateRoute>
+                            <PrivateRoute>
+                                <>
+                                    <NavBar />
                                     <DashboardPage />
-                                </PrivateRoute>
-                            </>
+                                </>
+                            </PrivateRoute>
                         }
                     />
 
@@ -142,12 +148,11 @@ export const AppRouter = () => {
                     <Route
                         path="/newproject"
                         element={
-                            // <PrivateRoute>
-                            <ProjectForm />
-                            // </PrivateRoute>
+                            <PrivateRoute>
+                                <ProjectForm />
+                            </PrivateRoute>
                         }
                     />
-
 
                     <Route
                         path="/aboutUs"
@@ -196,13 +201,13 @@ export const AppRouter = () => {
                         }
                     />
 
-                    <Route 
-                      path="/adminSt"
-                      element={
-                        <PrivateRoute>
-                          <AdminStudent />
-                        </PrivateRoute>
-                      }
+                    <Route
+                        path="/adminSt"
+                        element={
+                            <PrivateRoute>
+                                <AdminStudent />
+                            </PrivateRoute>
+                        }
                     />
 
                     {/* PROFILE ROUTES */}
@@ -216,10 +221,6 @@ export const AppRouter = () => {
                     <Route path="/Nacho" element={<Nacho />} />
                     <Route path="/Sil" element={<Sil />} />
 
-                    <Route
-                        path="/forgotPassword"
-                        element={<ForgotPassword />}
-                    />
                     <Route
                         path="/forgotPassword"
                         element={<ForgotPassword />}
@@ -241,15 +242,19 @@ export const AppRouter = () => {
               </>
             }
           /> */}
-          <Route path='/postulated/:id'
-
-            element={<PrivateRoute>
-              <Postulated />
-            </PrivateRoute>}
-
-          />
-        </Routes>
-      </div>
-    </BrowserRouter>
-  );
+                    <Route
+                        path="/postulated/:id"
+                        element={
+                            <PrivateRoute>
+                                <>
+                                    <NavBar />
+                                    <Postulated />
+                                </>
+                            </PrivateRoute>
+                        }
+                    />
+                </Routes>
+            </div>
+        </BrowserRouter>
+    );
 };

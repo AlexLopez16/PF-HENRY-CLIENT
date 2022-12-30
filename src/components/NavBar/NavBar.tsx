@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import {
     AppBar,
     Box,
@@ -7,13 +7,19 @@ import {
     Toolbar,
     Typography,
 } from '@mui/material';
-import { Link, NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../reducers/rootReducer';
 import AccountMenu from '../AdminBar/AdminBar';
 import { getStudentInfo } from '../../actions/student';
+import { IconButton, MenuItem } from '@mui/material';
+import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
+import { Link, useNavigate } from 'react-router-dom';
 
 const NavBar: FC = () => {
+    const navigate = useNavigate()
+
+    // Traemos el rol.
     const { data } = useSelector((state: State) => state.auth);
     const rol = data.rol;
     const dispatch = useDispatch();
@@ -26,11 +32,11 @@ const NavBar: FC = () => {
     // Paths y opciones de boton para el student.
     const studentButtons = [
         {
-            option: 'Projects',
+            option: 'Proyectos',
             path: '/projects',
         },
         {
-            option: 'My Project',
+            option: 'Mis Proyectos',
             path: '/myprojects',
         },
     ];
@@ -38,18 +44,17 @@ const NavBar: FC = () => {
     // Paths y opciones de boton para el company.
     const companyButtons = [
         {
-            option: 'Projects',
+            option: 'Proyectos',
             path: '/projects',
         },
         {
-            option: 'Create Project',
+            option: 'Crear Proyecto',
             path: '/newproject',
         },
         {
-            option: 'My Projects',
+            option: 'Mis Proyectos',
             path: '/myprojects',
         },
-
     ];
 
     // Paths y opciones de boton para el admin.
@@ -59,7 +64,7 @@ const NavBar: FC = () => {
             path: '/dashboard',
         },
         {
-            option: 'Projects',
+            option: 'Proyectos',
             path: '/projects',
         },
         // {
@@ -68,72 +73,126 @@ const NavBar: FC = () => {
         // },
     ];
 
-    const buttonList: any =
+    const buttonList =
         rol === 'STUDENT_ROL'
             ? studentButtons
             : rol === 'COMPANY_ROL'
-            ? companyButtons
-            : rol === 'ADMIN_ROL'
-            ? adminButtons
-            : null;
+                ? companyButtons
+                : rol === 'ADMIN_ROL'
+                    ? adminButtons
+                    : [];
+
+    //MENU RESPONSIVE
+    const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+
+    const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorElNav(event.currentTarget);
+    };
+
+    const handleCloseNavMenu = () => {
+        setAnchorElNav(null);
+
+    };
 
     return (
-        <AppBar position="sticky" sx={{ bgcolor: '#ffff01' }}>
-            <Container maxWidth="lg">
+        <AppBar position="sticky">
+            <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    {/* <AdbIcon
-                        sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
-                    /> */}
-                    <NavLink style={{ textDecoration: 'none' }} to="/dashboard">
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            component="a"
-                            sx={{
-                                mr: 2,
-                                display: { xs: 'none', md: 'flex' },
-                                fontFamily: 'monospace',
-                                fontWeight: 700,
-                                letterSpacing: '.3rem',
-                                color: 'inherit',
-                                textDecoration: 'none',
-                            }}
-                        >
-                      NABIJAHS
-                        </Typography>
-                    </NavLink>
 
-                    <Box
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        // component="a"
+                        // href="/dashboard"
+                        onClick={() => navigate('/dashboard')}
                         sx={{
-                            flexGrow: 1,
+                            mr: 2,
                             display: { xs: 'none', md: 'flex' },
+                            fontFamily: 'monospace',
+                            fontWeight: 700,
+                            letterSpacing: '.3rem',
+                            color: 'inherit',
+                            textDecoration: 'none',
+                            cursor: 'pointer'
                         }}
                     >
-                        {buttonList &&
-                            buttonList.map((button: any) => (
-                                <NavLink
-                                    style={{ textDecoration: 'none' }}
-                                    to={button.path}
-                                >
-                                    <Button
-                                        sx={{
-                                            my: 2,
-                                            color: 'black',
-                                            display: 'block',
-                                        }}
-                                    >
-                                        {button.option}
-                                    </Button>
-                                </NavLink>
-                            ))}
-                        <Box
-                            sx={{
-                                ml: 65,
-                                display: { xs: 'none', md: 'flex' },
+                        LOGO
+                    </Typography>
+
+                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                        <IconButton
+                            size="large"
+                            aria-label="account of current user"
+                            aria-controls="menu-appbar"
+                            aria-haspopup="true"
+                            onClick={handleOpenNavMenu}
+                            color="inherit"
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                        <Menu
+                            id="menu-appbar"
+                            anchorEl={anchorElNav}
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'left',
                             }}
-                        ></Box>
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'left',
+                            }}
+                            open={Boolean(anchorElNav)}
+                            onClose={handleCloseNavMenu}
+                            sx={{
+                                display: { xs: 'block', md: 'none' },
+                            }}
+                        >
+                            {buttonList.map((button) => (
+                                <Link to={button.path}>
+                                    <MenuItem key={button.option} onClick={handleCloseNavMenu}>
+                                        <Typography textAlign="center">{button.option}</Typography>
+                                    </MenuItem>
+                                </Link>
+                            ))}
+                        </Menu>
                     </Box>
+
+                    <Typography
+                        variant="h5"
+                        noWrap
+                        onClick={() => navigate('/dashboard')}
+                        sx={{
+                            mr: 2,
+                            display: { xs: 'flex', md: 'none' },
+                            flexGrow: 1,
+                            fontFamily: 'monospace',
+                            fontWeight: 700,
+                            letterSpacing: '.3rem',
+                            color: 'inherit',
+                            textDecoration: 'none',
+                            cursor: 'pointer'
+                        }}
+                    >
+                        LOGO
+                    </Typography>
+
+                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                        {buttonList.map((button) => (
+                            <Link to={button.path}>
+                                <Button
+                                    key={button.option}
+                                    onClick={handleCloseNavMenu}
+                                    sx={{ my: 2, color: 'black', display: 'block' }}
+                                >
+                                    {button.option}
+                                </Button>
+                            </Link>
+                        ))}
+                    </Box>
+
                     <AccountMenu />
+
                 </Toolbar>
             </Container>
         </AppBar>
