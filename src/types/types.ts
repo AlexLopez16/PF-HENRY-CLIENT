@@ -16,6 +16,7 @@ export const types = {
     companySearch: '[company] Serch Company', //-VERIFICAR-//
     acceptStudent: '[Company] Student Accept',
     deleteStudent: '[Company] Student delete',
+    companyGetList: '[Company] Get list Company',
 
     newProject: '[project] Create New Project',
     getProjects: '[project] Get Projects',

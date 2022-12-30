@@ -47,6 +47,23 @@ export const companyGetInfo = (id: string, token: string) => {
     };
 };
 
+export const getCompany = ( token: string) => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const res = await axios.get(`/company/`, {
+                headers: { 'user-token': token },
+            });
+            dispatch({
+                type: types.companyGetList,
+                payload: res.data,
+            });
+        } catch (error: any) {
+            console.log(error);
+        }
+    };
+};
+
+
 export const CompanyUpdateInfo = (id: string, token: string, data: object) => {
     return async (dispatch: Dispatch) => {
         try {
