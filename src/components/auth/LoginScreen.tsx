@@ -62,7 +62,10 @@ export const LoginScreen: FC = () => {
     });
 
     const onSubmit = (values: any, props: any) => {
-        dispatch(startLogin(values));
+        dispatch(startLogin({
+            email:values.email.toLowerCase(),
+            password:values.password
+        }));
 
         setTimeout(() => {
             if (status === '200') {
