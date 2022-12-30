@@ -11,7 +11,7 @@ const MyProjectsPage: FC = () => {
 
 
     return rol === 'STUDENT_ROL'
-        ? <MyProject />
+        ? <MyProjectStudent />
         : <MyProjectCompany />
 };
 

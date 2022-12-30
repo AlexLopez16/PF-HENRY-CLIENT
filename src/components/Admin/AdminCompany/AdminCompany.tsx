@@ -21,7 +21,9 @@ import {
 import { State } from '../../../reducers/rootReducer';
 import NavBar from '../../NavBar/NavBar';
 import { validaToken } from '../../../actions/auth';
-import DeleteIcon from '@mui/icons-material/Delete';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
 import EditIcon from '@mui/icons-material/Edit';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -182,9 +184,12 @@ const AdminCompany: FC = ({ ...rest }) => {
                   <TableCell>
                     <EditIcon />
                   </TableCell>
-                  <TableCell>
-                    <DeleteIcon />
-                  </TableCell>
+                  <FormGroup>
+                    <FormControlLabel
+                      control={<Switch defaultChecked />}
+                      
+                    />
+                  </FormGroup>
                 </TableRow>
               ))}
             </TableBody>
