@@ -285,7 +285,7 @@ const CompanyForm: FC = () => {
                     size='large'
                     onSuccess={(credentialResponse) => {
                       dispatch(
-                        gmailLogin(credentialResponse.credential, 'company'),
+                        gmailLogin(credentialResponse.credential as string, 'company'),
                       );
                     }}
                     onError={() => {
