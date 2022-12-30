@@ -5,13 +5,13 @@ import { fileUpload } from '../helpers/fileUpload';
 import { type } from "os";
 
 
-export const getStudents = (token: string | null) => {
+export const getListStudents = (token: string | null, state: Boolean = true) => {
     return async (dispatch: Dispatch) => {
         try {
-            const res = await axios.get('/student', { headers: { 'user-token': token } });
+            const res = await axios.get(`/student?onlyActive=${state}`, { headers: { 'user-token': token } });
 
             dispatch({
-                type: types.studentsGetInfo,
+                type: types.getListStudents,
                 payload: res.data.students
             })
         } catch(error: any) {
@@ -112,3 +112,18 @@ export const addStudentToProject = (id: string, token: string) => {
         }
     }
 };
+
+export const deleteStudent = (token: string | null, id: string) => {
+    return async (dispatch: Dispatch) => {
+        try {
+           const res = await axios.delete(`/admin/deletestudent/${id}`, { headers: { 'user-token': token } });
+          
+            dispatch({
+               type: types.deleteOrInactiveStudent,
+                payload: res.data
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}

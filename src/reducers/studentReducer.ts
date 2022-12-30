@@ -21,7 +21,7 @@ type Action = {
 
 export const studentReducer = (state: State = initialState, action: Action) => {
     switch (action.type) {
-        case types.studentsGetInfo:
+        case types.getListStudents:
             return {
                 ...state,
                 users: action.payload
@@ -49,6 +49,11 @@ export const studentReducer = (state: State = initialState, action: Action) => {
             return {
                 ...state,
                 user: action.payload
+            }
+        case types.deleteOrInactiveStudent:
+            return {
+                ...state,
+                user : action.payload
             }
         
         default:

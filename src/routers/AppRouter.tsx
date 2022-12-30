@@ -29,7 +29,7 @@ import Nachito from '../pages/Profiles/Nachito';
 import Nacho from '../pages/Profiles/Nacho';
 import Sil from '../pages/Profiles/Sil';
 
-import MyProject from '../components/student/MyProject';
+import MyProject from '../components/student/MyProjectStudent';
 import ProjectsPage from '../pages/ProjectsPage';
 import MyProjectsPage from '../pages/MyProjectsPage';
 import ProjectsStudents from '../components/student/ProjectsStudents';
@@ -252,9 +252,15 @@ export const AppRouter = () => {
               </>
             }
           /> */}
-                    <Route path="/postulated/:id" element={<Postulated />} />
-                </Routes>
-            </div>
-        </BrowserRouter>
-    );
+          <Route path='/postulated/:id'
+
+            element={<PrivateRoute>
+              <Postulated />
+            </PrivateRoute>}
+
+          />
+        </Routes>
+      </div>
+    </BrowserRouter>
+  );
 };

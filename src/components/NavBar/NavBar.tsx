@@ -14,17 +14,14 @@ import AccountMenu from '../AdminBar/AdminBar';
 import { getStudentInfo } from '../../actions/student';
 
 const NavBar: FC = () => {
-
     const { data } = useSelector((state: State) => state.auth);
     const rol = data.rol;
     const dispatch = useDispatch();
-    const token: string = localStorage.getItem("token") || ""
+    const token: string = localStorage.getItem('token') || '';
 
     useEffect(() => {
-        rol === "STUDENT_ROL"
-            ? dispatch(getStudentInfo(data.id, token))
-            : null
-    }, [dispatch])
+        rol === 'STUDENT_ROL' ? dispatch(getStudentInfo(data.id, token)) : null;
+    }, [dispatch]);
 
     // Paths y opciones de boton para el student.
     const studentButtons = [
@@ -86,10 +83,10 @@ const NavBar: FC = () => {
         rol === 'STUDENT_ROL'
             ? studentButtons
             : rol === 'COMPANY_ROL'
-                ? companyButtons
-                : rol === 'ADMIN_ROL'
-                    ? adminButtons
-                    : null;
+            ? companyButtons
+            : rol === 'ADMIN_ROL'
+            ? adminButtons
+            : null;
 
     return (
         <AppBar position="sticky" sx={{ bgcolor: '#ffff01' }}>
@@ -143,12 +140,11 @@ const NavBar: FC = () => {
                         <Box
                             sx={{
                                 ml: 65,
-                                display: { xs: 'none', md: 'flex' }
+                                display: { xs: 'none', md: 'flex' },
                             }}
-                        >
-                            <AccountMenu />
-                        </Box>
+                        ></Box>
                     </Box>
+                    <AccountMenu />
                 </Toolbar>
             </Container>
         </AppBar>
