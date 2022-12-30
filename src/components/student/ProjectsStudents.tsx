@@ -72,7 +72,7 @@ const ProjectsStudents: FC = () => {
         <Box>
             <StudentsFilter />
             <Pages />
-            <Container maxWidth="lg" sx={{ marginLeft: 80 }}>
+            <Container maxWidth="lg" sx={{ marginLeft: 50 }}>
                 {info.length ? (
                     info.map((e: any) => (
                         <ProjectCard

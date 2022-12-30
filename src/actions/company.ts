@@ -2,6 +2,7 @@ import axios from 'axios';
 import { Dispatch } from 'redux';
 import { types } from '../types/types';
 import { fileUpload } from '../helpers/fileUpload';
+import { useNavigate } from 'react-router-dom';
 
 export const registerCompany = (values: Object) => {
     return async (dispatch: Dispatch) => {
@@ -29,8 +30,8 @@ export const acceptStudent = (id: string | any, idstudent: string) => {
         } catch (error) {
             console.log(error);
         }
-    };
-};
+    }
+}
 export const companyGetInfo = (id: string, token: string) => {
     return async (dispatch: Dispatch) => {
         try {
@@ -50,9 +51,11 @@ export const companyGetInfo = (id: string, token: string) => {
 export const CompanyUpdateInfo = (id: string, token: string, data: object) => {
     return async (dispatch: Dispatch) => {
         try {
-            const res = await axios.put(`/company/${id}`, data, {
+            console.log(data)
+           
+            const res = await axios.put(`/company/${id}`, {data}, {
                 headers: { 'user-token': token },
-            });
+            }); 
             dispatch({
                 type: types.companyUpdateInfo,
                 payload: res.data,
@@ -64,6 +67,7 @@ export const CompanyUpdateInfo = (id: string, token: string, data: object) => {
 };
 
 export const updatePhotoCompany = (id: string, token: string, file: any) => {
+
     return async (dispatch: Dispatch) => {
         try {
             const photoUrl = await fileUpload(file, 'users');

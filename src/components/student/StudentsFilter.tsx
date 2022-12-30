@@ -42,7 +42,6 @@ const StudentsFilter: FC = () => {
         categorie: undefined,
     });
     useEffect(() => {
-        console.log('hola');
         dispatch(
             getProjectsFilter(
                 inputFilter.typeOfOrder,
@@ -178,9 +177,9 @@ const StudentsFilter: FC = () => {
         <Container>
             <Box
                 sx={{
-                    width: 1300,
+                    width: 1350,
                     marginLeft: '-80px',
-                    marginTop: '15px',
+                    marginTop: '20px',
                     display: 'flex',
                     flexWrap: 'wrap',
                     justifyContent: 'space-between',
@@ -262,7 +261,7 @@ const StudentsFilter: FC = () => {
                             sx={{ padding: 0 }}
                             id="vacantes"
                             labelId="vacantes-label"
-                            label="vacantes"
+                            label="Ordenar por participantes"
                             name="vacantes"
                             onChange={(e, value) => {
                                 handlerchange('o', value);
@@ -277,9 +276,9 @@ const StudentsFilter: FC = () => {
                 <div style={{ marginLeft: 10 }}>
                     <form onSubmit={handleSubmit}>
                         <Input
-                            placeholder="Search..."
+                            placeholder="Buscar por nombre del proyecto"
                             onChange={(e) => handlerchanges(e.target.value)}
-                            sx={styledInput}
+                            sx={{ styledInput, width: 245 }}
                             // value={inputFilter.search}
                         ></Input>
                         <IconButton type="submit" aria-label="search">
