@@ -268,9 +268,20 @@ const CompanyForm: FC = () => {
                                             ))}
                                         </Select>
                                     </FormControl>
+                                            <Button
+                                              sx={{ marginTop: 2, fontFamily: 'poppins' }}
+                                              type='submit'
+                                              variant='contained'
+                                              fullWidth
+                                              color='secondary'
+                                              disabled={props.isSubmitting}
+                                            >
+                                              Crear cuenta
+                                            </Button>
                                     <Divider
                                         sx={{
                                             mb: 2,
+                                            mt:2,
                                         }}
                                     >
                                         <span>O</span>
@@ -294,16 +305,6 @@ const CompanyForm: FC = () => {
                     text='continue_with'
                     auto_select={false}
                   />
-                  <Button
-                    sx={{ marginTop: 2, fontFamily: 'poppins' }}
-                    type='submit'
-                    variant='contained'
-                    fullWidth
-                    color='secondary'
-                    disabled={props.isSubmitting}
-                  >
-                    Crear cuenta
-                  </Button>
                 </Form>
               )}
             </Formik>

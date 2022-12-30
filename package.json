@@ -17,6 +17,8 @@
     "@mui/x-data-grid": "^5.17.14",
     "@react-oauth/google": "^0.5.1",
     "@reduxjs/toolkit": "^1.9.1",
+    "@vitejs/plugin-react": "3.0.0",
+    "animate.css": "^4.1.1",
     "axios": "^1.2.1",
     "dotenv": "^16.0.3",
     "eslint": "^8.29.0",
@@ -31,10 +33,10 @@
     "react-scroll-parallax": "^3.3.2",
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.2",
+    "sweetalert2": "^11.6.16",
     "text-clipper": "^2.2.0",
-    "yup": "^0.32.11",
     "vite": "4.0.3",
-    "@vitejs/plugin-react": "3.0.0"
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/node": "^18.11.13",
