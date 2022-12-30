@@ -29,27 +29,70 @@ const MyProjectStudent: FC = () => {
     useEffect(() => {
         dispatch(getStudentInfo(auth.data.id, token));
     }, [dispatch]);
+
     // Definimos los objetos de informacion.
+    const { user }: any = student;
     // Aca hay que trabajar con typescript para que quede mas limpia la sintaxis.
     return (
         <Container maxWidth="lg">
-            {student.user.working ? (
-                <p>
-                    Estas trabajando en un proyecto, ahora falta mostrar el
-                    proyecto xd
-                </p>
-            ) : student.user.project.length ? (
+            {user.working.length ? (
                 <>
                     <Typography
                         variant="h6"
                         align="center"
                         sx={{ margin: '20px 0' }}
                     >
-                        Mis Solicitudes
+                        Mi proyecto: (Nota: ya me falta poquito para terminar)
                     </Typography>
                     <div>
-                        {student.user.project &&
-                            student.user.project.map((project: any) => (
+                        <Paper
+                            elevation={10}
+                            style={{
+                                padding: '10px',
+                                marginTop: '20px',
+                            }}
+                        >
+                            <Typography
+                                sx={{
+                                    margin: '10px 0',
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                }}
+                                variant="h6"
+                            >
+                                {user.working[0].name}
+                                <Link to="/project">
+                                    <Button
+                                        sx={{
+                                            ml: 'auto',
+                                            fontWeight: 600,
+                                            color: 'yellow',
+                                            background: 'black',
+                                        }}
+                                        size="small"
+                                        color="primary"
+                                        variant="text"
+                                        // onClick={handleClick}
+                                    >
+                                        Cancelar
+                                    </Button>
+                                </Link>
+                            </Typography>
+                        </Paper>
+                    </div>
+                </>
+            ) : user.project.length ? (
+                <>
+                    <Typography
+                        variant="h6"
+                        align="center"
+                        sx={{ margin: '20px 0' }}
+                    >
+                        Mis solicitudes:
+                    </Typography>
+                    <div>
+                        {user.project &&
+                            user.project.map((project: any) => (
                                 <Paper
                                     elevation={10}
                                     style={{
