@@ -244,7 +244,7 @@ export const StudensForm: FC = () => {
                     size='large'
                     onSuccess={(credentialResponse) => {
                       dispatch(
-                        gmailLogin(credentialResponse.credential, 'student'),
+                        gmailLogin(credentialResponse.credential as string, 'student'),
                       );
                     }}
                     onError={() => {

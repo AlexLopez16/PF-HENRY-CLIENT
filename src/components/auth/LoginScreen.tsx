@@ -16,7 +16,6 @@ import {
     FormControl,
     Button,
     Typography,
-    Link,
     FormHelperText,
     Box,
 } from '@mui/material';
@@ -300,10 +299,11 @@ export const LoginScreen: FC = () => {
                         >
                             ¿Aún no has creado tu cuenta?
                             <Link
-                                sx={{
+                                style={{
                                     color: 'black',
+                                    textDecoration: 'underline'
                                 }}
-                                href="/register"
+                                to="/register"
                             >
                                 Regístrate
                             </Link>

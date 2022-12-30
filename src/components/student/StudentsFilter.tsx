@@ -33,7 +33,7 @@ const styledInput = {
 };
 const StudentsFilter: FC = () => {
     const dispatch = useDispatch();
-    let token: String | null = localStorage.getItem('token');
+    let token = localStorage.getItem('token') || '';
     const [search, setSearch] = useState('');
     const [inputFilter, setInput] = useState({
         state: undefined,
@@ -279,7 +279,7 @@ const StudentsFilter: FC = () => {
                             placeholder="Buscar por nombre del proyecto"
                             onChange={(e) => handlerchanges(e.target.value)}
                             sx={{ styledInput, width: 245 }}
-                            // value={inputFilter.search}
+                        // value={inputFilter.search}
                         ></Input>
                         <IconButton type="submit" aria-label="search">
                             <SearchIcon />
