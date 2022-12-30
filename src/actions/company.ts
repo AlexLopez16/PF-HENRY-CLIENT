@@ -32,6 +32,7 @@ export const acceptStudent = (id: string | any, idstudent: string) => {
         }
     }
 }
+
 export const companyGetInfo = (id: string, token: string) => {
     return async (dispatch: Dispatch) => {
         try {
