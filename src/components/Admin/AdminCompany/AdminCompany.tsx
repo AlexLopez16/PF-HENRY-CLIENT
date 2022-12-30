@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Box } from '@mui/system';
-import { getCompany } from '../../../actions/company';
+import { getCompany, disableCompany } from '../../../actions/company';
 import * as moment from 'moment';
 import {
   Avatar,
@@ -21,8 +21,11 @@ import {
 import { State } from '../../../reducers/rootReducer';
 import NavBar from '../../NavBar/NavBar';
 import { validaToken } from '../../../actions/auth';
-import DeleteIcon from '@mui/icons-material/Delete';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
 import EditIcon from '@mui/icons-material/Edit';
+import React from 'react';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -105,11 +108,22 @@ const AdminCompany: FC = ({ ...rest }) => {
     setPage(newPage);
   };
 
+  const [checked, setChecked] = React.useState(true);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(event.target.checked);
+  };
+  const handleDisable = () => {
+    selectedCustomerIds.forEach((selectID: any) =>
+      dispatch(disableCompany(token, selectID)),
+    );
+  };
+
   return (
     <>
       <NavBar />
       <Card {...rest}>
-        <Box sx={{ minWidth: 1050 }}>
+        <Box sx={{ minWidth: 900 }}>
           <Table>
             <TableHead>
               <TableRow>
@@ -130,7 +144,7 @@ const AdminCompany: FC = ({ ...rest }) => {
                 <TableCell>Estado</TableCell>
                 <TableCell>Fecha Registro</TableCell>
                 <TableCell>Editar</TableCell>
-                <TableCell>Borrar</TableCell>
+                <TableCell>Cambiar Estado</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -182,9 +196,26 @@ const AdminCompany: FC = ({ ...rest }) => {
                   <TableCell>
                     <EditIcon />
                   </TableCell>
-                  <TableCell>
-                    <DeleteIcon />
-                  </TableCell>
+                  <FormGroup
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      mt: 3,
+                    }}
+                  >
+                    <FormControlLabel
+                      control={
+                        <Switch
+                          defaultChecked
+                          size='small'
+                          color='primary'
+                          onChange={handleDisable}
+                        />
+                      }
+                      label={undefined}
+                    />
+                  </FormGroup>
                 </TableRow>
               ))}
             </TableBody>

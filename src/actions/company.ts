@@ -119,3 +119,18 @@ export const DeleteStudent = (id: string | any, idstudent: string) => {
         }
     };
 };
+
+export const disableCompany = (id: string | any, idCompany: string) => {
+    return async (dispatch: Dispatch) => {
+      try {
+        const res = await axios.put(`/company/${id}`, { idCompany });
+        dispatch({
+          type: types.disableCompany,
+          payload: res.data,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  };
+  
