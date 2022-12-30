@@ -79,44 +79,44 @@ export const LoginScreen: FC = () => {
         setIsError(false);
     };
 
-  return (
-    <Box
-      sx={{
-        backgroundColor: 'black',
-      }}
-    >
-      <div>
-        <Header />
-        <Grid
-          container
-          direction='column'
-          justifyContent='center'
-          alignItems='center'
-        >
-          <img
-            src='../public/assets/NABIJASH.png'
-            style={{
-              justifyContent: 'center',
-              marginTop: 10,
-            }}
-          />
-          <Paper
-            elevation={10}
-            style={paperStyle}
+    return (
+        <Box
             sx={{
-              minWidth: 100,
-              maxWidth: 400,
-              mt: 8,
-              p: 5,
-              mb: 12.5,
+                backgroundColor: 'black',
             }}
-          >
-            <Grid textAlign='center'>
-              <h2
-                style={{ fontFamily: 'Montserrat', marginBottom: 5 }}>
-                Ingresar
-              </h2>
-            </Grid>
+        >
+            <div>
+                <Header />
+                <Grid
+                    container
+                    direction='column'
+                    justifyContent='center'
+                    alignItems='center'
+                >
+                    <img
+                        src='../public/assets/NABIJASH.png'
+                        style={{
+                            justifyContent: 'center',
+                            marginTop: 10,
+                        }}
+                    />
+                    <Paper
+                        elevation={10}
+                        style={paperStyle}
+                        sx={{
+                            minWidth: 100,
+                            maxWidth: 400,
+                            mt: 8,
+                            p: 5,
+                            mb: 12.5,
+                        }}
+                    >
+                        <Grid textAlign='center'>
+                            <h2
+                                style={{ fontFamily: 'Montserrat', marginBottom: 5 }}>
+                                Ingresar
+                            </h2>
+                        </Grid>
 
                         <Divider></Divider>
                         {isError && (
@@ -274,7 +274,7 @@ export const LoginScreen: FC = () => {
                                                 dispatch(
                                                     gmailLogin(
                                                         credentialResponse.credential,
-                                                        undefined
+                                                        ''
                                                     )
                                                 );
                                             }}
