@@ -8,34 +8,41 @@ import DashboardStudent from './../components/student/DashboardStudent';
 import DashboardCompany from '../components/company/DashboardCompany';
 import { useSelector } from 'react-redux';
 import { State } from '../reducers/rootReducer';
+import AdminStudent from '../components/Admin/AdminStudent';
 
 
 export const HomePage = () => {
     const { rol } = useSelector((state: State) => state.auth.data);
-    console.log(rol);
 
     let role = rol
 
-    console.log(role);
-
     return (
-        role === 'STUDENT_ROL' ? 
-        <>
-            <SearchBar />
+        role === 'STUDENT_ROL' ?
+            <>
+                <SearchBar />
 
-            <div style={{ display: 'flex' }}>
-                <SideBar />
-                <DashboardStudent />
-            </div>
-        </>
-    :
-    <>
-            <SearchBar />
+                <div style={{ display: 'flex' }}>
+                    <SideBar />
+                    <DashboardStudent />
+                </div>
+            </> 
+            : role === 'COMPANY_ROL' ?
 
-            <div style={{ display: 'flex' }}>
-                <SideBar />
-                <DashboardCompany/>
-            </div>
-        </>
+                <>
+                    <SearchBar />
+
+                    <div style={{ display: 'flex' }}>
+                        <SideBar />
+                        <DashboardCompany />
+                    </div>
+                </>
+                : role === 'ADMIN_ROL' ?? <>
+                    <SearchBar />
+
+                    <div style={{ display: 'flex' }}>
+                        <SideBar />
+                        <AdminStudent />
+                    </div>
+                </>
     )
 }
