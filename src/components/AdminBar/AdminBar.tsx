@@ -12,9 +12,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../reducers/rootReducer';
 import { Link, useNavigate } from 'react-router-dom';
 import { getStudentInfo } from '../../actions/student';
+import { companyGetInfo } from '../../actions/company';
 import { logout } from '../../actions/auth';
-import { Profile } from '../student/profile/Profile';
-import { ProfileCompany } from '../company/Profile/ProfileCompany';
+// import { Profile } from '../student/profile/Profile';
 
 export default function AccountMenu() {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -25,17 +25,24 @@ export default function AccountMenu() {
     const handleClose = () => {
         setAnchorEl(null);
     };
-
+      
+    
     const dispatch = useDispatch();
     const { data } = useSelector((state: State) => state.auth);
-    const { user }: any = useSelector((state: State) => state.student);
     const { id, rol } = data;
+    const { user }: any = useSelector((state: State) =>
+    rol === 'STUDENT_ROL'
+    ? state.student
+    : state.company
+    );//TODO: condicional para sacar datos de company
+    
     const token = localStorage.getItem('token') || '';
 
-    //TODO: eliminar cuando el mamon de nacho suba sus cambios
     React.useEffect(() => {
-        rol === 'STUDENT_ROL' ? dispatch(getStudentInfo(id, token)) : null;
-        // dispatch(getConpanyInfo(id, token))
+        rol === 'STUDENT_ROL'
+        ? dispatch(getStudentInfo(id, token))
+        : dispatch(companyGetInfo(id, token))
+
     }, [dispatch]);
     const navigate = useNavigate();
 
@@ -111,21 +118,33 @@ export default function AccountMenu() {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-                <MenuItem onClick={handlerProfile}>
+                <MenuItem sx={{
+                    pointerEvents: "none",
+                    cursor: "default"
+                }}>
                     <Avatar>
-                        <IconButton>
+                        {/* <IconButton>
                             {user.name?.slice(0, 1).toUpperCase()}
-                        </IconButton>
+                        </IconButton> */}
                     </Avatar>
-                    {user.name}
+                    Hola {user.name}
                 </MenuItem>
                 <Divider />
+
+                <MenuItem onClick={handlerProfile}>
+                    <ListItemIcon>
+                        <Logout fontSize="small" />
+                    </ListItemIcon>
+                    Mi perfil
+                </MenuItem>
+
                 <MenuItem onClick={handlerLogout}>
                     <ListItemIcon>
                         <Logout fontSize="small" />
                     </ListItemIcon>
                     Cerrar sesion
                 </MenuItem>
+            
             </Menu>
         </React.Fragment>
     );
