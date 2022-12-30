@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Box } from '@mui/system';
-import { deleteStudent, getListStudents } from '../../actions/student';
+import { disableStudent, getListStudents } from '../../actions/student';
 import * as moment from 'moment'
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -18,21 +18,15 @@ import {
   TableRow,
   Typography,
   InputLabel, 
-  Button 
+  Button, 
+  FormControlLabel,
+  Switch,
+  FormGroup
 } from '@mui/material';
 
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-
-export interface Options {
-  splitRegexp?: RegExp | RegExp[];
-  stripRegexp?: RegExp | RegExp[];
-  delimiter?: string;
-  transform?: (part: string, index: number, parts: string[]) => string;
-}
-
-export declare function sentenceCase(input: string, options?: Options): string;
 
 const AdminStudent: FC = ({...rest}) => {
     const { users } = useSelector((state:any) => state.student)
@@ -83,10 +77,11 @@ const AdminStudent: FC = ({...rest}) => {
     setSelectedCustomerIds(newSelectedCustomerIds);
   };
 
-  const handleDelete = () => {
-    
-    selectedCustomerIds.forEach((selectID: any) => dispatch(deleteStudent(token, selectID)))
-  }
+  const handleDisable = () => {
+    selectedCustomerIds.forEach((selectID: any) =>
+      dispatch(disableStudent(token, selectID)),
+    );
+  };
 
   const handleLimitChange = (event: any) => {
     setLimit(event.target.value);
@@ -113,23 +108,13 @@ const AdminStudent: FC = ({...rest}) => {
                     onChange={handleSelectAll}
                   />
                 </TableCell>
-                <TableCell>
-                  Nombre
-                </TableCell>
-                <TableCell>
-                  Email
-                </TableCell>
-                <TableCell>
-                  Ubicacion
-                </TableCell>
-                <TableCell>
-                  Estado
-                </TableCell>
-                <TableCell>
-                  Fecha de ingreso
-                </TableCell>
+                <TableCell>Nombre</TableCell>
+                <TableCell>Email</TableCell>
+                <TableCell>Ubicacion</TableCell>
+                <TableCell>Estado</TableCell>
+                <TableCell>Fecha de ingreso</TableCell>
                 
-                {deleted  && <Button onClick={handleDelete}><DeleteIcon sx={{color: '#000'}}/></Button>}
+                {deleted  && <Button onClick={handleDisable}><DeleteIcon sx={{color: '#000'}}/></Button>}
 
               </TableRow>
             </TableHead>
@@ -185,9 +170,26 @@ const AdminStudent: FC = ({...rest}) => {
                   <TableCell>
                     <EditIcon />
                   </TableCell>
-                  <TableCell>
-                    <Button onClick={handleDelete}><DeleteIcon sx={{color: '#000'}}/></Button>
-                  </TableCell>
+                  <FormGroup
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      mt: 3,
+                    }}
+                  >
+                    <FormControlLabel
+                      control={
+                        <Switch
+                          defaultChecked
+                          size='small'
+                          color='primary'
+                          onChange={handleDisable}
+                        />
+                      }
+                      label={undefined}
+                    />
+                  </FormGroup>
                 </TableRow>
               ))}
             </TableBody>

@@ -113,7 +113,7 @@ export const addStudentToProject = (id: string, token: string) => {
     }
 };
 
-export const deleteStudent = (token: string | null, id: string) => {
+export const disableStudent = (token: string | null, id: string) => {
     return async (dispatch: Dispatch) => {
         try {
            const res = await axios.delete(`/admin/deletestudent/${id}`, { headers: { 'user-token': token } });
