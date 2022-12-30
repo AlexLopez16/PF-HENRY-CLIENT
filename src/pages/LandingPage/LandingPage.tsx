@@ -1,9 +1,17 @@
 import { FC } from 'react';
-import { Button, Typography, Box } from '@mui/material';
 import { useNavigate } from 'react-router';
-import nabijashbg from '../../../public/assets/nabijashbg.png';
+
+import { Button, Typography, Box } from '@mui/material';
 import Header from '../../components/NavbarLandingPage/HeaderLanding';
 import Footer from './Footer';
+
+import nabijashbg from '../../assets/nabijashbg.png';
+import logo from '../../assets/NABIJASH.png';
+import objetivo from '../../assets/objetivo.png'
+import objetivoCompany from '../../assets/objetivocompany.png'
+import objetivoStudent from '../../assets/objetivostudent.png'
+import bannerTextLanding from '../../assets/bannerTextLanding.png'
+import bannerLanding from '../../assets/bannerLanding.png'
 
 const LandingPage: FC = () => {
   const navigate = useNavigate();
@@ -42,7 +50,7 @@ const LandingPage: FC = () => {
           }}
         >
           <Box sx={{ pt: 25 }}>
-            <img src='../../public/assets/NABIJASH.png ' height={150} />
+            <img src={logo} height={150} />
 
             <Typography
               variant='h4'
@@ -161,7 +169,7 @@ const LandingPage: FC = () => {
                 fontFamily: 'montserrat',
               }}
             >
-             Nuestra propuesta es brindar a los alumnos la oportunidad de
+              Nuestra propuesta es brindar a los alumnos la oportunidad de
               adquirir experiencia en proyectos reales y colaborar con talento digital a PyMES,
               Emprendedores, Asociaciones u ONG’s. Podrán disponer de un
               equipo de #Programadores y/o #DataScientists con dedicación
@@ -177,7 +185,7 @@ const LandingPage: FC = () => {
               }}
             >
               <img
-                src='../../public/assets/objetivo.png'
+                src={objetivo}
                 style={{
                   height: '450px',
                   borderRadius: '50px',
@@ -197,7 +205,7 @@ const LandingPage: FC = () => {
             }}
           >
             <img
-              src='../../public/assets/objetivocompany.png'
+              src={objetivoCompany}
               style={{
                 height: '450px',
                 borderRadius: '50px',
@@ -265,7 +273,7 @@ const LandingPage: FC = () => {
               }}
             >
               <img
-                src='../../public/assets/objetivostudent.png'
+                src={objetivoStudent}
                 style={{
                   height: '450px',
                   borderRadius: '50px',
@@ -283,14 +291,14 @@ const LandingPage: FC = () => {
             }}
           >
             <img
-              src='../../../public/assets/bannerTextLanding.png'
+              src={bannerTextLanding}
               style={{
                 marginTop: '50px',
               }}
             />
             <Box>
               <img
-                src='../../../public/assets/bannerLanding.png'
+                src={bannerLanding}
                 style={{
                   marginTop: '50px',
                 }}
@@ -313,7 +321,7 @@ const LandingPage: FC = () => {
             <Box
               sx={{
                 display: 'inline-flex',
-                backgroundColor: 'black',
+                backgroundColor: 'transparent',
               }}
             >
               <Box>
@@ -421,10 +429,11 @@ const LandingPage: FC = () => {
                 </Typography>
               </Box>
             </Box>
+
             <Box
               sx={{
                 display: 'inline-flex',
-                backgroundColor: 'black',
+                backgroundColor: 'transparent',
                 mt: 5,
               }}
             >
@@ -501,7 +510,7 @@ const LandingPage: FC = () => {
                     px: 2,
                   }}
                 >
-                 No le tememos al cambio. Por eso no entramos en crisis cuando lo vivimos: reconocemos los desafíos y los transformamos en oportunidades.
+                  No le tememos al cambio. Por eso no entramos en crisis cuando lo vivimos: reconocemos los desafíos y los transformamos en oportunidades.
                 </Typography>
               </Box>
             </Box>
