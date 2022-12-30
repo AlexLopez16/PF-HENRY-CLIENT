@@ -1,7 +1,7 @@
 import {
-    List, 
-    ListItem, 
-    ListItemButton, 
+    List,
+    ListItem,
+    ListItemButton,
     ListItemText,
 } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -15,22 +15,22 @@ const linkStyle = {
 };
 
 export const userItemsList: JSX.Element = (
-        <List>
-            <ListItem >
-                <NavLink to='/dashboard/student' style={linkStyle}>
-                    <ListItemButton>        
-                        <AccountCircleIcon />
-                        <ListItemText primary="Estudiante" sx={{pl: 2}}/>                    
-                    </ListItemButton>
-                </NavLink>
-            </ListItem>
-            <ListItem >
-                <NavLink to='/dashboard/proyectos' style={linkStyle}>
-                    <ListItemButton>        
-                        <WorkIcon />
-                        <ListItemText primary="Bolsa de trabajo" sx={{pl: 2}}/>               
-                    </ListItemButton>
-                </NavLink>
-            </ListItem>
-        </List>
+    <List>
+        <ListItem >
+            <NavLink to='/dashboard/student' style={linkStyle}>
+                <ListItemButton>
+                    <AccountCircleIcon />
+                    <ListItemText primary="Estudiante" sx={{ pl: 2 }} />
+                </ListItemButton>
+            </NavLink>
+        </ListItem>
+        <ListItem >
+            <NavLink to='/dashboard/proyectos' style={linkStyle}>
+                <ListItemButton>
+                    <WorkIcon />
+                    <ListItemText primary="Bolsa de trabajo" sx={{ pl: 2 }} />
+                </ListItemButton>
+            </NavLink>
+        </ListItem>
+    </List>
 );

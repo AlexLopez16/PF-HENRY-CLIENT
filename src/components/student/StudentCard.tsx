@@ -46,18 +46,18 @@ const StudentCard: FC<StudentProps> = ({
     const [open, setOpen] = React.useState(true);
     let rol = useSelector((state: State) => state.auth.data.rol);
 
-    const { id: idpjt } = useParams();
-
+    const { id } = useParams();
+    console.log(id);
     const handleClick = () => {
         setOpen(!open);
     };
 
     const handlerAccept = () => {
-        dispatch(acceptStudent(idpjt, idstd));
+        dispatch(acceptStudent(id, idstd));
         setRender(!render);
     };
     const handlerDelete = () => {
-        dispatch(DeleteStudent(idpjt, idstd));
+        dispatch(DeleteStudent(id, idstd));
         setRender(!render);
     };
 
@@ -65,16 +65,16 @@ const StudentCard: FC<StudentProps> = ({
     working === true // si el alumno esta en postulado aparece con un style y si es aceptado (working) con otro
         ? (style = {
               width: 400,
-              height: '100%',
+              height: 'fit-content',
               padding: 20,
-              margin: '50px 5px 0 60%',
+              margin: '50px ',
               display: 'inline-block',
           })
         : (style = {
               width: 'auto',
               height: '100%',
               padding: 20,
-              margin: '50px 60% 0% 20px',
+              margin: '50px',
               display: 'inline-block',
           });
 
