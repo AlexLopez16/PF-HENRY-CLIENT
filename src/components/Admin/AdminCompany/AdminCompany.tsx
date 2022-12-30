@@ -186,8 +186,10 @@ const AdminCompany: FC = ({ ...rest }) => {
                   </TableCell>
                   <FormGroup>
                     <FormControlLabel
-                      control={<Switch defaultChecked />}
-                      
+                      control={
+                        <Switch defaultChecked size='small' color='primary' />
+                      }
+                      label={undefined}
                     />
                   </FormGroup>
                 </TableRow>
