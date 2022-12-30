@@ -16,20 +16,18 @@ import {
     FormControl,
     Button,
     Typography,
-    Link,
     FormHelperText,
     Box,
 } from '@mui/material';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import Divider from '@mui/material/Divider';
 
-// import { GoogleLogin } from './GoogleLogin';
 import { GitHubLogin } from './GitHubLogin';
 import { GoogleLogin } from '@react-oauth/google';
 
 import { startLogin, gmailLogin } from '../../actions/auth';
 import { State } from '../../reducers/rootReducer';
-import { Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Header from '../NavbarLandingPage/HeaderLanding';
 import Footer from '../../pages/LandingPage/Footer';
 
@@ -239,7 +237,7 @@ export const LoginScreen: FC = () => {
                                         mb="10px"
                                     >
                                         <Link
-                                            href="/forgotPassword"
+                                            to="/forgotPassword"
                                             color="inherit"
                                         >
                                             ¿Olvidaste tu contraseña?
@@ -304,10 +302,10 @@ export const LoginScreen: FC = () => {
                         >
                             ¿Aún no has creado tu cuenta?
                             <Link
-                                sx={{
+                                style={{
                                     color: 'black',
                                 }}
-                                href="/register"
+                                to="/register"
                             >
                                 Regístrate
                             </Link>

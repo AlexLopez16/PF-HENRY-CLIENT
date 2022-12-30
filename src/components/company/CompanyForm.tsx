@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { FC } from 'react';
 import {
-    Grid,
-    Button,
-    Box,
-    Paper,
-    FormHelperText,
-    Divider,
+  Grid,
+  Button,
+  Box,
+  Paper,
+  FormHelperText,
+  Divider,
+  Typography,
 } from '@mui/material';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
@@ -26,7 +27,7 @@ import { VisibilityOff, Visibility } from '@mui/icons-material';
 
 import { registerCompany } from '../../actions/company';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import { gmailLogin } from '../../actions/auth';
 import Header from '../NavbarLandingPage/HeaderLanding';
@@ -275,51 +276,59 @@ const CompanyForm: FC = () => {
                                         <span>O</span>
                                     </Divider>
 
-                                    <GoogleLogin
-                                        width="340px"
-                                        logo_alignment="center"
-                                        type="standard"
-                                        theme="filled_blue"
-                                        shape="square"
-                                        size="large"
-                                        onSuccess={(
-                                            credentialResponse: any
-                                        ) => {
-                                            dispatch(
-                                                gmailLogin(
-                                                    credentialResponse.credential,
-                                                    'company'
-                                                )
-                                            );
-                                        }}
-                                        onError={() => {
-                                            console.log('Login Failed');
-                                        }}
-                                        text="continue_with"
-                                        auto_select={false}
-                                    />
-                                    <Button
-                                        sx={{
-                                            marginTop: 2,
-                                            fontFamily: 'poppins',
-                                        }}
-                                        type="submit"
-                                        variant="contained"
-                                        fullWidth
-                                        color="secondary"
-                                        disabled={props.isSubmitting}
-                                    >
-                                        Crear cuenta
-                                    </Button>
-                                </Form>
-                            )}
-                        </Formik>
-                    </Paper>
-                </Grid>
-            </div>
-            <Footer />
-        </Box>
-    );
+                  <GoogleLogin
+                    width='340px'
+                    logo_alignment='center'
+                    type='standard'
+                    theme='filled_blue'
+                    shape='square'
+                    size='large'
+                    onSuccess={(credentialResponse) => {
+                      dispatch(
+                        gmailLogin(credentialResponse.credential, 'company'),
+                      );
+                    }}
+                    onError={() => {
+                      console.log('Login Failed');
+                    }}
+                    text='continue_with'
+                    auto_select={false}
+                  />
+                  <Button
+                    sx={{ marginTop: 2, fontFamily: 'poppins' }}
+                    type='submit'
+                    variant='contained'
+                    fullWidth
+                    color='secondary'
+                    disabled={props.isSubmitting}
+                  >
+                    Crear cuenta
+                  </Button>
+                </Form>
+              )}
+            </Formik>
+
+            <Typography
+              textAlign='center'
+              mt='20px'
+              fontFamily='poppins'
+              fontSize='15px'
+            >
+              ¿Ya tienes una cuenta?
+              <Link
+                to='/login'
+                style={{ textDecoration: 'underline', color: 'black' }}
+              >
+                <p>Ingresa</p>
+              </Link>
+            </Typography>
+
+          </Paper>
+        </Grid>
+      </div>
+      <Footer />
+    </Box>
+  );
 };
 
 export default CompanyForm;

@@ -17,7 +17,7 @@ import { Container, Typography } from '@mui/material';
 // };
 export const MyProjectCompany: FC = () => {
     const dispatch = useDispatch();
-    let token: String | null = localStorage.getItem('token');
+    let token = localStorage.getItem('token') || '';
     useEffect(() => {
         dispatch(getMyProjectsCompany(token, 1));
         return () => {
@@ -32,7 +32,7 @@ export const MyProjectCompany: FC = () => {
     return (
         <div>
             <Container sx={{ marginLeft: 109 }}>
-                <Typography sx={{ marginTop: 2 }} variant="h6">
+                <Typography variant="h6" sx={{ marginTop: 5 }}>
                     Mis proyectos
                 </Typography>
             </Container>
@@ -51,7 +51,7 @@ export const MyProjectCompany: FC = () => {
             ></div>
 
             <Pages />
-            <Container maxWidth="lg" sx={{ marginLeft: 80 }}>
+            <Container maxWidth="lg" sx={{ marginLeft: 50 }}>
                 {info.length ? (
                     info.map((e: any) => (
                         <ProjectCard

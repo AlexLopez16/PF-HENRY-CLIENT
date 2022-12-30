@@ -14,3 +14,9 @@ body {
   font-family: 'Montserrat', sans-serif;
   font-family: 'Poppins', sans-serif;
 }
+
+a:-webkit-any-link {
+  color: -webkit-link;
+  cursor: pointer;
+  text-decoration: none;
+}
