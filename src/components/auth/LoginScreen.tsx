@@ -32,6 +32,8 @@ import { Link } from 'react-router-dom';
 import Header from '../NavbarLandingPage/HeaderLanding';
 import Footer from '../../pages/LandingPage/Footer';
 
+import Logo from '../../assets/NABIJASH.png'
+
 export const LoginScreen: FC = () => {
     const dispatch = useDispatch();
     const { status } = useSelector((state: State) => state.auth);
@@ -94,7 +96,7 @@ export const LoginScreen: FC = () => {
                     alignItems='center'
                 >
                     <img
-                        src='../public/assets/NABIJASH.png'
+                        src={Logo}
                         style={{
                             justifyContent: 'center',
                             marginTop: 10,

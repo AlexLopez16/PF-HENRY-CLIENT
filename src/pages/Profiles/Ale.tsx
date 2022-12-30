@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import {
   CardMedia,
   CardContent,
@@ -6,10 +7,13 @@ import {
   CardActions,
   FormControl,
   Grid,
+  Box,
+  Container
 } from '@mui/material';
-import { Box, Container } from '@mui/system';
-import { useNavigate } from 'react-router-dom';
-import aboutbg from '../../../public/assets/aboutbg.png';
+
+import aboutbg from '../../assets/aboutbg.png';
+import Alejandro from "../../assets/team/rivo.png";
+
 
 export default function Ale() {
   const navigate = useNavigate();
@@ -78,7 +82,7 @@ export default function Ale() {
             ml: 9.3,
           }}
           component='img'
-          image='../../public/assets/team/rivo.png'
+          image={Alejandro}
           alt='profilephoto'
         />
         <CardContent>
