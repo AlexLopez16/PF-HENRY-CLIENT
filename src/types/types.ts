@@ -12,6 +12,7 @@ export const types = {
     AddStToPr: '[student] Add student to project',
     deleteOrInactiveStudent: '[student] inactive student to data base',
 
+
     registerCompany: '[company] Register Company',
     companyGetInfo: '[company] Get info company',
     companyUpdateInfo: '[company] Update info company',
@@ -19,6 +20,8 @@ export const types = {
     acceptStudent: '[Company] Student Accept',
     deleteStudent: '[Company] Student delete',
     companyGetList: '[Company] Get list Company',
+    deleteCompany: '[Company] Company delete',
+    disableCompany: '[Company] disable Company',
 
     newProject: '[project] Create New Project',
     getProjects: '[project] Get Projects',
