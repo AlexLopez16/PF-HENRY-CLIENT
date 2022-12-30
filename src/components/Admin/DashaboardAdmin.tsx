@@ -8,5 +8,3 @@ const DashboardAdmin: FC = () => {
       </div>
     );
   };
-
-export default DashboardAdmin;   

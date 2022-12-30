@@ -1,5 +1,5 @@
 
-import { userInfo } from "os";
+import { type, userInfo } from "os";
 import { types } from "../types/types";
 
 
@@ -8,6 +8,7 @@ interface State {
 }
 
 const initialState = {
+    users: [],
     user: {},
 }
 
@@ -20,6 +21,12 @@ type Action = {
 
 export const studentReducer = (state: State = initialState, action: Action) => {
     switch (action.type) {
+        case types.getListStudents:
+            return {
+                ...state,
+                users: action.payload
+            }
+            
         case types.studentRegister:
             return {
                 ...state,
@@ -42,6 +49,11 @@ export const studentReducer = (state: State = initialState, action: Action) => {
             return {
                 ...state,
                 user: action.payload
+            }
+        case types.deleteOrInactiveStudent:
+            return {
+                ...state,
+                user : action.payload
             }
         
         default:

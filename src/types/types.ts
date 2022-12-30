@@ -4,11 +4,13 @@ export const types = {
     clearAuthLogin: '[auth] Clear Auth Login',
     login: '[login] Login',
 
+    getListStudents: '[student] Get List Students',
     studentRegister: '[student] Register Student',
     studentGetInfo: '[student] Get Info Student',
     studentUpdateInfo: '[student] Update Info Student',
     studentSearch: '[student] Search Company', //-VERIFICAR-//
     AddStToPr: '[student] Add student to project',
+    deleteOrInactiveStudent: '[student] inactive student to data base',
 
     registerCompany: '[company] Register Company',
     companyGetInfo: '[company] Get info company',
@@ -16,6 +18,7 @@ export const types = {
     companySearch: '[company] Serch Company', //-VERIFICAR-//
     acceptStudent: '[Company] Student Accept',
     deleteStudent: '[Company] Student delete',
+    companyGetList: '[Company] Get list Company',
 
     newProject: '[project] Create New Project',
     getProjects: '[project] Get Projects',
