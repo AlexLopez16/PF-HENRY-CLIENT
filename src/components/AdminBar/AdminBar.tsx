@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useState } from 'react';
+
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
@@ -8,13 +10,20 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Logout from '@mui/icons-material/Logout';
+import PortraitIcon from '@mui/icons-material/Portrait';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../reducers/rootReducer';
 import { Link, useNavigate } from 'react-router-dom';
 import { getStudentInfo } from '../../actions/student';
 import { companyGetInfo } from '../../actions/company';
 import { logout } from '../../actions/auth';
-// import { Profile } from '../student/profile/Profile';
+import { Profile } from '../student/profile/Profile';
+import { ProfileCompany } from '../company/Profile/ProfileCompany';
+import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
+import { Premium } from '../Premium/Premium';
 
 export default function AccountMenu() {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -34,7 +43,7 @@ export default function AccountMenu() {
     rol === 'STUDENT_ROL'
     ? state.student
     : state.company
-    );//TODO: condicional para sacar datos de company
+    );
     
     const token = localStorage.getItem('token') || '';
 
@@ -57,6 +66,9 @@ export default function AccountMenu() {
             ? navigate('/profile')
             : navigate('/profileCompany');
     };
+
+    // FUNCION PREMIUM
+    const [openModal, setOpenModal] = useState(false);
 
     return (
         <React.Fragment>
@@ -133,19 +145,36 @@ export default function AccountMenu() {
 
                 <MenuItem onClick={handlerProfile}>
                     <ListItemIcon>
-                        <Logout fontSize="small" />
+                        <AccountBoxIcon fontSize="small" />
                     </ListItemIcon>
                     Mi perfil
                 </MenuItem>
 
+                {
+                    rol === 'COMPANY_ROL' && (
+                        <MenuItem onClick={() => setOpenModal(true)}>
+                            <ListItemIcon>
+                                <SubscriptionsIcon fontSize="small" />
+                            </ListItemIcon>
+                            Premium
+                        </MenuItem>
+                    )
+                }
+
                 <MenuItem onClick={handlerLogout}>
                     <ListItemIcon>
-                        <Logout fontSize="small" />
+                        <ExitToAppIcon fontSize="small" />
                     </ListItemIcon>
                     Cerrar sesion
                 </MenuItem>
             
             </Menu>
+
+            <Premium
+                openModal={openModal}
+                setOpenModal={setOpenModal}
+            />
+
         </React.Fragment>
     );
 }

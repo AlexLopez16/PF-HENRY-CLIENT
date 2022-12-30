@@ -5,21 +5,7 @@ import { useNavigate } from 'react-router';
 const Header = () => {
   const [value, setValue] = useState();
   const navigate = useNavigate();
-
-  const AboutClick = () => {
-    navigate('/AboutUs');
-  };
-  const HomeClick = () => {
-    navigate('/landing');
-  };
-
-  const ContactClick = () => {
-    navigate('/contact');
-  };
-  const signInClick = () => {
-    navigate('/login');
-  };
-
+  
   return (
     <React.Fragment>
       <AppBar component='nav' position='sticky' color='primary'>
@@ -41,30 +27,30 @@ const Header = () => {
                 style={{
                   fontFamily: 'poppins',
                 }}
-                onClick={HomeClick}
+                onClick={() => navigate('/')}
                 label='Inicio'
               />
               <Tab
                 style={{
                   fontFamily: 'poppins',
                 }}
-                onClick={AboutClick}
+                onClick={() => navigate('/aboutUs')}
                 label='Nosotros'
               />
               <Tab
                 style={{
                   fontFamily: 'poppins',
                 }}
-                onClick={ContactClick}
+                onClick={() => navigate('/contact')}
                 label='Contacto'
               />
             </Tabs>
             <Button
-            color='primary'
+              color='primary'
               style={{
                 fontFamily: 'poppins',
               }}
-              onClick={signInClick}
+              onClick={() => navigate('/login')}
               variant='contained'
             >
               Ingresar
