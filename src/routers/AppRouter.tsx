@@ -36,19 +36,23 @@ import ProjectsStudents from '../components/student/ProjectsStudents';
 import { ProfileCompany } from '../components/company/Profile/ProfileCompany';
 import AdminStudent from '../components/Admin/AdminStudent';
 import Postulated from '../components/company/Postulated';
-import DashboardCompany from '../components/company/DashboardCompany';
-import CompanyList from '../components/Admin/AdminCompany/AdminCompany';
+import { Checkout } from '../pages/Checkout';
 import AdminCompany from '../components/Admin/AdminCompany/AdminCompany';
 
 export const AppRouter = () => {
   let { id } = useParams();
   // console.log(id);
 
-  return (
-    <BrowserRouter>
-      <div>
-        <Routes>
-          <Route path='/' element={<LandingPage />} />
+    return (
+        <BrowserRouter>
+            <div>
+                <Routes>
+                    <Route
+                        path="/"
+                        element={
+                            <LandingPage />
+                        }
+                    />
 
           <Route
             path='/login'
@@ -85,17 +89,17 @@ export const AppRouter = () => {
             }
           />
 
-          <Route
-            path='/dashboard'
-            element={
-              <>
-                <NavBar />
-                <PrivateRoute>
-                  <DashboardPage />
-                </PrivateRoute>
-              </>
-            }
-          />
+                    <Route
+                        path="/dashboard"
+                        element={
+                            <PrivateRoute>
+                                <>
+                                    <NavBar />
+                                    <DashboardPage />
+                                </>
+                            </PrivateRoute>
+                        }
+                    />
 
           <Route
             path='/projects'
@@ -142,26 +146,14 @@ export const AppRouter = () => {
             }
           />
 
-          <Route
-            path='/newproject'
-            element={
-              // <PrivateRoute>
-              <ProjectForm />
-              // </PrivateRoute>
-            }
-          />
-
-          <Route
-            path='/requests'
-            element={
-              // <PrivateRoute>
-              <>
-                <NavBar />
-                <MyProject />
-              </>
-              // </PrivateRoute>
-            }
-          />
+                    <Route
+                        path="/newproject"
+                        element={
+                            <PrivateRoute>
+                                <ProjectForm />
+                            </PrivateRoute>
+                        }
+                    />
 
           <Route
             path='/aboutUs'
@@ -210,14 +202,14 @@ export const AppRouter = () => {
             }
           />
 
-          <Route
-            path='/adminSt'
-            element={
-              <PrivateRoute>
-                <AdminStudent />
-              </PrivateRoute>
-            }
-          />
+                    <Route
+                        path="/adminSt"
+                        element={
+                            <PrivateRoute>
+                                <AdminStudent />
+                            </PrivateRoute>
+                        }
+                    />
 
           <Route path='/AdminCompany' element={<AdminCompany />} />
           
@@ -232,8 +224,10 @@ export const AppRouter = () => {
           <Route path='/Nacho' element={<Nacho />} />
           <Route path='/Sil' element={<Sil />} />
 
-          <Route path='/forgotPassword' element={<ForgotPassword />} />
-          <Route path='/forgotPassword' element={<ForgotPassword />} />
+                    <Route
+                        path="/forgotPassword"
+                        element={<ForgotPassword />}
+                    />
 
           <Route path='/recoverPassword' element={<PasswordRecover />} />
           <Route path='/p' element={<ProjectsStudents />} />
@@ -248,21 +242,19 @@ export const AppRouter = () => {
               </>
             }
           /> */}
-
-          {/* PRUEBA */}
-
-          {/* <Route path='/DashboardCompany' element={<DashboardCompany />} /> */}
-
-          <Route
-            path='/postulated/:id'
-            element={
-              <PrivateRoute>
-                <Postulated />
-              </PrivateRoute>
-            }
-          />
-        </Routes>
-      </div>
-    </BrowserRouter>
-  );
+                    <Route
+                        path="/postulated/:id"
+                        element={
+                            <PrivateRoute>
+                                <>
+                                    <NavBar />
+                                    <Postulated />
+                                </>
+                            </PrivateRoute>
+                        }
+                    />
+                </Routes>
+            </div>
+        </BrowserRouter>
+    );
 };
