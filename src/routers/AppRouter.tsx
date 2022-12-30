@@ -154,7 +154,6 @@ export const AppRouter = () => {
                         }
                     />
 
-
                     <Route
                         path="/aboutUs"
                         element={
@@ -247,7 +246,10 @@ export const AppRouter = () => {
                         path="/postulated/:id"
                         element={
                             <PrivateRoute>
-                                <Postulated />
+                                <>
+                                    <NavBar />
+                                    <Postulated />
+                                </>
                             </PrivateRoute>
                         }
                     />

@@ -22,7 +22,6 @@ import {
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import Divider from '@mui/material/Divider';
 
-// import { GoogleLogin } from './GoogleLogin';
 import { GitHubLogin } from './GitHubLogin';
 import { GoogleLogin } from '@react-oauth/google';
 
@@ -303,10 +302,10 @@ export const LoginScreen: FC = () => {
                         >
                             ¿Aún no has creado tu cuenta?
                             <Link
-                                sx={{
+                                style={{
                                     color: 'black',
                                 }}
-                                href="/register"
+                                to="/register"
                             >
                                 Regístrate
                             </Link>
