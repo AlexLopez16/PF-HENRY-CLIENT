@@ -211,9 +211,18 @@ export const AppRouter = () => {
                         }
                     />
 
-          <Route path='/AdminCompany' element={<AdminCompany />} />
-          
-          {/* PROFILE ROUTES */}
+                    <Route 
+                      path="/adminSt"
+                      element={
+                        // <PrivateRoute>
+                          <AdminStudent />
+                        // </PrivateRoute>
+                      }
+                    />
+
+                    <Route path='/AdminCompany' element={<AdminCompany />} />
+
+                    {/* PROFILE ROUTES */}
 
           <Route path='/Ale' element={<Ale />} />
           <Route path='/Ampi' element={<Ampi />} />
