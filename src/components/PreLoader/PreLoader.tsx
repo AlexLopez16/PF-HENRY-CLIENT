@@ -1,12 +1,11 @@
 import { FC, useState, useEffect } from 'react';
 import { Backdrop, CircularProgress } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { State } from '../../reducers/rootReducer';
 
 export const PreLoader: FC = () => {
     // Traemos el estado del request.
     const { inProgress } = useSelector((state: State) => state.request);
-    const dispatch = useDispatch();
     // Estado para mostrar PreLoader.
     const [open, setOpen] = useState(false);
     useEffect(() => {
