@@ -20,6 +20,7 @@ import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../reducers/rootReducer';
 import { getStudentInfo, unApplyStudent } from '../../actions/student';
+import BusinessIcon from '@mui/icons-material/Business';
 // Dejamos importado el link porque quiza despues se pueda mostrar el detalle de cada companero.
 import { Link } from 'react-router-dom';
 
@@ -57,59 +58,55 @@ const MyProjectStudent: FC = () => {
                         <Paper
                             elevation={10}
                             style={{
-                                padding: '10px',
+                                padding: '20px',
                                 marginTop: '20px',
                             }}
                         >
                             <Typography
+                                variant="subtitle2"
+                                sx={{ color: '#898989' }}
+                            >
+                                {' '}
+                                {user.working[0].category?.toUpperCase()}
+                            </Typography>
+
+                            <Typography
                                 sx={{
-                                    margin: '10px 0',
                                     display: 'flex',
                                     justifyContent: 'space-between',
+                                    alignItems: 'center',
                                 }}
                                 variant="h6"
                             >
-                                {user.working[0].name}
+                                {user.working[0].name?.toUpperCase()}
 
                                 <Button
-                                    sx={{
-                                        ml: 'auto',
-                                        fontWeight: 600,
-                                        color: 'yellow',
-                                        background: 'black',
-                                    }}
+                                    variant="contained"
+                                    type="submit"
                                     size="small"
                                     color="primary"
-                                    variant="text"
-                                    onClick={handleClick}
+                                    onClick={() =>
+                                        handleClick(user.working[0].uid)
+                                    }
                                 >
                                     Cancelar
                                 </Button>
                             </Typography>
-                            <Typography
-                                style={{
-                                    marginBottom: '10px',
-                                }}
+                            <Box
+                                sx={{ display: 'block', marginBottom: '10px' }}
                             >
-                                {user.working[0].description.slice(0, 500)} ...
-                            </Typography>
-                            <Box>
                                 <Typography
-                                    style={{
-                                        marginBottom: '10px',
+                                    variant="subtitle1"
+                                    sx={{
+                                        color: '#898989',
                                     }}
                                 >
-                                    Categoria:{' '}
-                                    <Chip
-                                        label={user.working[0].category}
-                                        color="primary"
-                                        size="small"
-                                    />
+                                    {user.working[0].description.slice(0, 500)}{' '}
+                                    ...
                                 </Typography>
                                 <Typography
-                                    style={{
-                                        marginBottom: '10px',
-                                    }}
+                                    variant="subtitle1"
+                                    sx={{ color: '#898989' }}
                                 >
                                     Tecnologias:{' '}
                                     {user.working[0].requirements &&
@@ -130,14 +127,58 @@ const MyProjectStudent: FC = () => {
                                             )
                                         )}
                                 </Typography>
+                                <Typography
+                                    variant="subtitle1"
+                                    sx={{
+                                        color: '#898989',
+                                    }}
+                                >
+                                    Estado:{' '}
+                                    <Chip
+                                        size="small"
+                                        label={user.working[0].stateOfProject}
+                                        color="primary"
+                                    />
+                                </Typography>
+                                <Typography
+                                    variant="subtitle1"
+                                    sx={{
+                                        color: '#898989',
+                                    }}
+                                >
+                                    Fecha de inicio:{' '}
+                                    <Chip
+                                        size="small"
+                                        label={'17/02/2023'}
+                                        color="primary"
+                                    />
+                                </Typography>
+                                <Typography
+                                    variant="subtitle1"
+                                    sx={{
+                                        color: '#898989',
+                                    }}
+                                >
+                                    Fecha de entrega:{' '}
+                                    <Chip
+                                        size="small"
+                                        label={'17/03/2023'}
+                                        color="primary"
+                                    />
+                                </Typography>
                                 <Box
                                     sx={{
                                         display: 'flex',
                                         alignItems: 'center',
-                                        marginBottom: '10px',
+                                        // marginBottom: '10px',
                                     }}
                                 >
-                                    <Typography>{'Equipo:'} </Typography>
+                                    <Typography
+                                        variant="subtitle1"
+                                        sx={{ color: '#898989' }}
+                                    >
+                                        {'Equipo:'}{' '}
+                                    </Typography>
 
                                     <AvatarGroup
                                         max={user.working[0].participants}
@@ -164,19 +205,30 @@ const MyProjectStudent: FC = () => {
                                             )}
                                     </AvatarGroup>
                                 </Box>
+                            </Box>
+                            <Paper
+                                elevation={5}
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    // border: '1px solid',
+                                    width: 'max-content',
+                                    padding: '2px 4px',
+                                    // borderRadius: '4px',
+                                }}
+                            >
+                                <BusinessIcon fontSize="small" />
                                 <Typography
-                                    style={{
-                                        marginBottom: '10px',
+                                    variant="subtitle2"
+                                    sx={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        margin: '0 5px',
                                     }}
                                 >
-                                    Empresa:{' '}
-                                    <Chip
-                                        label={user.working[0].company.name}
-                                        color="primary"
-                                        size="small"
-                                    />
+                                    {user.working[0].company.name?.toUpperCase()}
                                 </Typography>
-                            </Box>
+                            </Paper>
                         </Paper>
                     </div>
                 </>
@@ -195,29 +247,31 @@ const MyProjectStudent: FC = () => {
                                 <Paper
                                     elevation={10}
                                     style={{
-                                        padding: '10px',
+                                        padding: '20px',
                                         marginTop: '20px',
                                     }}
                                 >
                                     <Typography
+                                        variant="subtitle2"
+                                        sx={{ color: '#898989' }}
+                                    >
+                                        {' '}
+                                        {project.category?.toUpperCase()}
+                                    </Typography>
+                                    <Typography
                                         sx={{
-                                            margin: '10px 0',
                                             display: 'flex',
                                             justifyContent: 'space-between',
+                                            alignItems: 'center',
                                         }}
                                         variant="h6"
                                     >
-                                        {project.name}
+                                        {project.name?.toUpperCase()}
                                         <Button
-                                            sx={{
-                                                ml: 'auto',
-                                                fontWeight: 600,
-                                                color: 'yellow',
-                                                background: 'black',
-                                            }}
+                                            variant="contained"
+                                            type="submit"
                                             size="small"
                                             color="primary"
-                                            variant="text"
                                             onClick={() =>
                                                 handleClick(project.uid)
                                             }
@@ -225,30 +279,25 @@ const MyProjectStudent: FC = () => {
                                             Cancelar
                                         </Button>
                                     </Typography>
-
-                                    <Typography
-                                        style={{
+                                    <Box
+                                        sx={{
+                                            display: 'block',
                                             marginBottom: '10px',
                                         }}
                                     >
-                                        {project.description.slice(0, 100)}...
-                                    </Typography>
-
-                                    <Box>
                                         <Typography
-                                            style={{
-                                                marginBottom: '10px',
+                                            variant="subtitle1"
+                                            sx={{ color: '#898989' }}
+                                        >
+                                            {project.description.slice(0, 100)}
+                                            ...
+                                        </Typography>
+                                        <Typography
+                                            variant="subtitle1"
+                                            sx={{
+                                                color: '#898989',
                                             }}
                                         >
-                                            Participantes:{' '}
-                                            <Chip
-                                                label={project.participants}
-                                                color="primary"
-                                                size="small"
-                                            />
-                                        </Typography>
-
-                                        <Typography>
                                             Estado:{' '}
                                             <Chip
                                                 label={project.stateOfProject}
@@ -256,15 +305,56 @@ const MyProjectStudent: FC = () => {
                                                 size="small"
                                             />
                                         </Typography>
+
+                                        <Typography
+                                            variant="subtitle1"
+                                            sx={{ color: '#898989' }}
+                                        >
+                                            Participantes:{' '}
+                                            <Chip
+                                                label={`${project.accepts?.length}/${project.participants}`}
+                                                color="primary"
+                                                size="small"
+                                            />
+                                        </Typography>
                                     </Box>
+                                    <Paper
+                                        elevation={5}
+                                        sx={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            // border: '1px solid',
+                                            width: 'max-content',
+                                            padding: '2px 4px',
+                                            // borderRadius: '4px',
+                                        }}
+                                    >
+                                        <BusinessIcon fontSize="small" />
+                                        <Typography
+                                            variant="subtitle2"
+                                            sx={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                margin: '0 5px',
+                                            }}
+                                        >
+                                            {project.company.name?.toUpperCase()}
+                                        </Typography>
+                                    </Paper>
                                 </Paper>
                             ))}
                     </div>
                 </>
             ) : (
-                <Stack spacing={2} sx={{ margin: '10px 0' }}>
+                <Stack
+                    spacing={2}
+                    sx={{
+                        margin: '20px auto',
+                        maxWidth: 'fit-content',
+                    }}
+                >
                     <Alert severity="info">
-                        Aun no aplicaste a ningun proyecto!
+                        No estas aplicando a ningun proyecto!
                     </Alert>
                 </Stack>
             )}
