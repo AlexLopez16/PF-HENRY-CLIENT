@@ -28,6 +28,9 @@ import { gmailLogin } from '../../actions/auth';
 import Header from '../NavbarLandingPage/HeaderLanding';
 import Footer from '../../pages/LandingPage/Footer';
 import { Link } from 'react-router-dom';
+import { alert } from "../AlertMail/alertMailStudent"
+
+import Logo from '../../assets/NABIJASH.png'
 
 export const StudensForm: FC = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -65,8 +68,10 @@ export const StudensForm: FC = () => {
     const dispatch = useDispatch();
 
     const onSubmit = (values: Values) => {
-        dispatch(studentRegister(values));
+      dispatch(studentRegister(values));
+      dispatch(alert)
     };
+
 
     return (
         <Box
@@ -84,7 +89,7 @@ export const StudensForm: FC = () => {
                     alignItems="center"
                 >
                     <img
-                        src="../public/assets/NABIJASH.png"
+                        src={Logo}
                         style={{
                             justifyContent: 'center',
                             marginTop: 10,
@@ -231,7 +236,10 @@ export const StudensForm: FC = () => {
                   >
                     Crear cuenta
                   </Button>
-                  <Divider>
+                  <Divider  sx={{
+                                            mb: 1,
+                                            mt:1,
+                                        }}>
                     <span>O</span>
                   </Divider>
                   <GitHubLogin />
@@ -244,7 +252,7 @@ export const StudensForm: FC = () => {
                     size='large'
                     onSuccess={(credentialResponse) => {
                       dispatch(
-                        gmailLogin(credentialResponse.credential, 'student'),
+                        gmailLogin(credentialResponse.credential as string, 'student'),
                       );
                     }}
                     onError={() => {

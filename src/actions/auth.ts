@@ -63,8 +63,6 @@ export const gmailLogin = (tok: string | any, userType: string | any) => {
 
             if (status) {
                 localStorage.setItem('token', token);
-                localStorage.setItem('id', id);
-                localStorage.setItem('rol', rol);
                 dispatch(login({ data, status, token, id, rol }));
             }
         } catch (error: any) {
