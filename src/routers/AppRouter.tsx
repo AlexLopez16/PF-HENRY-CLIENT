@@ -44,8 +44,6 @@ import AdminProject from '../components/Admin/AdminProject/AdminProject';
 
 export const AppRouter = () => {
     let { id } = useParams();
-    // console.log(id);
-
     return (
         <BrowserRouter>
             <div>
