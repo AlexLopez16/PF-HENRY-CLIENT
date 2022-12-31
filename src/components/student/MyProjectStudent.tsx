@@ -24,6 +24,8 @@ import BusinessIcon from '@mui/icons-material/Business';
 // Dejamos importado el link porque quiza despues se pueda mostrar el detalle de cada companero.
 import { Link } from 'react-router-dom';
 
+import { PreLoader } from '../PreLoader/PreLoader';
+
 const MyProjectStudent: FC = () => {
     const dispatch = useDispatch();
     // Traemos el id del estado.
@@ -45,6 +47,7 @@ const MyProjectStudent: FC = () => {
 
     return (
         <Container maxWidth="lg">
+            <PreLoader />
             {user.working.length ? (
                 <>
                     <Typography
