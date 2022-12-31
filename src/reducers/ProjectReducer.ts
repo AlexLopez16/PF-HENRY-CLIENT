@@ -43,7 +43,7 @@ export const projectReducer = (state: State = initialState, action: Action) => {
             };
 
         case types.projectsFilter:
-            console.log(action.payload.projects);
+            // console.log(action.payload.projects);
             return {
                 ...state,
                 projectsFilter: action.payload.projects,

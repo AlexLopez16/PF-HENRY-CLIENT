@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Link, Button } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { useDispatch } from 'react-redux';
-import { githubLogin } from '../../actions/auth';
+// import { githubLogin } from '../../actions/auth';
 
 export const GitHubLogin: FC = () => {
     const dispatch = useDispatch();

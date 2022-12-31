@@ -1,7 +1,9 @@
 import { FC } from 'react';
-import { Box, Input, Typography } from '@mui/material';
-import IconButton from '@mui/material/IconButton';
-import SearchIcon from '@mui/icons-material/Search';
+import { Box, 
+    // Input, Typography 
+} from '@mui/material';
+// import IconButton from '@mui/material/IconButton';
+// import SearchIcon from '@mui/icons-material/Search';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProjectsFilter } from '../../actions/projects';

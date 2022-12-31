@@ -1,32 +1,33 @@
+//revisar este react
 import React, { FC, useState } from 'react';
 import {
     Grid,
-    InputLabel,
+    // InputLabel,
     OutlinedInput,
     Paper,
-    TextField,
+    // TextField,
     InputAdornment,
     IconButton,
     FormControl,
     Button,
     Typography,
-    Link,
+    // Link,
     FormHelperText,
     Box,
 } from '@mui/material';
-import { paperStyle } from '../../styles/Profile/HeaderStyles';
+// import { paperStyle } from '../../styles/Profile/HeaderStyles';
 import {
-    ErrorMessage,
+    // ErrorMessage,
     Field,
     Form,
     Formik,
-    FormikValues,
-    validateYupSchema,
+    // FormikValues,
+    // validateYupSchema,
 } from 'formik';
 import * as yup from 'yup';
-import { GridEvents } from '@mui/x-data-grid';
+// import { GridEvents } from '@mui/x-data-grid';
 import {
-    AlignHorizontalCenter,
+    // AlignHorizontalCenter,
     Visibility,
     VisibilityOff,
 } from '@mui/icons-material';

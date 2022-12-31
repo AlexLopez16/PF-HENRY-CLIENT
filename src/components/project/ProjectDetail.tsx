@@ -5,12 +5,12 @@ import {
     Paper,
     List,
     Button,
-    ImageList,
-    ImageListItem,
+    // ImageList,
+    // ImageListItem,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-import { Box } from '@mui/system';
+// import { Box } from '@mui/system';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../reducers/rootReducer';
 import { addStudentToProject } from '../../actions/student';
@@ -45,7 +45,8 @@ const ProjectDetail: FC<ProjectProps> = ({
 
     const handlerApply = () => {
         dispatch(addStudentToProject(uid, token));
-        console.log('aplicado');
+        //revisar este console.log
+        // console.log('aplicado');
     };
 
     return (

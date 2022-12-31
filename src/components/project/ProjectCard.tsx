@@ -150,7 +150,7 @@ const ProjectCard: FC<CardProjectProps> = ({
                         margin: '0 5px',
                     }}
                 >
-                    {company.toUpperCase()}
+                    {company?.toUpperCase()}
                 </Typography>
             </Paper>
         </Paper>

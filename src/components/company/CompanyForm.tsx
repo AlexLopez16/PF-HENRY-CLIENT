@@ -27,7 +27,9 @@ import { VisibilityOff, Visibility } from '@mui/icons-material';
 
 import { registerCompany } from '../../actions/company';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link,
+    //  useNavigate
+     } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import { gmailLogin } from '../../actions/auth';
 import Header from '../NavbarLandingPage/HeaderLanding';
@@ -302,6 +304,7 @@ const CompanyForm: FC = () => {
                         gmailLogin(credentialResponse.credential as string, 'company'),
                       );
                     }}
+                    //revisar este console.log
                     onError={() => {
                       console.log('Login Failed');
                     }}

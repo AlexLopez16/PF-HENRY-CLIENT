@@ -1,5 +1,7 @@
 import { Typography } from '@mui/material';
-import { Box, Container } from '@mui/system';
+import { Box, 
+    // Container
+ } from '@mui/system';
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -18,7 +20,7 @@ const Postulated: FC = () => {
     }, [dispatch]);
 
     let { projectId } = useSelector((state: State) => state.project);
-    console.log('postulated', projectId);
+    // console.log('postulated', projectId);
 
     return (
         <div

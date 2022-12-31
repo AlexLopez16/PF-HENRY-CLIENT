@@ -104,7 +104,7 @@ const NavBar: FC = () => {
                         noWrap
                         // component="a"
                         // href="/dashboard"
-                        onClick={() => navigate('/dashboard')}
+                        onClick={() => navigate('/projects')}
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
@@ -161,7 +161,7 @@ const NavBar: FC = () => {
                     <Typography
                         variant="h5"
                         noWrap
-                        onClick={() => navigate('/dashboard')}
+                        onClick={() => navigate('/projects')}
                         sx={{
                             mr: 2,
                             display: { xs: 'flex', md: 'none' },
