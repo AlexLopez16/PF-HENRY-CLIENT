@@ -1,13 +1,11 @@
 import { FC } from 'react';
-
 import { Box, Typography, Paper, CardMedia, Chip } from '@mui/material';
 import clip from 'text-clipper';
-
 import Button from '@mui/material/Button';
 import { NavLink, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getProjectByID } from '../../actions/projects';
-import { Container } from '@mui/system';
+import BusinessIcon from '@mui/icons-material/Business';
 
 type CompanyData = {
     _id: string;
@@ -53,41 +51,33 @@ const ProjectCard: FC<CardProjectProps> = ({
         <Paper
             elevation={10}
             style={{
-                width: '100vh',
-                height: 'fit-content',
-                padding: 20,
-                margin: '20px auto',
+                padding: '20px',
+                marginTop: '20px',
             }}
         >
-            <Typography variant="subtitle1" sx={{ m: 0.5, color: '#898989' }}>
+            <Typography variant="subtitle2" sx={{ color: '#898989' }}>
                 {' '}
-                {category}
+                {category?.toUpperCase()}
             </Typography>
 
             <Typography
                 sx={{
-                    mb: 0.5,
                     display: 'flex',
                     justifyContent: 'space-between',
+                    alignItems: 'center',
                 }}
                 variant="h6"
             >
-                {name}
+                {name?.toUpperCase()}
                 <NavLink
                     to="/project"
                     style={{ textDecoration: 'none', marginTop: 'auto' }}
                 >
                     <Button
-                        sx={{
-                            ml: 'auto',
-                            fontWeight: 600,
-                            color: 'yellow',
-                            background: 'black',
-                            width: '100px',
-                        }}
+                        variant="contained"
+                        type="submit"
                         size="small"
                         color="primary"
-                        variant="text"
                         onClick={handleClick}
                     >
                         Mas info
@@ -95,61 +85,74 @@ const ProjectCard: FC<CardProjectProps> = ({
                 </NavLink>
             </Typography>
 
-            <Typography sx={{ m: 0.5 }} variant="h6">
-                {company}
-            </Typography>
-
             <Typography sx={{ m: 0.5 }}>{clippedDescription}</Typography>
 
-            <Box>
-                <div>
-                    <Typography
-                        variant="subtitle1"
-                        sx={{ m: 0.5, color: '#898989' }}
-                    >
-                        {' '}
-                        Requerimientos:
-                    </Typography>
-                    {requirements.map((p: any) => (
-                        <Chip label={p} sx={{ mb: 1, mr: 0.5 }} />
-                    ))}
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'space-between 2',
-                        }}
-                    >
-                        <Typography
-                            variant="subtitle1"
-                            sx={{
-                                mt: 0.8,
-                                color: '#898989',
-                            }}
-                        >
-                            Estado:{' '}
-                        </Typography>
-                        <Typography variant="subtitle2" sx={{ m: 0.5 }}>
-                            {' '}
-                            <Chip label={stateOfProject} sx={{ mr: 0.5 }} />
-                        </Typography>
-                    </Box>
-                    <Typography
-                        variant="subtitle1"
-                        sx={{ mb: 0.5, color: '#898989' }}
-                    >
-                        {' '}
-                        Participantes:{' '}
-                    </Typography>
-                    <Typography variant="subtitle2" sx={{ m: 0.5 }}>
-                        {' '}
-                        <Chip
-                            label={`${students?.length}/${participants}`}
-                            sx={{ mr: 0.5 }}
-                        />
-                        {/* {students?.length}/{participants}{' '} */}
-                    </Typography>
-                </div>
+            <Box sx={{ display: 'block', marginBottom: '10px' }}>
+                <Typography variant="subtitle1" sx={{ color: '#898989' }}>
+                    Requerimientos:
+                    {requirements.map(
+                        (requirement: string | any, index: number | any) => (
+                            <>
+                                {' '}
+                                <Chip
+                                    key={index}
+                                    size="small"
+                                    label={requirement}
+                                    // color="primary"
+                                />
+                            </>
+                        )
+                    )}
+                </Typography>
+
+                <Typography
+                    variant="subtitle1"
+                    sx={{
+                        color: '#898989',
+                    }}
+                >
+                    Estado:{' '}
+                    <Chip
+                        size="small"
+                        label={stateOfProject}
+                        // color="primary"
+                    />
+                </Typography>
+
+                <Typography variant="subtitle1" sx={{ color: '#898989' }}>
+                    {' '}
+                    Participantes:{' '}
+                    <Chip
+                        label={`${students?.length}/${participants}`}
+                        size="small"
+                        // color="primary"
+                    />
+                    {/* {students?.length}/{participants}{' '} */}
+                </Typography>
             </Box>
+            <Paper
+                elevation={5}
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    // border: '1px solid',
+                    width: 'max-content',
+                    padding: '2px 4px',
+                    // borderRadius: '4px',
+                }}
+            >
+                <BusinessIcon fontSize="small" />
+                <Typography
+                    variant="subtitle2"
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        margin: '0 5px',
+                    }}
+                >
+                    {company.toUpperCase()}
+                </Typography>
+            </Paper>
         </Paper>
     );
 };
