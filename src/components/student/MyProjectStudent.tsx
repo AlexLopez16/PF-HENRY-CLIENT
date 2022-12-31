@@ -1,10 +1,13 @@
 /**
  * By Sciangula Hugo.
  * NOTA: aca el estudiante va a poder ver todos los detalles con respecto a los proyectos.
+ * SE QUE FALTA MODULARIZARRRRRRRR :D, lo voy a hacer despues.
  */
 
 import {
     Alert,
+    Avatar,
+    AvatarGroup,
     Box,
     Button,
     Chip,
@@ -13,10 +16,11 @@ import {
     Stack,
     Typography,
 } from '@mui/material';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../reducers/rootReducer';
-import { getStudentInfo } from '../../actions/student';
+import { getStudentInfo, unApply } from '../../actions/student';
+// Dejamos importado el link porque quiza despues se pueda mostrar el detalle de cada companero.
 import { Link } from 'react-router-dom';
 
 const MyProjectStudent: FC = () => {
@@ -25,14 +29,22 @@ const MyProjectStudent: FC = () => {
     const { auth, student }: any = useSelector((state: State) => state);
     // Traemos el token del local storage.
     const token = localStorage.getItem('token') || '';
+    // const [participants, setParticipants] = useState('1');
+    const [recargar, setRecargar] = useState(false);
     // Traemos toda la info del student.
     useEffect(() => {
         dispatch(getStudentInfo(auth.data.id, token));
-    }, [dispatch]);
+    }, [dispatch, recargar]);
 
     // Definimos los objetos de informacion.
     const { user }: any = student;
     // Aca hay que trabajar con typescript para que quede mas limpia la sintaxis.
+
+    const handleClick = async () => {
+        dispatch(unApply(user.id, user.project[0].uid));
+        setRecargar(true);
+    };
+
     return (
         <Container maxWidth="lg">
             {user.working.length ? (
@@ -42,7 +54,7 @@ const MyProjectStudent: FC = () => {
                         align="center"
                         sx={{ margin: '20px 0' }}
                     >
-                        Mi proyecto: (Nota: ya me falta poquito para terminar)
+                        Mi proyecto:
                     </Typography>
                     <div>
                         <Paper
@@ -61,23 +73,113 @@ const MyProjectStudent: FC = () => {
                                 variant="h6"
                             >
                                 {user.working[0].name}
-                                <Link to="/project">
-                                    <Button
-                                        sx={{
-                                            ml: 'auto',
-                                            fontWeight: 600,
-                                            color: 'yellow',
-                                            background: 'black',
-                                        }}
-                                        size="small"
-                                        color="primary"
-                                        variant="text"
-                                        // onClick={handleClick}
-                                    >
-                                        Cancelar
-                                    </Button>
-                                </Link>
+
+                                <Button
+                                    sx={{
+                                        ml: 'auto',
+                                        fontWeight: 600,
+                                        color: 'yellow',
+                                        background: 'black',
+                                    }}
+                                    size="small"
+                                    color="primary"
+                                    variant="text"
+                                    onClick={handleClick}
+                                >
+                                    Cancelar
+                                </Button>
                             </Typography>
+                            <Typography
+                                style={{
+                                    marginBottom: '10px',
+                                }}
+                            >
+                                {user.working[0].description.slice(0, 500)} ...
+                            </Typography>
+                            <Box>
+                                <Typography
+                                    style={{
+                                        marginBottom: '10px',
+                                    }}
+                                >
+                                    Categoria:{' '}
+                                    <Chip
+                                        label={user.working[0].category}
+                                        color="primary"
+                                        size="small"
+                                    />
+                                </Typography>
+                                <Typography
+                                    style={{
+                                        marginBottom: '10px',
+                                    }}
+                                >
+                                    Tecnologias:{' '}
+                                    {user.working[0].requirements &&
+                                        user.working[0].requirements.map(
+                                            (
+                                                tecnology: string | any,
+                                                index: number | any
+                                            ) => (
+                                                <>
+                                                    {' '}
+                                                    <Chip
+                                                        key={index}
+                                                        label={tecnology}
+                                                        color="primary"
+                                                        size="small"
+                                                    />
+                                                </>
+                                            )
+                                        )}
+                                </Typography>
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        marginBottom: '10px',
+                                    }}
+                                >
+                                    <Typography>{'Equipo:'} </Typography>
+
+                                    <AvatarGroup
+                                        max={user.working[0].participants}
+                                    >
+                                        {user.working[0].accepts &&
+                                            user.working[0].accepts.map(
+                                                (person: object | any) => {
+                                                    return (
+                                                        <Avatar
+                                                            alt={person.name}
+                                                            src={
+                                                                person.image !==
+                                                                undefined
+                                                                    ? person.image
+                                                                    : person.name
+                                                            }
+                                                            sx={{
+                                                                width: 30,
+                                                                height: 30,
+                                                            }}
+                                                        />
+                                                    );
+                                                }
+                                            )}
+                                    </AvatarGroup>
+                                </Box>
+                                <Typography
+                                    style={{
+                                        marginBottom: '10px',
+                                    }}
+                                >
+                                    Empresa:{' '}
+                                    <Chip
+                                        label={user.working[0].company.name}
+                                        color="primary"
+                                        size="small"
+                                    />
+                                </Typography>
+                            </Box>
                         </Paper>
                     </div>
                 </>
@@ -109,22 +211,20 @@ const MyProjectStudent: FC = () => {
                                         variant="h6"
                                     >
                                         {project.name}
-                                        <Link to="/project">
-                                            <Button
-                                                sx={{
-                                                    ml: 'auto',
-                                                    fontWeight: 600,
-                                                    color: 'yellow',
-                                                    background: 'black',
-                                                }}
-                                                size="small"
-                                                color="primary"
-                                                variant="text"
-                                                // onClick={handleClick}
-                                            >
-                                                Cancelar
-                                            </Button>
-                                        </Link>
+                                        <Button
+                                            sx={{
+                                                ml: 'auto',
+                                                fontWeight: 600,
+                                                color: 'yellow',
+                                                background: 'black',
+                                            }}
+                                            size="small"
+                                            color="primary"
+                                            variant="text"
+                                            onClick={handleClick}
+                                        >
+                                            Cancelar
+                                        </Button>
                                     </Typography>
 
                                     <Typography
@@ -172,5 +272,4 @@ const MyProjectStudent: FC = () => {
         </Container>
     );
 };
-
 export default MyProjectStudent;
