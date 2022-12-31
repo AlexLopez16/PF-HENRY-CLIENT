@@ -15,8 +15,8 @@ export const validaToken = (token: string) => {
             });
             const { id, rol } = data;
             if (status) {
-                console.log(status);
-                console.log(rol);
+                // console.log(status);
+                // console.log(rol);
                 localStorage.setItem('token', token);
                 dispatch(login({ data, status, id, rol }));
             }

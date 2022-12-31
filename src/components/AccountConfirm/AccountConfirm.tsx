@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { Box, Typography } from '@mui/material';
 
 const AccountConfirm:FC = () => {
+    //revisar token aca 
     const {token} = useParams()
     return (
         <Box display='flex' sx={{

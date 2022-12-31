@@ -45,7 +45,7 @@ const StudentCard: FC<StudentProps> = ({
     let rol = useSelector((state: State) => state.auth.data.rol);
 
     const { id } = useParams();
-    console.log(id);
+    // console.log(id);
     const handleClick = () => {
         setOpen(!open);
     };

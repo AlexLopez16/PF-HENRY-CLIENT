@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Dispatch } from 'redux';
 import { types } from '../types/types';
 import { fileUpload } from '../helpers/fileUpload';
-import { type } from 'os';
+// import { type } from "os";
 
 export const getListStudents = (
     token: string | null,
@@ -27,8 +27,8 @@ export const getListStudents = (
 export const studentRegister = (values: object) => {
     return async (dispatch: Dispatch) => {
         try {
-            const res = await axios.post('/student', values);
-            console.log(res.data);
+            const res = await axios.post('/student', values)
+            // console.log(res.data);
 
             dispatch({
                 type: types.studentRegister,
@@ -112,11 +112,10 @@ export const searchProject = (name: string, token: string) => {
 export const addStudentToProject = (id: string, token: string) => {
     return async (dispatch: Dispatch) => {
         try {
-            console.log('token', token);
-
-            const res = await axios.put(`/project/${id}`, undefined, {
-                headers: { 'user-token': token },
-            });
+            // console.log("token",token);
+            
+            const res = await axios.put(`/project/${id}`,undefined, { headers: { 'user-token': token } });
+            
 
             dispatch({
                 type: types.addStudentToProject,

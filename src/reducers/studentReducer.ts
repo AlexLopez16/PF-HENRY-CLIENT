@@ -1,5 +1,7 @@
-import { userInfo } from 'os';
-import { types } from '../types/types';
+
+// import { type, userInfo } from "os";
+import { types } from "../types/types";
+
 
 interface State {
     user: object | any;
