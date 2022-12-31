@@ -30,6 +30,8 @@ import Footer from '../../pages/LandingPage/Footer';
 import { Link } from 'react-router-dom';
 import { alert } from '../AlertMail/alertMailStudent';
 
+import Logo from '../../assets/NABIJASH.png'
+
 export const StudensForm: FC = () => {
     const [showPassword, setShowPassword] = useState(false);
 
@@ -92,7 +94,7 @@ export const StudensForm: FC = () => {
                     alignItems="center"
                 >
                     <img
-                        src="../public/assets/NABIJASH.png"
+                        src={Logo}
                         style={{
                             justifyContent: 'center',
                             marginTop: 10,
@@ -256,7 +258,7 @@ export const StudensForm: FC = () => {
                     size='large'
                     onSuccess={(credentialResponse) => {
                       dispatch(
-                        gmailLogin(credentialResponse.credential, 'student'),
+                        gmailLogin(credentialResponse.credential as string, 'student'),
                       );
                     }}
                     onError={() => {
