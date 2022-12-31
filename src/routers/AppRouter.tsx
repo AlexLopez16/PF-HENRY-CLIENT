@@ -246,17 +246,7 @@ export const AppRouter = () => {
                         element={<PasswordRecover />}
                     />
                     <Route path="/p" element={<ProjectsStudents />} />
-                    {/* <Route
-            path="/companyProject"
-            element={
-                <>
-                <NavBar />
-              <PrivateRoute>
-                <ProjectCompany />
-              </PrivateRoute>
-              </>
-            }
-          /> */}
+             
                     <Route
                         path="/postulated/:id"
                         element={
