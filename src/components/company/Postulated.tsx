@@ -46,7 +46,7 @@ const Postulated: FC = () => {
                 >
                     Postulados
                 </Typography>
-                {projectId.students.length ? (
+                {projectId && projectId.students.length ? (
                     projectId.students.map((p: any) => (
                         <StudentCard
                             name={p.name}
@@ -90,7 +90,7 @@ const Postulated: FC = () => {
                         justifyContent: 'space-around',
                     }}
                 >
-                    {projectId.accepts.length ? (
+                    {projectId && projectId.accepts.length ? (
                         projectId.accepts.map((p: any) => (
                             <StudentCard
                                 name={p.name}

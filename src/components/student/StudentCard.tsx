@@ -26,7 +26,7 @@ interface StudentProps {
     tecnologies: object[];
     image: string;
     idstd: string;
-    working: boolean;
+    working: string[];
     isAccepted: boolean;
 }
 
@@ -58,7 +58,7 @@ const StudentCard: FC<StudentProps> = ({
     };
 
     let style;
-    working.length // si el alumno esta en postulado aparece con un style y si es aceptado (working) con otro
+    working && working.length // si el alumno esta en postulado aparece con un style y si es aceptado (working) con otro
         ? (style = {
               width: 400,
               height: 'fit-content',
@@ -87,7 +87,7 @@ const StudentCard: FC<StudentProps> = ({
                     <Typography variant="h6">
                         {email}
 
-                        {rol === 'COMPANY_ROL' && !working.length ? (
+                        {rol === 'COMPANY_ROL' && working && !working.length ? (
                             <Button
                                 sx={{
                                     ml: '40px',
@@ -144,9 +144,10 @@ const StudentCard: FC<StudentProps> = ({
                         <List>
                             <Typography variant="body1">
                                 Skills:{' '}
-                                {tecnologies.map(({ skill, exp }: any) => (
-                                    <p>{`${skill}: ${exp}`}</p>
-                                ))}
+                                {tecnologies &&
+                                    tecnologies.map(({ skill, exp }: any) => (
+                                        <p>{`${skill}: ${exp}`}</p>
+                                    ))}
                             </Typography>
                         </List>
                     </List>
