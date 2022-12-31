@@ -15,8 +15,8 @@ export const validaToken = (token: string) => {
             });
             const { id, rol } = data;
             if (status) {
-                console.log(status);
-                console.log(rol);
+                // console.log(status);
+                // console.log(rol);
                 localStorage.setItem('token', token);
                 dispatch(login({ data, status, id, rol }));
             }
@@ -63,8 +63,6 @@ export const gmailLogin = (tok: string | any, userType: string | any) => {
 
             if (status) {
                 localStorage.setItem('token', token);
-                localStorage.setItem('id', id);
-                localStorage.setItem('rol', rol);
                 dispatch(login({ data, status, token, id, rol }));
             }
         } catch (error: any) {

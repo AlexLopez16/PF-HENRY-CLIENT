@@ -1,3 +1,6 @@
+import { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import {
   Card,
   CardMedia,
@@ -5,13 +8,22 @@ import {
   Typography,
   Button,
   CardActions,
+  Box
 } from '@mui/material';
-import { Box } from '@mui/system';
-import { FC } from 'react';
-import { useNavigate } from 'react-router-dom';
+
 import Header from '../../components/NavbarLandingPage/HeaderLanding';
-import aboutbg from '../../../public/assets/aboutbg.png';
 import Footer from './Footer';
+
+import aboutbg from '../../assets/aboutbg.png';
+import Alejandro from "../../assets/team/rivo.png";
+import Amparo from "../../assets/team/ampi.png";
+import BrianPaez from "../../assets/team/brian.png";
+import HugoS from "../../assets/team/hugo.png";
+import Jonathan from "../../assets/team/jona.png";
+import IgnacioSanchez from "../../assets/team/nachito.png";
+import IgnacioNicoletti from "../../assets/team/nacho.png";
+import Silvana from "../../assets/team/silvana.png";
+
 
 const AboutUsPage: FC = () => {
   const navigate = useNavigate();
@@ -147,7 +159,7 @@ const AboutUsPage: FC = () => {
                   boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
                 }}
                 component='img'
-                image='../../public/assets/team/rivo.png'
+                image={Alejandro}
                 alt='profilephoto'
               />
               <CardContent>
@@ -211,7 +223,7 @@ const AboutUsPage: FC = () => {
                   boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
                 }}
                 component='img'
-                image='../../public/assets/team/nacho.png'
+                image={IgnacioNicoletti}
                 alt='profilephoto'
               />
               <CardContent>
@@ -275,7 +287,7 @@ const AboutUsPage: FC = () => {
                   boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
                 }}
                 component='img'
-                image='../../public/assets/team/ampi.png'
+                image={Amparo}
                 alt='profilephoto'
               />
               <CardContent>
@@ -339,7 +351,7 @@ const AboutUsPage: FC = () => {
                   boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
                 }}
                 component='img'
-                image='../../public/assets/team/silvana.png'
+                image={Silvana}
                 alt='profilephoto'
               />
               <CardContent>
@@ -416,7 +428,7 @@ const AboutUsPage: FC = () => {
                   boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
                 }}
                 component='img'
-                image='../../public/assets/team/hugo.png'
+                image={HugoS}
                 alt='profilephoto'
               />
               <CardContent>
@@ -480,7 +492,7 @@ const AboutUsPage: FC = () => {
                   boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
                 }}
                 component='img'
-                image='../../public/assets/team/nachito.png'
+                image={IgnacioSanchez}
                 alt='profilephoto'
               />
               <CardContent>
@@ -544,7 +556,7 @@ const AboutUsPage: FC = () => {
                   boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
                 }}
                 component='img'
-                image='../../public/assets/team/brian.png'
+                image={BrianPaez}
                 alt='profilephoto'
               />
               <CardContent>
@@ -608,7 +620,7 @@ const AboutUsPage: FC = () => {
                   boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
                 }}
                 component='img'
-                image='../../public/assets/team/jona.png'
+                image={Jonathan}
                 alt='profilephoto'
               />
               <CardContent>

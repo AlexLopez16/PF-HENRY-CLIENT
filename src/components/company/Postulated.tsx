@@ -1,5 +1,7 @@
 import { Typography } from '@mui/material';
-import { Box, Container } from '@mui/system';
+import { Box, 
+    // Container
+ } from '@mui/system';
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -12,15 +14,13 @@ const Postulated: FC = () => {
 
     let token: string = localStorage.getItem('token') || '';
     let { id }: any = useParams();
-
+    const [render, setRender] = useState(false);
     useEffect(() => {
         dispatch(getProjectByID(token, id));
     }, [dispatch]);
 
-    const [render, setRender] = useState(false);
-
     let { projectId } = useSelector((state: State) => state.project);
-    console.log('postulated', projectId);
+    // console.log('postulated', projectId);
 
     return (
         <div
@@ -30,19 +30,25 @@ const Postulated: FC = () => {
                 justifyContent: 'space-around',
             }}
         >
-            <div>
+            <div
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-around',
+                }}
+            >
                 <Typography
                     variant="h5"
                     sx={{
                         marginTop: 5,
                         alignSelf: 'center',
-                        ml: 10,
+                        ml: 2,
                         fontWeight: 600,
                     }}
                 >
                     Postulados
                 </Typography>
-                {projectId.students.length ? (
+                {projectId && projectId.students.length ? (
                     projectId.students.map((p: any) => (
                         <StudentCard
                             name={p.name}
@@ -52,8 +58,7 @@ const Postulated: FC = () => {
                             image={p.image}
                             idstd={p._id}
                             working={p.working}
-                            setRender={setRender}
-                            render={render}
+                            isAccepted={false}
                         />
                     ))
                 ) : (
@@ -74,7 +79,7 @@ const Postulated: FC = () => {
                     sx={{
                         marginTop: 5,
                         alignSelf: 'center',
-                        ml: 20,
+                        ml: 22,
                         fontWeight: 600,
                     }}
                 >
@@ -87,7 +92,7 @@ const Postulated: FC = () => {
                         justifyContent: 'space-around',
                     }}
                 >
-                    {projectId.accepts.length ? (
+                    {projectId && projectId.accepts.length ? (
                         projectId.accepts.map((p: any) => (
                             <StudentCard
                                 name={p.name}
@@ -97,15 +102,18 @@ const Postulated: FC = () => {
                                 image={p.image}
                                 idstd={p._id}
                                 working={p.working}
-                                setRender={setRender}
-                                render={render}
+                                isAccepted={true}
                             />
                         ))
                     ) : (
-                        <Box sx={{ mt: 30 }}>
+                        <Box sx={{ mt: 25 }}>
                             <Typography
                                 variant="h6"
-                                sx={{ marginTop: 5, alignSelf: 'center' }}
+                                sx={{
+                                    marginTop: 5,
+                                    alignSelf: 'center',
+                                    marginLeft: 6,
+                                }}
                             >
                                 Todavia no haz aceptado estudiantes
                             </Typography>

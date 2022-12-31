@@ -6,7 +6,7 @@ import {
 } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import WorkIcon from '@mui/icons-material/Work';
-import { Outlet } from 'react-router-dom';
+// import { Outlet } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
 const linkStyle = {

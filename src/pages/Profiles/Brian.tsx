@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import {
   CardMedia,
   CardContent,
@@ -6,10 +7,12 @@ import {
   CardActions,
   FormControl,
   Grid,
+  Box,
+  Container
 } from '@mui/material';
-import { Box, Container } from '@mui/system';
-import { useNavigate } from 'react-router-dom';
-import aboutbg from '../../../public/assets/aboutbg.png';
+
+import aboutbg from '../../assets/aboutbg.png';
+import BrianPaez from "../../assets/team/brian.png";
 
 export default function Brian() {
   const navigate = useNavigate();
@@ -80,7 +83,7 @@ export default function Brian() {
             ml: 9.3,
           }}
           component='img'
-          image='../../public/assets/team/brian.png'
+          image={BrianPaez}
           alt='profilephoto'
         />
         <CardContent>

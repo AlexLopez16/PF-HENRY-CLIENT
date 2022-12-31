@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import {
   CardMedia,
   CardContent,
@@ -6,10 +7,12 @@ import {
   CardActions,
   FormControl,
   Grid,
+  Box,
+  Container
 } from '@mui/material';
-import { Box, Container } from '@mui/system';
-import { useNavigate } from 'react-router-dom';
-import aboutbg from '../../../public/assets/aboutbg.png';
+
+import aboutbg from '../../assets/aboutbg.png';
+import Jonathan from "../../assets/team/jona.png";
 
 export default function Jona() {
   const navigate = useNavigate();
@@ -84,7 +87,7 @@ export default function Jona() {
             ml: 9.3,
           }}
           component='img'
-          image='../../public/assets/team/jona.png'
+          image={Jonathan}
           alt='profilephoto'
         />
         <CardContent>
