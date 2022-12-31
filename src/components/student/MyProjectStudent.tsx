@@ -42,7 +42,7 @@ const MyProjectStudent: FC = () => {
 
     const handleClick = async () => {
         dispatch(unApply(user.id, user.project[0].uid));
-        setRecargar(true);
+        setRecargar(!recargar);
     };
 
     return (
