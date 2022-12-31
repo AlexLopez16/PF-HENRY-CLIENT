@@ -4,7 +4,7 @@ import ProjectCard from '../components/project/ProjectCard';
 import SideBar from '../components/SideBar/SideBar';
 import NavBar from '../components/ui/NavBar';
 import SearchBar from '../components/ui/SearchBar';
-import DashboardStudent from './../components/student/DashboardStudent';
+import DashboardStudent from '../components/student/DashboardStudent';
 import DashboardCompany from '../components/company/DashboardCompany';
 import { useSelector } from 'react-redux';
 import { State } from '../reducers/rootReducer';
@@ -17,7 +17,7 @@ export const HomePage = () => {
     let role = rol
 
     return (
-        role === 'STUDENT_ROL' ?
+        rol === 'STUDENT_ROL' ?
             <>
                 <SearchBar />
 
@@ -26,7 +26,7 @@ export const HomePage = () => {
                     <DashboardStudent />
                 </div>
             </> 
-            : role === 'COMPANY_ROL' ?
+            : rol === 'COMPANY_ROL' ?
 
                 <>
                     <SearchBar />
@@ -36,10 +36,11 @@ export const HomePage = () => {
                         <DashboardCompany />
                     </div>
                 </>
-                : role === 'ADMIN_ROL' ?? <>
+                : rol === 'ADMIN_ROL' ?? <>
                     <SearchBar />
-
+                   
                     <div style={{ display: 'flex' }}>
+                        
                         <SideBar />
                         <AdminStudent />
                     </div>
