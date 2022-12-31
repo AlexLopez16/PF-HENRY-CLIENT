@@ -23,8 +23,10 @@ import {
 } from '@mui/material';
 import { deleteStudent, getListStudents } from '../../../actions/student';
 import { State } from '../../../reducers/rootReducer';
-import { getProject, getProjectsFilter } from '../../../actions/projects';
+import { getAllProject, getProject, getProjectsFilter } from '../../../actions/projects';
 import Switch from '@mui/material/Switch';
+import { deleteuser } from '../../../actions/Admin';
+import { Visibility } from '@mui/icons-material';
 
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -44,8 +46,9 @@ const AdminProject: FC = ({ ...rest }) => {
     const token: any = localStorage.getItem('token')
 
     useEffect(() => {
-        dispatch(getProject(token))
-        dispatch(getProjectsFilter())
+        // dispatch(getProject(token))
+        dispatch( getAllProject(token))
+       
     }, [dispatch])
 
     const { projectsFilter } = useSelector((state: State) => state.project)
@@ -54,14 +57,13 @@ const AdminProject: FC = ({ ...rest }) => {
     const [limit, setLimit] = useState(12);
     const [page, setPage] = useState(0);
     // const [deleted, setDeleted] = useState<boolean>(false)
-    let activo = projects.state
 
-
+console.log(projects);
 
     const handleSelectAll = (event: any) => {
         let newSelectedCustomerIds;
         if (event.target.checked) {
-            newSelectedCustomerIds = projects.map((projects: any) => projects.id);
+            newSelectedCustomerIds = projects.map((project: any) => project.uid);
         } else {
             newSelectedCustomerIds = [];
         }
@@ -94,7 +96,8 @@ const AdminProject: FC = ({ ...rest }) => {
 
     const handleSwitch = () => {
 
-        // selectedCustomerIds.forEach((selectID: any) => dispatch(deleteStudent(token, selectID)))
+        selectedCustomerIds.forEach((selectID: any) => dispatch(deleteuser(token, selectID)))
+console.log(selectedCustomerIds);
 
     }
 
@@ -110,10 +113,11 @@ const AdminProject: FC = ({ ...rest }) => {
         <Card {...rest}>
             <Box sx={{ minWidth: 1050 }}>
                 <Table>
-                    <TableHead>
+                    <TableHead >
                         <TableRow>
-                            <TableCell padding="checkbox">
+                            <TableCell padding="checkbox" >
                                 <Checkbox
+                              
                                     checked={selectedCustomerIds.length === projects.length}
                                     color="primary"
                                     indeterminate={
@@ -123,7 +127,7 @@ const AdminProject: FC = ({ ...rest }) => {
                                     onChange={handleSelectAll}
                                 />
                             </TableCell>
-                            <TableCell>
+                            <TableCell >
                                 Nombre
                             </TableCell>
                             <TableCell>
@@ -194,14 +198,7 @@ const AdminProject: FC = ({ ...rest }) => {
                                         ? `${moment(projects.admission).format('DD/MM/YYYY')}`
                                         : 'No registrado'}
                                 </TableCell>
-                                <TableCell>
-                                    <EditIcon />
-                                </TableCell>
-                                {/* <TableCell>
-                    <Button onClick={handleDelete}><DeleteIcon sx={{color: '#000'}}/></Button>
-                  </TableCell> */}
-
-
+                               
                                 <FormGroup
                                     sx={{
                                         display: 'flex',
@@ -213,7 +210,7 @@ const AdminProject: FC = ({ ...rest }) => {
                                     <FormControlLabel
                                         control={
                                             <Switch
-                                                defaultChecked={activo}
+                                                defaultChecked={projects.state}
                                                 size='small'
                                                 color='primary'
                                                 onChange={handleSwitch}
