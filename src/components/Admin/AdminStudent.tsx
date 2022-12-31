@@ -1,12 +1,12 @@
-import { FC, useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Doughnut } from 'react-chartjs-2';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Box } from '@mui/system';
-import { disableStudent, getListStudents } from '../../actions/student';
-import * as moment from 'moment'
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
+import { FC, useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Box } from "@mui/system";
+import { disableStudent, getListStudents } from "../../actions/student";
+import { validaToken } from "../../actions/auth";
+import * as moment from "moment";
+import EditIcon from "@mui/icons-material/Edit";
+import { State } from "../../reducers/rootReducer";
 import {
   Avatar,
   Card,
@@ -17,70 +17,77 @@ import {
   TableHead,
   TableRow,
   Typography,
-  InputLabel, 
-  Button, 
   FormControlLabel,
   Switch,
-  FormGroup
-} from '@mui/material';
-
+  FormGroup,
+} from "@mui/material";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+const AdminStudent: FC = () => {
+  const { users } = useSelector((state: any) => state.student);
+  const dispatch = useDispatch();
+  const token = localStorage.getItem("token");
 
-const AdminStudent: FC = ({...rest}) => {
-    const { users } = useSelector((state:any) => state.student)
-    const dispatch = useDispatch()
-    const token = localStorage.getItem('token')
-    
-    useEffect(() => {
-        dispatch(getListStudents(token, false))
-    }, [dispatch])
+  const { status } = useSelector((state: State) => state.auth);
 
-    console.log(users)
+  if (!status && token) {
+    dispatch(validaToken(token));
+  }
+
+  useEffect(() => {
+    dispatch(getListStudents(token, false));
+  }, [dispatch]);
 
   const [selectedCustomerIds, setSelectedCustomerIds] = useState<string[]>([]);
   const [limit, setLimit] = useState(12);
   const [page, setPage] = useState(0);
-  const [deleted, setDeleted] = useState<boolean>(false)
+  const [select, setSelect] = useState<boolean>(false);
+
+  // <--- Aca esta el problema de que no seleccione todos --->
   const handleSelectAll = (event: any) => {
     let newSelectedCustomerIds;
-
     if (event.target.checked) {
       newSelectedCustomerIds = users.map((user: any) => user.id);
     } else {
       newSelectedCustomerIds = [];
     }
-
     setSelectedCustomerIds(newSelectedCustomerIds);
+    console.log(selectedCustomerIds); //--> me trae un array con 14 undefined
   };
 
-  const handleSelectOne = (uid: any) => {
+  // <--- Este trabaja agarrando uno por uno --->
+  const handleSelectOne = (uid: string) => {
     let newSelectedCustomerIds: string[] = [];
     const selectedIndex = selectedCustomerIds.indexOf(uid);
 
     if (selectedIndex === -1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds, uid);
+      newSelectedCustomerIds = newSelectedCustomerIds.concat(
+        selectedCustomerIds,
+        uid
+      );
     } else if (selectedIndex === 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(1));
+      newSelectedCustomerIds = newSelectedCustomerIds.concat(
+        selectedCustomerIds.slice(1)
+      );
     } else if (selectedIndex === selectedCustomerIds.length - 1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(0, -1));
+      newSelectedCustomerIds = newSelectedCustomerIds.concat(
+        selectedCustomerIds.slice(0, -1)
+      );
     } else if (selectedIndex > 0) {
       newSelectedCustomerIds = newSelectedCustomerIds.concat(
         selectedCustomerIds.slice(0, selectedIndex),
         selectedCustomerIds.slice(selectedIndex + 1)
       );
-
     }
-    
-    setDeleted(true)
+    setSelect(true);
     setSelectedCustomerIds(newSelectedCustomerIds);
   };
 
-  const handleDisable = () => {
-    selectedCustomerIds.forEach((selectID: any) =>
-      dispatch(disableStudent(token, selectID)),
-    );
+  const handleDisable = (selectID: string) => {
+    // selectedCustomerIds.forEach((selectID: string) =>
+    dispatch(disableStudent(token, selectID));
+    // );
   };
 
   const handleLimitChange = (event: any) => {
@@ -92,109 +99,118 @@ const AdminStudent: FC = ({...rest}) => {
   };
 
   return (
-    <Card {...rest}>
-        <Box sx={{ minWidth: 1050 }}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell padding="checkbox">
-                  <Checkbox
-                    checked={selectedCustomerIds.length === users.length}
-                    color="primary"
-                    indeterminate={
-                      selectedCustomerIds.length > 0
-                      && selectedCustomerIds.length < users.length
-                    }
-                    onChange={handleSelectAll}
-                  />
-                </TableCell>
-                <TableCell>Nombre</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>Ubicacion</TableCell>
-                <TableCell>Estado</TableCell>
-                <TableCell>Fecha de ingreso</TableCell>
-                
-                {deleted  && <Button onClick={handleDisable}><DeleteIcon sx={{color: '#000'}}/></Button>}
+    <Card>
+      <Box sx={{ minWidth: 1050 }}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              {/* <TableCell padding="checkbox">
+                <Checkbox
+                  checked={selectedCustomerIds.length === users.length}
+                  color="primary"
+                  indeterminate={
+                    selectedCustomerIds.length > 0 &&
+                    selectedCustomerIds.length < users.length
+                  }
+                  onChange={handleSelectAll}
+                />
+              </TableCell> */}
+              <TableCell>Nombre</TableCell>
+              <TableCell>Email</TableCell>
+              <TableCell>Ubicacion</TableCell>
+              <TableCell>Estado</TableCell>
+              <TableCell>Fecha de ingreso</TableCell>
 
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {users.slice(0, limit).map((user: any ) => (
-                <TableRow
-                  hover
-                  key={user.uid}
-                  selected={selectedCustomerIds.indexOf(user.uid) !== -1}
+              {/* {select  && <Button onClick={handleDisable}><DeleteIcon sx={{color: '#000'}}/></Button>} */}
+              {/* {select && (
+                <FormGroup
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    mt: 3,
+                  }}
                 >
-                  <TableCell padding="checkbox">
-                     <Checkbox
-                      checked={selectedCustomerIds.indexOf(user.uid) !== -1}
-                      onChange={(event) => handleSelectOne(user.uid)}
-                      value="true"
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <Box
-                      sx={{
-                        alignItems: 'center',
-                        display: 'flex'
-                      }}
-                    >
-                      <Avatar
-                        src={user.avatarUrl}
-                        sx={{ mr: 2 }}
-                      >
-                        
-                      </Avatar>
-                      <Typography
-                        color="textPrimary"
-                        variant="body1"
-                      >
-                        {user.name}
-                      </Typography>
-                    </Box>
-                  </TableCell>
-                  <TableCell>
-                    {user.email}
-                  </TableCell>
-                  <TableCell>
-                    {user.country ? user.country  :'No registrado'}
-                  </TableCell>
-                  <TableCell>
-                    {user.state ? "Activo": "Inactivo"}
-                  </TableCell> 
-                  <TableCell>
-                    {user.admission 
-                    ? `${moment(user.admission).format('DD/MM/YYYY')}` 
-                    : 'No registrado'}
-                  </TableCell>
-                  <TableCell>
-                    <EditIcon />
-                  </TableCell>
-                  <FormGroup
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        defaultChecked
+                        size="small"
+                        color="primary"
+                        onChange={handleDisable}
+                      />
+                    }
+                    label={undefined}
+                  />
+                </FormGroup>
+              )} */}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {users.slice(0, limit).map((user: any) => (
+              <TableRow
+                hover
+                key={user.uid}
+                selected={selectedCustomerIds.indexOf(user.uid) !== -1}
+              >
+                {/* <TableCell padding="checkbox">
+                  <Checkbox
+                    checked={selectedCustomerIds.indexOf(user.uid) !== -1}
+                    onChange={() => handleSelectOne(user.uid)}
+                    value="true"
+                  />
+                </TableCell> */}
+                <TableCell>
+                  <Box
                     sx={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      mt: 3,
+                      alignItems: "center",
+                      display: "flex",
                     }}
                   >
-                    <FormControlLabel
-                      control={
-                        <Switch
-                          defaultChecked
-                          size='small'
-                          color='primary'
-                          onChange={handleDisable}
-                        />
-                      }
-                      label={undefined}
-                    />
-                  </FormGroup>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </Box>
+                    <Avatar src={user.avatarUrl} sx={{ mr: 2 }}></Avatar>
+                    <Typography color="textPrimary" variant="body1">
+                      {user.name}
+                    </Typography>
+                  </Box>
+                </TableCell>
+                <TableCell>{user.email}</TableCell>
+                <TableCell>
+                  {user.country ? user.country : "No registrado"}
+                </TableCell>
+                <TableCell>{user.state ? "Activo" : "Inactivo"}</TableCell>
+                <TableCell>
+                  {user.admission
+                    ? `${moment(user.admission).format("DD/MM/YYYY")}`
+                    : "No registrado"}
+                </TableCell>
+                <TableCell>
+                  <EditIcon />
+                </TableCell>
+                <FormGroup
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    mt: 3,
+                  }}
+                >
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        defaultChecked={user.state ? true : false}
+                        size="small"
+                        color="primary"
+                        onChange={() => handleDisable(user.uid)}
+                      />
+                    }
+                    label={undefined}
+                  />
+                </FormGroup>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Box>
     </Card>
   );
 };
