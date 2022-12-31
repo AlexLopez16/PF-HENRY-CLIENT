@@ -67,6 +67,7 @@ export const getProjectsFilter = (
     stateOfProject?: string[] | undefined,
     limit?: number | undefined,
     init?: number | undefined
+
 ) => {
     return async (dispatch: Dispatch) => {
         try {

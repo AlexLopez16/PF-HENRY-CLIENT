@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import type { } from 'redux-thunk/extend-redux';
+import type {} from 'redux-thunk/extend-redux';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -22,7 +22,6 @@ import {
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import Divider from '@mui/material/Divider';
 
-// import { GoogleLogin } from './GoogleLogin';
 import { GitHubLogin } from './GitHubLogin';
 import { GoogleLogin } from '@react-oauth/google';
 
@@ -65,7 +64,10 @@ export const LoginScreen: FC = () => {
     });
 
     const onSubmit = (values: any, props: any) => {
-        dispatch(startLogin(values));
+        dispatch(startLogin({
+            email:values.email.toLowerCase(),
+            password:values.password
+        }));
 
         setTimeout(() => {
             if (status === '200') {
@@ -95,8 +97,10 @@ export const LoginScreen: FC = () => {
                     justifyContent='center'
                     alignItems='center'
                 >
+
                     <img
                         src={Logo}
+
                         style={{
                             justifyContent: 'center',
                             marginTop: 10,
@@ -113,9 +117,14 @@ export const LoginScreen: FC = () => {
                             mb: 12.5,
                         }}
                     >
-                        <Grid textAlign='center'>
+                        <Grid textAlign="center">
                             <h2
-                                style={{ fontFamily: 'Montserrat', marginBottom: 5 }}>
+                                style={{
+                                    fontFamily: 'Montserrat',
+                                    marginBottom: 5,
+                                }}
+                            >
+
                                 Ingresar
                             </h2>
                         </Grid>
