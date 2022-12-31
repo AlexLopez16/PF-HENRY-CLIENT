@@ -229,3 +229,21 @@ export const Filters = (
         payload: obj,
     };
 };
+
+
+export const getAllProject = (token: string) => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const res = await axios.get('/project/all', {
+                headers: { 'user-token': token },
+            });
+
+            dispatch({
+                type: types.projectsFilter,
+                payload: res.data,
+            });
+        } catch (error: any) {
+            console.log(error.res.data);
+        }
+    };
+};

@@ -35,4 +35,5 @@ export const types = {
 
     showError: '[error] Show Error',
     clearError: '[error] Clear Error',
+    getAllProjects:"[project] get all Project"
 };
