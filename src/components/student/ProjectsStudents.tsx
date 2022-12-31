@@ -1,3 +1,7 @@
+/**
+ * Redisenado por Hugo.
+ * PD: Si no te gusta nos podemos cagar bien a trompadas porque esta bien feo.
+ */
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -76,7 +80,7 @@ const ProjectsStudents: FC = () => {
         <Box>
             <StudentsFilter />
             <Pages />
-            <Container maxWidth="lg" sx={{ marginLeft: 50 }}>
+            <Container maxWidth="lg">
                 {info.length ? (
                     info.map((e: any) => (
                         <ProjectCard

@@ -26,9 +26,8 @@ interface StudentProps {
     tecnologies: object[];
     image: string;
     idstd: string;
-    working: boolean;
-    setRender: boolean | any;
-    render: boolean | any;
+    working: string[];
+    isAccepted: boolean;
 }
 
 const StudentCard: FC<StudentProps> = ({
@@ -39,8 +38,7 @@ const StudentCard: FC<StudentProps> = ({
     image,
     idstd,
     working,
-    setRender,
-    render,
+    isAccepted,
 }: StudentProps | any) => {
     const dispatch = useDispatch();
     const [open, setOpen] = React.useState(true);
@@ -54,15 +52,13 @@ const StudentCard: FC<StudentProps> = ({
 
     const handlerAccept = () => {
         dispatch(acceptStudent(id, idstd));
-        setRender(!render);
     };
     const handlerDelete = () => {
         dispatch(DeleteStudent(id, idstd));
-        setRender(!render);
     };
 
     let style;
-    working === true // si el alumno esta en postulado aparece con un style y si es aceptado (working) con otro
+    working && working.length // si el alumno esta en postulado aparece con un style y si es aceptado (working) con otro
         ? (style = {
               width: 400,
               height: 'fit-content',
@@ -71,7 +67,7 @@ const StudentCard: FC<StudentProps> = ({
               display: 'inline-block',
           })
         : (style = {
-              width: 'auto',
+              width: 400,
               height: '100%',
               padding: 20,
               margin: '50px',
@@ -91,7 +87,7 @@ const StudentCard: FC<StudentProps> = ({
                     <Typography variant="h6">
                         {email}
 
-                        {rol === 'COMPANY_ROL' && working === false ? (
+                        {rol === 'COMPANY_ROL' && working && !working.length ? (
                             <Button
                                 sx={{
                                     ml: '40px',
@@ -106,7 +102,7 @@ const StudentCard: FC<StudentProps> = ({
                             >
                                 Aceptar
                             </Button>
-                        ) : (
+                        ) : isAccepted ? (
                             <Button
                                 sx={{
                                     ml: '75%',
@@ -122,6 +118,8 @@ const StudentCard: FC<StudentProps> = ({
                             >
                                 Rechazar
                             </Button>
+                        ) : (
+                            <Button></Button>
                         )}
                     </Typography>
                 </div>
@@ -146,9 +144,10 @@ const StudentCard: FC<StudentProps> = ({
                         <List>
                             <Typography variant="body1">
                                 Skills:{' '}
-                                {tecnologies.map(({ skill, exp }: any) => (
-                                    <p>{`${skill}: ${exp}`}</p>
-                                ))}
+                                {tecnologies &&
+                                    tecnologies.map(({ skill, exp }: any) => (
+                                        <p>{`${skill}: ${exp}`}</p>
+                                    ))}
                             </Typography>
                         </List>
                     </List>
