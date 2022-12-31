@@ -34,6 +34,7 @@ import Header from '../NavbarLandingPage/HeaderLanding';
 import Footer from '../../pages/LandingPage/Footer';
 
 import Logo from '../../assets/NABIJASH.png'
+import { alert } from '../AlertMail/alertMailStudent';
 
 const CompanyForm: FC = () => {
     const paises: string[] = [
@@ -89,7 +90,6 @@ const CompanyForm: FC = () => {
     });
 
     const onSubmit = (values: any) => {
-        console.log(values);
         dispatch(
             registerCompany({
                 name: values.name,
@@ -97,7 +97,8 @@ const CompanyForm: FC = () => {
                 password: values.password,
                 country: pais,
             })
-        );
+            )
+            dispatch(alert)
     };
 
     const handleChange = (event: SelectChangeEvent) => {
