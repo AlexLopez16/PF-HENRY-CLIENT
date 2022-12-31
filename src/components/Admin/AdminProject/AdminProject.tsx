@@ -54,6 +54,10 @@ const AdminProject: FC = ({ ...rest }) => {
     const [limit, setLimit] = useState(12);
     const [page, setPage] = useState(0);
     // const [deleted, setDeleted] = useState<boolean>(false)
+    let activo = projects.state
+
+
+
     const handleSelectAll = (event: any) => {
         let newSelectedCustomerIds;
         if (event.target.checked) {
@@ -91,7 +95,7 @@ const AdminProject: FC = ({ ...rest }) => {
     const handleSwitch = () => {
 
         // selectedCustomerIds.forEach((selectID: any) => dispatch(deleteStudent(token, selectID)))
-        
+
     }
 
     const handleLimitChange = (event: any) => {
@@ -208,7 +212,8 @@ const AdminProject: FC = ({ ...rest }) => {
                                 >
                                     <FormControlLabel
                                         control={
-                                            <Switch 
+                                            <Switch
+                                                defaultChecked={activo}
                                                 size='small'
                                                 color='primary'
                                                 onChange={handleSwitch}
