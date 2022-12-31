@@ -33,9 +33,7 @@ const MyProjectStudent: FC = () => {
     useEffect(() => {
         dispatch(getStudentInfo(auth.data.id, token));
     }, [dispatch]);
-
     // Definimos los objetos de informacion.
-    const { user }: any = student;
     // Aca hay que trabajar con typescript para que quede mas limpia la sintaxis.
 
     const handleClick = async () => {
@@ -44,13 +42,19 @@ const MyProjectStudent: FC = () => {
 
     return (
         <Container maxWidth="lg">
-            {user.working.length ? (
+            {student.user.working ? (
+                <p>
+                    Estas trabajando en un proyecto, ahora falta mostrar el
+                    proyecto xd
+                </p>
+            ) : student.user.project.length ? (
                 <>
                     <Typography
                         variant="h6"
                         align="center"
                         sx={{ margin: '20px 0' }}
                     >
+<<<<<<< HEAD
                         Mi proyecto:
                     </Typography>
                     <div>
@@ -192,6 +196,13 @@ const MyProjectStudent: FC = () => {
                     <div>
                         {user.project &&
                             user.project.map((project: any) => (
+=======
+                        Mis Solicitudes
+                    </Typography>
+                    <div>
+                        {student.user.project &&
+                            student.user.project.map((project: any) => (
+>>>>>>> desarrollo
                                 <Paper
                                     elevation={10}
                                     style={{

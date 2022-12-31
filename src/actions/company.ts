@@ -19,19 +19,19 @@ export const registerCompany = (values: Object) => {
     };
 };
 
-export const acceptStudent = (id: string | any, idstudent: string) => {
+export const acceptStudent = (id: string | any, studentId: string) => {
     return async (dispatch: Dispatch) => {
         try {
-            const res = await axios.put(`/project/accept/${id}`, { idstudent });
+            const res = await axios.put(`/project/accept/${id}`, { studentId });
             dispatch({
-                type: types.acceptStudent,
+                type: types.getProjectById,
                 payload: res.data,
             });
         } catch (error) {
             console.log(error);
         }
-    }
-}
+    };
+};
 export const companyGetInfo = (id: string, token: string) => {
     return async (dispatch: Dispatch) => {
         try {
@@ -48,14 +48,34 @@ export const companyGetInfo = (id: string, token: string) => {
     };
 };
 
+export const getCompany = (token: string) => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const res = await axios.get(`/company/`, {
+                headers: { 'user-token': token },
+            });
+            dispatch({
+                type: types.companyGetList,
+                payload: res.data,
+            });
+        } catch (error: any) {
+            console.log(error);
+        }
+    };
+};
+
 export const CompanyUpdateInfo = (id: string, token: string, data: object) => {
     return async (dispatch: Dispatch) => {
         try {
-            console.log(data)
-           
-            const res = await axios.put(`/company/${id}`, {data}, {
-                headers: { 'user-token': token },
-            }); 
+            console.log(data);
+
+            const res = await axios.put(
+                `/company/${id}`,
+                { data },
+                {
+                    headers: { 'user-token': token },
+                }
+            );
             dispatch({
                 type: types.companyUpdateInfo,
                 payload: res.data,
@@ -67,7 +87,6 @@ export const CompanyUpdateInfo = (id: string, token: string, data: object) => {
 };
 
 export const updatePhotoCompany = (id: string, token: string, file: any) => {
-
     return async (dispatch: Dispatch) => {
         try {
             const photoUrl = await fileUpload(file, 'users');
@@ -87,14 +106,28 @@ export const updatePhotoCompany = (id: string, token: string, file: any) => {
     };
 };
 
-export const DeleteStudent = (id: string | any, idstudent: string) => {
+export const DeleteStudent = (id: string | any, studentId: string) => {
     console.log(id);
 
     return async (dispatch: Dispatch) => {
         try {
-            const res = await axios.put(`/project/denied/${id}`, { idstudent });
+            const res = await axios.put(`/project/denied/${id}`, { studentId });
             dispatch({
-                type: types.deleteStudent,
+                type: types.getProjectById,
+                payload: res.data,
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+};
+
+export const disableCompany = (id: string | any, idCompany: string) => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const res = await axios.put(`/company/${id}`, { idCompany });
+            dispatch({
+                type: types.disableCompany,
                 payload: res.data,
             });
         } catch (error) {

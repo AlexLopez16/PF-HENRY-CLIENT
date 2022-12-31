@@ -18,6 +18,12 @@ type Action = {
 
 export const studentReducer = (state: State = initialState, action: Action) => {
     switch (action.type) {
+        case types.getListStudents:
+            return {
+                ...state,
+                users: action.payload,
+            };
+
         case types.studentRegister:
             return {
                 ...state,
@@ -41,7 +47,11 @@ export const studentReducer = (state: State = initialState, action: Action) => {
                 ...state,
                 user: action.payload,
             };
-
+        case types.deleteOrInactiveStudent:
+            return {
+                ...state,
+                user: action.payload,
+            };
         case types.unApplyStudent:
             const newUser: object | any = state.user;
             // Sacamos el proyecto del cual nos dimos de baja.
@@ -53,7 +63,6 @@ export const studentReducer = (state: State = initialState, action: Action) => {
                 ...state,
                 user: newUser,
             };
-
         default:
             return state;
     }

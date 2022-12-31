@@ -48,17 +48,30 @@ const ProjectCard: FC<CardProjectProps> = ({
     const handleClick = () => {
         dispatch(getProjectByID(token, id));
     };
-    
+
     return (
+        <Paper
+            elevation={10}
+            style={{
+                width: '100vh',
+                height: 'fit-content',
+                padding: 20,
+                margin: '20px auto',
+            }}
+        >
+            <Typography variant="subtitle1" sx={{ m: 0.5, color: '#898989' }}>
+                {' '}
+                {category}
+            </Typography>
 
-        <Paper elevation={10} style={{
-            width: '100vh',
-            height: "fit-content",
-            padding: 20,
-            margin: '20px auto'
-        }}>
-
-            <Typography sx={{ mb: 0.5, display: 'flex', justifyContent: 'space-between' }} variant="h6">
+            <Typography
+                sx={{
+                    mb: 0.5,
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                }}
+                variant="h6"
+            >
                 {name}
                 <NavLink
                     to="/project"
@@ -138,7 +151,7 @@ const ProjectCard: FC<CardProjectProps> = ({
                 </div>
             </Box>
         </Paper>
-    )
-}
+    );
+};
 
 export default ProjectCard;

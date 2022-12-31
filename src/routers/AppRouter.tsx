@@ -37,6 +37,7 @@ import { ProfileCompany } from '../components/company/Profile/ProfileCompany';
 import AdminStudent from '../components/Admin/AdminStudent';
 import Postulated from '../components/company/Postulated';
 import { Checkout } from '../pages/Checkout';
+import AdminCompany from '../components/Admin/AdminCompany/AdminCompany';
 
 export const AppRouter = () => {
     let { id } = useParams();
@@ -204,6 +205,17 @@ export const AppRouter = () => {
                             </PrivateRoute>
                         }
                     />
+
+                    <Route
+                        path="/adminSt"
+                        element={
+                            // <PrivateRoute>
+                            <AdminStudent />
+                            // </PrivateRoute>
+                        }
+                    />
+
+                    <Route path="/AdminCompany" element={<AdminCompany />} />
 
                     {/* PROFILE ROUTES */}
 

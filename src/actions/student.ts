@@ -2,6 +2,27 @@ import axios from 'axios';
 import { Dispatch } from 'redux';
 import { types } from '../types/types';
 import { fileUpload } from '../helpers/fileUpload';
+import { type } from 'os';
+
+export const getListStudents = (
+    token: string | null,
+    state: Boolean = true
+) => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const res = await axios.get(`/student?onlyActive=${state}`, {
+                headers: { 'user-token': token },
+            });
+
+            dispatch({
+                type: types.getListStudents,
+                payload: res.data.students,
+            });
+        } catch (error: any) {
+            console.log(error);
+        }
+    };
+};
 
 export const studentRegister = (values: object) => {
     return async (dispatch: Dispatch) => {
@@ -119,6 +140,23 @@ export const unApplyStudent = (
             dispatch({
                 type: types.unApplyStudent,
                 payload: projectId,
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+};
+
+export const deleteStudent = (token: string | null, id: string) => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const res = await axios.delete(`/admin/deletestudent/${id}`, {
+                headers: { 'user-token': token },
+            });
+
+            dispatch({
+                type: types.deleteOrInactiveStudent,
+                payload: res.data,
             });
         } catch (error) {
             console.log(error);

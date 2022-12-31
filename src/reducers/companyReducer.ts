@@ -26,6 +26,7 @@ export const companyReducer = (state: State = initialState, action: Action) => {
                 user: action.payload,
             };
 
+<<<<<<< HEAD
         case types.companyUpdateInfo:
             return {
                 ...state,
@@ -34,4 +35,20 @@ export const companyReducer = (state: State = initialState, action: Action) => {
         default:
             return state;
     }
+=======
+        case types.companyGetList:
+          return {
+              ...state,
+              user: action.payload
+          }
+
+    case types.companyUpdateInfo:
+        return {
+            ...state,
+            user: { ...state.user, ...action.payload }
+        }
+    default:
+      return state;
+  }
+>>>>>>> desarrollo
 };
