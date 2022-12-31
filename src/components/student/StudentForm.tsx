@@ -28,7 +28,7 @@ import { gmailLogin } from '../../actions/auth';
 import Header from '../NavbarLandingPage/HeaderLanding';
 import Footer from '../../pages/LandingPage/Footer';
 import { Link } from 'react-router-dom';
-import { alert } from '../AlertMail/alertMailStudent';
+import { alert } from "../AlertMail/alertMailStudent"
 
 import Logo from '../../assets/NABIJASH.png'
 
@@ -72,11 +72,6 @@ export const StudensForm: FC = () => {
       dispatch(alert)
     };
 
-
-    // const AlertMail = (values: Values)=>{
-    //  dispatch(alert)
-    //  dispatch(studentRegister(values))
-    // } 
 
     return (
         <Box
@@ -238,7 +233,6 @@ export const StudensForm: FC = () => {
                     fullWidth
                     color='secondary'
                     disabled={props.isSubmitting}
-                  //  onClick={AlertMail} 
                   >
                     Crear cuenta
                   </Button>
