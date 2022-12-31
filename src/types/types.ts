@@ -9,9 +9,9 @@ export const types = {
     studentGetInfo: '[student] Get Info Student',
     studentUpdateInfo: '[student] Update Info Student',
     studentSearch: '[student] Search Company', //-VERIFICAR-//
-    AddStToPr: '[student] Add student to project',
+    addStudentToProject: '[student] Add student to project',
+    unApplyStudent: '[student] Un Applu student to project',
     deleteOrInactiveStudent: '[student] inactive student to data base',
-
 
     registerCompany: '[company] Register Company',
     companyGetInfo: '[company] Get info company',
