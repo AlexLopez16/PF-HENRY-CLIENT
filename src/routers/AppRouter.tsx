@@ -13,6 +13,7 @@ import { PrivateRoute } from './PrivateRoute';
 import ProjectForm from '../components/project/ProjectForm';
 // import ProjectCard from '../components/project/ProjectCard';
 import { HomePage } from '../pages/HomePage';
+
 // import { Nabvar } from "../components/maquetas/Nabvar";
 import NavBar from '../components/NavBar/NavBar';
 import { Register } from '../pages/PageRegister';
@@ -38,6 +39,9 @@ import AdminStudent from '../components/Admin/AdminStudent';
 import Postulated from '../components/company/Postulated';
 import { Checkout } from '../pages/Checkout';
 import AdminCompany from '../components/Admin/AdminCompany/AdminCompany';
+import { HomePage } from '../pages/HomePage';
+import AdminProject from '../components/Admin/AdminProject/AdminProject';
+// import AdminProject from '../components/Admin/AdminProject/AdminProject';
 
 export const AppRouter = () => {
     let { id } = useParams();
@@ -90,6 +94,7 @@ export const AppRouter = () => {
                             <PrivateRoute>
                                 <>
                                     <NavBar />
+                                    {/* <HomePage /> */}
                                     <DashboardPage />
                                 </>
                             </PrivateRoute>
@@ -217,6 +222,10 @@ export const AppRouter = () => {
 
                     <Route path="/AdminCompany" element={<AdminCompany />} />
 
+                    <Route path='/AdminProject' element={<AdminProject />} />
+
+
+
                     {/* PROFILE ROUTES */}
 
                     <Route path="/Ale" element={<Ale />} />
@@ -238,17 +247,7 @@ export const AppRouter = () => {
                         element={<PasswordRecover />}
                     />
                     <Route path="/p" element={<ProjectsStudents />} />
-                    {/* <Route
-            path="/companyProject"
-            element={
-                <>
-                <NavBar />
-              <PrivateRoute>
-                <ProjectCompany />
-              </PrivateRoute>
-              </>
-            }
-          /> */}
+             
                     <Route
                         path="/postulated/:id"
                         element={
