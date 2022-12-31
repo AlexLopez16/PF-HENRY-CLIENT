@@ -3,6 +3,7 @@ import { AppRouter } from './routers/AppRouter';
 import { store } from './store/store';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './styles/themeProvider';
+import './App.css';
 
 function App() {
     return (
