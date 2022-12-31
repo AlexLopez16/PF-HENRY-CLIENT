@@ -58,7 +58,7 @@ export const MyProjectCompany: FC = () => {
                             name={e.name}
                             participants={e.participants}
                             requirements={e.requirements}
-                            students={e.students}
+                            students={e.accepts}
                             company={e.company.name}
                             state={e.state}
                             stateOfProject={e.stateOfProject}
