@@ -86,6 +86,7 @@ const ProjectForm: FC = () => {
     for (const image of images) {
       await fileUpload(image, 'projects')
         .then((res) => imagesUrl.push(res))
+        //revisar este console.log
         .catch((err) => console.log(err));
     }
 

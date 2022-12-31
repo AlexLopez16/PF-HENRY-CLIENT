@@ -1,5 +1,3 @@
-import { ActionTypes } from '@mui/base';
-import { type } from 'os';
 import { types } from '../types/types';
 
 interface State {
@@ -16,6 +14,7 @@ const initialState = {
     myProjectCompany: [],
     total: 0,
     filters: {},
+   
 };
 
 type Action = {
@@ -44,7 +43,7 @@ export const projectReducer = (state: State = initialState, action: Action) => {
             };
 
         case types.projectsFilter:
-            console.log(action.payload.projects);
+            // console.log(action.payload.projects);
             return {
                 ...state,
                 projectsFilter: action.payload.projects,

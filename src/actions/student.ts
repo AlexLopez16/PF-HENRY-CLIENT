@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Dispatch } from 'redux';
 import { types } from '../types/types';
 import { fileUpload } from '../helpers/fileUpload';
-import { type } from 'os';
+// import { type } from "os";
 
 export const getListStudents = (
     token: string | null,
@@ -28,7 +28,7 @@ export const studentRegister = (values: object) => {
     return async (dispatch: Dispatch) => {
         try {
             const res = await axios.post('/student', values);
-            console.log(res.data);
+            // console.log(res.data);
 
             dispatch({
                 type: types.studentRegister,
@@ -43,12 +43,20 @@ export const studentRegister = (values: object) => {
 export const getStudentInfo = (id: string, token: string) => {
     return async (dispatch: Dispatch) => {
         try {
+            // Incio de la request.
+            dispatch({
+                type: types.requestInProgress,
+            });
             const res = await axios.get(`/student/${id}`, {
                 headers: { 'user-token': token },
             });
             dispatch({
                 type: types.studentGetInfo,
                 payload: res.data,
+            });
+            // Fin de la request.
+            dispatch({
+                type: types.requestFinished,
             });
         } catch (error: any) {
             console.log(error);
@@ -112,7 +120,7 @@ export const searchProject = (name: string, token: string) => {
 export const addStudentToProject = (id: string, token: string) => {
     return async (dispatch: Dispatch) => {
         try {
-            console.log('token', token);
+            // console.log("token",token);
 
             const res = await axios.put(`/project/${id}`, undefined, {
                 headers: { 'user-token': token },
@@ -133,6 +141,10 @@ export const unApplyStudent = (
 ) => {
     return async (dispatch: Dispatch) => {
         try {
+            // Incio de la request.
+            dispatch({
+                type: types.requestInProgress,
+            });
             const res = await axios.put(`/project/unapply/${projectId}`, {
                 studentId,
             });
@@ -140,6 +152,10 @@ export const unApplyStudent = (
             dispatch({
                 type: types.unApplyStudent,
                 payload: projectId,
+            });
+            // Fin de la request.
+            dispatch({
+                type: types.requestFinished,
             });
         } catch (error) {
             console.log(error);

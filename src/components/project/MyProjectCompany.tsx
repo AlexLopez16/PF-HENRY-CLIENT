@@ -3,7 +3,7 @@ import { clearProjects, getMyProjectsCompany } from '../../actions/projects';
 import ProjectCard from './ProjectCard';
 import { State } from '../../reducers/rootReducer';
 
-import { Box } from '@mui/system';
+// import { Box } from '@mui/system';
 import Alert from '@mui/material/Alert/Alert';
 import Stack from '@mui/material/Stack/Stack';
 import { useEffect, FC } from 'react';
@@ -27,7 +27,7 @@ export const MyProjectCompany: FC = () => {
 
     const { projectsFilter } = useSelector((state: State) => state.project);
     let info = projectsFilter;
-    console.log(info);
+    // console.log(info);
 
     return (
         <div>
