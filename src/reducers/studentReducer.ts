@@ -1,5 +1,5 @@
 
-import { type, userInfo } from "os";
+// import { type, userInfo } from "os";
 import { types } from "../types/types";
 
 

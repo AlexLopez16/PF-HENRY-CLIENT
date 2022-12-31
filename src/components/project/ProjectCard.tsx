@@ -1,13 +1,17 @@
 import { FC } from 'react';
 
-import { Box, Typography, Paper, CardMedia, Chip } from '@mui/material';
+import { Box, Typography, Paper,
+    //  CardMedia,
+      Chip } from '@mui/material';
 import clip from 'text-clipper';
 
 import Button from '@mui/material/Button';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink,
+    //  Link
+     } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getProjectByID } from '../../actions/projects';
-import { Container } from '@mui/system';
+// import { Container } from '@mui/system';
 
 type CompanyData = {
     _id: string;

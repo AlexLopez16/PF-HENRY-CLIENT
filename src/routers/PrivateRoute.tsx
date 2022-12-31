@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 import { Navigate, useSearchParams } from 'react-router-dom';
 import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,7 +16,8 @@ export const PrivateRoute: FC<Props> = ({ children }) => {
     let token = localStorage.getItem('token');
 
     if (!status && token) {
-        console.log('Tenes token, ahora te validamos');
+        //revisar este console.log
+        // console.log('Tenes token, ahora te validamos');
         dispatch(validaToken(token));
     }
 

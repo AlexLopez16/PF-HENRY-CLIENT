@@ -1,6 +1,6 @@
 import { FC, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Doughnut } from 'react-chartjs-2';
+// import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Box } from '@mui/system';
 import { deleteStudent, getListStudents } from '../../actions/student';
@@ -43,7 +43,7 @@ const AdminStudent: FC = ({...rest}) => {
         dispatch(getListStudents(token, false))
     }, [dispatch])
 
-    console.log(users)
+    // console.log(users)
 
   const [selectedCustomerIds, setSelectedCustomerIds] = useState<string[]>([]);
   const [limit, setLimit] = useState(12);
@@ -87,7 +87,7 @@ const AdminStudent: FC = ({...rest}) => {
     
     selectedCustomerIds.forEach((selectID: any) => dispatch(deleteStudent(token, selectID)))
   }
-
+   //revisar estas dos funciones que no se llaman en ningun lado
   const handleLimitChange = (event: any) => {
     setLimit(event.target.value);
   };

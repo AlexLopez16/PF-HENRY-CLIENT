@@ -2,13 +2,13 @@ import axios from 'axios';
 import { Dispatch } from 'redux';
 import { types } from '../types/types';
 import { fileUpload } from '../helpers/fileUpload';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 export const registerCompany = (values: Object) => {
     return async (dispatch: Dispatch) => {
         try {
             const res = await axios.post(`/company`, values);
-            console.log(res);
+            // console.log(res);
             dispatch({
                 type: types.registerCompany,
                 payload: res.data,
@@ -69,7 +69,7 @@ export const getCompany = ( token: string) => {
 export const CompanyUpdateInfo = (id: string, token: string, data: object) => {
     return async (dispatch: Dispatch) => {
         try {
-            console.log(data)
+            // console.log(data)
            
             const res = await axios.put(`/company/${id}`, {data}, {
                 headers: { 'user-token': token },

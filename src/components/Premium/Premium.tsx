@@ -1,5 +1,7 @@
 import { useState, FC, Dispatch, SetStateAction } from 'react';
-import { Button, Modal, Box, Typography, Paper } from '@mui/material';
+import { Button, Modal, Box, Typography,
+    //  Paper
+     } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { Message } from './Message';
 
