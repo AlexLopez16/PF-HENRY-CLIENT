@@ -39,7 +39,6 @@ import AdminStudent from '../components/Admin/AdminStudent';
 import Postulated from '../components/company/Postulated';
 import { Checkout } from '../pages/Checkout';
 import AdminCompany from '../components/Admin/AdminCompany/AdminCompany';
-import { HomePage } from '../pages/HomePage';
 import AdminProject from '../components/Admin/AdminProject/AdminProject';
 // import AdminProject from '../components/Admin/AdminProject/AdminProject';
 
@@ -222,9 +221,7 @@ export const AppRouter = () => {
 
                     <Route path="/AdminCompany" element={<AdminCompany />} />
 
-                    <Route path='/AdminProject' element={<AdminProject />} />
-
-
+                    <Route path="/AdminProject" element={<AdminProject />} />
 
                     {/* PROFILE ROUTES */}
 
@@ -247,7 +244,7 @@ export const AppRouter = () => {
                         element={<PasswordRecover />}
                     />
                     <Route path="/p" element={<ProjectsStudents />} />
-             
+
                     <Route
                         path="/postulated/:id"
                         element={

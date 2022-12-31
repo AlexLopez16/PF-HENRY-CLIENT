@@ -10,41 +10,39 @@ import { useSelector } from 'react-redux';
 import { State } from '../reducers/rootReducer';
 import AdminStudent from '../components/Admin/AdminStudent';
 
-
-export const HomePage = () => {
+export const HomePage: FC = () => {
     const { rol } = useSelector((state: State) => state.auth.data);
 
-    let role = rol
+    let role = rol;
 
+    return rol === 'STUDENT_ROL' ? (
+        <>
+            <SearchBar />
 
-    return (
-        rol === 'STUDENT_ROL' ?
+            <div style={{ display: 'flex' }}>
+                <SideBar />
+                <DashboardStudent />
+            </div>
+        </>
+    ) : rol === 'COMPANY_ROL' ? (
+        <>
+            <SearchBar />
+
+            <div style={{ display: 'flex' }}>
+                <SideBar />
+                <DashboardCompany />
+            </div>
+        </>
+    ) : (
+        rol === 'ADMIN_ROL' ?? (
             <>
                 <SearchBar />
 
                 <div style={{ display: 'flex' }}>
                     <SideBar />
-                    <DashboardStudent />
+                    <AdminStudent />
                 </div>
-            </> 
-            : rol === 'COMPANY_ROL' ?
-
-                <>
-                    <SearchBar />
-
-                    <div style={{ display: 'flex' }}>
-                        <SideBar />
-                        <DashboardCompany />
-                    </div>
-                </>
-                : rol === 'ADMIN_ROL' ?? <>
-                    <SearchBar />
-                   
-                    <div style={{ display: 'flex' }}>
-                        
-                        <SideBar />
-                        <AdminStudent />
-                    </div>
-                </>
-    )
-}
+            </>
+        )
+    );
+};
