@@ -38,7 +38,8 @@ export const authReducer = (state: State = initialState, action: Action) => {
             };
 
         case types.clearAuthLogin:
-            console.log("clearAuthLogin", "logged");
+            //revisar console.log
+            // console.log("clearAuthLogin", "logged");
             return { ...state, logged: false, status: action.payload };
   
         case types.clearAuthLogin:

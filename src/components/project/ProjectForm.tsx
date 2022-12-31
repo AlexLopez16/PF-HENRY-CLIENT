@@ -86,6 +86,7 @@ const ProjectForm: FC = () => {
     for (const image of images) {
       await fileUpload(image, 'projects')
         .then((res) => imagesUrl.push(res))
+        //revisar este console.log
         .catch((err) => console.log(err));
     }
 
@@ -109,10 +110,57 @@ const ProjectForm: FC = () => {
   };
 
   const tecnologies = [
-    { name: 'JavaScript' },
-    { name: 'PHP' },
-    { name: 'React' },
-    { name: 'TypeScript' },
+        {name:".Net"},
+        {name:"Airflow"},
+        {name:"Angular"},
+        {name:"Assembler"},
+        {name:"AWS"},
+        {name:"Boostrap"},
+        {name:"C"},
+        {name:"C#"},
+        {name:"C++"},
+        {name:"Cobol"},
+        {name:"CSS"},
+        {name:"CSS3"},
+        {name:"Django"},
+        {name:"Docker"},
+        {name:"Ethers.js"},
+        {name:"Express"},
+        {name:"Figma"},
+        {name:"Firebase"},
+        {name:"Flask"},
+        {name:"Flutter"},
+        {name:"GraphQL"},
+        {name:"Java"},
+        {name:"JavaScript"},
+        {name:"jQuery"},
+        {name:"Kotlin"},
+        {name:"Laravel"},
+        {name:"Lua"},
+        {name:"Material UI"},
+        {name:"MatLab"},
+        {name:"MongoDB"},
+        {name:"Mongoose"},
+        {name:"MySQL"},
+        {name:"Nest.js"},
+        {name:"Next.js"},
+        {name:"NodeJS"},
+        {name:"NumPy"},
+        {name:"Objective-C"},
+        {name:"Pandas"},
+        {name:"PHP"},
+        {name:"PostgresSQL"},
+        {name:"Python"},
+        {name:"R"},
+        {name:"React Native"},
+        {name:"React"},
+        {name:"Ruby"},
+        {name:"Solidity"},
+        {name:"Swift"},
+        {name:"TypeScript"},
+        {name:"Vue"},
+
+    //con CTRL + Shift + P y selecciono en orden ascendente
   ];
 
   //Upload Images
@@ -141,7 +189,7 @@ const ProjectForm: FC = () => {
       }}
     >
       <div>
-        <NavBar/>
+        <NavBar />
         <Error />
         <Grid>
           <Paper
@@ -187,7 +235,7 @@ const ProjectForm: FC = () => {
                     id='outlined-multiline-static'
                     label='Descripción'
                     multiline
-                
+
                     placeholder='Descripción del proyecto'
                     fullWidth
                     required
@@ -347,13 +395,13 @@ const ProjectForm: FC = () => {
                     ))}
 
                   <Button
-                       sx={{ marginTop: 2, fontFamily: 'poppins' }}
-                       type='submit'
-                       variant='contained'
-                       fullWidth
-                       color='primary'
+                    sx={{ marginTop: 2, fontFamily: 'poppins' }}
+                    type='submit'
+                    variant='contained'
+                    fullWidth
+                    color='primary'
                     disabled={props.isSubmitting}
-                    
+
                   >
                     Publicar Proyecto
                   </Button>

@@ -1,11 +1,11 @@
 import { FC, useEffect, useState } from 'react';
 import {
-    AppBar,
-    Box,
-    Button,
-    Container,
-    Toolbar,
-    Typography,
+  AppBar,
+  Box,
+  Button,
+  Container,
+  Toolbar,
+  Typography,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../reducers/rootReducer';
@@ -25,9 +25,9 @@ const NavBar: FC = () => {
     const dispatch = useDispatch();
     const token: string = localStorage.getItem('token') || '';
 
-    useEffect(() => {
-        rol === 'STUDENT_ROL' ? dispatch(getStudentInfo(data.id, token)) : null;
-    }, [dispatch]);
+  useEffect(() => {
+    rol === 'STUDENT_ROL' ? dispatch(getStudentInfo(data.id, token)) : null;
+  }, [dispatch]);
 
     // Paths y opciones de boton para el student.
     const studentButtons = [
@@ -104,7 +104,7 @@ const NavBar: FC = () => {
                         noWrap
                         // component="a"
                         // href="/dashboard"
-                        onClick={() => navigate('/dashboard')}
+                        onClick={() => navigate('/projects')}
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
@@ -161,7 +161,7 @@ const NavBar: FC = () => {
                     <Typography
                         variant="h5"
                         noWrap
-                        onClick={() => navigate('/dashboard')}
+                        onClick={() => navigate('/projects')}
                         sx={{
                             mr: 2,
                             display: { xs: 'flex', md: 'none' },

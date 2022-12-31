@@ -1,4 +1,4 @@
-import { string } from "yup"
+// import { string } from "yup"
 import {types} from "../types/types"
 
 interface LoginFields {
@@ -22,7 +22,7 @@ type Action = {
 export const loginReducer = (state: LoginFields = initialState, action: Action ) => {
     switch(action.type){
         case types.login:
-            console.log(action.payload)
+            // console.log(action.payload)
             return {
                 ...state, 
                 token: action.payload.token,

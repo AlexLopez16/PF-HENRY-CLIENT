@@ -28,6 +28,7 @@ import { gmailLogin } from '../../actions/auth';
 import Header from '../NavbarLandingPage/HeaderLanding';
 import Footer from '../../pages/LandingPage/Footer';
 import { Link } from 'react-router-dom';
+import { alert } from "../AlertMail/alertMailStudent"
 
 import Logo from '../../assets/NABIJASH.png'
 
@@ -67,8 +68,10 @@ export const StudensForm: FC = () => {
     const dispatch = useDispatch();
 
     const onSubmit = (values: Values) => {
-        dispatch(studentRegister(values));
+      dispatch(studentRegister(values));
+      dispatch(alert)
     };
+
 
     return (
         <Box
@@ -233,7 +236,10 @@ export const StudensForm: FC = () => {
                   >
                     Crear cuenta
                   </Button>
-                  <Divider>
+                  <Divider  sx={{
+                                            mb: 1,
+                                            mt:1,
+                                        }}>
                     <span>O</span>
                   </Divider>
                   <GitHubLogin />
@@ -249,6 +255,7 @@ export const StudensForm: FC = () => {
                         gmailLogin(credentialResponse.credential as string, 'student'),
                       );
                     }}
+                    //revisar este console.log
                     onError={() => {
                       console.log('Login Failed');
                     }}

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
 import { types } from '../types/types';
-import { Navigate } from 'react-router-dom';
+// import { Navigate } from 'react-router-dom';
 import { fileUpload } from '../helpers/fileUpload';
 
 export const getProject = (token: string) => {
@@ -67,10 +67,11 @@ export const getProjectsFilter = (
     stateOfProject?: string[] | undefined,
     limit?: number | undefined,
     init?: number | undefined
+
 ) => {
     return async (dispatch: Dispatch) => {
         try {
-            console.log(limit, init);
+            // console.log(limit, init);
             let query;
 
             if (name) {
@@ -116,7 +117,7 @@ export const getProjectsFilter = (
             }
 
             if (limit || init) {
-                console.log(limit, init);
+                // console.log(limit, init);
                 if (query) {
                     query += `&limit=${limit}&init=${init}`;
                 } else {
@@ -131,7 +132,7 @@ export const getProjectsFilter = (
             const res = await axios.get(url, {
                 headers: { 'user-token': token },
             });
-            console.log(res.data);
+            // console.log(res.data);
             dispatch({
                 type: types.projectsFilter,
                 payload: res.data,
@@ -171,11 +172,11 @@ export const getMyProjectsCompany = (token: string, value: any) => {
             val = `&value=${value}`;
         }
         try {
-            console.log('en la action', token);
+            // console.log('en la action', token);
             const res = await axios.get(`/company/login?${val}`, {
                 headers: { 'user-token': token },
             });
-            console.log('en la action', res.data);
+            // console.log('en la action', res.data);
             dispatch({
                 type: types.projectsFilter,
                 payload: res.data,
@@ -207,7 +208,7 @@ export const updateImagesProject = (id: string, token: string, file: any) => {
 };
 
 export const clearProjects = (obj: any) => {
-    console.log('in clear');
+    // console.log('in clear');
     return {
         type: types.projectsFilter,
         payload: obj,
