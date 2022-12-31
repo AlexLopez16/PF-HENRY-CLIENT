@@ -19,7 +19,7 @@ import {
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../reducers/rootReducer';
-import { getStudentInfo, unApply } from '../../actions/student';
+import { getStudentInfo, unApplyStudent } from '../../actions/student';
 // Dejamos importado el link porque quiza despues se pueda mostrar el detalle de cada companero.
 import { Link } from 'react-router-dom';
 
@@ -29,20 +29,17 @@ const MyProjectStudent: FC = () => {
     const { auth, student }: any = useSelector((state: State) => state);
     // Traemos el token del local storage.
     const token = localStorage.getItem('token') || '';
-    // const [participants, setParticipants] = useState('1');
-    const [recargar, setRecargar] = useState(false);
     // Traemos toda la info del student.
     useEffect(() => {
         dispatch(getStudentInfo(auth.data.id, token));
-    }, [dispatch, recargar]);
+    }, [dispatch]);
 
     // Definimos los objetos de informacion.
     const { user }: any = student;
     // Aca hay que trabajar con typescript para que quede mas limpia la sintaxis.
 
     const handleClick = async () => {
-        dispatch(unApply(user.id, user.project[0].uid));
-        setRecargar(!recargar);
+        dispatch(unApplyStudent(user.id, user.project[0].uid));
     };
 
     return (

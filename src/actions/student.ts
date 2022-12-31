@@ -98,7 +98,7 @@ export const addStudentToProject = (id: string, token: string) => {
             });
 
             dispatch({
-                type: types.AddStToPr,
+                type: types.addStudentToProject,
             });
         } catch (error) {
             console.log(error);
@@ -106,13 +106,20 @@ export const addStudentToProject = (id: string, token: string) => {
     };
 };
 
-export const unApply = (studentId: string | any, projectId: string | any) => {
+export const unApplyStudent = (
+    studentId: string | any,
+    projectId: string | any
+) => {
     return async (dispatch: Dispatch) => {
         try {
             const res = await axios.put(`/project/unapply/${projectId}`, {
                 studentId,
             });
             console.log(res);
+            dispatch({
+                type: types.unApplyStudent,
+                payload: projectId,
+            });
         } catch (error) {
             console.log(error);
         }
