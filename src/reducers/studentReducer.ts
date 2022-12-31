@@ -59,6 +59,7 @@ export const studentReducer = (state: State = initialState, action: Action) => {
                 (e: object | any) => e.uid != action.payload
             );
             newUser.project = filterProjects;
+            newUser.working = [];
             return {
                 ...state,
                 user: newUser,
