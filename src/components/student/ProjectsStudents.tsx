@@ -26,7 +26,7 @@ import Pages from '../ui/Pagination';
 
 const ProjectsStudents: FC = () => {
     const dispatch = useDispatch();
-    let token: String | null = localStorage.getItem('token');
+    const token = localStorage.getItem('token') || '';
 
     const [search, setSearch] = useState('');
     const [inputFilter, setInput] = useState({

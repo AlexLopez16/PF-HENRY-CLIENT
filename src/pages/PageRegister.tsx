@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Button, Typography, Box, Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
 import style from '../styles/register.module.css';
-import registerbg from '../../public/assets/registerbg.png';
+import registerbg from '../assets/registerbg.png';
 import Header from '../components/NavbarLandingPage/HeaderLanding';
 
 export const Register: FC = () => {
