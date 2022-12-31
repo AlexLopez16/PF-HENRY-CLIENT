@@ -38,8 +38,8 @@ const MyProjectStudent: FC = () => {
     const { user }: any = student;
     // Aca hay que trabajar con typescript para que quede mas limpia la sintaxis.
 
-    const handleClick = async () => {
-        dispatch(unApplyStudent(user.id, user.project[0].uid));
+    const handleClick = async (projectId: string | any) => {
+        dispatch(unApplyStudent(user.id, projectId));
     };
 
     return (
@@ -218,7 +218,9 @@ const MyProjectStudent: FC = () => {
                                             size="small"
                                             color="primary"
                                             variant="text"
-                                            onClick={handleClick}
+                                            onClick={() =>
+                                                handleClick(project.uid)
+                                            }
                                         >
                                             Cancelar
                                         </Button>
