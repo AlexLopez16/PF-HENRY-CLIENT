@@ -21,16 +21,19 @@ import { State } from '../../reducers/rootReducer';
 import { Box } from '@mui/system';
 import Alert from '@mui/material/Alert/Alert';
 import Stack from '@mui/material/Stack/Stack';
-import { Navigate,
+import {
+    Navigate,
     //  useSearchParams
-     } from 'react-router-dom';
+} from 'react-router-dom';
 import { types } from '../../types/types';
-import { Container,
+import {
+    Container,
     //  IconButton, Input, Typography
- } from '@mui/material';
+} from '@mui/material';
 // import SearchIcon from '@mui/icons-material/Search';
 import StudentsFilter from './StudentsFilter';
 import Pages from '../ui/Pagination';
+import { PreLoader } from '../PreLoader/PreLoader';
 
 const ProjectsStudents: FC = () => {
     const dispatch = useDispatch();
@@ -78,6 +81,7 @@ const ProjectsStudents: FC = () => {
 
     return (
         <Box>
+            <PreLoader />
             <StudentsFilter />
             <Pages />
             <Container maxWidth="lg">
