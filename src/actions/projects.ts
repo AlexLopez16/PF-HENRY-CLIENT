@@ -25,7 +25,7 @@ export const getProjectByID = (token: string, id: string) => {
     return async (dispatch: Dispatch) => {
         try {
             const res = await axios.get(`/project/${id}`, {
-                headers: { "user-token": token },
+                headers: { 'user-token': token },
             });
 
             dispatch({
@@ -67,11 +67,13 @@ export const getProjectsFilter = (
     stateOfProject?: string[] | undefined,
     limit?: number | undefined,
     init?: number | undefined
-
 ) => {
     return async (dispatch: Dispatch) => {
         try {
             // console.log(limit, init);
+            dispatch({
+                type: types.requestInProgress,
+            });
             let query;
 
             if (name) {
@@ -79,8 +81,8 @@ export const getProjectsFilter = (
             }
 
             if (tecnologies) {
-                let tecnologias: string = "";
-                tecnologies.forEach((e: string) => (tecnologias += e + ","));
+                let tecnologias: string = '';
+                tecnologies.forEach((e: string) => (tecnologias += e + ','));
                 //tranforma el array a string con comas
                 tecnologias = tecnologias.substring(0, tecnologias.length - 1); //si es una palabra saca la coma
                 if (query) {
@@ -137,6 +139,9 @@ export const getProjectsFilter = (
                 type: types.projectsFilter,
                 payload: res.data,
             });
+            dispatch({
+                type: types.requestFinished,
+            });
         } catch (error: any) {
             console.log(error.response.data.errors[0].msg);
             if (error.response.status === 401) {
@@ -152,8 +157,8 @@ export const getProjectsFilter = (
 export const getCategory = (token: string) => {
     return async (dispatch: Dispatch) => {
         try {
-            const res = await axios.get("/project/category", {
-                headers: { "user-token": token },
+            const res = await axios.get('/project/category', {
+                headers: { 'user-token': token },
             });
             dispatch({
                 type: types.getCategory,
@@ -167,6 +172,9 @@ export const getCategory = (token: string) => {
 
 export const getMyProjectsCompany = (token: string, value: any) => {
     return async (dispatch: Dispatch) => {
+        dispatch({
+            type: types.requestInProgress,
+        });
         let val;
         if (value) {
             val = `&value=${value}`;
@@ -180,6 +188,9 @@ export const getMyProjectsCompany = (token: string, value: any) => {
             dispatch({
                 type: types.projectsFilter,
                 payload: res.data,
+            });
+            dispatch({
+                type: types.requestFinished,
             });
         } catch (error: any) {
             console.log(error.res.data);
@@ -229,7 +240,6 @@ export const Filters = (
         payload: obj,
     };
 };
-
 
 export const getAllProject = (token: string) => {
     return async (dispatch: Dispatch) => {
