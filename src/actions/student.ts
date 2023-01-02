@@ -129,8 +129,9 @@ export const searchProject = (name: string, token: string) => {
 export const addStudentToProject = (id: string, token: string) => {
     return async (dispatch: Dispatch) => {
         try {
-            // console.log("token",token);
-
+            dispatch({
+                type: types.requestInProgress,
+            });
             const res = await axios.put(`/project/${id}`, undefined, {
                 headers: { 'user-token': token },
             });
@@ -138,8 +139,16 @@ export const addStudentToProject = (id: string, token: string) => {
             dispatch({
                 type: types.addStudentToProject,
             });
-        } catch (error) {
-            console.log(error);
+            dispatch({
+                type: types.requestFinished,
+                payload: res,
+            });
+        } catch (error: any) {
+            // console.log(error);
+            dispatch({
+                type: types.requestFinished,
+                payload: error.response,
+            });
         }
     };
 };
@@ -165,6 +174,7 @@ export const unApplyStudent = (
             // Fin de la request.
             dispatch({
                 type: types.requestFinished,
+                payload: res,
             });
         } catch (error) {
             console.log(error);

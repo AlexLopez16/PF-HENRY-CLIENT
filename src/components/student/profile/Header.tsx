@@ -45,10 +45,7 @@ export const Header: FC<Props> = ({
 
     return (
         <Paper elevation={5} style={paperStyle}>
-            <SnackBar
-                successMsg="Actualizado correctamente!"
-                errorMsg="Error al actualizar"
-            />
+            <SnackBar />
             <Grid textAlign="right">
                 <IconButton aria-label="settings" onClick={handlerEdit}>
                     <EditIcon

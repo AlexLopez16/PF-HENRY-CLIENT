@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../reducers/rootReducer';
 import { addStudentToProject } from '../../actions/student';
 import { PreLoader } from '../PreLoader/PreLoader';
+import { SnackBar } from '../SnackBar/SnackBar';
 
 interface ProjectProps {
     name?: string;
@@ -53,6 +54,12 @@ const ProjectDetail: FC<ProjectProps> = ({
     return (
         <div>
             <PreLoader />
+            {rol === 'STUDENT_ROL' ? (
+                <SnackBar
+                    successMsg="Aplicaste correctamente."
+                    errorMsg="Error al aplicar."
+                />
+            ) : null}
             <Paper
                 elevation={12}
                 style={{

@@ -3,6 +3,7 @@ import { Alert, Snackbar } from '@mui/material';
 import { State } from '../../reducers/rootReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { requestCleaned } from '../../actions/request';
+import { stat } from 'fs';
 
 type AlertData = {
     severity?: string | any;
@@ -24,7 +25,8 @@ export const SnackBar: FC<SnackbarProps> = ({ successMsg, errorMsg }) => {
 
     // Si ya termino el progreso
     useEffect(() => {
-        if (!inProgress && status !== null) handleOpen();
+        if (!inProgress && status != null) handleOpen();
+        console.log(inProgress, status);
     }, [inProgress]);
     const handleOpen = () => {
         setOpen(true);
@@ -33,23 +35,24 @@ export const SnackBar: FC<SnackbarProps> = ({ successMsg, errorMsg }) => {
         setOpen(false);
         setTimeout(() => {
             dispatch(requestCleaned());
-        }, 1000);
+        }, 8000);
     };
 
     // Esta es la estructura basica.
     let alertField: AlertData = {
-        severity: status >= 200 ? 'success' : 'error',
-        message: status >= 200 ? 'Exitoso' : 'Error',
+        severity: status >= 200 && status < 400 ? 'success' : 'error',
+        message: status >= 200 && status < 400 ? 'Exitoso' : 'Error',
     };
 
     // Si se personalizo el mensaje, analizamos el estado de la respuesta.
-    if (status >= 200 && successMsg != null) alertField.message = successMsg;
+    if (status >= 200 && status < 400 && successMsg != null)
+        alertField.message = successMsg;
     else if (status >= 400 && errorMsg != null) alertField.message = errorMsg;
 
     return (
         <Snackbar
             open={open}
-            autoHideDuration={8000}
+            autoHideDuration={3000}
             onClose={handleClose}
             anchorOrigin={{
                 vertical: 'top',
