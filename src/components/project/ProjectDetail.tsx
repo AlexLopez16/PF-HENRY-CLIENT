@@ -115,7 +115,8 @@ const ProjectDetail: FC<ProjectProps> = ({
                         aplicar
                     </Button>
                 ) : id &&
-                  projectId?.company._id &&
+                  projectId &&
+                  projectId?.company?._id &&
                   id === projectId.company._id ? (
                     <Link to={`/postulated/${uid}`}>
                         <Button
