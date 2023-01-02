@@ -28,6 +28,7 @@ interface StudentProps {
     idstd: string;
     working: string[];
     isAccepted: boolean;
+    userName: string;
 }
 
 const StudentCard: FC<StudentProps> = ({
@@ -39,6 +40,7 @@ const StudentCard: FC<StudentProps> = ({
     idstd,
     working,
     isAccepted,
+    userName,
 }: StudentProps | any) => {
     const dispatch = useDispatch();
     const [open, setOpen] = React.useState(true);
@@ -79,7 +81,7 @@ const StudentCard: FC<StudentProps> = ({
         <Paper elevation={10} style={style}>
             <CardHeader
                 avatar={<Avatar src={image} sx={{ width: 50, height: 50 }} />}
-                title={name}
+                title={name ? name : userName}
                 // subheader="September 14, 2016"
             />
 

@@ -1,7 +1,8 @@
 import { Typography } from '@mui/material';
-import { Box, 
+import {
+    Box,
     // Container
- } from '@mui/system';
+} from '@mui/system';
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -59,6 +60,7 @@ const Postulated: FC = () => {
                             idstd={p._id}
                             working={p.working}
                             isAccepted={false}
+                            userName={p.username}
                         />
                     ))
                 ) : (
@@ -103,6 +105,7 @@ const Postulated: FC = () => {
                                 idstd={p._id}
                                 working={p.working}
                                 isAccepted={true}
+                                userName={p.username}
                             />
                         ))
                     ) : (
