@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../reducers/rootReducer';
 import { addStudentToProject } from '../../actions/student';
+import { PreLoader } from '../PreLoader/PreLoader';
 
 interface ProjectProps {
     name?: string;
@@ -53,6 +54,7 @@ const ProjectDetail: FC<ProjectProps> = ({
 
     return (
         <div>
+            <PreLoader />
             <Paper
                 elevation={12}
                 style={{
