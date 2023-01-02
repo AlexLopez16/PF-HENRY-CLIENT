@@ -41,6 +41,8 @@ const ProjectDetail: FC<ProjectProps> = ({
     const dispatch = useDispatch();
     let token = localStorage.getItem('token') || '';
     let rol = useSelector((state: State) => state.auth.data.rol);
+    let id = useSelector((state: State) => state.auth.data.id);
+    const { projectId } = useSelector((state: State) => state.project);
     const { user }: any = useSelector((state: State) => state.student);
 
     const handlerApply = () => {
@@ -110,7 +112,9 @@ const ProjectDetail: FC<ProjectProps> = ({
                     >
                         aplicar
                     </Button>
-                ) : (
+                ) : id &&
+                  projectId?.company._id &&
+                  id === projectId.company._id ? (
                     <Link to={`/postulated/${uid}`}>
                         <Button
                             sx={{ marginTop: 10 }}
@@ -122,7 +126,7 @@ const ProjectDetail: FC<ProjectProps> = ({
                             Postulados
                         </Button>
                     </Link>
-                )}
+                ) : null}
             </Paper>
         </div>
     );
