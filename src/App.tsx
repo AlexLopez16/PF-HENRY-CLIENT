@@ -4,7 +4,7 @@ import { LoginScreen } from './components/auth/LoginScreen';
 import { Profile } from './components/student/profile/Profile';
 import { AppRouter } from './routers/AppRouter';
 import { store } from './store/store';
-import { ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material';
 import theme from './styles/themeProvider';
 import Footer from './pages/LandingPage/Footer';
 import ProjectForm from './components/project/ProjectForm';
