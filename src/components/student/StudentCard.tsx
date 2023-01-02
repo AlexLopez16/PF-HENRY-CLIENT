@@ -43,6 +43,7 @@ const StudentCard: FC<StudentProps> = ({
     const dispatch = useDispatch();
     const [open, setOpen] = React.useState(true);
     let rol = useSelector((state: State) => state.auth.data.rol);
+    let token = localStorage.getItem('token') || '';
 
     const { id } = useParams();
     // console.log(id);
@@ -51,10 +52,10 @@ const StudentCard: FC<StudentProps> = ({
     };
 
     const handlerAccept = () => {
-        dispatch(acceptStudent(id, idstd));
+        dispatch(acceptStudent(id, idstd, token));
     };
     const handlerDelete = () => {
-        dispatch(DeleteStudent(id, idstd));
+        dispatch(DeleteStudent(id, idstd, token));
     };
 
     let style;
