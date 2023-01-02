@@ -13,10 +13,10 @@ export const deleteuser = (token: string | null, selectID: string) => {
             });
             console.log(res);
 
-            // dispatch({
-            //     type: types.deleteOrInactiveStudent,
-            //     payload: res.data,
-            // });
+            dispatch({
+                type: types.deleteOrInactiveStudent,
+                // payload: res.data,
+            });
         } catch (error) {
             console.log(error);
         }
