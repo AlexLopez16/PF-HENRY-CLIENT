@@ -1,5 +1,3 @@
-// import { ActionTypes } from '@mui/base';
-// import { type } from 'os';
 import { types } from '../types/types';
 
 interface State {
@@ -16,6 +14,7 @@ const initialState = {
     myProjectCompany: [],
     total: 0,
     filters: {},
+   
 };
 
 type Action = {

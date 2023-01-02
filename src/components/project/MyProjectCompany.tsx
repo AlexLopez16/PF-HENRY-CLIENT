@@ -9,6 +9,7 @@ import Stack from '@mui/material/Stack/Stack';
 import { useEffect, FC } from 'react';
 import Pages from '../ui/Pagination';
 import { Container, Typography } from '@mui/material';
+import { PreLoader } from '../PreLoader/PreLoader';
 
 // const styledInput = {
 //   position: "relative",
@@ -31,6 +32,7 @@ export const MyProjectCompany: FC = () => {
 
     return (
         <div>
+            <PreLoader />
             <Container sx={{ marginLeft: 109 }}>
                 <Typography variant="h6" sx={{ marginTop: 5 }}>
                     Mis proyectos
@@ -58,7 +60,7 @@ export const MyProjectCompany: FC = () => {
                             name={e.name}
                             participants={e.participants}
                             requirements={e.requirements}
-                            students={e.students}
+                            students={e.accepts}
                             company={e.company.name}
                             state={e.state}
                             stateOfProject={e.stateOfProject}

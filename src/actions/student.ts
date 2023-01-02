@@ -163,16 +163,14 @@ export const unApplyStudent = (
     };
 };
 
-export const deleteStudent = (token: string | null, id: string) => {
+export const disableStudent = (token: string | null,  id: string) => {
     return async (dispatch: Dispatch) => {
         try {
-            const res = await axios.delete(`/admin/deletestudent/${id}`, {
-                headers: { 'user-token': token },
-            });
-
+           const { data } = await axios.put(`/admin/stateuser`, { id }, { headers: { 'user-token': token } });
+           console.log(data)
+          
             dispatch({
-                type: types.deleteOrInactiveStudent,
-                payload: res.data,
+               type: types.deleteOrInactiveStudent,
             });
         } catch (error) {
             console.log(error);
