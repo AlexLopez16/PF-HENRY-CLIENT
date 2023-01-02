@@ -341,7 +341,7 @@ const MyProjectStudent: FC = () => {
                                                 margin: '0 5px',
                                             }}
                                         >
-                                            {project.company.name?.toUpperCase()}
+                                            {project.company?.name?.toUpperCase()}
                                         </Typography>
                                     </Paper>
                                 </Paper>
