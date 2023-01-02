@@ -1,36 +1,61 @@
 import { FC, Dispatch, SetStateAction } from 'react';
-import { Paper, Grid, IconButton, Avatar, Typography, Button } from '@mui/material';
+import {
+    Paper,
+    Grid,
+    IconButton,
+    Avatar,
+    Typography,
+    Button,
+} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 
-
-import { paperStyle, iconStyle, container, avatarStyle } from '../../../styles/Profile/HeaderStyles';
+import {
+    paperStyle,
+    iconStyle,
+    container,
+    avatarStyle,
+} from '../../../styles/Profile/HeaderStyles';
+import { SnackBar } from '../../SnackBar/SnackBar';
 
 interface Props {
-    edit: { header: boolean, about: boolean, skills: boolean },
-    setEdit: Dispatch<SetStateAction<{ header: boolean, about: boolean, skills: boolean }>>
-    name?: string,
-    lastName?: string,
-    country?: string,
-    image?: string
+    edit: { header: boolean; about: boolean; skills: boolean };
+    setEdit: Dispatch<
+        SetStateAction<{ header: boolean; about: boolean; skills: boolean }>
+    >;
+    name?: string;
+    lastName?: string;
+    country?: string;
+    image?: string;
 }
 
-export const Header: FC<Props> = ({ edit, setEdit, name, lastName, country, image }) => {
-
+export const Header: FC<Props> = ({
+    edit,
+    setEdit,
+    name,
+    lastName,
+    country,
+    image,
+}) => {
     const handlerEdit = () => {
         setEdit({
             ...edit,
-            header: !edit.header
-        })
-    }
+            header: !edit.header,
+        });
+    };
 
     return (
-        <Paper
-            elevation={5}
-            style={paperStyle}
-        >
-            <Grid textAlign='right'>
+        <Paper elevation={5} style={paperStyle}>
+            <SnackBar
+                successMsg="Actualizado correctamente!"
+                errorMsg="Error al actualizar"
+            />
+            <Grid textAlign="right">
                 <IconButton aria-label="settings" onClick={handlerEdit}>
-                    <EditIcon sx={iconStyle} color='primary' fontSize='medium' />
+                    <EditIcon
+                        sx={iconStyle}
+                        color="primary"
+                        fontSize="medium"
+                    />
                 </IconButton>
             </Grid>
             <div style={container}>
@@ -44,16 +69,14 @@ export const Header: FC<Props> = ({ edit, setEdit, name, lastName, country, imag
                     <Typography
                         sx={{
                             fontSize: '30px',
-                            fontWeight: 'bold'
+                            fontWeight: 'bold',
                         }}
                     >
                         {name}&nbsp;{lastName}
                     </Typography>
-                    <Typography>
-                        {country}
-                    </Typography>
+                    <Typography>{country}</Typography>
                 </div>
             </div>
         </Paper>
-    )
-}
+    );
+};

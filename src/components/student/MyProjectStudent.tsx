@@ -48,7 +48,7 @@ const MyProjectStudent: FC = () => {
     return (
         <Container maxWidth="lg">
             <PreLoader />
-            {user.working.length ? (
+            {user.working?.length ? (
                 <>
                     <Typography
                         variant="h6"

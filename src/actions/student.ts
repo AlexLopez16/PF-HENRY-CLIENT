@@ -67,12 +67,21 @@ export const getStudentInfo = (id: string, token: string) => {
 export const updateStudentInfo = (id: string, token: string, data: object) => {
     return async (dispatch: Dispatch) => {
         try {
+            // Incio de la request.
+            dispatch({
+                type: types.requestInProgress,
+            });
             const res = await axios.put(`/student/${id}`, data, {
                 headers: { 'user-token': token },
             });
             dispatch({
                 type: types.studentUpdateInfo,
                 payload: res.data,
+            });
+            // Fin de la request.
+            dispatch({
+                type: types.requestFinished,
+                payload: res,
             });
         } catch (error) {
             console.log(error);
@@ -163,14 +172,18 @@ export const unApplyStudent = (
     };
 };
 
-export const disableStudent = (token: string | null,  id: string) => {
+export const disableStudent = (token: string | null, id: string) => {
     return async (dispatch: Dispatch) => {
         try {
-           const { data } = await axios.put(`/admin/stateuser`, { id }, { headers: { 'user-token': token } });
-           console.log(data)
-          
+            const { data } = await axios.put(
+                `/admin/stateuser`,
+                { id },
+                { headers: { 'user-token': token } }
+            );
+            console.log(data);
+
             dispatch({
-               type: types.deleteOrInactiveStudent,
+                type: types.deleteOrInactiveStudent,
             });
         } catch (error) {
             console.log(error);
