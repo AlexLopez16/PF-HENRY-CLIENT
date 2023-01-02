@@ -137,10 +137,7 @@ export const AppRouter = () => {
                         path="/project"
                         element={
                             <PrivateRoute>
-                                <>
-                                    <NavBar />
-                                    <ProjectPage />
-                                </>
+                                <ProjectPage />
                             </PrivateRoute>
                         }
                     />
@@ -249,6 +246,13 @@ export const AppRouter = () => {
                             <PrivateRoute>
                                 <Postulated />
                             </PrivateRoute>
+                        }
+                    />
+
+                    <Route
+                        path='/checkout/'
+                        element={
+                            <Checkout />
                         }
                     />
                 </Routes>

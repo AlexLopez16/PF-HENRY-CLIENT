@@ -276,7 +276,6 @@ export const LoginScreen: FC = () => {
                                                 dispatch(
                                                     gmailLogin(
                                                         credentialResponse.credential,
-                                                        ''
                                                     )
                                                 );
                                             }}

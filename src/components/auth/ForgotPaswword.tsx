@@ -1,28 +1,23 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
+import { useDispatch } from 'react-redux';
+
 import {
     Grid,
-    InputLabel,
-    OutlinedInput,
     Paper,
     TextField,
-    InputAdornment,
-    IconButton,
-    FormControl,
     Button,
     Typography,
-    Link,
-    FormHelperText,
     Box,
 } from '@mui/material';
-import { paperStyle } from '../../styles/Profile/HeaderStyles';
-import { ErrorMessage, Field, Form, Formik, FormikValues } from 'formik';
+
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as yup from 'yup';
-import { GridEvents } from '@mui/x-data-grid';
-import { AlignHorizontalCenter } from '@mui/icons-material';
+
+import { forgotPassword } from '../../actions/auth';
 import Header from '../NavbarLandingPage/HeaderLanding';
 import Footer from '../../pages/LandingPage/Footer';
-import { useDispatch } from 'react-redux';
-import { forgotPassword } from '../../actions/auth';
+
+import Logo from '../../assets/NABIJASH.png'
 
 export const ForgotPassword: FC = () => {
     const dispatch = useDispatch();
@@ -55,7 +50,7 @@ export const ForgotPassword: FC = () => {
                 alignItems="center"
             >
                 <img
-                    src="../public/assets/NABIJASH.png"
+                    src={Logo}
                     style={{
                         justifyContent: 'center',
                         marginTop: 10,
