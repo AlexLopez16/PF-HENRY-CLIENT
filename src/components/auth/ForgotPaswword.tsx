@@ -23,8 +23,6 @@ import * as yup from 'yup';
 import { forgotPassword } from '../../actions/auth';
 import Header from '../NavbarLandingPage/HeaderLanding';
 import Footer from '../../pages/LandingPage/Footer';
-import { useDispatch } from 'react-redux';
-import { forgotPassword } from '../../actions/auth';
 import { SnackBar } from '../SnackBar/SnackBar';
 import logo from '../../assets/NABIJASH.png';
 
