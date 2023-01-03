@@ -13,8 +13,16 @@ export const requestInProgress = () => {
 };
 
 // Cuando la peticion acabo.
-export const requestFinished = () => {
+export const requestFinished = (payload: object | any) => {
     return {
         type: types.requestFinished,
+        payload,
+    };
+};
+
+// Limpiamos el mensaje del backend.
+export const requestCleaned = () => {
+    return {
+        type: types.requestCleaned,
     };
 };

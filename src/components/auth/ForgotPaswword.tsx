@@ -23,8 +23,10 @@ import * as yup from 'yup';
 import { forgotPassword } from '../../actions/auth';
 import Header from '../NavbarLandingPage/HeaderLanding';
 import Footer from '../../pages/LandingPage/Footer';
-
-import Logo from '../../assets/NABIJASH.png'
+import { useDispatch } from 'react-redux';
+import { forgotPassword } from '../../actions/auth';
+import { SnackBar } from '../SnackBar/SnackBar';
+import logo from '../../assets/NABIJASH.png';
 
 export const ForgotPassword: FC = () => {
     const dispatch = useDispatch();
@@ -40,8 +42,8 @@ export const ForgotPassword: FC = () => {
     const onSubmit = (valores: any, { resetForm }: any) => {
         resetForm();
         dispatch(forgotPassword(valores.Email));
-        setSendRequest(true);
-        setTimeout(() => setSendRequest(false), 5000);
+        // setSendRequest(true);
+        // setTimeout(() => setSendRequest(false), 5000);
     };
     return (
         <Box
@@ -49,6 +51,11 @@ export const ForgotPassword: FC = () => {
                 backgroundColor: 'black',
             }}
         >
+            <SnackBar
+                successMsg=" Solicitud enviada con exito,porfavor
+                                        revise su email!"
+                errorMsg="Ha ocurrido un error,correo no existe"
+            />
             <Header />
             <Grid
                 container
@@ -57,7 +64,7 @@ export const ForgotPassword: FC = () => {
                 alignItems="center"
             >
                 <img
-                    src={Logo}
+                    src={logo}
                     style={{
                         justifyContent: 'center',
                         marginTop: 10,
@@ -138,7 +145,7 @@ export const ForgotPassword: FC = () => {
                                 >
                                     Enviar solicitud
                                 </Button>
-                                {sendRequest && (
+                                {/* {sendRequest && (
                                     <Typography
                                         variant="body2"
                                         sx={{ marginTop: 1, marginLeft: 2 }}
@@ -146,7 +153,7 @@ export const ForgotPassword: FC = () => {
                                         Solicitud enviada con exito,porfavor
                                         revise su email!
                                     </Typography>
-                                )}
+                                )} */}
                             </Form>
                         )}
                     </Formik>

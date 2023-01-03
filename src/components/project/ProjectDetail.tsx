@@ -13,6 +13,7 @@ import {
 import { State } from '../../reducers/rootReducer';
 import { addStudentToProject } from '../../actions/student';
 import { PreLoader } from '../PreLoader/PreLoader';
+import { SnackBar } from '../SnackBar/SnackBar';
 
 interface ProjectProps {
     name?: string;
@@ -40,6 +41,9 @@ const ProjectDetail: FC<ProjectProps> = ({
 }: ProjectProps) => {
     const dispatch = useDispatch();
     let token = localStorage.getItem('token') || '';
+    let rol = useSelector((state: State) => state.auth.data.rol);
+    let id = useSelector((state: State) => state.auth.data.id);
+    const { projectId } = useSelector((state: State) => state.project);
     const { user }: any = useSelector((state: State) => state.student);
 
     const handlerApply = () => {
@@ -49,6 +53,12 @@ const ProjectDetail: FC<ProjectProps> = ({
     return (
         <div>
             <PreLoader />
+            {rol === 'STUDENT_ROL' ? (
+                <SnackBar
+                    successMsg="Aplicaste correctamente."
+                    errorMsg="Error al aplicar."
+                />
+            ) : null}
             <Paper
                 elevation={12}
                 style={{
@@ -120,17 +130,34 @@ const ProjectDetail: FC<ProjectProps> = ({
 
                 </div>
 
-                <Button
-                    sx={{ marginTop: 10 }}
-                    type="submit"
-                    variant="contained"
-                    fullWidth
-                    color="primary"
-                    onClick={handlerApply}
-                    disabled={user.project?.length === 3}
-                >
-                    aplicar
-                </Button>
+                {rol === 'STUDENT_ROL' ? (
+                    <Button
+                        sx={{ marginTop: 10 }}
+                        type="submit"
+                        variant="contained"
+                        fullWidth
+                        color="primary"
+                        onClick={handlerApply}
+                        disabled={user.project?.length === 3}
+                    >
+                        aplicar
+                    </Button>
+                ) : id &&
+                  projectId &&
+                  projectId?.company?._id &&
+                  id === projectId.company._id ? (
+                    <Link to={`/postulated/${uid}`}>
+                        <Button
+                            sx={{ marginTop: 10 }}
+                            type="submit"
+                            variant="contained"
+                            fullWidth
+                            color="primary"
+                        >
+                            Postulados
+                        </Button>
+                    </Link>
+                ) : null}
             </Paper>
         </div>
     );

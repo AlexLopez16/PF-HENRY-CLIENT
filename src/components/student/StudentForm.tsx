@@ -67,15 +67,15 @@ export const StudensForm: FC = () => {
 
   const dispatch = useDispatch();
 
-  const onSubmit = (values: Values, props: any) => {
-    dispatch(studentRegister(values));
-    dispatch(alert)
-
-    setTimeout(() => {
-      props.resetForm();
-      props.setSubmitting(false);
-    }, 1000);
-  };
+    const onSubmit = (values: Values) => {
+      dispatch(studentRegister({
+        name:values.name.trim(),
+        lastName:values.lastName.trim(),
+        email:values.email.trim(),
+        password:values.password.trim()
+      }));
+      dispatch(alert)
+    };
 
 
   return (

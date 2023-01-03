@@ -1,10 +1,14 @@
+
+
 export const types = {
     authLogin: '[auth] Login User',
     authLoginGit: '[auth] GitHub Login',
     clearAuthLogin: '[auth] Clear Auth Login',
     login: '[login] Login',
+
     requestInProgress: '[request] Request In Progress',
     requestFinished: '[request] Request Finished',
+    requestCleaned: '[request] Request Cleaned',
 
     getListStudents: '[student] Get List Students',
     studentRegister: '[student] Register Student',
@@ -35,5 +39,7 @@ export const types = {
 
     showError: '[error] Show Error',
     clearError: '[error] Clear Error',
-    getAllProjects:"[project] get all Project"
+    getAllProjects: "[project] get all Project",
+    AdminAprovedProject: "[admin]project aproved"
+
 };
