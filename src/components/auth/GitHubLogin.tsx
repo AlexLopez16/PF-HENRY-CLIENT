@@ -15,7 +15,7 @@ export const GitHubLogin: FC = () => {
         <Link
             href={`https://github.com/login/oauth/authorize?client_id=87e69cf79c2019d84894&redirect_uri=${
                 process.env.REACT_APP_API || 'http://localhost:3001'
-            }/api/auth?&scope=user:email`}
+            }/auth?&scope=user:email`}
             underline="none"
         >
             <Button

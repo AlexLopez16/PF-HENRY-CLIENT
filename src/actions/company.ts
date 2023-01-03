@@ -19,10 +19,18 @@ export const registerCompany = (values: Object) => {
     };
 };
 
-export const acceptStudent = (id: string | any, studentId: string) => {
+export const acceptStudent = (
+    id: string | any,
+    studentId: string,
+    token: string | any
+) => {
     return async (dispatch: Dispatch) => {
         try {
-            const res = await axios.put(`/project/accept/${id}`, { studentId });
+            const res = await axios.put(
+                `/project/accept/${id}`,
+                { studentId },
+                { headers: { 'user-token': token } }
+            );
             dispatch({
                 type: types.getProjectById,
                 payload: res.data,
@@ -101,12 +109,20 @@ export const updatePhotoCompany = (id: string, token: string, file: any) => {
     };
 };
 
-export const DeleteStudent = (id: string | any, studentId: string) => {
+export const DeleteStudent = (
+    id: string | any,
+    studentId: string,
+    token: string | any
+) => {
     console.log(id);
 
     return async (dispatch: Dispatch) => {
         try {
-            const res = await axios.put(`/project/denied/${id}`, { studentId });
+            const res = await axios.put(
+                `/project/denied/${id}`,
+                { studentId },
+                { headers: { 'user-token': token } }
+            );
             dispatch({
                 type: types.getProjectById,
                 payload: res.data,
