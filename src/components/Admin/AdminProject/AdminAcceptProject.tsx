@@ -114,13 +114,20 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
         setSelectedCustomerIds(newSelectedCustomerIds);
     };
 
-    const handleSwitch = () => {
+    const handleaccept = () => {
         selectedCustomerIds.forEach((selectID: any) =>
             dispatch(AprovedProject(token, selectID)),
             setRender(!render),
         );
     };
-    console.log(render);
+
+    const handlecancel  = () => {
+        selectedCustomerIds.forEach((selectID: any) =>
+            dispatch(AprovedProject(token, selectID)),
+            setRender(!render),
+        );
+    };
+
 
     const handleLimitChange = (event: any) => {
         setLimit(event.target.value);
@@ -261,12 +268,14 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                                     <TableCell sx={{ maxWidth: 200 }}>
                                         <CheckIcon
                                             sx={{ hover: "pointer" }}
-                                            onClick={handleSwitch} />
+                                            onClick={handleaccept} />
                                     </TableCell>
                                 
 
                                     <TableCell sx={{ maxWidth: 200 }}>
-                                        <CloseIcon />
+                                        <CloseIcon 
+                                         onClick={handlecancel} 
+                                        />
                                     </TableCell>
 
 

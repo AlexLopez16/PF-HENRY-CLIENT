@@ -5,8 +5,10 @@ export const types = {
     authLoginGit: '[auth] GitHub Login',
     clearAuthLogin: '[auth] Clear Auth Login',
     login: '[login] Login',
+
     requestInProgress: '[request] Request In Progress',
     requestFinished: '[request] Request Finished',
+    requestCleaned: '[request] Request Cleaned',
 
     getListStudents: '[student] Get List Students',
     studentRegister: '[student] Register Student',
