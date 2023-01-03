@@ -84,11 +84,22 @@ const login = (data: object) => ({
 
 export const forgotPassword = (email: string) => {
     return async (dispatch: Dispatch) => {
+        dispatch({
+            type: types.requestInProgress,
+        });
         try {
             const res = await axios.get(`/recover/password?email=${email}`);
-            console.log(res.data);
-        } catch (error) {
-            console.log(error);
+
+            dispatch({
+                type: types.requestFinished,
+                payload: res,
+            });
+        } catch (error: any) {
+            // console.log(error);
+            dispatch({
+                type: types.requestFinished,
+                payload: error.response,
+            });
         }
     };
 };
@@ -96,14 +107,25 @@ export const forgotPassword = (email: string) => {
 export const recoverPassword = (password: string, token: string | any) => {
     return async (dispatch: Dispatch) => {
         try {
+            dispatch({
+                type: types.requestInProgress,
+            });
             const res: any = await axios.put(
                 `/recover/password`,
                 { password: password },
                 { headers: { 'user-token': token } }
             );
-            console.log(res.data);
-        } catch (error) {
-            console.log(error);
+            dispatch({
+                type: types.requestFinished,
+                payload: res,
+            });
+            // console.log(res.data);
+        } catch (error: any) {
+            // console.log(error);
+            dispatch({
+                type: types.requestFinished,
+                payload: error.response,
+            });
         }
     };
 };

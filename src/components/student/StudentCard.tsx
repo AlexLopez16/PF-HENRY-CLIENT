@@ -1,6 +1,18 @@
 import React, { FC } from 'react';
+import React, { FC } from 'react';
 
 import {
+    Box,
+    Typography,
+    Paper,
+    CardHeader,
+    Avatar,
+    Collapse,
+    List,
+    ListItemButton,
+    Button,
+} from '@mui/material';
+
     Box,
     Typography,
     Paper,
@@ -28,6 +40,7 @@ interface StudentProps {
     idstd: string;
     working: string[];
     isAccepted: boolean;
+    userName: string;
 }
 
 const StudentCard: FC<StudentProps> = ({
@@ -39,10 +52,12 @@ const StudentCard: FC<StudentProps> = ({
     idstd,
     working,
     isAccepted,
+    userName,
 }: StudentProps | any) => {
     const dispatch = useDispatch();
     const [open, setOpen] = React.useState(true);
     let rol = useSelector((state: State) => state.auth.data.rol);
+    let token = localStorage.getItem('token') || '';
 
     const { id } = useParams();
     // console.log(id);
@@ -51,10 +66,10 @@ const StudentCard: FC<StudentProps> = ({
     };
 
     const handlerAccept = () => {
-        dispatch(acceptStudent(id, idstd));
+        dispatch(acceptStudent(id, idstd, token));
     };
     const handlerDelete = () => {
-        dispatch(DeleteStudent(id, idstd));
+        dispatch(DeleteStudent(id, idstd, token));
     };
 
     let style;
@@ -78,7 +93,7 @@ const StudentCard: FC<StudentProps> = ({
         <Paper elevation={10} style={style}>
             <CardHeader
                 avatar={<Avatar src={image} sx={{ width: 50, height: 50 }} />}
-                title={name}
+                title={name ? name : userName}
                 // subheader="September 14, 2016"
             />
 
