@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import React, { FC } from 'react';
 
 import {
     Box,
@@ -13,16 +12,6 @@ import {
     Button,
 } from '@mui/material';
 
-    Box,
-    Typography,
-    Paper,
-    CardHeader,
-    Avatar,
-    Collapse,
-    List,
-    ListItemButton,
-    Button,
-} from '@mui/material';
 
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
