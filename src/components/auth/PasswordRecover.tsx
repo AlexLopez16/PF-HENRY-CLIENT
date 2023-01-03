@@ -31,11 +31,13 @@ import {
     Visibility,
     VisibilityOff,
 } from '@mui/icons-material';
-import { useSearchParams, Navigate } from 'react-router-dom';
+import { useSearchParams, Navigate, useNavigate } from 'react-router-dom';
 import { recoverPassword } from '../../actions/auth';
 import { useDispatch } from 'react-redux';
 import Header from '../NavbarLandingPage/HeaderLanding';
 import Footer from '../../pages/LandingPage/Footer';
+import logo from '../../assets/NABIJASH.png';
+import { SnackBar } from '../SnackBar/SnackBar';
 
 export const PasswordRecover: FC = () => {
     const dispatch = useDispatch();
@@ -49,7 +51,7 @@ export const PasswordRecover: FC = () => {
         localStorage.setItem('id', id);
         localStorage.setItem('rol', rol);
     }
-    9;
+    const navigate = useNavigate();
     let token: String | null = localStorage.getItem('token');
 
     const [sendRequest, setSendRequest] = useState(false);
@@ -89,9 +91,9 @@ export const PasswordRecover: FC = () => {
         resetForm();
         console.log(valores);
         dispatch(recoverPassword(valores.confirmPassword, token));
-        setSendRequest(true);
-        setTimeout(() => setSendRequest(false), 5000);
-        return <Navigate to="/login" />;
+        // setSendRequest(true);
+        // setTimeout(() => setSendRequest(false), 5000);
+        setTimeout(() => navigate('/login'), 4000);
     };
     return (
         <Box
@@ -99,6 +101,7 @@ export const PasswordRecover: FC = () => {
                 backgroundColor: 'black',
             }}
         >
+            <SnackBar successMsg=" Solicitud enviada con exito!" />
             <Header />
             <Grid
                 container
@@ -107,7 +110,7 @@ export const PasswordRecover: FC = () => {
                 alignItems="center"
             >
                 <img
-                    src="../public/assets/NABIJASH.png"
+                    src={logo}
                     style={{
                         justifyContent: 'center',
                         marginTop: 10,
@@ -228,14 +231,14 @@ export const PasswordRecover: FC = () => {
                                 >
                                     Cambiar Contraseña
                                 </Button>
-                                {sendRequest && (
+                                {/* {sendRequest && (
                                     <Typography
                                         variant="body2"
                                         sx={{ marginTop: 1, marginLeft: 2 }}
                                     >
                                         Solicitud enviada con exito
                                     </Typography>
-                                )}
+                                )} */}
                             </Form>
                         )}
                     </Formik>
