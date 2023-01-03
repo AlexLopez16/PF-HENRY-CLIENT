@@ -123,7 +123,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
 
     const handlecancel  = () => {
         selectedCustomerIds.forEach((selectID: any) =>
-            dispatch(AprovedProject(token, selectID)),
+            // dispatch(AprovedProject(token, selectID)),
             setRender(!render),
         );
     };
