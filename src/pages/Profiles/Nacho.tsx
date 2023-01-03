@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import {
   CardMedia,
   CardContent,
@@ -6,10 +7,12 @@ import {
   CardActions,
   FormControl,
   Grid,
+  Box,
+  Container
 } from '@mui/material';
-import { Box, Container } from '@mui/system';
-import { useNavigate } from 'react-router-dom';
-import aboutbg from '../../../public/assets/aboutbg.png';
+
+import aboutbg from '../../assets/aboutbg.png';
+import IgnacioNicoletti from "../../assets/team/nacho.png";
 
 export default function Nacho() {
   const navigate = useNavigate();
@@ -28,7 +31,7 @@ export default function Nacho() {
         height: '870px',
       }}
     >
-      
+
       <FormControl
         sx={{
           px: 50,
@@ -80,7 +83,7 @@ export default function Nacho() {
             ml: 9.3,
           }}
           component='img'
-          image='../../public/assets/team/nacho.png'
+          image={IgnacioNicoletti}
           alt='profilephoto'
         />
         <CardContent>

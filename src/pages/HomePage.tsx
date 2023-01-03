@@ -9,17 +9,15 @@ import DashboardCompany from '../components/company/DashboardCompany';
 import { useSelector } from 'react-redux';
 import { State } from '../reducers/rootReducer';
 
-
 export const HomePage = () => {
     const { rol } = useSelector((state: State) => state.auth.data);
     console.log(rol);
 
-    let role = rol
+    let role = rol;
 
     console.log(role);
 
-    return (
-        role === 'STUDENT_ROL' ? 
+    return role === 'STUDENT_ROL' ? (
         <>
             <SearchBar />
 
@@ -28,14 +26,14 @@ export const HomePage = () => {
                 <DashboardStudent />
             </div>
         </>
-    :
-    <>
+    ) : (
+        <>
             <SearchBar />
 
             <div style={{ display: 'flex' }}>
                 <SideBar />
-                <DashboardCompany/>
+                <DashboardCompany />
             </div>
         </>
-    )
-}
+    );
+};

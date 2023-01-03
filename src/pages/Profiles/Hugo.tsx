@@ -1,17 +1,18 @@
+import { useNavigate } from 'react-router-dom';
 import {
-  Card,
   CardMedia,
   CardContent,
   Typography,
   Button,
   CardActions,
-  Link,
   FormControl,
   Grid,
+  Box,
+  Container
 } from '@mui/material';
-import { Box, Container } from '@mui/system';
-import { useNavigate } from 'react-router-dom';
-import aboutbg from '../../../public/assets/aboutbg.png';
+
+import aboutbg from '../../assets/aboutbg.png';
+import HugoS from "../../assets/team/hugo.png";
 
 export default function Hugo() {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ export default function Hugo() {
         height: '870px',
       }}
     >
-     
+
       <FormControl
         sx={{
           px: 50,
@@ -81,7 +82,7 @@ export default function Hugo() {
             ml: 9.3,
           }}
           component='img'
-          image='../../public/assets/team/hugo.png'
+          image={HugoS}
           alt='profilephoto'
         />
         <CardContent>

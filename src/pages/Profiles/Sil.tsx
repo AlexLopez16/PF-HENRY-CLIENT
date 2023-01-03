@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import {
   CardMedia,
   CardContent,
@@ -6,10 +7,13 @@ import {
   CardActions,
   FormControl,
   Grid,
+  Box,
+  Container
 } from '@mui/material';
-import { Box, Container } from '@mui/system';
-import { useNavigate } from 'react-router-dom';
-import aboutbg from '../../../public/assets/aboutbg.png';
+
+import aboutbg from "../../assets/aboutbg.png";
+import Silvana from "../../assets/team/silvana.png";
+
 
 export default function Sil() {
   const navigate = useNavigate();
@@ -79,7 +83,7 @@ export default function Sil() {
             ml: 9.3,
           }}
           component='img'
-          image='../../public/assets/team/silvana.png'
+          image={Silvana}
           alt='profilephoto'
         />
         <CardContent>

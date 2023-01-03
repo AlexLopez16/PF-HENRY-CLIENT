@@ -7,18 +7,16 @@ import { types } from '../types/types';
  * NOTA: con infoToken() si tenemos un token valido en el local storage, vamos a mantener la sesion con ese token.
  */
 
-export const validaToken = (token: any) => {
-    console.log(token);
+export const validaToken = (token: string) => {
     return async (dispatch: Dispatch) => {
         try {
-            const { data, status } = await axios.get(
-                'http://localhost:3001/api/token',
-                {
-                    headers: { 'user-token': token },
-                }
-            );
+            const { data, status } = await axios.get('/token', {
+                headers: { 'user-token': token },
+            });
             const { id, rol } = data;
             if (status) {
+                // console.log(status);
+                // console.log(rol);
                 localStorage.setItem('token', token);
                 dispatch(login({ data, status, id, rol }));
             }
@@ -36,8 +34,6 @@ export const startLogin = (values: object) => {
             const { token, id, rol } = data;
             if (status) {
                 localStorage.setItem('token', token);
-                localStorage.setItem('id', id);
-                localStorage.setItem('rol', rol);
                 dispatch(login({ data, status, id, rol }));
             }
         } catch (error: any) {
@@ -51,11 +47,11 @@ export const startLogin = (values: object) => {
         }
     };
 };
-export const githubLogin = ({ id, rol, token }) => {
+export const githubLogin = ({ id, rol, token }: string | any) => {
     return login({ data: { id, rol, token } });
 };
 
-export const gmailLogin = (tok: String, userType: String) => {
+export const gmailLogin = (tok: string | any, userType: string | any) => {
     return async (dispatch: Dispatch) => {
         try {
             const { data, status } = await axios.post('/auth', {
@@ -67,8 +63,6 @@ export const gmailLogin = (tok: String, userType: String) => {
 
             if (status) {
                 localStorage.setItem('token', token);
-                localStorage.setItem('id', id);
-                localStorage.setItem('rol', rol);
                 dispatch(login({ data, status, token, id, rol }));
             }
         } catch (error: any) {
@@ -88,30 +82,31 @@ const login = (data: object) => ({
     payload: data,
 });
 
-
-export const forgotPassword=(email:String)=>{
-    return async (dispatch:Dispatch)=>{
+export const forgotPassword = (email: string) => {
+    return async (dispatch: Dispatch) => {
         try {
-            const res:any=await axios.get(`/recover/password?email=${email}`)
-              console.log(res.data)
+            const res = await axios.get(`/recover/password?email=${email}`);
+            console.log(res.data);
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
-    }
+    };
+};
 
-}
-
-export const recoverPassword=(password:String,token:String|any)=>{
-    return async (dispatch:Dispatch)=>{
+export const recoverPassword = (password: string, token: string | any) => {
+    return async (dispatch: Dispatch) => {
         try {
-            const res:any=await axios.put(`/recover/password`,{password:password},{ headers: { "user-token": token }})
-              console.log(res.data)
+            const res: any = await axios.put(
+                `/recover/password`,
+                { password: password },
+                { headers: { 'user-token': token } }
+            );
+            console.log(res.data);
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
-    }
-
-}
-const logout = () => ({
+    };
+};
+export const logout = () => ({
     type: types.clearAuthLogin,
 });

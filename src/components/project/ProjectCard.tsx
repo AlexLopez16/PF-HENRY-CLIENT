@@ -1,147 +1,160 @@
-import { FC } from "react";
-
-import { Box, Typography, Paper, CardMedia } from "@mui/material";
-
-import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { getProjectByID } from "../../actions/projects";
-
+import { FC } from 'react';
+import { Box, Typography, Paper, CardMedia, Chip } from '@mui/material';
+import clip from 'text-clipper';
+import Button from '@mui/material/Button';
+import { NavLink, Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { getProjectByID } from '../../actions/projects';
+import BusinessIcon from '@mui/icons-material/Business';
 
 type CompanyData = {
-    "_id": string,
-    "name": string
-}
+    _id: string;
+    name: string;
+};
 
 interface CardProjectProps {
-    
-    name?: string,
-    description?: string,
-    participants?: number
-    requirements?: any,
-    students:string[]|undefined,
-    company?: CompanyData,
-    state?: boolean
-    stateOfProject?: string
-    id?: string
-    category?:string
+    name?: string;
+    description?: string | any;
+    participants?: number;
+    requirements?: any;
+    students: string[] | undefined;
+    company?: CompanyData | any;
+    state?: boolean;
+    stateOfProject?: string;
+    id: string;
+    category?: string;
+    image?: string[];
 }
 
 const ProjectCard: FC<CardProjectProps> = ({
     name,
     description,
-    participants,//lo que se necesitan para el proyecto
+    participants, //lo que se necesitan para el proyecto
     requirements,
-    students,//los aceptados por la empresa para el project
+    students, //los aceptados por la empresa para el project
     company,
     stateOfProject,
     id,
-    category
+    category,
+    image,
 }: CardProjectProps) => {
-
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const token = localStorage.getItem('token') || '';
     const rol = localStorage.getItem('rol');
+    const clippedDescription = clip(description, 100);
 
-  const handleClick = () => {
-    dispatch(getProjectByID(token, id));
-  };
+    const handleClick = () => {
+        dispatch(getProjectByID(token, id));
+    };
 
+    return (
+        <Paper
+            elevation={10}
+            style={{
+                padding: '20px',
+                marginTop: '20px',
+            }}
+        >
+            <Typography variant="subtitle2" sx={{ color: '#898989' }}>
+                {' '}
+                {category?.toUpperCase()}
+            </Typography>
 
-    return  rol === 'STUDENT_ROL' ? 
-
-        <Paper elevation={10} style={{
-            width: '100vh',
-            height: "fit-content",
-            padding: 20,
-            marginLeft: 50,
-            marginRight:30,
-            marginTop: 50
-        }}>
-
-            <Typography sx={{ mb: 0.5, display: 'flex', justifyContent: 'space-between' }} variant="h6">
-                {name}
-                <Link to="/project">
+            <Typography
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                }}
+                variant="h6"
+            >
+                {name?.toUpperCase()}
+                <NavLink
+                    to="/project"
+                    style={{ textDecoration: 'none', marginTop: 'auto' }}
+                >
                     <Button
-                        sx={{ ml: 'auto', fontWeight: 600, color: "yellow", background: "black", }}
+                        variant="contained"
+                        type="submit"
                         size="small"
                         color="primary"
-                        variant="text"
                         onClick={handleClick}
                     >
                         Mas info
                     </Button>
-                </Link>
+                </NavLink>
             </Typography>
 
-            <Typography sx={{ mb: 0.5 }}>
-                {company?.name}
-            </Typography>
+            <Typography sx={{ m: 0.5 }}>{clippedDescription}</Typography>
 
-            <Typography sx={{ mb: 0.5 }}>
-                <h2> {description} </h2>
-            </Typography>
+            <Box sx={{ display: 'block', marginBottom: '10px' }}>
+                <Typography variant="subtitle1" sx={{ color: '#898989' }}>
+                    Requerimientos:
+                    {requirements.map(
+                        (requirement: string | any, index: number | any) => (
+                            <>
+                                {' '}
+                                <Chip
+                                    key={index}
+                                    size="small"
+                                    label={requirement}
+                                    // color="primary"
+                                />
+                            </>
+                        )
+                    )}
+                </Typography>
 
-            <Box sx={{ display: 'flex' }}>
-                <div>
-                    <Typography variant="subtitle2">
-                        Requerimientos: {requirements.join(", ")}
-                    </Typography>
-                    <Typography variant="subtitle2">Estado: {stateOfProject} </Typography>
-                    <Typography variant="subtitle2">Category: {category} </Typography>
-                    <Typography variant="subtitle2"> Participantes: {students?.length}/{participants} </Typography>
-                </div>
+                <Typography
+                    variant="subtitle1"
+                    sx={{
+                        color: '#898989',
+                    }}
+                >
+                    Estado:{' '}
+                    <Chip
+                        size="small"
+                        label={stateOfProject}
+                        // color="primary"
+                    />
+                </Typography>
+
+                <Typography variant="subtitle1" sx={{ color: '#898989' }}>
+                    {' '}
+                    Participantes:{' '}
+                    <Chip
+                        label={`${students?.length}/${participants}`}
+                        size="small"
+                        // color="primary"
+                    />
+                    {/* {students?.length}/{participants}{' '} */}
+                </Typography>
             </Box>
+            <Paper
+                elevation={5}
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    // border: '1px solid',
+                    width: 'max-content',
+                    padding: '2px 4px',
+                    // borderRadius: '4px',
+                }}
+            >
+                <BusinessIcon fontSize="small" />
+                <Typography
+                    variant="subtitle2"
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        margin: '0 5px',
+                    }}
+                >
+                    {company?.toUpperCase()}
+                </Typography>
+            </Paper>
         </Paper>
-    : 
-
-    <Box display='flex'>
-            
-        <Paper elevation={10} style={{
-            width: '50vh',
-            height: "fit-content",
-            padding: 20,
-            marginLeft: 50,
-            marginTop: 50
-        }}>
-
-            <Typography sx={{ mb: 0.5, display: 'flex', justifyContent: 'space-between' }} variant="h6">
-                {name}
-                <Link to="/project">
-                    <Button
-                        sx={{ ml: 'auto', fontWeight: 600, color: "yellow", background: "black", }}
-                        size="small"
-                        color="primary"
-                        variant="text"
-                        onClick={handleClick}
-                    >
-                        Mas info
-                    </Button>
-                </Link>
-            </Typography>
-
-            <Typography sx={{ mb: 0.5 }}>
-                {company?.name}
-            </Typography>
-
-            <Typography sx={{ mb: 0.5 }}>
-                <h2> {description} </h2>
-            </Typography>
-
-            <Box sx={{ display: 'flex' }}>
-                <div>
-                    <Typography variant="subtitle2">
-                        Requerimientos: {requirements.join(", ")}
-                    </Typography>
-                    <Typography variant="subtitle2">Estado: {stateOfProject} </Typography>
-                    <Typography variant="subtitle2">Category: {category} </Typography>
-                    <Typography variant="subtitle2"> Participantes: {students?.length}/{participants} </Typography>
-                </div>
-            </Box> 
-        </Paper>
-
-    </Box>
-
-}
+    );
+};
 
 export default ProjectCard;

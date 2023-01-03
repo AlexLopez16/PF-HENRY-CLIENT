@@ -1,14 +1,14 @@
-import { FC } from "react";
-import { Box, Input, Typography } from '@mui/material';
-import IconButton from "@mui/material/IconButton";
-import SearchIcon from "@mui/icons-material/Search";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getProjectsFilter } from "../../actions/projects";
-import { State } from "../../reducers/rootReducer";
-import AccountMenu from "../AdminBar/AdminBar";
-
-
+import { FC } from 'react';
+import { Box, 
+    // Input, Typography 
+} from '@mui/material';
+// import IconButton from '@mui/material/IconButton';
+// import SearchIcon from '@mui/icons-material/Search';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProjectsFilter } from '../../actions/projects';
+import { State } from '../../reducers/rootReducer';
+import AccountMenu from '../AdminBar/AdminBar';
 
 const StyledBox = {
     justifyContent: 'space-between',
@@ -16,40 +16,50 @@ const StyledBox = {
     height: 65,
     boxShadow: 2,
     background: '#fff',
-    p: '0 30px'
-}
+    p: '0 30px',
+};
 
 const styledInput = {
     position: 'relative',
     right: 10,
-    '&:hover' : {
-        
-    }
-}
+    '&:hover': {},
+};
 
 const SearchBar: FC = () => {
-    const [search, setSearch] = useState('')
-    const dispatch=useDispatch()
+    const [search, setSearch] = useState('');
+    const dispatch = useDispatch();
     let token = localStorage.getItem('token') || '';
 
-    const handleInput = (e:string) => {
-        setSearch(e)
-    }
+    const handleInput = (e: string) => {
+        setSearch(e);
+    };
 
-    const handleSubmit = (e:any) => {
+    const handleSubmit = (e: any) => {
         e.preventDefault();
-        !search ? alert('no se ingreso un busqueda') : dispatch(getProjectsFilter(undefined,undefined,token,search,undefined,undefined))  
-    }
+        !search
+            ? alert('no se ingreso un busqueda')
+            : dispatch(
+                  getProjectsFilter(
+                      undefined,
+                      undefined,
+                      token,
+                      search,
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined
+                  )
+              );
+    };
 
     const { rol } = useSelector((state: State) => state.auth.data);
 
-    let role = rol
+    let role = rol;
 
     return (
         <>
-          <Box display='flex' 
-            sx={StyledBox}>
-            <Box>
+            <Box display="flex" sx={StyledBox}>
+                {/* <Box>
             <img src="/ISOLOGO_HENRY_BLACK.png" alt="" />
                 
                 <Typography
@@ -69,8 +79,8 @@ const SearchBar: FC = () => {
                     >
                     NABIJASH
                 </Typography>
-            </Box>
-                    
+            </Box> */}
+
                 {/* <form onSubmit={handleSubmit}>
                     <Input 
                         placeholder="Search..." 
@@ -81,11 +91,10 @@ const SearchBar: FC = () => {
                     </IconButton>
                 </form> */}
 
-            <AccountMenu/>
-        </Box>
+                <AccountMenu />
+            </Box>
         </>
-    )
-}
-
+    );
+};
 
 export default SearchBar;
