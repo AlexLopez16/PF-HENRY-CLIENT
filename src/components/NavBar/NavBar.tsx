@@ -16,6 +16,8 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link, useNavigate } from 'react-router-dom';
 
+import Logo from '../../assets/NABIJASH.png'
+
 const NavBar: FC = () => {
     const navigate = useNavigate()
 
@@ -99,12 +101,13 @@ const NavBar: FC = () => {
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
 
+
                     <Typography
                         variant="h6"
                         noWrap
                         // component="a"
                         // href="/dashboard"
-                        onClick={() => navigate('/dashboard')}
+                        onClick={() => navigate('/projects')}
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
@@ -113,10 +116,11 @@ const NavBar: FC = () => {
                             letterSpacing: '.3rem',
                             color: 'inherit',
                             textDecoration: 'none',
-                            cursor: 'pointer'
+                            cursor: 'pointer',
                         }}
                     >
-                        LOGO
+                        <img src={Logo} alt="Logo" style={{ background: 'black', width: 'auto', maxHeight: '50px' }} />
+                        {/* LOGO */}
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -158,10 +162,11 @@ const NavBar: FC = () => {
                         </Menu>
                     </Box>
 
+
                     <Typography
                         variant="h5"
                         noWrap
-                        onClick={() => navigate('/dashboard')}
+                        onClick={() => navigate('/projects')}
                         sx={{
                             mr: 2,
                             display: { xs: 'flex', md: 'none' },
@@ -174,7 +179,8 @@ const NavBar: FC = () => {
                             cursor: 'pointer'
                         }}
                     >
-                        LOGO
+                        <img src={Logo} alt="Logo" style={{ background: 'black', width: 'auto', maxHeight: '50px' }} />
+                        {/* LOGO */}
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>

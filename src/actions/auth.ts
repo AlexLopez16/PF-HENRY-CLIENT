@@ -15,8 +15,8 @@ export const validaToken = (token: string) => {
             });
             const { id, rol } = data;
             if (status) {
-                console.log(status);
-                console.log(rol);
+                // console.log(status);
+                // console.log(rol);
                 localStorage.setItem('token', token);
                 dispatch(login({ data, status, id, rol }));
             }
@@ -82,12 +82,11 @@ const login = (data: object) => ({
     payload: data,
 });
 
-
 export const forgotPassword = (email: string) => {
     return async (dispatch: Dispatch) => {
         try {
-            const res = await axios.get(`/recover/password?email=${email}`)
-            console.log(res.data)
+            const res = await axios.get(`/recover/password?email=${email}`);
+            console.log(res.data);
         } catch (error) {
             console.log(error);
         }
@@ -97,8 +96,12 @@ export const forgotPassword = (email: string) => {
 export const recoverPassword = (password: string, token: string | any) => {
     return async (dispatch: Dispatch) => {
         try {
-            const res: any = await axios.put(`/recover/password`, { password: password }, { headers: { "user-token": token } })
-            console.log(res.data)
+            const res: any = await axios.put(
+                `/recover/password`,
+                { password: password },
+                { headers: { 'user-token': token } }
+            );
+            console.log(res.data);
         } catch (error) {
             console.log(error);
         }

@@ -27,13 +27,16 @@ import { VisibilityOff, Visibility } from '@mui/icons-material';
 
 import { registerCompany } from '../../actions/company';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link,
+    //  useNavigate
+     } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import { gmailLogin } from '../../actions/auth';
 import Header from '../NavbarLandingPage/HeaderLanding';
 import Footer from '../../pages/LandingPage/Footer';
 
 import Logo from '../../assets/NABIJASH.png'
+import { alert } from '../AlertMail/alertMailStudent';
 
 const CompanyForm: FC = () => {
     const paises: string[] = [
@@ -89,7 +92,6 @@ const CompanyForm: FC = () => {
     });
 
     const onSubmit = (values: any) => {
-        console.log(values);
         dispatch(
             registerCompany({
                 name: values.name,
@@ -97,7 +99,8 @@ const CompanyForm: FC = () => {
                 password: values.password,
                 country: pais,
             })
-        );
+            )
+            dispatch(alert)
     };
 
     const handleChange = (event: SelectChangeEvent) => {
@@ -270,9 +273,20 @@ const CompanyForm: FC = () => {
                                             ))}
                                         </Select>
                                     </FormControl>
+                                            <Button
+                                              sx={{ marginTop: 2, fontFamily: 'poppins' }}
+                                              type='submit'
+                                              variant='contained'
+                                              fullWidth
+                                              color='secondary'
+                                              disabled={props.isSubmitting}
+                                            >
+                                              Crear cuenta
+                                            </Button>
                                     <Divider
                                         sx={{
                                             mb: 2,
+                                            mt:2,
                                         }}
                                     >
                                         <span>O</span>
@@ -290,22 +304,13 @@ const CompanyForm: FC = () => {
                         gmailLogin(credentialResponse.credential as string, 'company'),
                       );
                     }}
+                    //revisar este console.log
                     onError={() => {
                       console.log('Login Failed');
                     }}
                     text='continue_with'
                     auto_select={false}
                   />
-                  <Button
-                    sx={{ marginTop: 2, fontFamily: 'poppins' }}
-                    type='submit'
-                    variant='contained'
-                    fullWidth
-                    color='secondary'
-                    disabled={props.isSubmitting}
-                  >
-                    Crear cuenta
-                  </Button>
                 </Form>
               )}
             </Formik>

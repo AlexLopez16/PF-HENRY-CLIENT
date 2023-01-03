@@ -33,19 +33,15 @@ const ProjectsPage: FC = () => {
                 0
             )
         );
-        // dispatch(getCategory(token));
     }, [dispatch, token, inputFilter]);
 
     const { projectsFilter } = useSelector((state: State) => state.project);
 
     let info = projectsFilter;
-    console.log(info);
 
     const { status } = useSelector((state: State) => state.auth);
 
-    //   console.log('logged', logged);
     if (status === 401) {
-        console.log('401', 401);
         localStorage.clear();
         dispatch({
             type: types.authLogin,

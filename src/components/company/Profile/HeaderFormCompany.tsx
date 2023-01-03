@@ -1,4 +1,6 @@
-import { Dispatch, FC, SetStateAction, useEffect } from 'react';
+import { Dispatch, FC, SetStateAction,
+    //  useEffect
+     } from 'react';
 import {
     Paper,
     IconButton,
@@ -43,7 +45,7 @@ export const HeaderFormCompany: FC<Props> = ({
     const dispatch = useDispatch();
     const { data } = useSelector((state: State) => state.auth);
     const { user } = useSelector((state: State) => state.company);
-    console.log(data);
+    // console.log(data);
     const { id } = data;
     const { image } = user;
     const token = localStorage.getItem('token') || '';
@@ -68,7 +70,7 @@ export const HeaderFormCompany: FC<Props> = ({
     });
 
     const onSubmit = (values: any, props: any) => {
-        console.log(values);
+        // console.log(values);
         dispatch(CompanyUpdateInfo(id, token, values));
 
         setEdit({

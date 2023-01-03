@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
     Typography,
@@ -8,12 +9,10 @@ import {
     ImageList,
     ImageListItem,
 } from '@mui/material';
-import { Link } from 'react-router-dom';
 
-import { Box } from '@mui/system';
-import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../reducers/rootReducer';
 import { addStudentToProject } from '../../actions/student';
+import { PreLoader } from '../PreLoader/PreLoader';
 
 interface ProjectProps {
     name?: string;
@@ -41,16 +40,15 @@ const ProjectDetail: FC<ProjectProps> = ({
 }: ProjectProps) => {
     const dispatch = useDispatch();
     let token = localStorage.getItem('token') || '';
-    let rol = useSelector((state: State) => state.auth.data.rol);
     const { user }: any = useSelector((state: State) => state.student);
 
     const handlerApply = () => {
         dispatch(addStudentToProject(uid, token));
-        console.log('aplicado');
     };
 
     return (
         <div>
+            <PreLoader />
             <Paper
                 elevation={12}
                 style={{

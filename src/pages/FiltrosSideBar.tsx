@@ -1,19 +1,20 @@
 import { FC, useState } from 'react';
 
 import {
-    InputLabel,
-    FormControl,
-    Select,
-    MenuItem,
-    Box,
-    FormLabel,
-    FormGroup,
-    FormControlLabel,
-    Checkbox,
-    Button,
+    // InputLabel,
+    // FormControl,
+    // Select,
+    // MenuItem,
+   
+    // FormLabel,
+    // FormGroup,
+    // FormControlLabel,
+    // Checkbox,
+    // Button,
+     Box,
 } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { getProjectsFilter } from '../actions/projects';
+// import { getProjectsFilter } from '../actions/projects';
 
 const FiltroDashStudent: FC = () => {
     const dispatch = useDispatch();
@@ -37,8 +38,8 @@ const FiltroDashStudent: FC = () => {
     });
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(event.target.name);
-        console.log(event.target.checked);
+        // console.log(event.target.name);
+        // console.log(event.target.checked);
         setTecnologias({
             ...tecnologias,
             [event.target.name]: event.target.checked,
@@ -61,7 +62,7 @@ const FiltroDashStudent: FC = () => {
         TypeScript,
         AWS,
     } = tecnologias;
-    console.log(tecnologias);
+    // console.log(tecnologias);
 
     const [order, setOrder] = useState();
 

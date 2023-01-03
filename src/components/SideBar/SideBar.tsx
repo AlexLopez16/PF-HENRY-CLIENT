@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Box } from '@mui/material';
-import { userItemsList } from "./userItemsList";
+// import { userItemsList } from "./userItemsList";
 import FiltroDashStudent from "../../pages/FiltrosSideBar";
 
 const SideBar: FC = () => {

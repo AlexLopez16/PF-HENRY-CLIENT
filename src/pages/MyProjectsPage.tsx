@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import DashboardStudens from '../components/student/DashboardStudent';
-import DashboardCompany from '../components/company/DashboardCompany';
+// import DashboardStudens from '../components/student/DashboardStudent';
+// import DashboardCompany from '../components/company/DashboardCompany';
 import { useSelector } from 'react-redux';
 import { State } from '../reducers/rootReducer';
 import { MyProjectCompany } from '../components/project/MyProjectCompany';

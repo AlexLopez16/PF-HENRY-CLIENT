@@ -9,14 +9,21 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import Logout from '@mui/icons-material/Logout';
+// import Logout from '@mui/icons-material/Logout';
+// import PortraitIcon from '@mui/icons-material/Portrait';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../reducers/rootReducer';
-import { Link, useNavigate } from 'react-router-dom';
+import {
+    //  Link,
+     useNavigate } from 'react-router-dom';
 import { getStudentInfo } from '../../actions/student';
+import { companyGetInfo } from '../../actions/company';
 import { logout } from '../../actions/auth';
-import { Profile } from '../student/profile/Profile';
-import { ProfileCompany } from '../company/Profile/ProfileCompany';
+// import { Profile } from '../student/profile/Profile';
+// import { ProfileCompany } from '../company/Profile/ProfileCompany';
 import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
 import { Premium } from '../Premium/Premium';
 
@@ -29,17 +36,24 @@ export default function AccountMenu() {
     const handleClose = () => {
         setAnchorEl(null);
     };
-
+      
+    
     const dispatch = useDispatch();
     const { data } = useSelector((state: State) => state.auth);
-    const { user }: any = useSelector((state: State) => state.student);
     const { id, rol } = data;
+    const { user }: any = useSelector((state: State) =>
+    rol === 'STUDENT_ROL'
+    ? state.student
+    : state.company
+    );
+    
     const token = localStorage.getItem('token') || '';
 
-    //TODO: eliminar cuando el mamon de nacho suba sus cambios
     React.useEffect(() => {
-        rol === 'STUDENT_ROL' ? dispatch(getStudentInfo(id, token)) : null;
-        // dispatch(getConpanyInfo(id, token))
+        rol === 'STUDENT_ROL'
+        ? dispatch(getStudentInfo(id, token))
+        : dispatch(companyGetInfo(id, token))
+
     }, [dispatch]);
     const navigate = useNavigate();
 
@@ -118,15 +132,26 @@ export default function AccountMenu() {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-                <MenuItem onClick={handlerProfile}>
+                <MenuItem sx={{
+                    pointerEvents: "none",
+                    cursor: "default"
+                }}>
+                    {/* //revisar este sector tmb */}
                     <Avatar>
-                        <IconButton>
+                        {/* <IconButton>
                             {user.name?.slice(0, 1).toUpperCase()}
-                        </IconButton>
+                        </IconButton> */}
                     </Avatar>
-                    {user.name}
+                    Hola {user.name}
                 </MenuItem>
                 <Divider />
+
+                <MenuItem onClick={handlerProfile}>
+                    <ListItemIcon>
+                        <AccountBoxIcon fontSize="small" />
+                    </ListItemIcon>
+                    Mi perfil
+                </MenuItem>
 
                 {
                     rol === 'COMPANY_ROL' && (
@@ -141,10 +166,11 @@ export default function AccountMenu() {
 
                 <MenuItem onClick={handlerLogout}>
                     <ListItemIcon>
-                        <Logout fontSize="small" />
+                        <ExitToAppIcon fontSize="small" />
                     </ListItemIcon>
                     Cerrar sesion
                 </MenuItem>
+            
             </Menu>
 
             <Premium
