@@ -33,6 +33,7 @@ import Postulated from "../components/company/Postulated";
 import { Checkout } from "../pages/Checkout";
 import AdminCompany from "../components/Admin/AdminCompany/AdminCompany";
 import AdminProject from "../components/Admin/AdminProject/AdminProject";
+import AdminAcceptProject from "../components/Admin/AdminProject/AdminAcceptProject";
 import SideBar from "../components/Admin/SideBar/SideBar";
 import DashboardAdmin from "../components/Admin/DashboardAdmin";
 
@@ -207,6 +208,8 @@ export const AppRouter = () => {
           <Route path="/AdminCompany" element={<AdminCompany />} />
 
           <Route path="/AdminProject" element={<AdminProject />} />
+
+          <Route path="/Adminacceptprojects" element={<AdminAcceptProject />} />
 
           {/* PROFILE ROUTES */}
 

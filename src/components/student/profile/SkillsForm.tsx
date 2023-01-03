@@ -1,6 +1,5 @@
 import { Dispatch, FC, SetStateAction, useState } from 'react';
 import { Paper, Typography, Button, TextField, MenuItem } from '@mui/material';
-
 import { paperStyle, container, buttonStyle, typographyStyle, spanStyle } from '../../../styles/Profile/SkillsFormStyles';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../../reducers/rootReducer';
@@ -25,6 +24,61 @@ export const SkillsForm: FC<Props> = ({ edit, setEdit, tecnologies }) => {
     const { data } = useSelector((state: State) => state.auth)
     const { id } = data;
     const token = localStorage.getItem('token') || ''
+
+
+    const tecnologias = [
+        "Airflow",
+        ".Net",
+        "Angular",
+        "Assembler",
+        "AWS",
+        "Boostrap",
+        "C",
+        "C#",
+        "C++",
+        "Cobol",
+        "CSS",
+        "CSS3",
+        "Django",
+        "Docker",
+        "Ethers.js",
+        "Express",
+        "Figma",
+        "Firebase",
+        "Flask",
+        "Flutter",
+        "GraphQL",
+        "Java",
+        "JavaScript",
+        "jQuery",
+        "Kotlin",
+        "Laravel",
+        "Lua",
+        "Material UI",
+        "MatLab",
+        "MongoDB",
+        "Mongoose",
+        "MySQL",
+        "Nest.js",
+        "Next.js",
+        "NodeJS",
+        "NumPy",
+        "Objective-C",
+        "Pandas",
+        "PHP",
+        "PostgresSQL",
+        "Python",
+        "R",
+        "React Native",
+        "React",
+        "Ruby",
+        "Solidity",
+        "Swift",
+        "TypeScript",
+        "Vue",
+
+        //con CTRL + Shift + P y selecciono en orden ascendente
+    ];
 
     const handlerEdit = () => {
         setEdit({
@@ -108,15 +162,24 @@ export const SkillsForm: FC<Props> = ({ edit, setEdit, tecnologies }) => {
                     marginBottom: '20px'
                 }}>
                     <TextField
-                        label="Habilidad"
-                        variant="outlined"
-                        sx={{ width: '780px', margin: '0px 5px' }}
-                        placeholder='Ejemplo: JavaScript'
+                        select
+                        size="small"
+                        label="Tecnologias"
                         value={input}
                         onChange={handleInputChange}
-                    />
+                        sx={{ width: '200px', margin: '0px 10px' }}
+                    >
+                        {tecnologias.map((tecnologia) => (
+                            <MenuItem key={tecnologia} value={tecnologia}>
+                                {tecnologia}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+
+
                     <TextField
                         select
+                        size="small"
                         label="Experiencia"
                         value={option}
                         onChange={handleChange}

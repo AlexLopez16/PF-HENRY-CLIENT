@@ -21,7 +21,7 @@ import {
   FormControlLabel,
   FormGroup,
 } from "@mui/material";
-import { deleteStudent, getListStudents } from "../../../actions/student";
+import { getListStudents } from "../../../actions/student";
 import { State } from "../../../reducers/rootReducer";
 import {
   getAllProject,
@@ -31,7 +31,8 @@ import {
 import Switch from "@mui/material/Switch";
 import { deleteuser } from "../../../actions/Admin";
 import { Visibility } from "@mui/icons-material";
-import SideBar from "../SideBar/SideBar";
+import Pages from "../../ui/Pagination";
+import { Filters } from "../../ui/Filters";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -49,7 +50,6 @@ const AdminProject: FC = ({ ...rest }) => {
   const token: any = localStorage.getItem("token");
 
   useEffect(() => {
-    // dispatch(getProject(token))
     dispatch(getAllProject(token));
   }, [dispatch]);
 
@@ -58,9 +58,6 @@ const AdminProject: FC = ({ ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState<string[]>([]);
   const [limit, setLimit] = useState(12);
   const [page, setPage] = useState(0);
-  // const [deleted, setDeleted] = useState<boolean>(false)
-
-  console.log(projects);
 
   const handleSelectAll = (event: any) => {
     let newSelectedCustomerIds;
@@ -97,16 +94,13 @@ const AdminProject: FC = ({ ...rest }) => {
       );
     }
 
-    // setDeleted(true)
     setSelectedCustomerIds(newSelectedCustomerIds);
-    console.log(newSelectedCustomerIds); //USAR ESTO PARA MANDARSELO A SWITCH
   };
 
   const handleSwitch = () => {
     selectedCustomerIds.forEach((selectID: any) =>
       dispatch(deleteuser(token, selectID))
     );
-    console.log(selectedCustomerIds);
   };
 
   const handleLimitChange = (event: any) => {
@@ -118,7 +112,8 @@ const AdminProject: FC = ({ ...rest }) => {
   };
 
   return (
-    <SideBar>
+    <>
+      <>{/* <Filters /> */}</>
       <Card {...rest}>
         <Box sx={{ minWidth: 1050 }}>
           <Table>
@@ -136,12 +131,11 @@ const AdminProject: FC = ({ ...rest }) => {
                   />
                 </TableCell>
                 <TableCell>Nombre</TableCell>
-                <TableCell>compañia</TableCell>
-                <TableCell>categoria</TableCell>
+                <TableCell>Compañia</TableCell>
+                <TableCell>Categoria</TableCell>
                 <TableCell>Estado</TableCell>
                 <TableCell>Creado</TableCell>
-
-                {/* {deleted  && <Button onClick={handleDelete}><DeleteIcon sx={{color: '#000'}}/></Button>} */}
+                <TableCell>Activo</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -165,7 +159,10 @@ const AdminProject: FC = ({ ...rest }) => {
                         display: "flex",
                       }}
                     >
-                      <Avatar src={projects.avatarUrl} sx={{ mr: 2 }}></Avatar>
+                      {/* <Avatar
+                                                src={projects.avatarUrl}
+                                                sx={{ mr: 2 }}
+                                            ></Avatar> */}
                       <Typography color="textPrimary" variant="body1">
                         {projects.name}
                       </Typography>
@@ -209,7 +206,10 @@ const AdminProject: FC = ({ ...rest }) => {
           </Table>
         </Box>
       </Card>
-    </SideBar>
+      <>
+        <Pages />
+      </>
+    </>
   );
 };
 
