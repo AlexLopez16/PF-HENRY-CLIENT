@@ -1,17 +1,16 @@
 import { FC } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import {
     Typography,
     Paper,
     List,
     Button,
-    // ImageList,
-    // ImageListItem,
+    ImageList,
+    ImageListItem,
 } from '@mui/material';
-import { Link } from 'react-router-dom';
 
-// import { Box } from '@mui/system';
-import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../reducers/rootReducer';
 import { addStudentToProject } from '../../actions/student';
 import { PreLoader } from '../PreLoader/PreLoader';
@@ -33,6 +32,7 @@ interface ProjectProps {
 const ProjectDetail: FC<ProjectProps> = ({
     name,
     empresa,
+    imagenes,
     detalle,
     cantidadDeEstudiantes,
     lenguajes = ['Java'],
@@ -49,8 +49,6 @@ const ProjectDetail: FC<ProjectProps> = ({
 
     const handlerApply = () => {
         dispatch(addStudentToProject(uid, token));
-        //revisar este console.log
-        // console.log('aplicado');
     };
 
     return (
@@ -71,43 +69,67 @@ const ProjectDetail: FC<ProjectProps> = ({
                     margin: '100px auto',
                 }}
             >
-                <List>
-                    <Typography variant="h4">{name}</Typography>
-                </List>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
 
-                <Typography>{empresa}</Typography>
+                    <div>
 
-                <List>
-                    <Typography variant="body1">
-                        <b>Descripcion: </b>
-                        {detalle}
-                    </Typography>
-                </List>
+                        <List>
+                            <Typography variant="h4">{name}</Typography>
+                        </List>
 
-                <List>
-                    <Typography variant="body1">
-                        <b>Requerimientos: </b>{' '}
-                        {lenguajes?.map((lenguaje) => lenguaje).join(', ')}
-                    </Typography>
-                </List>
+                        <Typography>{empresa}</Typography>
 
-                <List>
-                    <Typography variant="body1">
-                        <b>Participantes: </b> {cantidadDeEstudiantes}
-                    </Typography>
-                </List>
+                        <List>
+                            <Typography variant="body1">
+                                <b>Descripcion: </b>
+                                {detalle}
+                            </Typography>
+                        </List>
 
-                <List>
-                    <Typography variant="body1">
-                        <b>Categoria: </b> {categoria}
-                    </Typography>
-                </List>
+                        <List>
+                            <Typography variant="body1">
+                                <b>Requerimientos: </b>{' '}
+                                {lenguajes?.map((lenguaje) => lenguaje).join(', ')}
+                            </Typography>
+                        </List>
 
-                <List>
-                    <Typography variant="body1">
-                        <b>Estado del proyecto: </b> {estado}
-                    </Typography>
-                </List>
+                        <List>
+                            <Typography variant="body1">
+                                <b>Participantes: </b> {cantidadDeEstudiantes}
+                            </Typography>
+                        </List>
+
+                        <List>
+                            <Typography variant="body1">
+                                <b>Categoria: </b> {categoria}
+                            </Typography>
+                        </List>
+
+                        <List>
+                            <Typography variant="body1">
+                                <b>Estado del proyecto: </b> {estado}
+                            </Typography>
+                        </List>
+                    </div>
+
+                    {
+                        imagenes && (
+                            <div>
+                                <ImageList sx={{ width: 500, height: 280 }} cols={2} rowHeight={200}>
+                                    {imagenes.map((item) => (
+                                        <ImageListItem key={item}>
+                                            <img
+                                                src={item}
+                                                alt={item}
+                                            />
+                                        </ImageListItem>
+                                    ))}
+                                </ImageList>
+                            </div>
+                        )
+                    }
+
+                </div>
 
                 {rol === 'STUDENT_ROL' ? (
                     <Button

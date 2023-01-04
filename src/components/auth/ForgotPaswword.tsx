@@ -1,4 +1,6 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
+import { useDispatch } from 'react-redux';
+
 import {
     Grid,
     Paper,
@@ -14,15 +16,13 @@ import {
     // Link,
     // FormHelperText,
 } from '@mui/material';
-// import { paperStyle } from '../../styles/Profile/HeaderStyles';
-import { ErrorMessage, Field, Form, Formik, FormikValues } from 'formik';
+
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as yup from 'yup';
-// import { GridEvents } from '@mui/x-data-grid';
-// import { AlignHorizontalCenter } from '@mui/icons-material';
+
+import { forgotPassword } from '../../actions/auth';
 import Header from '../NavbarLandingPage/HeaderLanding';
 import Footer from '../../pages/LandingPage/Footer';
-import { useDispatch } from 'react-redux';
-import { forgotPassword } from '../../actions/auth';
 import { SnackBar } from '../SnackBar/SnackBar';
 import logo from '../../assets/NABIJASH.png';
 
