@@ -6,11 +6,8 @@
 import { Box, Paper } from '@mui/material';
 import Skeleton from '@mui/material/Skeleton';
 import Stack from '@mui/material/Stack';
-import { useSelector } from 'react-redux';
-import { State } from '../../reducers/rootReducer';
 
 export const ProjectCardSkeleton = () => {
-    const { inProgress } = useSelector((state: State) => state.request);
     return (
         <>
             <Box
