@@ -1,7 +1,5 @@
 //revisar este react
 import React, { FC, useState } from 'react';
-//revisar este react
-import React, { FC, useState } from 'react';
 import {
     Grid,
     // InputLabel,

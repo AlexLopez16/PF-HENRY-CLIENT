@@ -32,7 +32,7 @@ export const requestReducer = (
                 inProgress: true,
             };
         case types.requestFinished:
-            console.log(action.payload?.status);
+            // console.log(action.payload?.status);
             return {
                 ...state,
                 inProgress: false,

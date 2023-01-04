@@ -90,19 +90,18 @@ const ProjectCard: FC<CardProjectProps> = ({
       <Box sx={{ display: 'block', marginBottom: '10px' }}>
         <Typography variant='subtitle1' sx={{ color: '#898989' }}>
           Requerimientos:
-          {requirements.map(
-            (requirement: string | any, index: number | any) => (
-            //   <>
-                // {' '}
+          <>
+            {requirements.map(
+              (requirement: string | any, index: number | any) => (
                 <Chip
                   key={index}
                   size='small'
                   label={requirement}
                   // color="primary"
                 />
-            //   </>
-            ),
-          )}
+              ),
+            )}
+          </>
         </Typography>
 
         <Typography
