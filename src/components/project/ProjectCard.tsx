@@ -92,15 +92,14 @@ const ProjectCard: FC<CardProjectProps> = ({
                     Requerimientos:
                     {requirements.map(
                         (requirement: string | any, index: number | any) => (
-                            <>
+                            <div key={index}>
                                 {' '}
-                                <Chip
-                                    key={index}
+                                <Chip                             
                                     size="small"
                                     label={requirement}
                                     // color="primary"
                                 />
-                            </>
+                            </div>
                         )
                     )}
                 </Typography>

@@ -209,16 +209,9 @@ export const StudensForm: FC = () => {
                           </IconButton>
                         </InputAdornment>
                       }
-                      helperText={
-                        <ErrorMessage name='password'>
-                          {(message) => (
-                            <span style={{ color: '#d6423e' }}>{message}</span>
-                          )}
-                        </ErrorMessage>
-                      }
                     />
                     {'password' in props.errors && (
-                      <FormHelperText error>
+                      <FormHelperText  sx={{color:'#d6423e' }}>
                         {props.errors.password}
                       </FormHelperText>
                     )}
@@ -277,7 +270,8 @@ export const StudensForm: FC = () => {
                 to='/login'
                 style={{ textDecoration: 'underline', color: 'black' }}
               >
-                <p>Ingresa</p>
+                <br/>
+                Ingresa
               </Link>
             </Typography>
 
