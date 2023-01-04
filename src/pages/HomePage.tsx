@@ -1,5 +1,5 @@
 import FiltroDashStudent from './FiltrosSideBar';
-import { Nabvar } from '../components/maquetas/Nabvar';
+// import { Nabvar } from '../components/maquetas/Nabvar';
 import ProjectCard from '../components/project/ProjectCard';
 import SideBar from '../components/SideBar/SideBar';
 import NavBar from '../components/ui/NavBar';

@@ -88,6 +88,7 @@ const ProjectsStudents: FC = () => {
                 {info.length ? (
                     info.map((e: any) => (
                         <ProjectCard
+                        key={e.uid}//agregue key
                             name={e.name}
                             participants={e.participants}
                             requirements={e.requirements}
