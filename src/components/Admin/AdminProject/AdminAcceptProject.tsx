@@ -20,6 +20,9 @@ import {
     Button,
     FormControlLabel,
     FormGroup,
+    FormControl,
+    MenuItem,
+    SelectChangeEvent,
 
 } from '@mui/material';
 import { getListStudents } from '../../../actions/student';
@@ -30,10 +33,11 @@ import {
     getProjectsFilter,
 } from '../../../actions/projects';
 import Switch from '@mui/material/Switch';
-import { deleteuser } from '../../../actions/Admin';
+import { AprovedProject, deleteuser } from '../../../actions/Admin';
 import { Visibility } from '@mui/icons-material';
 import Pages from '../../ui/Pagination';
 import { Filters } from '../../ui/Filters';
+import { Select } from '@mui/material';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -43,10 +47,11 @@ export interface Options {
     delimiter?: string;
     transform?: (part: string, index: number, parts: string[]) => string;
 }
-
 export declare function sentenceCase(input: string, options?: Options): string;
+import CloseIcon from '@mui/icons-material/Close';
+import CheckIcon from '@mui/icons-material/Check';
 
-const AdminProject: FC = ({ ...rest }) => {
+const AdminAcceptProject: FC = ({ ...rest }) => {
     const dispatch = useDispatch();
     const token: any = localStorage.getItem('token');
 
@@ -56,11 +61,17 @@ const AdminProject: FC = ({ ...rest }) => {
 
     const { projectsFilter } = useSelector((state: State) => state.project);
     let projects = projectsFilter;
+    console.log(projects);
+
     const [selectedCustomerIds, setSelectedCustomerIds] = useState<string[]>(
         []
     );
     const [limit, setLimit] = useState(12);
     const [page, setPage] = useState(0);
+    const [render, setRender] = useState(false);
+
+    const [opciones, setOpciones] = useState("Todos")
+    const options: string[] = ['Todos', 'Reclutamiento', 'En desarrollo', 'Terminado', 'En revision']
 
 
     const handleSelectAll = (event: any) => {
@@ -103,11 +114,20 @@ const AdminProject: FC = ({ ...rest }) => {
         setSelectedCustomerIds(newSelectedCustomerIds);
     };
 
-    const handleSwitch = () => {
+    const handleaccept = () => {
         selectedCustomerIds.forEach((selectID: any) =>
-            dispatch(deleteuser(token, selectID))
+            dispatch(AprovedProject(token, selectID)),
+            setRender(!render),
         );
     };
+
+    const handlecancel  = () => {
+        selectedCustomerIds.forEach((selectID: any) =>
+            // dispatch(AprovedProject(token, selectID)),
+            setRender(!render),
+        );
+    };
+
 
     const handleLimitChange = (event: any) => {
         setLimit(event.target.value);
@@ -117,11 +137,38 @@ const AdminProject: FC = ({ ...rest }) => {
         setPage(newPage);
     };
 
+
+    let proyectos = projects
+    const handleChangeOptions = (event: SelectChangeEvent) => {
+        setOpciones(event.target.value)
+    }
+    opciones !== "Todos"
+        ? proyectos = projects.filter((project: any) => project.stateOfProject.includes(opciones)) : proyectos = projects
+
+
+
     return (
         <>
             <>
-                {/* <Filters /> */}
+                <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Filtrado</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        // value={option}
+                        label="filtro"
+                        onChange={handleChangeOptions}
+
+                    >
+                        {options.map((option) => (
+                            <MenuItem value={option}>
+                                {option}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
             </>
+
             <Card {...rest}>
                 <Box sx={{ minWidth: 1050 }}>
                     <Table>
@@ -131,13 +178,13 @@ const AdminProject: FC = ({ ...rest }) => {
                                     <Checkbox
                                         checked={
                                             selectedCustomerIds.length ===
-                                            projects.length
+                                            proyectos.length
                                         }
                                         color="primary"
                                         indeterminate={
                                             selectedCustomerIds.length > 0 &&
                                             selectedCustomerIds.length <
-                                            projects.length
+                                            proyectos.length
                                         }
                                         onChange={handleSelectAll}
                                     />
@@ -147,19 +194,21 @@ const AdminProject: FC = ({ ...rest }) => {
                                 <TableCell>Categoria</TableCell>
                                 <TableCell>Estado</TableCell>
                                 <TableCell>Creado</TableCell>
-                                <TableCell>Activo</TableCell>
+                                <TableCell>Descripcion</TableCell>
+                                <TableCell>Aceptar</TableCell>
+                                <TableCell>Rechazar</TableCell>
 
 
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {projects.slice(0, limit).map((projects: any) => (
+                            {proyectos.slice(0, limit).map((proyectos: any) => (
                                 <TableRow
                                     hover
-                                    key={projects.uid}
+                                    key={proyectos.uid}
                                     selected={
                                         selectedCustomerIds.indexOf(
-                                            projects.uid
+                                            proyectos.uid
                                         ) !== -1
                                     }
                                 >
@@ -167,11 +216,11 @@ const AdminProject: FC = ({ ...rest }) => {
                                         <Checkbox
                                             checked={
                                                 selectedCustomerIds.indexOf(
-                                                    projects.uid
+                                                    proyectos.uid
                                                 ) !== -1
                                             }
                                             onChange={(event) =>
-                                                handleSelectOne(projects.uid)
+                                                handleSelectOne(proyectos.uid)
                                             }
                                             value="true"
                                         />
@@ -188,49 +237,48 @@ const AdminProject: FC = ({ ...rest }) => {
                                                 sx={{ mr: 2 }}
                                             ></Avatar> */}
                                             <Typography
+                                                sx={{ maxWidth: 140 }}
                                                 color="textPrimary"
                                                 variant="body1"
                                             >
-                                                {projects.name}
+                                                {proyectos.name}
                                             </Typography>
                                         </Box>
                                     </TableCell>
-                                    <TableCell>{projects.company.name}</TableCell>
+                                    <TableCell>{proyectos.company.name}</TableCell>
                                     <TableCell>
-                                        {projects.category
-                                            ? projects.category
+                                        {proyectos.category
+                                            ? proyectos.category
                                             : 'No registrado'}
                                     </TableCell>
-                                    <TableCell>{projects.stateOfProject}</TableCell>
+                                    <TableCell>{proyectos.stateOfProject}</TableCell>
 
                                     <TableCell>
-                                        {projects.admission
-                                            ? `${moment(projects.admission).format(
+                                        {proyectos.admission
+                                            ? `${moment(proyectos.admission).format(
                                                 'DD/MM/YYYY'
                                             )}`
                                             : 'No registrado'}
                                     </TableCell>
+                                    <TableCell sx={{ maxWidth: 200 }}>
+                                        {proyectos.description
+                                        }
+                                    </TableCell>
+                                    
+                                    <TableCell sx={{ maxWidth: 200 }}>
+                                        <CheckIcon
+                                            sx={{ hover: "pointer" }}
+                                            onClick={handleaccept} />
+                                    </TableCell>
+                                
 
-                                    <FormGroup
-                                        sx={{
-                                            display: 'flex',
-                                            justifyContent: 'center',
-                                            alignItems: 'center',
-                                            mt: 3,
-                                        }}
-                                    >
-                                        <FormControlLabel
-                                            control={
-                                                <Switch
-                                                    defaultChecked={projects.state}
-                                                    size="small"
-                                                    color="primary"
-                                                    onChange={handleSwitch}
-                                                />
-                                            }
-                                            label={undefined}
+                                    <TableCell sx={{ maxWidth: 200 }}>
+                                        <CloseIcon 
+                                         onClick={handlecancel} 
                                         />
-                                    </FormGroup>
+                                    </TableCell>
+
+
                                 </TableRow>
                             ))}
                         </TableBody>
@@ -245,4 +293,4 @@ const AdminProject: FC = ({ ...rest }) => {
     );
 };
 
-export default AdminProject;
+export default AdminAcceptProject;

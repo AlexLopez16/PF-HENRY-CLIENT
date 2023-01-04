@@ -24,6 +24,10 @@ export const getProject = (token: string) => {
 export const getProjectByID = (token: string, id: string) => {
     return async (dispatch: Dispatch) => {
         try {
+            // Incio de la request.
+            dispatch({
+                type: types.requestInProgress,
+            });
             const res = await axios.get(`/project/${id}`, {
                 headers: { 'user-token': token },
             });
@@ -31,6 +35,10 @@ export const getProjectByID = (token: string, id: string) => {
             dispatch({
                 type: types.getProjectById,
                 payload: res.data,
+            });
+            // Fin de la request.
+            dispatch({
+                type: types.requestFinished,
             });
         } catch (error: any) {
             console.log(error);
@@ -143,7 +151,7 @@ export const getProjectsFilter = (
                 type: types.requestFinished,
             });
         } catch (error: any) {
-            console.log(error.response.data.errors[0].msg);
+            // console.log(error.response.data.errors[0].msg);
             if (error.response.status === 401) {
                 dispatch({
                     type: types.clearAuthLogin,
