@@ -6,10 +6,7 @@ import { Box } from "@mui/system";
 const DashboardAdmin: FC = () => {
   return (
     <>
-      {/* <SideBar> */}
       <AdminStudent />
-
-      {/* </SideBar> */}
     </>
   );
 };
