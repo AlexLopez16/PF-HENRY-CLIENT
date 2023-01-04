@@ -1,3 +1,8 @@
+/**
+ * By Sciangula Hugo.
+ * NOTA: estructura demo de esqueloto para myproject.
+ */
+
 import { Box, Paper } from '@mui/material';
 import Skeleton from '@mui/material/Skeleton';
 import Stack from '@mui/material/Stack';
