@@ -8,6 +8,7 @@ const DashboardAdmin: FC = () => {
     <>
       {/* <SideBar> */}
       <AdminStudent />
+
       {/* </SideBar> */}
     </>
   );
