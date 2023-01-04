@@ -81,10 +81,17 @@ export const updateStudentInfo = (id: string, token: string, data: object) => {
             // Fin de la request.
             dispatch({
                 type: types.requestFinished,
+            });
+            // Guardamos respuesta de la request.
+            dispatch({
+                type: types.responseFinished,
                 payload: res,
             });
         } catch (error) {
             console.log(error);
+            dispatch({
+                type: types.requestFinished,
+            });
         }
     };
 };
@@ -141,12 +148,21 @@ export const addStudentToProject = (id: string, token: string) => {
             });
             dispatch({
                 type: types.requestFinished,
+            });
+            // Si todo sale bien.
+            dispatch({
+                type: types.responseFinished,
                 payload: res,
             });
         } catch (error: any) {
-            // console.log(error);
+            console.log(error);
             dispatch({
                 type: types.requestFinished,
+                payload: error.response,
+            });
+            // Guardamos respuesta de la request.
+            dispatch({
+                type: types.responseFinished,
                 payload: error.response,
             });
         }

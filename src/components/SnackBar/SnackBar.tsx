@@ -2,8 +2,7 @@ import { FC, useState, useEffect } from 'react';
 import { Alert, Snackbar } from '@mui/material';
 import { State } from '../../reducers/rootReducer';
 import { useDispatch, useSelector } from 'react-redux';
-import { requestCleaned } from '../../actions/request';
-import { stat } from 'fs';
+import { responseCleaned } from '../../actions/response';
 
 type AlertData = {
     severity?: string | any;
@@ -17,25 +16,23 @@ interface SnackbarProps {
 
 export const SnackBar: FC<SnackbarProps> = ({ successMsg, errorMsg }) => {
     // Traemos la request del estado.
-    const { inProgress, status, msg } = useSelector(
-        (state: State) => state.request
-    );
+    const { status } = useSelector((state: State) => state.response);
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
 
-    // Si ya termino el progreso
+    // Si ya termino el progreso.
     useEffect(() => {
-        if (!inProgress && status != null) handleOpen();
-        console.log(inProgress, status);
-    }, [inProgress]);
+        if (status != null) handleOpen();
+        console.log(status);
+    }, [status]);
     const handleOpen = () => {
         setOpen(true);
     };
     const handleClose = () => {
         setOpen(false);
         setTimeout(() => {
-            dispatch(requestCleaned());
-        }, 8000);
+            dispatch(responseCleaned());
+        }, 500);
     };
 
     // Esta es la estructura basica.
@@ -52,7 +49,7 @@ export const SnackBar: FC<SnackbarProps> = ({ successMsg, errorMsg }) => {
     return (
         <Snackbar
             open={open}
-            autoHideDuration={3000}
+            autoHideDuration={2500}
             onClose={handleClose}
             anchorOrigin={{
                 vertical: 'top',
