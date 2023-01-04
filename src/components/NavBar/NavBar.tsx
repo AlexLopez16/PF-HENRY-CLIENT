@@ -153,8 +153,8 @@ const NavBar: FC = () => {
                             }}
                         >
                             {buttonList.map((button) => (
-                                <Link to={button.path}>
-                                    <MenuItem key={button.option} onClick={handleCloseNavMenu}>
+                                <Link key={button.option} to={button.path}>
+                                    <MenuItem  onClick={handleCloseNavMenu}>
                                         <Typography textAlign="center">{button.option}</Typography>
                                     </MenuItem>
                                 </Link>
@@ -185,9 +185,8 @@ const NavBar: FC = () => {
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {buttonList.map((button) => (
-                            <Link to={button.path}>
-                                <Button
-                                    key={button.option}
+                            <Link key={button.option} to={button.path}>
+                                <Button      
                                     onClick={handleCloseNavMenu}
                                     sx={{ my: 2, color: 'black', display: 'block' }}
                                 >

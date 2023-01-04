@@ -135,10 +135,9 @@ const ProjectCard: FC<CardProjectProps> = ({
                     Requerimientos:
                     {requirements.map(
                         (requirement: string | any, index: number | any) => (
-                            <>
+                            <div key={index}>
                                 {' '}
-                                <Chip
-                                    key={index}
+                                <Chip                             
                                     size="small"
                                     label={requirement}
                                     sx={{
@@ -152,7 +151,7 @@ const ProjectCard: FC<CardProjectProps> = ({
                                     }}
                                     onClick={handleFilter}
                                 />
-                            </>
+                            </div>
                         )
                     )}
                 </Typography>

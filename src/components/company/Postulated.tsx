@@ -52,6 +52,7 @@ const Postulated: FC = () => {
                 {projectId && projectId.students.length ? (
                     projectId.students.map((p: any) => (
                         <StudentCard
+                        key={p}
                             name={p.name}
                             email={p.email}
                             descripcion={p.description}

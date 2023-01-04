@@ -45,6 +45,7 @@ const MyProjectStudent: FC = () => {
     const handleClick = async (projectId: string | any) => {
         dispatch(unApplyStudent(user.id, projectId));
     };
+    // console.log(user.working)
 
     return (
         <Container maxWidth="lg">
