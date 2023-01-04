@@ -17,9 +17,6 @@ import {
     TableRow,
     Typography,
     InputLabel,
-    Button,
-    FormControlLabel,
-    FormGroup,
     FormControl,
     MenuItem,
     SelectChangeEvent,
@@ -50,6 +47,7 @@ export interface Options {
 export declare function sentenceCase(input: string, options?: Options): string;
 import CloseIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
+import CancelMessage from './cancelMessage';
 
 const AdminAcceptProject: FC = ({ ...rest }) => {
     const dispatch = useDispatch();
@@ -61,7 +59,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
 
     const { projectsFilter } = useSelector((state: State) => state.project);
     let projects = projectsFilter;
-    console.log(projects);
+    
 
     const [selectedCustomerIds, setSelectedCustomerIds] = useState<string[]>(
         []
@@ -69,11 +67,12 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
     const [limit, setLimit] = useState(12);
     const [page, setPage] = useState(0);
     const [render, setRender] = useState(false);
+    const [formactive, setFormactive] = useState(false);
 
     const [opciones, setOpciones] = useState("Todos")
     const options: string[] = ['Todos', 'Reclutamiento', 'En desarrollo', 'Terminado', 'En revision']
 
-
+    
     const handleSelectAll = (event: any) => {
         let newSelectedCustomerIds;
         if (event.target.checked) {
@@ -121,11 +120,12 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
         );
     };
 
-    const handlecancel  = () => {
-        selectedCustomerIds.forEach((selectID: any) =>
-            // dispatch(AprovedProject(token, selectID)),
-            setRender(!render),
-        );
+    const handlecancel = () => {
+        // selectedCustomerIds.forEach((selectID: any) =>
+        //     // dispatch(AprovedProject(token, selectID)),
+        //     setRender(!render),
+        // );
+        setFormactive(true)
     };
 
 
@@ -150,6 +150,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
     return (
         <>
             <>
+            {console.log(formactive)}
                 <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">Filtrado</InputLabel>
                     <Select
@@ -264,17 +265,17 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                                         {proyectos.description
                                         }
                                     </TableCell>
-                                    
+
                                     <TableCell sx={{ maxWidth: 200 }}>
                                         <CheckIcon
                                             sx={{ hover: "pointer" }}
                                             onClick={handleaccept} />
                                     </TableCell>
-                                
+
 
                                     <TableCell sx={{ maxWidth: 200 }}>
-                                        <CloseIcon 
-                                         onClick={handlecancel} 
+                                        <CloseIcon
+                                            onClick={handlecancel}
                                         />
                                     </TableCell>
 
@@ -288,6 +289,19 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
             <>
 
                 <Pages />
+            </>
+            <>
+
+{formactive===true
+? <CancelMessage 
+// setFormactive={setFormactive}
+
+ /> 
+:""
+//cambio para el push 
+
+}
+
             </>
         </>
     );
