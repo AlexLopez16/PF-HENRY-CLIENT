@@ -34,7 +34,7 @@ import Logo from '../../assets/NABIJASH.png';
 
 export const StudensForm: FC = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -58,28 +58,7 @@ export const StudensForm: FC = () => {
       .matches(/[A-Z]/, 'Se requiere una letra mayuscula')
       .matches(/[^\w]/, 'Se requiere un simbolo'),
   });
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-  const initialValues = {
-    name: '',
-    lastName: '',
-    email: '',
-    password: '',
-  };
-  const validationSchema = yup.object().shape({
-    name: yup.string().required('Nombre requerido'),
-    lastName: yup.string().required('Apellido requerido'),
-    email: yup.string().email('email invalido').required('Email requerido'),
-    password: yup
-      .string()
-      .required('Contraseña requerida')
-      .min(8, 'Debe contener min. 8 caracter')
-      .matches(/[0-9]/, 'Se requiere un numero')
-      .matches(/[a-z]/, 'Se requiere una letra minuscula')
-      .matches(/[A-Z]/, 'Se requiere una letra mayuscula')
-      .matches(/[^\w]/, 'Se requiere un simbolo'),
-  });
+
 
   type Values = {
     name: string;
@@ -87,15 +66,10 @@ export const StudensForm: FC = () => {
     email: string;
     password: string;
   };
-  type Values = {
-    name: string;
-    lastName: string;
-    email: string;
-    password: string;
-  };
+
 
   const dispatch = useDispatch();
-  const dispatch = useDispatch();
+  
 
   const onSubmit = (values: Values) => {
     dispatch(
@@ -109,14 +83,7 @@ export const StudensForm: FC = () => {
     dispatch(alert);
   };
 
-  return (
-    <Box
-      sx={{
-        backgroundColor: 'black',
-      }}
-    >
-      <div>
-        <Header />
+
   return (
     <Box
       sx={{
