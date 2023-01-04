@@ -25,6 +25,7 @@ import BusinessIcon from '@mui/icons-material/Business';
 import { Link } from 'react-router-dom';
 
 import { PreLoader } from '../PreLoader/PreLoader';
+import { SnackBar } from '../SnackBar/SnackBar';
 
 const MyProjectStudent: FC = () => {
     const dispatch = useDispatch();
@@ -49,7 +50,8 @@ const MyProjectStudent: FC = () => {
     return (
         <Container maxWidth="lg">
             <PreLoader />
-            {user.working.length? (
+            <SnackBar />
+            {user.working?.length ? (
                 <>
                     <Typography
                         variant="h6"

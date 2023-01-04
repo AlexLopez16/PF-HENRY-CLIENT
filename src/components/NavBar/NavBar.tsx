@@ -1,11 +1,11 @@
 import { FC, useEffect, useState } from 'react';
 import {
-  AppBar,
-  Box,
-  Button,
-  Container,
-  Toolbar,
-  Typography,
+    AppBar,
+    Box,
+    Button,
+    Container,
+    Toolbar,
+    Typography,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../reducers/rootReducer';
@@ -16,6 +16,8 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link, useNavigate } from 'react-router-dom';
 
+import Logo from '../../assets/NABIJASH.png'
+
 const NavBar: FC = () => {
     const navigate = useNavigate()
 
@@ -25,9 +27,9 @@ const NavBar: FC = () => {
     const dispatch = useDispatch();
     const token: string = localStorage.getItem('token') || '';
 
-  useEffect(() => {
-    rol === 'STUDENT_ROL' ? dispatch(getStudentInfo(data.id, token)) : null;
-  }, [dispatch]);
+    useEffect(() => {
+        rol === 'STUDENT_ROL' ? dispatch(getStudentInfo(data.id, token)) : null;
+    }, [dispatch]);
 
     // Paths y opciones de boton para el student.
     const studentButtons = [
@@ -99,6 +101,7 @@ const NavBar: FC = () => {
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
 
+
                     <Typography
                         variant="h6"
                         noWrap
@@ -113,10 +116,11 @@ const NavBar: FC = () => {
                             letterSpacing: '.3rem',
                             color: 'inherit',
                             textDecoration: 'none',
-                            cursor: 'pointer'
+                            cursor: 'pointer',
                         }}
                     >
-                        LOGO
+                        <img src={Logo} alt="Logo" style={{ background: 'black', width: 'auto', maxHeight: '50px' }} />
+                        {/* LOGO */}
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -158,6 +162,7 @@ const NavBar: FC = () => {
                         </Menu>
                     </Box>
 
+
                     <Typography
                         variant="h5"
                         noWrap
@@ -174,7 +179,8 @@ const NavBar: FC = () => {
                             cursor: 'pointer'
                         }}
                     >
-                        LOGO
+                        <img src={Logo} alt="Logo" style={{ background: 'black', width: 'auto', maxHeight: '50px' }} />
+                        {/* LOGO */}
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
