@@ -1,8 +1,5 @@
 import { FC, useState, useEffect } from 'react';
 import { Grid } from '@mui/material';
-
-
-
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../../reducers/rootReducer';
 import { HeaderFormCompany } from './HeaderFormCompany';
@@ -19,20 +16,20 @@ export const ProfileCompany: FC = () => {
     const { data } = useSelector((state: State) => state.auth)
     const { id } = data;
     const token = localStorage.getItem('token') || ''
-
+    
     useEffect(() => {
         dispatch(companyGetInfo(id, token))
     }, [dispatch])
-
+    
     interface Props {
         name: string
         country: string
         image: string
+        website:string
     }
-
+    
     const { user } = useSelector((state: State) => state.company)
-    const { name, country, image } = user as Props
-
+    const { name, country, image, website } = user as Props
     return (
         <Grid>
             {
@@ -42,6 +39,7 @@ export const ProfileCompany: FC = () => {
                         setEdit={setEdit}
                         name={name}
                         country={country}
+                        website={website}
                     />
                     : <HeaderCompany
                         edit={edit}

@@ -51,7 +51,7 @@ export const githubLogin = ({ id, rol, token }: string | any) => {
     return login({ data: { id, rol, token } });
 };
 
-export const gmailLogin = (tok: string | any, userType: string | any) => {
+export const gmailLogin = (tok: string, userType?: string) => {
     return async (dispatch: Dispatch) => {
         dispatch({
             type: types.requestInProgress,

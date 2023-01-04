@@ -267,7 +267,7 @@ const CompanyForm: FC = () => {
                                             onChange={handleChange}
                                         >
                                             {paises.map((pais) => (
-                                                <MenuItem value={pais}>
+                                                <MenuItem key={pais} value={pais}>
                                                     {pais}
                                                 </MenuItem>
                                             ))}
@@ -326,7 +326,8 @@ const CompanyForm: FC = () => {
                 to='/login'
                 style={{ textDecoration: 'underline', color: 'black' }}
               >
-                <p>Ingresa</p>
+                <br/>
+                Ingresa
               </Link>
             </Typography>
 

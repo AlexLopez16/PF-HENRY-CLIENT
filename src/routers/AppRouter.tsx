@@ -30,10 +30,11 @@ import ProjectsStudents from "../components/student/ProjectsStudents";
 import { ProfileCompany } from "../components/company/Profile/ProfileCompany";
 import AdminStudent from "../components/Admin/AdminStudent/AdminStudent";
 import Postulated from "../components/company/Postulated";
-import { Checkout } from "../pages/Checkout";
+
 import AdminCompany from "../components/Admin/AdminCompany/AdminCompany";
 import AdminProject from "../components/Admin/AdminProject/AdminProject";
 import AdminAcceptProject from "../components/Admin/AdminProject/AdminAcceptProject";
+import { Checkout } from "../pages/Checkout";
 import SideBar from "../components/Admin/SideBar/SideBar";
 import DashboardAdmin from "../components/Admin/DashboardAdmin";
 
@@ -130,10 +131,7 @@ export const AppRouter = () => {
             path="/project"
             element={
               <PrivateRoute>
-                <>
-                  <NavBar />
-                  <ProjectPage />
-                </>
+                <ProjectPage />
               </PrivateRoute>
             }
           />
@@ -231,13 +229,12 @@ export const AppRouter = () => {
             path="/postulated/:id"
             element={
               <PrivateRoute>
-                <>
-                  <NavBar />
-                  <Postulated />
-                </>
+                <Postulated />
               </PrivateRoute>
             }
           />
+
+          <Route path="/checkout/" element={<Checkout />} />
         </Routes>
       </div>
     </BrowserRouter>

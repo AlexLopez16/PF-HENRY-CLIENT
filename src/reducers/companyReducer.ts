@@ -25,6 +25,7 @@ export const companyReducer = (state: State = initialState, action: Action) => {
                 ...state,
                 user: action.payload,
             };
+        
 
         case types.companyGetList:
             return {

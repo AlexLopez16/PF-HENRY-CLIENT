@@ -57,6 +57,7 @@ export const MyProjectCompany: FC = () => {
                 {info.length ? (
                     info.map((e: any) => (
                         <ProjectCard
+                        key={e.uid}
                             name={e.name}
                             participants={e.participants}
                             requirements={e.requirements}
