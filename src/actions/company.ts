@@ -75,15 +75,10 @@ export const getCompany = (token: string) => {
 export const CompanyUpdateInfo = (id: string, token: string, data: object) => {
     return async (dispatch: Dispatch) => {
         try {
-            // console.log(data)
-
-            const res = await axios.put(
-                `/company/${id}`,
-                { data },
-                {
-                    headers: { 'user-token': token },
-                }
-            );
+            
+            const res = await axios.put(`/company/${id}`,data, {
+                headers: { 'user-token': token },
+            }); 
             dispatch({
                 type: types.companyUpdateInfo,
                 payload: res.data,

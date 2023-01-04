@@ -57,6 +57,7 @@ const StudentCard: FC<StudentProps> = ({
     const handlerAccept = () => {
         dispatch(acceptStudent(id, idstd, token));
     };
+    
     const handlerDelete = () => {
         dispatch(DeleteStudent(id, idstd, token));
     };

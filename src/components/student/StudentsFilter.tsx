@@ -18,9 +18,10 @@ import MenuItem from '@mui/material/MenuItem/MenuItem';
 import { Box } from '@mui/system';
 // import Alert from '@mui/material/Alert/Alert';
 // import Stack from '@mui/material/Stack/Stack';
-import { Navigate,
+import {
+    Navigate,
     //  useSearchParams
-     } from 'react-router-dom';
+} from 'react-router-dom';
 import { types } from '../../types/types';
 import { Container, IconButton, Input, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
@@ -72,24 +73,55 @@ const StudentsFilter: FC = () => {
     const categorys = category;
 
     const tecnologias = [
-        'Python',
-        'Java',
-        'JavaScript',
-        'PHP',
-        'R',
-        'Swfit',
-        'Flutter',
-        'Net',
-        'MathLab',
-        'Kotlin',
-        'Cobol',
-        'Sql',
-        'TypeScript',
-        'AWS',
-        'Mongo',
-        'NodeJS',
-        'React',
-        'Postgress',
+        ".Net",
+        "Airflow",
+        "Angular",
+        "Assembler",
+        "AWS",
+        "Boostrap",
+        "C",
+        "C#",
+        "C++",
+        "Cobol",
+        "CSS",
+        "CSS3",
+        "Django",
+        "Docker",
+        "Ethers.js",
+        "Express",
+        "Figma",
+        "Firebase",
+        "Flask",
+        "Flutter",
+        "GraphQL",
+        "Java",
+        "JavaScript",
+        "jQuery",
+        "Kotlin",
+        "Laravel",
+        "Lua",
+        "Material UI",
+        "MatLab",
+        "MongoDB",
+        "Mongoose",
+        "MySQL",
+        "Nest.js",
+        "Next.js",
+        "NodeJS",
+        "NumPy",
+        "Objective-C",
+        "Pandas",
+        "PHP",
+        "PostgresSQL",
+        "Python",
+        "R",
+        "React Native",
+        "React",
+        "Ruby",
+        "Solidity",
+        "Swift",
+        "TypeScript",
+        "Vue",
     ];
 
     const stateOfProject = ['Reclutamiento', 'En desarrollo', 'Terminado'];
@@ -145,7 +177,6 @@ const StudentsFilter: FC = () => {
     const handlerchange = (e: string, value: any) => {
         if (e === 'e') {
             if (value.length) {
-                // state = value;
                 setInput({ ...inputFilter, state: value });
             } else {
                 setInput({ ...inputFilter, state: undefined });
@@ -199,7 +230,8 @@ const StudentsFilter: FC = () => {
                         options={stateOfProject}
                         getOptionLabel={(option) => option}
                         filterSelectedOptions
-                        renderInput={(params) => (
+                        renderInput={(params) =>
+                        (
                             <TextField
                                 {...params}
                                 label="Filtar por Estado del proyecto "
@@ -222,7 +254,7 @@ const StudentsFilter: FC = () => {
                         renderInput={(params) => (
                             <TextField
                                 {...params}
-                                label="Filtar por Tecnologia "
+                                label="Filtar por Tecnologia"
                                 placeholder="Tecnologia"
                             />
                         )}
@@ -240,7 +272,8 @@ const StudentsFilter: FC = () => {
                         options={categorys}
                         getOptionLabel={(option: any) => option}
                         filterSelectedOptions
-                        renderInput={(params) => (
+                        renderInput={(params) =>
+                        (
                             <TextField
                                 {...params}
                                 label="Filtar por Categoría "
