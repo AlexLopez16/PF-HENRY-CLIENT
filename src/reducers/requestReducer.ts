@@ -32,6 +32,7 @@ export const requestReducer = (
                 ...state,
                 inProgress: false,
             };
+
         default:
             return { ...state };
     }
