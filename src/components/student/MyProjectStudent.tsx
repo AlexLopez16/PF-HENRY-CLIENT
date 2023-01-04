@@ -43,7 +43,9 @@ const MyProjectStudent: FC = () => {
     // Aca hay que trabajar con typescript para que quede mas limpia la sintaxis.
 
     const handleClick = async (projectId: string | any) => {
-        dispatch(unApplyStudent(user.id, projectId));
+        dispatch(
+            unApplyStudent(user.id, projectId, localStorage.getItem('token'))
+        );
     };
     // console.log(user.working)
 

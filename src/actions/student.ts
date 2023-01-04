@@ -171,7 +171,8 @@ export const addStudentToProject = (id: string, token: string) => {
 
 export const unApplyStudent = (
     studentId: string | any,
-    projectId: string | any
+    projectId: string | any,
+    token: string | any
 ) => {
     return async (dispatch: Dispatch) => {
         try {
@@ -179,9 +180,15 @@ export const unApplyStudent = (
             dispatch({
                 type: types.requestInProgress,
             });
-            const res = await axios.put(`/project/unapply/${projectId}`, {
-                studentId,
-            });
+            const res = await axios.put(
+                `/project/unapply/${projectId}`,
+                {
+                    studentId,
+                },
+                {
+                    headers: { 'user-token': token },
+                }
+            );
             console.log(res);
             dispatch({
                 type: types.unApplyStudent,
@@ -190,9 +197,11 @@ export const unApplyStudent = (
             // Fin de la request.
             dispatch({
                 type: types.requestFinished,
-                payload: res,
             });
         } catch (error) {
+            dispatch({
+                type: types.requestFinished,
+            });
             console.log(error);
         }
     };
