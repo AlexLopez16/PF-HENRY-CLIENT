@@ -19,88 +19,86 @@ import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../../assets/NABIJASH.png'
 
 const NavBar: FC = () => {
-    const navigate = useNavigate()
+  const navigate = useNavigate();
 
-    // Traemos el rol.
-    const { data } = useSelector((state: State) => state.auth);
-    const rol = data.rol;
-    const dispatch = useDispatch();
-    const token: string = localStorage.getItem('token') || '';
+  // Traemos el rol.
+  const { data } = useSelector((state: State) => state.auth);
+  const rol = data.rol;
+  const dispatch = useDispatch();
+  const token: string = localStorage.getItem('token') || '';
 
     useEffect(() => {
         rol === 'STUDENT_ROL' ? dispatch(getStudentInfo(data.id, token)) : null;
     }, [dispatch]);
 
-    // Paths y opciones de boton para el student.
-    const studentButtons = [
-        {
-            option: 'Proyectos',
-            path: '/projects',
-        },
-        {
-            option: 'Mis Proyectos',
-            path: '/myprojects',
-        },
-    ];
+  // Paths y opciones de boton para el student.
+  const studentButtons = [
+    {
+      option: 'Proyectos',
+      path: '/projects',
+    },
+    {
+      option: 'Mis Proyectos',
+      path: '/myprojects',
+    },
+  ];
 
-    // Paths y opciones de boton para el company.
-    const companyButtons = [
-        {
-            option: 'Proyectos',
-            path: '/projects',
-        },
-        {
-            option: 'Crear Proyecto',
-            path: '/newproject',
-        },
-        {
-            option: 'Mis Proyectos',
-            path: '/myprojects',
-        },
-    ];
+  // Paths y opciones de boton para el company.
+  const companyButtons = [
+    {
+      option: 'Proyectos',
+      path: '/projects',
+    },
+    {
+      option: 'Crear Proyecto',
+      path: '/newproject',
+    },
+    {
+      option: 'Mis Proyectos',
+      path: '/myprojects',
+    },
+  ];
 
-    // Paths y opciones de boton para el admin.
-    const adminButtons = [
-        {
-            option: 'Dashboard',
-            path: '/dashboard',
-        },
-        {
-            option: 'Proyectos',
-            path: '/projects',
-        },
-        // {
-        //     option: 'My Project',
-        //     path: '/myproject',
-        // },
-    ];
+  // Paths y opciones de boton para el admin.
+  const adminButtons = [
+    {
+      option: 'Dashboard',
+      path: '/dashboard',
+    },
+    {
+      option: 'Proyectos',
+      path: '/projects',
+    },
+    // {
+    //     option: 'My Project',
+    //     path: '/myproject',
+    // },
+  ];
 
-    const buttonList =
-        rol === 'STUDENT_ROL'
-            ? studentButtons
-            : rol === 'COMPANY_ROL'
-                ? companyButtons
-                : rol === 'ADMIN_ROL'
-                    ? adminButtons
-                    : [];
+  const buttonList =
+    rol === 'STUDENT_ROL'
+      ? studentButtons
+      : rol === 'COMPANY_ROL'
+      ? companyButtons
+      : rol === 'ADMIN_ROL'
+      ? adminButtons
+      : [];
 
-    //MENU RESPONSIVE
-    const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  //MENU RESPONSIVE
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
-    const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorElNav(event.currentTarget);
-    };
+  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElNav(event.currentTarget);
+  };
 
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null);
-
-    };
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
 
     return (
         <AppBar position="sticky">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-
 
                     <Typography
                         variant="h6"
@@ -116,11 +114,10 @@ const NavBar: FC = () => {
                             letterSpacing: '.3rem',
                             color: 'inherit',
                             textDecoration: 'none',
-                            cursor: 'pointer',
+                            cursor: 'pointer'
                         }}
                     >
-                        <img src={Logo} alt="Logo" style={{ background: 'black', width: 'auto', maxHeight: '50px' }} />
-                        {/* LOGO */}
+                        LOGO
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -182,6 +179,24 @@ const NavBar: FC = () => {
                         <img src={Logo} alt="Logo" style={{ background: 'black', width: 'auto', maxHeight: '50px' }} />
                         {/* LOGO */}
                     </Typography>
+          <Typography
+            variant='h5'
+            noWrap
+            onClick={() => navigate('/projects')}
+            sx={{
+              mr: 2,
+              display: { xs: 'flex', md: 'none' },
+              flexGrow: 1,
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+              cursor: 'pointer',
+            }}
+          >
+            LOGO
+          </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {buttonList.map((button) => (
@@ -195,6 +210,19 @@ const NavBar: FC = () => {
                             </Link>
                         ))}
                     </Box>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            {buttonList.map((button) => (
+              <Link to={button.path}>
+                <Button
+                  key={button.option}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'black', display: 'block' }}
+                >
+                  {button.option}
+                </Button>
+              </Link>
+            ))}
+          </Box>
 
                     <AccountMenu />
 
