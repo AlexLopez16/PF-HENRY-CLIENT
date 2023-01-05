@@ -45,6 +45,11 @@ const StudentsFilter: FC = () => {
         typeOfOrder: undefined,
         categorie: undefined,
     });
+
+    const { category, filters } = useSelector((state: State) => state.project);
+    const filtros = filters?.tecnologies || []
+    const categorys = category;
+    
     useEffect(() => {
         dispatch(
             getProjectsFilter(
@@ -69,9 +74,6 @@ const StudentsFilter: FC = () => {
             )
         );
     }, [dispatch, token, inputFilter]);
-
-    const { category } = useSelector((state: State) => state.project);
-    const categorys = category;
 
     const tecnologias = [
         ".Net",
@@ -249,6 +251,7 @@ const StudentsFilter: FC = () => {
                         multiple={true}
                         size="small"
                         id="tags-outlined"
+                        value={filtros}
                         options={tecnologias}
                         getOptionLabel={(option) => option}
                         filterSelectedOptions
