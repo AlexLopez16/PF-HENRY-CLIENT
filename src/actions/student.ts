@@ -60,6 +60,9 @@ export const getStudentInfo = (id: string, token: string) => {
             });
         } catch (error: any) {
             console.log(error);
+            dispatch({
+                type: types.requestFinished,
+            });
         }
     };
 };

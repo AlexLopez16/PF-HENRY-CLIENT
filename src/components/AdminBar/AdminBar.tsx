@@ -18,7 +18,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../reducers/rootReducer';
 import {
     //  Link,
-     useNavigate } from 'react-router-dom';
+    useNavigate,
+} from 'react-router-dom';
 import { getStudentInfo } from '../../actions/student';
 import { companyGetInfo } from '../../actions/company';
 import { logout } from '../../actions/auth';
@@ -37,25 +38,20 @@ export default function AccountMenu() {
     const handleClose = () => {
         setAnchorEl(null);
     };
-    
-    
-    
+
     const dispatch = useDispatch();
     const { data } = useSelector((state: State) => state.auth);
     const { id, rol } = data;
     const { user }: any = useSelector((state: State) =>
-    rol === 'STUDENT_ROL'
-    ? state.student
-    : state.company
+        rol === 'STUDENT_ROL' ? state.student : state.company
     );
-    
+
     const token = localStorage.getItem('token') || '';
 
     React.useEffect(() => {
         rol === 'STUDENT_ROL'
-        ? dispatch(getStudentInfo(id, token))
-        : dispatch(companyGetInfo(id, token))
-
+            ? dispatch(getStudentInfo(id, token))
+            : dispatch(companyGetInfo(id, token));
     }, [dispatch]);
     const navigate = useNavigate();
 
@@ -134,10 +130,12 @@ export default function AccountMenu() {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-                <MenuItem sx={{
-                    pointerEvents: "none",
-                    cursor: "default"
-                }}>
+                <MenuItem
+                    sx={{
+                        pointerEvents: 'none',
+                        cursor: 'default',
+                    }}
+                >
                     {/* //revisar este sector tmb */}
                     <Avatar>
                         {/* <IconButton>
@@ -147,24 +145,25 @@ export default function AccountMenu() {
                     Hola {user.name}
                 </MenuItem>
                 <Divider />
-
-                <MenuItem onClick={handlerProfile}>
-                    <ListItemIcon>
-                        <AccountBoxIcon fontSize="small" />
-                    </ListItemIcon>
-                    Mi perfil
-                </MenuItem>
-
-                {
-                    rol === 'COMPANY_ROL' && (
-                        <MenuItem onClick={() => setOpenModal(true)}>
+                {data.verify ? (
+                    <>
+                        <MenuItem onClick={handlerProfile}>
                             <ListItemIcon>
-                                <WorkspacePremiumIcon fontSize="small" />
+                                <AccountBoxIcon fontSize="small" />
                             </ListItemIcon>
-                            Premium
+                            Mi perfil
                         </MenuItem>
-                    )
-                }
+                    </>
+                ) : null}
+
+                {rol === 'COMPANY_ROL' && (
+                    <MenuItem onClick={() => setOpenModal(true)}>
+                        <ListItemIcon>
+                            <WorkspacePremiumIcon fontSize="small" />
+                        </ListItemIcon>
+                        Premium
+                    </MenuItem>
+                )}
 
                 <MenuItem onClick={handlerLogout}>
                     <ListItemIcon>
@@ -172,14 +171,9 @@ export default function AccountMenu() {
                     </ListItemIcon>
                     Cerrar sesion
                 </MenuItem>
-            
             </Menu>
 
-            <Premium
-                openModal={openModal}
-                setOpenModal={setOpenModal}
-            />
-
+            <Premium openModal={openModal} setOpenModal={setOpenModal} />
         </React.Fragment>
     );
 }
