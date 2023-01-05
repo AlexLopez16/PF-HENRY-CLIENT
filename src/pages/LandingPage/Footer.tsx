@@ -7,14 +7,15 @@ import Paper from '@mui/material/Paper';
 export default function Footer() {
   return (
     <Paper
-      sx={{ bottom: 0, backgroundColor: '#1b384a' }}
+      sx={{ bottom: 0, backgroundColor: '#1b384a',  }}
       component='footer'
       square
       variant='outlined'
     >
-      <Container>
+
         <Box
           sx={{
+           
             flexGrow: 1,
             justifyContent: 'center',
             display: 'flex',
@@ -40,7 +41,7 @@ export default function Footer() {
             Copyright © NABIJASH
           </Typography>
         </Box>
-      </Container>
+   
     </Paper>
   );
 }
