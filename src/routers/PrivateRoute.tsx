@@ -10,14 +10,14 @@ type Props = {
 };
 
 export const PrivateRoute: FC<Props> = ({ children }) => {
-    const { logged, status } = useSelector((state: State) => state.auth);
+    const { logged, status, data } = useSelector((state: State) => state.auth);
     const dispatch = useDispatch();
 
     let token = localStorage.getItem('token');
 
     if (!status && token) {
         //revisar este console.log
-        // console.log('Tenes token, ahora te validamos');
+        console.log('Tenes token, ahora te validamos');
         dispatch(validaToken(token));
     }
 
