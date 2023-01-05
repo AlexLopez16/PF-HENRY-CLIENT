@@ -17,9 +17,6 @@ import {
     TableRow,
     Typography,
     InputLabel,
-    Button,
-    FormControlLabel,
-    FormGroup,
     FormControl,
     MenuItem,
     SelectChangeEvent,
@@ -50,6 +47,7 @@ export interface Options {
 export declare function sentenceCase(input: string, options?: Options): string;
 import CloseIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
+import CancelMessage from './cancelMessage';
 
 const AdminAcceptProject: FC = ({ ...rest }) => {
     const dispatch = useDispatch();
@@ -61,7 +59,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
 
     const { projectsFilter } = useSelector((state: State) => state.project);
     let projects = projectsFilter;
-    console.log(projects);
+
 
     const [selectedCustomerIds, setSelectedCustomerIds] = useState<string[]>(
         []
@@ -69,9 +67,12 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
     const [limit, setLimit] = useState(12);
     const [page, setPage] = useState(0);
     const [render, setRender] = useState(false);
+    const [formactive, setFormactive] = useState(false);
 
     const [opciones, setOpciones] = useState("Todos")
     const options: string[] = ['Todos', 'Reclutamiento', 'En desarrollo', 'Terminado', 'En revision']
+    const [idPrj, setId] = useState("")
+
 
 
     const handleSelectAll = (event: any) => {
@@ -114,18 +115,18 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
         setSelectedCustomerIds(newSelectedCustomerIds);
     };
 
-    const handleaccept = () => {
-        selectedCustomerIds.forEach((selectID: any) =>
-            dispatch(AprovedProject(token, selectID)),
-            setRender(!render),
-        );
+    const handleaccept = (id: string) => {
+
+        dispatch(AprovedProject(token, id)),
+            setRender(!render)
+
     };
 
-    const handlecancel  = () => {
-        selectedCustomerIds.forEach((selectID: any) =>
-            // dispatch(AprovedProject(token, selectID)),
-            setRender(!render),
-        );
+    const handlecancel = (id: string) => {
+        setId(id)
+        console.log(idPrj)
+
+        setFormactive(true)
     };
 
 
@@ -147,6 +148,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
 
 
 
+    console.log(proyectos);
     return (
         <>
             <>
@@ -174,7 +176,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell padding="checkbox">
+                                {/* <TableCell padding="checkbox">
                                     <Checkbox
                                         checked={
                                             selectedCustomerIds.length ===
@@ -188,7 +190,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                                         }
                                         onChange={handleSelectAll}
                                     />
-                                </TableCell>
+                                </TableCell> */}
                                 <TableCell>Nombre</TableCell>
                                 <TableCell>Compañia</TableCell>
                                 <TableCell>Categoria</TableCell>
@@ -212,7 +214,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                                         ) !== -1
                                     }
                                 >
-                                    <TableCell padding="checkbox">
+                                    {/* <TableCell padding="checkbox">
                                         <Checkbox
                                             checked={
                                                 selectedCustomerIds.indexOf(
@@ -224,7 +226,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                                             }
                                             value="true"
                                         />
-                                    </TableCell>
+                                    </TableCell> */}
                                     <TableCell>
                                         <Box
                                             sx={{
@@ -232,10 +234,6 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                                                 display: 'flex',
                                             }}
                                         >
-                                            {/* <Avatar
-                                                src={projects.avatarUrl}
-                                                sx={{ mr: 2 }}
-                                            ></Avatar> */}
                                             <Typography
                                                 sx={{ maxWidth: 140 }}
                                                 color="textPrimary"
@@ -264,33 +262,43 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                                         {proyectos.description
                                         }
                                     </TableCell>
-                                    
+
                                     <TableCell sx={{ maxWidth: 200 }}>
                                         <CheckIcon
                                             sx={{ hover: "pointer" }}
-                                            onClick={handleaccept} />
+                                            onClick={() => handleaccept(proyectos.uid)} />
                                     </TableCell>
-                                
+
 
                                     <TableCell sx={{ maxWidth: 200 }}>
-                                        <CloseIcon 
-                                         onClick={handlecancel} 
+                                        <CloseIcon
+                                            onClick={() => handlecancel(proyectos.uid)}
                                         />
                                     </TableCell>
-
-
                                 </TableRow>
                             ))}
+
+
                         </TableBody>
                     </Table>
                 </Box>
             </Card>
             <>
-
                 <Pages />
             </>
+            {console.log(idPrj)}
+            {formactive && (
+                <CancelMessage
+
+                    setFormactive={setFormactive}
+                    formactive={formactive}
+                    idPrj={idPrj}
+                />
+
+            )}
         </>
     );
 };
+
 
 export default AdminAcceptProject;

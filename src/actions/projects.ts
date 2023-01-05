@@ -79,9 +79,9 @@ export const getProjectsFilter = (
     return async (dispatch: Dispatch) => {
         try {
             // console.log(limit, init);
-            dispatch({
-                type: types.requestInProgress,
-            });
+            // dispatch({
+            //     type: types.requestInProgress,
+            // });
             let query;
 
             if (name) {
@@ -147,9 +147,9 @@ export const getProjectsFilter = (
                 type: types.projectsFilter,
                 payload: res.data,
             });
-            dispatch({
-                type: types.requestFinished,
-            });
+            // dispatch({
+            //     type: types.requestFinished,
+            // });
         } catch (error: any) {
             // console.log(error.response.data.errors[0].msg);
             if (error.response.status === 401) {
