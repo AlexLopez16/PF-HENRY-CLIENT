@@ -38,7 +38,6 @@ const ProjectCard: FC<CardProjectProps> = ({
     id,
     category,
 }: CardProjectProps) => {
-
     const dispatch = useDispatch();
     const token = localStorage.getItem('token') || '';
     const clippedDescription = clip(description, 100);
@@ -96,10 +95,9 @@ const ProjectCard: FC<CardProjectProps> = ({
                     Requerimientos:
                     {requirements.map(
                         (requirement: string | any, index: number | any) => (
-                            <>
+                            <div key={index}>
                                 {' '}
                                 <Chip
-                                    key={index}
                                     size="small"
                                     label={requirement}
                                     sx={{
@@ -108,7 +106,7 @@ const ProjectCard: FC<CardProjectProps> = ({
                                             : '#FFFF01'
                                     }}
                                 />
-                            </>
+                            </div>
                         )
                     )}
                 </Typography>

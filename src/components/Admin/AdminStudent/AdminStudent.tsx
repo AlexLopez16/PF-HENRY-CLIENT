@@ -1,10 +1,13 @@
 import { FC, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Box } from "@mui/system";
-import { getCompany, disableCompany } from "../../../actions/company";
+import { disableStudent, getListStudents } from "../../../actions/student";
+import { validaToken } from "../../../actions/auth";
 import * as moment from "moment";
+import EditIcon from "@mui/icons-material/Edit";
+import { State } from "../../../reducers/rootReducer";
+import SideBar from "../SideBar/SideBar";
 import {
   Avatar,
   Card,
@@ -13,68 +16,51 @@ import {
   TableBody,
   TableCell,
   TableHead,
-  TablePagination,
   TableRow,
   Typography,
-  InputLabel,
+  FormControlLabel,
+  Switch,
+  FormGroup,
 } from "@mui/material";
-import { State } from "../../../reducers/rootReducer";
-import NavBar from "../../NavBar/NavBar";
-import { validaToken } from "../../../actions/auth";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
-import EditIcon from "@mui/icons-material/Edit";
-import React from "react";
-import SideBar from "../SideBar/SideBar";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export interface Options {
-  splitRegexp?: RegExp | RegExp[];
-  stripRegexp?: RegExp | RegExp[];
-  delimiter?: string;
-  transform?: (part: string, index: number, parts: string[]) => string;
-}
-
-export declare function sentenceCase(input: string, options?: Options): string;
-
-const AdminCompany: FC = ({ ...rest }) => {
-  const { user }: object | any = useSelector((state: State) => state.company);
+const AdminStudent: FC = () => {
+  const { users } = useSelector((state: any) => state.student);
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
-  const users = user.usersCompany;
 
-  const { logged, status } = useSelector((state: State) => state.auth);
+  const { status } = useSelector((state: State) => state.auth);
 
   if (!status && token) {
-    console.log("Tenes token, ahora te validamos");
     dispatch(validaToken(token));
   }
 
   useEffect(() => {
-    dispatch(getCompany(token as string));
+    dispatch(getListStudents(token, false));
   }, [dispatch]);
 
-  const [selectedCustomerIds, setSelectedCustomerIds] = useState<any[]>([]);
+  const [selectedCustomerIds, setSelectedCustomerIds] = useState<string[]>([]);
   const [limit, setLimit] = useState(12);
   const [page, setPage] = useState(0);
+  const [select, setSelect] = useState<boolean>(false);
 
+  // <--- Aca esta el problema de que no seleccione todos --->
   const handleSelectAll = (event: any) => {
     let newSelectedCustomerIds;
-
     if (event.target.checked) {
       newSelectedCustomerIds = users.map((user: any) => user.id);
     } else {
       newSelectedCustomerIds = [];
     }
-
     setSelectedCustomerIds(newSelectedCustomerIds);
+    console.log(selectedCustomerIds); //--> me trae un array con 14 undefined
   };
 
-  const handleSelectOne = (event: any, uid: any) => {
+  // <--- Este trabaja agarrando uno por uno --->
+  const handleSelectOne = (uid: string) => {
+    let newSelectedCustomerIds: string[] = [];
     const selectedIndex = selectedCustomerIds.indexOf(uid);
-    let newSelectedCustomerIds: any = [];
 
     if (selectedIndex === -1) {
       newSelectedCustomerIds = newSelectedCustomerIds.concat(
@@ -95,8 +81,14 @@ const AdminCompany: FC = ({ ...rest }) => {
         selectedCustomerIds.slice(selectedIndex + 1)
       );
     }
-
+    setSelect(true);
     setSelectedCustomerIds(newSelectedCustomerIds);
+  };
+
+  const handleDisable = (selectID: string) => {
+    // selectedCustomerIds.forEach((selectID: string) =>
+    dispatch(disableStudent(token, selectID));
+    // );
   };
 
   const handleLimitChange = (event: any) => {
@@ -107,93 +99,32 @@ const AdminCompany: FC = ({ ...rest }) => {
     setPage(newPage);
   };
 
-  const [checked, setChecked] = React.useState(true);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(event.target.checked);
-  };
-  const handleDisable = () => {
-    selectedCustomerIds.forEach((selectID: any) =>
-      dispatch(disableCompany(token, selectID))
-    );
-  };
-
   return (
     <SideBar>
-      <Card {...rest}>
-        <Box sx={{ minWidth: 900 }}>
+      <Card>
+        <Box sx={{ minWidth: 1050 }}>
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell padding="checkbox">
+                {/* <TableCell padding="checkbox">
                   <Checkbox
-                    checked={selectedCustomerIds.length === users?.length}
+                    checked={selectedCustomerIds.length === users.length}
                     color="primary"
                     indeterminate={
                       selectedCustomerIds.length > 0 &&
-                      selectedCustomerIds.length < users?.length
+                      selectedCustomerIds.length < users.length
                     }
                     onChange={handleSelectAll}
                   />
-                </TableCell>
+                </TableCell> */}
                 <TableCell>Nombre</TableCell>
                 <TableCell>Email</TableCell>
-                <TableCell>Locación</TableCell>
+                <TableCell>Ubicacion</TableCell>
                 <TableCell>Estado</TableCell>
-                <TableCell>Fecha Registro</TableCell>
-                <TableCell>Editar</TableCell>
-                <TableCell>Cambiar Estado</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {users?.slice(0, limit).map((user: any) => (
-                <TableRow
-                  hover
-                  key={user.uid}
-                  selected={selectedCustomerIds.indexOf(user.uid) !== -1}
-                >
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={selectedCustomerIds.indexOf(user.uid) !== -1}
-                      onChange={(event) => handleSelectOne(event, user.uid)}
-                      value="true"
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <Box
-                      sx={{
-                        alignItems: "center",
-                        display: "flex",
-                      }}
-                    >
-                      <Avatar src={user.avatarUrl} sx={{ mr: 2 }}></Avatar>
-                      <Typography color="textPrimary" variant="body1">
-                        {user.name}
-                      </Typography>
-                    </Box>
-                  </TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>
-                    {user.country ? user.country : "No registrado"}
-                  </TableCell>
-                  {/* <TableCell>
-                {user.state ? "Activo": "Inactivo"}
-              </TableCell> */}
+                <TableCell>Fecha de ingreso</TableCell>
 
-                  <TableCell align="left">
-                    <InputLabel color={user.state ? "success" : "error"}>
-                      {user.state ? "Activo" : "Inactivo"}
-                    </InputLabel>
-                  </TableCell>
-
-                  <TableCell>
-                    {user.admission
-                      ? `${moment(user.admission).format("DD/MM/YYYY")}`
-                      : "No registrado"}
-                  </TableCell>
-                  <TableCell>
-                    <EditIcon />
-                  </TableCell>
+                {/* {select  && <Button onClick={handleDisable}><DeleteIcon sx={{color: '#000'}}/></Button>} */}
+                {/* {select && (
                   <FormGroup
                     sx={{
                       display: "flex",
@@ -214,6 +145,73 @@ const AdminCompany: FC = ({ ...rest }) => {
                       label={undefined}
                     />
                   </FormGroup>
+                )} */}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {users?.slice(0, limit).map((user: any) => (
+                <TableRow
+                  hover
+                  key={user.uid}
+                  selected={selectedCustomerIds.indexOf(user.uid) !== -1}
+                >
+                  {/* <TableCell padding="checkbox">
+                    <Checkbox
+                      checked={selectedCustomerIds.indexOf(user.uid) !== -1}
+                      onChange={() => handleSelectOne(user.uid)}
+                      value="true"
+                    />
+                  </TableCell> */}
+                  <TableCell>
+                    <Box
+                      sx={{
+                        alignItems: "center",
+                        display: "flex",
+                      }}
+                    >
+                      <Avatar src={user.avatarUrl} sx={{ mr: 2 }}></Avatar>
+                      <Typography color="textPrimary" variant="body1">
+                        {user.name}
+                      </Typography>
+                    </Box>
+                  </TableCell>
+                  <TableCell>
+                    {user.email ? user.email : "No registrado"}
+                  </TableCell>
+                  <TableCell>
+                    {user.country ? user.country : "No registrado"}
+                  </TableCell>
+                  <TableCell>{user.state ? "Activo" : "Inactivo"}</TableCell>
+                  <TableCell>
+                    {user.admission
+                      ? `${moment(user.admission).format("DD/MM/YYYY")}`
+                      : "No registrado"}
+                  </TableCell>
+                  <TableCell>
+                    <EditIcon />
+                  </TableCell>
+                  <TableCell>
+                    <FormGroup
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        mt: 3,
+                      }}
+                    >
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            defaultChecked={user.state ? true : false}
+                            size="small"
+                            color="primary"
+                            onChange={() => handleDisable(user.uid)}
+                          />
+                        }
+                        label={undefined}
+                      />
+                    </FormGroup>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -224,4 +222,8 @@ const AdminCompany: FC = ({ ...rest }) => {
   );
 };
 
-export default AdminCompany;
+export default AdminStudent;
+
+
+
+

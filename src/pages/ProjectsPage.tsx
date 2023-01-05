@@ -59,6 +59,7 @@ const ProjectsPage: FC = () => {
                 {info.length ? (
                     info.map((e: any) => (
                         <ProjectCard
+                        key={e}
                             name={e.name}
                             participants={e.participants}
                             requirements={e.requirements}

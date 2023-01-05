@@ -29,6 +29,7 @@ const DashboardCompany: FC = () => {
                 {projectsFilter.length &&
                     projectsFilter.map((p: any) => (
                         <ProjectCard
+                            key={p}
                             name={p.name}
                             //   description={p.description}
                             participants={p.participants}

@@ -2,8 +2,6 @@ import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
 import LandingPage from "../pages/LandingPage/LandingPage";
 import StudensForm from "../components/student/StudentForm";
 import CompanyForm from "../components/company/CompanyForm";
-// import ProjectDetail from '../components/project/ProjectDetail';
-// import NavBar from "../components/ui/NavBar";
 import DashboardPage from "../pages/DashboardPage";
 import { Profile } from "../components/student/profile/Profile";
 import { LoginScreen } from "../components/auth/LoginScreen";
@@ -11,10 +9,7 @@ import AboutUsPage from "../pages/LandingPage/AboutUsPage";
 import { PublicRoute } from "./PublicRoute";
 import { PrivateRoute } from "./PrivateRoute";
 import ProjectForm from "../components/project/ProjectForm";
-// import ProjectCard from '../components/project/ProjectCard';
 import { HomePage } from "../pages/HomePage";
-
-// import { Nabvar } from "../components/maquetas/Nabvar";
 import NavBar from "../components/NavBar/NavBar";
 import { Register } from "../pages/PageRegister";
 import { ProjectPage } from "../pages/ProjectPage";
@@ -29,20 +24,19 @@ import Jona from "../pages/Profiles/Jona";
 import Nachito from "../pages/Profiles/Nachito";
 import Nacho from "../pages/Profiles/Nacho";
 import Sil from "../pages/Profiles/Sil";
-
-// import MyProject from '../components/student/MyProjectStudent';
 import ProjectsPage from "../pages/ProjectsPage";
 import MyProjectsPage from "../pages/MyProjectsPage";
 import ProjectsStudents from "../components/student/ProjectsStudents";
 import { ProfileCompany } from "../components/company/Profile/ProfileCompany";
-import AdminStudent from "../components/Admin/AdminStudent";
+import AdminStudent from "../components/Admin/AdminStudent/AdminStudent";
 import Postulated from "../components/company/Postulated";
 
 import AdminCompany from "../components/Admin/AdminCompany/AdminCompany";
 import AdminProject from "../components/Admin/AdminProject/AdminProject";
 import AdminAcceptProject from "../components/Admin/AdminProject/AdminAcceptProject";
 import { Checkout } from "../pages/Checkout";
-// import AdminProject from '../components/Admin/AdminProject/AdminProject';
+import SideBar from "../components/Admin/SideBar/SideBar";
+import DashboardAdmin from "../components/Admin/DashboardAdmin";
 
 export const AppRouter = () => {
   let { id } = useParams();
@@ -133,14 +127,14 @@ export const AppRouter = () => {
             }
           />
 
-                    <Route
-                        path="/project"
-                        element={
-                            <PrivateRoute>
-                                <ProjectPage />
-                            </PrivateRoute>
-                        }
-                    />
+          <Route
+            path="/project"
+            element={
+              <PrivateRoute>
+                <ProjectPage />
+              </PrivateRoute>
+            }
+          />
 
           <Route
             path="/newproject"
@@ -199,7 +193,7 @@ export const AppRouter = () => {
           />
 
           <Route
-            path="/adminSt"
+            path="/adminStudent"
             element={
               // <PrivateRoute>
               <AdminStudent />
@@ -207,11 +201,13 @@ export const AppRouter = () => {
             }
           />
 
+          <Route path="/side" element={<DashboardAdmin />} />
+
           <Route path="/AdminCompany" element={<AdminCompany />} />
 
           <Route path="/AdminProject" element={<AdminProject />} />
 
-          <Route path="/Adminacceptprojects" element={<AdminAcceptProject/>} />
+          <Route path="/Adminacceptprojects" element={<AdminAcceptProject />} />
 
           {/* PROFILE ROUTES */}
 
@@ -226,29 +222,21 @@ export const AppRouter = () => {
 
           <Route path="/forgotPassword" element={<ForgotPassword />} />
 
-                    <Route
-                        path="/recoverPassword"
-                        element={<PasswordRecover />}
-                    />
-                    <Route path="/p" element={<ProjectsStudents />} />
+          <Route path="/recoverPassword" element={<PasswordRecover />} />
+          <Route path="/p" element={<ProjectsStudents />} />
 
-                    <Route
-                        path="/postulated/:id"
-                        element={
-                            <PrivateRoute>
-                                <Postulated />
-                            </PrivateRoute>
-                        }
-                    />
+          <Route
+            path="/postulated/:id"
+            element={
+              <PrivateRoute>
+                <Postulated />
+              </PrivateRoute>
+            }
+          />
 
-                    <Route
-                        path='/checkout/'
-                        element={
-                            <Checkout />
-                        }
-                    />
-                </Routes>
-            </div>
-        </BrowserRouter>
-    );
+          <Route path="/checkout/" element={<Checkout />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
+  );
 };
