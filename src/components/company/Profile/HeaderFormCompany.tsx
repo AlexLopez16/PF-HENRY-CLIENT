@@ -51,7 +51,9 @@ export const HeaderFormCompany: FC<Props> = ({
     const { id } = data;
     const { image } = user;
     const token = localStorage.getItem('token') || '';
-    const [pais, setPais] = useState('');
+    const [pais, setPais] = useState(country);
+    console.log(user);
+    
 
     const handlerEdit = () => {
         setEdit({
@@ -61,10 +63,11 @@ export const HeaderFormCompany: FC<Props> = ({
     };
 
     const initialValues = {
-        name: user.name,
-        website: user.website,
+        name: name,
+        website: website,
+        country: pais
     };
-    console.log(user);
+
     
 
     const validationSchema = Yup.object().shape({
@@ -73,7 +76,6 @@ export const HeaderFormCompany: FC<Props> = ({
     });
 
     const onSubmit = (values: any, props: any) => {
-        console.log(values);
         dispatch(CompanyUpdateInfo(id, token, {
             name: values.name,
             website: values.website,

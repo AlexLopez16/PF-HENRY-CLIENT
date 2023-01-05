@@ -1,9 +1,9 @@
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    clearProjects,
+    // clearProjects,
     getMyProjectsCompany,
-    getProject,
+    // getProject,
     getProjectsFilter,
 } from '../../actions/projects';
 import { State } from '../../reducers/rootReducer';
@@ -16,24 +16,24 @@ let limit;
 let init;
 const Pages: FC = () => {
     let location = useLocation();
-    console.log(location);
+    // console.log(location);
     let dispatch = useDispatch();
-    let token: String | null = localStorage.getItem('token');
+    let token = localStorage.getItem('token') || '';
     const [definePage, setPage] = useState({ limit: 6, init: 0 });
     let { projectsFilter } = useSelector((state: State) => state.project);
     // let { myProjectCompany } = useSelector((state: State) => state.project);
 
-    useEffect(() => {}, [projectsFilter]);
+    useEffect(() => { }, [projectsFilter]);
     const { total } = useSelector((state: State) => state.project);
     const { filters } = useSelector((state: State) => state.project);
-    console.log(filters);
+    // console.log(filters);
 
     let numberOfPages = Math.ceil(total / 6);
     const handlerClick = async (e: any, value: any) => {
         // setPage({limit:value*6,init:(value*6)-6})
         limit = 6;
         init = value * 6 - 6;
-        console.log(e);
+        // console.log(e);
         if (
             location.pathname === '/dashboard' ||
             location.pathname === '/projects'

@@ -27,13 +27,18 @@ import { GoogleLogin } from '@react-oauth/google';
 
 import { startLogin, gmailLogin } from '../../actions/auth';
 import { State } from '../../reducers/rootReducer';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Header from '../NavbarLandingPage/HeaderLanding';
 import Footer from '../../pages/LandingPage/Footer';
 
+import Logo from '../../assets/NABIJASH.png';
+import { SnackBar } from '../SnackBar/SnackBar';
+
 export const LoginScreen: FC = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { status } = useSelector((state: State) => state.auth);
+
     const [isError, setIsError] = useState(false);
 
     const paperStyle = {
@@ -62,10 +67,12 @@ export const LoginScreen: FC = () => {
     });
 
     const onSubmit = (values: any, props: any) => {
-        dispatch(startLogin({
-            email:values.email.toLowerCase(),
-            password:values.password
-        }));
+        dispatch(
+            startLogin({
+                email: values.email.toLowerCase(),
+                password: values.password,
+            })
+        );
 
         setTimeout(() => {
             if (status === '200') {
@@ -89,6 +96,10 @@ export const LoginScreen: FC = () => {
         >
             <div>
                 <Header />
+                <SnackBar
+                    successMsg=" Solicitud enviada con exito!"
+                    errorMsg="Por Favor Registrate"
+                />
                 <Grid
                     container
                     direction="column"
@@ -96,7 +107,7 @@ export const LoginScreen: FC = () => {
                     alignItems="center"
                 >
                     <img
-                        src="../public/assets/NABIJASH.png"
+                        src={Logo}
                         style={{
                             justifyContent: 'center',
                             marginTop: 10,
@@ -280,8 +291,14 @@ export const LoginScreen: FC = () => {
                                                 dispatch(
                                                     gmailLogin(
                                                         credentialResponse.credential,
-                                                        undefined
+                                                        ''
                                                     )
+                                                );
+
+                                                setTimeout(
+                                                    () => navigate('/register'),
+
+                                                    3000
                                                 );
                                             }}
                                             onError={() => {
@@ -307,6 +324,7 @@ export const LoginScreen: FC = () => {
                             <Link
                                 style={{
                                     color: 'black',
+                                    textDecoration: 'underline',
                                 }}
                                 to="/register"
                             >

@@ -15,8 +15,8 @@ export const validaToken = (token: string) => {
             });
             const { id, rol } = data;
             if (status) {
-                console.log(status);
-                console.log(rol);
+                // console.log(status);
+                // console.log(rol);
                 localStorage.setItem('token', token);
                 dispatch(login({ data, status, id, rol }));
             }
@@ -51,23 +51,29 @@ export const githubLogin = ({ id, rol, token }: string | any) => {
     return login({ data: { id, rol, token } });
 };
 
-export const gmailLogin = (tok: string | any, userType: string | any) => {
+export const gmailLogin = (tok: string, userType?: string) => {
     return async (dispatch: Dispatch) => {
+        dispatch({
+            type: types.requestInProgress,
+        });
         try {
-            const { data, status } = await axios.post('/auth', {
+            const res = await axios.post('/auth', {
                 from: 'gmail',
                 tok,
                 userType,
             });
-            const { token, id, rol } = data;
-
+            const { token, id, rol } = res.data;
+            let data = res.data;
+            let status = res.status;
             if (status) {
                 localStorage.setItem('token', token);
-                localStorage.setItem('id', id);
-                localStorage.setItem('rol', rol);
                 dispatch(login({ data, status, token, id, rol }));
             }
         } catch (error: any) {
+            dispatch({
+                type: types.requestFinished,
+                payload: error.response,
+            });
             dispatch({
                 type: types.authLogin,
                 logged: false,
@@ -86,26 +92,48 @@ const login = (data: object) => ({
 
 export const forgotPassword = (email: string) => {
     return async (dispatch: Dispatch) => {
+        dispatch({
+            type: types.requestInProgress,
+        });
         try {
             const res = await axios.get(`/recover/password?email=${email}`);
-            console.log(res.data);
-        } catch (error) {
-            console.log(error);
+
+            dispatch({
+                type: types.requestFinished,
+                payload: res,
+            });
+        } catch (error: any) {
+            // console.log(error);
+            dispatch({
+                type: types.requestFinished,
+                payload: error.response,
+            });
         }
     };
 };
 
 export const recoverPassword = (password: string, token: string | any) => {
     return async (dispatch: Dispatch) => {
+        dispatch({
+            type: types.requestInProgress,
+        });
         try {
             const res: any = await axios.put(
                 `/recover/password`,
                 { password: password },
                 { headers: { 'user-token': token } }
             );
-            console.log(res.data);
-        } catch (error) {
-            console.log(error);
+            dispatch({
+                type: types.requestFinished,
+                payload: res,
+            });
+            // console.log(res.data);
+        } catch (error: any) {
+            // console.log(error);
+            dispatch({
+                type: types.requestFinished,
+                payload: error.response,
+            });
         }
     };
 };

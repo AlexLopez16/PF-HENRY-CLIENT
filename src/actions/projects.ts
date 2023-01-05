@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
 import { types } from '../types/types';
-import { Navigate } from 'react-router-dom';
+// import { Navigate } from 'react-router-dom';
 import { fileUpload } from '../helpers/fileUpload';
 
 export const getProject = (token: string) => {
@@ -24,13 +24,21 @@ export const getProject = (token: string) => {
 export const getProjectByID = (token: string, id: string) => {
     return async (dispatch: Dispatch) => {
         try {
+            // Incio de la request.
+            dispatch({
+                type: types.requestInProgress,
+            });
             const res = await axios.get(`/project/${id}`, {
-                headers: { "user-token": token },
+                headers: { 'user-token': token },
             });
 
             dispatch({
                 type: types.getProjectById,
                 payload: res.data,
+            });
+            // Fin de la request.
+            dispatch({
+                type: types.requestFinished,
             });
         } catch (error: any) {
             console.log(error);
@@ -65,12 +73,15 @@ export const getProjectsFilter = (
     name?: string | undefined,
     category?: string[] | undefined,
     stateOfProject?: string[] | undefined,
-    limit?:number|undefined,
-    init?:number|undefined
+    limit?: number | undefined,
+    init?: number | undefined
 ) => {
     return async (dispatch: Dispatch) => {
         try {
-            console.log(limit, init);
+            // console.log(limit, init);
+            dispatch({
+                type: types.requestInProgress,
+            });
             let query;
 
             if (name) {
@@ -78,8 +89,8 @@ export const getProjectsFilter = (
             }
 
             if (tecnologies) {
-                let tecnologias: string = "";
-                tecnologies.forEach((e: string) => (tecnologias += e + ","));
+                let tecnologias: string = '';
+                tecnologies.forEach((e: string) => (tecnologias += e + ','));
                 //tranforma el array a string con comas
                 tecnologias = tecnologias.substring(0, tecnologias.length - 1); //si es una palabra saca la coma
                 if (query) {
@@ -116,7 +127,7 @@ export const getProjectsFilter = (
             }
 
             if (limit || init) {
-                console.log(limit, init);
+                // console.log(limit, init);
                 if (query) {
                     query += `&limit=${limit}&init=${init}`;
                 } else {
@@ -131,13 +142,16 @@ export const getProjectsFilter = (
             const res = await axios.get(url, {
                 headers: { 'user-token': token },
             });
-            console.log(res.data);
+            // console.log(res.data);
             dispatch({
                 type: types.projectsFilter,
                 payload: res.data,
             });
+            dispatch({
+                type: types.requestFinished,
+            });
         } catch (error: any) {
-            console.log(error.response.data.errors[0].msg);
+            // console.log(error.response.data.errors[0].msg);
             if (error.response.status === 401) {
                 dispatch({
                     type: types.clearAuthLogin,
@@ -151,8 +165,8 @@ export const getProjectsFilter = (
 export const getCategory = (token: string) => {
     return async (dispatch: Dispatch) => {
         try {
-            const res = await axios.get("/project/category", {
-                headers: { "user-token": token },
+            const res = await axios.get('/project/category', {
+                headers: { 'user-token': token },
             });
             dispatch({
                 type: types.getCategory,
@@ -166,19 +180,25 @@ export const getCategory = (token: string) => {
 
 export const getMyProjectsCompany = (token: string, value: any) => {
     return async (dispatch: Dispatch) => {
+        dispatch({
+            type: types.requestInProgress,
+        });
         let val;
         if (value) {
             val = `&value=${value}`;
         }
         try {
-            console.log('en la action', token);
+            // console.log('en la action', token);
             const res = await axios.get(`/company/login?${val}`, {
                 headers: { 'user-token': token },
             });
-            console.log('en la action', res.data);
+            // console.log('en la action', res.data);
             dispatch({
                 type: types.projectsFilter,
                 payload: res.data,
+            });
+            dispatch({
+                type: types.requestFinished,
             });
         } catch (error: any) {
             console.log(error.res.data);
@@ -207,7 +227,7 @@ export const updateImagesProject = (id: string, token: string, file: any) => {
 };
 
 export const clearProjects = (obj: any) => {
-    console.log('in clear');
+    // console.log('in clear');
     return {
         type: types.projectsFilter,
         payload: obj,
@@ -226,5 +246,22 @@ export const Filters = (
     return {
         type: types.filters,
         payload: obj,
+    };
+};
+
+export const getAllProject = (token: string) => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const res = await axios.get('/project/all', {
+                headers: { 'user-token': token },
+            });
+
+            dispatch({
+                type: types.projectsFilter,
+                payload: res.data,
+            });
+        } catch (error: any) {
+            console.log(error.res.data);
+        }
     };
 };

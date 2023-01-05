@@ -3,12 +3,13 @@ import { clearProjects, getMyProjectsCompany } from '../../actions/projects';
 import ProjectCard from './ProjectCard';
 import { State } from '../../reducers/rootReducer';
 
-import { Box } from '@mui/system';
+// import { Box } from '@mui/system';
 import Alert from '@mui/material/Alert/Alert';
 import Stack from '@mui/material/Stack/Stack';
 import { useEffect, FC } from 'react';
 import Pages from '../ui/Pagination';
 import { Container, Typography } from '@mui/material';
+import { PreLoader } from '../PreLoader/PreLoader';
 
 // const styledInput = {
 //   position: "relative",
@@ -27,10 +28,11 @@ export const MyProjectCompany: FC = () => {
 
     const { projectsFilter } = useSelector((state: State) => state.project);
     let info = projectsFilter;
-    console.log(info);
+    // console.log(info);
 
     return (
         <div>
+            <PreLoader />
             <Container sx={{ marginLeft: 109 }}>
                 <Typography variant="h6" sx={{ marginTop: 5 }}>
                     Mis proyectos
@@ -55,10 +57,11 @@ export const MyProjectCompany: FC = () => {
                 {info.length ? (
                     info.map((e: any) => (
                         <ProjectCard
+                        key={e.uid}
                             name={e.name}
                             participants={e.participants}
                             requirements={e.requirements}
-                            students={e.students}
+                            students={e.accepts}
                             company={e.company.name}
                             state={e.state}
                             stateOfProject={e.stateOfProject}

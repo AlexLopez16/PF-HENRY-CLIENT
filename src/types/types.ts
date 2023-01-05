@@ -1,17 +1,23 @@
+
+
 export const types = {
     authLogin: '[auth] Login User',
     authLoginGit: '[auth] GitHub Login',
     clearAuthLogin: '[auth] Clear Auth Login',
     login: '[login] Login',
 
+    requestInProgress: '[request] Request In Progress',
+    requestFinished: '[request] Request Finished',
+    requestCleaned: '[request] Request Cleaned',
+
     getListStudents: '[student] Get List Students',
     studentRegister: '[student] Register Student',
     studentGetInfo: '[student] Get Info Student',
     studentUpdateInfo: '[student] Update Info Student',
     studentSearch: '[student] Search Company', //-VERIFICAR-//
-    AddStToPr: '[student] Add student to project',
+    addStudentToProject: '[student] Add student to project',
+    unApplyStudent: '[student] Un Applu student to project',
     deleteOrInactiveStudent: '[student] inactive student to data base',
-
 
     registerCompany: '[company] Register Company',
     companyGetInfo: '[company] Get info company',
@@ -33,4 +39,7 @@ export const types = {
 
     showError: '[error] Show Error',
     clearError: '[error] Clear Error',
+    getAllProjects: "[project] get all Project",
+    AdminAprovedProject: "[admin]project aproved"
+
 };

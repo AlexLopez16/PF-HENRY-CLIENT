@@ -1,10 +1,10 @@
-import { FC, useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { FC, useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Box } from '@mui/system';
-import { getCompany, disableCompany } from '../../../actions/company';
-import * as moment from 'moment';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Box } from "@mui/system";
+import { getCompany, disableCompany } from "../../../actions/company";
+import * as moment from "moment";
 import {
   Avatar,
   Card,
@@ -17,15 +17,16 @@ import {
   TableRow,
   Typography,
   InputLabel,
-} from '@mui/material';
-import { State } from '../../../reducers/rootReducer';
-import NavBar from '../../NavBar/NavBar';
-import { validaToken } from '../../../actions/auth';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-import EditIcon from '@mui/icons-material/Edit';
-import React from 'react';
+} from "@mui/material";
+import { State } from "../../../reducers/rootReducer";
+import NavBar from "../../NavBar/NavBar";
+import { validaToken } from "../../../actions/auth";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
+import EditIcon from "@mui/icons-material/Edit";
+import React from "react";
+import SideBar from "../SideBar/SideBar";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -39,23 +40,21 @@ export interface Options {
 export declare function sentenceCase(input: string, options?: Options): string;
 
 const AdminCompany: FC = ({ ...rest }) => {
-  const { user } = useSelector((state: State) => state.company);
+  const { user }: object | any = useSelector((state: State) => state.company);
   const dispatch = useDispatch();
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
   const users = user.usersCompany;
 
   const { logged, status } = useSelector((state: State) => state.auth);
 
   if (!status && token) {
-    console.log('Tenes token, ahora te validamos');
+    console.log("Tenes token, ahora te validamos");
     dispatch(validaToken(token));
   }
 
   useEffect(() => {
     dispatch(getCompany(token as string));
   }, [dispatch]);
-
-  console.log(user.usersCompany);
 
   const [selectedCustomerIds, setSelectedCustomerIds] = useState<any[]>([]);
   const [limit, setLimit] = useState(12);
@@ -80,20 +79,20 @@ const AdminCompany: FC = ({ ...rest }) => {
     if (selectedIndex === -1) {
       newSelectedCustomerIds = newSelectedCustomerIds.concat(
         selectedCustomerIds,
-        uid,
+        uid
       );
     } else if (selectedIndex === 0) {
       newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(1),
+        selectedCustomerIds.slice(1)
       );
     } else if (selectedIndex === selectedCustomerIds.length - 1) {
       newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(0, -1),
+        selectedCustomerIds.slice(0, -1)
       );
     } else if (selectedIndex > 0) {
       newSelectedCustomerIds = newSelectedCustomerIds.concat(
         selectedCustomerIds.slice(0, selectedIndex),
-        selectedCustomerIds.slice(selectedIndex + 1),
+        selectedCustomerIds.slice(selectedIndex + 1)
       );
     }
 
@@ -115,22 +114,21 @@ const AdminCompany: FC = ({ ...rest }) => {
   };
   const handleDisable = () => {
     selectedCustomerIds.forEach((selectID: any) =>
-      dispatch(disableCompany(token, selectID)),
+      dispatch(disableCompany(token, selectID))
     );
   };
 
   return (
-    <>
-      <NavBar />
+    <SideBar>
       <Card {...rest}>
         <Box sx={{ minWidth: 900 }}>
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell padding='checkbox'>
+                <TableCell padding="checkbox">
                   <Checkbox
                     checked={selectedCustomerIds.length === users?.length}
-                    color='primary'
+                    color="primary"
                     indeterminate={
                       selectedCustomerIds.length > 0 &&
                       selectedCustomerIds.length < users?.length
@@ -154,53 +152,53 @@ const AdminCompany: FC = ({ ...rest }) => {
                   key={user.uid}
                   selected={selectedCustomerIds.indexOf(user.uid) !== -1}
                 >
-                  <TableCell padding='checkbox'>
+                  <TableCell padding="checkbox">
                     <Checkbox
                       checked={selectedCustomerIds.indexOf(user.uid) !== -1}
                       onChange={(event) => handleSelectOne(event, user.uid)}
-                      value='true'
+                      value="true"
                     />
                   </TableCell>
                   <TableCell>
                     <Box
                       sx={{
-                        alignItems: 'center',
-                        display: 'flex',
+                        alignItems: "center",
+                        display: "flex",
                       }}
                     >
                       <Avatar src={user.avatarUrl} sx={{ mr: 2 }}></Avatar>
-                      <Typography color='textPrimary' variant='body1'>
+                      <Typography color="textPrimary" variant="body1">
                         {user.name}
                       </Typography>
                     </Box>
                   </TableCell>
                   <TableCell>{user.email}</TableCell>
                   <TableCell>
-                    {user.country ? user.country : 'No registrado'}
+                    {user.country ? user.country : "No registrado"}
                   </TableCell>
                   {/* <TableCell>
                 {user.state ? "Activo": "Inactivo"}
               </TableCell> */}
 
-                  <TableCell align='left'>
-                    <InputLabel color={user.state ? 'success' : 'error'}>
-                      {user.state ? 'Activo' : 'Inactivo'}
+                  <TableCell align="left">
+                    <InputLabel color={user.state ? "success" : "error"}>
+                      {user.state ? "Activo" : "Inactivo"}
                     </InputLabel>
                   </TableCell>
 
                   <TableCell>
                     {user.admission
-                      ? `${moment(user.admission).format('DD/MM/YYYY')}`
-                      : 'No registrado'}
+                      ? `${moment(user.admission).format("DD/MM/YYYY")}`
+                      : "No registrado"}
                   </TableCell>
                   <TableCell>
                     <EditIcon />
                   </TableCell>
                   <FormGroup
                     sx={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
                       mt: 3,
                     }}
                   >
@@ -208,8 +206,8 @@ const AdminCompany: FC = ({ ...rest }) => {
                       control={
                         <Switch
                           defaultChecked
-                          size='small'
-                          color='primary'
+                          size="small"
+                          color="primary"
                           onChange={handleDisable}
                         />
                       }
@@ -222,7 +220,7 @@ const AdminCompany: FC = ({ ...rest }) => {
           </Table>
         </Box>
       </Card>
-    </>
+    </SideBar>
   );
 };
 

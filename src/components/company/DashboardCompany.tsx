@@ -7,13 +7,13 @@ import Pages from '../ui/Pagination';
 
 // import StudentCard from "../student/StudentCard";
 
-import { Grid, Pagination } from '@mui/material';
+// import { Grid, Pagination } from '@mui/material';
 
 const DashboardCompany: FC = () => {
     let token = localStorage.getItem('token');
     const dispatch = useDispatch();
     const { projectsFilter } = useSelector((state: any) => state.project);
-    console.log(projectsFilter);
+    // console.log(projectsFilter);
 
     React.useEffect(() => {
         dispatch(getProject(token as string));
@@ -29,6 +29,7 @@ const DashboardCompany: FC = () => {
                 {projectsFilter.length &&
                     projectsFilter.map((p: any) => (
                         <ProjectCard
+                        key={p}
                             name={p.name}
                             //   description={p.description}
                             participants={p.participants}

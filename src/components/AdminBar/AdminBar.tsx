@@ -9,20 +9,23 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import Logout from '@mui/icons-material/Logout';
-import PortraitIcon from '@mui/icons-material/Portrait';
+// import Logout from '@mui/icons-material/Logout';
+// import PortraitIcon from '@mui/icons-material/Portrait';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../reducers/rootReducer';
-import { Link, useNavigate } from 'react-router-dom';
+import {
+    //  Link,
+     useNavigate } from 'react-router-dom';
 import { getStudentInfo } from '../../actions/student';
 import { companyGetInfo } from '../../actions/company';
 import { logout } from '../../actions/auth';
-import { Profile } from '../student/profile/Profile';
-import { ProfileCompany } from '../company/Profile/ProfileCompany';
+// import { Profile } from '../student/profile/Profile';
+// import { ProfileCompany } from '../company/Profile/ProfileCompany';
 import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
+import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import { Premium } from '../Premium/Premium';
 
 export default function AccountMenu() {
@@ -34,7 +37,8 @@ export default function AccountMenu() {
     const handleClose = () => {
         setAnchorEl(null);
     };
-      
+    
+    
     
     const dispatch = useDispatch();
     const { data } = useSelector((state: State) => state.auth);
@@ -46,6 +50,7 @@ export default function AccountMenu() {
     );
     
     const token = localStorage.getItem('token') || '';
+    console.log(user);
 
     React.useEffect(() => {
         rol === 'STUDENT_ROL'
@@ -134,6 +139,7 @@ export default function AccountMenu() {
                     pointerEvents: "none",
                     cursor: "default"
                 }}>
+                    {/* //revisar este sector tmb */}
                     <Avatar>
                         {/* <IconButton>
                             {user.name?.slice(0, 1).toUpperCase()}
@@ -154,7 +160,7 @@ export default function AccountMenu() {
                     rol === 'COMPANY_ROL' && (
                         <MenuItem onClick={() => setOpenModal(true)}>
                             <ListItemIcon>
-                                <SubscriptionsIcon fontSize="small" />
+                                <WorkspacePremiumIcon fontSize="small" />
                             </ListItemIcon>
                             Premium
                         </MenuItem>

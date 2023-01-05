@@ -86,6 +86,7 @@ const ProjectForm: FC = () => {
     for (const image of images) {
       await fileUpload(image, 'projects')
         .then((res) => imagesUrl.push(res))
+        //revisar este console.log
         .catch((err) => console.log(err));
     }
 
@@ -314,6 +315,31 @@ const ProjectForm: FC = () => {
                     sx={{ mb: 2 }}
                   />
 
+                  {/* <Field
+                    as={TextField}
+                    name='name'
+                    label='Test teorico'
+                    placeholder='Nombre del projecto'
+                    fullWidth
+                    color='info'
+                    sx={{ mb: 2 }}
+                    helperText={
+                      <ErrorMessage name='name'>
+                        {(msg) => <span style={{ color: '#d6423e' }}>{msg}</span>}
+                      </ErrorMessage>
+                    }
+                  /> */}
+
+                  <TextField
+                    id="outlined-multiline-static"
+                    label='Test teorico'
+                    multiline
+                    fullWidth
+                    sx={{ mb: 2 }}
+                    rows={2}
+                  />
+                  
+
                   <FormControl fullWidth>
                     <InputLabel color='info' id='demo-simple-select-label'>
                       Participantes
@@ -334,6 +360,7 @@ const ProjectForm: FC = () => {
                       ))}
                     </Select>
                   </FormControl>
+                  
 
                   {/* IMAGES */}
                   <FormControl fullWidth>
