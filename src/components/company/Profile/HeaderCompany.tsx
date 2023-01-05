@@ -37,7 +37,6 @@ export const HeaderCompany: FC<Props> = ({
       header: !edit.header,
     });
   };
-  console.log(name);
   
 
   return (

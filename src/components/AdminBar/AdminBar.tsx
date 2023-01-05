@@ -50,7 +50,6 @@ export default function AccountMenu() {
     );
     
     const token = localStorage.getItem('token') || '';
-    console.log(user);
 
     React.useEffect(() => {
         rol === 'STUDENT_ROL'
