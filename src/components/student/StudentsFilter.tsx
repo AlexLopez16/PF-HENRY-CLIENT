@@ -34,6 +34,7 @@ const styledInput = {
     right: 10,
     '&:hover': {},
 };
+
 const StudentsFilter: FC = () => {
     const dispatch = useDispatch();
     let token = localStorage.getItem('token') || '';
@@ -44,6 +45,11 @@ const StudentsFilter: FC = () => {
         typeOfOrder: undefined,
         categorie: undefined,
     });
+
+    const { category, filters } = useSelector((state: State) => state.project);
+    const filtros = filters?.tecnologies || []
+    const categorys = category;
+    
     useEffect(() => {
         dispatch(
             getProjectsFilter(
@@ -68,9 +74,6 @@ const StudentsFilter: FC = () => {
             )
         );
     }, [dispatch, token, inputFilter]);
-
-    const { category } = useSelector((state: State) => state.project);
-    const categorys = category;
 
     const tecnologias = [
         ".Net",
@@ -248,6 +251,7 @@ const StudentsFilter: FC = () => {
                         multiple={true}
                         size="small"
                         id="tags-outlined"
+                        value={filtros}
                         options={tecnologias}
                         getOptionLabel={(option) => option}
                         filterSelectedOptions
@@ -314,7 +318,7 @@ const StudentsFilter: FC = () => {
                             placeholder="Buscar por nombre del proyecto"
                             onChange={(e) => handlerchanges(e.target.value)}
                             sx={{ styledInput, width: 245 }}
-                        // value={inputFilter.search}
+                            // value={inputFilter.search}
                         ></Input>
                         <IconButton type="submit" aria-label="search">
                             <SearchIcon />

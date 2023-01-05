@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+    getAllProject,
     // clearProjects,
     getMyProjectsCompany,
     // getProject,
@@ -23,7 +24,7 @@ const Pages: FC = () => {
     let { projectsFilter } = useSelector((state: State) => state.project);
     // let { myProjectCompany } = useSelector((state: State) => state.project);
 
-    useEffect(() => { }, [projectsFilter]);
+    useEffect(() => {}, [projectsFilter]);
     const { total } = useSelector((state: State) => state.project);
     const { filters } = useSelector((state: State) => state.project);
     // console.log(filters);
@@ -68,6 +69,35 @@ const Pages: FC = () => {
         }
         if (location.pathname === '/myprojects') {
             dispatch(getMyProjectsCompany(token, value));
+        }
+        if (location.pathname === '/Adminacceptprojects') {
+            if (filters) {
+                dispatch(
+                    getAllProject(
+                        filters.typeOfOrder,
+                        filters.tecnologies,
+                        token,
+                        filters.name,
+                        filters.category,
+                        filters.stateOfProject,
+                        limit,
+                        init
+                    )
+                );
+            } else {
+                dispatch(
+                    getAllProject(
+                        undefined,
+                        undefined,
+                        token,
+                        undefined,
+                        undefined,
+                        undefined,
+                        limit,
+                        init
+                    )
+                );
+            }
         }
     };
 
