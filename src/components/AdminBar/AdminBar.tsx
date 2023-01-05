@@ -25,6 +25,7 @@ import { logout } from '../../actions/auth';
 // import { Profile } from '../student/profile/Profile';
 // import { ProfileCompany } from '../company/Profile/ProfileCompany';
 import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
+import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import { Premium } from '../Premium/Premium';
 
 export default function AccountMenu() {
@@ -36,7 +37,8 @@ export default function AccountMenu() {
     const handleClose = () => {
         setAnchorEl(null);
     };
-      
+    
+    
     
     const dispatch = useDispatch();
     const { data } = useSelector((state: State) => state.auth);
@@ -157,7 +159,7 @@ export default function AccountMenu() {
                     rol === 'COMPANY_ROL' && (
                         <MenuItem onClick={() => setOpenModal(true)}>
                             <ListItemIcon>
-                                <SubscriptionsIcon fontSize="small" />
+                                <WorkspacePremiumIcon fontSize="small" />
                             </ListItemIcon>
                             Premium
                         </MenuItem>
