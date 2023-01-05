@@ -3,6 +3,7 @@ export const types = {
     authLoginGit: '[auth] GitHub Login',
     clearAuthLogin: '[auth] Clear Auth Login',
     login: '[login] Login',
+    infoToken: '[info] Info Token',
 
     requestInProgress: '[request] Request In Progress',
     requestFinished: '[request] Request Finished',

@@ -10,9 +10,13 @@ import { types } from '../types/types';
 export const validaToken = (token: string) => {
     return async (dispatch: Dispatch) => {
         try {
+            dispatch({
+                type: types.requestInProgress,
+            });
             const { data, status } = await axios.get('/token', {
                 headers: { 'user-token': token },
             });
+            console.log(data);
             const { id, rol } = data;
             if (status) {
                 // console.log(status);
@@ -20,9 +24,46 @@ export const validaToken = (token: string) => {
                 localStorage.setItem('token', token);
                 dispatch(login({ data, status, id, rol }));
             }
+            dispatch({
+                type: types.requestFinished,
+            });
         } catch (error: any) {
             // Cerramos sesion si el usuario no tiene un token valido.
             dispatch(logout());
+            dispatch({
+                type: types.requestFinished,
+            });
+        }
+    };
+};
+
+/**
+ * By Sciangula Hugo.
+ * NOTA: con reSendEmail() permito al usuario modificar su correo electronico.
+ */
+
+export const reSendEmail = (token: string | any, email: string | any) => {
+    return async (dispatch: Dispatch) => {
+        try {
+            dispatch({
+                type: types.requestInProgress,
+            });
+            const { data } = await axios.put(
+                '/account/confirm/resendemail',
+                { email },
+                {
+                    headers: { 'user-token': token },
+                }
+            );
+            dispatch({
+                type: types.requestFinished,
+            });
+            console.log(data);
+        } catch (error: any) {
+            console.log('holaa', error);
+            dispatch({
+                type: types.requestFinished,
+            });
         }
     };
 };
@@ -32,6 +73,7 @@ export const startLogin = (values: object) => {
         try {
             const { data, status } = await axios.post('/auth', values);
             const { token, id, rol } = data;
+            console.log(data);
             if (status) {
                 localStorage.setItem('token', token);
                 dispatch(login({ data, status, id, rol }));
@@ -72,7 +114,6 @@ export const gmailLogin = (tok: string, userType?: string) => {
         } catch (error: any) {
             dispatch({
                 type: types.requestFinished,
-                payload: error.response,
             });
             dispatch({
                 type: types.authLogin,
@@ -92,21 +133,19 @@ const login = (data: object) => ({
 
 export const forgotPassword = (email: string) => {
     return async (dispatch: Dispatch) => {
-        dispatch({
-            type: types.requestInProgress,
-        });
         try {
+            dispatch({
+                type: types.requestInProgress,
+            });
             const res = await axios.get(`/recover/password?email=${email}`);
 
             dispatch({
                 type: types.requestFinished,
-                payload: res,
             });
         } catch (error: any) {
             // console.log(error);
             dispatch({
                 type: types.requestFinished,
-                payload: error.response,
             });
         }
     };
