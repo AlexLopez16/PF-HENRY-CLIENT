@@ -9,34 +9,34 @@ import BusinessIcon from '@mui/icons-material/Business';
 import { State } from '../../reducers/rootReducer';
 
 type CompanyData = {
-    _id: string;
-    name: string;
+  _id: string;
+  name: string;
 };
 
 interface CardProjectProps {
-    name?: string;
-    description?: string | any;
-    participants?: number;
-    requirements?: any;
-    students: string[] | undefined;
-    company?: CompanyData | any;
-    state?: boolean;
-    stateOfProject?: string;
-    id: string;
-    category?: string;
-    image?: string[];
+  name?: string;
+  description?: string | any;
+  participants?: number;
+  requirements?: any;
+  students: string[] | undefined;
+  company?: CompanyData | any;
+  state?: boolean;
+  stateOfProject?: string;
+  id: string;
+  category?: string;
+  image?: string[];
 }
 
 const ProjectCard: FC<CardProjectProps> = ({
-    name,
-    description,
-    participants, //lo que se necesitan para el proyecto
-    requirements,
-    students, //los aceptados por la empresa para el project
-    company,
-    stateOfProject,
-    id,
-    category,
+  name,
+  description,
+  participants, //lo que se necesitan para el proyecto
+  requirements,
+  students, //los aceptados por la empresa para el project
+  company,
+  stateOfProject,
+  id,
+  category,
 }: CardProjectProps) => {
     const dispatch = useDispatch();
     const token = localStorage.getItem('token') || '';
@@ -50,45 +50,45 @@ const ProjectCard: FC<CardProjectProps> = ({
         dispatch(getProjectByID(token, id));
     };
 
-    return (
-        <Paper
-            elevation={10}
-            style={{
-                padding: '20px',
-                marginTop: '20px',
-            }}
+  return (
+    <Paper
+      elevation={10}
+      style={{
+        padding: '20px',
+        marginTop: '20px',
+      }}
+    >
+      <Typography variant='subtitle2' sx={{ color: '#898989' }}>
+        {' '}
+        {category?.toUpperCase()}
+      </Typography>
+
+      <Typography
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+        variant='h6'
+      >
+        {name?.toUpperCase()}
+        <NavLink
+          to='/project'
+          style={{ textDecoration: 'none', marginTop: 'auto' }}
         >
-            <Typography variant="subtitle2" sx={{ color: '#898989' }}>
-                {' '}
-                {category?.toUpperCase()}
-            </Typography>
+          <Button
+            variant='contained'
+            type='submit'
+            size='small'
+            color='primary'
+            onClick={handleClick}
+          >
+            Mas info
+          </Button>
+        </NavLink>
+      </Typography>
 
-            <Typography
-                sx={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                }}
-                variant="h6"
-            >
-                {name?.toUpperCase()}
-                <NavLink
-                    to="/project"
-                    style={{ textDecoration: 'none', marginTop: 'auto' }}
-                >
-                    <Button
-                        variant="contained"
-                        type="submit"
-                        size="small"
-                        color="primary"
-                        onClick={handleClick}
-                    >
-                        Mas info
-                    </Button>
-                </NavLink>
-            </Typography>
-
-            <Typography sx={{ m: 0.5 }}>{clippedDescription}</Typography>
+      <Typography sx={{ m: 0.5 }}>{clippedDescription}</Typography>
 
             <Box sx={{ display: 'block', marginBottom: '10px' }}>
                 <Typography variant="subtitle1" sx={{ color: '#898989' }}>
@@ -129,38 +129,35 @@ const ProjectCard: FC<CardProjectProps> = ({
                     />
                 </Typography>
 
-                <Typography variant="subtitle1" sx={{ color: '#898989' }}>
-                    {' '}
-                    Participantes:{' '}
-                    <Chip
-                        label={`${students?.length}/${participants}`}
-                        size="small"
-                    />
-                </Typography>
-            </Box>
-            <Paper
-                elevation={5}
-                sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    width: 'max-content',
-                    padding: '2px 4px',
-                }}
-            >
-                <BusinessIcon fontSize="small" />
-                <Typography
-                    variant="subtitle2"
-                    sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        margin: '0 5px',
-                    }}
-                >
-                    {company?.toUpperCase()}
-                </Typography>
-            </Paper>
-        </Paper>
-    );
+        <Typography variant='subtitle1' sx={{ color: '#898989' }}>
+          {' '}
+          Participantes:{' '}
+          <Chip label={`${students?.length}/${participants}`} size='small' />
+        </Typography>
+      </Box>
+      <Paper
+        elevation={5}
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          width: 'max-content',
+          padding: '2px 4px',
+        }}
+      >
+        <BusinessIcon fontSize='small' />
+        <Typography
+          variant='subtitle2'
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            margin: '0 5px',
+          }}
+        >
+          {company?.toUpperCase()}
+        </Typography>
+      </Paper>
+    </Paper>
+  );
 };
 
 export default ProjectCard;

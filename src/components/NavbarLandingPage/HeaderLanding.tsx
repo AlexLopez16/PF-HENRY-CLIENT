@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AppBar, Button, Tab, Tabs, Toolbar } from '@mui/material';
+import { AppBar, Button, Tab, Toolbar } from '@mui/material';
 import { useNavigate } from 'react-router';
 
 const Header = () => {
@@ -14,15 +14,6 @@ const Header = () => {
           }}
         >
           <div>
-            {/* <Tabs
-              indicatorColor='secondary'
-              textColor='secondary'
-              sx={{color:"red",textDecoration:"none"}}
-              value={value}
-              onChange={(e, value) => {
-                setValue(value);
-              }}
-            > */}
               <Tab
                 style={{
                   fontFamily: 'poppins',
@@ -44,7 +35,6 @@ const Header = () => {
                 onClick={() => navigate('/contact')}
                 label='Contacto'
               />
-            {/* </Tabs> */}
             </div>
             <Button
               color='primary'

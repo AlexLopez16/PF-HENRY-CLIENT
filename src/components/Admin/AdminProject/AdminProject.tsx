@@ -58,6 +58,7 @@ const AdminProject: FC = ({ ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState<string[]>([]);
   const [limit, setLimit] = useState(12);
   const [page, setPage] = useState(0);
+ 
 
   const handleSelectAll = (event: any) => {
     let newSelectedCustomerIds;

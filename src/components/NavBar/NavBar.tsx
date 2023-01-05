@@ -209,6 +209,24 @@ const NavBar: FC = () => {
                         />
                         {/* LOGO */}
                     </Typography>
+                    <Typography
+                        variant="h5"
+                        noWrap
+                        onClick={() => navigate('/projects')}
+                        sx={{
+                            mr: 2,
+                            display: { xs: 'flex', md: 'none' },
+                            flexGrow: 1,
+                            fontFamily: 'monospace',
+                            fontWeight: 700,
+                            letterSpacing: '.3rem',
+                            color: 'inherit',
+                            textDecoration: 'none',
+                            cursor: 'pointer',
+                        }}
+                    >
+                        LOGO
+                    </Typography>
 
                     <Box
                         sx={{
