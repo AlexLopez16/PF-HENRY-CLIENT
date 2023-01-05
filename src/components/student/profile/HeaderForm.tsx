@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, useEffect } from 'react';
+import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 import {
     Paper,
     IconButton,
@@ -6,6 +6,10 @@ import {
     Typography,
     TextField,
     Button,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
 } from '@mui/material';
 import { PhotoCamera } from '@mui/icons-material';
 
@@ -26,6 +30,9 @@ import {
     updateStudentInfo,
 } from '../../../actions/student';
 import { State } from '../../../reducers/rootReducer';
+import { SelectChangeEvent } from '@mui/material';
+
+
 
 interface Props {
     edit: { header: boolean; about: boolean; skills: boolean };
@@ -50,6 +57,7 @@ export const HeaderForm: FC<Props> = ({
     const { id } = data;
     const { image } = user;
     const token = localStorage.getItem('token') || '';
+    const [pais, setPais] = useState('');
 
     const handlerEdit = () => {
         setEdit({
@@ -61,17 +69,19 @@ export const HeaderForm: FC<Props> = ({
     const initialValues = {
         name: name,
         lastName: lastName,
-        country: country,
     };
 
     const validationSchema = Yup.object().shape({
         name: Yup.string().required('Ingresa tu nombre'),
         lastName: Yup.string().required('Ingresa tu apellido'),
-        country: Yup.string().required('Ingresa tu pais de residencia'),
     });
 
     const onSubmit = (values: any, props: any) => {
-        dispatch(updateStudentInfo(id, token, values));
+        dispatch(updateStudentInfo(id, token, {
+            name: values.name,
+            lastName: values.lastName,
+            country: pais
+        }));
         setEdit({
             ...edit,
             header: !edit.header,
@@ -88,6 +98,33 @@ export const HeaderForm: FC<Props> = ({
         setTimeout(() => {
             dispatch(getStudentInfo(id, token));
         }, 1000);
+    };
+
+    const paises: string[] = [
+        'Argentina',
+        'Bolivia',
+        'Brasil',
+        'Chile',
+        'Colombia',
+        'Costa Rica',
+        'Cuba',
+        'Ecuador',
+        'El Salvador',
+        'Guatemala',
+        'Honduras',
+        'México',
+        'Nicaragua',
+        'Panamá',
+        'Paraguay',
+        'Perú',
+        'Puerto Rico',
+        'República Dominicana',
+        'Uruguay',
+        'Venezuela',
+    ];
+
+    const handleChange = (event: SelectChangeEvent) => {
+        setPais(event.target.value as string);
     };
 
     return (
@@ -169,23 +206,35 @@ export const HeaderForm: FC<Props> = ({
                                         </ErrorMessage>
                                     }
                                 />
-                                <Field
-                                    as={TextField}
-                                    name="country"
-                                    label="Pais"
-                                    variant="outlined"
-                                    fullWidth
-                                    sx={{ marginBottom: '10px' }}
-                                    helperText={
-                                        <ErrorMessage name="country">
-                                            {(msg) => (
-                                                <span style={{ color: 'red' }}>
-                                                    {msg}
-                                                </span>
-                                            )}
-                                        </ErrorMessage>
-                                    }
-                                />
+                    
+                                 <FormControl
+                                        color="info"
+                                        sx={{
+                                            width: '100%',
+                                            marginTop: 1,
+                                            marginBottom: 2,
+                                        }}
+                                    >
+                                        <InputLabel
+                                            color="info"
+                                            id="demo-simple-select-label"
+                                        >
+                                            Nacionalidad
+                                        </InputLabel>
+                                        <Select
+                                            id="demo-simple-select"
+                                            labelId="demo-simple-select-label"
+                                            label="Nacionalidad"
+                                            value={pais}
+                                            onChange={handleChange}
+                                        >
+                                            {paises.map((p) => (
+                                                <MenuItem key = {p} value={p}>
+                                                    {p}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
 
                                 <Button
                                     type="submit"
