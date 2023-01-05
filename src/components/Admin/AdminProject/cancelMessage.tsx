@@ -1,78 +1,97 @@
-import { FC, useState } from 'react';
+import { Dispatch, FC, SetStateAction, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { Autocomplete } from 'formik-mui';
 
-import * as Yup from 'yup';
+import * as yup from 'yup';
 
 import {
-
-    Grid,
     Button,
     Paper,
-    FormControlLabel,
-    Radio,
-    RadioGroup,
-    SelectChangeEvent,
-    FormControl,
-    FormLabel,
-    InputLabel,
-    MenuItem,
-    Select,
     TextField,
-    FilledInput,
-    IconButton,
-    InputAdornment,
-    TextFieldProps,
-    Box,
-    Card,
+
 } from '@mui/material';
+import { AdminEliminatedProject } from '../../../actions/Admin';
 
 
-
-const handleclick=(setFormactive:any ,formactive:any)=>{
-    console.log("activado");
-    
-    setFormactive(false)
+interface Props {
+    formactive: boolean,
+    setFormactive: Dispatch<SetStateAction<boolean>>,
+    idPrj: string
 }
 
-const CancelMessage: FC = (setFormactive,formactive) => {
+const CancelMessage: FC<Props> = ({ setFormactive, formactive, idPrj }) => {
+    const dispatch = useDispatch()
+    const token: any = localStorage.getItem('token');
+
+    const initialValues = {
+        respuesta: ''
+    }
+
+
+    const validationSchema = yup.object().shape({
+        respuesta: yup.string().required('Respuesta requerida')
+    })
+
+    const onSubmit = (values: any) => {
+        console.log("info", values, "idprj", idPrj);
+        dispatch(AdminEliminatedProject(idPrj, token, values))
+        setFormactive(!formactive)
+    }
 
     return (
         <div>
             <Paper
-              elevation={10}
-              sx={{ display: "flex", flexDirection: "column", margin: "auto", maxWidth: 400 }}
+                elevation={10}
+                sx={{ display: "flex", flexDirection: "column", margin: "auto", maxWidth: 400 }}
             >
 
-                <TextField
-                    id="filled-multiline-flexible"
-                    label="Respuesta de rechazo"
-                    multiline
-                    // maxRows={4}
-                    variant="filled"
-                    />
-
-
-                <Button
-                    sx={{ marginTop: 2, fontFamily: 'poppins' }}
-                    // type='submit'
-                    variant='contained'
-                    fullWidth
-                    color='primary'
-                    onClick={e=>handleclick(setFormactive,formactive)}
-                // disabled={props.isSubmitting}
-
+                <Formik
+                    initialValues={initialValues}
+                    validationSchema={validationSchema}
+                    onSubmit={onSubmit}
                 >
-                    Enviar respuesta
-                </Button>
+
+                    <Form>
+                        <Field
+                            as={TextField}
+                            name="respuesta"
+                            label="Respuesta"
+                            size="small"
+                            color="info"
+                            sx={{ width: '100%', margin: '10px 0' }}
+                            helperText={
+                                <ErrorMessage name="respuesta">
+                                    {(message) => (
+                                        <span
+                                            style={{
+                                                color: '#d6423e',
+                                            }}
+                                        >
+                                            {message}
+                                        </span>
+                                    )}
+                                </ErrorMessage>
+                            }
+                        />
 
 
+                        <Button
+                            sx={{
+                                fontFamily: 'montserrat',
+                                fontWeight: 'bold',
+                            }}
+                            type='submit'
+                            variant='contained'
+                            fullWidth
+                            color='secondary'
+                        >
+                            Enviar respuesta
+                        </Button>
+
+                    </Form>
+                </Formik>
             </Paper>
-            <>
-            {console.log(formactive)}
-            </>
         </div>
     );
 };

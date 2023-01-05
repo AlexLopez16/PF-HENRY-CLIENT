@@ -97,10 +97,10 @@ const AdminProject: FC = ({ ...rest }) => {
     setSelectedCustomerIds(newSelectedCustomerIds);
   };
 
-  const handleSwitch = () => {
-    selectedCustomerIds.forEach((selectID: any) =>
-      dispatch(deleteuser(token, selectID))
-    );
+  const handleSwitch = (id:string) => {
+    // selectedCustomerIds.forEach((selectID: any) =>
+      dispatch(deleteuser(token, id))
+    // );
   };
 
   const handleLimitChange = (event: any) => {
@@ -119,7 +119,7 @@ const AdminProject: FC = ({ ...rest }) => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell padding="checkbox">
+                {/* <TableCell padding="checkbox">
                   <Checkbox
                     checked={selectedCustomerIds.length === projects.length}
                     color="primary"
@@ -129,7 +129,7 @@ const AdminProject: FC = ({ ...rest }) => {
                     }
                     onChange={handleSelectAll}
                   />
-                </TableCell>
+                </TableCell> */}
                 <TableCell>Nombre</TableCell>
                 <TableCell>Compañia</TableCell>
                 <TableCell>Categoria</TableCell>
@@ -145,13 +145,13 @@ const AdminProject: FC = ({ ...rest }) => {
                   key={projects.uid}
                   selected={selectedCustomerIds.indexOf(projects.uid) !== -1}
                 >
-                  <TableCell padding="checkbox">
+                  {/* <TableCell padding="checkbox">
                     <Checkbox
                       checked={selectedCustomerIds.indexOf(projects.uid) !== -1}
                       onChange={(event) => handleSelectOne(projects.uid)}
                       value="true"
                     />
-                  </TableCell>
+                  </TableCell> */}
                   <TableCell>
                     <Box
                       sx={{
@@ -159,10 +159,6 @@ const AdminProject: FC = ({ ...rest }) => {
                         display: "flex",
                       }}
                     >
-                      {/* <Avatar
-                                                src={projects.avatarUrl}
-                                                sx={{ mr: 2 }}
-                                            ></Avatar> */}
                       <Typography color="textPrimary" variant="body1">
                         {projects.name}
                       </Typography>
@@ -194,7 +190,7 @@ const AdminProject: FC = ({ ...rest }) => {
                           defaultChecked={projects.state}
                           size="small"
                           color="primary"
-                          onChange={handleSwitch}
+                          onChange={()=>handleSwitch(projects.uid)}
                         />
                       }
                       label={undefined}
