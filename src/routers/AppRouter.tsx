@@ -37,6 +37,7 @@ import AdminAcceptProject from '../components/Admin/AdminProject/AdminAcceptProj
 import { Checkout } from '../pages/Checkout';
 import SideBar from '../components/Admin/SideBar/SideBar';
 import DashboardAdmin from '../components/Admin/DashboardAdmin';
+import { VerifyEmail } from '../components/VerifyEmail/VerifyEmail';
 
 export const AppRouter = () => {
     let { id } = useParams();
