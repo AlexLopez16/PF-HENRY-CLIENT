@@ -12,11 +12,15 @@ import * as Yup from 'yup';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 // import { TextField } from 'formik-mui';
 import { string } from 'yup/lib/locale';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../reducers/rootReducer';
+import { Link, Navigate } from 'react-router-dom';
+import { validaToken, reSendEmail } from '../../actions/auth';
+import { PreLoader } from '../PreLoader/PreLoader';
 export const VerifyEmail: FC = () => {
     // Traemos el correo del estado.
     const { data } = useSelector((state: State) => state.auth);
+    const dispatch = useDispatch();
 
     // Definimos los valores iniciales.
     const initialValues = {
@@ -31,14 +35,25 @@ export const VerifyEmail: FC = () => {
     });
 
     // Envio del formulario.
-    const onSubmit = async (e: any) => {
-        console.log(e);
+    const onSubmit = async (element: any) => {
+        // console.log(element.email);
+        const { email } = element;
+        let token: string | any = localStorage.getItem('token');
+        if (token && email) dispatch(reSendEmail(token, email));
     };
 
     initialValues.email = data.email;
 
+    const confirmClick = () => {
+        // console.log(localStorage.getItem('token'));
+        let token: string | any = localStorage.getItem('token');
+        if (token) dispatch(validaToken(token));
+    };
+
     return (
         <Container>
+            <PreLoader />
+            {data.verify ? <Navigate to="/projects" /> : null}
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                 <Paper
                     elevation={10}
@@ -55,6 +70,13 @@ export const VerifyEmail: FC = () => {
                     <Typography variant="h6" sx={{ textAlign: 'center' }}>
                         Verifica tu correo electronico.
                     </Typography>
+                    <Typography
+                        variant="subtitle1"
+                        sx={{ textAlign: 'center' }}
+                    >
+                        Hemos enviado a tu casillera de correo un boton para que
+                        confirmes tu cuenta.
+                    </Typography>
                     <Formik
                         initialValues={initialValues}
                         validationSchema={validationSchema}
@@ -62,15 +84,25 @@ export const VerifyEmail: FC = () => {
                     >
                         {(props) => (
                             <Form>
-                                <Box
+                                <Paper
+                                    elevation={5}
                                     sx={{
+                                        padding: '20px',
                                         marginTop: '20px',
                                         display: 'flex',
+                                        flexDirection: 'column',
                                         justifyContent: 'space-around',
                                         alignItems: 'center',
+                                        gap: '10px',
+                                        // backgroundColor: 'red',
                                     }}
                                 >
-                                    <Box>
+                                    <Box
+                                        sx={{
+                                            width: '100%',
+                                            margin: '0 10px 0 0',
+                                        }}
+                                    >
                                         <Field
                                             as={TextField}
                                             name="email"
@@ -83,13 +115,14 @@ export const VerifyEmail: FC = () => {
                                             helperText={
                                                 <ErrorMessage name="email">
                                                     {(msg) => (
-                                                        <span
+                                                        <Typography
                                                             style={{
                                                                 color: '#d6423e',
                                                             }}
+                                                            variant="subtitle2"
                                                         >
                                                             {msg}
-                                                        </span>
+                                                        </Typography>
                                                     )}
                                                 </ErrorMessage>
                                             }
@@ -106,10 +139,10 @@ export const VerifyEmail: FC = () => {
                                                     .length > 0
                                             }
                                         >
-                                            Guardar
+                                            Reenviar
                                         </Button>
                                     </Box>
-                                </Box>
+                                </Paper>
                             </Form>
                         )}
                     </Formik>
@@ -126,8 +159,9 @@ export const VerifyEmail: FC = () => {
                             // style={buttonStyle}
                             variant="contained"
                             // disabled={Object.keys(props.errors).length > 0}
+                            onClick={confirmClick}
                         >
-                            Confirmado
+                            Ya lo confirme!
                         </Button>
                     </Box>
                 </Paper>

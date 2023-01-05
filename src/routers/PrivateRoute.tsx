@@ -17,7 +17,7 @@ export const PrivateRoute: FC<Props> = ({ children }) => {
 
     if (!status && token) {
         //revisar este console.log
-        // console.log('Tenes token, ahora te validamos');
+        console.log('Tenes token, ahora te validamos');
         dispatch(validaToken(token));
     }
 
