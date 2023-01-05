@@ -42,4 +42,5 @@ export const types = {
     clearError: '[error] Clear Error',
     getAllProjects: '[project] get all Project',
     AdminAprovedProject: '[admin]project aproved',
+    AdminEliminatedProject:'[admin]admin eliminated project and send email for why'
 };

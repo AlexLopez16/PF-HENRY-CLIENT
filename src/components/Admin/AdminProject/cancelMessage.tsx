@@ -11,20 +11,18 @@ import {
     TextField,
 
 } from '@mui/material';
+import { AdminEliminatedProject } from '../../../actions/Admin';
 
 
 interface Props {
     formactive: boolean,
     setFormactive: Dispatch<SetStateAction<boolean>>,
-    idPrj?:string
+    idPrj: string
 }
 
-type Values = {
-    respuesta: string;
-}
-
-const CancelMessage: FC<Props> = ({ setFormactive, formactive ,idPrj}) => {
-console.log(idPrj);
+const CancelMessage: FC<Props> = ({ setFormactive, formactive, idPrj }) => {
+    const dispatch = useDispatch()
+    const token: any = localStorage.getItem('token');
 
     const initialValues = {
         respuesta: ''
@@ -35,9 +33,9 @@ console.log(idPrj);
         respuesta: yup.string().required('Respuesta requerida')
     })
 
-    const onSubmit = (values: Values) => {
-        console.log("info",values,"idprj",idPrj);
-
+    const onSubmit = (values: any) => {
+        console.log("info", values, "idprj", idPrj);
+        dispatch(AdminEliminatedProject(idPrj, token, values))
         setFormactive(!formactive)
     }
 

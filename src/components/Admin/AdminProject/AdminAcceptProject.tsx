@@ -71,8 +71,9 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
 
     const [opciones, setOpciones] = useState("Todos")
     const options: string[] = ['Todos', 'Reclutamiento', 'En desarrollo', 'Terminado', 'En revision']
+    const [idPrj, setId] = useState("")
 
-    let idPrj="caca";
+
 
     const handleSelectAll = (event: any) => {
         let newSelectedCustomerIds;
@@ -121,13 +122,13 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
 
     };
 
-    const handlecancel = (id:string) => {
-        idPrj=id
+    const handlecancel = (id: string) => {
+        setId(id)
         console.log(idPrj)
-        
+
         setFormactive(true)
     };
-   
+
 
     const handleLimitChange = (event: any) => {
         setLimit(event.target.value);
@@ -147,7 +148,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
 
 
 
-
+    console.log(proyectos);
     return (
         <>
             <>
@@ -271,7 +272,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
 
                                     <TableCell sx={{ maxWidth: 200 }}>
                                         <CloseIcon
-                                            onClick={() =>handlecancel(proyectos.uid)}
+                                            onClick={() => handlecancel(proyectos.uid)}
                                         />
                                     </TableCell>
                                 </TableRow>
