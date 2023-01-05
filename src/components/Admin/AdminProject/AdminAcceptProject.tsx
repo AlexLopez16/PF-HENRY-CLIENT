@@ -59,7 +59,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
 
     const { projectsFilter } = useSelector((state: State) => state.project);
     let projects = projectsFilter;
-    
+
 
     const [selectedCustomerIds, setSelectedCustomerIds] = useState<string[]>(
         []
@@ -72,7 +72,8 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
     const [opciones, setOpciones] = useState("Todos")
     const options: string[] = ['Todos', 'Reclutamiento', 'En desarrollo', 'Terminado', 'En revision']
 
-    
+    let idPrj="caca";
+
     const handleSelectAll = (event: any) => {
         let newSelectedCustomerIds;
         if (event.target.checked) {
@@ -113,21 +114,20 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
         setSelectedCustomerIds(newSelectedCustomerIds);
     };
 
-    const handleaccept = () => {
-        selectedCustomerIds.forEach((selectID: any) =>
-            dispatch(AprovedProject(token, selectID)),
-            setRender(!render),
-        );
+    const handleaccept = (id: string) => {
+
+        dispatch(AprovedProject(token, id)),
+            setRender(!render)
+
     };
 
-    const handlecancel = () => {
-        // selectedCustomerIds.forEach((selectID: any) =>
-        //     // dispatch(AprovedProject(token, selectID)),
-        //     setRender(!render),
-        // );
+    const handlecancel = (id:string) => {
+        idPrj=id
+        console.log(idPrj)
+        
         setFormactive(true)
     };
-
+   
 
     const handleLimitChange = (event: any) => {
         setLimit(event.target.value);
@@ -147,10 +147,10 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
 
 
 
+
     return (
         <>
             <>
-            {console.log(formactive)}
                 <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">Filtrado</InputLabel>
                     <Select
@@ -175,7 +175,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell padding="checkbox">
+                                {/* <TableCell padding="checkbox">
                                     <Checkbox
                                         checked={
                                             selectedCustomerIds.length ===
@@ -189,7 +189,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                                         }
                                         onChange={handleSelectAll}
                                     />
-                                </TableCell>
+                                </TableCell> */}
                                 <TableCell>Nombre</TableCell>
                                 <TableCell>Compañia</TableCell>
                                 <TableCell>Categoria</TableCell>
@@ -213,7 +213,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                                         ) !== -1
                                     }
                                 >
-                                    <TableCell padding="checkbox">
+                                    {/* <TableCell padding="checkbox">
                                         <Checkbox
                                             checked={
                                                 selectedCustomerIds.indexOf(
@@ -225,7 +225,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                                             }
                                             value="true"
                                         />
-                                    </TableCell>
+                                    </TableCell> */}
                                     <TableCell>
                                         <Box
                                             sx={{
@@ -233,10 +233,6 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                                                 display: 'flex',
                                             }}
                                         >
-                                            {/* <Avatar
-                                                src={projects.avatarUrl}
-                                                sx={{ mr: 2 }}
-                                            ></Avatar> */}
                                             <Typography
                                                 sx={{ maxWidth: 140 }}
                                                 color="textPrimary"
@@ -269,42 +265,39 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                                     <TableCell sx={{ maxWidth: 200 }}>
                                         <CheckIcon
                                             sx={{ hover: "pointer" }}
-                                            onClick={handleaccept} />
+                                            onClick={() => handleaccept(proyectos.uid)} />
                                     </TableCell>
 
 
                                     <TableCell sx={{ maxWidth: 200 }}>
                                         <CloseIcon
-                                            onClick={handlecancel}
+                                            onClick={() =>handlecancel(proyectos.uid)}
                                         />
                                     </TableCell>
-
-
                                 </TableRow>
                             ))}
+
+
                         </TableBody>
                     </Table>
                 </Box>
             </Card>
             <>
-
                 <Pages />
             </>
-            <>
+            {console.log(idPrj)}
+            {formactive && (
+                <CancelMessage
 
-{formactive===true
-? <CancelMessage 
-// setFormactive={setFormactive}
+                    setFormactive={setFormactive}
+                    formactive={formactive}
+                    idPrj={idPrj}
+                />
 
- /> 
-:""
-//cambio para el push 
-
-}
-
-            </>
+            )}
         </>
     );
 };
+
 
 export default AdminAcceptProject;
