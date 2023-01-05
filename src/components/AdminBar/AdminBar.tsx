@@ -48,6 +48,8 @@ export default function AccountMenu() {
     ? state.student
     : state.company
     );
+    console.log(user);
+    
     
     const token = localStorage.getItem('token') || '';
 
@@ -156,7 +158,8 @@ export default function AccountMenu() {
                 </MenuItem>
 
                 {
-                    rol === 'COMPANY_ROL' && (
+                    rol === 'COMPANY_ROL' && 
+                    (
                         <MenuItem onClick={() => setOpenModal(true)}>
                             <ListItemIcon>
                                 <WorkspacePremiumIcon fontSize="small" />
@@ -164,6 +167,7 @@ export default function AccountMenu() {
                             Premium
                         </MenuItem>
                     )
+                    
                 }
 
                 <MenuItem onClick={handlerLogout}>
