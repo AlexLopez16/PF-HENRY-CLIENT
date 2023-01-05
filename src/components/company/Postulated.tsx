@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getProjectByID } from '../../actions/projects';
 import { State } from '../../reducers/rootReducer';
+import NavBar from '../NavBar/NavBar';
 import StudentCard from '../student/StudentCard';
 
 const Postulated: FC = () => {
@@ -24,20 +25,23 @@ const Postulated: FC = () => {
     // console.log('postulated', projectId);
 
     return (
+<div>
+
+        <NavBar/>
         <div
             style={{
                 display: 'flex',
                 flexDirection: 'row',
                 justifyContent: 'space-around',
             }}
-        >
+            >
             <div
                 style={{
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-around',
                 }}
-            >
+                >
                 <Typography
                     variant="h5"
                     sx={{
@@ -46,30 +50,30 @@ const Postulated: FC = () => {
                         ml: 2,
                         fontWeight: 600,
                     }}
-                >
+                    >
                     Postulados
                 </Typography>
                 {projectId && projectId.students.length ? (
                     projectId.students.map((p: any) => (
                         <StudentCard
                         key={p}
-                            name={p.name}
-                            email={p.email}
-                            descripcion={p.description}
-                            tecnologies={p.tecnologies}
-                            image={p.image}
-                            idstd={p._id}
-                            working={p.working}
-                            isAccepted={false}
-                            userName={p.username}
+                        name={p.name}
+                        email={p.email}
+                        descripcion={p.description}
+                        tecnologies={p.tecnologies}
+                        image={p.image}
+                        idstd={p._id}
+                        working={p.working}
+                        isAccepted={false}
+                        userName={p.username}
                         />
-                    ))
-                ) : (
-                    <Box sx={{ mt: 30 }}>
+                        ))
+                        ) : (
+                            <Box sx={{ mt: 30 }}>
                         <Typography
                             variant="h6"
                             sx={{ marginTop: 5, alignSelf: 'center' }}
-                        >
+                            >
                             No hay estudiantes postulados
                         </Typography>
                     </Box>
@@ -85,7 +89,7 @@ const Postulated: FC = () => {
                         ml: 22,
                         fontWeight: 600,
                     }}
-                >
+                    >
                     Aceptados
                 </Typography>
                 <div
@@ -94,23 +98,23 @@ const Postulated: FC = () => {
                         flexDirection: 'column',
                         justifyContent: 'space-around',
                     }}
-                >
+                    >
                     {projectId && projectId.accepts.length ? (
                         projectId.accepts.map((p: any) => (
                             <StudentCard
-                                name={p.name}
-                                email={p.email}
-                                descripcion={p.description}
-                                tecnologies={p.tecnologies}
-                                image={p.image}
-                                idstd={p._id}
-                                working={p.working}
+                            name={p.name}
+                            email={p.email}
+                            descripcion={p.description}
+                            tecnologies={p.tecnologies}
+                            image={p.image}
+                            idstd={p._id}
+                            working={p.working}
                                 isAccepted={true}
                                 userName={p.username}
                             />
-                        ))
-                    ) : (
-                        <Box sx={{ mt: 25 }}>
+                            ))
+                            ) : (
+                                <Box sx={{ mt: 25 }}>
                             <Typography
                                 variant="h6"
                                 sx={{
@@ -118,7 +122,7 @@ const Postulated: FC = () => {
                                     alignSelf: 'center',
                                     marginLeft: 6,
                                 }}
-                            >
+                                >
                                 Todavia no haz aceptado estudiantes
                             </Typography>
                         </Box>
@@ -126,6 +130,7 @@ const Postulated: FC = () => {
                 </div>
             </div>
         </div>
+                    </div>
     );
 };
 
