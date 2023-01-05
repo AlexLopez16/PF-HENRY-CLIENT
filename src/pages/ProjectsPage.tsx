@@ -8,6 +8,7 @@ import ProjectCard from '../components/project/ProjectCard';
 import StudentsFilter from '../components/student/StudentsFilter';
 import { types } from './../types/types';
 import Pages from '../components/ui/Pagination';
+import { PreLoader } from '../components/PreLoader/PreLoader';
 
 const ProjectsPage: FC = () => {
     const dispatch = useDispatch();
@@ -51,6 +52,7 @@ const ProjectsPage: FC = () => {
 
     return (
         <Box>
+            <PreLoader />
             <StudentsFilter />
             <Pages />
             <Container maxWidth="lg" sx={{ marginLeft: 50 }}>
