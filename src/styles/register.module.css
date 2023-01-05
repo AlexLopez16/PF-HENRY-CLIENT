@@ -1,11 +1,11 @@
-.content_right {
+.content_right{
   margin: 0 1em;
   align-self: center;
   
   border-radius: 10% 10% 10% 10%;
   width: 35vh;
   height: 35vh;
-  background: url('../../public/assets/companyLogin.jpg');
+  background: url('../assets/companyLogin.jpg');
   background-position: 50%;
   transition: all 1s ease;
   animation: image-move 1s;
@@ -24,7 +24,7 @@
   border-radius: 10% 10% 10% 10%;
   width: 35vh;
   height: 35vh;
-  background: url('../../public/assets/studentLogin.jpg');
+  background: url('../assets/studentLogin.jpg');
   background-position: 50%;
   transition: all 1s ease;
   animation: image-move 1s;
@@ -42,6 +42,7 @@
 
 .link {
   text-decoration: none;
+
 }
 .content_button {
   position: relative;

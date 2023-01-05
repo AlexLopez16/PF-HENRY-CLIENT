@@ -17,9 +17,6 @@ import {
     TableRow,
     Typography,
     InputLabel,
-    Button,
-    FormControlLabel,
-    FormGroup,
     FormControl,
     MenuItem,
     SelectChangeEvent,
@@ -54,6 +51,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
 import AdminFilterProject from '../../AdminBar/AdminFilterProject';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import CancelMessage from './cancelMessage';
 
 const AdminAcceptProject: FC = ({ ...rest }) => {
     const dispatch = useDispatch();
@@ -76,7 +74,6 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
 
     const { projectsFilter } = useSelector((state: State) => state.project);
     let projects = projectsFilter;
-    console.log(projects);
 
     const [selectedCustomerIds, setSelectedCustomerIds] = useState<string[]>(
         []
@@ -84,6 +81,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
     const [limit, setLimit] = useState(12);
     const [page, setPage] = useState(0);
     const [render, setRender] = useState(false);
+    const [formactive, setFormactive] = useState(false);
 
     const [opciones, setOpciones] = useState('Todos');
     const [open, setOpen] = useState(false);
@@ -94,6 +92,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
         'Terminado',
         'En revision',
     ];
+    const [idPrj, setId] = useState('');
 
     const handleSelectAll = (event: any) => {
         let newSelectedCustomerIds;
@@ -141,18 +140,15 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
         setOpen(false);
     };
 
-    const handleaccept = () => {
-        selectedCustomerIds.forEach(
-            (selectID: any) => dispatch(AprovedProject(token, selectID)),
-            setRender(!render)
-        );
+    const handleaccept = (id: string) => {
+        dispatch(AprovedProject(token, id)), setRender(!render);
     };
 
-    const handlecancel = () => {
-        selectedCustomerIds.forEach((selectID: any) =>
-            // dispatch(AprovedProject(token, selectID)),
-            setRender(!render)
-        );
+    const handlecancel = (id: string) => {
+        setId(id);
+        console.log(idPrj);
+
+        setFormactive(true);
     };
 
     const handleLimitChange = (event: any) => {
@@ -173,6 +169,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
           ))
         : (proyectos = projects);
 
+    console.log(proyectos);
     return (
         <>
             {/* <FormControl fullWidth>
@@ -224,7 +221,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell padding="checkbox">
+                                {/* <TableCell padding="checkbox">
                                     <Checkbox
                                         checked={
                                             selectedCustomerIds.length ===
@@ -238,7 +235,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                                         }
                                         onChange={handleSelectAll}
                                     />
-                                </TableCell>
+                                </TableCell> */}
                                 <TableCell>Nombre</TableCell>
                                 <TableCell>Compañia</TableCell>
                                 <TableCell
@@ -272,7 +269,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                                         ) !== -1
                                     }
                                 >
-                                    <TableCell padding="checkbox">
+                                    {/* <TableCell padding="checkbox">
                                         <Checkbox
                                             checked={
                                                 selectedCustomerIds.indexOf(
@@ -284,7 +281,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                                             }
                                             value="true"
                                         />
-                                    </TableCell>
+                                    </TableCell> */}
                                     <TableCell>
                                         <Box
                                             sx={{
@@ -292,10 +289,6 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                                                 display: 'flex',
                                             }}
                                         >
-                                            {/* <Avatar
-                                                src={projects.avatarUrl}
-                                                sx={{ mr: 2 }}
-                                            ></Avatar> */}
                                             <Typography
                                                 sx={{ maxWidth: 140 }}
                                                 color="textPrimary"
@@ -343,14 +336,18 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                                     <TableCell sx={{ maxWidth: 200 }}>
                                         <CheckIcon
                                             sx={{ cursor: 'pointer' }}
-                                            onClick={handleaccept}
+                                            onClick={() =>
+                                                handleaccept(proyectos.uid)
+                                            }
                                         />
                                     </TableCell>
 
                                     <TableCell sx={{ maxWidth: 200 }}>
                                         <CloseIcon
                                             sx={{ cursor: 'pointer' }}
-                                            onClick={handlecancel}
+                                            onClick={() =>
+                                                handlecancel(proyectos.uid)
+                                            }
                                         />
                                     </TableCell>
                                 </TableRow>
@@ -362,6 +359,14 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
             <>
                 <Pages />
             </>
+            {console.log(idPrj)}
+            {formactive && (
+                <CancelMessage
+                    setFormactive={setFormactive}
+                    formactive={formactive}
+                    idPrj={idPrj}
+                />
+            )}
         </>
     );
 };

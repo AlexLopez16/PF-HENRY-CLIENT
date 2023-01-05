@@ -1,6 +1,4 @@
-import { Dispatch, FC, SetStateAction,
-    //  useEffect
-     } from 'react';
+import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 import {
     Paper,
     IconButton,
@@ -8,6 +6,10 @@ import {
     Typography,
     TextField,
     Button,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
 } from '@mui/material';
 import { PhotoCamera } from '@mui/icons-material';
 import {
@@ -26,6 +28,7 @@ import {
     CompanyUpdateInfo,
     updatePhotoCompany,
 } from '../../../actions/company';
+import { SelectChangeEvent } from '@mui/material';
 
 interface Props {
     edit: { header: boolean };
@@ -45,10 +48,12 @@ export const HeaderFormCompany: FC<Props> = ({
     const dispatch = useDispatch();
     const { data } = useSelector((state: State) => state.auth);
     const { user } = useSelector((state: State) => state.company);
-    // console.log(data);
     const { id } = data;
     const { image } = user;
     const token = localStorage.getItem('token') || '';
+    const [pais, setPais] = useState(country);
+    console.log(user);
+    
 
     const handlerEdit = () => {
         setEdit({
@@ -60,19 +65,22 @@ export const HeaderFormCompany: FC<Props> = ({
     const initialValues = {
         name: name,
         website: website,
-        country: country,
+        country: pais
     };
+
+    
 
     const validationSchema = Yup.object().shape({
         name: Yup.string().required('Ingresa tu nombre'),
         website: Yup.string().required('Ingresa tu url'),
-        country: Yup.string().required('Ingresa tu pais de residencia'),
     });
 
     const onSubmit = (values: any, props: any) => {
-        // console.log(values);
-        dispatch(CompanyUpdateInfo(id, token, values));
-
+        dispatch(CompanyUpdateInfo(id, token, {
+            name: values.name,
+            website: values.website,
+            country: pais
+        }));
         setEdit({
             ...edit,
             header: !edit.header,
@@ -89,6 +97,33 @@ export const HeaderFormCompany: FC<Props> = ({
         setTimeout(() => {
             dispatch(companyGetInfo(id, token));
         }, 1000);
+    };
+
+    const paises: string[] = [
+        'Argentina',
+        'Bolivia',
+        'Brasil',
+        'Chile',
+        'Colombia',
+        'Costa Rica',
+        'Cuba',
+        'Ecuador',
+        'El Salvador',
+        'Guatemala',
+        'Honduras',
+        'México',
+        'Nicaragua',
+        'Panamá',
+        'Paraguay',
+        'Perú',
+        'Puerto Rico',
+        'República Dominicana',
+        'Uruguay',
+        'Venezuela',
+    ];
+
+    const handleChange = (event: SelectChangeEvent) => {
+        setPais(event.target.value as string);
     };
 
     return (
@@ -154,23 +189,35 @@ export const HeaderFormCompany: FC<Props> = ({
                                     }
                                 />
 
-                                <Field
-                                    as={TextField}
-                                    name="country"
-                                    label="Pais"
-                                    variant="outlined"
-                                    fullWidth
-                                    sx={{ marginBottom: '10px' }}
-                                    helperText={
-                                        <ErrorMessage name="country">
-                                            {(msg) => (
-                                                <span style={{ color: 'red' }}>
-                                                    {msg}
-                                                </span>
-                                            )}
-                                        </ErrorMessage>
-                                    }
-                                />
+                                 <FormControl
+                                        color="info"
+                                        sx={{
+                                            width: '100%',
+                                            marginTop: 1,
+                                            marginBottom: 2,
+                                        }}
+                                    >
+                                        <InputLabel
+                                            color="info"
+                                            id="demo-simple-select-label"
+                                        >
+                                            Nacionalidad
+                                        </InputLabel>
+                                        <Select
+                                            id="demo-simple-select"
+                                            labelId="demo-simple-select-label"
+                                            label="Nacionalidad"
+                                            value={pais}
+                                            onChange={handleChange}
+                                        >
+                                            {paises.map((pais) => (
+                                                <MenuItem key= {pais} value={pais}>
+                                                    {pais}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
+
                                 <Field
                                     as={TextField}
                                     name="website"
