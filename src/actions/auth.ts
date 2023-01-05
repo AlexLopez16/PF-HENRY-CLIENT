@@ -32,6 +32,7 @@ export const startLogin = (values: object) => {
         try {
             const { data, status } = await axios.post('/auth', values);
             const { token, id, rol } = data;
+            console.log(data);
             if (status) {
                 localStorage.setItem('token', token);
                 dispatch(login({ data, status, id, rol }));

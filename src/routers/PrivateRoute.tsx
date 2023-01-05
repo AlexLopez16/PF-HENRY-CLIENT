@@ -10,7 +10,7 @@ type Props = {
 };
 
 export const PrivateRoute: FC<Props> = ({ children }) => {
-    const { logged, status } = useSelector((state: State) => state.auth);
+    const { logged, status, data } = useSelector((state: State) => state.auth);
     const dispatch = useDispatch();
 
     let token = localStorage.getItem('token');

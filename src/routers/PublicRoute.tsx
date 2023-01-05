@@ -9,6 +9,10 @@ type Props = {
 };
 
 export const PublicRoute: FC<Props> = ({ children }) => {
-    const { logged } = useSelector((state: State) => state.auth);
-    return logged ? <Navigate to="/projects" /> : children;
+    const { logged, data } = useSelector((state: State) => state.auth);
+    return logged ? (
+        <Navigate to={data.verify ? '/projects' : '/verifyemail'} />
+    ) : (
+        children
+    );
 };
