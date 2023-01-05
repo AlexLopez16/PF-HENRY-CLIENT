@@ -22,6 +22,7 @@ import {
   Switch,
   FormGroup,
 } from "@mui/material";
+import Pages from "../../ui/Pagination";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -122,6 +123,8 @@ const AdminStudent: FC = () => {
                 <TableCell>Ubicacion</TableCell>
                 <TableCell>Estado</TableCell>
                 <TableCell>Fecha de ingreso</TableCell>
+                <TableCell>Editar</TableCell>
+                <TableCell>Cambiar Estado</TableCell>
 
                 {/* {select  && <Button onClick={handleDisable}><DeleteIcon sx={{color: '#000'}}/></Button>} */}
                 {/* {select && (
@@ -217,13 +220,10 @@ const AdminStudent: FC = () => {
             </TableBody>
           </Table>
         </Box>
+        <Pages />
       </Card>
     </SideBar>
   );
 };
 
 export default AdminStudent;
-
-
-
-

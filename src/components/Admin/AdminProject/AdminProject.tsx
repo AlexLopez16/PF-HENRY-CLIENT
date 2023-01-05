@@ -33,6 +33,7 @@ import { deleteuser } from "../../../actions/Admin";
 import { Visibility } from "@mui/icons-material";
 import Pages from "../../ui/Pagination";
 import { Filters } from "../../ui/Filters";
+import SideBar from "../SideBar/SideBar";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -97,9 +98,9 @@ const AdminProject: FC = ({ ...rest }) => {
     setSelectedCustomerIds(newSelectedCustomerIds);
   };
 
-  const handleSwitch = (id:string) => {
+  const handleSwitch = (id: string) => {
     // selectedCustomerIds.forEach((selectID: any) =>
-      dispatch(deleteuser(token, id))
+    dispatch(deleteuser(token, id));
     // );
   };
 
@@ -112,7 +113,7 @@ const AdminProject: FC = ({ ...rest }) => {
   };
 
   return (
-    <>
+    <SideBar>
       <>{/* <Filters /> */}</>
       <Card {...rest}>
         <Box sx={{ minWidth: 1050 }}>
@@ -190,7 +191,7 @@ const AdminProject: FC = ({ ...rest }) => {
                           defaultChecked={projects.state}
                           size="small"
                           color="primary"
-                          onChange={()=>handleSwitch(projects.uid)}
+                          onChange={() => handleSwitch(projects.uid)}
                         />
                       }
                       label={undefined}
@@ -201,11 +202,9 @@ const AdminProject: FC = ({ ...rest }) => {
             </TableBody>
           </Table>
         </Box>
-      </Card>
-      <>
         <Pages />
-      </>
-    </>
+      </Card>
+    </SideBar>
   );
 };
 
