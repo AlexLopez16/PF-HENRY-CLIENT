@@ -9,7 +9,7 @@ const Carousel = () => {
       <motion.div
         className={style.slider}
         drag='x'
-        dragConstraints={{ right: 0, left: -9000 }}
+        dragConstraints={{ right: 0, left: -7650 }}
       >
         {images.map((image) => (
           <motion.div className={style.item}>
