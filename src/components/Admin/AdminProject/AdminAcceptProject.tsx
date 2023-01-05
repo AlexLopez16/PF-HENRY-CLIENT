@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from 'react';
+import { FC, useState, useEffect, forwardRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
@@ -23,7 +23,8 @@ import {
     FormControl,
     MenuItem,
     SelectChangeEvent,
-
+    ListItemButton,
+    Collapse,
 } from '@mui/material';
 import { getListStudents } from '../../../actions/student';
 import { State } from '../../../reducers/rootReducer';
@@ -34,10 +35,11 @@ import {
 } from '../../../actions/projects';
 import Switch from '@mui/material/Switch';
 import { AprovedProject, deleteuser } from '../../../actions/Admin';
-import { Visibility } from '@mui/icons-material';
+import { List, Visibility } from '@mui/icons-material';
 import Pages from '../../ui/Pagination';
 import { Filters } from '../../ui/Filters';
 import { Select } from '@mui/material';
+import FilterListIcon from '@mui/icons-material/FilterList';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -50,13 +52,26 @@ export interface Options {
 export declare function sentenceCase(input: string, options?: Options): string;
 import CloseIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
+import AdminFilterProject from '../../AdminBar/AdminFilterProject';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const AdminAcceptProject: FC = ({ ...rest }) => {
     const dispatch = useDispatch();
     const token: any = localStorage.getItem('token');
 
     useEffect(() => {
-        dispatch(getAllProject(token));
+        dispatch(
+            getAllProject(
+                undefined,
+                undefined,
+                token,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined
+            )
+        );
     }, [dispatch]);
 
     const { projectsFilter } = useSelector((state: State) => state.project);
@@ -70,9 +85,15 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
     const [page, setPage] = useState(0);
     const [render, setRender] = useState(false);
 
-    const [opciones, setOpciones] = useState("Todos")
-    const options: string[] = ['Todos', 'Reclutamiento', 'En desarrollo', 'Terminado', 'En revision']
-
+    const [opciones, setOpciones] = useState('Todos');
+    const [open, setOpen] = useState(false);
+    const options: string[] = [
+        'Todos',
+        'Reclutamiento',
+        'En desarrollo',
+        'Terminado',
+        'En revision',
+    ];
 
     const handleSelectAll = (event: any) => {
         let newSelectedCustomerIds;
@@ -113,21 +134,26 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
 
         setSelectedCustomerIds(newSelectedCustomerIds);
     };
+    const handlerClick = () => {
+        setOpen(!open);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     const handleaccept = () => {
-        selectedCustomerIds.forEach((selectID: any) =>
-            dispatch(AprovedProject(token, selectID)),
-            setRender(!render),
+        selectedCustomerIds.forEach(
+            (selectID: any) => dispatch(AprovedProject(token, selectID)),
+            setRender(!render)
         );
     };
 
-    const handlecancel  = () => {
+    const handlecancel = () => {
         selectedCustomerIds.forEach((selectID: any) =>
             // dispatch(AprovedProject(token, selectID)),
-            setRender(!render),
+            setRender(!render)
         );
     };
-
 
     const handleLimitChange = (event: any) => {
         setLimit(event.target.value);
@@ -137,39 +163,63 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
         setPage(newPage);
     };
 
-
-    let proyectos = projects
+    let proyectos = projects;
     const handleChangeOptions = (event: SelectChangeEvent) => {
-        setOpciones(event.target.value)
-    }
-    opciones !== "Todos"
-        ? proyectos = projects.filter((project: any) => project.stateOfProject.includes(opciones)) : proyectos = projects
-
-
+        setOpciones(event.target.value);
+    };
+    opciones !== 'Todos'
+        ? (proyectos = projects.filter((project: any) =>
+              project.stateOfProject.includes(opciones)
+          ))
+        : (proyectos = projects);
 
     return (
         <>
-            <>
-                <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Filtrado</InputLabel>
+            {/* <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">
+                        Filtrado
+                    </InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         // value={option}
                         label="filtro"
                         onChange={handleChangeOptions}
-
                     >
                         {options.map((option) => (
-                            <MenuItem value={option}>
-                                {option}
-                            </MenuItem>
+                            <MenuItem value={option}>{option}</MenuItem>
                         ))}
                     </Select>
-                </FormControl>
-            </>
+                </FormControl> */}
 
             <Card {...rest}>
+                <Box
+                    minWidth="lg"
+                    sx={{
+                        display: 'flex',
+                        // justifyContent: 'flex-end',
+                    }}
+                >
+                    <ListItemButton
+                        onClick={handlerClick}
+                        sx={{ maxWidth: 350 }}
+                    >
+                        {open ? (
+                            <FilterListIcon> </FilterListIcon>
+                        ) : (
+                            <FilterListIcon> </FilterListIcon>
+                        )}
+                    </ListItemButton>{' '}
+                    <Collapse
+                        in={open}
+                        timeout="auto"
+                        unmountOnExit
+                        orientation="horizontal"
+                    >
+                        <AdminFilterProject source="adminProjects" />
+                    </Collapse>
+                </Box>
+
                 <Box sx={{ minWidth: 1050 }}>
                     <Table>
                         <TableHead>
@@ -184,21 +234,31 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                                         indeterminate={
                                             selectedCustomerIds.length > 0 &&
                                             selectedCustomerIds.length <
-                                            proyectos.length
+                                                proyectos.length
                                         }
                                         onChange={handleSelectAll}
                                     />
                                 </TableCell>
                                 <TableCell>Nombre</TableCell>
                                 <TableCell>Compañia</TableCell>
-                                <TableCell>Categoria</TableCell>
-                                <TableCell>Estado</TableCell>
+                                <TableCell
+                                    sx={{
+                                        textAlign: 'center',
+                                    }}
+                                >
+                                    Categoria
+                                </TableCell>
+                                <TableCell
+                                    sx={{
+                                        textAlign: 'center',
+                                    }}
+                                >
+                                    Estado
+                                </TableCell>
                                 <TableCell>Creado</TableCell>
                                 <TableCell>Descripcion</TableCell>
                                 <TableCell>Aceptar</TableCell>
                                 <TableCell>Rechazar</TableCell>
-
-
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -245,40 +305,54 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                                             </Typography>
                                         </Box>
                                     </TableCell>
-                                    <TableCell>{proyectos.company.name}</TableCell>
                                     <TableCell>
+                                        {proyectos.company &&
+                                        Array.isArray(proyectos.company)
+                                            ? proyectos.company[0].name
+                                            : proyectos.company.name}
+                                    </TableCell>
+                                    <TableCell
+                                        sx={{
+                                            textAlign: 'center',
+                                        }}
+                                    >
                                         {proyectos.category
                                             ? proyectos.category
                                             : 'No registrado'}
                                     </TableCell>
-                                    <TableCell>{proyectos.stateOfProject}</TableCell>
+                                    <TableCell
+                                        sx={{
+                                            width: 310,
+                                            textAlign: 'center',
+                                        }}
+                                    >
+                                        {proyectos.stateOfProject}
+                                    </TableCell>
 
                                     <TableCell>
                                         {proyectos.admission
-                                            ? `${moment(proyectos.admission).format(
-                                                'DD/MM/YYYY'
-                                            )}`
+                                            ? `${moment(
+                                                  proyectos.admission
+                                              ).format('DD/MM/YYYY')}`
                                             : 'No registrado'}
                                     </TableCell>
                                     <TableCell sx={{ maxWidth: 200 }}>
-                                        {proyectos.description
-                                        }
+                                        {proyectos.description}
                                     </TableCell>
-                                    
-                                    <TableCell sx={{ maxWidth: 200 }}>
-                                        <CheckIcon
-                                            sx={{ hover: "pointer" }}
-                                            onClick={handleaccept} />
-                                    </TableCell>
-                                
 
                                     <TableCell sx={{ maxWidth: 200 }}>
-                                        <CloseIcon 
-                                         onClick={handlecancel} 
+                                        <CheckIcon
+                                            sx={{ cursor: 'pointer' }}
+                                            onClick={handleaccept}
                                         />
                                     </TableCell>
 
-
+                                    <TableCell sx={{ maxWidth: 200 }}>
+                                        <CloseIcon
+                                            sx={{ cursor: 'pointer' }}
+                                            onClick={handlecancel}
+                                        />
+                                    </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
@@ -286,7 +360,6 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                 </Box>
             </Card>
             <>
-
                 <Pages />
             </>
         </>

@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     Filters,
+    getAllProject,
     getCategory,
     // getProject,
     getProjectsFilter,
@@ -34,8 +35,11 @@ const styledInput = {
     right: 10,
     '&:hover': {},
 };
+interface Filter {
+    source?: string;
+}
 
-const StudentsFilter: FC = () => {
+const AdminFilterProject: FC<Filter> = ({ source }) => {
     const dispatch = useDispatch();
     let token = localStorage.getItem('token') || '';
     const [search, setSearch] = useState('');
@@ -47,7 +51,7 @@ const StudentsFilter: FC = () => {
     });
     useEffect(() => {
         dispatch(
-            getProjectsFilter(
+            getAllProject(
                 inputFilter.typeOfOrder,
                 inputFilter.tecnologies,
                 token,
@@ -94,7 +98,12 @@ const StudentsFilter: FC = () => {
         'Postgress',
     ];
 
-    const stateOfProject = ['Reclutamiento', 'En desarrollo', 'Terminado'];
+    const stateOfProject = [
+        'Reclutamiento',
+        'En desarrollo',
+        'Terminado',
+        'En revision',
+    ];
 
     // const { projects } = useSelector((state: State) => state.project);
 
@@ -122,7 +131,7 @@ const StudentsFilter: FC = () => {
     const handleSubmit = (e: any) => {
         e.preventDefault();
         dispatch(
-            getProjectsFilter(
+            getAllProject(
                 inputFilter.typeOfOrder,
                 inputFilter.tecnologies,
                 token,
@@ -179,120 +188,83 @@ const StudentsFilter: FC = () => {
 
     return (
         <Container>
-            <Box
-                sx={{
-                    width: 1350,
-                    marginLeft: '-80px',
-                    marginTop: '20px',
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                }}
-            >
-                <div style={{ width: 255 }}>
-                    <Autocomplete
-                        onChange={(e, value) => {
-                            handlerchange('e', value);
-                        }}
-                        multiple={true}
-                        size="small"
-                        id="tags-outlined"
-                        options={stateOfProject}
-                        getOptionLabel={(option) => option}
-                        filterSelectedOptions
-                        renderInput={(params) => (
-                            <TextField
-                                {...params}
-                                label="Filtar por Estado del proyecto "
-                                placeholder="Estado del proyecto"
-                            />
-                        )}
-                    />
-                </div>
-                <div style={{ width: 255 }}>
-                    <Autocomplete
-                        onChange={(e, value) => {
-                            handlerchange('t', value);
-                        }}
-                        multiple={true}
-                        size="small"
-                        id="tags-outlined"
-                        options={tecnologias}
-                        getOptionLabel={(option) => option}
-                        filterSelectedOptions
-                        renderInput={(params) => (
-                            <TextField
-                                {...params}
-                                label="Filtar por Tecnologia "
-                                placeholder="Tecnologia"
-                            />
-                        )}
-                    />
-                </div>
-
-                <div style={{ width: 255 }}>
-                    <Autocomplete
-                        onChange={(e, value) => {
-                            handlerchange('c', value);
-                        }}
-                        multiple={true}
-                        size="small"
-                        id="tags-outlined"
-                        options={categorys}
-                        getOptionLabel={(option: any) => option}
-                        filterSelectedOptions
-                        renderInput={(params) => (
-                            <TextField
-                                {...params}
-                                label="Filtar por Categoría "
-                                placeholder="Categoría"
-                            />
-                        )}
-                    />
-                </div>
-                <div style={{ width: 255 }}>
-                    <FormControl sx={{ width: '100%', padding: 0 }}>
-                        <InputLabel
-                            id="vacantes-label"
-                            size="small"
-                            sx={{ padding: 0 }}
-                        >
-                            Ordenar por participantes
-                        </InputLabel>
-                        <Select
-                            size="small"
-                            sx={{ padding: 0 }}
-                            id="vacantes"
-                            labelId="vacantes-label"
-                            label="Ordenar por participantes"
-                            name="vacantes"
+            {source && source === 'adminProjects' ? (
+                <Box
+                    sx={{
+                        width: 1350,
+                        // marginLeft: '-200px',
+                        marginTop: '20px',
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        justifyContent: 'space-between 5',
+                        alignItems: 'center',
+                    }}
+                >
+                    <div>
+                        <form onSubmit={handleSubmit}>
+                            <Input
+                                placeholder="Buscar por nombre del proyecto o compañia"
+                                onChange={(e) => handlerchanges(e.target.value)}
+                                sx={{
+                                    styledInput,
+                                    width: 330,
+                                    marginLeft: -40,
+                                }}
+                                // value={inputFilter.search}
+                            ></Input>
+                            <IconButton
+                                type="submit"
+                                aria-label="search"
+                                sx={{ marginRight: 12 }}
+                            >
+                                <SearchIcon />
+                            </IconButton>
+                        </form>
+                    </div>{' '}
+                    <div style={{ width: 255 }}>
+                        <Autocomplete
                             onChange={(e, value) => {
-                                handlerchange('o', value);
+                                handlerchange('c', value);
                             }}
-                        >
-                            <MenuItem value={'desc'}>Mayor a Menor</MenuItem>
-
-                            <MenuItem value={'asc'}>Menor a Mayor</MenuItem>
-                        </Select>
-                    </FormControl>
-                </div>
-                <div style={{ marginLeft: 10 }}>
-                    <form onSubmit={handleSubmit}>
-                        <Input
-                            placeholder="Buscar por nombre del proyecto"
-                            onChange={(e) => handlerchanges(e.target.value)}
-                            sx={{ styledInput, width: 245 }}
-                            // value={inputFilter.search}
-                        ></Input>
-                        <IconButton type="submit" aria-label="search">
-                            <SearchIcon />
-                        </IconButton>
-                    </form>
-                </div>
-            </Box>
+                            multiple={true}
+                            size="small"
+                            id="tags-outlined"
+                            options={categorys}
+                            getOptionLabel={(option: any) => option}
+                            filterSelectedOptions
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    label="Filtar por Categoría "
+                                    placeholder="Categoría"
+                                />
+                            )}
+                        />
+                    </div>{' '}
+                    <div style={{ width: 255, marginLeft: 10 }}>
+                        <Autocomplete
+                            onChange={(e, value) => {
+                                handlerchange('e', value);
+                            }}
+                            multiple={true}
+                            size="small"
+                            id="tags-outlined"
+                            options={stateOfProject}
+                            getOptionLabel={(option) => option}
+                            filterSelectedOptions
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    label="Filtar por Estado del proyecto "
+                                    placeholder="Estado del proyecto"
+                                />
+                            )}
+                        />
+                    </div>
+                </Box>
+            ) : null}
         </Container>
     );
 };
 
-export default StudentsFilter;
+export default AdminFilterProject;

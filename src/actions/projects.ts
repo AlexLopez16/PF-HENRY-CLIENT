@@ -249,19 +249,98 @@ export const Filters = (
     };
 };
 
-export const getAllProject = (token: string) => {
+export const getAllProject = (
+    typeOfOrder?: string | undefined,
+    tecnologies?: string[] | undefined,
+    token?: string | null,
+    name?: string | undefined,
+    category?: string[] | undefined,
+    stateOfProject?: string[] | undefined,
+    limit?: number | undefined,
+    init?: number | undefined
+) => {
     return async (dispatch: Dispatch) => {
         try {
-            const res = await axios.get('/project/all', {
+            // console.log(limit, init);
+            dispatch({
+                type: types.requestInProgress,
+            });
+            let query;
+
+            if (name) {
+                query = `name=${name}`;
+            }
+
+            if (tecnologies) {
+                let tecnologias: string = '';
+                tecnologies.forEach((e: string) => (tecnologias += e + ','));
+                //tranforma el array a string con comas
+                tecnologias = tecnologias.substring(0, tecnologias.length - 1); //si es una palabra saca la coma
+                if (query) {
+                    query += `&tecnologies=${tecnologias}`;
+                } else {
+                    query = `tecnologies=${tecnologias}`;
+                }
+            }
+
+            if (typeOfOrder) {
+                if (query) {
+                    query += `&typeOfOrder=${typeOfOrder}&orderBy=participants`;
+                } else {
+                    query = `typeOfOrder=${typeOfOrder}&orderBy=participants`;
+                }
+            }
+            if (category) {
+                let categories: string = '';
+                category.forEach((e: string) => (categories += e + ','));
+                //tranforma el array a string con comas
+                categories = categories.substring(0, categories.length - 1); //si es una palabra saca la coma
+                if (query) {
+                    query += `&categories=${categories}`;
+                } else {
+                    query = `categories=${categories}`;
+                }
+            }
+            if (stateOfProject) {
+                if (query) {
+                    query += `&stateProject=${stateOfProject}`;
+                } else {
+                    query = `stateProject=${stateOfProject}`;
+                }
+            }
+
+            if (limit || init) {
+                // console.log(limit, init);
+                if (query) {
+                    query += `&limit=${limit}&init=${init}`;
+                } else {
+                    query = `limit=${limit}&init=${init}`;
+                }
+            }
+
+            let url = `/project/all`;
+            if (query) {
+                url += `?${query}`;
+            }
+            const res = await axios.get(url, {
                 headers: { 'user-token': token },
             });
-
+            // console.log(res.data);
             dispatch({
                 type: types.projectsFilter,
                 payload: res.data,
             });
+            dispatch({
+                type: types.requestFinished,
+            });
         } catch (error: any) {
-            console.log(error.res.data);
+            // console.log(error.response.data.errors[0].msg);
+            if (error.response.status === 401) {
+                dispatch({
+                    type: types.clearAuthLogin,
+                    payload: error.response.status,
+                });
+            }
         }
     };
 };

@@ -10,6 +10,7 @@ import { useEffect, FC } from 'react';
 import Pages from '../ui/Pagination';
 import { Container, Typography } from '@mui/material';
 import { PreLoader } from '../PreLoader/PreLoader';
+import ProjectCardMyCompany from './ProjectCardMyCompany';
 
 // const styledInput = {
 //   position: "relative",
@@ -56,7 +57,7 @@ export const MyProjectCompany: FC = () => {
             <Container maxWidth="lg" sx={{ marginLeft: 50 }}>
                 {info.length ? (
                     info.map((e: any) => (
-                        <ProjectCard
+                        <ProjectCardMyCompany
                             name={e.name}
                             participants={e.participants}
                             requirements={e.requirements}
