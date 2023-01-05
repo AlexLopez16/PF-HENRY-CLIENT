@@ -46,405 +46,222 @@ export const AppRouter = () => {
             <div>
                 <Routes>
                     <Route path="/" element={<LandingPage />} />
-                    let {id} = useParams(); return (
-                    <BrowserRouter>
-                        <div>
-                            <Routes>
-                                <Route path="/" element={<LandingPage />} />
 
-                                <Route
-                                    path="/login"
-                                    element={
-                                        <PublicRoute>
-                                            <LoginScreen />
-                                        </PublicRoute>
-                                    }
-                                />
-                                <Route
-                                    path="/login"
-                                    element={
-                                        <PublicRoute>
-                                            <LoginScreen />
-                                        </PublicRoute>
-                                    }
-                                />
+                    <Route
+                        path="/verifyemail"
+                        element={
+                            <PrivateRoute>
+                                <>
+                                    <NavBar />
+                                    <VerifyEmail />
+                                </>
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/login"
+                        element={
+                            <PublicRoute>
+                                <LoginScreen />
+                            </PublicRoute>
+                        }
+                    />
 
-                                <Route
-                                    path="/signup/student"
-                                    element={
-                                        <PublicRoute>
-                                            <StudensForm />
-                                        </PublicRoute>
-                                    }
-                                />
-                                <Route
-                                    path="/signup/company"
-                                    element={
-                                        <PublicRoute>
-                                            <CompanyForm />
-                                        </PublicRoute>
-                                    }
-                                />
+                    <Route
+                        path="/signup/student"
+                        element={
+                            <PublicRoute>
+                                <StudensForm />
+                            </PublicRoute>
+                        }
+                    />
+                    <Route
+                        path="/signup/company"
+                        element={
+                            <PublicRoute>
+                                <CompanyForm />
+                            </PublicRoute>
+                        }
+                    />
 
-                                <Route
-                                    path="/verifyemail"
-                                    element={
-                                        <PrivateRoute>
-                                            <>
-                                                <NavBar />
-                                                <VerifyEmail />
-                                            </>
-                                        </PrivateRoute>
-                                    }
-                                />
+                    <Route
+                        path="/home"
+                        element={
+                            <PrivateRoute>
+                                <HomePage />
+                            </PrivateRoute>
+                        }
+                    />
 
-                                <Route
-                                    path="/home"
-                                    element={
-                                        <PrivateRoute>
-                                            <HomePage />
-                                        </PrivateRoute>
-                                    }
-                                />
-                                <Route
-                                    path="/home"
-                                    element={
-                                        <PrivateRoute>
-                                            <HomePage />
-                                        </PrivateRoute>
-                                    }
-                                />
+                    <Route
+                        path="/dashboard"
+                        element={
+                            <PrivateRoute>
+                                <>
+                                    <NavBar />
+                                    {/* <HomePage /> */}
+                                    <DashboardPage />
+                                </>
+                            </PrivateRoute>
+                        }
+                    />
 
-                                <Route
-                                    path="/dashboard"
-                                    element={
-                                        <PrivateRoute>
-                                            <>
-                                                <NavBar />
-                                                {/* <HomePage /> */}
-                                                <DashboardPage />
-                                            </>
-                                        </PrivateRoute>
-                                    }
-                                />
-                                <Route
-                                    path="/dashboard"
-                                    element={
-                                        <PrivateRoute>
-                                            <>
-                                                <NavBar />
-                                                {/* <HomePage /> */}
-                                                <DashboardPage />
-                                            </>
-                                        </PrivateRoute>
-                                    }
-                                />
+                    <Route
+                        path="/projects"
+                        element={
+                            <PrivateRoute>
+                                <>
+                                    <NavBar />
+                                    <ProjectsPage />
+                                </>
+                            </PrivateRoute>
+                        }
+                    />
 
-                                <Route
-                                    path="/projects"
-                                    element={
-                                        <PrivateRoute>
-                                            <>
-                                                <NavBar />
-                                                <ProjectsPage />
-                                            </>
-                                        </PrivateRoute>
-                                    }
-                                />
-                                <Route
-                                    path="/projects"
-                                    element={
-                                        <PrivateRoute>
-                                            <>
-                                                <NavBar />
-                                                <ProjectsPage />
-                                            </>
-                                        </PrivateRoute>
-                                    }
-                                />
+                    <Route
+                        path="/myprojects"
+                        element={
+                            <PrivateRoute>
+                                <>
+                                    <NavBar />
+                                    <MyProjectsPage />
+                                </>
+                            </PrivateRoute>
+                        }
+                    />
 
-                                <Route
-                                    path="/myprojects"
-                                    element={
-                                        <PrivateRoute>
-                                            <>
-                                                <NavBar />
-                                                <MyProjectsPage />
-                                            </>
-                                        </PrivateRoute>
-                                    }
-                                />
-                                <Route
-                                    path="/myprojects"
-                                    element={
-                                        <PrivateRoute>
-                                            <>
-                                                <NavBar />
-                                                <MyProjectsPage />
-                                            </>
-                                        </PrivateRoute>
-                                    }
-                                />
+                    <Route
+                        path="/register"
+                        element={
+                            <PublicRoute>
+                                <Register />
+                            </PublicRoute>
+                        }
+                    />
 
-                                <Route
-                                    path="/register"
-                                    element={
-                                        <PublicRoute>
-                                            <Register />
-                                        </PublicRoute>
-                                    }
-                                />
-                                <Route
-                                    path="/register"
-                                    element={
-                                        <PublicRoute>
-                                            <Register />
-                                        </PublicRoute>
-                                    }
-                                />
+                    <Route
+                        path="/project"
+                        element={
+                            <PrivateRoute>
+                                <ProjectPage />
+                            </PrivateRoute>
+                        }
+                    />
 
-                                <Route
-                                    path="/project"
-                                    element={
-                                        <PrivateRoute>
-                                            <ProjectPage />
-                                        </PrivateRoute>
-                                    }
-                                />
-                                <Route
-                                    path="/project"
-                                    element={
-                                        <PrivateRoute>
-                                            <ProjectPage />
-                                        </PrivateRoute>
-                                    }
-                                />
+                    <Route
+                        path="/newproject"
+                        element={
+                            <PrivateRoute>
+                                <ProjectForm />
+                            </PrivateRoute>
+                        }
+                    />
 
-                                <Route
-                                    path="/newproject"
-                                    element={
-                                        <PrivateRoute>
-                                            <ProjectForm />
-                                        </PrivateRoute>
-                                    }
-                                />
-                                <Route
-                                    path="/newproject"
-                                    element={
-                                        <PrivateRoute>
-                                            <ProjectForm />
-                                        </PrivateRoute>
-                                    }
-                                />
+                    <Route
+                        path="/aboutUs"
+                        element={
+                            // <PrivateRoute>
+                            <AboutUsPage />
+                            // </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/landing"
+                        element={
+                            // <PrivateRoute>
+                            <LandingPage />
+                            // </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/contact"
+                        element={
+                            // <PrivateRoute>
+                            <ContactForm />
+                            // </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/profileCompany"
+                        element={
+                            <PrivateRoute>
+                                <>
+                                    <NavBar />
+                                    <ProfileCompany />
+                                </>
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/profile"
+                        element={
+                            <PrivateRoute>
+                                <>
+                                    <NavBar />
+                                    <Profile />
+                                </>
+                            </PrivateRoute>
+                        }
+                    />
 
-                                <Route
-                                    path="/aboutUs"
-                                    element={
-                                        // <PrivateRoute>
-                                        <AboutUsPage />
-                                        // </PrivateRoute>
-                                    }
-                                />
-                                <Route
-                                    path="/landing"
-                                    element={
-                                        // <PrivateRoute>
-                                        <LandingPage />
-                                        // </PrivateRoute>
-                                    }
-                                />
-                                <Route
-                                    path="/contact"
-                                    element={
-                                        // <PrivateRoute>
-                                        <ContactForm />
-                                        // </PrivateRoute>
-                                    }
-                                />
-                                <Route
-                                    path="/profileCompany"
-                                    element={
-                                        <PrivateRoute>
-                                            <>
-                                                <NavBar />
-                                                <ProfileCompany />
-                                            </>
-                                        </PrivateRoute>
-                                    }
-                                />
-                                <Route
-                                    path="/profile"
-                                    element={
-                                        <PrivateRoute>
-                                            <>
-                                                <NavBar />
-                                                <Profile />
-                                            </>
-                                        </PrivateRoute>
-                                    }
-                                />
-                                <Route
-                                    path="/aboutUs"
-                                    element={
-                                        // <PrivateRoute>
-                                        <AboutUsPage />
-                                        // </PrivateRoute>
-                                    }
-                                />
-                                <Route
-                                    path="/landing"
-                                    element={
-                                        // <PrivateRoute>
-                                        <LandingPage />
-                                        // </PrivateRoute>
-                                    }
-                                />
-                                <Route
-                                    path="/contact"
-                                    element={
-                                        // <PrivateRoute>
-                                        <ContactForm />
-                                        // </PrivateRoute>
-                                    }
-                                />
-                                <Route
-                                    path="/profileCompany"
-                                    element={
-                                        <PrivateRoute>
-                                            <>
-                                                <NavBar />
-                                                <ProfileCompany />
-                                            </>
-                                        </PrivateRoute>
-                                    }
-                                />
-                                <Route
-                                    path="/profile"
-                                    element={
-                                        <PrivateRoute>
-                                            <>
-                                                <NavBar />
-                                                <Profile />
-                                            </>
-                                        </PrivateRoute>
-                                    }
-                                />
+                    <Route
+                        path="/adminStudent"
+                        element={
+                            // <PrivateRoute>
+                            <AdminStudent />
+                            // </PrivateRoute>
+                        }
+                    />
 
-                                <Route
-                                    path="/adminStudent"
-                                    element={
-                                        // <PrivateRoute>
-                                        <AdminStudent />
-                                        // </PrivateRoute>
-                                    }
-                                />
-                                <Route
-                                    path="/adminStudent"
-                                    element={
-                                        // <PrivateRoute>
-                                        <AdminStudent />
-                                        // </PrivateRoute>
-                                    }
-                                />
+                    <Route path="/side" element={<DashboardAdmin />} />
 
-                                <Route
-                                    path="/side"
-                                    element={<DashboardAdmin />}
-                                />
+                    <Route path="/AdminCompany" element={<AdminCompany />} />
 
-                                <Route
-                                    path="/AdminCompany"
-                                    element={<AdminCompany />}
-                                />
-                                <Route
-                                    path="/AdminCompany"
-                                    element={<AdminCompany />}
-                                />
+                    <Route path="/AdminProject" element={<AdminProject />} />
 
-                                <Route
-                                    path="/AdminProject"
-                                    element={<AdminProject />}
-                                />
-                                <Route
-                                    path="/AdminProject"
-                                    element={<AdminProject />}
-                                />
+                    <Route
+                        path="/Adminacceptprojects"
+                        element={
+                            <PublicRoute>
+                                <AdminAcceptProject />
+                            </PublicRoute>
+                        }
+                    />
 
-                                <Route
-                                    path="/Adminacceptprojects"
-                                    element={
-                                        <PublicRoute>
-                                            <AdminAcceptProject />
-                                        </PublicRoute>
-                                    }
-                                />
+                    {/* PROFILE ROUTES */}
 
-                                {/* PROFILE ROUTES */}
-                                {/* PROFILE ROUTES */}
+                    <Route path="/Ale" element={<Ale />} />
+                    <Route path="/Ampi" element={<Ampi />} />
+                    <Route path="/Brian" element={<Brian />} />
+                    <Route path="/Hugo" element={<Hugo />} />
+                    <Route path="/Jona" element={<Jona />} />
+                    <Route path="/Nachito" element={<Nachito />} />
+                    <Route path="/Nacho" element={<Nacho />} />
+                    <Route path="/Sil" element={<Sil />} />
 
-                                <Route path="/Ale" element={<Ale />} />
-                                <Route path="/Ampi" element={<Ampi />} />
-                                <Route path="/Brian" element={<Brian />} />
-                                <Route path="/Hugo" element={<Hugo />} />
-                                <Route path="/Jona" element={<Jona />} />
-                                <Route path="/Nachito" element={<Nachito />} />
-                                <Route path="/Nacho" element={<Nacho />} />
-                                <Route path="/Sil" element={<Sil />} />
-                                <Route path="/Ale" element={<Ale />} />
-                                <Route path="/Ampi" element={<Ampi />} />
-                                <Route path="/Brian" element={<Brian />} />
-                                <Route path="/Hugo" element={<Hugo />} />
-                                <Route path="/Jona" element={<Jona />} />
-                                <Route path="/Nachito" element={<Nachito />} />
-                                <Route path="/Nacho" element={<Nacho />} />
-                                <Route path="/Sil" element={<Sil />} />
+                    <Route
+                        path="/forgotPassword"
+                        element={<ForgotPassword />}
+                    />
 
-                                <Route
-                                    path="/forgotPassword"
-                                    element={<ForgotPassword />}
-                                />
-                                <Route
-                                    path="/forgotPassword"
-                                    element={<ForgotPassword />}
-                                />
+                    <Route
+                        path="/recoverPassword"
+                        element={<PasswordRecover />}
+                    />
+                    <Route path="/p" element={<ProjectsStudents />} />
 
-                                <Route
-                                    path="/recoverPassword"
-                                    element={<PasswordRecover />}
-                                />
-                                <Route
-                                    path="/p"
-                                    element={<ProjectsStudents />}
-                                />
-                                <Route
-                                    path="/recoverPassword"
-                                    element={<PasswordRecover />}
-                                />
-                                <Route
-                                    path="/p"
-                                    element={<ProjectsStudents />}
-                                />
+                    <Route
+                        path="/postulated/:id"
+                        element={
+                            <PrivateRoute>
+                                <>
+                                    <NavBar />
+                                    <Postulated />
+                                </>
+                            </PrivateRoute>
+                        }
+                    />
 
-                                <Route
-                                    path="/postulated/:id"
-                                    element={
-                                        <PrivateRoute>
-                                            <>
-                                                <NavBar />
-                                                <Postulated />
-                                            </>
-                                        </PrivateRoute>
-                                    }
-                                />
-
-                                <Route
-                                    path="/checkout/"
-                                    element={<Checkout />}
-                                />
-                            </Routes>
-                        </div>
-                    </BrowserRouter>
-                    );
                     <Route path="/checkout/" element={<Checkout />} />
                 </Routes>
             </div>
