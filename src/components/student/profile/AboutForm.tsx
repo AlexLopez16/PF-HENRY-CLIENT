@@ -1,51 +1,58 @@
 import { FC, Dispatch, SetStateAction } from 'react';
 import { Paper, Typography, Button, TextField } from '@mui/material';
-import { paperStyle, container, buttonStyle } from '../../../styles/Profile/AboutFormStyles';
+import {
+    paperStyle,
+    container,
+    buttonStyle,
+} from '../../../styles/Profile/AboutFormStyles';
 
-import * as Yup from 'yup'
+import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateStudentInfo } from '../../../actions/student';
 import { State } from '../../../reducers/rootReducer';
 import { Field, Form, Formik, ErrorMessage } from 'formik';
+import { SnackBar } from '../../SnackBar/SnackBar';
 
 interface Props {
-    edit: { header: boolean, about: boolean, skills: boolean },
-    setEdit: Dispatch<SetStateAction<{ header: boolean, about: boolean, skills: boolean }>>
-    description?: string
+    edit: { header: boolean; about: boolean; skills: boolean };
+    setEdit: Dispatch<
+        SetStateAction<{ header: boolean; about: boolean; skills: boolean }>
+    >;
+    description?: string;
 }
 
 export const AboutForm: FC<Props> = ({ edit, setEdit, description }) => {
-
-    const dispatch = useDispatch()
-    const { data } = useSelector((state: State) => state.auth)
+    const dispatch = useDispatch();
+    const { data } = useSelector((state: State) => state.auth);
     const { id } = data;
-    const token = localStorage.getItem('token') || ''
+    const token = localStorage.getItem('token') || '';
 
     const handlerEdit = () => {
         setEdit({
             ...edit,
-            about: !edit.about
-        })
-    }
+            about: !edit.about,
+        });
+    };
 
     const initialValues = {
-        description: description
-    }
+        description: description,
+    };
 
     const validationSchema = Yup.object().shape({
         description: Yup.string().required('Ingresa una descripción sobre tí'),
-    })
+    });
 
     const onSubmit = (values: any, props: any) => {
-        dispatch(updateStudentInfo(id, token, values))
+        dispatch(updateStudentInfo(id, token, values));
         setEdit({
             ...edit,
-            about: !edit.about
-        })
-    }
+            about: !edit.about,
+        });
+    };
 
     return (
         <Paper elevation={5} style={paperStyle}>
+            <SnackBar />
             <Formik
                 initialValues={initialValues}
                 onSubmit={onSubmit}
@@ -54,21 +61,26 @@ export const AboutForm: FC<Props> = ({ edit, setEdit, description }) => {
                 {(props) => (
                     <Form>
                         <div style={container}>
-                            <Typography sx={{ fontWeight: 'bold' }} variant='h6'>
+                            <Typography
+                                sx={{ fontWeight: 'bold' }}
+                                variant="h6"
+                            >
                                 Sobre mí
                             </Typography>
                             <div>
                                 <Button
-                                    type='submit'
+                                    type="submit"
                                     style={buttonStyle}
-                                    variant='contained'
-                                    disabled={Object.keys(props.errors).length > 0}
+                                    variant="contained"
+                                    disabled={
+                                        Object.keys(props.errors).length > 0
+                                    }
                                 >
                                     Guardar
                                 </Button>
                                 <Button
                                     style={buttonStyle}
-                                    variant='contained'
+                                    variant="contained"
                                     onClick={handlerEdit}
                                 >
                                     Cancelar
@@ -77,21 +89,20 @@ export const AboutForm: FC<Props> = ({ edit, setEdit, description }) => {
                         </div>
                         <Field
                             as={TextField}
-                            name='description'
+                            name="description"
                             id="outlined-multiline-static"
                             multiline
                             rows={4}
-                            placeholder='Este texto va a ser visto en tu perfil'
+                            placeholder="Este texto va a ser visto en tu perfil"
                             fullWidth
                             sx={{ maxWidth: '98%', margin: '0px 10px' }}
                             helperText={
-                                <ErrorMessage name='description'>
-                                    {
-                                        msg =>
-                                            <span style={{ color: 'red' }}>
-                                                {msg}
-                                            </span>
-                                    }
+                                <ErrorMessage name="description">
+                                    {(msg) => (
+                                        <span style={{ color: 'red' }}>
+                                            {msg}
+                                        </span>
+                                    )}
                                 </ErrorMessage>
                             }
                         />
@@ -99,5 +110,5 @@ export const AboutForm: FC<Props> = ({ edit, setEdit, description }) => {
                 )}
             </Formik>
         </Paper>
-    )
-}
+    );
+};
