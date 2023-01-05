@@ -1,12 +1,11 @@
 import { FC } from 'react';
-import { Box, Typography, Paper, Chip } from '@mui/material';
+import { Box, Typography, Paper, CardMedia, Chip } from '@mui/material';
 import clip from 'text-clipper';
 import Button from '@mui/material/Button';
-import { NavLink } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { NavLink, Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { getProjectByID } from '../../actions/projects';
 import BusinessIcon from '@mui/icons-material/Business';
-import { State } from '../../reducers/rootReducer';
 
 type CompanyData = {
     _id: string;
@@ -27,7 +26,7 @@ interface CardProjectProps {
     image?: string[];
 }
 
-const ProjectCard: FC<CardProjectProps> = ({
+const ProjectCardMyCompany: FC<CardProjectProps> = ({
     name,
     description,
     participants, //lo que se necesitan para el proyecto
@@ -37,14 +36,12 @@ const ProjectCard: FC<CardProjectProps> = ({
     stateOfProject,
     id,
     category,
+    image,
 }: CardProjectProps) => {
     const dispatch = useDispatch();
     const token = localStorage.getItem('token') || '';
+    const rol = localStorage.getItem('rol');
     const clippedDescription = clip(description, 100);
-
-    const { filters } = useSelector((state: State) => state.project);
-    const tecnologies = filters?.tecnologies || []
-    const stateOfProj = filters?.stateOfProject || []
 
     const handleClick = () => {
         dispatch(getProjectByID(token, id));
@@ -95,18 +92,15 @@ const ProjectCard: FC<CardProjectProps> = ({
                     Requerimientos:
                     {requirements.map(
                         (requirement: string | any, index: number | any) => (
-                            <div key={index}>
+                            <>
                                 {' '}
                                 <Chip
+                                    key={index}
                                     size="small"
                                     label={requirement}
-                                    sx={{
-                                        background: tecnologies.indexOf(requirement) === -1
-                                            ? ''
-                                            : '#FFFF01'
-                                    }}
+                                    // color="primary"
                                 />
-                            </div>
+                            </>
                         )
                     )}
                 </Typography>
@@ -121,11 +115,7 @@ const ProjectCard: FC<CardProjectProps> = ({
                     <Chip
                         size="small"
                         label={stateOfProject}
-                        sx={{
-                            background: stateOfProj.indexOf(stateOfProject) === -1
-                                ? ''
-                                : '#FFFF01'
-                        }}
+                        // color="primary"
                     />
                 </Typography>
 
@@ -135,7 +125,9 @@ const ProjectCard: FC<CardProjectProps> = ({
                     <Chip
                         label={`${students?.length}/${participants}`}
                         size="small"
+                        // color="primary"
                     />
+                    {/* {students?.length}/{participants}{' '} */}
                 </Typography>
             </Box>
             <Paper
@@ -143,8 +135,10 @@ const ProjectCard: FC<CardProjectProps> = ({
                 sx={{
                     display: 'flex',
                     alignItems: 'center',
+                    // border: '1px solid',
                     width: 'max-content',
                     padding: '2px 4px',
+                    // borderRadius: '4px',
                 }}
             >
                 <BusinessIcon fontSize="small" />
@@ -163,4 +157,4 @@ const ProjectCard: FC<CardProjectProps> = ({
     );
 };
 
-export default ProjectCard;
+export default ProjectCardMyCompany;
