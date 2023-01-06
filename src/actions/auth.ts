@@ -55,18 +55,15 @@ export const reSendEmail = (token: string | any, email: string | any) => {
                     headers: { 'user-token': token },
                 }
             );
-            console.log('1');
             dispatch({
                 type: types.requestFinished,
             });
-            console.log('2');
-            console.log(res);
             dispatch({
                 type: types.responseFinished,
                 payload: res
             });
         } catch (error: any) {
-            console.log('holaa', error);
+            console.log(error);
             dispatch({
                 type: types.requestFinished,
             });
