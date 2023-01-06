@@ -6,7 +6,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 
 import { Button, Paper, TextField } from "@mui/material";
-import { AdminEliminatedProject } from "../../../actions/admin";
+import { AdminEliminatedProject } from "../../../actions/Admin";
 
 interface Props {
   formactive: boolean;

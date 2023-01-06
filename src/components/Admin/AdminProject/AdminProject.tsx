@@ -29,7 +29,7 @@ import {
   getProjectsFilter,
 } from "../../../actions/projects";
 import Switch from "@mui/material/Switch";
-import { deleteuser } from "../../../actions/admin";
+import { deleteuser } from "../../../actions/Admin";
 import { Visibility } from "@mui/icons-material";
 import Pages from "../../ui/Pagination";
 import { Filters } from "../../ui/Filters";

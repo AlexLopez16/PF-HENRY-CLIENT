@@ -7,7 +7,7 @@ import { Box } from "@mui/system";
 import { Card, Grid, Typography } from "@mui/material";
 import { useTheme } from "@emotion/react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCharts } from "../../actions/admin";
+import { getCharts } from "../../../actions/Admin";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 

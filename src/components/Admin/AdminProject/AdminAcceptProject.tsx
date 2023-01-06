@@ -31,7 +31,7 @@ import {
   getProjectsFilter,
 } from "../../../actions/projects";
 import Switch from "@mui/material/Switch";
-import { AprovedProject, deleteuser } from "../../../actions/admin";
+import { AprovedProject, deleteuser } from "../../../actions/Admin";
 import { List, Visibility } from "@mui/icons-material";
 import Pages from "../../ui/Pagination";
 import { Filters } from "../../ui/Filters";
