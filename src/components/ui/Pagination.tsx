@@ -12,6 +12,7 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { Container } from '@mui/material';
 import { useLocation } from 'react-router-dom';
+import { getListStudents } from '../../actions/student';
 
 let limit;
 let init;
@@ -22,14 +23,21 @@ const Pages: FC = () => {
     let token = localStorage.getItem('token') || '';
     const [definePage, setPage] = useState({ limit: 6, init: 0 });
     let { projectsFilter } = useSelector((state: State) => state.project);
+    const { users, total1 } = useSelector((state: any) => state.student);
+
     // let { myProjectCompany } = useSelector((state: State) => state.project);
 
-    useEffect(() => {}, [projectsFilter]);
+    useEffect(() => {}, [projectsFilter, users]);
     const { total } = useSelector((state: State) => state.project);
     const { filters } = useSelector((state: State) => state.project);
     // console.log(filters);
-
-    let numberOfPages = Math.ceil(total / 6);
+    let numberOfPages;
+    if (total1) {
+        numberOfPages = Math.ceil(total1 / 6);
+    }
+    if (total) {
+        numberOfPages = Math.ceil(total / 6);
+    }
     const handlerClick = async (e: any, value: any) => {
         // setPage({limit:value*6,init:(value*6)-6})
         limit = 6;
@@ -70,7 +78,10 @@ const Pages: FC = () => {
         if (location.pathname === '/myprojects') {
             dispatch(getMyProjectsCompany(token, value));
         }
-        if (location.pathname === '/Adminacceptprojects') {
+        if (
+            location.pathname === '/Adminacceptprojects' ||
+            location.pathname === '/AdminProject'
+        ) {
             if (filters) {
                 dispatch(
                     getAllProject(
@@ -98,6 +109,10 @@ const Pages: FC = () => {
                     )
                 );
             }
+        }
+
+        if (location.pathname === '/adminStudent') {
+            dispatch(getListStudents(token, false, limit, init));
         }
     };
 
