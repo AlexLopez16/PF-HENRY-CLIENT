@@ -19,7 +19,7 @@ export const getListStudents = (
                 payload: res.data.students,
             });
         } catch (error: any) {
-            console.log(error);
+            // console.log(error);
         }
     };
 };
@@ -35,7 +35,7 @@ export const studentRegister = (values: object) => {
                 payload: res.data,
             });
         } catch (error: any) {
-            console.log(error.response.data);
+            // console.log(error.response.data);
         }
     };
 };
@@ -59,7 +59,7 @@ export const getStudentInfo = (id: string, token: string) => {
                 type: types.requestFinished,
             });
         } catch (error: any) {
-            console.log(error);
+            // console.log(error);
             dispatch({
                 type: types.requestFinished,
             });
@@ -91,7 +91,7 @@ export const updateStudentInfo = (id: string, token: string, data: object) => {
                 payload: res,
             });
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             dispatch({
                 type: types.requestFinished,
             });
@@ -114,7 +114,7 @@ export const updatePhotoStudent = (id: string, token: string, file: any) => {
                 payload: res.data,
             });
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     };
 };
@@ -131,7 +131,7 @@ export const searchProject = (name: string, token: string) => {
                 payload: res.data,
             });
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     };
 };
@@ -158,7 +158,7 @@ export const addStudentToProject = (id: string, token: string) => {
                 payload: res,
             });
         } catch (error: any) {
-            console.log(error);
+            // console.log(error);
             dispatch({
                 type: types.requestFinished,
                 payload: error.response,

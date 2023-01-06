@@ -16,7 +16,7 @@ export const validaToken = (token: string) => {
             const { data, status } = await axios.get('/token', {
                 headers: { 'user-token': token },
             });
-            console.log(data);
+            // console.log(data);
             const { id, rol } = data;
             if (status) {
                 // console.log(status);
@@ -48,21 +48,50 @@ export const reSendEmail = (token: string | any, email: string | any) => {
             dispatch({
                 type: types.requestInProgress,
             });
-            const { data } = await axios.put(
+            const res = await axios.put(
                 '/account/confirm/resendemail',
                 { email },
                 {
                     headers: { 'user-token': token },
                 }
             );
+            console.log('1');
             dispatch({
                 type: types.requestFinished,
             });
-            console.log(data);
+            console.log('2');
+            console.log(res);
+            dispatch({
+                type: types.responseFinished,
+                payload: res
+            });
         } catch (error: any) {
             console.log('holaa', error);
             dispatch({
                 type: types.requestFinished,
+            });
+            dispatch({
+                type: types.responseFinished,
+                payload: error.response,
+            });
+        }
+    };
+};
+
+/**
+ * By Sciangula Hugo.
+ * NOTA: con isVerify() vamos a corroborar que el email este confirmado.
+ */
+
+export const isVerify = (email: string | any) => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const res = await axios.get(`/account/confirm/isverify/${email}`);
+        } catch (error: object | any) {
+            // Guardamos respuesta de la request.
+            dispatch({
+                type: types.responseFinished,
+                payload: error.response,
             });
         }
     };
