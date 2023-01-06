@@ -2,7 +2,7 @@ import { FC, useState, useEffect, forwardRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Box } from "@mui/system";
+import { Box, Container } from "@mui/system";
 import * as moment from "moment";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -186,11 +186,11 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                 </FormControl> */}
 
       <Card {...rest}>
-        <Box
-          minWidth="lg"
+        <Container
+          maxWidth="lg"
           sx={{
             display: "flex",
-            // justifyContent: 'flex-end',
+            marginLeft: 0,
           }}
         >
           <ListItemButton onClick={handlerClick} sx={{ maxWidth: 350 }}>
@@ -208,7 +208,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
           >
             <AdminFilterProject source="adminProjects" />
           </Collapse>
-        </Box>
+        </Container>
 
         <Box sx={{ minWidth: 1050 }}>
           <Table>

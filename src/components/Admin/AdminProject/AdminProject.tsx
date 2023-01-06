@@ -49,7 +49,18 @@ const AdminProject: FC = ({ ...rest }) => {
   const token: any = localStorage.getItem("token");
 
   useEffect(() => {
-    dispatch(getAllProject(undefined, undefined, token));
+    dispatch(
+      getAllProject(
+        undefined,
+        undefined,
+        token,
+        undefined,
+        undefined,
+        undefined,
+        6,
+        0
+      )
+    );
   }, [dispatch]);
 
   const { projectsFilter } = useSelector((state: State) => state.project);

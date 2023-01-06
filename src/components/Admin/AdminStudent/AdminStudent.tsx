@@ -22,6 +22,7 @@ import {
   Switch,
   FormGroup,
 } from "@mui/material";
+import Pages from "../../ui/Pagination";
 import { PreLoader } from "../../PreLoader/PreLoader";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -38,7 +39,7 @@ const AdminStudent: FC = () => {
   }
 
   useEffect(() => {
-    dispatch(getListStudents(token, false));
+    dispatch(getListStudents(token, false, 6, 0));
   }, [dispatch]);
 
   const [selectedCustomerIds, setSelectedCustomerIds] = useState<string[]>([]);
@@ -176,6 +177,7 @@ const AdminStudent: FC = () => {
               ))}
             </TableBody>
           </Table>
+          <Pages />
         </Box>
       </Card>
     </>
