@@ -29,13 +29,11 @@ import {
   getProjectsFilter,
 } from "../../../actions/projects";
 import Switch from "@mui/material/Switch";
-import { deleteuser } from "../../../actions/Admin";
+import { deleteuser } from "../../../actions/admin";
 import { Visibility } from "@mui/icons-material";
 import Pages from "../../ui/Pagination";
 import { Filters } from "../../ui/Filters";
-import SideBar from "../SideBar/SideBar";
-
-ChartJS.register(ArcElement, Tooltip, Legend);
+import { PreLoader } from "../../PreLoader/PreLoader";
 
 export interface Options {
   splitRegexp?: RegExp | RegExp[];
@@ -51,7 +49,7 @@ const AdminProject: FC = ({ ...rest }) => {
   const token: any = localStorage.getItem("token");
 
   useEffect(() => {
-    dispatch(getAllProject(token));
+    dispatch(getAllProject(undefined, undefined, token));
   }, [dispatch]);
 
   const { projectsFilter } = useSelector((state: State) => state.project);
@@ -59,7 +57,6 @@ const AdminProject: FC = ({ ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState<string[]>([]);
   const [limit, setLimit] = useState(12);
   const [page, setPage] = useState(0);
- 
 
   const handleSelectAll = (event: any) => {
     let newSelectedCustomerIds;
@@ -114,8 +111,8 @@ const AdminProject: FC = ({ ...rest }) => {
   };
 
   return (
-    <SideBar>
-      <>{/* <Filters /> */}</>
+    <>
+      <PreLoader />
       <Card {...rest}>
         <Box sx={{ minWidth: 1050 }}>
           <Table>
@@ -205,7 +202,7 @@ const AdminProject: FC = ({ ...rest }) => {
         </Box>
         <Pages />
       </Card>
-    </SideBar>
+    </>
   );
 };
 

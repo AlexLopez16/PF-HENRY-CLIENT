@@ -26,9 +26,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import EditIcon from "@mui/icons-material/Edit";
 import React from "react";
-import SideBar from "../SideBar/SideBar";
-
-ChartJS.register(ArcElement, Tooltip, Legend);
+import { PreLoader } from "../../PreLoader/PreLoader";
 
 export interface Options {
   splitRegexp?: RegExp | RegExp[];
@@ -119,23 +117,24 @@ const AdminCompany: FC = ({ ...rest }) => {
   };
 
   return (
-    <SideBar>
+    <>
+      <PreLoader />
       <Card {...rest}>
         <Box sx={{ minWidth: 900 }}>
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell padding="checkbox">
-                  <Checkbox
-                    checked={selectedCustomerIds.length === users?.length}
-                    color="primary"
-                    indeterminate={
-                      selectedCustomerIds.length > 0 &&
-                      selectedCustomerIds.length < users?.length
-                    }
-                    onChange={handleSelectAll}
-                  />
-                </TableCell>
+                {/* <TableCell padding="checkbox">
+                <Checkbox
+                  checked={selectedCustomerIds.length === users?.length}
+                  color="primary"
+                  indeterminate={
+                    selectedCustomerIds.length > 0 &&
+                    selectedCustomerIds.length < users?.length
+                  }
+                  onChange={handleSelectAll}
+                />
+              </TableCell> */}
                 <TableCell>Nombre</TableCell>
                 <TableCell>Email</TableCell>
                 <TableCell>Locación</TableCell>
@@ -152,13 +151,13 @@ const AdminCompany: FC = ({ ...rest }) => {
                   key={user.uid}
                   selected={selectedCustomerIds.indexOf(user.uid) !== -1}
                 >
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={selectedCustomerIds.indexOf(user.uid) !== -1}
-                      onChange={(event) => handleSelectOne(event, user.uid)}
-                      value="true"
-                    />
-                  </TableCell>
+                  {/* <TableCell padding="checkbox">
+                  <Checkbox
+                    checked={selectedCustomerIds.indexOf(user.uid) !== -1}
+                    onChange={(event) => handleSelectOne(event, user.uid)}
+                    value="true"
+                  />
+                </TableCell> */}
                   <TableCell>
                     <Box
                       sx={{
@@ -220,7 +219,7 @@ const AdminCompany: FC = ({ ...rest }) => {
           </Table>
         </Box>
       </Card>
-    </SideBar>
+    </>
   );
 };
 

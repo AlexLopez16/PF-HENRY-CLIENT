@@ -1,14 +1,10 @@
 import { FC } from "react";
-import SideBar from "./SideBar/SideBar";
+// import SideBar from "./SideBar/SideBar";
 import AdminStudent from "./AdminStudent/AdminStudent";
-import { Box } from "@mui/system";
+import ChartsAdmin from "./ChartsAdmin";
 
 const DashboardAdmin: FC = () => {
-  return (
-    <>
-      <AdminStudent />
-    </>
-  );
+  return <ChartsAdmin />;
 };
 
 export default DashboardAdmin;
