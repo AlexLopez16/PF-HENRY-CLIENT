@@ -193,10 +193,7 @@ const ProjectForm: FC = () => {
         >
             <div>
                 <NavBar />
-                <SnackBar
-                    successMsg=" Solicitud enviada con exito"
-                    errorMsg="No puedes crear mas de un proyecto al mes si no eres premium!"
-                />
+                <SnackBar successMsg=" Solicitud enviada con exito" />
 
                 <Grid>
                     <Paper
