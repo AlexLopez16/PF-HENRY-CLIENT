@@ -15,8 +15,10 @@ import { string } from 'yup/lib/locale';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../reducers/rootReducer';
 import { Link, Navigate } from 'react-router-dom';
-import { validaToken, reSendEmail } from '../../actions/auth';
+import { validaToken, reSendEmail, isVerify } from '../../actions/auth';
 import { PreLoader } from '../PreLoader/PreLoader';
+import { showError } from '../../actions/error';
+import { SnackBar } from '../SnackBar/SnackBar';
 export const VerifyEmail: FC = () => {
     // Traemos el correo del estado.
     const { data } = useSelector((state: State) => state.auth);
@@ -43,16 +45,16 @@ export const VerifyEmail: FC = () => {
     };
 
     initialValues.email = data.email;
-
     const confirmClick = () => {
-        // console.log(localStorage.getItem('token'));
         let token: string | any = localStorage.getItem('token');
         if (token) dispatch(validaToken(token));
+        dispatch(isVerify(data.email));
     };
 
     return (
         <Container>
             <PreLoader />
+            <SnackBar />
             {data.verify ? <Navigate to="/projects" /> : null}
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                 <Paper
