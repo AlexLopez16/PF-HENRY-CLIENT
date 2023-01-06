@@ -204,12 +204,13 @@ export const AppRouter = () => {
             }
           />
 
+          <Route path="/dashboard" element={<SideBar />}>
             <Route index element={<DashboardAdmin />}></Route>
             <Route path="graphs" element={<DashboardAdmin />}></Route>
             <Route path="students" element={<AdminStudent />}></Route>
             <Route path="companies" element={<AdminCompany />}></Route>
             <Route path="projects" element={<AdminProject />}></Route>
-
+          </Route>
 
           <Route
             path="/Adminacceptprojects"
