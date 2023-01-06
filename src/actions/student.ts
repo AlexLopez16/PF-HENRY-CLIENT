@@ -41,18 +41,28 @@ export const getListStudents = (
 export const studentRegister = (values: object) => {
     return async (dispatch: Dispatch) => {
         try {
-            const res = await axios.post('/student', values);
-            // console.log(res.data);
-
+            const {data, status} = await axios.post('/student', values);
+            const { token, id, rol } = data;
+            console.log(data);
             dispatch({
                 type: types.studentRegister,
-                payload: res.data,
+                payload: data,
             });
+            // Si se registro correctamente, le hacemos iniciar sesion.
+            if (status) {
+                localStorage.setItem('token', token);
+                dispatch(login({ data, status, id, rol }));
+            }
         } catch (error: any) {
             console.log(error.response.data);
         }
     };
 };
+
+const login = (data: object) => ({
+    type: types.authLogin,
+    payload: data,
+});
 
 export const getStudentInfo = (id: string, token: string) => {
     return async (dispatch: Dispatch) => {
