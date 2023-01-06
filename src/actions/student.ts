@@ -216,10 +216,10 @@ export const unApplyStudent = (
                 type: types.requestFinished,
             });
         } catch (error) {
+            console.log(error);
             dispatch({
                 type: types.requestFinished,
             });
-            console.log(error);
         }
     };
 };
