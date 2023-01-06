@@ -25,7 +25,7 @@ import {
 import { types } from '../../types/types';
 import { Container, IconButton, Input, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 // let state: string[] | undefined = undefined;
 // let tecnologies: string[] | undefined = undefined;
 // let typeOfOrder: string | undefined = undefined;
@@ -49,7 +49,7 @@ const StudentsFilter: FC = () => {
     const { category, filters } = useSelector((state: State) => state.project);
     const filtros = filters?.tecnologies || []
     const categorys = category;
-    
+
     useEffect(() => {
         dispatch(
             getProjectsFilter(
@@ -209,6 +209,31 @@ const StudentsFilter: FC = () => {
         }
     };
 
+    const handleDelete = () => {
+
+        setSearch('')
+        dispatch(
+            getProjectsFilter(
+                inputFilter.typeOfOrder,
+                inputFilter.tecnologies,
+                token,
+                "",
+                inputFilter.categorie,
+                inputFilter.state,
+                6,
+                0
+            )
+        );
+        dispatch(
+            Filters(
+                inputFilter.typeOfOrder,
+                inputFilter.tecnologies,
+                "",
+                inputFilter.categorie,
+                inputFilter.state
+            )
+        );
+    }
     return (
         <Container>
             <Box
@@ -318,9 +343,19 @@ const StudentsFilter: FC = () => {
                             placeholder="Buscar por nombre del proyecto"
                             onChange={(e) => handlerchanges(e.target.value)}
                             sx={{ styledInput, width: 245 }}
-                            // value={inputFilter.search}
+                            value={search}
                         ></Input>
-                        <IconButton type="submit" aria-label="search">
+                        <IconButton
+                            aria-label="search"
+                            sx={{ padding: 0, }}
+
+
+                        >
+                            {search.length ? <HighlightOffIcon
+                                onClick={handleDelete}
+                            /> : ""}
+                        </IconButton>
+                        <IconButton type="submit" aria-label="search" sx={{ padding: 0 }}>
                             <SearchIcon />
                         </IconButton>
                     </form>
