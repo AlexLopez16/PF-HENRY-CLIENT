@@ -18,6 +18,7 @@ let limit;
 let init;
 const Pages: FC = () => {
     let location = useLocation();
+
     // console.log(location);
     let dispatch = useDispatch();
     let token = localStorage.getItem('token') || '';
@@ -80,7 +81,8 @@ const Pages: FC = () => {
         }
         if (
             location.pathname === '/Adminacceptprojects' ||
-            location.pathname === '/AdminProject'
+            location.pathname === '/AdminProject' ||
+            location.pathname === '/dashboard/projects'
         ) {
             if (filters) {
                 dispatch(
@@ -111,7 +113,10 @@ const Pages: FC = () => {
             }
         }
 
-        if (location.pathname === '/adminStudent') {
+        if (
+            location.pathname === '/adminStudent' ||
+            location.pathname === '/dashboard/students'
+        ) {
             dispatch(getListStudents(token, false, limit, init));
         }
     };
