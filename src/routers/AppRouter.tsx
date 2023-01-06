@@ -203,7 +203,7 @@ export const AppRouter = () => {
               </PrivateRoute>
             }
           />
-
+            <Route path="/dashboard" element={<SideBar/>}></Route>
             <Route index element={<DashboardAdmin />}></Route>
             <Route path="graphs" element={<DashboardAdmin />}></Route>
             <Route path="students" element={<AdminStudent />}></Route>
