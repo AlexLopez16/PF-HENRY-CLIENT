@@ -9,7 +9,6 @@ export const registerCompany = (values: Object) => {
         try {
             const {data, status} = await axios.post(`/company`, values);
             const { token, id, rol } = data;
-            console.log(data);
             dispatch({
                 type: types.registerCompany,
                 payload: data,

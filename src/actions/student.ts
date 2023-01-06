@@ -43,7 +43,6 @@ export const studentRegister = (values: object) => {
         try {
             const {data, status} = await axios.post('/student', values);
             const { token, id, rol } = data;
-            console.log(data);
             dispatch({
                 type: types.studentRegister,
                 payload: data,
