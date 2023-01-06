@@ -86,6 +86,7 @@ export const isVerify = (email: string | any) => {
             const res = await axios.get(`/account/confirm/isverify/${email}`);
         } catch (error: object | any) {
             // Guardamos respuesta de la request.
+            console.log(error)
             dispatch({
                 type: types.responseFinished,
                 payload: error.response,
