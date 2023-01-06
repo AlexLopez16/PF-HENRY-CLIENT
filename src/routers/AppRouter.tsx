@@ -37,6 +37,7 @@ import AdminAcceptProject from '../components/Admin/AdminProject/AdminAcceptProj
 import { Checkout } from '../pages/Checkout';
 import SideBar from '../components/Admin/SideBar/SideBar';
 import DashboardAdmin from '../components/Admin/DashboardAdmin';
+import { ApplicationForm } from '../components/project/ApplicationForm';
 
 export const AppRouter = () => {
     let { id } = useParams();
@@ -141,6 +142,16 @@ export const AppRouter = () => {
                         element={
                             <PrivateRoute>
                                 <ProjectForm />
+                            </PrivateRoute>
+                        }
+                    />
+
+                        TODO: revisar esto
+                    <Route
+                        path="/postulatedForm"
+                        element={
+                            <PrivateRoute>
+                                <ApplicationForm />
                             </PrivateRoute>
                         }
                     />

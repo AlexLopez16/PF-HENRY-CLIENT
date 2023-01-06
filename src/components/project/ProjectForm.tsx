@@ -67,14 +67,15 @@ const ProjectForm: FC = () => {
   const initialValues = {
     name: '',
     description: '',
+    question1: '',
+    question2: '',
+    question3: '',
     requirements: [],
   };
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required('* Ingresa el nombre del proyecto'),
-    description: Yup.string().required(
-      '* Ingresa una descripción del proyecto',
-    ),
+    description: Yup.string().required('* Ingresa una descripción del proyecto'),
   });
 
   const onSubmit = async (values: any, props: any) => {
@@ -97,9 +98,13 @@ const ProjectForm: FC = () => {
       requirements: listRequeriments,
       category: values?.category || category,
       images: imagesUrl,
+      questions: [values.question1, values.question2, values.question3] 
     };
 
     dispatch(newProject(data, token));
+    console.log(data);
+    
+    
 
     setTimeout(() => {
       props.resetForm();
@@ -184,261 +189,393 @@ const ProjectForm: FC = () => {
 
   return (
     <Box
-      sx={{
-        backgroundColor: 'black',
-      }}
-    >
-      <div>
-        <NavBar />
-        <Error />
-        <Grid>
-          <Paper
-            elevation={10}
-            style={{
-              width: 500,
-              height: '100%',
-              padding: 20,
-              margin: '50px auto',
-              marginBottom: 153,
-              marginTop: 100,
-            }}
+    sx={{
+      backgroundColor: 'black',
+    }}
+  >
+    <div>
+      <NavBar />
+      <Error />
+      <Grid>
+        <Paper
+          elevation={10}
+          style={{
+            width: 500,
+            height: '100%',
+            padding: 20,
+            margin: '50px auto',
+            marginBottom: 153,
+            marginTop: 100,
+          }}
+        >
+          <Grid textAlign='center' fontFamily='montserrat' sx={{ mb: 10}}>
+            <h2>Test de Aplicacion</h2>
+          </Grid>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
           >
-            <Grid textAlign='center' fontFamily='montserrat' sx={{ mb: 2 }}>
-              <h2>Crear proyecto</h2>
-            </Grid>
-            <Formik
-              initialValues={initialValues}
-              validationSchema={validationSchema}
-              onSubmit={onSubmit}
-            >
-              {(props) => (
-                <Form>
-                  <Field
-                    as={TextField}
-                    name='name'
-                    label='Nombre'
-                    placeholder='Nombre del projecto'
-                    fullWidth
-                    required
-                    color='info'
-                    sx={{ mb: 2 }}
-                    helperText={
-                      <ErrorMessage name='name'>
-                        {(msg) => <span style={{ color: '#d6423e' }}>{msg}</span>}
-                      </ErrorMessage>
-                    }
-                  />
+            {(props) => (
+              <Form>
+                {/* <Field
+                  as={TextField}
+                  name='name'
+                  label='Nombre'
+                  placeholder='Nombre del projecto'
+                  fullWidth
+                  required
+                  color='info'
+                  sx={{ mb: 2 }}
+                  helperText={
+                    <ErrorMessage name='name'>
+                      {(msg) => <span style={{ color: '#d6423e' }}>{msg}</span>}
+                    </ErrorMessage>
+                  }
+                />
+                <h3> </h3> */}
+                {/* <Field
+                  as={TextField}
+                  name='description'
+                  id='outlined-multiline-static'
+                  label='Descripción'
+                  multiline
 
-                  <Field
-                    as={TextField}
-                    name='description'
-                    id='outlined-multiline-static'
-                    label='Descripción'
-                    multiline
+                  placeholder='Descripción del proyecto'
+                  fullWidth
+                  required
+                  color='info'
+                  sx={{ mb: 2 }}
+                  helperText={
+                    <ErrorMessage name='description'>
+                      {(msg) => <span style={{ color: '#d6423e' }}>{msg}</span>}
+                    </ErrorMessage>
+                  }
+                /> */}
 
-                    placeholder='Descripción del proyecto'
-                    fullWidth
-                    required
-                    color='info'
-                    sx={{ mb: 2 }}
-                    helperText={
-                      <ErrorMessage name='description'>
-                        {(msg) => <span style={{ color: '#d6423e' }}>{msg}</span>}
-                      </ErrorMessage>
-                    }
-                  />
+<Grid textAlign='center' fontFamily='montserrat' sx={{ mb: 2 }}>
+            <h3>Test de Aplicacion</h3>
+          </Grid>
 
-                  <FormControl>
-                    <FormLabel color='info' id='group-label' required>
-                      Categoría
-                    </FormLabel>
-                    <RadioGroup
-                      row
-                      aria-labelledby='group-label'
-                      name='buttons-group'
-                      color='info'
-                      value={category}
-                      onChange={categoryChange}
-                      sx={{ mb: 2 }}
-                    >
-                      <FormControlLabel
-                        value='programacion-web'
-                        control={<Radio />}
-                        label='Programación Web'
-                      />
-                      <FormControlLabel
-                        value='data-science'
-                        control={<Radio />}
-                        label='Data Science'
-                      />
-                      <FormControlLabel
-                        value='other'
-                        control={<Radio />}
-                        label='Otro'
-                      />
-                    </RadioGroup>
-                  </FormControl>
+                <Field
+                  as={TextField}
+                  name='question1'
+                  label='Pregunta teorica 1'
+                  placeholder='¿Que quisieras preguntarle a tu nuevo Henry?'
+                  fullWidth
+                  color='info'
+                  sx={{ mb: 2 }}
+                />
 
-                  {category === 'other' && (
-                    <Field
-                      as={TextField}
-                      name='category'
-                      placeholder='Nombre de la categoría'
-                      label='Nombre de la categoría'
-                      fullWidth
-                      required
-                      color='info'
-                      sx={{ mb: 2 }}
-                    />
-                  )}
+                <Field
+                  as={TextField}
+                  name='question2'
+                  label='Pregunta teorica 2'
+                  placeholder='¿Que quisieras preguntarle a tu nuevo Henry?'
+                  fullWidth
+                  color='info'
+                  sx={{ mb: 2 }}
+                />
 
-                  <Field
-                    name='requirements'
-                    component={Autocomplete}
-                    options={tecnologies}
-                    getOptionLabel={(option: any) => option.name}
-                    multiple
-                    size='small'
-                    color='info'
-                    renderInput={(
-                      // params: AutocompleteRenderInputParams
-                      params: TextFieldProps,
-                    ) => (
-                      <TextField
-                        {...params}
-                        color='info'
-                        name='requirements'
-                        label='Requerimientos'
-                        placeholder='Requerimientos'
-                      />
-                    )}
-                    sx={{ mb: 2 }}
-                  />
+                <Field
+                  as={TextField}
+                  name='question3'
+                  label='Pregunta teorica 3'
+                  placeholder='¿Que quisieras preguntarle a tu nuevo Henry?'
+                  fullWidth
+                  // required
+                  color='info'
+                  sx={{ mb: 2 }}
+                />
 
-                  {/* <Field
-                    as={TextField}
-                    name='name'
-                    label='Test teorico'
-                    placeholder='Nombre del projecto'
-                    fullWidth
-                    color='info'
-                    sx={{ mb: 2 }}
-                    helperText={
-                      <ErrorMessage name='name'>
-                        {(msg) => <span style={{ color: '#d6423e' }}>{msg}</span>}
-                      </ErrorMessage>
-                    }
-                  /> */}
+                <Button
+                  sx={{ marginTop: 2, fontFamily: 'poppins' }}
+                  type='submit'
+                  variant='contained'
+                  fullWidth
+                  color='primary'
+                  disabled={props.isSubmitting}
 
-                  <TextField
-                    id="outlined-multiline-static"
-                    label='Test teorico'
-                    multiline
-                    fullWidth
-                    sx={{ mb: 2 }}
-                    rows={2}
-                  />
+                >
+                  Publicar Proyecto
+                </Button>
+              </Form>
+            )}
+          </Formik>
+        </Paper>
+      </Grid>
+    </div>
+    <Footer />
+  </Box>
+
+
+
+    // <Box
+    //   sx={{
+    //     backgroundColor: 'black',
+    //   }}
+    // >
+    //   <div>
+    //     <NavBar />
+    //     <Error />
+    //     <Grid>
+    //       <Paper
+    //         elevation={10}
+    //         style={{
+    //           width: 500,
+    //           height: '100%',
+    //           padding: 20,
+    //           margin: '50px auto',
+    //           marginBottom: 153,
+    //           marginTop: 100,
+    //         }}
+    //       >
+    //         <Grid textAlign='center' fontFamily='montserrat' sx={{ mb: 2 }}>
+    //           <h2>Crear proyecto</h2>
+    //         </Grid>
+    //         <Formik
+    //           initialValues={initialValues}
+    //           validationSchema={validationSchema}
+    //           onSubmit={onSubmit}
+    //         >
+    //           {(props) => (
+    //             <Form>
+    //               <Field
+    //                 as={TextField}
+    //                 name='name'
+    //                 label='Nombre'
+    //                 placeholder='Nombre del projecto'
+    //                 fullWidth
+    //                 required
+    //                 color='info'
+    //                 sx={{ mb: 2 }}
+    //                 helperText={
+    //                   <ErrorMessage name='name'>
+    //                     {(msg) => <span style={{ color: '#d6423e' }}>{msg}</span>}
+    //                   </ErrorMessage>
+    //                 }
+    //               />
+
+    //               <Field
+    //                 as={TextField}
+    //                 name='description'
+    //                 id='outlined-multiline-static'
+    //                 label='Descripción'
+    //                 multiline
+
+    //                 placeholder='Descripción del proyecto'
+    //                 fullWidth
+    //                 required
+    //                 color='info'
+    //                 sx={{ mb: 2 }}
+    //                 helperText={
+    //                   <ErrorMessage name='description'>
+    //                     {(msg) => <span style={{ color: '#d6423e' }}>{msg}</span>}
+    //                   </ErrorMessage>
+    //                 }
+    //               />
+
+    //               <FormControl>
+    //                 <FormLabel color='info' id='group-label' required>
+    //                   Categoría
+    //                 </FormLabel>
+    //                 <RadioGroup
+    //                   row
+    //                   aria-labelledby='group-label'
+    //                   name='buttons-group'
+    //                   color='info'
+    //                   value={category}
+    //                   onChange={categoryChange}
+    //                   sx={{ mb: 2 }}
+    //                 >
+    //                   <FormControlLabel
+    //                     value='programacion-web'
+    //                     control={<Radio />}
+    //                     label='Programación Web'
+    //                   />
+    //                   <FormControlLabel
+    //                     value='data-science'
+    //                     control={<Radio />}
+    //                     label='Data Science'
+    //                   />
+    //                   <FormControlLabel
+    //                     value='other'
+    //                     control={<Radio />}
+    //                     label='Otro'
+    //                   />
+    //                 </RadioGroup>
+    //               </FormControl>
+
+    //               {category === 'other' && (
+    //                 <Field
+    //                   as={TextField}
+    //                   name='category'
+    //                   placeholder='Nombre de la categoría'
+    //                   label='Nombre de la categoría'
+    //                   fullWidth
+    //                   required
+    //                   color='info'
+    //                   sx={{ mb: 2 }}
+    //                 />
+    //               )}
+
+    //               <Field
+    //                 name='requirements'
+    //                 component={Autocomplete}
+    //                 options={tecnologies}
+    //                 getOptionLabel={(option: any) => option.name}
+    //                 multiple
+    //                 size='small'
+    //                 color='info'
+    //                 renderInput={(
+    //                   // params: AutocompleteRenderInputParams
+    //                   params: TextFieldProps,
+    //                 ) => (
+    //                   <TextField
+    //                     {...params}
+    //                     color='info'
+    //                     name='requirements'
+    //                     label='Requerimientos'
+    //                     placeholder='Requerimientos'
+    //                   />
+    //                 )}
+    //                 sx={{ mb: 2 }}
+    //               />
+
+    //               <Field
+    //                 as={TextField}
+    //                 name='question1'
+    //                 label='Pregunta teorica 1'
+    //                 placeholder='¿Que quisieras preguntarle a tu nuevo Henry?'
+    //                 fullWidth
+    //                 color='info'
+    //                 sx={{ mb: 2 }}
+    //               />
+
+    //               <Field
+    //                 as={TextField}
+    //                 name='question2'
+    //                 label='Pregunta teorica 2'
+    //                 placeholder='¿Que quisieras preguntarle a tu nuevo Henry?'
+    //                 fullWidth
+    //                 color='info'
+    //                 sx={{ mb: 2 }}
+    //               />
+
+    //               <Field
+    //                 as={TextField}
+    //                 name='question3'
+    //                 label='Pregunta teorica 3'
+    //                 placeholder='¿Que quisieras preguntarle a tu nuevo Henry?'
+    //                 fullWidth
+    //                 // required
+    //                 color='info'
+    //                 sx={{ mb: 2 }}
+    //               />
+
+    //               <FormControl fullWidth>
+    //                 <InputLabel color='info' id='demo-simple-select-label'>
+    //                   Participantes
+    //                 </InputLabel>
+    //                 <Select
+    //                   labelId='demo-simple-select-label'
+    //                   id='demo-simple-select'
+    //                   color='info'
+    //                   value={participants}
+    //                   label='Participantes'
+    //                   onChange={participantChange}
+    //                   sx={{ mb: 2 }}
+    //                 >
+    //                   {nParticipants.map((number) => (
+    //                     <MenuItem key={number} value={number}>
+    //                       {number}
+    //                     </MenuItem>
+    //                   ))}
+    //                 </Select>
+    //               </FormControl>
                   
 
-                  <FormControl fullWidth>
-                    <InputLabel color='info' id='demo-simple-select-label'>
-                      Participantes
-                    </InputLabel>
-                    <Select
-                      labelId='demo-simple-select-label'
-                      id='demo-simple-select'
-                      color='info'
-                      value={participants}
-                      label='Participantes'
-                      onChange={participantChange}
-                      sx={{ mb: 2 }}
-                    >
-                      {nParticipants.map((number) => (
-                        <MenuItem key={number} value={number}>
-                          {number}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                  
+    //               {/* IMAGES */}
+    //               <FormControl fullWidth>
+    //                 <InputLabel>Images</InputLabel>
+    //                 <FilledInput
+    //                   disabled
+    //                   endAdornment={
+    //                     <InputAdornment position='end'>
+    //                       <IconButton
+    //                         aria-label='upload picture'
+    //                         component='label'
+    //                       >
+    //                         <input
+    //                           hidden
+    //                           accept='image/*'
+    //                           multiple
+    //                           type='file'
+    //                           onChange={handleFilesChange}
+    //                         />
+    //                         <FileUploadIcon />
+    //                       </IconButton>
+    //                     </InputAdornment>
+    //                   }
+    //                 />
+    //               </FormControl>
 
-                  {/* IMAGES */}
-                  <FormControl fullWidth>
-                    <InputLabel>Images</InputLabel>
-                    <FilledInput
-                      disabled
-                      endAdornment={
-                        <InputAdornment position='end'>
-                          <IconButton
-                            aria-label='upload picture'
-                            component='label'
-                          >
-                            <input
-                              hidden
-                              accept='image/*'
-                              multiple
-                              type='file'
-                              onChange={handleFilesChange}
-                            />
-                            <FileUploadIcon />
-                          </IconButton>
-                        </InputAdornment>
-                      }
-                    />
-                  </FormControl>
+    //               {images &&
+    //                 images.map((image) => (
+    //                   <div
+    //                     key={image.name}
+    //                     style={{
+    //                       display: 'flex',
+    //                       alignItems: 'center',
+    //                       justifyContent: 'space-between',
+    //                       background: '#e5e5e5',
+    //                       marginTop: '10px',
+    //                       padding: '10px',
+    //                     }}
+    //                   >
+    //                     <ImageIcon />
+    //                     <div style={{ fontSize: '12px' }}>
+    //                       <p>{image.name}</p>
+    //                       <p>{image.size / 1000} KB</p>
+    //                     </div>
+    //                     <button
+    //                       id={image.name}
+    //                       onClick={imageClick}
+    //                       style={{
+    //                         width: '25px',
+    //                         border: 'none',
+    //                         background: 'inherit',
+    //                         cursor: 'pointer',
+    //                       }}
+    //                     >
+    //                       <img src={deleteIcon} id={image.name} alt='Delete' />
+    //                     </button>
+    //                   </div>
+    //                 ))}
 
-                  {images &&
-                    images.map((image) => (
-                      <div
-                        key={image.name}
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'space-between',
-                          background: '#e5e5e5',
-                          marginTop: '10px',
-                          padding: '10px',
-                        }}
-                      >
-                        <ImageIcon />
-                        <div style={{ fontSize: '12px' }}>
-                          <p>{image.name}</p>
-                          <p>{image.size / 1000} KB</p>
-                        </div>
-                        <button
-                          id={image.name}
-                          onClick={imageClick}
-                          style={{
-                            width: '25px',
-                            border: 'none',
-                            background: 'inherit',
-                            cursor: 'pointer',
-                          }}
-                        >
-                          <img src={deleteIcon} id={image.name} alt='Delete' />
-                        </button>
-                      </div>
-                    ))}
+    //               <Button
+    //                 sx={{ marginTop: 2, fontFamily: 'poppins' }}
+    //                 type='submit'
+    //                 variant='contained'
+    //                 fullWidth
+    //                 color='primary'
+    //                 disabled={props.isSubmitting}
 
-                  <Button
-                    sx={{ marginTop: 2, fontFamily: 'poppins' }}
-                    type='submit'
-                    variant='contained'
-                    fullWidth
-                    color='primary'
-                    disabled={props.isSubmitting}
+    //               >
+    //                 Publicar Proyecto
+    //               </Button>
+    //             </Form>
+    //           )}
+    //         </Formik>
+    //       </Paper>
+    //     </Grid>
+    //   </div>
+    //   <Footer />
+    // </Box>
 
-                  >
-                    Publicar Proyecto
-                  </Button>
-                </Form>
-              )}
-            </Formik>
-          </Paper>
-        </Grid>
-      </div>
-      <Footer />
-    </Box>
+    ////////////////////////////////////////////////////////////////////////////////////////
+
+    
   );
 };
 
