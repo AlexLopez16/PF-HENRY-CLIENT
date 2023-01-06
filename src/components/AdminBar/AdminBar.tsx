@@ -49,9 +49,11 @@ export default function AccountMenu() {
     const token = localStorage.getItem('token') || '';
 
     React.useEffect(() => {
-        rol === 'STUDENT_ROL'
+        rol === 'STUDENT_ROL' && data.verify
             ? dispatch(getStudentInfo(id, token))
-            : dispatch(companyGetInfo(id, token));
+            : rol === 'COMPANY_ROL' && data.verify
+            ? dispatch(companyGetInfo(id, token))
+            : null;
     }, [dispatch]);
     const navigate = useNavigate();
 
@@ -156,14 +158,14 @@ export default function AccountMenu() {
                     </>
                 ) : null}
 
-                {rol === 'COMPANY_ROL' && (
+                {rol === 'COMPANY_ROL' && data.verify ? (
                     <MenuItem onClick={() => setOpenModal(true)}>
                         <ListItemIcon>
                             <WorkspacePremiumIcon fontSize="small" />
                         </ListItemIcon>
                         Premium
                     </MenuItem>
-                )}
+                ) : null}
 
                 <MenuItem onClick={handlerLogout}>
                     <ListItemIcon>
