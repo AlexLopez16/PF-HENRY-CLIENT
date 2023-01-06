@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useNavigate } from 'react-router';
-
+import ScrollToTop from 'react-scroll-to-top';
 import { Button, Typography, Box, Grid, Container } from '@mui/material';
 import Header from '../../components/NavbarLandingPage/HeaderLanding';
 import Footer from './Footer';
@@ -10,7 +10,6 @@ import objetivo from '../../assets/objetivo.png';
 import objetivoCompany from '../../assets/objetivocompany.png';
 import objetivoStudent from '../../assets/objetivostudent.png';
 import bannerLanding from '../../assets/bannerLanding.png';
-
 import Carousel from './Carousel';
 
 const LandingPage: FC = () => {
@@ -32,6 +31,23 @@ const LandingPage: FC = () => {
             backgroundColor: 'black',
           }}
         >
+          <ScrollToTop
+            smooth
+            style={{ backgroundColor: '#ffff01',  }}
+            component={
+              <p
+                style={{
+                  backgroundColor: '#ffff01',
+                  fontSize: 30,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: 20
+                }}
+              >
+                🡅
+              </p>
+            }
+          />
           <Container>
             <Box
               sx={{
@@ -40,7 +56,6 @@ const LandingPage: FC = () => {
                 pt: 10,
               }}
             ></Box>
-
             <Box
               sx={{
                 justifyContent: 'center',
@@ -82,58 +97,65 @@ const LandingPage: FC = () => {
                 profesionales con grandes oportunidades de crecimiento,
                 aprendizaje y mucho más.
               </Typography>
-
-              <Button
-                size='small'
-                variant='contained'
-                onClick={studentClick}
-                sx={{
-                  display: 'inline-flex',
-                  borderRadius: 7,
-                  fontFamily: 'poppins',
-                }}
-              >
-                Ser parte del proyecto
-              </Button>
-              <span>....</span>
-              <Button
-                size='small'
-                variant='contained'
-                onClick={companyClick}
-                sx={{
-                  display: 'inline-flex',
-                  color: 'black',
-                  borderRadius: 7,
-                  fontFamily: 'poppins',
-                }}
-              >
-                Crear proyecto
-              </Button>
+              <Container style={{ marginTop: 50 }}>
+                <Button
+                  size='medium'
+                  variant='contained'
+                  onClick={studentClick}
+                  sx={{
+                    display: 'inline-flex',
+                    borderRadius: 7,
+                    fontFamily: 'poppins',
+                  }}
+                >
+                  Ser parte del proyecto
+                </Button>
+                <span>....</span>
+                <Button
+                  size='medium'
+                  variant='contained'
+                  onClick={companyClick}
+                  sx={{
+                    display: 'inline-flex',
+                    color: 'black',
+                    borderRadius: 7,
+                    fontFamily: 'poppins',
+                  }}
+                >
+                  Crear proyecto
+                </Button>
+              </Container>
             </Box>
           </Container>
           <Box>
-            <Grid
-              direction='column'
-              justifyContent='center'
-              alignItems='center'
-              sx={{
-                backgroundColor: '#1b384a',
-              }}
-            >
-              <Typography
-                variant='h4'
+            <Container>
+              <Grid
+                direction='column'
+                justifyContent='center'
+                alignItems='center'
                 sx={{
+                  mt: 20,
+                  backgroundColor: '#1b384a',
                   textAlign: 'center',
-                  mt: 25,
+                  color: 'white',
+                  fontFamily: 'montserrat',
                   pb: 4,
                   pt: 4,
-                  color: 'white',
-                  fontFamily: 'poppins',
+                  borderRadius: 10,
                 }}
               >
-                EL OBJETIVO
-              </Typography>
-              <Container>
+                <Typography
+                  variant='h4'
+                  sx={{
+                    textAlign: 'center',
+                    pb: 4,
+                    color: 'white',
+                    fontFamily: 'poppins',
+                  }}
+                >
+                  EL OBJETIVO
+                </Typography>
+
                 <Typography
                   variant='h5'
                   sx={{
@@ -147,8 +169,8 @@ const LandingPage: FC = () => {
                   promoviendo la autonomía, el desarrollo de talento y la
                   igualdad de oportunidades para todos, desde donde sea.
                 </Typography>
-              </Container>
-            </Grid>
+              </Grid>
+            </Container>
 
             <Container>
               <Typography

@@ -7,34 +7,51 @@ import { NavLink } from "react-router-dom";
 const linkStyle = {
   textDecoration: "none",
   color: "inherit",
+  width: "100%",
+  borderRadius: "6px",
+  padding: "0 ",
+};
+
+const activeLinkStyle = {
+  backgroundColor: "#FFFF01",
+  ...linkStyle,
 };
 
 const buttons = [
   {
-    option: "panel de alumnos",
-    path: "/adminStudent",
+    option: "Inicio",
+    path: "/dashboard/graphs",
   },
   {
-    option: "panel de companias",
-    path: "/adminCompany",
+    option: "Alumnos",
+    path: "/dashboard/students",
   },
   {
-    option: "panel de projectos",
-    path: "/adminProject",
+    option: "Companias",
+    path: "/dashboard/companies",
+  },
+  {
+    option: "Projectos",
+    path: "/dashboard/projects",
   },
 ];
 
-export const userItemsList: JSX.Element[] = buttons.map((button: any) => {
-  return (
-    <List>
-      <ListItem>
-        <NavLink to={button.path} style={linkStyle}>
-          <ListItemButton>
-            <AccountCircleIcon />
-            <ListItemText primary={button.option} sx={{ pl: 2 }} />
-          </ListItemButton>
-        </NavLink>
-      </ListItem>
-    </List>
-  );
-});
+export const userItemsList: JSX.Element = (
+  <List>
+    {buttons.map((button: any) => {
+      return (
+        <ListItem>
+          <NavLink
+            to={button.path}
+            style={({ isActive }) => (isActive ? activeLinkStyle : linkStyle)}
+          >
+            <ListItemButton>
+              <AccountCircleIcon />
+              <ListItemText primary={button.option} sx={{ pl: 2 }} />
+            </ListItemButton>
+          </NavLink>
+        </ListItem>
+      );
+    })}
+  </List>
+);

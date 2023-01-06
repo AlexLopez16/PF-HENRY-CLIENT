@@ -6,6 +6,7 @@ import { Input, Autocomplete, TextField, FormControl, InputLabel, Select, MenuIt
 import { getCategory, getProjectsFilter } from '../../actions/projects';
 import { State } from '../../reducers/rootReducer';
 
+import { valueOrDefault } from 'chart.js/dist/helpers/helpers.core';
 export const Filters = () => {
     const dispatch = useDispatch();
     let token = localStorage.getItem("token") || "";
@@ -138,7 +139,7 @@ export const Filters = () => {
                 alignItems: "center",
             }}
         >
-            
+
             <div style={{ width: 255 }}>
                 <Autocomplete
                     onChange={(e, value) => {
