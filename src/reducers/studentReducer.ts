@@ -1,16 +1,16 @@
-
 // import { type, userInfo } from "os";
-import { types } from "../types/types";
-
+import { types } from '../types/types';
 
 interface State {
     user: object | any;
+    total1: number | any;
 }
 
 const initialState: object | any = {
     user: {
         project: [],
     },
+    total1: 0,
 };
 
 type Action = {
@@ -21,9 +21,11 @@ type Action = {
 export const studentReducer = (state: State = initialState, action: Action) => {
     switch (action.type) {
         case types.getListStudents:
+            const { total, students }: any = action.payload;
             return {
                 ...state,
-                users: action.payload,
+                users: students,
+                total1: total,
             };
 
         case types.studentRegister:

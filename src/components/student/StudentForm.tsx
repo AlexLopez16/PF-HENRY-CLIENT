@@ -21,19 +21,20 @@ import { GitHubLogin } from '../auth/GitHubLogin';
 // import { GoogleLogin } from "../auth/GoogleLogin";
 
 import { useDispatch } from 'react-redux';
-import type { } from 'redux-thunk/extend-redux';
+import type {} from 'redux-thunk/extend-redux';
 import { studentRegister } from '../../actions/student';
 import { GoogleLogin } from '@react-oauth/google';
 import { gmailLogin } from '../../actions/auth';
 import Header from '../NavbarLandingPage/HeaderLanding';
 import Footer from '../../pages/LandingPage/Footer';
 import { Link } from 'react-router-dom';
-import { alert } from "../AlertMail/alertMailStudent"
+import { alert } from '../AlertMail/alertMailStudent';
 
-import Logo from '../../assets/NABIJASH.png'
+import Logo from '../../assets/NABIJASH.png';
 
 export const StudensForm: FC = () => {
   const [showPassword, setShowPassword] = useState(false);
+
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -58,6 +59,7 @@ export const StudensForm: FC = () => {
       .matches(/[^\w]/, 'Se requiere un simbolo'),
   });
 
+
   type Values = {
     name: string;
     lastName: string;
@@ -65,17 +67,21 @@ export const StudensForm: FC = () => {
     password: string;
   };
 
-  const dispatch = useDispatch();
 
-    const onSubmit = (values: Values) => {
-      dispatch(studentRegister({
-        name:values.name.trim(),
-        lastName:values.lastName.trim(),
-        email:values.email.trim(),
-        password:values.password.trim()
-      }));
-      dispatch(alert)
-    };
+  const dispatch = useDispatch();
+  
+
+  const onSubmit = (values: Values) => {
+    dispatch(
+      studentRegister({
+        name: values.name.trim(),
+        lastName: values.lastName.trim(),
+        email: values.email.trim(),
+        password: values.password.trim(),
+      }),
+    );
+    dispatch(alert);
+  };
 
 
   return (
@@ -250,7 +256,10 @@ export const StudensForm: FC = () => {
                     size='large'
                     onSuccess={(credentialResponse) => {
                       dispatch(
-                        gmailLogin(credentialResponse.credential as string, 'student'),
+                        gmailLogin(
+                          credentialResponse.credential as string,
+                          'student',
+                        ),
                       );
                     }}
                     //revisar este console.log
@@ -279,7 +288,6 @@ export const StudensForm: FC = () => {
                 Ingresa
               </Link>
             </Typography>
-
           </Paper>
         </Grid>
       </div>

@@ -264,7 +264,7 @@ const MyProjectStudent: FC = () => {
                                 </Paper>
                             </div>
                         </>
-                    ) : user.project.length ? (
+                    ) : user.project?.length ? (
                         <>
                             <Typography
                                 variant="h6"

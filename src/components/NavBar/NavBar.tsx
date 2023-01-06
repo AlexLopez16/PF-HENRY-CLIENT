@@ -1,11 +1,11 @@
 import { FC, useEffect, useState } from 'react';
 import {
-    AppBar,
-    Box,
-    Button,
-    Container,
-    Toolbar,
-    Typography,
+  AppBar,
+  Box,
+  Button,
+  Container,
+  Toolbar,
+  Typography,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../reducers/rootReducer';
@@ -16,20 +16,20 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link, useNavigate } from 'react-router-dom';
 
-import Logo from '../../assets/NABIJASH.png'
+import Logo from '../../assets/NABIJASH.png';
 
 const NavBar: FC = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     // Traemos el rol.
-    const { data } = useSelector((state: State) => state.auth);
+    const { data }: any = useSelector((state: State) => state.auth);
     const rol = data.rol;
     const dispatch = useDispatch();
     const token: string = localStorage.getItem('token') || '';
 
-    useEffect(() => {
-        rol === 'STUDENT_ROL' ? dispatch(getStudentInfo(data.id, token)) : null;
-    }, [dispatch]);
+  useEffect(() => {
+    rol === 'STUDENT_ROL' ? dispatch(getStudentInfo(data.id, token)) : null;
+  }, [dispatch]);
 
     // Paths y opciones de boton para el student.
     const studentButtons = [
@@ -75,14 +75,22 @@ const NavBar: FC = () => {
         // },
     ];
 
+    // Paths para el usuario que tiene que verificar su cuenta.
+    const verifyButtons = [
+        {
+            option: 'Verificar',
+            path: '/verifyemail',
+        },
+    ];
+
     const buttonList =
-        rol === 'STUDENT_ROL'
+        rol === 'STUDENT_ROL' && data.verify
             ? studentButtons
-            : rol === 'COMPANY_ROL'
-                ? companyButtons
-                : rol === 'ADMIN_ROL'
-                    ? adminButtons
-                    : [];
+            : rol === 'COMPANY_ROL' && data.verify
+            ? companyButtons
+            : rol === 'ADMIN_ROL' && data.verify
+            ? adminButtons
+            : verifyButtons;
 
     //MENU RESPONSIVE
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
@@ -93,15 +101,12 @@ const NavBar: FC = () => {
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
-
     };
 
     return (
         <AppBar position="sticky">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-
-
                     <Typography
                         variant="h6"
                         noWrap
@@ -119,11 +124,24 @@ const NavBar: FC = () => {
                             cursor: 'pointer',
                         }}
                     >
-                        <img src={Logo} alt="Logo" style={{ background: 'black', width: 'auto', maxHeight: '50px' }} />
+                        <img
+                            src={Logo}
+                            alt="Logo"
+                            style={{
+                                background: 'black',
+                                width: 'auto',
+                                maxHeight: '50px',
+                            }}
+                        />
                         {/* LOGO */}
                     </Typography>
 
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                    <Box
+                        sx={{
+                            flexGrow: 1,
+                            display: { xs: 'flex', md: 'none' },
+                        }}
+                    >
                         <IconButton
                             size="large"
                             aria-label="account of current user"
@@ -154,14 +172,15 @@ const NavBar: FC = () => {
                         >
                             {buttonList.map((button) => (
                                 <Link key={button.option} to={button.path}>
-                                    <MenuItem  onClick={handleCloseNavMenu}>
-                                        <Typography textAlign="center">{button.option}</Typography>
+                                    <MenuItem onClick={handleCloseNavMenu}>
+                                        <Typography textAlign="center">
+                                            {button.option}
+                                        </Typography>
                                     </MenuItem>
                                 </Link>
                             ))}
                         </Menu>
                     </Box>
-
 
                     <Typography
                         variant="h5"
@@ -176,19 +195,54 @@ const NavBar: FC = () => {
                             letterSpacing: '.3rem',
                             color: 'inherit',
                             textDecoration: 'none',
-                            cursor: 'pointer'
+                            cursor: 'pointer',
                         }}
                     >
-                        <img src={Logo} alt="Logo" style={{ background: 'black', width: 'auto', maxHeight: '50px' }} />
+                        <img
+                            src={Logo}
+                            alt="Logo"
+                            style={{
+                                background: 'black',
+                                width: 'auto',
+                                maxHeight: '50px',
+                            }}
+                        />
                         {/* LOGO */}
                     </Typography>
+                    <Typography
+                        variant="h5"
+                        noWrap
+                        onClick={() => navigate('/projects')}
+                        sx={{
+                            mr: 2,
+                            display: { xs: 'flex', md: 'none' },
+                            flexGrow: 1,
+                            fontFamily: 'monospace',
+                            fontWeight: 700,
+                            letterSpacing: '.3rem',
+                            color: 'inherit',
+                            textDecoration: 'none',
+                            cursor: 'pointer',
+                        }}
+                    >
+                        LOGO
+                    </Typography>
 
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                    <Box
+                        sx={{
+                            flexGrow: 1,
+                            display: { xs: 'none', md: 'flex' },
+                        }}
+                    >
                         {buttonList.map((button) => (
                             <Link key={button.option} to={button.path}>
-                                <Button      
+                                <Button
                                     onClick={handleCloseNavMenu}
-                                    sx={{ my: 2, color: 'black', display: 'block' }}
+                                    sx={{
+                                        my: 2,
+                                        color: 'black',
+                                        display: 'block',
+                                    }}
                                 >
                                     {button.option}
                                 </Button>
@@ -197,7 +251,6 @@ const NavBar: FC = () => {
                     </Box>
 
                     <AccountMenu />
-
                 </Toolbar>
             </Container>
         </AppBar>
