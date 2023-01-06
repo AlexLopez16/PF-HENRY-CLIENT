@@ -124,6 +124,7 @@ const AdminProject: FC = ({ ...rest }) => {
   return (
     <>
       <PreLoader />
+      <>{/* <Filters /> */}</>
       <Card {...rest}>
         <Box sx={{ minWidth: 1050 }}>
           <Table>
