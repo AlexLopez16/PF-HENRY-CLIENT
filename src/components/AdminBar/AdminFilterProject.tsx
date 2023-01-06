@@ -208,14 +208,14 @@ const AdminFilterProject: FC<Filter> = ({ source }) => {
                                 sx={{
                                     styledInput,
                                     width: 330,
-                                    marginLeft: -40,
+                                    marginLeft: 0,
                                 }}
                                 // value={inputFilter.search}
                             ></Input>
                             <IconButton
                                 type="submit"
                                 aria-label="search"
-                                sx={{ marginRight: 12 }}
+                                sx={{ marginRight: 8 }}
                             >
                                 <SearchIcon />
                             </IconButton>
