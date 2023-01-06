@@ -115,6 +115,11 @@ export const gmailLogin = (tok: string, userType?: string) => {
             dispatch({
                 type: types.requestFinished,
             });
+            // Guardamos respuesta de la request.
+            dispatch({
+                type: types.responseFinished,
+                payload: error.response,
+            });
             dispatch({
                 type: types.authLogin,
                 logged: false,
@@ -138,15 +143,25 @@ export const forgotPassword = (email: string) => {
                 type: types.requestInProgress,
             });
             const res = await axios.get(`/recover/password?email=${email}`);
-
             dispatch({
                 type: types.requestFinished,
+            });
+            // Si todo sale bien.
+            dispatch({
+                type: types.responseFinished,
+                payload: res,
             });
         } catch (error: any) {
             // console.log(error);
             dispatch({
                 type: types.requestFinished,
             });
+            // Guardamos respuesta de la request.
+            dispatch({
+                type: types.responseFinished,
+                payload: error.response,
+            });
+            // Guardamos respuesta de la request.
         }
     };
 };
@@ -164,6 +179,10 @@ export const recoverPassword = (password: string, token: string | any) => {
             );
             dispatch({
                 type: types.requestFinished,
+            });
+            // Si todo sale bien.
+            dispatch({
+                type: types.responseFinished,
                 payload: res,
             });
             // console.log(res.data);
@@ -171,6 +190,11 @@ export const recoverPassword = (password: string, token: string | any) => {
             // console.log(error);
             dispatch({
                 type: types.requestFinished,
+                payload: error.response,
+            });
+            // Guardamos respuesta de la request.
+            dispatch({
+                type: types.responseFinished,
                 payload: error.response,
             });
         }
