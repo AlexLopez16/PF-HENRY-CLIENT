@@ -33,8 +33,7 @@ import { deleteuser } from "../../../actions/Admin";
 import { Visibility } from "@mui/icons-material";
 import Pages from "../../ui/Pagination";
 import { Filters } from "../../ui/Filters";
-
-ChartJS.register(ArcElement, Tooltip, Legend);
+import { PreLoader } from "../../PreLoader/PreLoader";
 
 export interface Options {
   splitRegexp?: RegExp | RegExp[];
@@ -50,7 +49,18 @@ const AdminProject: FC = ({ ...rest }) => {
   const token: any = localStorage.getItem("token");
 
   useEffect(() => {
-    dispatch(getAllProject(token));
+    dispatch(
+      getAllProject(
+        undefined,
+        undefined,
+        token,
+        undefined,
+        undefined,
+        undefined,
+        6,
+        0
+      )
+    );
   }, [dispatch]);
 
   const { projectsFilter } = useSelector((state: State) => state.project);
@@ -58,7 +68,6 @@ const AdminProject: FC = ({ ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState<string[]>([]);
   const [limit, setLimit] = useState(12);
   const [page, setPage] = useState(0);
- 
 
   const handleSelectAll = (event: any) => {
     let newSelectedCustomerIds;
@@ -98,9 +107,9 @@ const AdminProject: FC = ({ ...rest }) => {
     setSelectedCustomerIds(newSelectedCustomerIds);
   };
 
-  const handleSwitch = (id:string) => {
+  const handleSwitch = (id: string) => {
     // selectedCustomerIds.forEach((selectID: any) =>
-      dispatch(deleteuser(token, id))
+    dispatch(deleteuser(token, id));
     // );
   };
 
@@ -114,6 +123,7 @@ const AdminProject: FC = ({ ...rest }) => {
 
   return (
     <>
+      <PreLoader />
       <>{/* <Filters /> */}</>
       <Card {...rest}>
         <Box sx={{ minWidth: 1050 }}>
@@ -191,7 +201,7 @@ const AdminProject: FC = ({ ...rest }) => {
                           defaultChecked={projects.state}
                           size="small"
                           color="primary"
-                          onChange={()=>handleSwitch(projects.uid)}
+                          onChange={() => handleSwitch(projects.uid)}
                         />
                       }
                       label={undefined}
@@ -202,10 +212,8 @@ const AdminProject: FC = ({ ...rest }) => {
             </TableBody>
           </Table>
         </Box>
-      </Card>
-      <>
         <Pages />
-      </>
+      </Card>
     </>
   );
 };

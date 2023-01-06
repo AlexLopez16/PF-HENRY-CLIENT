@@ -6,17 +6,31 @@ import { fileUpload } from '../helpers/fileUpload';
 
 export const getListStudents = (
     token: string | null,
-    state: Boolean = true
+    state: Boolean = true,
+    limit?: number | null,
+    init?: number | null
 ) => {
     return async (dispatch: Dispatch) => {
         try {
-            const res = await axios.get(`/student?onlyActive=${state}`, {
+            let query;
+            if (!state) {
+                query = `onlyActive=${state}`;
+            }
+            if (limit || init) {
+                console.log(limit, init);
+                if (query) {
+                    query += `&limit=${limit}&init=${init}`;
+                } else {
+                    query = `limit=${limit}&init=${init}`;
+                }
+            }
+            const res = await axios.get(`/student?${query}`, {
                 headers: { 'user-token': token },
             });
 
             dispatch({
                 type: types.getListStudents,
-                payload: res.data.students,
+                payload: res.data,
             });
         } catch (error: any) {
             // console.log(error);
