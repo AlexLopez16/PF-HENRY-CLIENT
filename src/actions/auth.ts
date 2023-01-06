@@ -60,7 +60,7 @@ export const reSendEmail = (token: string | any, email: string | any) => {
             });
             dispatch({
                 type: types.responseFinished,
-                payload: res
+                payload: res,
             });
         } catch (error: any) {
             console.log(error);
@@ -86,7 +86,7 @@ export const isVerify = (email: string | any) => {
             const res = await axios.get(`/account/confirm/isverify/${email}`);
         } catch (error: object | any) {
             // Guardamos respuesta de la request.
-            console.log(error)
+            // console.log(error);
             dispatch({
                 type: types.responseFinished,
                 payload: error.response,
@@ -139,6 +139,7 @@ export const gmailLogin = (tok: string, userType?: string) => {
                 dispatch(login({ data, status, token, id, rol }));
             }
         } catch (error: any) {
+            // console.log(error);
             dispatch({
                 type: types.requestFinished,
             });
