@@ -7,17 +7,27 @@ import { fileUpload } from '../helpers/fileUpload';
 export const registerCompany = (values: Object) => {
     return async (dispatch: Dispatch) => {
         try {
-            const res = await axios.post(`/company`, values);
-            // console.log(res);
+            const {data, status} = await axios.post(`/company`, values);
+            const { token, id, rol } = data;
             dispatch({
                 type: types.registerCompany,
-                payload: res.data,
+                payload: data,
             });
+             // Si se registro correctamente, le hacemos iniciar sesion.
+             if (status) {
+                localStorage.setItem('token', token);
+                dispatch(login({ data, status, id, rol }));
+            }
         } catch (error) {
             console.log(error);
         }
     };
 };
+
+const login = (data: object) => ({
+    type: types.authLogin,
+    payload: data,
+});
 
 export const acceptStudent = (
     id: string | any,

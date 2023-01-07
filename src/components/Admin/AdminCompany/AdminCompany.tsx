@@ -26,18 +26,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import EditIcon from "@mui/icons-material/Edit";
 import React from "react";
-import SideBar from "../SideBar/SideBar";
-
-ChartJS.register(ArcElement, Tooltip, Legend);
-
-export interface Options {
-  splitRegexp?: RegExp | RegExp[];
-  stripRegexp?: RegExp | RegExp[];
-  delimiter?: string;
-  transform?: (part: string, index: number, parts: string[]) => string;
-}
-
-export declare function sentenceCase(input: string, options?: Options): string;
+import { PreLoader } from "../../PreLoader/PreLoader";
 
 const AdminCompany: FC = ({ ...rest }) => {
   const { user }: object | any = useSelector((state: State) => state.company);
@@ -119,23 +108,13 @@ const AdminCompany: FC = ({ ...rest }) => {
   };
 
   return (
-    <SideBar>
-      <Card {...rest}>
+    <>
+      <PreLoader />
+      <Card>
         <Box sx={{ minWidth: 900 }}>
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell padding="checkbox">
-                  <Checkbox
-                    checked={selectedCustomerIds.length === users?.length}
-                    color="primary"
-                    indeterminate={
-                      selectedCustomerIds.length > 0 &&
-                      selectedCustomerIds.length < users?.length
-                    }
-                    onChange={handleSelectAll}
-                  />
-                </TableCell>
                 <TableCell>Nombre</TableCell>
                 <TableCell>Email</TableCell>
                 <TableCell>Locación</TableCell>
@@ -152,13 +131,6 @@ const AdminCompany: FC = ({ ...rest }) => {
                   key={user.uid}
                   selected={selectedCustomerIds.indexOf(user.uid) !== -1}
                 >
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={selectedCustomerIds.indexOf(user.uid) !== -1}
-                      onChange={(event) => handleSelectOne(event, user.uid)}
-                      value="true"
-                    />
-                  </TableCell>
                   <TableCell>
                     <Box
                       sx={{
@@ -176,9 +148,6 @@ const AdminCompany: FC = ({ ...rest }) => {
                   <TableCell>
                     {user.country ? user.country : "No registrado"}
                   </TableCell>
-                  {/* <TableCell>
-                {user.state ? "Activo": "Inactivo"}
-              </TableCell> */}
 
                   <TableCell align="left">
                     <InputLabel color={user.state ? "success" : "error"}>
@@ -220,7 +189,7 @@ const AdminCompany: FC = ({ ...rest }) => {
           </Table>
         </Box>
       </Card>
-    </SideBar>
+    </>
   );
 };
 

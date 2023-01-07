@@ -54,9 +54,9 @@ const AboutUsPage: FC = () => {
   };
 
   return (
-    <>
+    <div>
       <Header />
-      <Box sx={{ backgroundImage: `url(${aboutbg})` }}>
+      <Box sx={{ backgroundImage: `url(${aboutbg})`, display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <Typography
           variant='h3'
           sx={{ textAlign: 'center', pt: 20, pb: 4, color: 'white' }}
@@ -643,7 +643,7 @@ const AboutUsPage: FC = () => {
         </Box>
       </Box>
       <Footer />
-    </>
+    </div>
   );
 };
 export default AboutUsPage;
