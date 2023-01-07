@@ -1,14 +1,15 @@
-import { FC } from 'react'
+import { FC } from 'react';
 import { Link, Button } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
 export const GitHubLogin: FC = () => {
-
-    const URI = process.env.REACT_APP_API || 'http://localhost:3001'
+    const URI = process.env.REACT_APP_API || 'http://localhost:3001/api';
 
     return (
-        <Link href={`https://github.com/login/oauth/authorize?client_id=87e69cf79c2019d84894&redirect_uri=${URI}/auth?&scope=user:email`}
-            underline="none">
+        <Link
+            href={`https://github.com/login/oauth/authorize?client_id=87e69cf79c2019d84894&redirect_uri=${URI}/auth?&scope=user:email`}
+            underline="none"
+        >
             <Button
                 variant="contained"
                 fullWidth
