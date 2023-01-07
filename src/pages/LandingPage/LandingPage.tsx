@@ -5,6 +5,7 @@ import { Button, Typography, Box, Grid, Container } from '@mui/material';
 import Header from '../../components/NavbarLandingPage/HeaderLanding';
 import Footer from './Footer';
 
+import bg from '../../assets/bg.png';
 import logo from '../../assets/NABIJASH.png';
 import objetivo from '../../assets/objetivo.png';
 import objetivoCompany from '../../assets/objetivocompany.png';
@@ -28,12 +29,13 @@ const LandingPage: FC = () => {
       <Grid direction='column' justifyContent='center' alignItems='center'>
         <Box
           sx={{
-            backgroundColor: 'black',
+            backgroundImage: `url(${bg})`,
+            maxWidth: '1920px',
           }}
         >
           <ScrollToTop
             smooth
-            style={{ backgroundColor: '#ffff01',  }}
+            style={{ backgroundColor: '#ffff01' }}
             component={
               <p
                 style={{
@@ -41,7 +43,7 @@ const LandingPage: FC = () => {
                   fontSize: 30,
                   alignItems: 'center',
                   justifyContent: 'center',
-                  borderRadius: 20
+                  borderRadius: 20,
                 }}
               >
                 🡅
@@ -285,14 +287,20 @@ const LandingPage: FC = () => {
                 ofrezcan las empresas dentro de la plataforma.
               </Typography>
             </Container>
-            <Grid container alignItems='center' justifyContent='center'>
-              <img
-                src={bannerLanding}
-                style={{
-                  marginTop: 100,
-                }}
-              />
-            </Grid>
+            <Container>
+              <Grid container alignItems='center' justifyContent='center'>
+                <img
+                  src={bannerLanding}
+                  style={{
+                    marginTop: 100,
+                    borderRadius: 40,
+                    boxShadow:
+                      'rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px',
+                      minWidth: 15
+                  }}
+                />
+              </Grid>
+            </Container>
             <Grid container alignItems='center' justifyContent='center'>
               <Typography
                 sx={{

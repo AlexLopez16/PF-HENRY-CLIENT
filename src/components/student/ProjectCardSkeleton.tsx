@@ -14,6 +14,7 @@ export const ProjectCardSkeleton = () => {
                 sx={{
                     display: 'flex',
                     justifyContent: 'center',
+
                 }}
             >
                 <Skeleton

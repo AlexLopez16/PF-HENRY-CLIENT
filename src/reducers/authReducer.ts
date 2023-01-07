@@ -38,7 +38,7 @@ export const authReducer = (state: State = initialState, action: Action) => {
                 : {};
             return {
                 ...state,
-                logged: status === 200 ? true : false,
+                logged: status >= 200 && status < 400 ? true : false,
                 status: status,
                 data: { id, rol, verify, email },
             };
