@@ -84,6 +84,7 @@ const ProjectCard: FC<CardProjectProps> = ({
                 pb: 2,
                 alignItems: 'center',
                 fontFamily: 'montserrat',
+                fontStyle:'italic',
               }}
             >
               {' '}
@@ -100,7 +101,7 @@ const ProjectCard: FC<CardProjectProps> = ({
             <Typography
               sx={{
                 display: 'flex',
-                // color: '#e2e2e2',
+                fontSize: 25,
                 color: '#ffff01',
                 pb: 2,
                 fontFamily: 'montserrat',
@@ -108,7 +109,7 @@ const ProjectCard: FC<CardProjectProps> = ({
                 justifyContent: 'space-around',
                 fontWeight: 'bold'
               }}
-              variant='h6'
+             
             >
               {name?.toUpperCase()}
             </Typography>
@@ -207,7 +208,7 @@ const ProjectCard: FC<CardProjectProps> = ({
                 justifyContent: 'center',
                 ml: 1,
                 fontFamily: 'montserrat',
-                fontWeight: 'bold',
+              
               }}
             >
               {company?.toUpperCase()}
