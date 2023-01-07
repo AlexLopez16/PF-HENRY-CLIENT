@@ -229,10 +229,18 @@ export const unApplyStudent = (
             dispatch({
                 type: types.requestFinished,
             });
-        } catch (error) {
+            dispatch({
+                type: types.responseFinished,
+                payload: res,
+            });
+        } catch (error: any) {
             console.log(error);
             dispatch({
                 type: types.requestFinished,
+            });
+            dispatch({
+                type: types.responseFinished,
+                payload: error.response,
             });
         }
     };

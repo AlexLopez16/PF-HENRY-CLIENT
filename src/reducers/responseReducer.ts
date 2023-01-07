@@ -30,14 +30,14 @@ export const responseReducer = (
             if (action.payload.status >= 400) {
                 response = action.payload?.data?.errors[0].msg ? action.payload?.data?.errors[0].msg : null ;
             } else {
-                response = action.payload.data ?  action.payload.data.msg : null;
+                response = action.payload.data ? action.payload.data.msg : null;
             }
-            console.log(response)
-                
+            // console.log(response);
+
             return {
                 ...state,
                 status: action.payload?.status ? action.payload.status : null,
-                msg: response ? response : null
+                msg: response ? response : null,
             };
         case types.responseCleaned:
             return {
