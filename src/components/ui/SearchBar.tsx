@@ -1,6 +1,7 @@
 import { FC } from 'react';
-import { Box, 
-    // Input, Typography 
+import {
+    Box,
+    // Input, Typography
 } from '@mui/material';
 // import IconButton from '@mui/material/IconButton';
 // import SearchIcon from '@mui/icons-material/Search';
@@ -52,7 +53,7 @@ const SearchBar: FC = () => {
               );
     };
 
-    const { rol } = useSelector((state: State) => state.auth.data);
+    const { rol } = useSelector((state: State | any) => state.auth.data);
 
     let role = rol;
 

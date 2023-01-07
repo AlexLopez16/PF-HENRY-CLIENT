@@ -42,8 +42,8 @@ const ProjectDetail: FC<ProjectProps> = ({
 }: ProjectProps) => {
     const dispatch = useDispatch();
     let token = localStorage.getItem('token') || '';
-    let rol = useSelector((state: State) => state.auth.data.rol);
-    let id = useSelector((state: State) => state.auth.data.id);
+    let rol = useSelector((state: State | any) => state.auth.data.rol);
+    let id = useSelector((state: State | any) => state.auth.data.id);
     const { projectId } = useSelector((state: State) => state.project);
     const { user }: any = useSelector((state: State) => state.student);
 
