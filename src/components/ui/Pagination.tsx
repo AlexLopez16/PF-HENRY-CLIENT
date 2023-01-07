@@ -1,11 +1,11 @@
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    getAllProject,
-    // clearProjects,
-    getMyProjectsCompany,
-    // getProject,
-    getProjectsFilter,
+  getAllProject,
+  // clearProjects,
+  getMyProjectsCompany,
+  // getProject,
+  getProjectsFilter,
 } from '../../actions/projects';
 import { State } from '../../reducers/rootReducer';
 import Pagination from '@mui/material/Pagination';
@@ -20,7 +20,6 @@ let init;
 const Pages: FC = () => {
     let location = useLocation();
 
-    // console.log(location);
     let dispatch = useDispatch();
     let token = localStorage.getItem('token') || '';
     const [definePage, setPage] = useState({ limit: 6, init: 0 });
@@ -28,12 +27,12 @@ const Pages: FC = () => {
     const { users, total1 } = useSelector((state: any) => state.student);
     const { user, total2 } = useSelector((state: any) => state.company);
 
-    // let { myProjectCompany } = useSelector((state: State) => state.project);
+  // let { myProjectCompany } = useSelector((state: State) => state.project);
 
     useEffect(() => {}, [projectsFilter, users, user]);
     const { total } = useSelector((state: State) => state.project);
     const { filters } = useSelector((state: State) => state.project);
-    // console.log(filters);
+
     let numberOfPages;
     if (total1) {
         numberOfPages = Math.ceil(total1 / 6);
@@ -48,7 +47,7 @@ const Pages: FC = () => {
         // setPage({limit:value*6,init:(value*6)-6})
         limit = 6;
         init = value * 6 - 6;
-        // console.log(e);
+   
         if (
             location.pathname === '/dashboard' ||
             location.pathname === '/projects'
@@ -130,18 +129,19 @@ const Pages: FC = () => {
         }
     };
 
-    return (
-        <Container sx={{ marginTop: 2 }} maxWidth="lg">
-            <Stack spacing={2}>
-                <Pagination
-                    sx={{ alignSelf: 'center' }}
-                    count={numberOfPages}
-                    color="primary"
-                    onChange={handlerClick}
-                />
-            </Stack>
-        </Container>
-    );
+  return (
+    <Container sx={{ marginTop: 5, marginBottom: 5 }} maxWidth='lg'>
+      <Stack spacing={2}>
+        <Pagination
+          size='small'
+          sx={{ alignSelf: 'center', fontStyle: 'bolder' }}
+          count={numberOfPages}
+          color='secondary'
+          onChange={handlerClick}
+        />
+      </Stack>
+    </Container>
+  );
 };
 
 export default Pages;

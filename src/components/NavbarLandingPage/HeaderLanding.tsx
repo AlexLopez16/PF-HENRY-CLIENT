@@ -9,7 +9,7 @@ const Header = () => {
   const navigate = useNavigate();
 
   return (
-    <AppBar component='nav' position='sticky' color='primary' sx={{fontColor:'black'}}>
+    <AppBar position='sticky' color='primary' sx={{fontColor:'black'}}>
       <Toolbar
         sx={{
           justifyContent: 'space-between',
