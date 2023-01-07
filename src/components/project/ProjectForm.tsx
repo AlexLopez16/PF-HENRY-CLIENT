@@ -52,6 +52,68 @@ const ProjectForm: FC = () => {
     size: number;
   }
 
+  const [images, setImages] = useState<data[]>([]);
+  // Upload Images End
+
+  const token = localStorage.getItem('token') || '';
+
+  const categoryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCategory((event.target as HTMLInputElement).value);
+  };
+
+  const participantChange = (event: SelectChangeEvent) => {
+    setParticipants(event.target.value);
+  };
+
+  const initialValues = {
+    name: '',
+    description: '',
+    question1: '',
+    question2: '',
+    question3: '',
+    requirements: [],
+  };
+
+  const validationSchema = Yup.object().shape({
+    name: Yup.string().required('* Ingresa el nombre del proyecto'),
+    description: Yup.string().required('* Ingresa una descripción del proyecto'),
+  });
+
+  const onSubmit = async (values: any, props: any) => {
+    const listRequeriments: any = values.requirements?.map((e: any) => e.name);
+
+       //Cloudinary Images
+       const imagesUrl: string[] = [];
+
+       for (const image of images) {
+         await fileUpload(image, 'projects')
+           .then((res) => imagesUrl.push(res))
+           //revisar este console.log
+           .catch((err) => console.log(err));
+       }
+
+       const data = {
+        name: values.name,
+        description: values.description,
+        participants: participants,
+        requirements: listRequeriments,
+        category: values?.category || category,
+        images: imagesUrl,
+        questions: [values.question1, values.question2, values.question3] 
+      };
+
+      // setImages([...images, ...data]);
+
+      dispatch(newProject(data, token));
+
+      setTimeout(() => {
+        props.resetForm();
+        props.setSubmitting(false);
+        setParticipants('1');
+        setImages([]);
+      }, 1000);
+    };
+  
   const tecnologies = [
     { name: '.Net' },
     { name: 'Airflow' },
@@ -104,88 +166,25 @@ const ProjectForm: FC = () => {
     { name: 'Vue' },
 
     //con CTRL + Shift + P y selecciono en orden ascendente
-];
-
-
-  const [images, setImages] = useState<data[]>([]);
-  // Upload Images End
-
-  const token = localStorage.getItem('token') || '';
-
-  const categoryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCategory((event.target as HTMLInputElement).value);
-  };
-
-  const participantChange = (event: SelectChangeEvent) => {
-    setParticipants(event.target.value);
-  };
-
-  const initialValues = {
-    name: '',
-    description: '',
-    question1: '',
-    question2: '',
-    question3: '',
-    requirements: [],
-  };
-
-  const validationSchema = Yup.object().shape({
-    name: Yup.string().required('* Ingresa el nombre del proyecto'),
-    description: Yup.string().required('* Ingresa una descripción del proyecto'),
-  });
-
-  const onSubmit = async (values: any, props: any) => {
-    const listRequeriments: any = values.requirements?.map((e: any) => e.name);
-
-    //Cloudinary Images
-    const imagesUrl: string[] = [];
-
-    for (const image of images) {
-      await fileUpload(image, 'projects')
-        .then((res) => imagesUrl.push(res))
-        //revisar este console.log
-        .catch((err) => console.log(err));
-    }
-
-    const data = {
-      name: values.name,
-      description: values.description,
-      participants: participants,
-      requirements: listRequeriments,
-      category: values?.category || category,
-      images: imagesUrl,
-      questions: [values.question1, values.question2, values.question3] 
-    };
-
-    
-    
-    dispatch(newProject(data, token));
-    
-    setTimeout(() => {
-      props.resetForm();
-      props.setSubmitting(false);
-      setParticipants('1');
-      setImages([]);
-    }, 1000);
-  };
+    ];
   
       //Upload Images
-      const handleFilesChange = async (
+    const handleFilesChange = async (
       event: React.ChangeEvent<HTMLInputElement | {}>
     ) => {
       const files = (event.target as HTMLInputElement).files || [];
       const data = Array.from(files);
 
-    setImages([...images, ...data]);
     };
-      const imageClick = (
+
+    const imageClick = (
       event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-    ) => {
-      event.preventDefault();
-      const id = (event.target as HTMLButtonElement).id;
-      const filter = images.filter((image) => image.name !== id);
-      setImages(filter);
-  };
+      ) => {
+        event.preventDefault();
+        const id = (event.target as HTMLButtonElement).id;
+        const filter = images.filter((image) => image.name !== id);
+        setImages(filter);
+    };
 
   return (
     <Box
@@ -195,7 +194,7 @@ const ProjectForm: FC = () => {
     >
       <div>
         <NavBar />
-        <Error />
+        <SnackBar successMsg=" Solicitud enviada con exito" />
         <Grid>
           <Paper
             elevation={10}
@@ -208,7 +207,11 @@ const ProjectForm: FC = () => {
               marginTop: 100,
             }}
           >
-            <Grid textAlign='center' fontFamily='montserrat' sx={{ mb: 2 }}>
+            <Grid 
+                textAlign='center' 
+                fontFamily='montserrat' 
+                sx={{ mb: 2 }}
+            >
               <h2>Crear proyecto</h2>
             </Grid>
             <Formik
