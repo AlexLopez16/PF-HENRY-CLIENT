@@ -34,17 +34,23 @@ export const acceptStudent = (
     studentId: string,
     token: string | any
 ) => {
+
+
+    console.log(studentId);
+
     return async (dispatch: Dispatch) => {
         try {
-            const res = await axios.put(
-                `/project/accept/${id}`,
-                { studentId },
-                { headers: { 'user-token': token } }
-            );
-            dispatch({
-                type: types.getProjectById,
-                payload: res.data,
-            });
+    
+                const res = await axios.put(
+                    `/project/accept/${id}`,
+                    { studentId},
+                    { headers: { 'user-token': token } }
+                );
+                dispatch({
+                    type: types.getProjectById,
+                    payload: res.data,
+                });
+            
         } catch (error) {
             console.log(error);
         }
@@ -99,6 +105,7 @@ export const getCompany = (
 export const CompanyUpdateInfo = (id: string, token: string, data: object) => {
     return async (dispatch: Dispatch) => {
         try {
+
             const res = await axios.put(`/company/${id}`, data, {
                 headers: { 'user-token': token },
             });
