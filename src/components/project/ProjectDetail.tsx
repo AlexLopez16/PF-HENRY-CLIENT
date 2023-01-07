@@ -131,7 +131,8 @@ const ProjectDetail: FC<ProjectProps> = ({
 
                 </div>
 
-                {rol === 'STUDENT_ROL' ? (
+                {rol === 'STUDENT_ROL' && projectId.stateOfProject !== "Terminado"
+? (
                     <Button
                         sx={{ marginTop: 10 }}
                         type="submit"
@@ -146,7 +147,9 @@ const ProjectDetail: FC<ProjectProps> = ({
                 ) : id &&
                   projectId &&
                   projectId?.company?._id &&
-                  id === projectId.company._id ? (
+                  id === projectId.company._id &&
+                  projectId.stateOfProject === "Terminado" || "En reclutamiento"
+                  ? (
                     <Link to={`/postulated/${uid}`}>
                         <Button
                             sx={{ marginTop: 10 }}

@@ -7,18 +7,22 @@ import Footer from '../../pages/LandingPage/Footer';
 import { Box, Button, Grid, Paper } from '@mui/material';
 import { TextField } from 'formik-mui';
 
-export const ApplicationForm: FC = () => {
+export const ApplicationForm: FC= () => {
 
   const token = localStorage.getItem('token') || '';
-
-
+  
   const initialValues = {
-  };
 
+  };
+  
   const validationSchema = Yup.object().shape({
     name: Yup.string().required('* Ingresa el nombre del proyecto'),
     description: Yup.string().required('* Ingresa una descripción del proyecto'),
   });
+  
+  const onSubmit = async (values: any) => {
+    const listRequeriments: any = values.requirements?.map((e: any) => e.name);
+  }
 
 return (
     <Box
@@ -52,8 +56,8 @@ return (
             {(props) => (
               <Form>
 
-          <Grid textAlign='center' fontFamily='montserrat' sx={{ mb: 2 }}>
-            <h3></h3>
+          <Grid textAlign='left' fontFamily='montserrat' sx={{ mb: 2 }}>
+            <h3>Pregunta 1= </h3>
           </Grid>
                 <Field
                   as={TextField}
@@ -65,8 +69,8 @@ return (
                   sx={{ mb: 2 }}
                 />
 
-          <Grid textAlign='center' fontFamily='montserrat' sx={{ mb: 2 }}>
-            <h3></h3>
+          <Grid textAlign='left' fontFamily='montserrat' sx={{ mb: 2 }}>
+            <h3>Pregunta 2= </h3>
           </Grid>
 
                 <Field
@@ -79,8 +83,8 @@ return (
                   sx={{ mb: 2}}
                 />
 
-          <Grid textAlign='center' fontFamily='montserrat' sx={{ mb: 2 }}>
-            <h3>hola</h3>
+          <Grid textAlign='left' fontFamily='montserrat' sx={{ mb: 2 }}>
+            <h3>Pregunta 3= </h3>
           </Grid>
                 <Field
                   as={TextField}

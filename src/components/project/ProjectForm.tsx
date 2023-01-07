@@ -102,7 +102,7 @@ const ProjectForm: FC = () => {
     };
 
     dispatch(newProject(data, token));
-    console.log(data);
+    console.log(data.name);
     
     
 
@@ -218,43 +218,10 @@ const ProjectForm: FC = () => {
           >
             {(props) => (
               <Form>
-                {/* <Field
-                  as={TextField}
-                  name='name'
-                  label='Nombre'
-                  placeholder='Nombre del projecto'
-                  fullWidth
-                  required
-                  color='info'
-                  sx={{ mb: 2 }}
-                  helperText={
-                    <ErrorMessage name='name'>
-                      {(msg) => <span style={{ color: '#d6423e' }}>{msg}</span>}
-                    </ErrorMessage>
-                  }
-                />
-                <h3> </h3> */}
-                {/* <Field
-                  as={TextField}
-                  name='description'
-                  id='outlined-multiline-static'
-                  label='Descripción'
-                  multiline
+              
 
-                  placeholder='Descripción del proyecto'
-                  fullWidth
-                  required
-                  color='info'
-                  sx={{ mb: 2 }}
-                  helperText={
-                    <ErrorMessage name='description'>
-                      {(msg) => <span style={{ color: '#d6423e' }}>{msg}</span>}
-                    </ErrorMessage>
-                  }
-                /> */}
-
-<Grid textAlign='center' fontFamily='montserrat' sx={{ mb: 2 }}>
-            <h3>Test de Aplicacion</h3>
+<Grid textAlign='left' fontFamily='montserrat' sx={{ mb: 2 }}>
+            <h3>Pregunta 1= {}</h3>
           </Grid>
 
                 <Field

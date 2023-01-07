@@ -63,3 +63,21 @@ export const AdminEliminatedProject = (idPrj: string | null, token:string,values
         }
     };
 };
+
+
+export const getCharts = (token: string | null) => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const res = await axios.get('/admin/charts', {
+                headers: { 'user-token': token },
+            })
+            dispatch({
+                type: types.adminGetCharts, 
+                payload: res.data
+            })
+
+        } catch (error) {
+            console.log(error)
+        }
+        }
+}

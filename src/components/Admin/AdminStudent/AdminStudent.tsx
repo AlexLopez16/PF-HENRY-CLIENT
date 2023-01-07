@@ -22,6 +22,8 @@ import {
   Switch,
   FormGroup,
 } from "@mui/material";
+import Pages from "../../ui/Pagination";
+import { PreLoader } from "../../PreLoader/PreLoader";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -37,7 +39,7 @@ const AdminStudent: FC = () => {
   }
 
   useEffect(() => {
-    dispatch(getListStudents(token, false));
+    dispatch(getListStudents(token, false, 6, 0));
   }, [dispatch]);
 
   const [selectedCustomerIds, setSelectedCustomerIds] = useState<string[]>([]);
@@ -100,52 +102,18 @@ const AdminStudent: FC = () => {
   };
 
   return (
-    <SideBar>
+    <>
+      <PreLoader />
       <Card>
         <Box sx={{ minWidth: 1050 }}>
           <Table>
             <TableHead>
               <TableRow>
-                {/* <TableCell padding="checkbox">
-                  <Checkbox
-                    checked={selectedCustomerIds.length === users.length}
-                    color="primary"
-                    indeterminate={
-                      selectedCustomerIds.length > 0 &&
-                      selectedCustomerIds.length < users.length
-                    }
-                    onChange={handleSelectAll}
-                  />
-                </TableCell> */}
                 <TableCell>Nombre</TableCell>
                 <TableCell>Email</TableCell>
                 <TableCell>Ubicacion</TableCell>
                 <TableCell>Estado</TableCell>
                 <TableCell>Fecha de ingreso</TableCell>
-
-                {/* {select  && <Button onClick={handleDisable}><DeleteIcon sx={{color: '#000'}}/></Button>} */}
-                {/* {select && (
-                  <FormGroup
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      mt: 3,
-                    }}
-                  >
-                    <FormControlLabel
-                      control={
-                        <Switch
-                          defaultChecked
-                          size="small"
-                          color="primary"
-                          onChange={handleDisable}
-                        />
-                      }
-                      label={undefined}
-                    />
-                  </FormGroup>
-                )} */}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -155,13 +123,6 @@ const AdminStudent: FC = () => {
                   key={user.uid}
                   selected={selectedCustomerIds.indexOf(user.uid) !== -1}
                 >
-                  {/* <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={selectedCustomerIds.indexOf(user.uid) !== -1}
-                      onChange={() => handleSelectOne(user.uid)}
-                      value="true"
-                    />
-                  </TableCell> */}
                   <TableCell>
                     <Box
                       sx={{
@@ -216,14 +177,11 @@ const AdminStudent: FC = () => {
               ))}
             </TableBody>
           </Table>
+          <Pages />
         </Box>
       </Card>
-    </SideBar>
+    </>
   );
 };
 
 export default AdminStudent;
-
-
-
-
