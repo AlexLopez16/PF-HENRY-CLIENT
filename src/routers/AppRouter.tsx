@@ -38,6 +38,7 @@ import { Checkout } from "../pages/Checkout";
 import SideBar from "../components/Admin/SideBar/SideBar";
 import DashboardAdmin from "../components/Admin/DashboardAdmin";
 import { VerifyEmail } from "../components/VerifyEmail/VerifyEmail";
+import RatingComponent  from "../components/project/Rating";
 
 export const AppRouter = () => {
   let { id } = useParams();
@@ -250,6 +251,7 @@ export const AppRouter = () => {
           />
 
           <Route path="/checkout/" element={<Checkout />} />
+          <Route path="/rating" element={<RatingComponent/>} />
         </Routes>
       </div>
     </BrowserRouter>
