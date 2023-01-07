@@ -1,6 +1,6 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import {
   Typography,
@@ -15,6 +15,8 @@ import { State } from "../../reducers/rootReducer";
 import { addStudentToProject } from "../../actions/student";
 import { PreLoader } from "../PreLoader/PreLoader";
 import { SnackBar } from "../SnackBar/SnackBar";
+import { proyectFinal } from "../../actions/company";
+import { getProjectByID } from "../../actions/projects";
 
 interface ProjectProps {
   name?: string;
@@ -27,6 +29,7 @@ interface ProjectProps {
   email?: string;
   categoria?: string;
   uid: string;
+  stateOfProject?: string[];
 }
 
 const ProjectDetail: FC<ProjectProps> = ({
@@ -46,10 +49,20 @@ const ProjectDetail: FC<ProjectProps> = ({
   let id = useSelector((state: State) => state.auth.data.id);
   const { projectId } = useSelector((state: State) => state.project);
   const { user }: any = useSelector((state: State) => state.student);
-console.log(projectId)
+
+  
+ 
+
   const handlerApply = () => {
     dispatch(addStudentToProject(uid, token));
   };
+
+  const handelClick = () => {
+    dispatch(proyectFinal(uid));
+    dispatch(getProjectByID(token, uid));
+  };
+  
+
 
   return (
     <div>
@@ -160,6 +173,21 @@ console.log(projectId)
             </Button>
           </Link>
         ) : null}
+
+        {rol === "COMPANY_ROL" && projectId.stateOfProject !== "Terminado" ? (
+          <Button
+            onClick={handelClick}
+            sx={{ marginTop: 10 }}
+            type="submit"
+            variant="contained"
+            fullWidth
+            color="primary"
+          >
+            terminar proyecto
+          </Button>
+        ) : (
+          ""
+        )}
       </Paper>
     </div>
   );

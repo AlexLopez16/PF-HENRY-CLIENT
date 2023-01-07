@@ -113,8 +113,7 @@ export const DeleteStudent = (
     id: string | any,
     studentId: string,
     token: string | any
-) => {
-    console.log(id);
+) => {;
 
     return async (dispatch: Dispatch) => {
         try {
@@ -146,3 +145,23 @@ export const disableCompany = (id: string | any, idCompany: string) => {
         }
     };
 };
+
+export const proyectFinal = (uid:string | any) =>{
+return async(dispatch:Dispatch) =>{
+try {
+    const res = await axios.put(`/company/final`,{uid})
+   dispatch({
+    type: types.ratingProjectCompany,
+    // payload: res.data
+   })
+
+} catch (error) {
+    console.log(error,)
+}
+
+
+}
+
+
+
+}  
