@@ -17,22 +17,35 @@ export const validaToken = (token: string) => {
                 headers: { 'user-token': token },
             });
             // console.log(data);
-            const { id, rol } = data;
+            const { id, rol, state } = data;
             if (status) {
                 // console.log(status);
                 // console.log(rol);
                 localStorage.setItem('token', token);
-                dispatch(login({ data, status, id, rol }));
+                dispatch(login({ data, status, id, rol, userState: state }));
             }
             dispatch({
                 type: types.requestFinished,
             });
         } catch (error: any) {
-            // Cerramos sesion si el usuario no tiene un token valido.
-            dispatch(logout());
-            dispatch({
-                type: types.requestFinished,
-            });
+            if (
+                error.response.data.errors[0].msg ===
+                'Tu cuenta ha sido inactivada, por favor llena el formulario de contactanos para darte respuesta'
+            ) {
+                dispatch(gitHubInactivateLogOut());
+                dispatch({
+                    type: types.requestFinished,
+                });
+                dispatch({
+                    type: types.responseFinished,
+                    payload: error.response,
+                });
+            } else {
+                dispatch(logout());
+                dispatch({
+                    type: types.requestFinished,
+                });
+            }
         }
     };
 };
@@ -243,4 +256,8 @@ export const recoverPassword = (password: string, token: string | any) => {
 };
 export const logout = () => ({
     type: types.clearAuthLogin,
+});
+
+export const gitHubInactivateLogOut = () => ({
+    type: types.gitHubInactivateLogOut,
 });
