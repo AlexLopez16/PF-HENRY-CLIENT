@@ -21,7 +21,7 @@ import { showError } from '../../actions/error';
 import { SnackBar } from '../SnackBar/SnackBar';
 export const VerifyEmail: FC = () => {
     // Traemos el correo del estado.
-    const { data } = useSelector((state: State) => state.auth);
+    const { data }: object | any = useSelector((state: State) => state.auth);
     const dispatch = useDispatch();
 
     // Definimos los valores iniciales.

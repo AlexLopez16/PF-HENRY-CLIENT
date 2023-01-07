@@ -40,7 +40,7 @@ export default function AccountMenu() {
     };
 
     const dispatch = useDispatch();
-    const { data } = useSelector((state: State) => state.auth);
+    const { data }: object | any = useSelector((state: State) => state.auth);
     const { id, rol } = data;
     const { user }: any = useSelector((state: State) =>
         rol === 'STUDENT_ROL' ? state.student : state.company
