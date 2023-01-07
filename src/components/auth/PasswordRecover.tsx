@@ -56,6 +56,8 @@ export const PasswordRecover: FC = () => {
 
   const [sendRequest, setSendRequest] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
+
   const initialValues = {
     password: '',
     confirmPassword: '',
@@ -85,6 +87,9 @@ export const PasswordRecover: FC = () => {
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
+  };
+  const handleClickShowPassword2 = () => {
+    setShowPassword2(!showPassword2);
   };
 
   const onSubmit: any = (valores: any, { resetForm }: any) => {
@@ -121,10 +126,11 @@ export const PasswordRecover: FC = () => {
           elevation={10}
           sx={{
             width: 650,
-            height: 450,
+            height: 500,
             mt: 10,
             mb: 20,
             p: 10,
+            pt: 6,
             borderRadius: 10,
             backgroundColor: 'black',
             boxShadow:
@@ -136,7 +142,7 @@ export const PasswordRecover: FC = () => {
               variant='h4'
               sx={{
                 fontFamily: 'montserrat',
-                mb: 3,
+                mb: 5,
                 color: 'white',
                 fontWeight: 'bold',
               }}
@@ -171,12 +177,12 @@ export const PasswordRecover: FC = () => {
                     type={showPassword ? 'text' : 'password'}
                     as={OutlinedInput}
                     name='password'
-                    label='Contraseña'
                     size='small'
-                 
+                    color='primary'
+                    placeholder='Escribe la nueva contraseña'
                     sx={{
-                      borderColor: 'white',
                       color: 'white',
+                      boxShadow: 'rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset',
                       '.MuiOutlinedInput-notchedOutline': {
                         borderColor: 'white',
                       },
@@ -186,12 +192,14 @@ export const PasswordRecover: FC = () => {
                       '&:hover .MuiOutlinedInput-notchedOutline': {
                         borderColor: '#ffff01',
                       },
+                      label: { color: 'white' },
                       input: { color: 'white' },
                       margin: '10px 0',
                     }}
                     endAdornment={
                       <InputAdornment position='end'>
                         <IconButton
+                          color='primary'
                           aria-label='toggle password visibility'
                           onClick={handleClickShowPassword}
                           edge='end'
@@ -223,10 +231,10 @@ export const PasswordRecover: FC = () => {
                   </Typography>
                   <Field
                     onChange={props.handleChange}
-                    type={showPassword ? 'text' : 'password'}
+                    type={showPassword2 ? 'text' : 'password'}
                     as={OutlinedInput}
                     name='confirmPassword'
-                    label='Confirmar Contraseña'
+                    placeholder='Confirma la contraseña'
                     size='small'
                     sx={{
                       color: 'white',
@@ -241,16 +249,16 @@ export const PasswordRecover: FC = () => {
                       },
                       label: { color: 'white' },
                       margin: '10px 0',
-                      
                     }}
                     endAdornment={
                       <InputAdornment position='end'>
                         <IconButton
                           aria-label='toggle password visibility'
-                          onClick={handleClickShowPassword}
+                          onClick={handleClickShowPassword2}
                           edge='end'
+                          color='primary'
                         >
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                          {showPassword2 ? <VisibilityOff /> : <Visibility />}
                         </IconButton>
                       </InputAdornment>
                     }
@@ -269,10 +277,11 @@ export const PasswordRecover: FC = () => {
                   color='primary'
                   disabled={props.isSubmitting}
                   sx={{
-                    mt:2,
-                    mb:5,
-                    fontFamily:'montserrat',
-                    borderRadius:10,
+                    mt: 2,
+                    mb: 5,
+                    fontFamily: 'montserrat',
+                    borderRadius: 10,
+                    fontWeight: 'bold',
                   }}
                 >
                   Cambiar Contraseña
