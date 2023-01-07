@@ -34,7 +34,7 @@ export const MyProjectCompany: FC = () => {
     return (
         <div>
             <PreLoader />
-            <Container sx={{ marginLeft: 109 }}>
+            <Container sx={{ marginLeft: 109}}>
                 <Typography variant="h6" sx={{ marginTop: 5 }}>
                     Mis proyectos
                 </Typography>
