@@ -24,9 +24,17 @@ export const SnackBar: FC<SnackbarProps> = ({ successMsg, errorMsg }) => {
     useEffect(() => {
         if (status != null) handleOpen();
     }, [status]);
+
+    useEffect(() => {
+        setOpen(false);
+        dispatch(responseCleaned());
+        return () => {};
+    }, []);
+
     const handleOpen = () => {
         setOpen(true);
     };
+
     const handleClose = () => {
         setOpen(false);
         setTimeout(() => {
@@ -52,7 +60,7 @@ export const SnackBar: FC<SnackbarProps> = ({ successMsg, errorMsg }) => {
     return (
         <Snackbar
             open={open}
-            autoHideDuration={2500}
+            autoHideDuration={5000}
             onClose={handleClose}
             anchorOrigin={{
                 vertical: 'top',

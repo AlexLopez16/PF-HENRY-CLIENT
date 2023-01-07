@@ -1,35 +1,16 @@
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    Filters,
-    getAllProject,
-    getCategory,
-    // getProject,
-    getProjectsFilter,
-} from '../../actions/projects';
-// import ProjectCard from '../project/ProjectCard';
+import {Filters,getAllProject,getCategory,} from '../../actions/projects';
 import { State } from '../../reducers/rootReducer';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-// import Paper from '@mui/material/Paper';
-import FormControl from '@mui/material/FormControl/FormControl';
-import InputLabel from '@mui/material/InputLabel/InputLabel';
-import Select from '@mui/material/Select/Select';
-import MenuItem from '@mui/material/MenuItem/MenuItem';
 import { Box } from '@mui/system';
-// import Alert from '@mui/material/Alert/Alert';
-// import Stack from '@mui/material/Stack/Stack';
-import {
-    Navigate,
-    //  useSearchParams
-} from 'react-router-dom';
+import { Navigate} from 'react-router-dom';
 import { types } from '../../types/types';
-import { Container, IconButton, Input, Typography } from '@mui/material';
+import { Container, IconButton, Input} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
-// let state: string[] | undefined = undefined;
-// let tecnologies: string[] | undefined = undefined;
-// let typeOfOrder: string | undefined = undefined;
 const styledInput = {
     position: 'relative',
     right: 10,
@@ -105,20 +86,18 @@ const AdminFilterProject: FC<Filter> = ({ source }) => {
         'En revision',
     ];
 
-    // const { projects } = useSelector((state: State) => state.project);
-
     const { projectsFilter } = useSelector((state: State) => state.project);
     // const {page}=useSelector((state:State)=>state.project)
     // const limit=page*6;
     // const init=limit-6
 
     let info = projectsFilter;
-    // console.log(info);
+  
 
     const { status } = useSelector((state: State) => state.auth);
-    //   console.log('logged', logged);
+   
     if (status === 401) {
-        // console.log('401', 401);
+      
         localStorage.clear();
         dispatch({
             type: types.authLogin,
@@ -186,6 +165,32 @@ const AdminFilterProject: FC<Filter> = ({ source }) => {
         }
     };
 
+    const handleDelete = () => {
+
+        setSearch('')
+        dispatch(
+            getAllProject(
+                inputFilter.typeOfOrder,
+                inputFilter.tecnologies,
+                token,
+                "",
+                inputFilter.categorie,
+                inputFilter.state,
+                undefined,
+                undefined
+            )
+        );
+        dispatch(
+            Filters(
+                inputFilter.typeOfOrder,
+                inputFilter.tecnologies,
+                "",
+                inputFilter.categorie,
+                inputFilter.state
+            )
+        );
+    }
+
     return (
         <Container>
             {source && source === 'adminProjects' ? (
@@ -210,8 +215,19 @@ const AdminFilterProject: FC<Filter> = ({ source }) => {
                                     width: 330,
                                     marginLeft: 0,
                                 }}
-                                // value={inputFilter.search}
+                                value={search}
                             ></Input>
+
+                            <IconButton
+                                aria-label="search"
+                                sx={{ padding: 0, }}
+
+
+                            >
+                                {search.length ? <HighlightOffIcon
+                                    onClick={handleDelete}
+                                /> : ""}
+                            </IconButton>
                             <IconButton
                                 type="submit"
                                 aria-label="search"

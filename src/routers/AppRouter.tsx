@@ -41,6 +41,7 @@ import { RatingMail} from "../components/project/RatingMail"
 
 
 import { VerifyEmail } from "../components/VerifyEmail/VerifyEmail";
+import { ApplicationForm } from '../components/project/ApplicationForm';
 
 export const AppRouter = () => {
   let { id } = useParams();
@@ -151,14 +152,24 @@ export const AppRouter = () => {
             }
           />
 
-          <Route
-            path="/newproject"
-            element={
-              <PrivateRoute>
-                <ProjectForm />
-              </PrivateRoute>
-            }
-          />
+                    <Route
+                        path="/newproject"
+                        element={
+                            <PrivateRoute>
+                                <ProjectForm />
+                            </PrivateRoute>
+                        }
+                    />
+
+                        TODO: revisar esto
+                    <Route
+                        path="/postulatedForm"
+                        element={
+                            // <PrivateRoute>
+                                <ApplicationForm />
+                            // </PrivateRoute>
+                        }
+                    />
 
           <Route
             path="/aboutUs"

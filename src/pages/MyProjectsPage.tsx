@@ -7,12 +7,11 @@ import { MyProjectCompany } from '../components/project/MyProjectCompany';
 import MyProjectStudent from '../components/student/MyProjectStudent';
 
 const MyProjectsPage: FC = () => {
-    const { rol } = useSelector((state: State) => state.auth.data);
+    const { rol }: object | any = useSelector(
+        (state: State | any) => state.auth.data
+    );
 
-
-    return rol === 'STUDENT_ROL'
-        ? <MyProjectStudent />
-        : <MyProjectCompany />
+    return rol === 'STUDENT_ROL' ? <MyProjectStudent /> : <MyProjectCompany />;
 };
 
 export default MyProjectsPage;

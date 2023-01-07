@@ -4,6 +4,7 @@ export const types = {
     clearAuthLogin: '[auth] Clear Auth Login',
     login: '[login] Login',
     infoToken: '[info] Info Token',
+    gitHubInactivateLogOut: '[auth] Logout Github Inactivated User',
 
     requestInProgress: '[request] Request In Progress',
     requestFinished: '[request] Request Finished',
@@ -47,6 +48,7 @@ export const types = {
     clearError: '[error] Clear Error',
     getAllProjects: '[project] get all Project',
     AdminAprovedProject: '[admin]project aproved',
-    AdminEliminatedProject:'[admin]admin eliminated project and send email for why',
-    adminGetCharts: '[admin] admin get charts' ,
+    AdminEliminatedProject:
+        '[admin]admin eliminated project and send email for why',
+    adminGetCharts: '[admin] admin get charts',
 };

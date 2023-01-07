@@ -43,15 +43,12 @@ const ProjectDetail: FC<ProjectProps> = ({
   categoria,
   uid,
 }: ProjectProps) => {
-  const dispatch = useDispatch();
-  let token = localStorage.getItem("token") || "";
-  let rol = useSelector((state: State) => state.auth.data.rol);
-  let id = useSelector((state: State) => state.auth.data.id);
-  const { projectId } = useSelector((state: State) => state.project);
-  const { user }: any = useSelector((state: State) => state.student);
-
-  
- 
+    const dispatch = useDispatch();
+    let token = localStorage.getItem('token') || '';
+    let rol = useSelector((state: State | any) => state.auth.data.rol);
+    let id = useSelector((state: State | any) => state.auth.data.id);
+    const { projectId } = useSelector((state: State) => state.project);
+    const { user }: any = useSelector((state: State) => state.student);
 
   const handlerApply = () => {
     dispatch(addStudentToProject(uid, token));

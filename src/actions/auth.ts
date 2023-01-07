@@ -17,22 +17,35 @@ export const validaToken = (token: string) => {
                 headers: { 'user-token': token },
             });
             // console.log(data);
-            const { id, rol } = data;
+            const { id, rol, state } = data;
             if (status) {
                 // console.log(status);
                 // console.log(rol);
                 localStorage.setItem('token', token);
-                dispatch(login({ data, status, id, rol }));
+                dispatch(login({ data, status, id, rol, userState: state }));
             }
             dispatch({
                 type: types.requestFinished,
             });
         } catch (error: any) {
-            // Cerramos sesion si el usuario no tiene un token valido.
-            dispatch(logout());
-            dispatch({
-                type: types.requestFinished,
-            });
+            if (
+                error.response.data.errors[0].msg ===
+                'Tu cuenta ha sido inactivada, por favor llena el formulario de contactanos para darte respuesta'
+            ) {
+                dispatch(gitHubInactivateLogOut());
+                dispatch({
+                    type: types.requestFinished,
+                });
+                dispatch({
+                    type: types.responseFinished,
+                    payload: error.response,
+                });
+            } else {
+                dispatch(logout());
+                dispatch({
+                    type: types.requestFinished,
+                });
+            }
         }
     };
 };
@@ -60,7 +73,7 @@ export const reSendEmail = (token: string | any, email: string | any) => {
             });
             dispatch({
                 type: types.responseFinished,
-                payload: res
+                payload: res,
             });
         } catch (error: any) {
             console.log(error);
@@ -86,7 +99,7 @@ export const isVerify = (email: string | any) => {
             const res = await axios.get(`/account/confirm/isverify/${email}`);
         } catch (error: object | any) {
             // Guardamos respuesta de la request.
-            console.log(error)
+            // console.log(error);
             dispatch({
                 type: types.responseFinished,
                 payload: error.response,
@@ -98,9 +111,14 @@ export const isVerify = (email: string | any) => {
 export const startLogin = (values: object) => {
     return async (dispatch: Dispatch) => {
         try {
-            const { data, status } = await axios.post('/auth', values);
-            const { token, id, rol } = data;
-            console.log(data);
+            dispatch({
+                type: types.requestInProgress,
+            });
+            const res = await axios.post('/auth', values);
+
+            const { token, id, rol } = res.data;
+            let data = res.data;
+            let status = res.status;
             if (status) {
                 localStorage.setItem('token', token);
                 dispatch(login({ data, status, id, rol }));
@@ -112,6 +130,14 @@ export const startLogin = (values: object) => {
                 payload: {
                     status: error.response.status,
                 },
+            });
+            dispatch({
+                type: types.requestFinished,
+            });
+            // Guardamos respuesta de la request.
+            dispatch({
+                type: types.responseFinished,
+                payload: error.response,
             });
         }
     };
@@ -139,6 +165,7 @@ export const gmailLogin = (tok: string, userType?: string) => {
                 dispatch(login({ data, status, token, id, rol }));
             }
         } catch (error: any) {
+            // console.log(error);
             dispatch({
                 type: types.requestFinished,
             });
@@ -229,4 +256,8 @@ export const recoverPassword = (password: string, token: string | any) => {
 };
 export const logout = () => ({
     type: types.clearAuthLogin,
+});
+
+export const gitHubInactivateLogOut = () => ({
+    type: types.gitHubInactivateLogOut,
 });
