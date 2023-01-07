@@ -1,41 +1,25 @@
 import { FC, useState, useEffect, forwardRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Box, Container } from "@mui/system";
 import * as moment from "moment";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
 import {
-  Avatar,
   Card,
-  Checkbox,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
   Typography,
-  InputLabel,
-  FormControl,
-  MenuItem,
   SelectChangeEvent,
   ListItemButton,
   Collapse,
+  IconButton,
 } from "@mui/material";
-import { getListStudents } from "../../../actions/student";
 import { State } from "../../../reducers/rootReducer";
-import {
-  getAllProject,
-  getProject,
-  getProjectsFilter,
-} from "../../../actions/projects";
-import Switch from "@mui/material/Switch";
-import { AprovedProject, deleteuser } from "../../../actions/Admin";
-import { List, Visibility } from "@mui/icons-material";
+import { getAllProject, } from "../../../actions/projects";
+import { AprovedProject } from "../../../actions/Admin";
 import Pages from "../../ui/Pagination";
-import { Filters } from "../../ui/Filters";
-import { Select } from "@mui/material";
 import FilterListIcon from "@mui/icons-material/FilterList";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -50,11 +34,12 @@ export declare function sentenceCase(input: string, options?: Options): string;
 import CloseIcon from "@mui/icons-material/Close";
 import CheckIcon from "@mui/icons-material/Check";
 import AdminFilterProject from "../../AdminBar/AdminFilterProject";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import CancelMessage from "./cancelMessage";
 
 const AdminAcceptProject: FC = ({ ...rest }) => {
+
   const dispatch = useDispatch();
+
   const token: any = localStorage.getItem("token");
 
   useEffect(() => {
@@ -91,6 +76,8 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
     "En revision",
   ];
   const [idPrj, setId] = useState("");
+
+
 
   const handleSelectAll = (event: any) => {
     let newSelectedCustomerIds;
@@ -161,11 +148,9 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
   };
   opciones !== "Todos"
     ? (proyectos = projects.filter((project: any) =>
-        project.stateOfProject.includes(opciones)
-      ))
+      project.stateOfProject.includes(opciones)
+    ))
     : (proyectos = projects);
-
-  console.log(proyectos);
   return (
     <>
       {/* <FormControl fullWidth>
@@ -318,17 +303,22 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                   </TableCell>
 
                   <TableCell sx={{ maxWidth: 200 }}>
-                    <CheckIcon
-                      sx={{ cursor: "pointer" }}
-                      onClick={() => handleaccept(proyectos.uid)}
-                    />
+                    <IconButton disabled={proyectos.stateOfProject !== "En revision"}>
+                      <CheckIcon
+                        sx={{ cursor: "pointer" }}
+                        onClick={() => handleaccept(proyectos.uid)}
+                      />
+                    </IconButton>
                   </TableCell>
 
                   <TableCell sx={{ maxWidth: 200 }}>
-                    <CloseIcon
-                      sx={{ cursor: "pointer" }}
-                      onClick={() => handlecancel(proyectos.uid)}
-                    />
+                    <IconButton disabled={proyectos.stateOfProject !== "En revision"}>
+                      <CloseIcon
+
+                        sx={{ cursor: "pointer" }}
+                        onClick={() => handlecancel(proyectos.uid)}
+                      />
+                    </IconButton>
                   </TableCell>
                 </TableRow>
               ))}
@@ -339,7 +329,6 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
       <>
         <Pages />
       </>
-      {console.log(idPrj)}
       {formactive && (
         <CancelMessage
           setFormactive={setFormactive}

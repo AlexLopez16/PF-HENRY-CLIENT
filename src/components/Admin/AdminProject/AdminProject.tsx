@@ -1,39 +1,30 @@
 import { FC, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Doughnut } from "react-chartjs-2";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Box } from "@mui/system";
 import * as moment from "moment";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
 import {
-  Avatar,
   Card,
-  Checkbox,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
   Typography,
-  InputLabel,
-  Button,
   FormControlLabel,
   FormGroup,
+  Container,
+  ListItemButton,
+  Collapse,
 } from "@mui/material";
-import { getListStudents } from "../../../actions/student";
 import { State } from "../../../reducers/rootReducer";
 import {
   getAllProject,
-  getProject,
-  getProjectsFilter,
 } from "../../../actions/projects";
 import Switch from "@mui/material/Switch";
 import { deleteuser } from "../../../actions/Admin";
-import { Visibility } from "@mui/icons-material";
 import Pages from "../../ui/Pagination";
-import { Filters } from "../../ui/Filters";
 import { PreLoader } from "../../PreLoader/PreLoader";
+import AdminFilterProject from "../../AdminBar/AdminFilterProject";
 
 export interface Options {
   splitRegexp?: RegExp | RegExp[];
@@ -41,13 +32,13 @@ export interface Options {
   delimiter?: string;
   transform?: (part: string, index: number, parts: string[]) => string;
 }
+import FilterListIcon from "@mui/icons-material/FilterList";
 
 export declare function sentenceCase(input: string, options?: Options): string;
-
 const AdminProject: FC = ({ ...rest }) => {
   const dispatch = useDispatch();
   const token: any = localStorage.getItem("token");
-
+  const [open, setOpen] = useState(false);
   useEffect(() => {
     dispatch(
       getAllProject(
@@ -121,11 +112,39 @@ const AdminProject: FC = ({ ...rest }) => {
     setPage(newPage);
   };
 
+  const handlerClick = () => {
+    setOpen(!open);
+  };
   return (
     <>
       <PreLoader />
       <>{/* <Filters /> */}</>
       <Card {...rest}>
+      <Container
+          maxWidth="lg"
+          sx={{
+            display: "flex",
+            marginLeft: 0,
+          }}
+        >
+          <ListItemButton onClick={handlerClick} sx={{ maxWidth: 350 }}>
+            {open ? (
+              <FilterListIcon> </FilterListIcon>
+            ) : (
+              <FilterListIcon> </FilterListIcon>
+            )}
+          </ListItemButton>{" "}
+          <Collapse
+            in={open}
+            timeout="auto"
+            unmountOnExit
+            orientation="horizontal"
+          >
+            <AdminFilterProject source="adminProjects" />
+          </Collapse>
+        </Container>
+
+       
         <Box sx={{ minWidth: 1050 }}>
           <Table>
             <TableHead>
