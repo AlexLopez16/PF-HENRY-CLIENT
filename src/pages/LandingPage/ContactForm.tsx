@@ -93,7 +93,7 @@ export default function ContactForm() {
                   fullWidth
                   required
                   sx={{
-                    '& .MuiInputLabel-root': { color: 'white' }, //styles the label
+                    '& .MuiInputLabel-root': { color: 'white' }, 
                     '& .MuiOutlinedInput-root': {
                       '& > fieldset': { borderColor: 'white' },
                     },
