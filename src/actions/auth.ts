@@ -98,9 +98,14 @@ export const isVerify = (email: string | any) => {
 export const startLogin = (values: object) => {
     return async (dispatch: Dispatch) => {
         try {
-            const { data, status } = await axios.post('/auth', values);
-            const { token, id, rol } = data;
-            console.log(data);
+            dispatch({
+                type: types.requestInProgress,
+            });
+            const res = await axios.post('/auth', values);
+
+            const { token, id, rol } = res.data;
+            let data = res.data;
+            let status = res.status;
             if (status) {
                 localStorage.setItem('token', token);
                 dispatch(login({ data, status, id, rol }));
@@ -112,6 +117,14 @@ export const startLogin = (values: object) => {
                 payload: {
                     status: error.response.status,
                 },
+            });
+            dispatch({
+                type: types.requestFinished,
+            });
+            // Guardamos respuesta de la request.
+            dispatch({
+                type: types.responseFinished,
+                payload: error.response,
             });
         }
     };
