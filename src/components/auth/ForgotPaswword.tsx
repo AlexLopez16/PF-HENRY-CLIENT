@@ -52,7 +52,6 @@ export const ForgotPassword: FC = () => {
             <SnackBar
                 successMsg=" Solicitud enviada con exito,porfavor
                                         revise su email!"
-                errorMsg="Ha ocurrido un error,correo no existe"
             />
             <Header />
             <Grid

@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import type { } from 'redux-thunk/extend-redux';
+import type {} from 'redux-thunk/extend-redux';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -93,15 +93,12 @@ export const LoginScreen: FC = () => {
             <Box
                 sx={{
                     backgroundColor: 'black',
-                    minHeight: '100vh'
+                    minHeight: '100vh',
                 }}
             >
                 <div>
                     <Header />
-                    <SnackBar
-                        successMsg=" Solicitud enviada con exito!"
-                        errorMsg="Por Favor Registrate"
-                    />
+                    <SnackBar successMsg=" Solicitud enviada con exito!" />
                     <Grid
                         container
                         direction="column"
@@ -298,7 +295,10 @@ export const LoginScreen: FC = () => {
                                                     );
 
                                                     setTimeout(
-                                                        () => navigate('/register'),
+                                                        () =>
+                                                            navigate(
+                                                                '/register'
+                                                            ),
 
                                                         3000
                                                     );
