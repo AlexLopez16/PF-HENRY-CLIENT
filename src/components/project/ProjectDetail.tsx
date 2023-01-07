@@ -69,10 +69,14 @@ const ProjectDetail: FC<ProjectProps> = ({
                     margin: '100px auto',
                 }}
             >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-
+                <div
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'flex-end',
+                    }}
+                >
                     <div>
-
                         <List>
                             <Typography variant="h4">{name}</Typography>
                         </List>
@@ -89,7 +93,9 @@ const ProjectDetail: FC<ProjectProps> = ({
                         <List>
                             <Typography variant="body1">
                                 <b>Requerimientos: </b>{' '}
-                                {lenguajes?.map((lenguaje) => lenguaje).join(', ')}
+                                {lenguajes
+                                    ?.map((lenguaje) => lenguaje)
+                                    .join(', ')}
                             </Typography>
                         </List>
 
@@ -112,27 +118,25 @@ const ProjectDetail: FC<ProjectProps> = ({
                         </List>
                     </div>
 
-                    {
-                        imagenes && (
-                            <div>
-                                <ImageList sx={{ width: 500, height: 280 }} cols={2} rowHeight={200}>
-                                    {imagenes.map((item) => (
-                                        <ImageListItem key={item}>
-                                            <img
-                                                src={item}
-                                                alt={item}
-                                            />
-                                        </ImageListItem>
-                                    ))}
-                                </ImageList>
-                            </div>
-                        )
-                    }
-
+                    {imagenes && (
+                        <div>
+                            <ImageList
+                                sx={{ width: 500, height: 280 }}
+                                cols={2}
+                                rowHeight={200}
+                            >
+                                {imagenes.map((item) => (
+                                    <ImageListItem key={item}>
+                                        <img src={item} alt={item} />
+                                    </ImageListItem>
+                                ))}
+                            </ImageList>
+                        </div>
+                    )}
                 </div>
 
-                {rol === 'STUDENT_ROL' && projectId.stateOfProject !== "Terminado"
-? (
+                {rol === 'STUDENT_ROL' &&
+                projectId.stateOfProject !== 'Terminado' ? (
                     <Button
                         sx={{ marginTop: 10 }}
                         type="submit"
@@ -144,12 +148,12 @@ const ProjectDetail: FC<ProjectProps> = ({
                     >
                         aplicar
                     </Button>
-                ) : id &&
-                  projectId &&
-                  projectId?.company?._id &&
-                  id === projectId.company._id &&
-                  projectId.stateOfProject === "Terminado" || "En reclutamiento"
-                  ? (
+                ) : (id &&
+                      projectId &&
+                      projectId?.company?._id &&
+                      id === projectId.company._id &&
+                      projectId.stateOfProject === 'Terminado') ||
+                  'En reclutamiento' ? (
                     <Link to={`/postulated/${uid}`}>
                         <Button
                             sx={{ marginTop: 10 }}
