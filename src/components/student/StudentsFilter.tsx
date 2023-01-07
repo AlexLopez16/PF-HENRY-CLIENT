@@ -247,10 +247,12 @@ const StudentsFilter: FC = () => {
           alignItems: 'center',
         }}
       >
-        <div style={{ width: 255 }}>
+        <div style={{ width: 260 }}>
           <Autocomplete
             onChange={(e, value) => {
               handlerchange('e', value);
+            }}
+            sx={{
             }}
             multiple={true}
             size='small'
@@ -261,7 +263,7 @@ const StudentsFilter: FC = () => {
             renderInput={(params) => (
               <TextField
                 sx={{
-              
+          
                   '.MuiSvgIcon-root ': {
                     fill: 'black !important',
                   },
@@ -274,11 +276,15 @@ const StudentsFilter: FC = () => {
             )}
           />
         </div>
-        <div style={{ width: 255 }}>
+        <div style={{ width: 255}}>
           <Autocomplete
+           sx={{ 
+         
+           }}
             onChange={(e, value) => {
               handlerchange('t', value);
             }}
+            color='primary'
             multiple={true}
             size='small'
             id='tags-outlined'
@@ -289,7 +295,7 @@ const StudentsFilter: FC = () => {
             renderInput={(params) => (
               <TextField
                 sx={{
-             
+                
                   '.MuiSvgIcon-root ': {
                     fill: 'black !important',
                   },
@@ -383,7 +389,7 @@ const StudentsFilter: FC = () => {
         >
           <form onSubmit={handleSubmit}>
             <Input
-              color='info'
+              color='primary'
               placeholder='Buscar por nombre del proyecto'
               onChange={(e) => handlerchanges(e.target.value)}
               sx={{
