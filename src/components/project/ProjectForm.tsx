@@ -190,7 +190,7 @@ const ProjectForm: FC = () => {
   return (
     <Box
       sx={{
-        backgroundColor: 'black',
+        backgroundColor: 'white',
       }}
     >
       <div>
