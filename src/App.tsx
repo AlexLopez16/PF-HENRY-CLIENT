@@ -4,7 +4,6 @@ import { store } from './store/store';
 import { ThemeProvider } from '@mui/material';
 import theme from './styles/themeProvider';
 import './App.css';
-import { SnackBar } from './components/SnackBar/SnackBar';
 
 function App() {
     return (
