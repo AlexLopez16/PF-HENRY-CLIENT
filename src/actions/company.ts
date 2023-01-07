@@ -7,14 +7,14 @@ import { fileUpload } from '../helpers/fileUpload';
 export const registerCompany = (values: Object) => {
     return async (dispatch: Dispatch) => {
         try {
-            const {data, status} = await axios.post(`/company`, values);
+            const { data, status } = await axios.post(`/company`, values);
             const { token, id, rol } = data;
             dispatch({
                 type: types.registerCompany,
                 payload: data,
             });
-             // Si se registro correctamente, le hacemos iniciar sesion.
-             if (status) {
+            // Si se registro correctamente, le hacemos iniciar sesion.
+            if (status) {
                 localStorage.setItem('token', token);
                 dispatch(login({ data, status, id, rol }));
             }
@@ -66,12 +66,26 @@ export const companyGetInfo = (id: string, token: string) => {
     };
 };
 
-export const getCompany = (token: string) => {
+export const getCompany = (
+    token: string,
+    limit?: number | null,
+    init?: number | null
+) => {
+    let query: any;
+    if (limit || init) {
+        console.log(limit, init);
+        if (query) {
+            query += `&limit=${limit}&init=${init}`;
+        } else {
+            query = `limit=${limit}&init=${init}`;
+        }
+    }
     return async (dispatch: Dispatch) => {
         try {
-            const res = await axios.get(`/company/`, {
+            const res = await axios.get(`/company/?${query}`, {
                 headers: { 'user-token': token },
             });
+
             dispatch({
                 type: types.companyGetList,
                 payload: res.data,
@@ -85,10 +99,9 @@ export const getCompany = (token: string) => {
 export const CompanyUpdateInfo = (id: string, token: string, data: object) => {
     return async (dispatch: Dispatch) => {
         try {
-            
-            const res = await axios.put(`/company/${id}`,data, {
+            const res = await axios.put(`/company/${id}`, data, {
                 headers: { 'user-token': token },
-            }); 
+            });
             dispatch({
                 type: types.companyUpdateInfo,
                 payload: res.data,

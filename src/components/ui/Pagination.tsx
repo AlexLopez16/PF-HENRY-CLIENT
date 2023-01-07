@@ -13,6 +13,7 @@ import Stack from '@mui/material/Stack';
 import { Container } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import { getListStudents } from '../../actions/student';
+import { getCompany } from '../../actions/company';
 
 let limit;
 let init;
@@ -25,10 +26,11 @@ const Pages: FC = () => {
     const [definePage, setPage] = useState({ limit: 6, init: 0 });
     let { projectsFilter } = useSelector((state: State) => state.project);
     const { users, total1 } = useSelector((state: any) => state.student);
+    const { user, total2 } = useSelector((state: any) => state.company);
 
     // let { myProjectCompany } = useSelector((state: State) => state.project);
 
-    useEffect(() => {}, [projectsFilter, users]);
+    useEffect(() => {}, [projectsFilter, users, user]);
     const { total } = useSelector((state: State) => state.project);
     const { filters } = useSelector((state: State) => state.project);
     // console.log(filters);
@@ -38,6 +40,9 @@ const Pages: FC = () => {
     }
     if (total) {
         numberOfPages = Math.ceil(total / 6);
+    }
+    if (total2) {
+        numberOfPages = Math.ceil(total2 / 6);
     }
     const handlerClick = async (e: any, value: any) => {
         // setPage({limit:value*6,init:(value*6)-6})
@@ -118,6 +123,10 @@ const Pages: FC = () => {
             location.pathname === '/dashboard/students'
         ) {
             dispatch(getListStudents(token, false, limit, init));
+        }
+
+        if (location.pathname === '/dashboard/companies') {
+            dispatch(getCompany(token, limit, init));
         }
     };
 
