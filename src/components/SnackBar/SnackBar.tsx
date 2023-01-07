@@ -16,7 +16,7 @@ interface SnackbarProps {
 
 export const SnackBar: FC<SnackbarProps> = ({ successMsg, errorMsg }) => {
     // Traemos la request del estado.
-    const { status } = useSelector((state: State) => state.response);
+    const { status, msg } = useSelector((state: State) => state.response);
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
 
@@ -44,6 +44,10 @@ export const SnackBar: FC<SnackbarProps> = ({ successMsg, errorMsg }) => {
     if (status >= 200 && status < 400 && successMsg != null)
         alertField.message = successMsg;
     else if (status >= 400 && errorMsg != null) alertField.message = errorMsg;
+
+    // Si hay error del backend en msg.
+    if (status >= 200 && status < 400 && msg != null) alertField.message = msg;
+    else if (status >= 400 && msg != null) alertField.message = msg;
 
     return (
         <Snackbar

@@ -37,6 +37,7 @@ export const HeaderCompany: FC<Props> = ({
       header: !edit.header,
     });
   };
+  
 
   return (
     <Paper elevation={5} style={paperStyle}>
@@ -48,11 +49,11 @@ export const HeaderCompany: FC<Props> = ({
       <div style={container}>
         <div>
           <Avatar sx={avatarStyle} src={image}>
-            {name?.slice(0, 1).toUpperCase()}
           </Avatar>
         </div>
 
         <div>
+            {name?.toUpperCase()}
           <Typography>{country}</Typography>
         </div>
       </div>

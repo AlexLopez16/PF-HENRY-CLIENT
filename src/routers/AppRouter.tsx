@@ -41,6 +41,7 @@ import {GroupRating} from "../components/project/Rating"
 import { RatingMail } from "../components/project/RatingMail";
 
 
+import { VerifyEmail } from "../components/VerifyEmail/VerifyEmail";
 
 export const AppRouter = () => {
   let { id } = useParams();
@@ -50,6 +51,17 @@ export const AppRouter = () => {
         <Routes>
           <Route path="/" element={<LandingPage />} />
 
+          <Route
+            path="/verifyemail"
+            element={
+              <PrivateRoute>
+                <>
+                  <NavBar />
+                  <VerifyEmail />
+                </>
+              </PrivateRoute>
+            }
+          />
           <Route
             path="/login"
             element={
@@ -196,22 +208,22 @@ export const AppRouter = () => {
             }
           />
 
+          <Route path="/dashboard" element={<SideBar />}>
+            <Route index element={<DashboardAdmin />}></Route>
+            <Route path="graphs" element={<DashboardAdmin />}></Route>
+            <Route path="students" element={<AdminStudent />}></Route>
+            <Route path="companies" element={<AdminCompany />}></Route>
+            <Route path="projects" element={<AdminProject />}></Route>
+          </Route>
+
           <Route
-            path="/adminStudent"
+            path="/Adminacceptprojects"
             element={
-              // <PrivateRoute>
-              <AdminStudent />
-              // </PrivateRoute>
+              <PublicRoute>
+                <AdminAcceptProject />
+              </PublicRoute>
             }
           />
-
-          <Route path="/side" element={<DashboardAdmin />} />
-
-          <Route path="/AdminCompany" element={<AdminCompany />} />
-
-          <Route path="/AdminProject" element={<AdminProject />} />
-
-          <Route path="/Adminacceptprojects" element={<AdminAcceptProject />} />
 
           {/* PROFILE ROUTES */}
 
@@ -233,7 +245,10 @@ export const AppRouter = () => {
             path="/postulated/:id"
             element={
               <PrivateRoute>
-                <Postulated />
+                <>
+                  <NavBar />
+                  <Postulated />
+                </>
               </PrivateRoute>
             }
           />

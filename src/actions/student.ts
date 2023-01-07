@@ -6,17 +6,31 @@ import { fileUpload } from '../helpers/fileUpload';
 
 export const getListStudents = (
     token: string | null,
-    state: Boolean = true
+    state: Boolean = true,
+    limit?: number | null,
+    init?: number | null
 ) => {
     return async (dispatch: Dispatch) => {
         try {
-            const res = await axios.get(`/student?onlyActive=${state}`, {
+            let query;
+            if (!state) {
+                query = `onlyActive=${state}`;
+            }
+            if (limit || init) {
+                console.log(limit, init);
+                if (query) {
+                    query += `&limit=${limit}&init=${init}`;
+                } else {
+                    query = `limit=${limit}&init=${init}`;
+                }
+            }
+            const res = await axios.get(`/student?${query}`, {
                 headers: { 'user-token': token },
             });
 
             dispatch({
                 type: types.getListStudents,
-                payload: res.data.students,
+                payload: res.data,
             });
         } catch (error: any) {
             console.log(error);
@@ -27,18 +41,27 @@ export const getListStudents = (
 export const studentRegister = (values: object) => {
     return async (dispatch: Dispatch) => {
         try {
-            const res = await axios.post('/student', values);
-            // console.log(res.data);
-
+            const {data, status} = await axios.post('/student', values);
+            const { token, id, rol } = data;
             dispatch({
                 type: types.studentRegister,
-                payload: res.data,
+                payload: data,
             });
+            // Si se registro correctamente, le hacemos iniciar sesion.
+            if (status) {
+                localStorage.setItem('token', token);
+                dispatch(login({ data, status, id, rol }));
+            }
         } catch (error: any) {
             console.log(error.response.data);
         }
     };
 };
+
+const login = (data: object) => ({
+    type: types.authLogin,
+    payload: data,
+});
 
 export const getStudentInfo = (id: string, token: string) => {
     return async (dispatch: Dispatch) => {
@@ -60,6 +83,9 @@ export const getStudentInfo = (id: string, token: string) => {
             });
         } catch (error: any) {
             console.log(error);
+            dispatch({
+                type: types.requestFinished,
+            });
         }
     };
 };
@@ -199,10 +225,10 @@ export const unApplyStudent = (
                 type: types.requestFinished,
             });
         } catch (error) {
+            console.log(error);
             dispatch({
                 type: types.requestFinished,
             });
-            console.log(error);
         }
     };
 };
