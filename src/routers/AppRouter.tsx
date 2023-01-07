@@ -37,8 +37,7 @@ import AdminAcceptProject from "../components/Admin/AdminProject/AdminAcceptProj
 import { Checkout } from "../pages/Checkout";
 import SideBar from "../components/Admin/SideBar/SideBar";
 import DashboardAdmin from "../components/Admin/DashboardAdmin";
-import {GroupRating} from "../components/project/Rating"
-import { RatingMail } from "../components/project/RatingMail";
+import { RatingMail} from "../components/project/RatingMail"
 
 
 import { VerifyEmail } from "../components/VerifyEmail/VerifyEmail";
@@ -256,7 +255,7 @@ export const AppRouter = () => {
             path="/rating"
             element={
               <>
-                <GroupRating />
+                <RatingMail />
               </>
             }
           />

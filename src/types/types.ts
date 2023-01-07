@@ -31,6 +31,7 @@ export const types = {
     deleteCompany: '[Company] Company delete',
     disableCompany: '[Company] disable Company',
     ratingProjectCompany:"[Company] rating Project",//toy provando
+    ratingProject:"[Company] rating CompanyProject",
 
 
     newProject: '[project] Create New Project',

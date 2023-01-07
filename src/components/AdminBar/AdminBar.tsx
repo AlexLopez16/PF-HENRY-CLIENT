@@ -92,7 +92,7 @@ export default function AccountMenu() {
                         aria-expanded={open ? 'true' : undefined}
                     >
                         <Avatar
-                            src={user.image}
+                            src={user?.image}
                             sx={{ width: 32, height: 32 }}
                         ></Avatar>
                     </IconButton>
@@ -144,7 +144,7 @@ export default function AccountMenu() {
                             {user.name?.slice(0, 1).toUpperCase()}
                         </IconButton> */}
                     </Avatar>
-                    Hola {user.name}
+                    Hola {user?.name}
                 </MenuItem>
                 <Divider />
                 {data.verify ? (

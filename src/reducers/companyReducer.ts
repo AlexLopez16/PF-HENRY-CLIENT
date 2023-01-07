@@ -43,6 +43,11 @@ export const companyReducer = (state: State = initialState, action: Action) => {
              ...state,
              user:action.payload
             }
+        case types.ratingProject:
+            return{
+          ...state,
+          user:action.payload
+            }
 
         default:
             return state;
