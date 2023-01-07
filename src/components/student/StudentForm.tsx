@@ -31,6 +31,7 @@ import { Link } from 'react-router-dom';
 import { alert } from '../AlertMail/alertMailStudent';
 
 import Logo from '../../assets/NABIJASH.png';
+import { SnackBar } from '../SnackBar/SnackBar';
 
 export const StudensForm: FC = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -80,16 +81,20 @@ export const StudensForm: FC = () => {
         password: values.password.trim(),
       }),
     );
+    
     dispatch(alert);
   };
 
 
   return (
+    
+    
     <Box
-      sx={{
-        backgroundColor: 'black',
-      }}
+    sx={{
+      backgroundColor: 'black',
+    }}
     >
+      <SnackBar />
       <div>
         <Header />
 

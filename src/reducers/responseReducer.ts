@@ -27,7 +27,7 @@ export const responseReducer = (
         case types.responseFinished:
             // console.log(action.payload)
             let response: object | any = {};
-            if (action.payload.status === 500) {
+            if (action.payload.status >= 400) {
                 response = action.payload?.data?.errors[0].msg ? action.payload?.data?.errors[0].msg : null ;
             } else {
                 response = action.payload.data ?  action.payload.data.msg : null;
