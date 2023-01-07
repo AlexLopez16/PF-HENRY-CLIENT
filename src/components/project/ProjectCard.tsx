@@ -62,10 +62,10 @@ const ProjectCard: FC<CardProjectProps> = ({
         style={{
           padding: 20,
           marginTop: 20,
-          width: 650,
+          width: 950,
           borderRadius: 15,
           backgroundColor: 'black',
-          marginBottom: 15
+          marginBottom: 15,
         }}
       >
         <Container fixed>
@@ -84,6 +84,7 @@ const ProjectCard: FC<CardProjectProps> = ({
                 pb: 2,
                 alignItems: 'center',
                 fontFamily: 'montserrat',
+                fontStyle: 'italic',
               }}
             >
               {' '}
@@ -100,15 +101,14 @@ const ProjectCard: FC<CardProjectProps> = ({
             <Typography
               sx={{
                 display: 'flex',
-                // color: '#e2e2e2',
+                fontSize: 25,
                 color: '#ffff01',
                 pb: 2,
                 fontFamily: 'montserrat',
                 alignItems: 'center',
                 justifyContent: 'space-around',
-                fontWeight: 'bold'
+                fontWeight: 'bold',
               }}
-              variant='h6'
             >
               {name?.toUpperCase()}
             </Typography>
@@ -118,23 +118,30 @@ const ProjectCard: FC<CardProjectProps> = ({
               marginBottom: 5,
             }}
           />
+
           {/* <Typography sx={{ m: 0.5 }}>{clippedDescription}</Typography> */}
 
           <Box
             sx={{
               display: 'flex',
+              justifyContent: 'space-around',
+              alignItem: 'center',
+              textAlign: 'center',
               mb: 5,
               pb: 2,
-              justifyContent: 'space-around',
             }}
           >
-            <Typography variant='subtitle1' sx={{ color: '#e2e2e2' }}>
+            <Typography
+              variant='subtitle1'
+              sx={{ color: '#e2e2e2', fontFamily: 'montserrat' }}
+            >
               Requerimientos:
               {requirements.map(
                 (requirement: string | any, index: number | any) => (
-                  <div key={index}>
+                  <>
                     {' '}
                     <Chip
+                      key={index}
                       color='primary'
                       size='small'
                       variant='outlined'
@@ -144,11 +151,12 @@ const ProjectCard: FC<CardProjectProps> = ({
                           tecnologies.indexOf(requirement) === -1
                             ? ''
                             : '#FFFF01',
-                        display: 'inline-flex',
+                        display: 'flex',
                         fontFamily: 'montserrat',
+                        mt: 1,
                       }}
                     />
-                  </div>
+                  </>
                 ),
               )}
             </Typography>
@@ -157,6 +165,7 @@ const ProjectCard: FC<CardProjectProps> = ({
               variant='subtitle1'
               sx={{
                 color: '#e2e2e2',
+                fontFamily: 'montserrat',
               }}
             >
               Estado:{' '}
@@ -168,52 +177,68 @@ const ProjectCard: FC<CardProjectProps> = ({
                 sx={{
                   background:
                     stateOfProj.indexOf(stateOfProject) === -1 ? '' : '#FFFF01',
+                  fontFamily: 'montserrat',
+                  display: 'flex',
+                  mt: 1,
                 }}
               />
             </Typography>
 
             <Typography
               variant='subtitle1'
-              sx={{ color: '#e2e2e2', fontFamily: 'poppins' }}
+              sx={{ color: '#e2e2e2', fontFamily: 'montserrat' }}
             >
               {' '}
               Participantes:{' '}
               <Chip
+                variant='outlined'
                 label={`${students?.length}/${participants}`}
                 color='primary'
                 size='small'
+                sx={{
+                  display: 'flex',
+                  mt: 1,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
               />
             </Typography>
           </Box>
-          <Paper
-            color='primary'
-            elevation={5}
+
+          <Container
             sx={{
-              display: 'flex',
+              alignContent: 'center',
               alignItems: 'center',
               textAlign: 'center',
-              justifyContent: 'center',
-              width: 200,
-              ml: 22,
-              mb: 2,
             }}
           >
-            <BusinessIcon fontSize='small' />
-            <Typography
-              variant='subtitle2'
+            <Paper
+              color='primary'
+              elevation={5}
               sx={{
-                display: 'flex',
+                display: 'inline-flex',
                 alignItems: 'center',
-                justifyContent: 'center',
-                ml: 1,
+                textAlign: 'center',
+                justifyContent: 'space-around',
+                width: 200,
+                mb: 2,
                 fontFamily: 'montserrat',
-                fontWeight: 'bold',
               }}
             >
-              {company?.toUpperCase()}
-            </Typography>
-          </Paper>
-
+              <BusinessIcon fontSize='small' />
+              <Typography
+                variant='subtitle2'
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItem: 'center',
+                  textAlign: 'center',
+                }}
+              >
+                {company?.toUpperCase()}
+              </Typography>
+            </Paper>
+          </Container>
           <Container
             sx={{
               textAlign: 'center',
@@ -246,7 +271,6 @@ const ProjectCard: FC<CardProjectProps> = ({
           </Container>
         </Container>
       </Paper>
-
     </Grid>
   );
 };
