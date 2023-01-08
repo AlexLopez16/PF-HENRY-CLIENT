@@ -41,7 +41,8 @@ export const getListStudents = (
 export const studentRegister = (values: object) => {
     return async (dispatch: Dispatch) => {
         try {
-            const { data, status } = await axios.post('/student', values);
+            const  res:object | any = await axios.post('/student', values);
+            const {status, data} = res
             const { token, id, rol } = data;
             dispatch({
                 type: types.studentRegister,
@@ -52,12 +53,12 @@ export const studentRegister = (values: object) => {
                 localStorage.setItem('token', token);
                 dispatch(login({ data, status, id, rol }));
             }
-        } catch (error: any) {
-            console.log(error.response.data);
+        } catch (error: object | any) {
             dispatch({
                 type: types.responseFinished,
-                payload: error.response,
-            });
+                payload: error.response
+            })
+            console.log(error.response);
         }
     };
 };

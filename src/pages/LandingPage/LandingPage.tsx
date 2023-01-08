@@ -516,6 +516,7 @@ const LandingPage: FC = () => {
             >
               El futuro; creado por Henry’s
             </Typography>
+            <Container>
             <Typography
               variant='h5'
               sx={{
@@ -529,6 +530,7 @@ const LandingPage: FC = () => {
               Estamos orgullosos de poder satisfacer las necesidades de todos
               nuestros clientes que, con confianza avalan nuestro desempeño.
             </Typography>
+            </Container>
           </Grid>
           <Carousel />
         </Box>
