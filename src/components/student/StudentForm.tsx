@@ -21,7 +21,7 @@ import { VisibilityOff, Visibility } from '@mui/icons-material';
 import { GitHubLogin } from '../auth/GitHubLogin';
 // import { GoogleLogin } from "../auth/GoogleLogin";
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import type {} from 'redux-thunk/extend-redux';
 import { studentRegister } from '../../actions/student';
 import { GoogleLogin } from '@react-oauth/google';
@@ -33,6 +33,7 @@ import { alert } from '../AlertMail/alertMailStudent';
 import studentRegisterbg from '../../assets/studentRegister.png';
 import Logo from '../../assets/NABIJASH.png';
 import { SnackBar } from '../SnackBar/SnackBar';
+import { State } from '../../reducers/rootReducer';
 
 export const StudensForm: FC = () => {
   const Navigate = useNavigate();
@@ -41,28 +42,31 @@ export const StudensForm: FC = () => {
   };
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-  const initialValues = {
-    name: '',
-    lastName: '',
-    email: '',
-    password: '',
-  };
-  const validationSchema = yup.object().shape({
-    name: yup.string().required('Nombre requerido'),
-    lastName: yup.string().required('Apellido requerido'),
-    email: yup.string().email('email invalido').required('Email requerido'),
-    password: yup
-      .string()
-      .required('Contraseña requerida')
-      .min(8, 'Debe contener min. 8 caracter')
-      .matches(/[0-9]/, 'Se requiere un numero')
-      .matches(/[a-z]/, 'Se requiere una letra minuscula')
-      .matches(/[A-Z]/, 'Se requiere una letra mayuscula')
-      .matches(/[^\w]/, 'Se requiere un simbolo'),
-  });
+let condicion = useSelector((state:State)=>state.response)
+
+
+    const handleClickShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
+    const initialValues = {
+        name: '',
+        lastName: '',
+        email: '',
+        password: '',
+    };
+    const validationSchema = yup.object().shape({
+        name: yup.string().required('Nombre requerido'),
+        lastName: yup.string().required('Apellido requerido'),
+        email: yup.string().email('email invalido').required('Email requerido'),
+        password: yup
+            .string()
+            .required('Contraseña requerida')
+            .min(8, 'Debe contener min. 8 caracter')
+            .matches(/[0-9]/, 'Se requiere un numero')
+            .matches(/[a-z]/, 'Se requiere una letra minuscula')
+            .matches(/[A-Z]/, 'Se requiere una letra mayuscula')
+            .matches(/[^\w]/, 'Se requiere un simbolo'),
+    });
 
   type Values = {
     name: string;
@@ -82,8 +86,10 @@ export const StudensForm: FC = () => {
         password: values.password.trim(),
       }),
     );
-
-    dispatch(alert);
+    {condicion.status>400
+        ?dispatch(alert)
+        : "null"
+    }
   };
 
   return (
