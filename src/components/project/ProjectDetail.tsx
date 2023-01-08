@@ -1,6 +1,6 @@
-import { FC, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { FC, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 import {
     Typography,
@@ -21,31 +21,29 @@ import { RatingMail } from './RatingMail';
 import { RatingProject } from './RatingProject';
 
 interface ProjectProps {
-    name?: string;
-    empresa?: string;
-    imagenes?: string[];
-    detalle?: string;
-    cantidadDeEstudiantes?: string;
-    lenguajes?: string[];
-    estado?: string;
-    email?: string;
-    categoria?: string;
-    uid: string;
-    stateOfProject?: string[];
-    avatar?: string;
+  name?: string;
+  empresa?: string;
+  imagenes?: string[];
+  detalle?: string;
+  cantidadDeEstudiantes?: string;
+  lenguajes?: string[];
+  estado?: string;
+  email?: string;
+  categoria?: string;
+  uid: string;
+  stateOfProject?: string[];
 }
 
 const ProjectDetail: FC<ProjectProps> = ({
-    name,
-    empresa,
-    imagenes,
-    detalle,
-    cantidadDeEstudiantes,
-    lenguajes = ['Java'],
-    estado,
-    categoria,
-    uid,
-    avatar,
+  name,
+  empresa,
+  imagenes,
+  detalle,
+  cantidadDeEstudiantes,
+  lenguajes = ["Java"],
+  estado,
+  categoria,
+  uid,
 }: ProjectProps) => {
     const dispatch = useDispatch();
     let token = localStorage.getItem('token') || '';
@@ -54,13 +52,17 @@ const ProjectDetail: FC<ProjectProps> = ({
     const { projectId } = useSelector((state: State) => state.project);
     const { user }: any = useSelector((state: State) => state.student);
 
-    const handlerApply = () => {
-        dispatch(addStudentToProject(uid, token));
-    };
+    const navigate = useNavigate();
+
+  const handlerApply = () => {
+    {projectId.questions.length
+    ? navigate(`/postulatedForm/${uid}`)
+    : dispatch(addStudentToProject(uid, token));
+    }
+  }
 
     const handelClick = () => {
         dispatch(proyectFinal(uid));
-        console.log('estoy aca');
         dispatch(getProjectByID(token, uid));
     };
 

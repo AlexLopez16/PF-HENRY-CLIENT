@@ -101,6 +101,8 @@ const ProjectForm: FC = () => {
         images: imagesUrl,
         questions: [values.question1, values.question2, values.question3] 
       };
+      console.log(data);
+      
 
       // setImages([...images, ...data]);
 
@@ -189,7 +191,7 @@ const ProjectForm: FC = () => {
   return (
     <Box
       sx={{
-        backgroundColor: 'white',
+        backgroundColor: 'black',
       }}
     >
       <div>

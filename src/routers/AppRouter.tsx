@@ -156,7 +156,7 @@ export const AppRouter = () => {
                     />
                     TODO: revisar esto
                     <Route
-                        path="/postulatedForm"
+                        path="/postulatedForm/:id"
                         element={
                             // <PrivateRoute>
                             <ApplicationForm />
