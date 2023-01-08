@@ -6,13 +6,16 @@ import NavBar from '../NavBar/NavBar';
 import Footer from '../../pages/LandingPage/Footer';
 import { Box, Button, Grid, Paper } from '@mui/material';
 import { TextField } from 'formik-mui';
+import { useDispatch } from 'react-redux';
 
 export const ApplicationForm: FC= () => {
 
   const token = localStorage.getItem('token') || '';
+
+  const dispatch = useDispatch();
   
   const initialValues = {
-
+    
   };
   
   const validationSchema = Yup.object().shape({
@@ -32,7 +35,6 @@ return (
   >
     <div>
       <NavBar />
-      <Error />
       <Grid>
         <Paper
           elevation={10}
@@ -56,11 +58,14 @@ return (
             {(props) => (
               <Form>
 
+          <Box>
           <Grid textAlign='left' fontFamily='montserrat' sx={{ mb: 2 }}>
             <h3>Pregunta 1= </h3>
           </Grid>
+          <div>
+
                 <Field
-                  as={TextField}
+                  // as={TextField}
                   name='responce1'
                   label='Respuesta'
                   // placeholder='¿Que quisieras preguntarle a tu nuevo Henry?'
@@ -68,13 +73,15 @@ return (
                   color='info'
                   sx={{ mb: 2 }}
                 />
+          </div>
+          </Box>
 
           <Grid textAlign='left' fontFamily='montserrat' sx={{ mb: 2 }}>
             <h3>Pregunta 2= </h3>
           </Grid>
 
                 <Field
-                  as={TextField}
+                  // as={TextField}
                   name='response2'
                   label='Respuesta'
                   // placeholder='¿Que quisieras preguntarle a tu nuevo Henry?'
@@ -87,7 +94,7 @@ return (
             <h3>Pregunta 3= </h3>
           </Grid>
                 <Field
-                  as={TextField}
+                  // as={TextField}
                   name='response3'
                   label='PRespuesta'
                   // placeholder='¿Que quisieras preguntarle a tu nuevo Henry?'

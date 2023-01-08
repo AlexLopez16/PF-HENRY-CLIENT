@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 import {
     Typography,
@@ -46,6 +46,8 @@ const ProjectDetail: FC<ProjectProps> = ({
     let id = useSelector((state: State) => state.auth.data.id);
     const { projectId } = useSelector((state: State) => state.project);
     const { user }: any = useSelector((state: State) => state.student);
+
+    const navigate = useNavigate();
 
     const handlerApply = () => {
         dispatch(addStudentToProject(uid, token));
