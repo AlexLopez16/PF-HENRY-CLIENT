@@ -85,7 +85,8 @@ const Pages: FC = () => {
         if (
             location.pathname === '/Adminacceptprojects' ||
             location.pathname === '/AdminProject' ||
-            location.pathname === '/dashboard/projects'
+            location.pathname === '/dashboard/projects' ||
+            location.pathname === '/dashboard/aceptProjects'
         ) {
             if (filters) {
                 dispatch(
