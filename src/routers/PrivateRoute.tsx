@@ -3,7 +3,8 @@ import { Navigate, useSearchParams } from 'react-router-dom';
 import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../reducers/rootReducer';
-import { githubLogin, validaToken } from '../actions/auth';
+import { githubLogin, logout, validaToken } from '../actions/auth';
+import { SnackBar } from '../components/SnackBar/SnackBar';
 
 type Props = {
     children: JSX.Element;
@@ -20,14 +21,12 @@ export const PrivateRoute: FC<Props> = ({ children }) => {
     }
 
     let obj: any;
-
     if (token == null) {
         const [queryParameters] = useSearchParams();
 
         let tokenQuery = queryParameters.get('token');
         let id: any = queryParameters.get('id');
         let rol: any = queryParameters.get('rol');
-        let status: any = queryParameters.get('status');
         if (tokenQuery != null) {
             obj = { tokenQuery, id, rol };
             localStorage.setItem('token', tokenQuery);
@@ -39,5 +38,15 @@ export const PrivateRoute: FC<Props> = ({ children }) => {
         }
     }
 
-    return logged ? children : <Navigate to="/login" />;
+    if (!status && token) {
+        dispatch(validaToken(token));
+    }
+
+    return logged ? (
+        children
+    ) : (
+        <>
+            <SnackBar /> <Navigate to="/login" />
+        </>
+    );
 };

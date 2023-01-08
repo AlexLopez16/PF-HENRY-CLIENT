@@ -16,6 +16,7 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function Footer() {
   return (
     <Box>
+     
       <Box
         sx={{
           backgroundColor: '#1b384a',
@@ -27,15 +28,15 @@ export default function Footer() {
           sx={{
             alignContent: 'center',
             alignItems: 'center',
-            pb: 5,
-            pt: 5,
+            pb: 1,
+            pt: 1,
           }}
         >
           <img
             src={logo}
             style={{
               marginBottom: 10,
-              marginTop: 10,
+              
               height: 50,
               marginLeft: '42%',
             }}
@@ -43,7 +44,7 @@ export default function Footer() {
 
           <hr
             style={{
-              marginBottom: 15,
+              marginBottom: 10,
             }}
           />
           <Box

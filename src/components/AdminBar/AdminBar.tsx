@@ -39,7 +39,7 @@ export default function AccountMenu() {
     };
 
     const dispatch = useDispatch();
-    const { data } = useSelector((state: State) => state.auth);
+    const { data }: object | any = useSelector((state: State) => state.auth);
     const { id, rol } = data;
     const { user }: any = useSelector((state: State) =>
         rol === 'STUDENT_ROL' 
@@ -52,9 +52,9 @@ export default function AccountMenu() {
     const token = localStorage.getItem('token') || '';
 
     useEffect(() => {
-        rol === 'STUDENT_ROL'
+        rol === 'STUDENT_ROL' && data.verify
             ? dispatch(getStudentInfo(id, token))
-            : rol === 'COMPANY_ROL' 
+            : rol === 'COMPANY_ROL' && data.verify
             ? dispatch(companyGetInfo(id, token)) 
             : dispatch(getInfoAdmin(id, token))
     }, [dispatch]);
@@ -97,7 +97,7 @@ export default function AccountMenu() {
                         aria-expanded={open ? 'true' : undefined}
                     >
                         <Avatar
-                            src={user.image}
+                            src={user?.image}
                             sx={{ width: 32, height: 32 }}
                         ></Avatar>
                     </IconButton>
@@ -150,7 +150,7 @@ export default function AccountMenu() {
                             {user.name?.slice(0, 1).toUpperCase()}
                         </IconButton> */}
                     </Avatar>
-                    Hola {user.name}
+                    Hola {user?.name}
                 </MenuItem>
                 <Divider />
                 {data.verify ? (
@@ -164,14 +164,14 @@ export default function AccountMenu() {
                     </>
                 ) : null}
 
-                {rol === 'COMPANY_ROL' && (
+                {rol === 'COMPANY_ROL' && data.verify ? (
                     <MenuItem onClick={() => setOpenModal(true)}>
                         <ListItemIcon>
                             <WorkspacePremiumIcon fontSize="small" />
                         </ListItemIcon>
                         Premium
                     </MenuItem>
-                )}
+                ) : null}
 
                 <MenuItem onClick={handlerLogout}>
                     <ListItemIcon>

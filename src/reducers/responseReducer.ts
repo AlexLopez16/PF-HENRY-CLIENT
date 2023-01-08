@@ -25,10 +25,19 @@ export const responseReducer = (
 ) => {
     switch (action.type) {
         case types.responseFinished:
+            // console.log(action.payload)
+            let response: object | any = {};
+            if (action.payload.status >= 400) {
+                response = action.payload?.data?.errors[0].msg ? action.payload?.data?.errors[0].msg : null ;
+            } else {
+                response = action.payload.data ? action.payload.data.msg : null;
+            }
+            // console.log(response);
+
             return {
                 ...state,
                 status: action.payload?.status ? action.payload.status : null,
-                msg: action.payload?.data?.msg ? action.payload.msg : null,
+                msg: response ? response : null,
             };
         case types.responseCleaned:
             return {

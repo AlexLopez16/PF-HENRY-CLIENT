@@ -1,102 +1,102 @@
-import { FC, useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { FC, useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Box } from "@mui/system";
-import { getCompany, disableCompany } from "../../../actions/company";
-import * as moment from "moment";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Box } from '@mui/system';
+import { getCompany, disableCompany } from '../../../actions/company';
+import * as moment from 'moment';
 import {
-  Avatar,
-  Card,
-  Checkbox,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TablePagination,
-  TableRow,
-  Typography,
-  InputLabel,
-} from "@mui/material";
-import { State } from "../../../reducers/rootReducer";
-import NavBar from "../../NavBar/NavBar";
-import { validaToken } from "../../../actions/auth";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
-import EditIcon from "@mui/icons-material/Edit";
-import React from "react";
-import { PreLoader } from "../../PreLoader/PreLoader";
+    Avatar,
+    Card,
+    Checkbox,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TablePagination,
+    TableRow,
+    Typography,
+    InputLabel,
+} from '@mui/material';
+import { State } from '../../../reducers/rootReducer';
+import NavBar from '../../NavBar/NavBar';
+import { validaToken } from '../../../actions/auth';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+import EditIcon from '@mui/icons-material/Edit';
+import React from 'react';
+import { PreLoader } from '../../PreLoader/PreLoader';
+import Pages from '../../ui/Pagination';
 
 const AdminCompany: FC = ({ ...rest }) => {
   const { user }: object | any = useSelector((state: State) => state.company);
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
-  const users = user.usersCompany;
-  console.log(users);
+  const users = user;
 
-  const { logged, status } = useSelector((state: State) => state.auth);
+    const { logged, status } = useSelector((state: State) => state.auth);
 
   if (!status && token) {
     dispatch(validaToken(token));
   }
 
-  useEffect(() => {
-    dispatch(getCompany(token, false));
-  }, [dispatch]);
+    useEffect(() => {
+        dispatch(getCompany(token, false, 6, 0));
+    }, [dispatch]);
 
-  const [selectedCustomerIds, setSelectedCustomerIds] = useState<any[]>([]);
-  const [limit, setLimit] = useState(12);
-  const [page, setPage] = useState(0);
+    const [selectedCustomerIds, setSelectedCustomerIds] = useState<any[]>([]);
+    const [limit, setLimit] = useState(12);
+    const [page, setPage] = useState(0);
 
-  const handleSelectAll = (event: any) => {
-    let newSelectedCustomerIds;
+    const handleSelectAll = (event: any) => {
+        let newSelectedCustomerIds;
 
-    if (event.target.checked) {
-      newSelectedCustomerIds = users.map((user: any) => user.id);
-    } else {
-      newSelectedCustomerIds = [];
-    }
+        if (event.target.checked) {
+            newSelectedCustomerIds = users.map((user: any) => user.id);
+        } else {
+            newSelectedCustomerIds = [];
+        }
 
-    setSelectedCustomerIds(newSelectedCustomerIds);
-  };
+        setSelectedCustomerIds(newSelectedCustomerIds);
+    };
 
-  const handleSelectOne = (event: any, uid: any) => {
-    const selectedIndex = selectedCustomerIds.indexOf(uid);
-    let newSelectedCustomerIds: any = [];
+    const handleSelectOne = (event: any, uid: any) => {
+        const selectedIndex = selectedCustomerIds.indexOf(uid);
+        let newSelectedCustomerIds: any = [];
 
-    if (selectedIndex === -1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds,
-        uid
-      );
-    } else if (selectedIndex === 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(1)
-      );
-    } else if (selectedIndex === selectedCustomerIds.length - 1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(0, -1)
-      );
-    } else if (selectedIndex > 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(0, selectedIndex),
-        selectedCustomerIds.slice(selectedIndex + 1)
-      );
-    }
+        if (selectedIndex === -1) {
+            newSelectedCustomerIds = newSelectedCustomerIds.concat(
+                selectedCustomerIds,
+                uid
+            );
+        } else if (selectedIndex === 0) {
+            newSelectedCustomerIds = newSelectedCustomerIds.concat(
+                selectedCustomerIds.slice(1)
+            );
+        } else if (selectedIndex === selectedCustomerIds.length - 1) {
+            newSelectedCustomerIds = newSelectedCustomerIds.concat(
+                selectedCustomerIds.slice(0, -1)
+            );
+        } else if (selectedIndex > 0) {
+            newSelectedCustomerIds = newSelectedCustomerIds.concat(
+                selectedCustomerIds.slice(0, selectedIndex),
+                selectedCustomerIds.slice(selectedIndex + 1)
+            );
+        }
 
-    setSelectedCustomerIds(newSelectedCustomerIds);
-  };
+        setSelectedCustomerIds(newSelectedCustomerIds);
+    };
 
-  const handleLimitChange = (event: any) => {
-    setLimit(event.target.value);
-  };
+    const handleLimitChange = (event: any) => {
+        setLimit(event.target.value);
+    };
 
-  const handlePageChange = (event: any, newPage: any) => {
-    setPage(newPage);
-  };
+    const handlePageChange = (event: any, newPage: any) => {
+        setPage(newPage);
+    };
 
-  const [checked, setChecked] = React.useState(true);
+    const [checked, setChecked] = React.useState(true);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
@@ -183,6 +183,7 @@ const AdminCompany: FC = ({ ...rest }) => {
               ))}
             </TableBody>
           </Table>
+          <Pages />
         </Box>
       </Card>
     </>

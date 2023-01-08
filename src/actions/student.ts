@@ -38,20 +38,34 @@ export const getListStudents = (
 };
 
 export const studentRegister = (values: object) => {
-  return async (dispatch: Dispatch) => {
-    try {
-      const res = await axios.post("/student", values);
-      // console.log(res.data);
-
-      dispatch({
-        type: types.studentRegister,
-        payload: res.data,
-      });
-    } catch (error: any) {
-      console.log(error.response.data);
-    }
-  };
+    return async (dispatch: Dispatch) => {
+        try {
+            const  res:object | any = await axios.post('/student', values);
+            const {status, data} = res
+            const { token, id, rol } = data;
+            dispatch({
+                type: types.studentRegister,
+                payload: data,
+            });
+            // Si se registro correctamente, le hacemos iniciar sesion.
+            if (status) {
+                localStorage.setItem('token', token);
+                dispatch(login({ data, status, id, rol }));
+            }
+        } catch (error: object | any) {
+            dispatch({
+                type: types.responseFinished,
+                payload: error.response
+            })
+            console.log(error.response);
+        }
+    };
 };
+
+const login = (data: object) => ({
+    type: types.authLogin,
+    payload: data,
+});
 
 export const getStudentInfo = (id: string, token: string) => {
   return async (dispatch: Dispatch) => {
@@ -190,37 +204,45 @@ export const unApplyStudent = (
   projectId: string | any,
   token: string | any
 ) => {
-  return async (dispatch: Dispatch) => {
-    try {
-      // Incio de la request.
-      dispatch({
-        type: types.requestInProgress,
-      });
-      const res = await axios.put(
-        `/project/unapply/${projectId}`,
-        {
-          studentId,
-        },
-        {
-          headers: { "user-token": token },
+    return async (dispatch: Dispatch) => {
+        try {
+            // Incio de la request.
+            dispatch({
+                type: types.requestInProgress,
+            });
+            const res = await axios.put(
+                `/project/unapply/${projectId}`,
+                {
+                    studentId,
+                },
+                {
+                    headers: { 'user-token': token },
+                }
+            );
+            console.log(res);
+            dispatch({
+                type: types.unApplyStudent,
+                payload: projectId,
+            });
+            // Fin de la request.
+            dispatch({
+                type: types.requestFinished,
+            });
+            dispatch({
+                type: types.responseFinished,
+                payload: res,
+            });
+        } catch (error: any) {
+            console.log(error);
+            dispatch({
+                type: types.requestFinished,
+            });
+            dispatch({
+                type: types.responseFinished,
+                payload: error.response,
+            });
         }
-      );
-      console.log(res);
-      dispatch({
-        type: types.unApplyStudent,
-        payload: projectId,
-      });
-      // Fin de la request.
-      dispatch({
-        type: types.requestFinished,
-      });
-    } catch (error) {
-      dispatch({
-        type: types.requestFinished,
-      });
-      console.log(error);
-    }
-  };
+    };
 };
 
 export const disableStudent = (token: string | null, id: string) => {

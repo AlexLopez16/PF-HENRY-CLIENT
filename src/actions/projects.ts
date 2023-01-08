@@ -49,6 +49,9 @@ export const getProjectByID = (token: string, id: string) => {
 export const newProject = (data: object, token: string) => {
     return async (dispatch: Dispatch) => {
         try {
+            dispatch({
+                type: types.requestInProgress,
+            });
             const res: any = await axios.post('/project', data, {
                 headers: { 'user-token': token },
             });
@@ -56,9 +59,21 @@ export const newProject = (data: object, token: string) => {
                 type: types.newProject,
                 payload: res.data,
             });
+            dispatch({
+                type: types.requestFinished,
+            });
+            // Si todo sale bien.
+            dispatch({
+                type: types.responseFinished,
+                payload: res,
+            });
         } catch (error: any) {
             dispatch({
-                type: types.showError,
+                type: types.requestFinished,
+            });
+            // Guardamos respuesta de la request.
+            dispatch({
+                type: types.responseFinished,
                 payload: error.response,
             });
         }

@@ -16,7 +16,7 @@ interface SnackbarProps {
 
 export const SnackBar: FC<SnackbarProps> = ({ successMsg, errorMsg }) => {
     // Traemos la request del estado.
-    const { status } = useSelector((state: State) => state.response);
+    const { status, msg } = useSelector((state: State) => state.response);
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
 
@@ -24,9 +24,17 @@ export const SnackBar: FC<SnackbarProps> = ({ successMsg, errorMsg }) => {
     useEffect(() => {
         if (status != null) handleOpen();
     }, [status]);
+
+    useEffect(() => {
+        setOpen(false);
+        dispatch(responseCleaned());
+        return () => {};
+    }, []);
+
     const handleOpen = () => {
         setOpen(true);
     };
+
     const handleClose = () => {
         setOpen(false);
         setTimeout(() => {
@@ -45,10 +53,14 @@ export const SnackBar: FC<SnackbarProps> = ({ successMsg, errorMsg }) => {
         alertField.message = successMsg;
     else if (status >= 400 && errorMsg != null) alertField.message = errorMsg;
 
+    // Si hay error del backend en msg.
+    if (status >= 200 && status < 400 && msg != null) alertField.message = msg;
+    else if (status >= 400 && msg != null) alertField.message = msg;
+
     return (
         <Snackbar
             open={open}
-            autoHideDuration={2500}
+            autoHideDuration={5000}
             onClose={handleClose}
             anchorOrigin={{
                 vertical: 'top',

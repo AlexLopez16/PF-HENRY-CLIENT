@@ -37,8 +37,12 @@ import AdminAcceptProject from "../components/Admin/AdminProject/AdminAcceptProj
 import { Checkout } from "../pages/Checkout";
 import SideBar from "../components/Admin/SideBar/SideBar";
 import DashboardAdmin from "../components/Admin/DashboardAdmin";
+import { RatingMail} from "../components/project/RatingMail"
+
+
 import { VerifyEmail } from "../components/VerifyEmail/VerifyEmail";
 import { ProfileAdmin } from "../components/Admin/Profile/ProfileAdmin";
+import { ApplicationForm } from '../components/project/ApplicationForm';
 
 export const AppRouter = () => {
   let { id } = useParams();
@@ -149,14 +153,24 @@ export const AppRouter = () => {
             }
           />
 
-          <Route
-            path="/newproject"
-            element={
-              <PrivateRoute>
-                <ProjectForm />
-              </PrivateRoute>
-            }
-          />
+                    <Route
+                        path="/newproject"
+                        element={
+                            <PrivateRoute>
+                                <ProjectForm />
+                            </PrivateRoute>
+                        }
+                    />
+
+                        TODO: revisar esto
+                    <Route
+                        path="/postulatedForm"
+                        element={
+                            // <PrivateRoute>
+                                <ApplicationForm />
+                            // </PrivateRoute>
+                        }
+                    />
 
           <Route
             path="/aboutUs"
@@ -237,6 +251,14 @@ export const AppRouter = () => {
                   <Postulated />
                 </>
               </PrivateRoute>
+            }
+          />
+           <Route
+            path="/rating"
+            element={
+              <>
+                <RatingMail />
+              </>
             }
           />
 
