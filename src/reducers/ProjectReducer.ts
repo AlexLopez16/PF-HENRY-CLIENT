@@ -5,12 +5,12 @@ interface State {
     projectsFilter: {}[];
     projectId: {};
     filters: {
-        typeOfOrder: string,
-        tecnologies: string[],
-        name: string,
-        category: string[],
-        stateOfProject: string[]
-    }
+        typeOfOrder: string;
+        tecnologies: string[];
+        name: string;
+        category: string[];
+        stateOfProject: string[];
+    };
 }
 
 const initialState = {
@@ -25,7 +25,7 @@ const initialState = {
         tecnologies: [],
         name: '',
         category: [],
-        stateOfProject: []
+        stateOfProject: [],
     },
 };
 
@@ -77,7 +77,13 @@ export const projectReducer = (state: State = initialState, action: Action) => {
         case types.filters:
             return {
                 ...state,
-                filters: action.payload
+                filters: action.payload,
+            };
+
+        case types.clearProject:
+            return {
+                projectsFilter: [],
+                total: 0,
             };
 
         default:
