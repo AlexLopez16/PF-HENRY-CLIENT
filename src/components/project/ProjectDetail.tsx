@@ -1,51 +1,51 @@
-import { FC, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { FC, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import {
-  Typography,
-  Paper,
-  List,
-  Button,
-  ImageList,
-  ImageListItem,
-} from "@mui/material";
+    Typography,
+    Paper,
+    List,
+    Button,
+    ImageList,
+    ImageListItem,
+} from '@mui/material';
 
-import { State } from "../../reducers/rootReducer";
-import { addStudentToProject } from "../../actions/student";
-import { PreLoader } from "../PreLoader/PreLoader";
-import { SnackBar } from "../SnackBar/SnackBar";
-import { proyectFinal } from "../../actions/company";
-import { getProjectByID } from "../../actions/projects";
-import { RatingMail } from "./RatingMail";
-import { RatingProject } from "./RatingProject";
+import { State } from '../../reducers/rootReducer';
+import { addStudentToProject } from '../../actions/student';
+import { PreLoader } from '../PreLoader/PreLoader';
+import { SnackBar } from '../SnackBar/SnackBar';
+import { proyectFinal } from '../../actions/company';
+import { getProjectByID } from '../../actions/projects';
+import { RatingMail } from './RatingMail';
+import { RatingProject } from './RatingProject';
 
 interface ProjectProps {
-  name?: string;
-  empresa?: string;
-  imagenes?: string[];
-  detalle?: string;
-  cantidadDeEstudiantes?: string;
-  lenguajes?: string[];
-  estado?: string;
-  email?: string;
-  categoria?: string;
-  uid: string;
-  stateOfProject?: string[];
-  avatar?:string
+    name?: string;
+    empresa?: string;
+    imagenes?: string[];
+    detalle?: string;
+    cantidadDeEstudiantes?: string;
+    lenguajes?: string[];
+    estado?: string;
+    email?: string;
+    categoria?: string;
+    uid: string;
+    stateOfProject?: string[];
+    avatar?: string;
 }
 
 const ProjectDetail: FC<ProjectProps> = ({
-  name,
-  empresa,
-  imagenes,
-  detalle,
-  cantidadDeEstudiantes,
-  lenguajes = ["Java"],
-  estado,
-  categoria,
-  uid,
-  avatar
+    name,
+    empresa,
+    imagenes,
+    detalle,
+    cantidadDeEstudiantes,
+    lenguajes = ['Java'],
+    estado,
+    categoria,
+    uid,
+    avatar,
 }: ProjectProps) => {
     const dispatch = useDispatch();
     let token = localStorage.getItem('token') || '';
@@ -54,158 +54,166 @@ const ProjectDetail: FC<ProjectProps> = ({
     const { projectId } = useSelector((state: State) => state.project);
     const { user }: any = useSelector((state: State) => state.student);
 
-  const handlerApply = () => {
-    dispatch(addStudentToProject(uid, token));
-  };
+    const handlerApply = () => {
+        dispatch(addStudentToProject(uid, token));
+    };
 
-  const handelClick = () => {
-    dispatch(proyectFinal(uid));
-    dispatch(getProjectByID(token, uid));
-  };
-  
-  let review = projectId.reviews
-console.log(review);
+    const handelClick = () => {
+        dispatch(proyectFinal(uid));
+        console.log('estoy aca');
+        dispatch(getProjectByID(token, uid));
+    };
 
-  return (
-    <div>
-      <PreLoader />
-      {rol === "STUDENT_ROL" ? (
-        <SnackBar
-          successMsg="Aplicaste correctamente."
-          errorMsg="Error al aplicar."
-        />
-      ) : null}
-      <Paper
-        elevation={12}
-        style={{
-          width: 1000,
-          height: "fit-content",
-          padding: 20,
-          margin: "100px auto",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-end",
-          }}
-        >
-          <div>
-            <List>
-              <Typography variant="h4">{name}</Typography>
-            </List>
+    let review = projectId.reviews;
 
-            <Typography>{empresa}</Typography>
-
-            <List>
-              <Typography variant="body1">
-                <b>Descripcion: </b>
-                {detalle}
-              </Typography>
-            </List>
-
-            <List>
-              <Typography variant="body1">
-                <b>Requerimientos: </b>{" "}
-                {lenguajes?.map((lenguaje) => lenguaje).join(", ")}
-              </Typography>
-            </List>
-
-            <List>
-              <Typography variant="body1">
-                <b>Participantes: </b> {cantidadDeEstudiantes}
-              </Typography>
-            </List>
-
-            <List>
-              <Typography variant="body1">
-                <b>Categoria: </b> {categoria}
-              </Typography>
-            </List>
-
-            <List>
-              <Typography variant="body1">
-                <b>Estado del proyecto: </b> {estado}
-              </Typography>
-            </List>
-          </div>
-          {imagenes && (
-            <div>
-              <ImageList
-                sx={{ width: 500, height: 280 }}
-                cols={2}
-                rowHeight={200}
-              >
-                {imagenes.map((item) => (
-                  <ImageListItem key={item}>
-                    <img src={item} alt={item} />
-                  </ImageListItem>
-                ))}
-              </ImageList>
-            </div>
-          )}
-        </div>
-
-        {rol === "STUDENT_ROL" && projectId.stateOfProject !== "Terminado"
-? (
-          <Button
-            sx={{ marginTop: 10 }}
-            type="submit"
-            variant="contained"
-            fullWidth
-            color="primary"
-            onClick={handlerApply}
-            disabled={user.project?.length === 3}
-          >
-            aplicar
-          </Button>
-        ) : id &&
-          projectId &&
-          projectId?.company?._id &&
-          id === projectId.company._id &&
-                  projectId.stateOfProject === "Terminado" || "En reclutamiento"
-                  ? (
-          <Link to={`/postulated/${uid}`}>
-            <Button
-              sx={{ marginTop: 10 }}
-              type="submit"
-              variant="contained"
-              fullWidth
-              color="primary"
+    return (
+        <div>
+            <PreLoader />
+            {rol === 'STUDENT_ROL' ? (
+                <SnackBar
+                    successMsg="Aplicaste correctamente."
+                    errorMsg="Error al aplicar."
+                />
+            ) : null}
+            <Paper
+                elevation={12}
+                style={{
+                    width: 1000,
+                    height: 'fit-content',
+                    padding: 20,
+                    margin: '100px auto',
+                }}
             >
-              Postulados
-            </Button>
-          </Link>
-        ) : null}
+                <div
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'flex-end',
+                    }}
+                >
+                    <div>
+                        <List>
+                            <Typography variant="h4">{name}</Typography>
+                        </List>
 
-        {rol === "COMPANY_ROL" && projectId.stateOfProject !== "Terminado" ? (
-          <Button
-            onClick={handelClick}
-            sx={{ marginTop: 10 }}
-            type="submit"
-            variant="contained"
-            fullWidth
-            color="primary"
-          >
-            terminar proyecto
-          </Button>
-        ) : (
-          ""
-        )}
-      </Paper>
-      {rol === "COMPANY_ROL" && projectId.stateOfProject === "Terminado" && review.length > 0 ?
-     review.map((e:any)=>( <RatingProject
-     avatar={e.student.image}
-     name={e.student.name}
-     lastName={e.student.lastName}
-      description={e.description}
-      ratingCompany={e.ratingCompany}
-      ratingProject={e.ratingProject}
-      projectName={e.project.name}
-     />)):""}
-    </div>
-  );
+                        <Typography>{empresa}</Typography>
+
+                        <List>
+                            <Typography variant="body1">
+                                <b>Descripcionn: </b>
+                                {detalle}
+                            </Typography>
+                        </List>
+
+                        <List>
+                            <Typography variant="body1">
+                                <b>Requerimientos: </b>{' '}
+                                {lenguajes
+                                    ?.map((lenguaje) => lenguaje)
+                                    .join(', ')}
+                            </Typography>
+                        </List>
+
+                        <List>
+                            <Typography variant="body1">
+                                <b>Participantes: </b> {cantidadDeEstudiantes}
+                            </Typography>
+                        </List>
+
+                        <List>
+                            <Typography variant="body1">
+                                <b>Categoria: </b> {categoria}
+                            </Typography>
+                        </List>
+
+                        <List>
+                            <Typography variant="body1">
+                                <b>Estado del proyecto: </b> {estado}
+                            </Typography>
+                        </List>
+                    </div>
+                    {imagenes && (
+                        <div>
+                            <ImageList
+                                sx={{ width: 500, height: 280 }}
+                                cols={2}
+                                rowHeight={200}
+                            >
+                                {imagenes.map((item) => (
+                                    <ImageListItem key={item}>
+                                        <img src={item} alt={item} />
+                                    </ImageListItem>
+                                ))}
+                            </ImageList>
+                        </div>
+                    )}
+                </div>
+
+                {rol === 'STUDENT_ROL' &&
+                projectId.stateOfProject !== 'Terminado' ? (
+                    <Button
+                        sx={{ marginTop: 10 }}
+                        type="submit"
+                        variant="contained"
+                        fullWidth
+                        color="primary"
+                        onClick={handlerApply}
+                        disabled={user.project?.length === 3}
+                    >
+                        aplicar
+                    </Button>
+                ) : (id &&
+                      projectId &&
+                      projectId?.company?._id &&
+                      id === projectId.company._id &&
+                      projectId.stateOfProject === 'Terminado') ||
+                  'En reclutamiento' ? (
+                    <Link to={`/postulated/${uid}`}>
+                        <Button
+                            sx={{ marginTop: 10 }}
+                            type="submit"
+                            variant="contained"
+                            fullWidth
+                            color="primary"
+                        >
+                            Postulados
+                        </Button>
+                    </Link>
+                ) : null}
+
+                {rol === 'COMPANY_ROL' &&
+                projectId.stateOfProject !== 'Terminado' ? (
+                    <Button
+                        onClick={handelClick}
+                        sx={{ marginTop: 10 }}
+                        type="submit"
+                        variant="contained"
+                        fullWidth
+                        color="primary"
+                    >
+                        terminar proyecto
+                    </Button>
+                ) : (
+                    ''
+                )}
+            </Paper>
+            {rol === 'COMPANY_ROL' &&
+            projectId.stateOfProject === 'Terminado' &&
+            review.length > 0
+                ? review.map((e: any) => (
+                      <RatingProject
+                          avatar={e.student.image}
+                          name={e.student.name}
+                          lastName={e.student.lastName}
+                          description={e.description}
+                          ratingCompany={e.ratingCompany}
+                          ratingProject={e.ratingProject}
+                          projectName={e.project.name}
+                      />
+                  ))
+                : ''}
+        </div>
+    );
 };
 
 export default ProjectDetail;
