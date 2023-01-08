@@ -31,6 +31,7 @@ import { Link } from 'react-router-dom';
 import { alert } from '../AlertMail/alertMailStudent';
 
 import Logo from '../../assets/NABIJASH.png';
+import bg from '../../assets/bg.png';
 import { SnackBar } from '../SnackBar/SnackBar';
 
 export const StudensForm: FC = () => {
@@ -88,9 +89,10 @@ export const StudensForm: FC = () => {
     
     
     <Box
-    sx={{
-      backgroundColor: 'black',
-    }}
+      sx={{
+        backgroundImage: `url(${bg})`,
+        maxWidth: '1920px',
+      }}
     >
       <SnackBar />
       <div>
