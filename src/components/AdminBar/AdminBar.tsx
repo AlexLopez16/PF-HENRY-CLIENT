@@ -1,6 +1,4 @@
-import * as React from 'react';
-import { useState } from 'react';
-
+import { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
@@ -22,6 +20,7 @@ import {
 } from 'react-router-dom';
 import { getStudentInfo } from '../../actions/student';
 import { companyGetInfo } from '../../actions/company';
+import { getInfoAdmin } from '../../actions/Admin';
 import { logout } from '../../actions/auth';
 // import { Profile } from '../student/profile/Profile';
 // import { ProfileCompany } from '../company/Profile/ProfileCompany';
@@ -30,7 +29,7 @@ import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import { Premium } from '../Premium/Premium';
 
 export default function AccountMenu() {
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
@@ -43,15 +42,21 @@ export default function AccountMenu() {
     const { data } = useSelector((state: State) => state.auth);
     const { id, rol } = data;
     const { user }: any = useSelector((state: State) =>
-        rol === 'STUDENT_ROL' ? state.student : state.company
+        rol === 'STUDENT_ROL' 
+        ? state.student 
+        : rol === 'COMPANY_ROL' 
+        ? state.company 
+        : state.admin
     );
-
+    
     const token = localStorage.getItem('token') || '';
 
-    React.useEffect(() => {
+    useEffect(() => {
         rol === 'STUDENT_ROL'
             ? dispatch(getStudentInfo(id, token))
-            : dispatch(companyGetInfo(id, token));
+            : rol === 'COMPANY_ROL' 
+            ? dispatch(companyGetInfo(id, token)) 
+            : dispatch(getInfoAdmin(id, token))
     }, [dispatch]);
     const navigate = useNavigate();
 
@@ -64,14 +69,16 @@ export default function AccountMenu() {
     const handlerProfile = () => {
         rol === 'STUDENT_ROL'
             ? navigate('/profile')
-            : navigate('/profileCompany');
+            : rol === 'COMPANY_ROL' 
+            ? navigate('/profileCompany')
+            : navigate('/dashboard/profileAdmin')
     };
 
     // FUNCION PREMIUM
     const [openModal, setOpenModal] = useState(false);
 
     return (
-        <React.Fragment>
+        <>
             <Box
                 sx={{
                     justifyContent: 'right',
@@ -130,6 +137,7 @@ export default function AccountMenu() {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
+                <Box>
                 <MenuItem
                     sx={{
                         pointerEvents: 'none',
@@ -171,9 +179,10 @@ export default function AccountMenu() {
                     </ListItemIcon>
                     Cerrar sesion
                 </MenuItem>
+                </Box>
             </Menu>
 
             <Premium openModal={openModal} setOpenModal={setOpenModal} />
-        </React.Fragment>
+        </>
     );
 }

@@ -23,7 +23,6 @@ export const SnackBar: FC<SnackbarProps> = ({ successMsg, errorMsg }) => {
     // Si ya termino el progreso.
     useEffect(() => {
         if (status != null) handleOpen();
-        console.log(status);
     }, [status]);
     const handleOpen = () => {
         setOpen(true);

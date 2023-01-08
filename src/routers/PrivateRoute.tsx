@@ -16,8 +16,6 @@ export const PrivateRoute: FC<Props> = ({ children }) => {
     let token = localStorage.getItem('token');
 
     if (!status && token) {
-        //revisar este console.log
-        console.log('Tenes token, ahora te validamos');
         dispatch(validaToken(token));
     }
 

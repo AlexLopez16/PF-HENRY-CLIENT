@@ -33,16 +33,16 @@ const AdminCompany: FC = ({ ...rest }) => {
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
   const users = user.usersCompany;
+  console.log(users);
 
   const { logged, status } = useSelector((state: State) => state.auth);
 
   if (!status && token) {
-    console.log("Tenes token, ahora te validamos");
     dispatch(validaToken(token));
   }
 
   useEffect(() => {
-    dispatch(getCompany(token as string));
+    dispatch(getCompany(token, false));
   }, [dispatch]);
 
   const [selectedCustomerIds, setSelectedCustomerIds] = useState<any[]>([]);
@@ -101,10 +101,10 @@ const AdminCompany: FC = ({ ...rest }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
   };
-  const handleDisable = () => {
-    selectedCustomerIds.forEach((selectID: any) =>
-      dispatch(disableCompany(token, selectID))
-    );
+  const handleDisable = (selectID: string) => {
+    // selectedCustomerIds.forEach((selectID: any) =>
+    dispatch(disableCompany(token, selectID));
+    // );
   };
 
   return (
@@ -138,7 +138,7 @@ const AdminCompany: FC = ({ ...rest }) => {
                         display: "flex",
                       }}
                     >
-                      <Avatar src={user.avatarUrl} sx={{ mr: 2 }}></Avatar>
+                      <Avatar src={user.image} sx={{ mr: 2 }}>{user.name[0]}</Avatar>
                       <Typography color="textPrimary" variant="body1">
                         {user.name}
                       </Typography>
@@ -149,11 +149,7 @@ const AdminCompany: FC = ({ ...rest }) => {
                     {user.country ? user.country : "No registrado"}
                   </TableCell>
 
-                  <TableCell align="left">
-                    <InputLabel color={user.state ? "success" : "error"}>
-                      {user.state ? "Activo" : "Inactivo"}
-                    </InputLabel>
-                  </TableCell>
+                  <TableCell>{user.state ? "Activo" : "Inactivo"}</TableCell>
 
                   <TableCell>
                     {user.admission
@@ -174,10 +170,10 @@ const AdminCompany: FC = ({ ...rest }) => {
                     <FormControlLabel
                       control={
                         <Switch
-                          defaultChecked
+                          defaultChecked={user.state ? true : false}
                           size="small"
                           color="primary"
-                          onChange={handleDisable}
+                          onChange={() => handleDisable(user.uid)}
                         />
                       }
                       label={undefined}

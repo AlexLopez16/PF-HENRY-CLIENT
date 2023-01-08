@@ -16,7 +16,6 @@ export const validaToken = (token: string) => {
             const { data, status } = await axios.get('/token', {
                 headers: { 'user-token': token },
             });
-            console.log(data);
             const { id, rol } = data;
             if (status) {
                 // console.log(status);

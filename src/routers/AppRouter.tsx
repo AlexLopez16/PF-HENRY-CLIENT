@@ -38,6 +38,7 @@ import { Checkout } from "../pages/Checkout";
 import SideBar from "../components/Admin/SideBar/SideBar";
 import DashboardAdmin from "../components/Admin/DashboardAdmin";
 import { VerifyEmail } from "../components/VerifyEmail/VerifyEmail";
+import { ProfileAdmin } from "../components/Admin/Profile/ProfileAdmin";
 
 export const AppRouter = () => {
   let { id } = useParams();
@@ -203,25 +204,16 @@ export const AppRouter = () => {
               </PrivateRoute>
             }
           />
-          <Route path="/dashboard" element={<SideBar />}>
+
+          <Route path="/dashboard" element={<PrivateRoute><SideBar /></PrivateRoute>}>
             <Route index element={<DashboardAdmin />}></Route>
             <Route path="graphs" element={<DashboardAdmin />}></Route>
             <Route path="students" element={<AdminStudent />}></Route>
             <Route path="companies" element={<AdminCompany />}></Route>
             <Route path="projects" element={<AdminProject />}></Route>
+            <Route path="aceptProjects" element={<AdminAcceptProject />}></Route>
+            <Route path="profileAdmin" element={<ProfileAdmin />}></Route>
           </Route>
-
-          <Route
-            path="/Adminacceptprojects"
-            element={
-              <PublicRoute>
-                <AdminAcceptProject />
-              </PublicRoute>
-            }
-          />
-
-          {/* PROFILE ROUTES */}
-
           <Route path="/Ale" element={<Ale />} />
           <Route path="/Ampi" element={<Ampi />} />
           <Route path="/Brian" element={<Brian />} />
