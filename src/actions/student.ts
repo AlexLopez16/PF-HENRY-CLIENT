@@ -12,6 +12,9 @@ export const getListStudents = (
 ) => {
     return async (dispatch: Dispatch) => {
         try {
+            dispatch({
+                type: types.requestInProgress,
+            });
             let query;
             if (!state) {
                 query = `onlyActive=${state}`;
@@ -32,6 +35,10 @@ export const getListStudents = (
                 type: types.getListStudents,
                 payload: res.data,
             });
+            // Fin de la request.
+            dispatch({
+                type: types.requestFinished,
+            });
         } catch (error: any) {
             console.log(error);
         }
@@ -41,8 +48,8 @@ export const getListStudents = (
 export const studentRegister = (values: object) => {
     return async (dispatch: Dispatch) => {
         try {
-            const  res:object | any = await axios.post('/student', values);
-            const {status, data} = res
+            const res: object | any = await axios.post('/student', values);
+            const { status, data } = res;
             const { token, id, rol } = data;
             dispatch({
                 type: types.studentRegister,
@@ -56,8 +63,8 @@ export const studentRegister = (values: object) => {
         } catch (error: object | any) {
             dispatch({
                 type: types.responseFinished,
-                payload: error.response
-            })
+                payload: error.response,
+            });
             console.log(error.response);
         }
     };

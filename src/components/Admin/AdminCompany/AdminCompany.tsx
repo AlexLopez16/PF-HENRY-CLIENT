@@ -3,7 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Box } from '@mui/system';
-import { getCompany, disableCompany } from '../../../actions/company';
+import {
+    getCompany,
+    disableCompany,
+    clearGetCompany,
+} from '../../../actions/company';
 import * as moment from 'moment';
 import {
     Avatar,
@@ -44,6 +48,9 @@ const AdminCompany: FC = ({ ...rest }) => {
 
     useEffect(() => {
         dispatch(getCompany(token as string, 6, 0));
+        return () => {
+            dispatch(clearGetCompany());
+        };
     }, [dispatch]);
 
     const [selectedCustomerIds, setSelectedCustomerIds] = useState<any[]>([]);

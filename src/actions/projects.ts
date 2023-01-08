@@ -359,3 +359,7 @@ export const getAllProject = (
         }
     };
 };
+
+export const clearProject = () => {
+    return { type: types.clearProject };
+};

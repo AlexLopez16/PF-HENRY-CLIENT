@@ -6,9 +6,9 @@ import { fileUpload } from '../helpers/fileUpload';
 
 export const registerCompany = (values: Object) => {
     return async (dispatch: Dispatch) => {
-        try { 
-            const  res:object | any = await axios.post('/company', values);
-            const { data, status } = res
+        try {
+            const res: object | any = await axios.post('/company', values);
+            const { data, status } = res;
             const { token, id, rol } = data;
             dispatch({
                 type: types.registerCompany,
@@ -19,12 +19,11 @@ export const registerCompany = (values: Object) => {
                 localStorage.setItem('token', token);
                 dispatch(login({ data, status, id, rol }));
             }
-        } catch (error:object | any) {
+        } catch (error: object | any) {
             dispatch({
                 type: types.responseFinished,
-                payload: error.response
-            
-            })
+                payload: error.response,
+            });
             console.log(error);
         }
     };
@@ -40,23 +39,19 @@ export const acceptStudent = (
     studentId: string,
     token: string | any
 ) => {
-
-
     console.log(studentId);
 
     return async (dispatch: Dispatch) => {
         try {
-    
-                const res = await axios.put(
-                    `/project/accept/${id}`,
-                    { studentId},
-                    { headers: { 'user-token': token } }
-                );
-                dispatch({
-                    type: types.getProjectById,
-                    payload: res.data,
-                });
-            
+            const res = await axios.put(
+                `/project/accept/${id}`,
+                { studentId },
+                { headers: { 'user-token': token } }
+            );
+            dispatch({
+                type: types.getProjectById,
+                payload: res.data,
+            });
         } catch (error) {
             console.log(error);
         }
@@ -111,7 +106,6 @@ export const getCompany = (
 export const CompanyUpdateInfo = (id: string, token: string, data: object) => {
     return async (dispatch: Dispatch) => {
         try {
-
             const res = await axios.put(`/company/${id}`, data, {
                 headers: { 'user-token': token },
             });
@@ -181,4 +175,8 @@ export const disableCompany = (id: string | any, idCompany: string) => {
             console.log(error);
         }
     };
+};
+
+export const clearGetCompany = () => {
+    return { type: types.clearCompany };
 };

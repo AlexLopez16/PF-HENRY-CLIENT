@@ -42,6 +42,9 @@ export const companyReducer = (state: State = initialState, action: Action) => {
                 ...state,
                 user: { ...state.user, ...action.payload },
             };
+        case types.clearCompany: {
+            return { user: [], total2: 0 };
+        }
         default:
             return state;
     }
