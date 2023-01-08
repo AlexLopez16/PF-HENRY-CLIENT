@@ -331,12 +331,12 @@ export const LoginScreen: FC = () => {
               >
                 ¿Aún no has creado tu cuenta?
                 <Link
+                  to='/register'
                   style={{
                     textDecoration: 'none',
                     color: '#ffff01',
                     paddingLeft: 20,
                   }}
-                  to='/register'
                 >
                   Regístrate
                 </Link>

@@ -1,5 +1,6 @@
 import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import {
   Grid,
@@ -30,6 +31,11 @@ import logo from '../../assets/NABIJASH.png';
 import bg from '../../assets/bg.png';
 
 export const ForgotPassword: FC = () => {
+  
+  const navigate = useNavigate();
+  const GoBack = () => {
+    navigate('/login');
+  };
   const dispatch = useDispatch();
 
   const [sendRequest, setSendRequest] = useState(false);
@@ -45,6 +51,7 @@ export const ForgotPassword: FC = () => {
     dispatch(forgotPassword(valores.Email));
     // setSendRequest(true);
     // setTimeout(() => setSendRequest(false), 5000);
+ 
   };
   return (
     <Box
@@ -78,8 +85,8 @@ export const ForgotPassword: FC = () => {
           sx={{
             width: 650,
             height: 400,
-            mt: 10,
-            mb: 20,
+            mt: 8,
+            mb: 5,
             p: 10,
             pt: 6,
             borderRadius: 10,
@@ -194,7 +201,29 @@ export const ForgotPassword: FC = () => {
           </Formik>
         </Paper>
       </Grid>
-
+      <Grid
+      container
+      direction='column'
+      justifyContent='flex-start'
+      alignItems='center'>
+      <FormControl>
+        <Button
+          onClick={GoBack}
+          size='small'
+          variant='contained'
+          color='secondary'
+          sx={{
+            boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+            fontFamily: 'montserrat',
+            fontWeight: 'bold',
+            
+            mb:20
+          }}
+        >
+          Regresar
+        </Button>
+      </FormControl>
+      </Grid>
       <Footer />
     </Box>
   );

@@ -40,6 +40,11 @@ import { SnackBar } from '../SnackBar/SnackBar';
 import bg from '../../assets/bg.png';
 
 export const PasswordRecover: FC = () => {
+  const Navigate = useNavigate();
+  const GoBack = () => {
+    navigate('/login');
+  };
+
   const dispatch = useDispatch();
   const [queryParameters] = useSearchParams();
 
@@ -128,7 +133,7 @@ export const PasswordRecover: FC = () => {
             width: 650,
             height: 500,
             mt: 10,
-            mb: 20,
+            mb: 5,
             p: 10,
             pt: 6,
             borderRadius: 10,
@@ -298,6 +303,30 @@ export const PasswordRecover: FC = () => {
             )}
           </Formik>
         </Paper>
+      </Grid>
+      <Grid
+        container
+        direction='column'
+        justifyContent='flex-start'
+        alignItems='center'
+      >
+        <FormControl>
+          <Button
+            onClick={GoBack}
+            size='small'
+            variant='contained'
+            color='secondary'
+            sx={{
+              boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+              fontFamily: 'montserrat',
+              fontWeight: 'bold',
+
+              mb: 20,
+            }}
+          >
+            Regresar
+          </Button>
+        </FormControl>
       </Grid>
       <Footer />
     </Box>
