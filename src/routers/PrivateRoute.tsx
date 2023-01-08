@@ -15,6 +15,11 @@ export const PrivateRoute: FC<Props> = ({ children }) => {
     const dispatch = useDispatch();
 
     let token = localStorage.getItem('token');
+
+    if (!status && token) {
+        dispatch(validaToken(token));
+    }
+
     let obj: any;
     if (token == null) {
         const [queryParameters] = useSearchParams();
@@ -34,8 +39,6 @@ export const PrivateRoute: FC<Props> = ({ children }) => {
     }
 
     if (!status && token) {
-        //revisar este console.log
-        console.log('Tenes token, ahora te validamos');
         dispatch(validaToken(token));
     }
 

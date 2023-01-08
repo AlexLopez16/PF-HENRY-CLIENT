@@ -7,7 +7,6 @@ import { validaToken } from "../../../actions/auth";
 import * as moment from "moment";
 import EditIcon from "@mui/icons-material/Edit";
 import { State } from "../../../reducers/rootReducer";
-import SideBar from "../SideBar/SideBar";
 import {
   Avatar,
   Card,
@@ -24,8 +23,6 @@ import {
 } from "@mui/material";
 import Pages from "../../ui/Pagination";
 import { PreLoader } from "../../PreLoader/PreLoader";
-
-ChartJS.register(ArcElement, Tooltip, Legend);
 
 const AdminStudent: FC = () => {
   const { users } = useSelector((state: any) => state.student);
@@ -130,7 +127,7 @@ const AdminStudent: FC = () => {
                         display: "flex",
                       }}
                     >
-                      <Avatar src={user.avatarUrl} sx={{ mr: 2 }}></Avatar>
+                      <Avatar src={user.image} sx={{ mr: 2 }}>{user.name[0]}</Avatar>
                       <Typography color="textPrimary" variant="body1">
                         {user.name}
                       </Typography>

@@ -30,7 +30,6 @@ export const companyReducer = (state: State = initialState, action: Action) => {
 
         case types.companyGetList:
             const { usersCompany, total }: any = action.payload;
-            console.log('aqio', usersCompany);
             return {
                 ...state,
                 user: usersCompany,
