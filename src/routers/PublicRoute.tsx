@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { FC } from 'react';
 import { State } from '../reducers/rootReducer';
 import { validaToken } from '../actions/auth';
@@ -12,6 +12,12 @@ export const PublicRoute: FC<Props> = ({ children }) => {
     const { logged, data }: object | any = useSelector(
         (state: State) => state.auth
     );
+
+    // Definimos url a redireccionar.
+    let location: string | any = '/projects';
+    if (localStorage.getItem('location')) {
+        location = localStorage.getItem('location');
+    }
 
     if (!logged) return children;
 
@@ -27,7 +33,7 @@ export const PublicRoute: FC<Props> = ({ children }) => {
         case 'COMPANY_ROL':
             return (
                 <>
-                    <Navigate to={'/projects'} />
+                    <Navigate to={location} />
                 </>
             );
         case 'ADMIN_ROL':
