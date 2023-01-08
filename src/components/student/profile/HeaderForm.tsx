@@ -42,6 +42,7 @@ interface Props {
     name?: string;
     lastName?: string;
     country?: string;
+    email?: string
 }
 
 export const HeaderForm: FC<Props> = ({
@@ -50,6 +51,7 @@ export const HeaderForm: FC<Props> = ({
     name,
     lastName,
     country,
+    email
 }) => {
     const dispatch = useDispatch();
     const { data } = useSelector((state: State) => state.auth);
@@ -57,7 +59,7 @@ export const HeaderForm: FC<Props> = ({
     const { id } = data;
     const { image } = user;
     const token = localStorage.getItem('token') || '';
-    const [pais, setPais] = useState('');
+    const [pais, setPais] = useState(country);
 
     const handlerEdit = () => {
         setEdit({
@@ -69,6 +71,7 @@ export const HeaderForm: FC<Props> = ({
     const initialValues = {
         name: name,
         lastName: lastName,
+        email: email
     };
 
     const validationSchema = Yup.object().shape({
@@ -80,7 +83,8 @@ export const HeaderForm: FC<Props> = ({
         dispatch(updateStudentInfo(id, token, {
             name: values.name,
             lastName: values.lastName,
-            country: pais
+            country: pais,
+            email:email
         }));
         setEdit({
             ...edit,
@@ -206,35 +210,52 @@ export const HeaderForm: FC<Props> = ({
                                         </ErrorMessage>
                                     }
                                 />
-                    
-                                 <FormControl
+                                <Field
+                                    as={TextField}
+                                    name="email"
+                                    label="Email"
+                                    variant="outlined"
+                                    fullWidth
+                                    sx={{ marginBottom: '10px' }}
+                                    helperText={
+                                        <ErrorMessage name="email">
+                                            {(msg) => (
+                                                <span style={{ color: 'red' }}>
+                                                    {msg}
+                                                </span>
+                                            )}
+                                        </ErrorMessage>
+                                    }
+                                />
+
+                                <FormControl
+                                    color="info"
+                                    sx={{
+                                        width: '100%',
+                                        marginTop: 1,
+                                        marginBottom: 2,
+                                    }}
+                                >
+                                    <InputLabel
                                         color="info"
-                                        sx={{
-                                            width: '100%',
-                                            marginTop: 1,
-                                            marginBottom: 2,
-                                        }}
+                                        id="demo-simple-select-label"
                                     >
-                                        <InputLabel
-                                            color="info"
-                                            id="demo-simple-select-label"
-                                        >
-                                            Nacionalidad
-                                        </InputLabel>
-                                        <Select
-                                            id="demo-simple-select"
-                                            labelId="demo-simple-select-label"
-                                            label="Nacionalidad"
-                                            value={pais}
-                                            onChange={handleChange}
-                                        >
-                                            {paises.map((p) => (
-                                                <MenuItem key = {p} value={p}>
-                                                    {p}
-                                                </MenuItem>
-                                            ))}
-                                        </Select>
-                                    </FormControl>
+                                        Nacionalidad
+                                    </InputLabel>
+                                    <Select
+                                        id="demo-simple-select"
+                                        labelId="demo-simple-select-label"
+                                        label="Nacionalidad"
+                                        value={pais}
+                                        onChange={handleChange}
+                                    >
+                                        {paises.map((p) => (
+                                            <MenuItem key={p} value={p}>
+                                                {p}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
 
                                 <Button
                                     type="submit"

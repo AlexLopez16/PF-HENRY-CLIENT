@@ -34,10 +34,11 @@ export const Profile: FC = () => {
         tecnologies: []
         country: string
         image: string
+        email:string
     }
 
     const { user } = useSelector((state: State) => state.student)
-    const { description, name, lastName, country, tecnologies, image } = user as Props
+    const { description, name, lastName, country, tecnologies, image,email } = user as Props
 
     return (
         <Grid>
@@ -49,6 +50,7 @@ export const Profile: FC = () => {
                         name={name}
                         lastName={lastName}
                         country={country}
+                        email={email}
                     />
                     : <Header
                         edit={edit}
@@ -57,6 +59,7 @@ export const Profile: FC = () => {
                         lastName={lastName}
                         country={country}
                         image={image}
+                       
                     />
             }
             {

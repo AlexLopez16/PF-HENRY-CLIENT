@@ -20,7 +20,7 @@ import { VisibilityOff, Visibility } from '@mui/icons-material';
 import { GitHubLogin } from '../auth/GitHubLogin';
 // import { GoogleLogin } from "../auth/GoogleLogin";
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import type {} from 'redux-thunk/extend-redux';
 import { studentRegister } from '../../actions/student';
 import { GoogleLogin } from '@react-oauth/google';
@@ -32,9 +32,13 @@ import { alert } from '../AlertMail/alertMailStudent';
 
 import Logo from '../../assets/NABIJASH.png';
 import { SnackBar } from '../SnackBar/SnackBar';
+import { State } from '../../reducers/rootReducer';
 
 export const StudensForm: FC = () => {
     const [showPassword, setShowPassword] = useState(false);
+
+let condicion = useSelector((state:State)=>state.response)
+
 
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
@@ -79,8 +83,10 @@ export const StudensForm: FC = () => {
         password: values.password.trim(),
       }),
     );
-    
-    dispatch(alert);
+    {condicion.status>400
+        ?dispatch(alert)
+        : "null"
+    }
   };
 
 
