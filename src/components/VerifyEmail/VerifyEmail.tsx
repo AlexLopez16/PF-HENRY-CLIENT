@@ -25,9 +25,9 @@ import Footer from '../../pages/LandingPage/Footer';
 import mailConfirm from '../../assets/mailConfirm.png';
 
 export const VerifyEmail: FC = () => {
-  // Traemos el correo del estado.
-  const { data } = useSelector((state: State) => state.auth);
-  const dispatch = useDispatch();
+    // Traemos el correo del estado.
+    const { data }: object | any = useSelector((state: State) => state.auth);
+    const dispatch = useDispatch();
 
   // Definimos los valores iniciales.
   const initialValues = {
