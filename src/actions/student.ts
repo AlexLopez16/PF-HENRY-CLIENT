@@ -261,7 +261,6 @@ export const disableStudent = (token: string | null, id: string) => {
                 { id },
                 { headers: { 'user-token': token } }
             );
-            console.log(data);
 
             dispatch({
                 type: types.deleteOrInactiveStudent,

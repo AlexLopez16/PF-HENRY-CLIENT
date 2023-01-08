@@ -1,21 +1,22 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { Box } from "@mui/material";
-import { userItemsList } from "./userItemsList";
+import UserItemsList from "./userItemsList";
 import { Outlet } from "react-router-dom";
-import FiltroDashStudent from "../../../pages/FiltrosSideBar";
-
 import Logo from "../../../assets/NABIJASH.png";
+import AccountMenu from "../../AdminBar/AdminBar";
+import { PreLoader } from "../../PreLoader/PreLoader";
 
 const SideBar: FC = () => {
   return (
     <>
-      <Box sx={{ display: "flex", width: "100%" }}>
+    <PreLoader/>
+      <Box sx={{ display: "flex", width: "100%", height: "100vh" }}>
         <Box
           sx={{
             position: "fixed",
             top: 0,
             left: 0,
-            background: "#ffffff",
+            background: "#fff",
             width: "350px",
             height: "100vh",
             color: "#272727",
@@ -43,7 +44,10 @@ const SideBar: FC = () => {
               }}
             />
           </Box>
-          {userItemsList}
+          <UserItemsList />
+          <Box sx={{ position: "absolute" }}>
+            <AccountMenu />
+          </Box>
         </Box>
         <Box
           display={"flex"}

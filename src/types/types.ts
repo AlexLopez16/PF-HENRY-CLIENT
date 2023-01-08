@@ -4,8 +4,8 @@ export const types = {
     clearAuthLogin: '[auth] Clear Auth Login',
     login: '[login] Login',
     infoToken: '[info] Info Token',
-    gitHubInactivateLogOut: '[auth] Logout Github Inactivated User',
 
+    gitHubInactivateLogOut: '[auth] Logout Github Inactivated User',
     requestInProgress: '[request] Request In Progress',
     requestFinished: '[request] Request Finished',
     requestCleaned: '[request] Request Cleaned',
@@ -31,6 +31,8 @@ export const types = {
     companyGetList: '[Company] Get list Company',
     deleteCompany: '[Company] Company delete',
     disableCompany: '[Company] disable Company',
+    ratingProjectCompany: '[Company] rating Project', //toy provando
+    ratingProject: '[Company] rating CompanyProject',
     clearCompany: '[Company] clear get company',
 
     newProject: '[project] Create New Project',
@@ -49,4 +51,6 @@ export const types = {
     AdminEliminatedProject:
         '[admin]admin eliminated project and send email for why',
     adminGetCharts: '[admin] admin get charts',
+    getAdmins: '[admin] get all admins',
+    getInfoAdmin: '[admin] get info admin',
 };

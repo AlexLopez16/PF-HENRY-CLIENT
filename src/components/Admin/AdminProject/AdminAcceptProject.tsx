@@ -340,10 +340,8 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
             </TableBody>
           </Table>
         </Box>
+      <Pages />
       </Card>
-      <>
-        <Pages />
-      </>
       {formactive && (
         <CancelMessage
           setFormactive={setFormactive}
