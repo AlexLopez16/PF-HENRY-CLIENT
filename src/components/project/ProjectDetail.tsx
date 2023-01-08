@@ -17,6 +17,8 @@ import { PreLoader } from "../PreLoader/PreLoader";
 import { SnackBar } from "../SnackBar/SnackBar";
 import { proyectFinal } from "../../actions/company";
 import { getProjectByID } from "../../actions/projects";
+import { RatingMail } from "./RatingMail";
+import { RatingProject } from "./RatingProject";
 
 interface ProjectProps {
   name?: string;
@@ -30,6 +32,7 @@ interface ProjectProps {
   categoria?: string;
   uid: string;
   stateOfProject?: string[];
+  avatar?:string
 }
 
 const ProjectDetail: FC<ProjectProps> = ({
@@ -42,6 +45,7 @@ const ProjectDetail: FC<ProjectProps> = ({
   estado,
   categoria,
   uid,
+  avatar
 }: ProjectProps) => {
     const dispatch = useDispatch();
     let token = localStorage.getItem('token') || '';
@@ -59,7 +63,8 @@ const ProjectDetail: FC<ProjectProps> = ({
     dispatch(getProjectByID(token, uid));
   };
   
-
+  let review = projectId.reviews
+console.log(review);
 
   return (
     <div>
@@ -189,6 +194,16 @@ const ProjectDetail: FC<ProjectProps> = ({
           ""
         )}
       </Paper>
+      {rol === "COMPANY_ROL" && projectId.stateOfProject === "Terminado" && review.length > 0 ?
+     review.map((e:any)=>( <RatingProject
+     avatar={e.student.image}
+     name={e.student.name}
+     lastName={e.student.lastName}
+      description={e.description}
+      ratingCompany={e.ratingCompany}
+      ratingProject={e.ratingProject}
+      projectName={e.project.name}
+     />)):""}
     </div>
   );
 };

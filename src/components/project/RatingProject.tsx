@@ -1,96 +1,117 @@
-import { FC, Dispatch, SetStateAction } from 'react';
-import { Paper, Typography, Button, TextField } from '@mui/material';
+import * as React from "react";
+import { FC } from 'react';
+import { styled } from "@mui/material/styles";
+import Rating, { IconContainerProps } from "@mui/material/Rating";
+import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
+import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
+import SentimentSatisfiedIcon from "@mui/icons-material/SentimentSatisfied";
+import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
+import SentimentVerySatisfiedIcon from "@mui/icons-material/SentimentVerySatisfied";
 import {
-    paperStyle,
-    container,
-    buttonStyle,
-} from '../../styles/Profile/AboutFormStyles';
+  Box,
+  Typography,
+  Paper,
+  CardHeader,
+  Avatar,
+  List,
+} from "@mui/material";
+import { useSelector } from "react-redux";
 
-import * as Yup from 'yup';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateStudentInfo } from '../../actions/student';
-import { State } from '../../reducers/rootReducer';
-import { Field, Form, Formik, ErrorMessage } from 'formik';
-import { SnackBar } from '../SnackBar/SnackBar';
 
-interface Props {
-    edit: { header: boolean; about: boolean; skills: boolean };
-    setEdit: Dispatch<
-        SetStateAction<{ header: boolean; about: boolean; skills: boolean }>
-    >;
-    description?: string;
+// const StyledRating = styled(Rating)(({ theme }) => ({
+//   "& .MuiRating-iconEmpty .MuiSvgIcon-root": {
+//     color: theme.palette.action.disabled,
+//   },
+// }));
+
+// const customIcons: {
+//   [index: string]: {
+//     icon: React.ReactElement;
+//     label: string;
+//   };
+// } = {
+//   1: {
+//     icon: <SentimentVeryDissatisfiedIcon color="error" />,
+//     label: "Very Dissatisfied",
+//   },
+//   2: {
+//     icon: <SentimentDissatisfiedIcon color="error" />,
+//     label: "Dissatisfied",
+//   },
+//   3: {
+//     icon: <SentimentSatisfiedIcon color="warning" />,
+//     label: "Neutral",
+//   },
+//   4: {
+//     icon: <SentimentSatisfiedAltIcon color="success" />,
+//     label: "Satisfied",
+//   },
+//   5: {
+//     icon: <SentimentVerySatisfiedIcon color="success" />,
+//     label: "Very Satisfied",
+//   },
+// };
+
+interface RatingProps{
+    avatar?:string
+    name?:string
+    lastName?:string
+     description?:string
+     projectName?:string
+     ratingCompany?:number
+     ratingProject?:number
+
 }
 
-export const RatingMail: FC<Props> = ({ edit, setEdit, description }) => {
-    const dispatch = useDispatch();
-    const { data } = useSelector((state: State) => state.auth);
-    const { id } = data;
-    const token = localStorage.getItem('token') || '';
+export const RatingProject: FC<RatingProps> = ({
+    avatar,
+    name,
+    lastName,
+    projectName,
+     description,
+     ratingCompany,
+     ratingProject,
+}) => {
 
-    const handlerEdit = () => {
-        setEdit({
-            ...edit,
-            about: !edit.about,
-        });
-    };
 
-    const initialValues = {
-        description: description,
-    };
 
-    const validationSchema = Yup.object().shape({
-        description: Yup.string().required('Ingresa un descripción sobre el proyecto'),
-    });
+  return (
+    <Paper
+      elevation={10}
+      style={{ width: 400, height: "100%", padding: 20, margin: "50px auto" }}
+    >
+      <CardHeader
+        avatar={
+          <Avatar src={avatar} sx={{ width: 80, height: 80 }} />
+        }
+        />
+        {name} {lastName} 
 
-    const onSubmit = (values: any, props: any) => {
-        dispatch(updateStudentInfo(id, token, values));
-        setEdit({
-            ...edit,
-            about: !edit.about,
-        });
-    };
+      <Box sx={{ width: "100%", maxWidth: 360 }}>
+        <div>
+          <Typography variant="h6">
+            {projectName}
+          </Typography>
+        </div>
+      </Box>
 
-    return (
-        <Paper elevation={5} style={paperStyle}>
-            <SnackBar />
-            <Formik
-                initialValues={initialValues}
-                onSubmit={onSubmit}
-                validationSchema={validationSchema}
-            >
-                {(props) => (
-                    <Form>
-                        <div style={container}>
-                            <Typography
-                                sx={{ fontWeight: 'bold' }}
-                                variant="h6"
-                            >
-                             opine sobre el proyecto
-                            </Typography>
-                           
-                        </div>
-                        <Field
-                            as={TextField}
-                            name="description"
-                            id="outlined-multiline-static"
-                            multiline
-                            rows={4}
-                            placeholder="Este texto va a ser visto en tu perfil"
-                            fullWidth
-                            sx={{ maxWidth: '98%', margin: '0px 10px' }}
-                            helperText={
-                                <ErrorMessage name="description">
-                                    {(msg) => (
-                                        <span style={{ color: 'red' }}>
-                                            {msg}
-                                        </span>
-                                    )}
-                                </ErrorMessage>
-                            }
-                        />
-                    </Form>
-                )}
-            </Formik>
-        </Paper>
-    );
+      <List component="div" disablePadding>
+        <Typography sx={{ maxWidth: 360, display: "flex" }} variant="body1">
+     {description}
+        </Typography>
+      </List>
+
+      <Typography component="legend">
+        Nivel de satisfaccion con la empresa
+      </Typography>
+      <Rating name="read-only"  readOnly value={ratingCompany} />
+
+      <Box>
+        <Typography component="legend">
+          Nivel de satisfaccion del proyecto
+        </Typography>
+        <Rating name="read-only" readOnly  value={ratingProject} />
+      </Box>
+    </Paper>
+  );
 };

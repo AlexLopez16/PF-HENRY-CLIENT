@@ -8,15 +8,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getAllProject, getProjectByID } from '../../actions/projects';
 import { State } from '../../reducers/rootReducer';
-import NavBar from '../NavBar/NavBar';
 import StudentCard from '../student/StudentCard';
 import FilterListIcon from "@mui/icons-material/FilterList";
 
-
-
-
-
-import * as moment from "moment";
 import {
     Card,
     Table,
@@ -193,9 +187,6 @@ const Postulated: FC = ({ ...rest }) => {
 
 
     return (
-<div>
-
-        <NavBar/>
         <div
             style={{
                 display: 'flex',
@@ -461,7 +452,6 @@ const Postulated: FC = ({ ...rest }) => {
                 </Card>
             </>
         </div>
-                    </div>
     );
 };
 
