@@ -1,26 +1,27 @@
 export const types = {
-    authLogin: '[auth] Login User',
-    authLoginGit: '[auth] GitHub Login',
-    clearAuthLogin: '[auth] Clear Auth Login',
-    login: '[login] Login',
-    infoToken: '[info] Info Token',
-    gitHubInactivateLogOut: '[auth] Logout Github Inactivated User',
+  authLogin: "[auth] Login User",
+  authLoginGit: "[auth] GitHub Login",
+  clearAuthLogin: "[auth] Clear Auth Login",
+  login: "[login] Login",
+  infoToken: "[info] Info Token",
+  
 
-    requestInProgress: '[request] Request In Progress',
-    requestFinished: '[request] Request Finished',
-    requestCleaned: '[request] Request Cleaned',
+  gitHubInactivateLogOut: '[auth] Logout Github Inactivated User',
+  requestInProgress: "[request] Request In Progress",
+  requestFinished: "[request] Request Finished",
+  requestCleaned: "[request] Request Cleaned",
 
-    responseFinished: '[response] Response Finished',
-    responseCleaned: '[response] Response Cleaned',
+  responseFinished: "[response] Response Finished",
+  responseCleaned: "[response] Response Cleaned",
 
-    getListStudents: '[student] Get List Students',
-    studentRegister: '[student] Register Student',
-    studentGetInfo: '[student] Get Info Student',
-    studentUpdateInfo: '[student] Update Info Student',
-    studentSearch: '[student] Search Company', //-VERIFICAR-//
-    addStudentToProject: '[student] Add student to project',
-    unApplyStudent: '[student] Un Applu student to project',
-    deleteOrInactiveStudent: '[student] inactive student to data base',
+  getListStudents: "[student] Get List Students",
+  studentRegister: "[student] Register Student",
+  studentGetInfo: "[student] Get Info Student",
+  studentUpdateInfo: "[student] Update Info Student",
+  studentSearch: "[student] Search Company", //-VERIFICAR-//
+  addStudentToProject: "[student] Add student to project",
+  unApplyStudent: "[student] Un Applu student to project",
+  deleteOrInactiveStudent: "[student] inactive student to data base",
 
     registerCompany: '[company] Register Company',
     companyGetInfo: '[company] Get info company',
@@ -31,6 +32,9 @@ export const types = {
     companyGetList: '[Company] Get list Company',
     deleteCompany: '[Company] Company delete',
     disableCompany: '[Company] disable Company',
+    ratingProjectCompany:"[Company] rating Project",//toy provando
+    ratingProject:"[Company] rating CompanyProject",
+
 
     newProject: '[project] Create New Project',
     getProjects: '[project] Get Projects',
@@ -44,7 +48,8 @@ export const types = {
     clearError: '[error] Clear Error',
     getAllProjects: '[project] get all Project',
     AdminAprovedProject: '[admin]project aproved',
-    AdminEliminatedProject:
-        '[admin]admin eliminated project and send email for why',
-    adminGetCharts: '[admin] admin get charts',
+    AdminEliminatedProject:'[admin]admin eliminated project and send email for why',
+    adminGetCharts: '[admin] admin get charts' ,
+    getAdmins: "[admin] get all admins",
+  getInfoAdmin: "[admin] get info admin",
 };

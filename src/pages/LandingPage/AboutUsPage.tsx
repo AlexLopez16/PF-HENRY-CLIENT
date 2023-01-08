@@ -53,6 +53,7 @@ const AboutUsPage: FC = () => {
     navigate('/Sil');
   };
 
+
   return (
     <div>
       <Header />

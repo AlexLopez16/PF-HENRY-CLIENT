@@ -1,8 +1,14 @@
-import { List, ListItem, ListItemButton, ListItemText } from "@mui/material";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import WorkIcon from "@mui/icons-material/Work";
-// import { Outlet } from 'react-router-dom';
+import {
+  Collapse,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+} from "@mui/material";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import { NavLink } from "react-router-dom";
+import { FC, useState } from "react";
+import { ExpandLess, ExpandMore } from "@mui/icons-material";
 
 const linkStyle = {
   textDecoration: "none",
@@ -27,31 +33,67 @@ const buttons = [
     path: "/dashboard/students",
   },
   {
-    option: "Companias",
+    option: "Compañias",
     path: "/dashboard/companies",
   },
-  {
-    option: "Projectos",
-    path: "/dashboard/projects",
-  },
+  // {
+  //   option: "Admins",
+  //   path: "/dashboard/admins",
+  // },
 ];
 
-export const userItemsList: JSX.Element = (
-  <List>
-    {buttons.map((button: any) => {
-      return (
+const UserItemsList: FC = () => {
+  const [open, setOpen] = useState(false);
+  const handleClick = () => {
+    setOpen(!open);
+  };
+  return (
+    <List sx={{ justifySelf: "flex-start" }}>
+      {buttons.map((button: any) => {
+        return (
+          <ListItem>
+            <NavLink
+              to={button.path}
+              style={({ isActive }) => (isActive ? activeLinkStyle : linkStyle)}
+            >
+              <ListItemButton>
+                <FormatListBulletedIcon />
+                <ListItemText primary={button.option} sx={{ pl: 2 }} />
+              </ListItemButton>
+            </NavLink>
+          </ListItem>
+        );
+      })}
+      <ListItemButton onClick={handleClick}>
+        <ListItemText primary="Proyectos" sx={{ pl: 2 }} />
+        {open ? <ExpandLess /> : <ExpandMore />}
+      </ListItemButton>
+      <Collapse in={open} timeout="auto" unmountOnExit>
         <ListItem>
           <NavLink
-            to={button.path}
+            to="/dashboard/projects"
             style={({ isActive }) => (isActive ? activeLinkStyle : linkStyle)}
           >
-            <ListItemButton>
-              <AccountCircleIcon />
-              <ListItemText primary={button.option} sx={{ pl: 2 }} />
+            <ListItemButton sx={{ pl: 6 }}>
+              <FormatListBulletedIcon />
+              <ListItemText primary="Proyectos" sx={{ pl: 2 }} />
             </ListItemButton>
           </NavLink>
         </ListItem>
-      );
-    })}
-  </List>
-);
+        <ListItem>
+          <NavLink
+            to="/dashboard/aceptProjects"
+            style={({ isActive }) => (isActive ? activeLinkStyle : linkStyle)}
+          >
+            <ListItemButton sx={{ pl: 6 }}>
+              <FormatListBulletedIcon />
+              <ListItemText primary="Aceptacion de proyectos" sx={{ pl: 2 }} />
+            </ListItemButton>
+          </NavLink>
+        </ListItem>
+      </Collapse>
+    </List>
+  );
+};
+
+export default UserItemsList;
