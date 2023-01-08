@@ -13,10 +13,12 @@ export const GitHubLogin: FC = () => {
                 variant="contained"
                 fullWidth
                 color="secondary"
-                style={{ textTransform: 'none', margin: '10px 0px' }}
+                
+                style={{ textTransform: 'none', margin: '10px 0px', backgroundColor:'black',  boxShadow:
+                'rgba(255, 255, 255, 255.16) 0px 1px 4px, rgb(255, 255, 255) 0px 0px 0px 3px',}}
             >
-                <GitHubIcon sx={{ color: 'black', margin: '0px 5px' }} />
-                <span style={{ color: '#3c3c3c', fontWeight: 'normal' }}>
+                <GitHubIcon sx={{ color: 'white', margin: '0px 5px', }} />
+                <span style={{ color: 'white', fontFamily:'montserrat', fontWeight:'bold', marginLeft:10  }}>
                     Continuar con GitHub
                 </span>
             </Button>

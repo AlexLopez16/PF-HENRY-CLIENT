@@ -31,6 +31,7 @@ import { Link } from 'react-router-dom';
 import { alert } from '../AlertMail/alertMailStudent';
 
 import Logo from '../../assets/NABIJASH.png';
+import bg from '../../assets/bg.png';
 
 export const StudensForm: FC = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -87,7 +88,8 @@ export const StudensForm: FC = () => {
   return (
     <Box
       sx={{
-        backgroundColor: 'black',
+        backgroundImage: `url(${bg})`,
+        maxWidth: '1920px',
       }}
     >
       <div>
