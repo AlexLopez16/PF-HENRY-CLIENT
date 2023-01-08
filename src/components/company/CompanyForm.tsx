@@ -26,7 +26,7 @@ import {
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 
 import { registerCompany } from '../../actions/company';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
     Link,
     //  useNavigate
@@ -39,6 +39,7 @@ import Footer from '../../pages/LandingPage/Footer';
 import Logo from '../../assets/NABIJASH.png'
 import { alert } from '../AlertMail/alertMailStudent';
 import { SnackBar } from '../SnackBar/SnackBar';
+import { State } from '../../reducers/rootReducer';
 
 const CompanyForm: FC = () => {
     const paises: string[] = [
@@ -93,6 +94,9 @@ const CompanyForm: FC = () => {
             .matches(/[^\w]/, 'Se requiere un simbolo'),
     });
 
+    let condicion = useSelector((state: State) => state.response)
+   
+
     const onSubmit = (values: any) => {
         dispatch(
             registerCompany({
@@ -102,7 +106,11 @@ const CompanyForm: FC = () => {
                 country: pais,
             })
         )
-        dispatch(alert)
+        {
+            condicion.status > 400
+            ? dispatch(alert)
+            : "null"
+        }
     };
 
     const handleChange = (event: SelectChangeEvent) => {

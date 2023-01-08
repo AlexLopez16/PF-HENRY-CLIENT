@@ -27,6 +27,7 @@ import { logout } from '../../actions/auth';
 import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import { Premium } from '../Premium/Premium';
+import FolderIcon from '@mui/icons-material/Folder';
 
 export default function AccountMenu() {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -50,6 +51,7 @@ export default function AccountMenu() {
     );
     
     const token = localStorage.getItem('token') || '';
+    console.log(user);
 
     useEffect(() => {
         rol === 'STUDENT_ROL' && data.verify
@@ -152,6 +154,39 @@ export default function AccountMenu() {
                     </Avatar>
                     Hola {user?.name}
                 </MenuItem>
+                {data.verify && rol === 'STUDENT_ROL' ? (
+                    <>
+                        <MenuItem sx={{
+                            pointerEvents: 'none',
+                            cursor: 'default',
+                            fontSize: "small",
+                            marginLeft: 3
+                        }}>
+                            {/* <ListItemIcon>
+                                <FolderIcon fontSize="small" />
+                            </ListItemIcon> */}
+                            Postulaciones: {user.project.length}/3
+                        </MenuItem>
+                    </>
+                ) :
+                    data.verify && rol === 'COMPANY_ROL' ? (
+                        <>
+                            <MenuItem sx={{
+                                pointerEvents: 'none',
+                                cursor: 'default',
+                                fontSize: "small",
+                                marginLeft: 3
+                            }}>
+                                {/* <ListItemIcon>
+                                <FolderIcon fontSize="small" />
+                            </ListItemIcon> */}
+                                Proyectos: {user.project.length}/3
+                            </MenuItem>
+                        </>
+                    )
+                        : null
+
+                }
                 <Divider />
                 {data.verify ? (
                     <>
