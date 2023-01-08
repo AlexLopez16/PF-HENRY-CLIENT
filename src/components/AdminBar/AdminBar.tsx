@@ -43,13 +43,13 @@ export default function AccountMenu() {
     const { data }: object | any = useSelector((state: State) => state.auth);
     const { id, rol } = data;
     const { user }: any = useSelector((state: State) =>
-        rol === 'STUDENT_ROL' 
-        ? state.student 
-        : rol === 'COMPANY_ROL' 
-        ? state.company 
-        : state.admin
+        rol === 'STUDENT_ROL'
+            ? state.student
+            : rol === 'COMPANY_ROL'
+            ? state.company
+            : state.admin
     );
-    
+
     const token = localStorage.getItem('token') || '';
     console.log(user);
 
@@ -57,8 +57,8 @@ export default function AccountMenu() {
         rol === 'STUDENT_ROL' && data.verify
             ? dispatch(getStudentInfo(id, token))
             : rol === 'COMPANY_ROL' && data.verify
-            ? dispatch(companyGetInfo(id, token)) 
-            : dispatch(getInfoAdmin(id, token))
+            ? dispatch(companyGetInfo(id, token))
+            : dispatch(getInfoAdmin(id, token));
     }, [dispatch]);
     const navigate = useNavigate();
 
@@ -71,9 +71,9 @@ export default function AccountMenu() {
     const handlerProfile = () => {
         rol === 'STUDENT_ROL'
             ? navigate('/profile')
-            : rol === 'COMPANY_ROL' 
+            : rol === 'COMPANY_ROL'
             ? navigate('/profileCompany')
-            : navigate('/dashboard/profileAdmin')
+            : navigate('/dashboard/profileAdmin');
     };
 
     // FUNCION PREMIUM
@@ -140,80 +140,80 @@ export default function AccountMenu() {
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
                 <Box>
-                <MenuItem
-                    sx={{
-                        pointerEvents: 'none',
-                        cursor: 'default',
-                    }}
-                >
-                    {/* //revisar este sector tmb */}
-                    <Avatar>
-                        {/* <IconButton>
-                            {user.name?.slice(0, 1).toUpperCase()}
-                        </IconButton> */}
-                    </Avatar>
-                    Hola {user?.name}
-                </MenuItem>
-                {data.verify && rol === 'STUDENT_ROL' ? (
-                    <>
-                        <MenuItem sx={{
+                    <MenuItem
+                        sx={{
                             pointerEvents: 'none',
                             cursor: 'default',
-                            fontSize: "small",
-                            marginLeft: 3
-                        }}>
-                            {/* <ListItemIcon>
-                                <FolderIcon fontSize="small" />
-                            </ListItemIcon> */}
-                            Postulaciones: {user.project.length}/3
-                        </MenuItem>
-                    </>
-                ) :
-                    data.verify && rol === 'COMPANY_ROL' ? (
+                        }}
+                    >
+                        {/* //revisar este sector tmb */}
+                        <Avatar>
+                            {/* <IconButton>
+                            {user.name?.slice(0, 1).toUpperCase()}
+                        </IconButton> */}
+                        </Avatar>
+                        Hola {user?.name}
+                    </MenuItem>
+                    {data.verify && rol === 'STUDENT_ROL' ? (
                         <>
-                            <MenuItem sx={{
-                                pointerEvents: 'none',
-                                cursor: 'default',
-                                fontSize: "small",
-                                marginLeft: 3
-                            }}>
+                            <MenuItem
+                                sx={{
+                                    pointerEvents: 'none',
+                                    cursor: 'default',
+                                    fontSize: 'small',
+                                    marginLeft: 3,
+                                }}
+                            >
                                 {/* <ListItemIcon>
                                 <FolderIcon fontSize="small" />
                             </ListItemIcon> */}
-                                Proyectos: {user.project.length}/3
+                                Postulaciones: {user?.project?.length}/3
                             </MenuItem>
                         </>
-                    )
-                        : null
+                    ) : data.verify && rol === 'COMPANY_ROL' ? (
+                        <>
+                            <MenuItem
+                                sx={{
+                                    pointerEvents: 'none',
+                                    cursor: 'default',
+                                    fontSize: 'small',
+                                    marginLeft: 3,
+                                }}
+                            >
+                                {/* <ListItemIcon>
+                                <FolderIcon fontSize="small" />
+                            </ListItemIcon> */}
+                                Proyectos: {user?.project?.length}/3
+                            </MenuItem>
+                        </>
+                    ) : null}
+                    <Divider />
+                    {data.verify ? (
+                        <>
+                            <MenuItem onClick={handlerProfile}>
+                                <ListItemIcon>
+                                    <AccountBoxIcon fontSize="small" />
+                                </ListItemIcon>
+                                Mi perfil
+                            </MenuItem>
+                        </>
+                    ) : null}
 
-                }
-                <Divider />
-                {data.verify ? (
-                    <>
-                        <MenuItem onClick={handlerProfile}>
+                    {rol === 'COMPANY_ROL' && data.verify ? (
+                        <MenuItem onClick={() => setOpenModal(true)}>
                             <ListItemIcon>
-                                <AccountBoxIcon fontSize="small" />
+                                <WorkspacePremiumIcon fontSize="small" />
                             </ListItemIcon>
-                            Mi perfil
+                            Premium
                         </MenuItem>
-                    </>
-                ) : null}
+                    ) : null}
 
-                {rol === 'COMPANY_ROL' && data.verify ? (
-                    <MenuItem onClick={() => setOpenModal(true)}>
+                    <MenuItem onClick={handlerLogout}>
                         <ListItemIcon>
-                            <WorkspacePremiumIcon fontSize="small" />
+                            <ExitToAppIcon fontSize="small" />
                         </ListItemIcon>
-                        Premium
+                        Cerrar sesion
                     </MenuItem>
-                ) : null}
-
-                <MenuItem onClick={handlerLogout}>
-                    <ListItemIcon>
-                        <ExitToAppIcon fontSize="small" />
-                    </ListItemIcon>
-                    Cerrar sesion
-                </MenuItem>
                 </Box>
             </Menu>
 
