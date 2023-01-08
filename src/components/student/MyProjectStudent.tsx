@@ -53,8 +53,6 @@ const MyProjectStudent: FC = () => {
 
     return (
         <Container maxWidth="lg">
-            {/* <ProjectCardSkeleton /> */}
-            {/* <PreLoader /> */}
             <SnackBar />
             {inProgress ? (
                 <ProjectCardSkeleton />
