@@ -6,12 +6,14 @@ import { validaToken } from '../actions/auth';
 import { useNavigate } from 'react-router';
 
 export const Checkout = () => {
-    const API_URL = process.env.REACT_APP_API || 'http://localhost:3001/api'
-    const query = new URLSearchParams(window.location.search)
+    const API_URL = process.env.REACT_APP_API || 'http://localhost:3001/api';
+    const query = new URLSearchParams(window.location.search);
 
-    const { status, data } = useSelector((state: State) => state.auth);
+    const { status, data }: object | any = useSelector(
+        (state: State) => state.auth
+    );
     const dispatch = useDispatch();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     let token = localStorage.getItem('token') || '';
 
@@ -20,7 +22,7 @@ export const Checkout = () => {
     }
 
     if (data.rol !== 'COMPANY_ROL' || !query.get('success')) {
-        navigate('/dashboard')
+        navigate('/dashboard');
     }
 
     const style = {
@@ -39,28 +41,31 @@ export const Checkout = () => {
     return (
         <>
             <NavBar />
-            {
-                query.get('success') && (
-                    <Paper sx={style}>
-                        <div className="product Box-root">
-                            <div className="description Box-root">
-                                <h3>Tu suscripción al plan premium a comenzado!</h3>
-                            </div>
+            {query.get('success') && (
+                <Paper sx={style}>
+                    <div className="product Box-root">
+                        <div className="description Box-root">
+                            <h3>Tu suscripción al plan premium a comenzado!</h3>
                         </div>
-                        <form action={`${API_URL}/checkout/portal`} method="POST">
-                            <input
-                                type="hidden"
-                                id="session-id"
-                                name="session_id"
-                                value={query.get('session_id') as string}
-                            />
-                            <Button id="checkout-and-portal-button" type="submit" variant='contained' sx={{ mt: 2 }}>
-                                Administra tu suscripción
-                            </Button>
-                        </form>
-                    </Paper>
-                )
-            }
+                    </div>
+                    <form action={`${API_URL}/checkout/portal`} method="POST">
+                        <input
+                            type="hidden"
+                            id="session-id"
+                            name="session_id"
+                            value={query.get('session_id') as string}
+                        />
+                        <Button
+                            id="checkout-and-portal-button"
+                            type="submit"
+                            variant="contained"
+                            sx={{ mt: 2 }}
+                        >
+                            Administra tu suscripción
+                        </Button>
+                    </form>
+                </Paper>
+            )}
         </>
-    )
-}
+    );
+};

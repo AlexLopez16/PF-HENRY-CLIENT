@@ -4,6 +4,7 @@ export const types = {
     clearAuthLogin: '[auth] Clear Auth Login',
     login: '[login] Login',
     infoToken: '[info] Info Token',
+    gitHubInactivateLogOut: '[auth] Logout Github Inactivated User',
 
     requestInProgress: '[request] Request In Progress',
     requestFinished: '[request] Request Finished',
@@ -30,6 +31,9 @@ export const types = {
     companyGetList: '[Company] Get list Company',
     deleteCompany: '[Company] Company delete',
     disableCompany: '[Company] disable Company',
+    ratingProjectCompany:"[Company] rating Project",//toy provando
+    ratingProject:"[Company] rating CompanyProject",
+
 
     newProject: '[project] Create New Project',
     getProjects: '[project] Get Projects',
@@ -38,11 +42,13 @@ export const types = {
     getCategory: '[project] Get Category',
     getMyProjectCompany: '[project]  Get My Project Company',
     filters: '[project] Filters',
+   
 
     showError: '[error] Show Error',
     clearError: '[error] Clear Error',
     getAllProjects: '[project] get all Project',
     AdminAprovedProject: '[admin]project aproved',
-    AdminEliminatedProject:'[admin]admin eliminated project and send email for why',
-    adminGetCharts: '[admin] admin get charts' ,
+    AdminEliminatedProject:
+        '[admin]admin eliminated project and send email for why',
+    adminGetCharts: '[admin] admin get charts',
 };

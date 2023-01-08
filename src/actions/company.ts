@@ -6,8 +6,9 @@ import { fileUpload } from '../helpers/fileUpload';
 
 export const registerCompany = (values: Object) => {
     return async (dispatch: Dispatch) => {
-        try {
-            const { data, status } = await axios.post(`/company`, values);
+        try { 
+            const  res:object | any = await axios.post('/company', values);
+            const { data, status } = res
             const { token, id, rol } = data;
             dispatch({
                 type: types.registerCompany,
@@ -18,7 +19,12 @@ export const registerCompany = (values: Object) => {
                 localStorage.setItem('token', token);
                 dispatch(login({ data, status, id, rol }));
             }
-        } catch (error) {
+        } catch (error:object | any) {
+            dispatch({
+                type: types.responseFinished,
+                payload: error.response
+            
+            })
             console.log(error);
         }
     };
@@ -143,8 +149,7 @@ export const DeleteStudent = (
     id: string | any,
     studentId: string,
     token: string | any
-) => {
-    console.log(id);
+) => {;
 
     return async (dispatch: Dispatch) => {
         try {
@@ -176,3 +181,23 @@ export const disableCompany = (id: string | any, idCompany: string) => {
         }
     };
 };
+
+export const proyectFinal = (uid:string | any) =>{
+return async(dispatch:Dispatch) =>{
+try {
+    const res = await axios.put(`/company/final`,{uid})
+   dispatch({
+    type: types.ratingProjectCompany,
+    // payload: res.data
+   })
+
+} catch (error) {
+    console.log(error,)
+}
+
+
+}
+
+
+
+}  
