@@ -125,7 +125,7 @@ const Pages: FC = () => {
         }
 
         if (location.pathname === '/dashboard/companies') {
-            dispatch(getCompany(token, limit, init));
+            dispatch(getCompany(token, false, limit, init));
         }
     };
 
