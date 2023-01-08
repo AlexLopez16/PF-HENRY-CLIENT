@@ -31,6 +31,9 @@ export const types = {
     companyGetList: '[Company] Get list Company',
     deleteCompany: '[Company] Company delete',
     disableCompany: '[Company] disable Company',
+    ratingProjectCompany:"[Company] rating Project",//toy provando
+    ratingProject:"[Company] rating CompanyProject",
+
 
     newProject: '[project] Create New Project',
     getProjects: '[project] Get Projects',
@@ -39,6 +42,7 @@ export const types = {
     getCategory: '[project] Get Category',
     getMyProjectCompany: '[project]  Get My Project Company',
     filters: '[project] Filters',
+   
 
     showError: '[error] Show Error',
     clearError: '[error] Clear Error',
