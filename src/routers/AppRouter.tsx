@@ -37,6 +37,9 @@ import AdminAcceptProject from "../components/Admin/AdminProject/AdminAcceptProj
 import { Checkout } from "../pages/Checkout";
 import SideBar from "../components/Admin/SideBar/SideBar";
 import DashboardAdmin from "../components/Admin/DashboardAdmin";
+import { RatingMail} from "../components/project/RatingMail"
+
+
 import { VerifyEmail } from "../components/VerifyEmail/VerifyEmail";
 import { ApplicationForm } from '../components/project/ApplicationForm';
 
@@ -257,6 +260,14 @@ export const AppRouter = () => {
                   <Postulated />
                 </>
               </PrivateRoute>
+            }
+          />
+           <Route
+            path="/rating"
+            element={
+              <>
+                <RatingMail />
+              </>
             }
           />
 
