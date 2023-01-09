@@ -41,9 +41,6 @@ const AdminStudent: FC = () => {
 
     useEffect(() => {
         dispatch(getListStudents(token, false, 6, 0));
-        return () => {
-            dispatch(clearProject());
-        };
     }, [dispatch]);
 
     const [selectedCustomerIds, setSelectedCustomerIds] = useState<string[]>(
