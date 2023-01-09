@@ -24,7 +24,8 @@ export const avatarStyle = {
 export const paperStyle = {
     padding: 5,
     maxWidth: '60%',
-    margin: '50px auto'
+    margin: '50px auto',
+    backgroundColor: 'red'
 }
 
 export const container = {
