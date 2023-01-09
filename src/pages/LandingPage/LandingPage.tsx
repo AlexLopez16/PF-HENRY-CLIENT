@@ -296,7 +296,7 @@ const LandingPage: FC = () => {
                     borderRadius: 40,
                     boxShadow:
                       'rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px',
-                      minWidth: 15
+                    minWidth: 15,
                   }}
                 />
               </Grid>
@@ -503,33 +503,51 @@ const LandingPage: FC = () => {
               </Grid>
             </Container>
           </Box>
-          <Grid container alignItems='center' justifyContent='center'>
+          <Grid
+            container
+            alignItems='center'
+            justifyContent='center'
+            flexDirection='column'
+          >
             <Typography
               variant='h3'
               sx={{
                 color: '#ffff01',
-                mt: 15,
+                mt: 20,
                 mb: 3,
                 fontFamily: 'Poppins',
                 fontSize: '35px',
+                display: 'flex',
+                flexDirection: 'column',
+                flexWrap: 'wrap',
               }}
             >
               El futuro; creado por Henry’s
             </Typography>
-            <Container>
-            <Typography
-              variant='h5'
-              sx={{
-                pt: 4,
-                pb: 5,
-                textAlign: 'center',
-                color: 'white',
-                fontFamily: 'montserrat',
-              }}
-            >
-              Estamos orgullosos de poder satisfacer las necesidades de todos
-              nuestros clientes que, con confianza avalan nuestro desempeño.
-            </Typography>
+            <Container sx={{}}>
+              <Grid
+                container
+                alignItems='center'
+                justifyContent='center'
+                flexDirection='column'
+              >
+                <Typography
+                  variant='h5'
+                  sx={{
+                    width: 750,
+                    pt: 4,
+                    pb: 5,
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    color: 'white',
+                    fontFamily: 'montserrat',
+                  }}
+                >
+                  Estamos orgullosos de poder satisfacer las necesidades de
+                  todos nuestros clientes que, con confianza avalan nuestro
+                  desempeño.
+                </Typography>
+              </Grid>
             </Container>
           </Grid>
           <Carousel />

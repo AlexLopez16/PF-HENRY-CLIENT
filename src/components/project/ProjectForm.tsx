@@ -7,24 +7,24 @@ import { Autocomplete } from 'formik-mui';
 import * as Yup from 'yup';
 
 import {
-    Grid,
-    Button,
-    Paper,
-    FormControlLabel,
-    Radio,
-    RadioGroup,
-    SelectChangeEvent,
-    FormControl,
-    FormLabel,
-    InputLabel,
-    MenuItem,
-    Select,
-    TextField,
-    FilledInput,
-    IconButton,
-    InputAdornment,
-    TextFieldProps,
-    Box,
+  Grid,
+  Button,
+  Paper,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+  SelectChangeEvent,
+  FormControl,
+  FormLabel,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  FilledInput,
+  IconButton,
+  InputAdornment,
+  TextFieldProps,
+  Box,
 } from '@mui/material';
 
 import ImageIcon from '@mui/icons-material/Image';
@@ -39,12 +39,12 @@ import Footer from '../../pages/LandingPage/Footer';
 import { SnackBar } from '../SnackBar/SnackBar';
 
 const ProjectForm: FC = () => {
-    const nParticipants = [...Array(8)].map((_, index) => index + 1);
+  const nParticipants = [...Array(8)].map((_, index) => index + 1);
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    const [participants, setParticipants] = useState('1');
-    const [category, setCategory] = useState('programacion-web');
+  const [participants, setParticipants] = useState('1');
+  const [category, setCategory] = useState('programacion-web');
 
   //Upload Images Init
   interface data {
@@ -53,6 +53,9 @@ const ProjectForm: FC = () => {
   }
 
   const [images, setImages] = useState<data[]>([]);
+
+  console.log(images)
+
   // Upload Images End
 
   const token = localStorage.getItem('token') || '';
@@ -82,38 +85,38 @@ const ProjectForm: FC = () => {
   const onSubmit = async (values: any, props: any) => {
     const listRequeriments: any = values.requirements?.map((e: any) => e.name);
 
-       //Cloudinary Images
-       const imagesUrl: string[] = [];
+    //Cloudinary Images
+    const imagesUrl: string[] = [];
 
-       for (const image of images) {
-         await fileUpload(image, 'projects')
-           .then((res) => imagesUrl.push(res))
-           //revisar este console.log
-           .catch((err) => console.log(err));
-       }
+    for (const image of images) {
+      await fileUpload(image, 'projects')
+        .then((res) => imagesUrl.push(res))
+        //revisar este console.log
+        .catch((err) => console.log(err));
+    }
 
-       const data = {
-        name: values.name,
-        description: values.description,
-        participants: participants,
-        requirements: listRequeriments,
-        category: values?.category || category,
-        images: imagesUrl,
-        questions: [values.question1, values.question2, values.question3] 
-      };
-
-      // setImages([...images, ...data]);
-
-      dispatch(newProject(data, token));
-
-      setTimeout(() => {
-        props.resetForm();
-        props.setSubmitting(false);
-        setParticipants('1');
-        setImages([]);
-      }, 1000);
+    const data = {
+      name: values.name,
+      description: values.description,
+      participants: participants,
+      requirements: listRequeriments,
+      category: values?.category || category,
+      images: imagesUrl,
+      questions: [values.question1, values.question2, values.question3]
     };
-  
+
+    // setImages([...images, ...data]);
+
+    dispatch(newProject(data, token));
+
+    setTimeout(() => {
+      props.resetForm();
+      props.setSubmitting(false);
+      setParticipants('1');
+      setImages([]);
+    }, 1000);
+  };
+
   const tecnologies = [
     { name: '.Net' },
     { name: 'Airflow' },
@@ -166,25 +169,30 @@ const ProjectForm: FC = () => {
     { name: 'Vue' },
 
     //con CTRL + Shift + P y selecciono en orden ascendente
-    ];
-  
-      //Upload Images
-    const handleFilesChange = async (
-      event: React.ChangeEvent<HTMLInputElement | {}>
-    ) => {
-      const files = (event.target as HTMLInputElement).files || [];
-      const data = Array.from(files);
+  ];
 
-    };
+  //Upload Images
+  const handleFilesChange = async (
+    event: React.ChangeEvent<HTMLInputElement | {}>
+  ) => {
+    const files = (event.target as HTMLInputElement).files || [];
+    const data = Array.from(files);
 
-    const imageClick = (
-      event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-      ) => {
-        event.preventDefault();
-        const id = (event.target as HTMLButtonElement).id;
-        const filter = images.filter((image) => image.name !== id);
-        setImages(filter);
-    };
+    setImages([
+      ...images,
+      ...data
+    ])
+
+  };
+
+  const imageClick = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    event.preventDefault();
+    const id = (event.target as HTMLButtonElement).id;
+    const filter = images.filter((image) => image.name !== id);
+    setImages(filter);
+  };
 
   return (
     <Box
@@ -207,10 +215,10 @@ const ProjectForm: FC = () => {
               marginTop: 100,
             }}
           >
-            <Grid 
-                textAlign='center' 
-                fontFamily='montserrat' 
-                sx={{ mb: 2 }}
+            <Grid
+              textAlign='center'
+              fontFamily='montserrat'
+              sx={{ mb: 2 }}
             >
               <h2>Crear proyecto</h2>
             </Grid>
@@ -374,7 +382,7 @@ const ProjectForm: FC = () => {
                       ))}
                     </Select>
                   </FormControl>
-                  
+
 
                   {/* IMAGES */}
                   <FormControl fullWidth>
@@ -454,7 +462,7 @@ const ProjectForm: FC = () => {
       <Footer />
     </Box>
   );
-  }
+}
 
-  export default ProjectForm;
+export default ProjectForm;
 

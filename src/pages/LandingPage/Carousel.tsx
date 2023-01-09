@@ -8,6 +8,9 @@ const Carousel = () => {
     <motion.div className={style.sliderContainer} style={{paddingBottom: 200}}>
       <motion.div
         className={style.slider}
+        animate={{
+          translateX:160
+        }}
         drag='x'
         dragConstraints={{ right: 0, left: -11550 }}
       >

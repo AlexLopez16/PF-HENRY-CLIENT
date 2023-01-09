@@ -12,7 +12,6 @@ import {
     Select,
 } from '@mui/material';
 import { PhotoCamera } from '@mui/icons-material';
-
 import {
     avatarStyle,
     buttonStyle,
@@ -20,46 +19,41 @@ import {
     iconStyle,
     paperStyle,
 } from '../../../styles/Profile/HeaderFormStyles';
-
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    getStudentInfo,
-    updatePhotoStudent,
-    updateStudentInfo,
-} from '../../../actions/student';
 import { State } from '../../../reducers/rootReducer';
+import {
+    companyGetInfo,
+    CompanyUpdateInfo,
+    updatePhotoCompany,
+} from '../../../actions/company';
 import { SelectChangeEvent } from '@mui/material';
 
-
-
 interface Props {
-    edit: { header: boolean; about: boolean; skills: boolean };
-    setEdit: Dispatch<
-        SetStateAction<{ header: boolean; about: boolean; skills: boolean }>
-    >;
+    edit: { header: boolean };
+    setEdit: Dispatch<SetStateAction<{ header: boolean }>>;
     name?: string;
-    lastName?: string;
+    website?: string;
     country?: string;
-    email?: string
 }
 
-export const HeaderForm: FC<Props> = ({
+export const HeaderFormAdmin: FC<Props> = ({
     edit,
     setEdit,
     name,
-    lastName,
+    website,
     country,
-    email
 }) => {
     const dispatch = useDispatch();
     const { data } = useSelector((state: State) => state.auth);
-    const { user } = useSelector((state: State) => state.student);
+    const { user } = useSelector((state: State) => state.company);
     const { id } = data;
     const { image } = user;
     const token = localStorage.getItem('token') || '';
     const [pais, setPais] = useState(country);
+    console.log(user);
+    
 
     const handlerEdit = () => {
         setEdit({
@@ -70,21 +64,22 @@ export const HeaderForm: FC<Props> = ({
 
     const initialValues = {
         name: name,
-        lastName: lastName,
-        email: email
+        website: website,
+        country: pais
     };
+
+    
 
     const validationSchema = Yup.object().shape({
         name: Yup.string().required('Ingresa tu nombre'),
-        lastName: Yup.string().required('Ingresa tu apellido'),
+        website: Yup.string().required('Ingresa tu url'),
     });
 
     const onSubmit = (values: any, props: any) => {
-        dispatch(updateStudentInfo(id, token, {
+        dispatch(CompanyUpdateInfo(id, token, {
             name: values.name,
-            lastName: values.lastName,
-            country: pais,
-            email:email
+            website: values.website,
+            country: pais
         }));
         setEdit({
             ...edit,
@@ -97,10 +92,10 @@ export const HeaderForm: FC<Props> = ({
     ) => {
         const file = event.target.files[0];
         if (file) {
-            dispatch(updatePhotoStudent(id, token, file));
+            dispatch(updatePhotoCompany(id, token, file));
         }
         setTimeout(() => {
-            dispatch(getStudentInfo(id, token));
+            dispatch(companyGetInfo(id, token));
         }, 1000);
     };
 
@@ -193,69 +188,53 @@ export const HeaderForm: FC<Props> = ({
                                         </ErrorMessage>
                                     }
                                 />
-                                <Field
-                                    as={TextField}
-                                    name="lastName"
-                                    label="Apellido(s)"
-                                    variant="outlined"
-                                    fullWidth
-                                    sx={{ marginBottom: '10px' }}
-                                    helperText={
-                                        <ErrorMessage name="lastName">
-                                            {(msg) => (
-                                                <span style={{ color: 'red' }}>
-                                                    {msg}
-                                                </span>
-                                            )}
-                                        </ErrorMessage>
-                                    }
-                                />
-                                <Field
-                                    as={TextField}
-                                    name="email"
-                                    label="Email"
-                                    variant="outlined"
-                                    fullWidth
-                                    sx={{ marginBottom: '10px' }}
-                                    helperText={
-                                        <ErrorMessage name="email">
-                                            {(msg) => (
-                                                <span style={{ color: 'red' }}>
-                                                    {msg}
-                                                </span>
-                                            )}
-                                        </ErrorMessage>
-                                    }
-                                />
 
-                                <FormControl
-                                    color="info"
-                                    sx={{
-                                        width: '100%',
-                                        marginTop: 1,
-                                        marginBottom: 2,
-                                    }}
-                                >
-                                    <InputLabel
+                                 <FormControl
                                         color="info"
-                                        id="demo-simple-select-label"
+                                        sx={{
+                                            width: '100%',
+                                            marginTop: 1,
+                                            marginBottom: 2,
+                                        }}
                                     >
-                                        Nacionalidad
-                                    </InputLabel>
-                                    <Select
-                                        id="demo-simple-select"
-                                        labelId="demo-simple-select-label"
-                                        label="Nacionalidad"
-                                        value={pais}
-                                        onChange={handleChange}
-                                    >
-                                        {paises.map((p) => (
-                                            <MenuItem key={p} value={p}>
-                                                {p}
-                                            </MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
+                                        <InputLabel
+                                            color="info"
+                                            id="demo-simple-select-label"
+                                        >
+                                            Nacionalidad
+                                        </InputLabel>
+                                        <Select
+                                            id="demo-simple-select"
+                                            labelId="demo-simple-select-label"
+                                            label="Nacionalidad"
+                                            value={pais}
+                                            onChange={handleChange}
+                                        >
+                                            {paises.map((pais) => (
+                                                <MenuItem key= {pais} value={pais}>
+                                                    {pais}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
+
+                                <Field
+                                    as={TextField}
+                                    name="website"
+                                    label="pagina web"
+                                    variant="outlined"
+                                    fullWidth
+                                    sx={{ marginBottom: '10px' }}
+                                    helperText={
+                                        <ErrorMessage name="website">
+                                            {(msg) => (
+                                                <span style={{ color: 'red' }}>
+                                                    {msg}
+                                                </span>
+                                            )}
+                                        </ErrorMessage>
+                                    }
+                                />
 
                                 <Button
                                     type="submit"
@@ -276,7 +255,6 @@ export const HeaderForm: FC<Props> = ({
                                 </Button>
                             </div>
                         </div>
-                        {/* {console.log(props)} */}
                     </Form>
                 )}
             </Formik>

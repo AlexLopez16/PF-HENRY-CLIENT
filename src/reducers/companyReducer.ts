@@ -30,7 +30,6 @@ export const companyReducer = (state: State = initialState, action: Action) => {
 
         case types.companyGetList:
             const { usersCompany, total }: any = action.payload;
-            console.log('aqio', usersCompany);
             return {
                 ...state,
                 user: usersCompany,
@@ -42,16 +41,19 @@ export const companyReducer = (state: State = initialState, action: Action) => {
                 ...state,
                 user: { ...state.user, ...action.payload },
             };
+        case types.clearCompany: {
+            return { user: [], total2: 0 };
+        }
         case types.ratingProjectCompany:
             return {
-             ...state,
-             user:action.payload
-            }
+                ...state,
+                user: action.payload,
+            };
         case types.ratingProject:
-            return{
-          ...state,
-          user:action.payload
-            }
+            return {
+                ...state,
+                user: action.payload,
+            };
 
         default:
             return state;

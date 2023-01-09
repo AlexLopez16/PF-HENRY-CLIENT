@@ -3,7 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Box } from '@mui/system';
-import { getCompany, disableCompany } from '../../../actions/company';
+import {
+    getCompany,
+    disableCompany,
+    clearGetCompany,
+} from '../../../actions/company';
 import * as moment from 'moment';
 import {
     Avatar,
@@ -38,12 +42,14 @@ const AdminCompany: FC = ({ ...rest }) => {
     const { logged, status } = useSelector((state: State) => state.auth);
 
     if (!status && token) {
-        console.log('Tenes token, ahora te validamos');
         dispatch(validaToken(token));
     }
 
     useEffect(() => {
-        dispatch(getCompany(token as string, 6, 0));
+        dispatch(getCompany(token as string, false, 6, 0));
+        return () => {
+            dispatch(clearGetCompany());
+        };
     }, [dispatch]);
 
     const [selectedCustomerIds, setSelectedCustomerIds] = useState<any[]>([]);
@@ -102,10 +108,10 @@ const AdminCompany: FC = ({ ...rest }) => {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(event.target.checked);
     };
-    const handleDisable = () => {
-        selectedCustomerIds.forEach((selectID: any) =>
-            dispatch(disableCompany(token, selectID))
-        );
+    const handleDisable = (selectID: string) => {
+        // selectedCustomerIds.forEach((selectID: any) =>
+        dispatch(disableCompany(token, selectID));
+        // );
     };
 
     return (
@@ -144,9 +150,11 @@ const AdminCompany: FC = ({ ...rest }) => {
                                             }}
                                         >
                                             <Avatar
-                                                src={user.avatarUrl}
+                                                src={user.image}
                                                 sx={{ mr: 2 }}
-                                            ></Avatar>
+                                            >
+                                                {user.name[0]}
+                                            </Avatar>
                                             <Typography
                                                 color="textPrimary"
                                                 variant="body1"
@@ -162,14 +170,8 @@ const AdminCompany: FC = ({ ...rest }) => {
                                             : 'No registrado'}
                                     </TableCell>
 
-                                    <TableCell align="left">
-                                        <InputLabel
-                                            color={
-                                                user.state ? 'success' : 'error'
-                                            }
-                                        >
-                                            {user.state ? 'Activo' : 'Inactivo'}
-                                        </InputLabel>
+                                    <TableCell>
+                                        {user.state ? 'Activo' : 'Inactivo'}
                                     </TableCell>
 
                                     <TableCell>
@@ -193,10 +195,16 @@ const AdminCompany: FC = ({ ...rest }) => {
                                         <FormControlLabel
                                             control={
                                                 <Switch
-                                                    defaultChecked
+                                                    defaultChecked={
+                                                        user.state
+                                                            ? true
+                                                            : false
+                                                    }
                                                     size="small"
                                                     color="primary"
-                                                    onChange={handleDisable}
+                                                    onChange={() =>
+                                                        handleDisable(user.uid)
+                                                    }
                                                 />
                                             }
                                             label={undefined}

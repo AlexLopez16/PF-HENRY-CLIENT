@@ -1,5 +1,5 @@
 // import { useEffect } from 'react';
-import { Navigate, useSearchParams } from 'react-router-dom';
+import { Navigate, useSearchParams, useLocation } from 'react-router-dom';
 import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../reducers/rootReducer';
@@ -13,8 +13,16 @@ type Props = {
 export const PrivateRoute: FC<Props> = ({ children }) => {
     const { logged, status, data } = useSelector((state: State) => state.auth);
     const dispatch = useDispatch();
-
     let token = localStorage.getItem('token');
+
+    if (!status && token) {
+        dispatch(validaToken(token));
+    }
+
+    const location = useLocation();
+    const { pathname } = location;
+    localStorage.setItem('location', pathname);
+
     let obj: any;
     if (token == null) {
         const [queryParameters] = useSearchParams();
@@ -34,8 +42,6 @@ export const PrivateRoute: FC<Props> = ({ children }) => {
     }
 
     if (!status && token) {
-        //revisar este console.log
-        console.log('Tenes token, ahora te validamos');
         dispatch(validaToken(token));
     }
 
