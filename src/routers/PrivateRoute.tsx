@@ -1,35 +1,35 @@
 // import { useEffect } from 'react';
-import { Navigate, useSearchParams } from 'react-router-dom';
+import { Navigate, useSearchParams, useLocation } from 'react-router-dom';
 import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../reducers/rootReducer';
-import { githubLogin, validaToken } from '../actions/auth';
+import { githubLogin, logout, validaToken } from '../actions/auth';
+import { SnackBar } from '../components/SnackBar/SnackBar';
 
 type Props = {
     children: JSX.Element;
 };
 
 export const PrivateRoute: FC<Props> = ({ children }) => {
-    const { logged, status } = useSelector((state: State) => state.auth);
+    const { logged, status, data } = useSelector((state: State) => state.auth);
     const dispatch = useDispatch();
-
     let token = localStorage.getItem('token');
 
     if (!status && token) {
-        //revisar este console.log
-        // console.log('Tenes token, ahora te validamos');
         dispatch(validaToken(token));
     }
 
-    let obj: any;
+    const location = useLocation();
+    const { pathname } = location;
+    localStorage.setItem('location', pathname);
 
+    let obj: any;
     if (token == null) {
         const [queryParameters] = useSearchParams();
 
         let tokenQuery = queryParameters.get('token');
         let id: any = queryParameters.get('id');
         let rol: any = queryParameters.get('rol');
-        let status: any = queryParameters.get('status');
         if (tokenQuery != null) {
             obj = { tokenQuery, id, rol };
             localStorage.setItem('token', tokenQuery);
@@ -41,5 +41,15 @@ export const PrivateRoute: FC<Props> = ({ children }) => {
         }
     }
 
-    return logged ? children : <Navigate to="/login" />;
+    if (!status && token) {
+        dispatch(validaToken(token));
+    }
+
+    return logged ? (
+        children
+    ) : (
+        <>
+            <SnackBar /> <Navigate to="/login" />
+        </>
+    );
 };

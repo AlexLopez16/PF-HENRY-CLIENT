@@ -13,6 +13,7 @@ import {
   IconButton,
   Box,
   Typography,
+  Container,
 } from '@mui/material';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
@@ -20,43 +21,52 @@ import { VisibilityOff, Visibility } from '@mui/icons-material';
 import { GitHubLogin } from '../auth/GitHubLogin';
 // import { GoogleLogin } from "../auth/GoogleLogin";
 
-import { useDispatch } from 'react-redux';
-import type { } from 'redux-thunk/extend-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import type {} from 'redux-thunk/extend-redux';
 import { studentRegister } from '../../actions/student';
 import { GoogleLogin } from '@react-oauth/google';
 import { gmailLogin } from '../../actions/auth';
 import Header from '../NavbarLandingPage/HeaderLanding';
 import Footer from '../../pages/LandingPage/Footer';
-import { Link } from 'react-router-dom';
-import { alert } from "../AlertMail/alertMailStudent"
-
-import Logo from '../../assets/NABIJASH.png'
+import { Link, useNavigate } from 'react-router-dom';
+import { alert } from '../AlertMail/alertMailStudent';
+import studentRegisterbg from '../../assets/studentRegister.png';
+import Logo from '../../assets/NABIJASH.png';
+import { SnackBar } from '../SnackBar/SnackBar';
+import { State } from '../../reducers/rootReducer';
 
 export const StudensForm: FC = () => {
+  const Navigate = useNavigate();
+  const GoBack = () => {
+    Navigate('/');
+  };
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-  const initialValues = {
-    name: '',
-    lastName: '',
-    email: '',
-    password: '',
-  };
-  const validationSchema = yup.object().shape({
-    name: yup.string().required('Nombre requerido'),
-    lastName: yup.string().required('Apellido requerido'),
-    email: yup.string().email('email invalido').required('Email requerido'),
-    password: yup
-      .string()
-      .required('Contraseña requerida')
-      .min(8, 'Debe contener min. 8 caracter')
-      .matches(/[0-9]/, 'Se requiere un numero')
-      .matches(/[a-z]/, 'Se requiere una letra minuscula')
-      .matches(/[A-Z]/, 'Se requiere una letra mayuscula')
-      .matches(/[^\w]/, 'Se requiere un simbolo'),
-  });
+let condicion = useSelector((state:State)=>state.response)
+
+
+    const handleClickShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
+    const initialValues = {
+        name: '',
+        lastName: '',
+        email: '',
+        password: '',
+    };
+    const validationSchema = yup.object().shape({
+        name: yup.string().required('Nombre requerido'),
+        lastName: yup.string().required('Apellido requerido'),
+        email: yup.string().email('email invalido').required('Email requerido'),
+        password: yup
+            .string()
+            .required('Contraseña requerida')
+            .min(8, 'Debe contener min. 8 caracter')
+            .matches(/[0-9]/, 'Se requiere un numero')
+            .matches(/[a-z]/, 'Se requiere una letra minuscula')
+            .matches(/[A-Z]/, 'Se requiere una letra mayuscula')
+            .matches(/[^\w]/, 'Se requiere un simbolo'),
+    });
 
   type Values = {
     name: string;
@@ -67,63 +77,91 @@ export const StudensForm: FC = () => {
 
   const dispatch = useDispatch();
 
-    const onSubmit = (values: Values) => {
-      dispatch(studentRegister({
-        name:values.name.trim(),
-        lastName:values.lastName.trim(),
-        email:values.email.trim(),
-        password:values.password.trim()
-      }));
-      dispatch(alert)
-    };
-
+  const onSubmit = (values: Values) => {
+    dispatch(
+      studentRegister({
+        name: values.name.trim(),
+        lastName: values.lastName.trim(),
+        email: values.email.trim(),
+        password: values.password.trim(),
+      }),
+    );
+    {condicion.status>400
+        ?dispatch(alert)
+        : "null"
+    }
+  };
 
   return (
     <Box
       sx={{
-        backgroundColor: 'black',
+        backgroundImage: `url(${studentRegisterbg})`,
+        maxWidth: '1920px',
       }}
     >
+      <SnackBar />
       <div>
         <Header />
 
         <Grid
           container
-          direction="column"
-          justifyContent="center"
-          alignItems="center"
+          direction='column'
+          justifyContent='center'
+          alignItems='center'
         >
           <img
             src={Logo}
             style={{
               justifyContent: 'center',
-              marginTop: 10,
+              marginTop: 35,
             }}
           />
-          <Paper
+          <Typography
             sx={{
-              minWidth: 100,
-              maxWidth: 400,
-              mt: 8,
-              padding: 5,
-              mb: 11.5,
+              color: 'black',
+              fontFamily: 'montserrat',
+              fontWeight: 'bold',
+              fontSize: 25,
+              mt: 5,
+              px: 5,
+              backgroundColor: '#ffff50',
+              borderRadius: 5,
             }}
           >
+            ¡Adéntrate en el mundo IT, y colabora en proyectos reales de
+            empresas reales!
+          </Typography>
+          <Paper
+            sx={{
+              width: 500,
+              mt: 10,
+              mb: 5,
+              p: 5,
+              pt: 4,
+              borderRadius: 10,
+              backgroundColor: 'black',
+              boxShadow:
+                'rgba(255, 255, 255, 255.16) 0px 1px 4px, rgb(255, 255, 255) 0px 0px 0px 3px',
+            }}
+           >
             <Grid
-              textAlign="center"
-              color="primary"
+              textAlign='center'
+              color='primary'
               sx={{
                 fontFamily: 'montserrat',
               }}
             >
-              <h2
-                style={{
+              <Typography
+                sx={{
                   fontFamily: 'montserrat',
                   marginBottom: 5,
+                  fontSize: 25,
+                  fontWeight: 'bold',
+                  color: 'white',
                 }}
               >
                 Registrate
-              </h2>
+              </Typography>
             </Grid>
 
             <Formik
@@ -135,13 +173,30 @@ export const StudensForm: FC = () => {
                 <Form>
                   <Field
                     as={TextField}
-                    name="name"
-                    label="Nombre"
-                    size="small"
-                    color="info"
-                    sx={{ width: '100%', margin: '10px 0' }}
+                    name='name'
+                    placeholder='Nombre'
+                    size='small'
+                    fontFamily='montserrat'
+                    color='primary'
+                    sx={{
+                    
+                      boxShadow: 'rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset',
+                      '.MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'white',
+                      },
+                      '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'white',
+                      },
+                      '&:hover .MuiOutlinedInput-notchedOutline': {
+                        borderColor: '#ffff01',
+                      },
+
+                      input: { color: 'white' },
+                      margin: '10px 0px',
+                      width: '100%',
+                    }}
                     helperText={
-                      <ErrorMessage name="name">
+                      <ErrorMessage name='name'>
                         {(message) => (
                           <span
                             style={{
@@ -157,13 +212,30 @@ export const StudensForm: FC = () => {
 
                   <Field
                     as={TextField}
-                    name="lastName"
-                    label="Apellido"
-                    size="small"
-                    color="info"
-                    sx={{ width: '100%', margin: '10px 0' }}
+                    name='lastName'
+                    size='small'
+                    fontFamily='montserrat'
+                    color='primary'
+                    placeholder='Apellido'
+                    sx={{
+                      
+                      boxShadow: 'rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset',
+                      '.MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'white',
+                      },
+                      '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'white',
+                      },
+                      '&:hover .MuiOutlinedInput-notchedOutline': {
+                        borderColor: '#ffff01',
+                      },
+
+                      input: { color: 'white' },
+                      margin: '10px 0px',
+                      width: '100%',
+                    }}
                     helperText={
-                      <ErrorMessage name="lastName">
+                      <ErrorMessage name='lastName'>
                         {(message) => (
                           <span
                             style={{
@@ -180,50 +252,84 @@ export const StudensForm: FC = () => {
                   <Field
                     as={TextField}
                     name='email'
-                    label='Email'
                     size='small'
-                    color='info'
-                    sx={{ width: '100%', margin: '10px 0' }}
+                    fontFamily='montserrat'
+                    color='primary'
+                    placeholder='Email'
+                    sx={{
+                      
+                      boxShadow: 'rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset',
+                      '.MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'white',
+                      },
+                      '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'white',
+                      },
+                      '&:hover .MuiOutlinedInput-notchedOutline': {
+                        borderColor: '#ffff01',
+                      },
+
+                      input: { color: 'white' },
+                      margin: '10px 0px',
+                      width: '100%',
+                    }}
                     helperText={
                       <ErrorMessage name='email'>
                         {(message) => (
-                          <span style={{ color: '#d6423e' }}>{message}</span>
+                          <span
+                            style={{
+                              color: '#d6423e',
+                            }}
+                          >
+                            {message}
+                          </span>
                         )}
                       </ErrorMessage>
                     }
                   />
                   <FormControl sx={{ width: '100%', margin: '10px 0' }}>
-                    <InputLabel color='info' htmlFor='contraseña'>
-                      Contraseña
-                    </InputLabel>
+
                     <Field
                       as={OutlinedInput}
                       name='password'
-                      color='info'
-                      label='contraseña'
+                      color='primary'
+                      size='small'
                       placeholder='Contraseña'
+                      fontFamily='montserrat'
                       type={showPassword ? 'text' : 'password'}
+                      sx={{
+                        color: 'white',
+                        boxShadow: 'rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset',
+                        '.MuiOutlinedInput-notchedOutline': {
+                          borderColor: 'white',
+                        },
+                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                          borderColor: 'white',
+                        },
+                        '&:hover .MuiOutlinedInput-notchedOutline': {
+                          borderColor: '#ffff01',
+                        },
+
+                        label: { color: 'white' },
+                        input: { color: 'white' },
+                        margin: '10px 0px',
+                        width: '100%',
+                      }}
                       endAdornment={
                         <InputAdornment position='end'>
                           <IconButton
                             aria-label='toggle password visibility'
                             onClick={handleClickShowPassword}
                             edge='end'
+                            color='primary'
                           >
                             {showPassword ? <VisibilityOff /> : <Visibility />}
                           </IconButton>
                         </InputAdornment>
                       }
-                      helperText={
-                        <ErrorMessage name='password'>
-                          {(message) => (
-                            <span style={{ color: '#d6423e' }}>{message}</span>
-                          )}
-                        </ErrorMessage>
-                      }
                     />
                     {'password' in props.errors && (
-                      <FormHelperText error>
+                      <FormHelperText sx={{ color: '#d6423e' }}>
                         {props.errors.password}
                       </FormHelperText>
                     )}
@@ -232,6 +338,7 @@ export const StudensForm: FC = () => {
                     sx={{
                       fontFamily: 'montserrat',
                       fontWeight: 'bold',
+                      mb:1,
                     }}
                     type='submit'
                     variant='contained'
@@ -241,23 +348,28 @@ export const StudensForm: FC = () => {
                   >
                     Crear cuenta
                   </Button>
-                  <Divider sx={{
-                    mb: 1,
-                    mt: 1,
-                  }}>
-                    <span>O</span>
+                  <Divider
+                    sx={{
+                      mb: 1,
+                      mt: 1,
+                    }}
+                  >
+                    <span style={{color:'white'}}>O</span>
                   </Divider>
                   <GitHubLogin />
                   <GoogleLogin
-                    width='340px'
+                   
                     logo_alignment='center'
                     type='standard'
-                    theme='filled_blue'
+                    theme='outline'
                     shape='square'
                     size='large'
                     onSuccess={(credentialResponse) => {
                       dispatch(
-                        gmailLogin(credentialResponse.credential as string, 'student'),
+                        gmailLogin(
+                          credentialResponse.credential as string,
+                          'student',
+                        ),
                       );
                     }}
                     //revisar este console.log
@@ -268,27 +380,59 @@ export const StudensForm: FC = () => {
                     auto_select={false}
                   />
                 </Form>
-              )}
-            </Formik>
+                )}
+              </Formik>
 
-            <Typography
-              textAlign='center'
-              mt='20px'
-              fontFamily='poppins'
-              fontSize='15px'
+              <Typography
+               sx={{
+                  display:'flex',
+                  flexDirection: 'column',
+                 justifyContent: 'center',
+                textAlign: 'center',
+                mt: 4,
+                fontFamily: 'poppins',
+                fontSize: '15px',
+                color: 'white',
+              }}
             >
               ¿Ya tienes una cuenta?
               <Link
                 to='/login'
-                style={{ textDecoration: 'underline', color: 'black' }}
+                style={{
+                    textDecoration: 'none',
+                    color: '#ffff01',
+                  }}
               >
-                <p>Ingresa</p>
+                Ingresa
               </Link>
             </Typography>
-
+          
           </Paper>
         </Grid>
       </div>
+      <Grid
+        container
+        direction='column'
+        justifyContent='flex-start'
+        alignItems='center'
+       >
+        <FormControl>
+          <Button
+            onClick={GoBack}
+            size='small'
+            variant='contained'
+            color='secondary'
+            sx={{
+              boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+              fontFamily: 'montserrat',
+              fontWeight: 'bold',
+              mb: 20,
+            }}
+          >
+            Regresar
+          </Button>
+        </FormControl>
+      </Grid>
       <Footer />
     </Box>
   );

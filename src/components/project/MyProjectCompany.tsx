@@ -3,19 +3,18 @@ import { clearProjects, getMyProjectsCompany } from '../../actions/projects';
 import ProjectCard from './ProjectCard';
 import { State } from '../../reducers/rootReducer';
 
-// import { Box } from '@mui/system';
 import Alert from '@mui/material/Alert/Alert';
 import Stack from '@mui/material/Stack/Stack';
 import { useEffect, FC } from 'react';
 import Pages from '../ui/Pagination';
-import { Container, Typography } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import { PreLoader } from '../PreLoader/PreLoader';
+import ProjectCardMyCompany from './ProjectCardMyCompany';
 
-// const styledInput = {
-//   position: "relative",
-//   right: 10,
-//   "&:hover": {},
-// };
+import bgComponents from '../../assets/bgComponents.png';
+import StudentsFilter from '../student/StudentsFilter';
+import Footer from '../../pages/LandingPage/Footer';
+
 export const MyProjectCompany: FC = () => {
     const dispatch = useDispatch();
     let token = localStorage.getItem('token') || '';
@@ -31,50 +30,63 @@ export const MyProjectCompany: FC = () => {
     // console.log(info);
 
     return (
-        <div>
-            <PreLoader />
-            <Container sx={{ marginLeft: 109 }}>
-                <Typography variant="h6" sx={{ marginTop: 5 }}>
-                    Mis proyectos
-                </Typography>
-            </Container>
-            <div
-                style={{
-                    width: 1350,
-                    height: '10%',
-                    padding: 20,
-                    marginRight: '0px',
-                    marginLeft: '90px',
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
+        <>
+            <Box
+                sx={{
+                    backgroundImage: `url(${bgComponents})`,
+                    pb: 15,
+                    pt: 10,
                 }}
-            ></div>
+            >
+                <PreLoader />
+                <Container
+                    sx={{
+                        alignContent: 'center',
+                        alignItems: 'center',
+                        textAlign: 'center',
+                    }}
+                >
+                    <Typography
+                        sx={{
+                            color: '#AEB3B4',
+                            fontFamily: 'montserrat',
+                            fontSize: 35,
+                            backgroundColor: '#0C252F',
+                            borderRadius: 15,
+                            mb: 5,
+                        }}
+                    >
+                        Mis Proyectos
+                    </Typography>
+                </Container>
 
-            <Pages />
-            <Container maxWidth="lg" sx={{ marginLeft: 50 }}>
-                {info.length ? (
-                    info.map((e: any) => (
-                        <ProjectCard
-                            name={e.name}
-                            participants={e.participants}
-                            requirements={e.requirements}
-                            students={e.accepts}
-                            company={e.company.name}
-                            state={e.state}
-                            stateOfProject={e.stateOfProject}
-                            id={e.uid}
-                            category={e.category}
-                            image={e.images}
-                        />
-                    ))
-                ) : (
-                    <Stack sx={{ width: '100%' }} spacing={2}>
-                        <Alert severity="info">No hay proyectos creados!</Alert>
-                    </Stack>
-                )}
-            </Container>
-        </div>
+                <Pages />
+                <Container maxWidth="lg">
+                    {info.length ? (
+                        info.map((e: any) => (
+                            <ProjectCardMyCompany
+                                name={e.name}
+                                participants={e.participants}
+                                requirements={e.requirements}
+                                students={e.accepts}
+                                company={e.company.name}
+                                state={e.state}
+                                stateOfProject={e.stateOfProject}
+                                id={e.uid}
+                                category={e.category}
+                                image={e.images}
+                            />
+                        ))
+                    ) : (
+                        <Stack sx={{ width: '100%' }} spacing={2}>
+                            <Alert severity="info">
+                                No hay proyectos creados!
+                            </Alert>
+                        </Stack>
+                    )}
+                </Container>
+            </Box>
+            <Footer />
+        </>
     );
 };

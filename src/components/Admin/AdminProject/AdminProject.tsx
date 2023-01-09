@@ -1,41 +1,28 @@
 import { FC, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Doughnut } from 'react-chartjs-2';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Box } from '@mui/system';
 import * as moment from 'moment';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
 import {
-    Avatar,
     Card,
-    Checkbox,
     Table,
     TableBody,
     TableCell,
     TableHead,
     TableRow,
     Typography,
-    InputLabel,
-    Button,
     FormControlLabel,
     FormGroup,
-
+    Container,
+    ListItemButton,
+    Collapse,
 } from '@mui/material';
-import { getListStudents } from '../../../actions/student';
 import { State } from '../../../reducers/rootReducer';
-import {
-    getAllProject,
-    getProject,
-    getProjectsFilter,
-} from '../../../actions/projects';
+import { clearProject, getAllProject } from '../../../actions/projects';
 import Switch from '@mui/material/Switch';
 import { deleteuser } from '../../../actions/Admin';
-import { Visibility } from '@mui/icons-material';
 import Pages from '../../ui/Pagination';
-import { Filters } from '../../ui/Filters';
-
-ChartJS.register(ArcElement, Tooltip, Legend);
+import { PreLoader } from '../../PreLoader/PreLoader';
+import AdminFilterProject from '../../AdminBar/AdminFilterProject';
 
 export interface Options {
     splitRegexp?: RegExp | RegExp[];
@@ -43,15 +30,29 @@ export interface Options {
     delimiter?: string;
     transform?: (part: string, index: number, parts: string[]) => string;
 }
+import FilterListIcon from '@mui/icons-material/FilterList';
 
 export declare function sentenceCase(input: string, options?: Options): string;
-
 const AdminProject: FC = ({ ...rest }) => {
     const dispatch = useDispatch();
     const token: any = localStorage.getItem('token');
-
+    const [open, setOpen] = useState(false);
     useEffect(() => {
-        dispatch(getAllProject(token));
+        dispatch(
+            getAllProject(
+                undefined,
+                undefined,
+                token,
+                undefined,
+                undefined,
+                undefined,
+                6,
+                0
+            )
+        );
+        return () => {
+            dispatch(clearProject());
+        };
     }, [dispatch]);
 
     const { projectsFilter } = useSelector((state: State) => state.project);
@@ -61,7 +62,6 @@ const AdminProject: FC = ({ ...rest }) => {
     );
     const [limit, setLimit] = useState(12);
     const [page, setPage] = useState(0);
-
 
     const handleSelectAll = (event: any) => {
         let newSelectedCustomerIds;
@@ -103,10 +103,10 @@ const AdminProject: FC = ({ ...rest }) => {
         setSelectedCustomerIds(newSelectedCustomerIds);
     };
 
-    const handleSwitch = () => {
-        selectedCustomerIds.forEach((selectID: any) =>
-            dispatch(deleteuser(token, selectID))
-        );
+    const handleSwitch = (id: string) => {
+        // selectedCustomerIds.forEach((selectID: any) =>
+        dispatch(deleteuser(token, id));
+        // );
     };
 
     const handleLimitChange = (event: any) => {
@@ -117,39 +117,62 @@ const AdminProject: FC = ({ ...rest }) => {
         setPage(newPage);
     };
 
+    const handlerClick = () => {
+        setOpen(!open);
+    };
     return (
         <>
-            <>
-                {/* <Filters /> */}
-            </>
+            <PreLoader />
+            <>{/* <Filters /> */}</>
             <Card {...rest}>
+                <Container
+                    maxWidth="lg"
+                    sx={{
+                        display: 'flex',
+                        marginLeft: 0,
+                    }}
+                >
+                    <ListItemButton
+                        onClick={handlerClick}
+                        sx={{ maxWidth: 350 }}
+                    >
+                        {open ? (
+                            <FilterListIcon> </FilterListIcon>
+                        ) : (
+                            <FilterListIcon> </FilterListIcon>
+                        )}
+                    </ListItemButton>{' '}
+                    <Collapse
+                        in={open}
+                        timeout="auto"
+                        unmountOnExit
+                        orientation="horizontal"
+                    >
+                        <AdminFilterProject source="adminProjects" />
+                    </Collapse>
+                </Container>
+
                 <Box sx={{ minWidth: 1050 }}>
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell padding="checkbox">
-                                    <Checkbox
-                                        checked={
-                                            selectedCustomerIds.length ===
-                                            projects.length
-                                        }
-                                        color="primary"
-                                        indeterminate={
-                                            selectedCustomerIds.length > 0 &&
-                                            selectedCustomerIds.length <
-                                            projects.length
-                                        }
-                                        onChange={handleSelectAll}
-                                    />
-                                </TableCell>
+                                {/* <TableCell padding="checkbox">
+                  <Checkbox
+                    checked={selectedCustomerIds.length === projects.length}
+                    color="primary"
+                    indeterminate={
+                      selectedCustomerIds.length > 0 &&
+                      selectedCustomerIds.length < projects.length
+                    }
+                    onChange={handleSelectAll}
+                  />
+                </TableCell> */}
                                 <TableCell>Nombre</TableCell>
                                 <TableCell>Compañia</TableCell>
                                 <TableCell>Categoria</TableCell>
                                 <TableCell>Estado</TableCell>
                                 <TableCell>Creado</TableCell>
                                 <TableCell>Activo</TableCell>
-
-
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -163,19 +186,13 @@ const AdminProject: FC = ({ ...rest }) => {
                                         ) !== -1
                                     }
                                 >
-                                    <TableCell padding="checkbox">
-                                        <Checkbox
-                                            checked={
-                                                selectedCustomerIds.indexOf(
-                                                    projects.uid
-                                                ) !== -1
-                                            }
-                                            onChange={(event) =>
-                                                handleSelectOne(projects.uid)
-                                            }
-                                            value="true"
-                                        />
-                                    </TableCell>
+                                    {/* <TableCell padding="checkbox">
+                    <Checkbox
+                      checked={selectedCustomerIds.indexOf(projects.uid) !== -1}
+                      onChange={(event) => handleSelectOne(projects.uid)}
+                      value="true"
+                    />
+                  </TableCell> */}
                                     <TableCell>
                                         <Box
                                             sx={{
@@ -183,10 +200,6 @@ const AdminProject: FC = ({ ...rest }) => {
                                                 display: 'flex',
                                             }}
                                         >
-                                            {/* <Avatar
-                                                src={projects.avatarUrl}
-                                                sx={{ mr: 2 }}
-                                            ></Avatar> */}
                                             <Typography
                                                 color="textPrimary"
                                                 variant="body1"
@@ -195,19 +208,23 @@ const AdminProject: FC = ({ ...rest }) => {
                                             </Typography>
                                         </Box>
                                     </TableCell>
-                                    <TableCell>{projects.company.name}</TableCell>
+                                    <TableCell>
+                                        {projects.company.name}
+                                    </TableCell>
                                     <TableCell>
                                         {projects.category
                                             ? projects.category
                                             : 'No registrado'}
                                     </TableCell>
-                                    <TableCell>{projects.stateOfProject}</TableCell>
+                                    <TableCell>
+                                        {projects.stateOfProject}
+                                    </TableCell>
 
                                     <TableCell>
                                         {projects.admission
-                                            ? `${moment(projects.admission).format(
-                                                'DD/MM/YYYY'
-                                            )}`
+                                            ? `${moment(
+                                                  projects.admission
+                                              ).format('DD/MM/YYYY')}`
                                             : 'No registrado'}
                                     </TableCell>
 
@@ -222,10 +239,16 @@ const AdminProject: FC = ({ ...rest }) => {
                                         <FormControlLabel
                                             control={
                                                 <Switch
-                                                    defaultChecked={projects.state}
+                                                    defaultChecked={
+                                                        projects.state
+                                                    }
                                                     size="small"
                                                     color="primary"
-                                                    onChange={handleSwitch}
+                                                    onChange={() =>
+                                                        handleSwitch(
+                                                            projects.uid
+                                                        )
+                                                    }
                                                 />
                                             }
                                             label={undefined}
@@ -236,11 +259,8 @@ const AdminProject: FC = ({ ...rest }) => {
                         </TableBody>
                     </Table>
                 </Box>
-            </Card>
-            <>
-
                 <Pages />
-            </>
+            </Card>
         </>
     );
 };

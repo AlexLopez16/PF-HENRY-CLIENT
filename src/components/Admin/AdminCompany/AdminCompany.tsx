@@ -3,7 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Box } from '@mui/system';
-import { getCompany, disableCompany } from '../../../actions/company';
+import {
+    getCompany,
+    disableCompany,
+    clearGetCompany,
+} from '../../../actions/company';
 import * as moment from 'moment';
 import {
     Avatar,
@@ -26,33 +30,26 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import EditIcon from '@mui/icons-material/Edit';
 import React from 'react';
-
-ChartJS.register(ArcElement, Tooltip, Legend);
-
-export interface Options {
-    splitRegexp?: RegExp | RegExp[];
-    stripRegexp?: RegExp | RegExp[];
-    delimiter?: string;
-    transform?: (part: string, index: number, parts: string[]) => string;
-}
-
-export declare function sentenceCase(input: string, options?: Options): string;
+import { PreLoader } from '../../PreLoader/PreLoader';
+import Pages from '../../ui/Pagination';
 
 const AdminCompany: FC = ({ ...rest }) => {
     const { user }: object | any = useSelector((state: State) => state.company);
     const dispatch = useDispatch();
     const token = localStorage.getItem('token');
-    const users = user.usersCompany;
+    const users = user;
 
     const { logged, status } = useSelector((state: State) => state.auth);
 
     if (!status && token) {
-        console.log('Tenes token, ahora te validamos');
         dispatch(validaToken(token));
     }
 
     useEffect(() => {
-        dispatch(getCompany(token as string));
+        dispatch(getCompany(token as string, false, 6, 0));
+        return () => {
+            dispatch(clearGetCompany());
+        };
     }, [dispatch]);
 
     const [selectedCustomerIds, setSelectedCustomerIds] = useState<any[]>([]);
@@ -111,35 +108,20 @@ const AdminCompany: FC = ({ ...rest }) => {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(event.target.checked);
     };
-    const handleDisable = () => {
-        selectedCustomerIds.forEach((selectID: any) =>
-            dispatch(disableCompany(token, selectID))
-        );
+    const handleDisable = (selectID: string) => {
+        // selectedCustomerIds.forEach((selectID: any) =>
+        dispatch(disableCompany(token, selectID));
+        // );
     };
 
     return (
         <>
-            <NavBar />
-            <Card {...rest}>
+            <PreLoader />
+            <Card>
                 <Box sx={{ minWidth: 900 }}>
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell padding="checkbox">
-                                    <Checkbox
-                                        checked={
-                                            selectedCustomerIds.length ===
-                                            users?.length
-                                        }
-                                        color="primary"
-                                        indeterminate={
-                                            selectedCustomerIds.length > 0 &&
-                                            selectedCustomerIds.length <
-                                                users?.length
-                                        }
-                                        onChange={handleSelectAll}
-                                    />
-                                </TableCell>
                                 <TableCell>Nombre</TableCell>
                                 <TableCell>Email</TableCell>
                                 <TableCell>Locación</TableCell>
@@ -160,19 +142,6 @@ const AdminCompany: FC = ({ ...rest }) => {
                                         ) !== -1
                                     }
                                 >
-                                    <TableCell padding="checkbox">
-                                        <Checkbox
-                                            checked={
-                                                selectedCustomerIds.indexOf(
-                                                    user.uid
-                                                ) !== -1
-                                            }
-                                            onChange={(event) =>
-                                                handleSelectOne(event, user.uid)
-                                            }
-                                            value="true"
-                                        />
-                                    </TableCell>
                                     <TableCell>
                                         <Box
                                             sx={{
@@ -181,9 +150,11 @@ const AdminCompany: FC = ({ ...rest }) => {
                                             }}
                                         >
                                             <Avatar
-                                                src={user.avatarUrl}
+                                                src={user.image}
                                                 sx={{ mr: 2 }}
-                                            ></Avatar>
+                                            >
+                                                {user.name[0]}
+                                            </Avatar>
                                             <Typography
                                                 color="textPrimary"
                                                 variant="body1"
@@ -198,18 +169,9 @@ const AdminCompany: FC = ({ ...rest }) => {
                                             ? user.country
                                             : 'No registrado'}
                                     </TableCell>
-                                    {/* <TableCell>
-                {user.state ? "Activo": "Inactivo"}
-              </TableCell> */}
 
-                                    <TableCell align="left">
-                                        <InputLabel
-                                            color={
-                                                user.state ? 'success' : 'error'
-                                            }
-                                        >
-                                            {user.state ? 'Activo' : 'Inactivo'}
-                                        </InputLabel>
+                                    <TableCell>
+                                        {user.state ? 'Activo' : 'Inactivo'}
                                     </TableCell>
 
                                     <TableCell>
@@ -233,10 +195,16 @@ const AdminCompany: FC = ({ ...rest }) => {
                                         <FormControlLabel
                                             control={
                                                 <Switch
-                                                    defaultChecked
+                                                    defaultChecked={
+                                                        user.state
+                                                            ? true
+                                                            : false
+                                                    }
                                                     size="small"
                                                     color="primary"
-                                                    onChange={handleDisable}
+                                                    onChange={() =>
+                                                        handleDisable(user.uid)
+                                                    }
                                                 />
                                             }
                                             label={undefined}
@@ -246,6 +214,7 @@ const AdminCompany: FC = ({ ...rest }) => {
                             ))}
                         </TableBody>
                     </Table>
+                    <Pages />
                 </Box>
             </Card>
         </>

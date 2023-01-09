@@ -2,9 +2,11 @@ import { types } from '../types/types';
 
 interface State {
     user: object;
+    total2: number;
 }
 const initialState = {
     user: [],
+    total2: 0,
 };
 
 type Action = {
@@ -27,9 +29,11 @@ export const companyReducer = (state: State = initialState, action: Action) => {
             };
 
         case types.companyGetList:
+            const { usersCompany, total }: any = action.payload;
             return {
                 ...state,
-                user: action.payload,
+                user: usersCompany,
+                total2: total,
             };
 
         case types.companyUpdateInfo:
@@ -37,6 +41,20 @@ export const companyReducer = (state: State = initialState, action: Action) => {
                 ...state,
                 user: { ...state.user, ...action.payload },
             };
+        case types.clearCompany: {
+            return { user: [], total2: 0 };
+        }
+        case types.ratingProjectCompany:
+            return {
+                ...state,
+                user: action.payload,
+            };
+        case types.ratingProject:
+            return {
+                ...state,
+                user: action.payload,
+            };
+
         default:
             return state;
     }

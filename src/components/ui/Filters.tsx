@@ -6,6 +6,7 @@ import { Input, Autocomplete, TextField, FormControl, InputLabel, Select, MenuIt
 import { getCategory, getProjectsFilter } from '../../actions/projects';
 import { State } from '../../reducers/rootReducer';
 
+import { valueOrDefault } from 'chart.js/dist/helpers/helpers.core';
 export const Filters = () => {
     const dispatch = useDispatch();
     let token = localStorage.getItem("token") || "";
@@ -130,7 +131,7 @@ export const Filters = () => {
     }
 
     return (
-        <div
+        <div 
             style={{
                 padding: 20,
                 display: "flex",
@@ -139,7 +140,7 @@ export const Filters = () => {
             }}
         >
             
-            <div style={{ width: 255 }}>
+            <div style={{ width: 255}}>
                 <Autocomplete
                     onChange={(e, value) => {
                         handlerchange("t", value);
@@ -151,7 +152,7 @@ export const Filters = () => {
                     getOptionLabel={(option) => option}
                     filterSelectedOptions
                     renderInput={(params) => (
-                        <TextField
+                        <TextField 
                             {...params}
                             label="Filtar por Tecnologia "
                             placeholder="Tecnologia"
@@ -168,6 +169,7 @@ export const Filters = () => {
                     multiple={true}
                     size="small"
                     id="tags-outlined"
+                    color='secondary'
                     options={categorys}
                     getOptionLabel={(option: any) => option}
                     filterSelectedOptions

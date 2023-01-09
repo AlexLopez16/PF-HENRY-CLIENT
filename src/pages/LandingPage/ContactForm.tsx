@@ -1,109 +1,192 @@
-import { Box, Button, FormControl, TextField, Typography } from '@mui/material';
-import { FormEvent } from 'react';
+import { Button, TextField, Typography, Paper } from '@mui/material';
+
 import Header from '../../components/NavbarLandingPage/HeaderLanding';
 import Footer from './Footer';
 
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import * as Yup from 'yup';
+import { useDispatch } from 'react-redux';
+import { sendContactEmail } from '../../actions/emails';
+import { SnackBar } from '../../components/SnackBar/SnackBar';
+
 export default function ContactForm() {
-  const handleOnChange = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  };
+
+  interface Props {
+    name: string,
+    email: string,
+    message: string
+  }
+
+  interface OtherProps {
+    message: string;
+  }
+
+  const initialValues = {
+    name: '',
+    email: '',
+    message: ''
+  }
+
+  const validationSchema = Yup.object().shape({
+    name: Yup.string().required('*Ingresa tu nombre'),
+    email: Yup.string().email('*Ingresa un email valido').required('*Ingresa un email valido'),
+    message: Yup.string().required('*Ingresa un mensage')
+  })
+
+  const dispatch = useDispatch()
+
+  const onSubmit = (values: Props, props: any) => {
+
+    dispatch(sendContactEmail(values))
+
+    setTimeout(() => {
+      props.resetForm()
+      props.setSubmitting(false)
+    }, 1000);
+  }
 
   return (
     <>
-      <Box sx={{
-        backgroundColor: 'black',
-        height: '100%'
-      }}>
+      <Paper style={{ background: 'black', height: '100vh' }}>
+
         <Header />
-        <form onSubmit={(e) => handleOnChange(e)}>
-          <Box
-            component='form'
+
+        <SnackBar
+          successMsg={'Email enviado con exito'}
+          errorMsg={'Ups! Algo salio mal, ocurrio un error'}
+        />
+
+        <div
+          style={{
+            width: 'fit-content',
+            margin: 'auto',
+            padding: '30px'
+          }}
+        >
+          <Typography
+            variant='h4'
             sx={{
-              px: 80,
-              mt: 25,
-              mb: 27.9,
+              textAlign: 'center',
+              my: 5,
+              color: 'white',
+              fontWeight: 'bold',
+              fontFamily: 'poppins',
             }}
-            noValidate
-            autoComplete='off'
           >
-            <Typography
-              variant='h4'
-              sx={{
-                textAlign: 'center',
-                pt: 5,
-                pb: 4,
-                color: 'white',
-                fontWeight: 'bold',
-                fontFamily: 'poppins',
-              }}
-            >
-              CONTÁCTANOS
-            </Typography>
-            <FormControl
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-around',
-              }}
-            >
-              <TextField
-                id='name'
-                label='Nombre'
-                variant='outlined'
-                margin='normal'
-                sx={{
-                  '& .MuiInputLabel-root': { color: 'white' }, //styles the label
-                  '& .MuiOutlinedInput-root': {
-                    '& > fieldset': { borderColor: 'white' },
-                  },
-                  input: { color: 'white' },
-                }}
-              />
+            CONTÁCTANOS
+          </Typography>
 
-              <TextField
-                id='email'
-                label='Email'
-                variant='outlined'
-                margin='normal'
-                sx={{
-                  '& .MuiInputLabel-root': { color: 'white' }, //styles the label
-                  '& .MuiOutlinedInput-root': {
-                    '& > fieldset': { borderColor: 'white' },
-                  },
-                  input: { color: 'white' },
-                }}
-              />
+          <Formik
+            initialValues={initialValues}
+            onSubmit={onSubmit}
+            validationSchema={validationSchema}
+          >
+            {(props) => (
+              <Form>
 
-              <TextField
-                id='messageText'
-                label='Escribe tu mensaje'
-                rows={5}
-                margin='normal'
-                sx={{
-                  '& .MuiInputLabel-root': { color: 'white' }, //styles the label
-                  '& .MuiOutlinedInput-root': {
-                    '& > fieldset': { borderColor: 'white' },
-                  },
-                  input: { color: 'white' },
-                }}
-              />
-              <Button
-                type='submit'
-                size='small'
-                variant='contained'
-                sx={{
-                  color: 'black',
-                  borderRadius: '10px',
-                  ml: '80%',
-                  fontFamily: 'poppins',
-                }}
-              >
-                Enviar
-              </Button>
-            </FormControl>
-          </Box>
-        </form>
-        <Footer />
-      </Box>
+                <Field
+                  as={TextField}
+                  name='name'
+                  id='name'
+                  label='Nombre'
+                  variant='outlined'
+                  fullWidth
+                  required
+                  sx={{
+                    '& .MuiInputLabel-root': { color: 'white' }, 
+                    '& .MuiOutlinedInput-root': {
+                      '& > fieldset': { borderColor: 'white' },
+                    },
+                    input: { color: 'white' },
+                    margin: '10px 0'
+                  }}
+                  helperText={
+                    <ErrorMessage name='name'>
+                      {(msg) => (
+                        <span style={{ color: 'red' }}>
+                          {msg}
+                        </span>
+                      )}
+                    </ErrorMessage>
+                  }
+                />
+
+                <Field
+                  as={TextField}
+                  name='email'
+                  id='email'
+                  label='Email'
+                  variant='outlined'
+                  fullWidth
+                  required
+                  sx={{
+                    '& .MuiInputLabel-root': { color: 'white' }, //styles the label
+                    '& .MuiOutlinedInput-root': {
+                      '& > fieldset': { borderColor: 'white' },
+                    },
+                    input: { color: 'white' },
+                    margin: '10px 0'
+                  }}
+                  helperText={
+                    <ErrorMessage name='email'>
+                      {(msg) => (
+                        <span style={{ color: 'red' }}>
+                          {msg}
+                        </span>
+                      )}
+                    </ErrorMessage>
+                  }
+                />
+
+                <Field
+                  as={TextField}
+                  name='message'
+                  id='message'
+                  label='Escribe tu mensaje'
+                  multiline
+                  rows={4}
+                  fullWidth
+                  required
+                  sx={{
+                    '& .MuiInputLabel-root': { color: 'white' }, //styles the label
+                    '& .MuiOutlinedInput-root': {
+                      '& > fieldset': { borderColor: 'white' },
+                    },
+                    margin: '10px 0',
+                  }}
+                  inputProps={{ style: { color: 'white' } }}
+                  helperText={
+                    <ErrorMessage name='message'>
+                      {(msg) => (
+                        <span style={{ color: 'red' }}>
+                          {msg}
+                        </span>
+                      )}
+                    </ErrorMessage>
+                  }
+                />
+
+                <Button
+                  type='submit'
+                  variant='contained'
+                  sx={{
+                    color: 'black',
+                    borderRadius: '10px',
+                    fontFamily: 'poppins',
+                    align: 'flex-end',
+                    float: 'right',
+                    margin: '10px 0'
+                  }}
+                  disabled={props.isSubmitting}
+                >
+                  Enviar
+                </Button>
+              </Form>
+            )}
+          </Formik>
+        </div>
+      </Paper>
+      <Footer />
     </>
   );
 }

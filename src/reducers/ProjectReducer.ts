@@ -4,6 +4,13 @@ interface State {
     projects: {}[];
     projectsFilter: {}[];
     projectId: {};
+    filters: {
+        typeOfOrder: string;
+        tecnologies: string[];
+        name: string;
+        category: string[];
+        stateOfProject: string[];
+    };
 }
 
 const initialState = {
@@ -13,8 +20,13 @@ const initialState = {
     category: [],
     myProjectCompany: [],
     total: 0,
-    filters: {},
-   
+    filters: {
+        typeOfOrder: '',
+        tecnologies: [],
+        name: '',
+        category: [],
+        stateOfProject: [],
+    },
 };
 
 type Action = {
@@ -43,7 +55,6 @@ export const projectReducer = (state: State = initialState, action: Action) => {
             };
 
         case types.projectsFilter:
-            // console.log(action.payload.projects);
             return {
                 ...state,
                 projectsFilter: action.payload.projects,
@@ -67,6 +78,12 @@ export const projectReducer = (state: State = initialState, action: Action) => {
             return {
                 ...state,
                 filters: action.payload,
+            };
+
+        case types.clearProject:
+            return {
+                projectsFilter: [],
+                total: 0,
             };
 
         default:

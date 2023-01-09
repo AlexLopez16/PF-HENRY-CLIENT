@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+    clearProjects,
     Filters,
     getCategory,
     // getProject,
@@ -25,7 +26,7 @@ import {
 import { types } from '../../types/types';
 import { Container, IconButton, Input, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 // let state: string[] | undefined = undefined;
 // let tecnologies: string[] | undefined = undefined;
 // let typeOfOrder: string | undefined = undefined;
@@ -34,6 +35,7 @@ const styledInput = {
     right: 10,
     '&:hover': {},
 };
+
 const StudentsFilter: FC = () => {
     const dispatch = useDispatch();
     let token = localStorage.getItem('token') || '';
@@ -44,6 +46,11 @@ const StudentsFilter: FC = () => {
         typeOfOrder: undefined,
         categorie: undefined,
     });
+
+    const { category, filters } = useSelector((state: State) => state.project);
+    const filtros = filters?.tecnologies || [];
+    const categorys = category;
+
     useEffect(() => {
         dispatch(
             getProjectsFilter(
@@ -67,61 +74,61 @@ const StudentsFilter: FC = () => {
                 inputFilter.state
             )
         );
+        return () => {
+            dispatch(clearProjects({ projects: [], total: 0 }));
+        };
     }, [dispatch, token, inputFilter]);
 
-    const { category } = useSelector((state: State) => state.project);
-    const categorys = category;
-
     const tecnologias = [
-        ".Net",
-        "Airflow",
-        "Angular",
-        "Assembler",
-        "AWS",
-        "Boostrap",
-        "C",
-        "C#",
-        "C++",
-        "Cobol",
-        "CSS",
-        "CSS3",
-        "Django",
-        "Docker",
-        "Ethers.js",
-        "Express",
-        "Figma",
-        "Firebase",
-        "Flask",
-        "Flutter",
-        "GraphQL",
-        "Java",
-        "JavaScript",
-        "jQuery",
-        "Kotlin",
-        "Laravel",
-        "Lua",
-        "Material UI",
-        "MatLab",
-        "MongoDB",
-        "Mongoose",
-        "MySQL",
-        "Nest.js",
-        "Next.js",
-        "NodeJS",
-        "NumPy",
-        "Objective-C",
-        "Pandas",
-        "PHP",
-        "PostgresSQL",
-        "Python",
-        "R",
-        "React Native",
-        "React",
-        "Ruby",
-        "Solidity",
-        "Swift",
-        "TypeScript",
-        "Vue",
+        '.Net',
+        'Airflow',
+        'Angular',
+        'Assembler',
+        'AWS',
+        'Boostrap',
+        'C',
+        'C#',
+        'C++',
+        'Cobol',
+        'CSS',
+        'CSS3',
+        'Django',
+        'Docker',
+        'Ethers.js',
+        'Express',
+        'Figma',
+        'Firebase',
+        'Flask',
+        'Flutter',
+        'GraphQL',
+        'Java',
+        'JavaScript',
+        'jQuery',
+        'Kotlin',
+        'Laravel',
+        'Lua',
+        'Material UI',
+        'MatLab',
+        'MongoDB',
+        'Mongoose',
+        'MySQL',
+        'Nest.js',
+        'Next.js',
+        'NodeJS',
+        'NumPy',
+        'Objective-C',
+        'Pandas',
+        'PHP',
+        'PostgresSQL',
+        'Python',
+        'R',
+        'React Native',
+        'React',
+        'Ruby',
+        'Solidity',
+        'Swift',
+        'TypeScript',
+        'Vue',
     ];
 
     const stateOfProject = ['Reclutamiento', 'En desarrollo', 'Terminado'];
@@ -206,6 +213,30 @@ const StudentsFilter: FC = () => {
         }
     };
 
+    const handleDelete = () => {
+        setSearch('');
+        dispatch(
+            getProjectsFilter(
+                inputFilter.typeOfOrder,
+                inputFilter.tecnologies,
+                token,
+                '',
+                inputFilter.categorie,
+                inputFilter.state,
+                6,
+                0
+            )
+        );
+        dispatch(
+            Filters(
+                inputFilter.typeOfOrder,
+                inputFilter.tecnologies,
+                '',
+                inputFilter.categorie,
+                inputFilter.state
+            )
+        );
+    };
     return (
         <Container>
             <Box
@@ -219,20 +250,26 @@ const StudentsFilter: FC = () => {
                     alignItems: 'center',
                 }}
             >
-                <div style={{ width: 255 }}>
+                <div style={{ width: 260 }}>
                     <Autocomplete
                         onChange={(e, value) => {
                             handlerchange('e', value);
                         }}
+                        sx={{}}
                         multiple={true}
                         size="small"
                         id="tags-outlined"
                         options={stateOfProject}
                         getOptionLabel={(option) => option}
                         filterSelectedOptions
-                        renderInput={(params) =>
-                        (
+                        renderInput={(params) => (
                             <TextField
+                                sx={{
+                                    '.MuiSvgIcon-root ': {
+                                        fill: 'black !important',
+                                    },
+                                    input: { color: 'white' },
+                                }}
                                 {...params}
                                 label="Filtar por Estado del proyecto "
                                 placeholder="Estado del proyecto"
@@ -242,17 +279,26 @@ const StudentsFilter: FC = () => {
                 </div>
                 <div style={{ width: 255 }}>
                     <Autocomplete
+                        sx={{}}
                         onChange={(e, value) => {
                             handlerchange('t', value);
                         }}
+                        color="primary"
                         multiple={true}
                         size="small"
                         id="tags-outlined"
+                        value={filtros}
                         options={tecnologias}
                         getOptionLabel={(option) => option}
                         filterSelectedOptions
                         renderInput={(params) => (
                             <TextField
+                                sx={{
+                                    '.MuiSvgIcon-root ': {
+                                        fill: 'black !important',
+                                    },
+                                    input: { color: 'white' },
+                                }}
                                 {...params}
                                 label="Filtar por Tecnologia"
                                 placeholder="Tecnologia"
@@ -272,9 +318,14 @@ const StudentsFilter: FC = () => {
                         options={categorys}
                         getOptionLabel={(option: any) => option}
                         filterSelectedOptions
-                        renderInput={(params) =>
-                        (
+                        renderInput={(params) => (
                             <TextField
+                                sx={{
+                                    '.MuiSvgIcon-root ': {
+                                        fill: 'black !important',
+                                    },
+                                    input: { color: 'white' },
+                                }}
                                 {...params}
                                 label="Filtar por Categoría "
                                 placeholder="Categoría"
@@ -287,13 +338,33 @@ const StudentsFilter: FC = () => {
                         <InputLabel
                             id="vacantes-label"
                             size="small"
-                            sx={{ padding: 0 }}
+                            sx={{
+                                padding: 0,
+
+                                '.MuiSvgIcon-root ': {
+                                    fill: 'black !important',
+                                },
+                            }}
                         >
                             Ordenar por participantes
                         </InputLabel>
                         <Select
                             size="small"
-                            sx={{ padding: 0 }}
+                            color="secondary"
+                            sx={{
+                                padding: 0,
+
+                                // '.MuiOutlinedInput-notchedOutline': {
+                                //   borderColor: 'white',
+                                // },
+                                // '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                //   borderColor: '#ffff01',
+                                // },
+
+                                '.MuiSvgIcon-root ': {
+                                    fill: 'black !important',
+                                },
+                            }}
                             id="vacantes"
                             labelId="vacantes-label"
                             label="Ordenar por participantes"
@@ -308,15 +379,43 @@ const StudentsFilter: FC = () => {
                         </Select>
                     </FormControl>
                 </div>
-                <div style={{ marginLeft: 10 }}>
+                <div
+                    style={{
+                        marginLeft: 10,
+                    }}
+                >
                     <form onSubmit={handleSubmit}>
                         <Input
+                            color="primary"
                             placeholder="Buscar por nombre del proyecto"
                             onChange={(e) => handlerchanges(e.target.value)}
-                            sx={{ styledInput, width: 245 }}
-                        // value={inputFilter.search}
+                            sx={{
+                                styledInput,
+                                width: 245,
+                                '& .MuiInputLabel-root': { color: 'white' },
+                                '& .MuiOutlinedInput-root': {
+                                    '& > fieldset': { borderColor: 'white' },
+                                },
+                                input: { color: 'black ' },
+                            }}
+                            value={search}
                         ></Input>
-                        <IconButton type="submit" aria-label="search">
+                        <IconButton
+                            color="secondary"
+                            aria-label="search"
+                            sx={{ padding: 0 }}
+                        >
+                            {search.length ? (
+                                <HighlightOffIcon onClick={handleDelete} />
+                            ) : (
+                                ''
+                            )}
+                        </IconButton>
+                        <IconButton
+                            type="submit"
+                            aria-label="search"
+                            sx={{ padding: 0 }}
+                        >
                             <SearchIcon />
                         </IconButton>
                     </form>

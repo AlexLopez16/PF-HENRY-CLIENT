@@ -5,6 +5,8 @@
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+    clearProject,
+    clearProjects,
     // getCategory,
     // getProject,
     getProjectsFilter,
@@ -34,6 +36,9 @@ import {
 import StudentsFilter from './StudentsFilter';
 import Pages from '../ui/Pagination';
 import { PreLoader } from '../PreLoader/PreLoader';
+import Footer from '../../pages/LandingPage/Footer';
+
+import bgComponents from '../../assets/bgComponents.png';
 
 const ProjectsStudents: FC = () => {
     const dispatch = useDispatch();
@@ -59,6 +64,12 @@ const ProjectsStudents: FC = () => {
                 0
             )
         );
+        return () => {
+            dispatch(clearProjects({ projects: [], total: 0 }));
+        };
+        // return () => {
+        //     dispatch(clearProject());
+        // };
         // dispatch(getCategory(token));
     }, [dispatch, token, inputFilter]);
 
@@ -80,34 +91,45 @@ const ProjectsStudents: FC = () => {
     }
 
     return (
-        <Box>
-            <PreLoader />
-            <StudentsFilter />
-            <Pages />
-            <Container maxWidth="lg">
-                {info.length ? (
-                    info.map((e: any) => (
-                        <ProjectCard
-                            name={e.name}
-                            participants={e.participants}
-                            requirements={e.requirements}
-                            students={e.accepts}
-                            company={e.company?.name}
-                            state={e.state}
-                            stateOfProject={e.stateOfProject}
-                            id={e.uid}
-                            category={e.category}
-                        />
-                    ))
-                ) : (
-                    <Stack sx={{ width: '100%' }} spacing={2}>
-                        <Alert severity="info">
-                            No hay proyectos con los filtros aplicados!
-                        </Alert>
-                    </Stack>
-                )}
-            </Container>
-        </Box>
+        <>
+            <Box
+                sx={{
+                    backgroundImage: `url(${bgComponents})`,
+                    pb: 15,
+                    pt: 10,
+                }}
+            >
+                <PreLoader />
+                <StudentsFilter />
+                <Pages />
+                <Container maxWidth="lg">
+                    {info.length ? (
+                        info.map((e: any) => (
+                            <ProjectCard
+                                key={e.uid} //agregue key
+                                name={e.name}
+                                participants={e.participants}
+                                requirements={e.requirements}
+                                students={e.accepts}
+                                company={e.company?.name}
+                                state={e.state}
+                                stateOfProject={e.stateOfProject}
+                                id={e.uid}
+                                category={e.category}
+                            />
+                        ))
+                    ) : (
+                        <Stack sx={{ width: '100%' }} spacing={1}>
+                            <Alert severity="info">
+                                No hay proyectos con los filtros aplicados!
+                            </Alert>
+                        </Stack>
+                    )}
+                </Container>
+            </Box>
+
+            <Footer />
+        </>
     );
 };
 

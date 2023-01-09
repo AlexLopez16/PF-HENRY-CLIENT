@@ -1,6 +1,4 @@
-import * as React from 'react';
-import { useState } from 'react';
-
+import { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
@@ -18,17 +16,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../reducers/rootReducer';
 import {
     //  Link,
-     useNavigate } from 'react-router-dom';
+    useNavigate,
+} from 'react-router-dom';
 import { getStudentInfo } from '../../actions/student';
 import { companyGetInfo } from '../../actions/company';
+import { getInfoAdmin } from '../../actions/Admin';
 import { logout } from '../../actions/auth';
 // import { Profile } from '../student/profile/Profile';
 // import { ProfileCompany } from '../company/Profile/ProfileCompany';
 import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
+import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import { Premium } from '../Premium/Premium';
+import FolderIcon from '@mui/icons-material/Folder';
 
 export default function AccountMenu() {
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
@@ -36,24 +38,26 @@ export default function AccountMenu() {
     const handleClose = () => {
         setAnchorEl(null);
     };
-      
-    
+
     const dispatch = useDispatch();
-    const { data } = useSelector((state: State) => state.auth);
+    const { data }: object | any = useSelector((state: State) => state.auth);
     const { id, rol } = data;
-    const { user }: any = useSelector((state: State) =>
-    rol === 'STUDENT_ROL'
-    ? state.student
-    : state.company
+    const { user }: any = useSelector((state: State | any) =>
+        rol === 'STUDENT_ROL'
+            ? state.student
+            : rol === 'COMPANY_ROL'
+            ? state.company
+            : state.admin
     );
-    
+
     const token = localStorage.getItem('token') || '';
 
-    React.useEffect(() => {
-        rol === 'STUDENT_ROL'
-        ? dispatch(getStudentInfo(id, token))
-        : dispatch(companyGetInfo(id, token))
-
+    useEffect(() => {
+        rol === 'STUDENT_ROL' && data.verify
+            ? dispatch(getStudentInfo(id, token))
+            : rol === 'COMPANY_ROL' && data.verify
+            ? dispatch(companyGetInfo(id, token))
+            : dispatch(getInfoAdmin(id, token));
     }, [dispatch]);
     const navigate = useNavigate();
 
@@ -66,14 +70,16 @@ export default function AccountMenu() {
     const handlerProfile = () => {
         rol === 'STUDENT_ROL'
             ? navigate('/profile')
-            : navigate('/profileCompany');
+            : rol === 'COMPANY_ROL'
+            ? navigate('/profileCompany')
+            : navigate('/dashboard/profileAdmin');
     };
 
     // FUNCION PREMIUM
     const [openModal, setOpenModal] = useState(false);
 
     return (
-        <React.Fragment>
+        <>
             <Box
                 sx={{
                     justifyContent: 'right',
@@ -92,7 +98,7 @@ export default function AccountMenu() {
                         aria-expanded={open ? 'true' : undefined}
                     >
                         <Avatar
-                            src={user.image}
+                            src={user?.image}
                             sx={{ width: 32, height: 32 }}
                         ></Avatar>
                     </IconButton>
@@ -132,52 +138,85 @@ export default function AccountMenu() {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-                <MenuItem sx={{
-                    pointerEvents: "none",
-                    cursor: "default"
-                }}>
-                    {/* //revisar este sector tmb */}
-                    <Avatar>
-                        {/* <IconButton>
+                <Box>
+                    <MenuItem
+                        sx={{
+                            pointerEvents: 'none',
+                            cursor: 'default',
+                        }}
+                    >
+                        {/* //revisar este sector tmb */}
+                        <Avatar>
+                            {/* <IconButton>
                             {user.name?.slice(0, 1).toUpperCase()}
                         </IconButton> */}
-                    </Avatar>
-                    Hola {user.name}
-                </MenuItem>
-                <Divider />
+                        </Avatar>
+                        Hola {user?.name}
+                    </MenuItem>
+                    {data.verify && rol === 'STUDENT_ROL' ? (
+                        <>
+                            <MenuItem
+                                sx={{
+                                    pointerEvents: 'none',
+                                    cursor: 'default',
+                                    fontSize: 'small',
+                                    marginLeft: 3,
+                                }}
+                            >
+                                {/* <ListItemIcon>
+                                <FolderIcon fontSize="small" />
+                            </ListItemIcon> */}
+                                Postulaciones: {user?.project?.length?user?.project?.length:0}/3
+                            </MenuItem>
+                        </>
+                    ) : data.verify && rol === 'COMPANY_ROL' ? (
+                        <>
+                            <MenuItem
+                                sx={{
+                                    pointerEvents: 'none',
+                                    cursor: 'default',
+                                    fontSize: 'small',
+                                    marginLeft: 3,
+                                }}
+                            >
+                                {/* <ListItemIcon>
+                                <FolderIcon fontSize="small" />
+                            </ListItemIcon> */}
+                                Proyectos: {user?.project?.length?user?.project?.length: 0}/3
+                            </MenuItem>
+                        </>
+                    ) : null}
+                    <Divider />
+                    {data.verify ? (
+                        <>
+                            <MenuItem onClick={handlerProfile}>
+                                <ListItemIcon>
+                                    <AccountBoxIcon fontSize="small" />
+                                </ListItemIcon>
+                                Mi perfil
+                            </MenuItem>
+                        </>
+                    ) : null}
 
-                <MenuItem onClick={handlerProfile}>
-                    <ListItemIcon>
-                        <AccountBoxIcon fontSize="small" />
-                    </ListItemIcon>
-                    Mi perfil
-                </MenuItem>
-
-                {
-                    rol === 'COMPANY_ROL' && (
+                    {rol === 'COMPANY_ROL' && data.verify ? (
                         <MenuItem onClick={() => setOpenModal(true)}>
                             <ListItemIcon>
-                                <SubscriptionsIcon fontSize="small" />
+                                <WorkspacePremiumIcon fontSize="small" />
                             </ListItemIcon>
                             Premium
                         </MenuItem>
-                    )
-                }
+                    ) : null}
 
-                <MenuItem onClick={handlerLogout}>
-                    <ListItemIcon>
-                        <ExitToAppIcon fontSize="small" />
-                    </ListItemIcon>
-                    Cerrar sesion
-                </MenuItem>
-            
+                    <MenuItem onClick={handlerLogout}>
+                        <ListItemIcon>
+                            <ExitToAppIcon fontSize="small" />
+                        </ListItemIcon>
+                        Cerrar sesion
+                    </MenuItem>
+                </Box>
             </Menu>
 
-            <Premium
-                openModal={openModal}
-                setOpenModal={setOpenModal}
-            />
-
-        </React.Fragment>
+            <Premium openModal={openModal} setOpenModal={setOpenModal} />
+        </>
     );
 }

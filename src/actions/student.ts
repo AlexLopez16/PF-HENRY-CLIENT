@@ -6,17 +6,38 @@ import { fileUpload } from '../helpers/fileUpload';
 
 export const getListStudents = (
     token: string | null,
-    state: Boolean = true
+    state: Boolean = true,
+    limit?: number | null,
+    init?: number | null
 ) => {
     return async (dispatch: Dispatch) => {
         try {
-            const res = await axios.get(`/student?onlyActive=${state}`, {
+            dispatch({
+                type: types.requestInProgress,
+            });
+            let query;
+            if (!state) {
+                query = `onlyActive=${state}`;
+            }
+            if (limit || init) {
+                console.log(limit, init);
+                if (query) {
+                    query += `&limit=${limit}&init=${init}`;
+                } else {
+                    query = `limit=${limit}&init=${init}`;
+                }
+            }
+            const res = await axios.get(`/student?${query}`, {
                 headers: { 'user-token': token },
             });
 
             dispatch({
                 type: types.getListStudents,
-                payload: res.data.students,
+                payload: res.data,
+            });
+            // Fin de la request.
+            dispatch({
+                type: types.requestFinished,
             });
         } catch (error: any) {
             console.log(error);
@@ -27,18 +48,32 @@ export const getListStudents = (
 export const studentRegister = (values: object) => {
     return async (dispatch: Dispatch) => {
         try {
-            const res = await axios.post('/student', values);
-            // console.log(res.data);
-
+            const res: object | any = await axios.post('/student', values);
+            const { status, data } = res;
+            const { token, id, rol } = data;
             dispatch({
                 type: types.studentRegister,
-                payload: res.data,
+                payload: data,
             });
-        } catch (error: any) {
-            console.log(error.response.data);
+            // Si se registro correctamente, le hacemos iniciar sesion.
+            if (status) {
+                localStorage.setItem('token', token);
+                dispatch(login({ data, status, id, rol }));
+            }
+        } catch (error: object | any) {
+            dispatch({
+                type: types.responseFinished,
+                payload: error.response,
+            });
+            console.log(error.response);
         }
     };
 };
+
+const login = (data: object) => ({
+    type: types.authLogin,
+    payload: data,
+});
 
 export const getStudentInfo = (id: string, token: string) => {
     return async (dispatch: Dispatch) => {
@@ -60,6 +95,9 @@ export const getStudentInfo = (id: string, token: string) => {
             });
         } catch (error: any) {
             console.log(error);
+            dispatch({
+                type: types.requestFinished,
+            });
         }
     };
 };
@@ -81,10 +119,17 @@ export const updateStudentInfo = (id: string, token: string, data: object) => {
             // Fin de la request.
             dispatch({
                 type: types.requestFinished,
+            });
+            // Guardamos respuesta de la request.
+            dispatch({
+                type: types.responseFinished,
                 payload: res,
             });
         } catch (error) {
             console.log(error);
+            dispatch({
+                type: types.requestFinished,
+            });
         }
     };
 };
@@ -141,12 +186,21 @@ export const addStudentToProject = (id: string, token: string) => {
             });
             dispatch({
                 type: types.requestFinished,
+            });
+            // Si todo sale bien.
+            dispatch({
+                type: types.responseFinished,
                 payload: res,
             });
         } catch (error: any) {
-            // console.log(error);
+            console.log(error);
             dispatch({
                 type: types.requestFinished,
+                payload: error.response,
+            });
+            // Guardamos respuesta de la request.
+            dispatch({
+                type: types.responseFinished,
                 payload: error.response,
             });
         }
@@ -155,7 +209,8 @@ export const addStudentToProject = (id: string, token: string) => {
 
 export const unApplyStudent = (
     studentId: string | any,
-    projectId: string | any
+    projectId: string | any,
+    token: string | any
 ) => {
     return async (dispatch: Dispatch) => {
         try {
@@ -163,9 +218,15 @@ export const unApplyStudent = (
             dispatch({
                 type: types.requestInProgress,
             });
-            const res = await axios.put(`/project/unapply/${projectId}`, {
-                studentId,
-            });
+            const res = await axios.put(
+                `/project/unapply/${projectId}`,
+                {
+                    studentId,
+                },
+                {
+                    headers: { 'user-token': token },
+                }
+            );
             console.log(res);
             dispatch({
                 type: types.unApplyStudent,
@@ -174,10 +235,20 @@ export const unApplyStudent = (
             // Fin de la request.
             dispatch({
                 type: types.requestFinished,
+            });
+            dispatch({
+                type: types.responseFinished,
                 payload: res,
             });
-        } catch (error) {
+        } catch (error: any) {
             console.log(error);
+            dispatch({
+                type: types.requestFinished,
+            });
+            dispatch({
+                type: types.responseFinished,
+                payload: error.response,
+            });
         }
     };
 };
@@ -190,7 +261,6 @@ export const disableStudent = (token: string | null, id: string) => {
                 { id },
                 { headers: { 'user-token': token } }
             );
-            console.log(data);
 
             dispatch({
                 type: types.deleteOrInactiveStudent,
