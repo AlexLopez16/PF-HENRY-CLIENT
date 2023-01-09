@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+    clearProjects,
     Filters,
     getCategory,
     // getProject,
@@ -73,6 +74,9 @@ const StudentsFilter: FC = () => {
                 inputFilter.state
             )
         );
+        return () => {
+            dispatch(clearProjects({ projects: [], total: 0 }));
+        };
     }, [dispatch, token, inputFilter]);
 
     const tecnologias = [
