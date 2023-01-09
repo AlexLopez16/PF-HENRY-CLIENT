@@ -3,8 +3,7 @@ import { Formik, Form, Field} from 'formik';
 import * as Yup from 'yup';
 import NavBar from '../NavBar/NavBar';
 import Footer from '../../pages/LandingPage/Footer';
-import { Box, Button, Grid, Paper } from '@mui/material';
-import { TextField } from 'formik-mui';
+import { Box, Button, Grid, Paper, TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getProjectByID } from '../../actions/projects';
@@ -38,7 +37,9 @@ export const ApplicationForm: FC= () => {
   console.log(projectId);
   
   const initialValues = {
-    
+    res1: '',
+    res2: '',
+    res3: ''
   };
   
   const validationSchema = Yup.object().shape({
@@ -81,16 +82,16 @@ return (
             {(props) => (
               <Form>
           
-          {question.map((Res: any) => {
+          {question.map((Res: any, index: number) => (
             <Box>
             <Grid textAlign='left' fontFamily='montserrat' sx={{ mb: 2 }}>
-              <h3>Pregunta 1= {Res} </h3>
+              <h3>{Res} </h3>
             </Grid>
             <div>
   
                   <Field
-                    // as={TextField}
-                    // value= {Res}
+                    as={TextField}
+                    name= {`res${index+1}`}
                     label='Respuesta'
                     fullWidth
                     color='info'
@@ -98,7 +99,7 @@ return (
                   />
             </div>
             </Box>
-          })}
+          ))}
           
 
                 <Button
