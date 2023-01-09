@@ -200,55 +200,63 @@ const ProjectForm: FC = () => {
     };
 
   return (
-    <Box
-      sx={{
-        backgroundColor: 'white',
-      }}
-    >
-      <div>
-        <NavBar />
-        <SnackBar successMsg=" Solicitud enviada con exito" />
-        <Grid>
-          <Paper
-            elevation={10}
-            style={{
-              width: 500,
-              height: '100%',
-              padding: 20,
-              margin: '50px auto',
-              marginBottom: 153,
-              marginTop: 100,
+        <Box
+            sx={{
+                backgroundColor: 'black',
             }}
-          >
-            <Grid
-              textAlign='center'
-              fontFamily='montserrat'
-              sx={{ mb: 2 }}
-            >
-              <h2>Crear proyecto</h2>
-            </Grid>
-            <Formik
-              initialValues={initialValues}
-              validationSchema={validationSchema}
-              onSubmit={onSubmit}
-            >
-              {(props) => (
-                <Form>
-                  <Field
-                    as={TextField}
-                    name='name'
-                    label='Nombre'
-                    placeholder='Nombre del projecto'
-                    fullWidth
-                    required
-                    color='info'
-                    sx={{ mb: 2 }}
-                    helperText={
-                      <ErrorMessage name='name'>
-                        {(msg) => <span style={{ color: '#d6423e' }}>{msg}</span>}
-                      </ErrorMessage>
-                    }
-                  />
+        >
+            <div>
+                <NavBar />
+                <SnackBar successMsg=" Solicitud enviada con exito" />
+                <Grid>
+                    <Paper
+                        elevation={10}
+                        style={{
+                            width: 500,
+                            height: '100%',
+                            padding: 20,
+                            margin: '50px auto',
+                            marginBottom: 153,
+                            marginTop: 100,
+                        }}
+                    >
+                        <Grid
+                            textAlign="center"
+                            fontFamily="montserrat"
+                            sx={{ mb: 2 }}
+                        >
+                            <h2>Crear proyecto</h2>
+                        </Grid>
+                        <Formik
+                            initialValues={initialValues}
+                            validationSchema={validationSchema}
+                            onSubmit={onSubmit}
+                        >
+                            {(props) => (
+                                <Form>
+                                    <Field
+                                        as={TextField}
+                                        name="name"
+                                        label="Nombre"
+                                        placeholder="Nombre del projecto"
+                                        fullWidth
+                                        required
+                                        color="info"
+                                        sx={{ mb: 2 }}
+                                        helperText={
+                                            <ErrorMessage name="name">
+                                                {(msg) => (
+                                                    <span
+                                                        style={{
+                                                            color: '#d6423e',
+                                                        }}
+                                                    >
+                                                        {msg}
+                                                    </span>
+                                                )}
+                                            </ErrorMessage>
+                                        }
+                                    />
 
                                     <Field
                                         as={TextField}
@@ -393,27 +401,32 @@ const ProjectForm: FC = () => {
                                         sx={{ mb: 2 }}
                                     />
 
-                  <FormControl fullWidth>
-                    <InputLabel color='info' id='demo-simple-select-label'>
-                      Participantes
-                    </InputLabel>
-                    <Select
-                      labelId='demo-simple-select-label'
-                      id='demo-simple-select'
-                      color='info'
-                      value={participants}
-                      label='Participantes'
-                      onChange={participantChange}
-                      sx={{ mb: 2 }}
-                    >
-                      {nParticipants.map((number) => (
-                        <MenuItem key={number} value={number}>
-                          {number}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-
+                                    <FormControl fullWidth>
+                                        <InputLabel
+                                            color="info"
+                                            id="demo-simple-select-label"
+                                        >
+                                            Participantes
+                                        </InputLabel>
+                                        <Select
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            color="info"
+                                            value={participants}
+                                            label="Participantes"
+                                            onChange={participantChange}
+                                            sx={{ mb: 2 }}
+                                        >
+                                            {nParticipants.map((number) => (
+                                                <MenuItem
+                                                    key={number}
+                                                    value={number}
+                                                >
+                                                    {number}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
 
                                     {/* IMAGES */}
                                     <FormControl fullWidth>
@@ -484,26 +497,28 @@ const ProjectForm: FC = () => {
                                             </div>
                                         ))}
 
-                  <Button
-                    sx={{ marginTop: 2, fontFamily: 'poppins' }}
-                    type='submit'
-                    variant='contained'
-                    fullWidth
-                    color='primary'
-                    disabled={props.isSubmitting}
-
-                  >
-                    Publicar Proyecto
-                  </Button>
-                </Form>
-              )}
-            </Formik>
-          </Paper>
-        </Grid>
-      </div>
-      <Footer />
-    </Box>
-  );
-}
+                                    <Button
+                                        sx={{
+                                            marginTop: 2,
+                                            fontFamily: 'poppins',
+                                        }}
+                                        type="submit"
+                                        variant="contained"
+                                        fullWidth
+                                        color="primary"
+                                        disabled={props.isSubmitting}
+                                    >
+                                        Publicar Proyecto
+                                    </Button>
+                                </Form>
+                            )}
+                        </Formik>
+                    </Paper>
+                </Grid>
+            </div>
+            <Footer />
+        </Box>
+    );
+};
 
 export default ProjectForm;
