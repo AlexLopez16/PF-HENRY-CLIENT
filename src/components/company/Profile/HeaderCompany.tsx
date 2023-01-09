@@ -24,6 +24,7 @@ interface Props {
   name?: string;
   country?: string;
   image?: string;
+  website?: string;
 }
 
 export const HeaderCompany: FC<Props> = ({
@@ -32,6 +33,7 @@ export const HeaderCompany: FC<Props> = ({
   name,
   country,
   image,
+  website,
 }) => {
   const handlerEdit = () => {
     setEdit({
@@ -39,38 +41,79 @@ export const HeaderCompany: FC<Props> = ({
       header: !edit.header,
     });
   };
-
+  // info renderizada en 'mi perfil'
   return (
     <Container
       sx={{
-        height: '90%',
-        alignContent: 'center',
-        alignItems: 'center',
-        textAlign: 'center',
-        pt: 5,
+        display: 'flex',
+        alignContent: 'sapce-around',
+        justifyContent: 'space-around',
+        height: 250,
+        pt: 6,
+        mb: 25,
       }}
     >
       <Paper
-        elevation={5}
+        elevation={10}
         sx={{
-          borderRadius: 25,
-          mb:40,
-          mt:10,
-      }}
+          display: 'flex',
+          flexDirection: 'row-reverse',
+          alignContent: 'center',
+          alignItems: 'center',
+          textAlign: 'center',
+          justifyContent: 'space-evenly',
+          height: '100%',
+          width: '60%',
+          borderRadius: 15,
+          backgroundColor: '#0C252F',
+          mb: 25,
+          mt: 5,
+        }}
       >
-        <Grid textAlign='right'>
+        <Grid textAlign='center'>
           <IconButton aria-label='settings' onClick={handlerEdit}>
             <EditIcon sx={iconStyle} color='primary' fontSize='medium' />
           </IconButton>
         </Grid>
         <div style={container}>
-          <div>
-            <Avatar sx={avatarStyle} src={image}></Avatar>
-          </div>
+          <Avatar
+            sx={{
+              height: '20%',
+              width: '20%',
+              boxShadow:
+                'rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;',
+            }}
+            src={image}
+          ></Avatar>
 
-          <div>
+          <div
+            style={{
+              color: 'white',
+              fontFamily: 'montserrat',
+              fontSize: 30,
+            }}
+          >
             {name?.toUpperCase()}
-            <Typography>{country}</Typography>
+            <Typography
+              sx={{
+                color: 'white',
+                mt: 2,
+                fontFamily: 'montserrat',
+                fontStyle: 'italic',
+                fontSize: 20,
+              }}
+            >
+              {country}
+            </Typography>
+            <Typography
+              sx={{
+                color: '#ffff01',
+                mt: 2,
+                fontSize: 20,
+              }}
+            >
+              {website}
+            </Typography>
           </div>
         </div>
       </Paper>

@@ -144,7 +144,7 @@ export const HeaderFormCompany: FC<Props> = ({
           alignItems: 'center',
           textAlign: 'center',
           width: '80%',
-          borderRadius: 20,
+          borderRadius: 15,
           backgroundColor: '#0C252F',
           mb: 25,
           mt: 5,
@@ -257,7 +257,7 @@ export const HeaderFormCompany: FC<Props> = ({
                       label: { color: 'white' },
                       input: { color: 'white' },
                       margin: '10px 0px',
-                      width: '50%',
+                      width: '70%',
                       fontFamily: 'montserrat',
                     }}
                     helperText={
@@ -267,30 +267,27 @@ export const HeaderFormCompany: FC<Props> = ({
                     }
                   />
                   <FormControl
+                    variant='outlined'
                     color='primary'
                     size='small'
                     sx={{
-                      width: '100%',
+                      width: '70%',
                       marginTop: 1,
                       marginBottom: 2,
                       display: 'inline-flex',
-                      flexDirection: 'row',
                       justifyContent: 'space-around',
                       alignContent: 'space-around',
                       textAlign: 'left',
-                      flexWrap: 'wrap',
                     }}
                   >
                     <Select
-                      labelId='demo-simple-select-helper-label'
-                      id='demo-simple-select-helper'
-                      color='primary'
-                      label='País'
+                      inputProps={{ 'aria-label': 'Without label' }}
+                      color='secondary'
                       value={pais}
-                      onChange={handleChange}
                       displayEmpty
-                     
+                      onChange={handleChange}
                       sx={{
+                        color: 'white',
                         boxShadow: 'rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset',
                         '.MuiOutlinedInput-notchedOutline': {
                           borderColor: 'white',
@@ -306,12 +303,11 @@ export const HeaderFormCompany: FC<Props> = ({
                         },
                         label: { color: 'white' },
                         input: { color: 'white' },
-                        margin: '10px 0px',
-                        width: '50%',
-
-                        color: 'white',
                       }}
                     >
+                      <MenuItem value=''>
+                        <p>Selecciona un país</p>
+                      </MenuItem>
                       {paises.map((pais) => (
                         <MenuItem key={pais} value={pais}>
                           {pais}
@@ -319,13 +315,13 @@ export const HeaderFormCompany: FC<Props> = ({
                       ))}
                     </Select>
                   </FormControl>
-
                   <Field
                     as={TextField}
                     name='website'
                     label='Pagina web'
                     variant='outlined'
                     size='small'
+                    color='primary'
                     fullWidth
                     fontFamily='montserrat'
                     sx={{
@@ -346,7 +342,7 @@ export const HeaderFormCompany: FC<Props> = ({
                       label: { color: 'white' },
                       input: { color: 'white' },
                       margin: '10px 0px',
-                      width: '50%',
+                      width: '70%',
                       fontFamily: 'montserrat',
                     }}
                     helperText={
