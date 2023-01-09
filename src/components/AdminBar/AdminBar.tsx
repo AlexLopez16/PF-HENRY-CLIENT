@@ -180,7 +180,7 @@ export default function AccountMenu() {
                                 {/* <ListItemIcon>
                                 <FolderIcon fontSize="small" />
                             </ListItemIcon> */}
-                                Proyectos: {user.project.length}/3
+                                Proyectos: {user?.project?.length}/3
                             </MenuItem>
                         </>
                     )
