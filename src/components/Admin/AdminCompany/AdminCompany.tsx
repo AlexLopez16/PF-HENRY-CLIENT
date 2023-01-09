@@ -3,7 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Box } from '@mui/system';
-import { getCompany, disableCompany } from '../../../actions/company';
+import {
+    getCompany,
+    disableCompany,
+    clearGetCompany,
+} from '../../../actions/company';
 import * as moment from 'moment';
 import {
     Avatar,
@@ -30,19 +34,22 @@ import { PreLoader } from '../../PreLoader/PreLoader';
 import Pages from '../../ui/Pagination';
 
 const AdminCompany: FC = ({ ...rest }) => {
-  const { user }: object | any = useSelector((state: State) => state.company);
-  const dispatch = useDispatch();
-  const token = localStorage.getItem("token");
-  const users = user;
+    const { user }: object | any = useSelector((state: State) => state.company);
+    const dispatch = useDispatch();
+    const token = localStorage.getItem('token');
+    const users = user;
 
     const { logged, status } = useSelector((state: State) => state.auth);
 
-  if (!status && token) {
-    dispatch(validaToken(token));
-  }
+    if (!status && token) {
+        dispatch(validaToken(token));
+    }
 
     useEffect(() => {
-        dispatch(getCompany(token, false, 6, 0));
+        dispatch(getCompany(token as string, false, 6, 0));
+        return () => {
+            dispatch(clearGetCompany());
+        };
     }, [dispatch]);
 
     const [selectedCustomerIds, setSelectedCustomerIds] = useState<any[]>([]);
@@ -98,96 +105,120 @@ const AdminCompany: FC = ({ ...rest }) => {
 
     const [checked, setChecked] = React.useState(true);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(event.target.checked);
-  };
-  const handleDisable = (selectID: string) => {
-    // selectedCustomerIds.forEach((selectID: any) =>
-    dispatch(disableCompany(token, selectID));
-    // );
-  };
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setChecked(event.target.checked);
+    };
+    const handleDisable = (selectID: string) => {
+        // selectedCustomerIds.forEach((selectID: any) =>
+        dispatch(disableCompany(token, selectID));
+        // );
+    };
 
-  return (
-    <>
-      <PreLoader />
-      <Card>
-        <Box sx={{ minWidth: 900 }}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Nombre</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>Locación</TableCell>
-                <TableCell>Estado</TableCell>
-                <TableCell>Fecha Registro</TableCell>
-                <TableCell>Editar</TableCell>
-                <TableCell>Cambiar Estado</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {users?.slice(0, limit).map((user: any) => (
-                <TableRow
-                  hover
-                  key={user.uid}
-                  selected={selectedCustomerIds.indexOf(user.uid) !== -1}
-                >
-                  <TableCell>
-                    <Box
-                      sx={{
-                        alignItems: "center",
-                        display: "flex",
-                      }}
-                    >
-                      <Avatar src={user.image} sx={{ mr: 2 }}>{user.name[0]}</Avatar>
-                      <Typography color="textPrimary" variant="body1">
-                        {user.name}
-                      </Typography>
-                    </Box>
-                  </TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>
-                    {user.country ? user.country : "No registrado"}
-                  </TableCell>
+    return (
+        <>
+            <PreLoader />
+            <Card>
+                <Box sx={{ minWidth: 900 }}>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Nombre</TableCell>
+                                <TableCell>Email</TableCell>
+                                <TableCell>Locación</TableCell>
+                                <TableCell>Estado</TableCell>
+                                <TableCell>Fecha Registro</TableCell>
+                                <TableCell>Editar</TableCell>
+                                <TableCell>Cambiar Estado</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {users?.slice(0, limit).map((user: any) => (
+                                <TableRow
+                                    hover
+                                    key={user.uid}
+                                    selected={
+                                        selectedCustomerIds.indexOf(
+                                            user.uid
+                                        ) !== -1
+                                    }
+                                >
+                                    <TableCell>
+                                        <Box
+                                            sx={{
+                                                alignItems: 'center',
+                                                display: 'flex',
+                                            }}
+                                        >
+                                            <Avatar
+                                                src={user.image}
+                                                sx={{ mr: 2 }}
+                                            >
+                                                {user.name[0]}
+                                            </Avatar>
+                                            <Typography
+                                                color="textPrimary"
+                                                variant="body1"
+                                            >
+                                                {user.name}
+                                            </Typography>
+                                        </Box>
+                                    </TableCell>
+                                    <TableCell>{user.email}</TableCell>
+                                    <TableCell>
+                                        {user.country
+                                            ? user.country
+                                            : 'No registrado'}
+                                    </TableCell>
 
-                  <TableCell>{user.state ? "Activo" : "Inactivo"}</TableCell>
+                                    <TableCell>
+                                        {user.state ? 'Activo' : 'Inactivo'}
+                                    </TableCell>
 
-                  <TableCell>
-                    {user.admission
-                      ? `${moment(user.admission).format("DD/MM/YYYY")}`
-                      : "No registrado"}
-                  </TableCell>
-                  <TableCell>
-                    <EditIcon />
-                  </TableCell>
-                  <FormGroup
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      mt: 3,
-                    }}
-                  >
-                    <FormControlLabel
-                      control={
-                        <Switch
-                          defaultChecked={user.state ? true : false}
-                          size="small"
-                          color="primary"
-                          onChange={() => handleDisable(user.uid)}
-                        />
-                      }
-                      label={undefined}
-                    />
-                  </FormGroup>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-          <Pages />
-        </Box>
-      </Card>
-    </>
-  );
+                                    <TableCell>
+                                        {user.admission
+                                            ? `${moment(user.admission).format(
+                                                  'DD/MM/YYYY'
+                                              )}`
+                                            : 'No registrado'}
+                                    </TableCell>
+                                    <TableCell>
+                                        <EditIcon />
+                                    </TableCell>
+                                    <FormGroup
+                                        sx={{
+                                            display: 'flex',
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            mt: 3,
+                                        }}
+                                    >
+                                        <FormControlLabel
+                                            control={
+                                                <Switch
+                                                    defaultChecked={
+                                                        user.state
+                                                            ? true
+                                                            : false
+                                                    }
+                                                    size="small"
+                                                    color="primary"
+                                                    onChange={() =>
+                                                        handleDisable(user.uid)
+                                                    }
+                                                />
+                                            }
+                                            label={undefined}
+                                        />
+                                    </FormGroup>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                    <Pages />
+                </Box>
+            </Card>
+        </>
+    );
 };
 
 export default AdminCompany;

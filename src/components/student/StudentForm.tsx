@@ -38,7 +38,7 @@ import { State } from '../../reducers/rootReducer';
 export const StudensForm: FC = () => {
   const Navigate = useNavigate();
   const GoBack = () => {
-    Navigate('/login');
+    Navigate('/');
   };
   const [showPassword, setShowPassword] = useState(false);
 
@@ -134,17 +134,16 @@ let condicion = useSelector((state:State)=>state.response)
           <Paper
             sx={{
               width: 500,
-              height: 700,
               mt: 10,
               mb: 5,
-              p: 10,
+              p: 5,
               pt: 4,
               borderRadius: 10,
               backgroundColor: 'black',
               boxShadow:
                 'rgba(255, 255, 255, 255.16) 0px 1px 4px, rgb(255, 255, 255) 0px 0px 0px 3px',
             }}
-          >
+           >
             <Grid
               textAlign='center'
               color='primary'
@@ -153,7 +152,7 @@ let condicion = useSelector((state:State)=>state.response)
               }}
             >
               <Typography
-                style={{
+                sx={{
                   fontFamily: 'montserrat',
                   marginBottom: 5,
                   fontSize: 25,
@@ -217,7 +216,7 @@ let condicion = useSelector((state:State)=>state.response)
                     size='small'
                     fontFamily='montserrat'
                     color='primary'
-                    placeholder='apellido'
+                    placeholder='Apellido'
                     sx={{
                       
                       boxShadow: 'rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset',
@@ -289,6 +288,7 @@ let condicion = useSelector((state:State)=>state.response)
                     }
                   />
                   <FormControl sx={{ width: '100%', margin: '10px 0' }}>
+
                     <Field
                       as={OutlinedInput}
                       name='password'
@@ -380,17 +380,16 @@ let condicion = useSelector((state:State)=>state.response)
                     auto_select={false}
                   />
                 </Form>
-              )}
-            </Formik>
+                )}
+              </Formik>
 
-            <Typography
-             sx={{
-                display:'flex',
-                flexDirection: 'column'
-,                justifyContent: 'center',
+              <Typography
+               sx={{
+                  display:'flex',
+                  flexDirection: 'column',
+                 justifyContent: 'center',
                 textAlign: 'center',
                 mt: 4,
-                // pb: 20,
                 fontFamily: 'poppins',
                 fontSize: '15px',
                 color: 'white',
@@ -416,7 +415,7 @@ let condicion = useSelector((state:State)=>state.response)
         direction='column'
         justifyContent='flex-start'
         alignItems='center'
-      >
+       >
         <FormControl>
           <Button
             onClick={GoBack}
@@ -427,7 +426,6 @@ let condicion = useSelector((state:State)=>state.response)
               boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
               fontFamily: 'montserrat',
               fontWeight: 'bold',
-
               mb: 20,
             }}
           >

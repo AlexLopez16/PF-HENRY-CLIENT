@@ -37,6 +37,11 @@ import { SnackBar } from '../SnackBar/SnackBar';
 export const LoginScreen: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const GoBack = () => {
+    navigate('/');
+  };
+
   const { status } = useSelector((state: State) => state.auth);
 
   const [isError, setIsError] = useState(false);
@@ -86,7 +91,6 @@ export const LoginScreen: FC = () => {
         sx={{
           backgroundImage: `url(${bg})`,
           maxWidth: '1920px',
-          height: 1000,
         }}
       >
         <div>
@@ -111,7 +115,7 @@ export const LoginScreen: FC = () => {
                 width: 500,
                 height: 600,
                 mt: 10,
-                mb: 20,
+                mb: 10,
                 p: 10,
                 pt: 6,
                 borderRadius: 10,
@@ -344,6 +348,29 @@ export const LoginScreen: FC = () => {
             </Paper>
           </Grid>
         </div>
+        <Grid
+        container
+        direction='column'
+        justifyContent='flex-start'
+        alignItems='center'
+       >
+        <FormControl>
+          <Button
+            onClick={GoBack}
+            size='small'
+            variant='contained'
+            color='secondary'
+            sx={{
+              boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+              fontFamily: 'montserrat',
+              fontWeight: 'bold',
+              mb: 20,
+            }}
+          >
+            Regresar
+          </Button>
+        </FormControl>
+      </Grid>
       </Box>
       <Footer />
     </>
