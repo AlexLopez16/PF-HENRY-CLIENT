@@ -166,7 +166,7 @@ export default function AccountMenu() {
                                 {/* <ListItemIcon>
                                 <FolderIcon fontSize="small" />
                             </ListItemIcon> */}
-                                Postulaciones: {user?.project?.length}/3
+                                Postulaciones: {user?.project?.length?user?.project?.length:0}/3
                             </MenuItem>
                         </>
                     ) : data.verify && rol === 'COMPANY_ROL' ? (
@@ -182,7 +182,7 @@ export default function AccountMenu() {
                                 {/* <ListItemIcon>
                                 <FolderIcon fontSize="small" />
                             </ListItemIcon> */}
-                                Proyectos: {user?.project?.length}/3
+                                Proyectos: {user?.project?.length?user?.project?.length: 0}/3
                             </MenuItem>
                         </>
                     ) : null}
