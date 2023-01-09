@@ -1,20 +1,22 @@
-import { FC, Dispatch, SetStateAction } from "react";
+import { FC, Dispatch, SetStateAction } from 'react';
 import {
   Paper,
   Grid,
   IconButton,
   Avatar,
   Typography,
+  Box,
+  Container,
   //  Button
-} from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
+} from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
 
 import {
   paperStyle,
   iconStyle,
   container,
   avatarStyle,
-} from "../../../styles/Profile/HeaderStyles";
+} from '../../../styles/Profile/HeaderStyles';
 
 interface Props {
   edit: { header: boolean };
@@ -37,26 +39,41 @@ export const HeaderCompany: FC<Props> = ({
       header: !edit.header,
     });
   };
-  
 
   return (
-    <Paper elevation={5} style={paperStyle}>
-      <Grid textAlign="right">
-        <IconButton aria-label="settings" onClick={handlerEdit}>
-          <EditIcon sx={iconStyle} color="primary" fontSize="medium" />
-        </IconButton>
-      </Grid>
-      <div style={container}>
-        <div>
-          <Avatar sx={avatarStyle} src={image}>
-          </Avatar>
-        </div>
+    <Container
+      sx={{
+        height: '90%',
+        alignContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
+        pt: 5,
+      }}
+    >
+      <Paper
+        elevation={5}
+        sx={{
+          borderRadius: 25,
+          mb:40,
+          mt:10,
+      }}
+      >
+        <Grid textAlign='right'>
+          <IconButton aria-label='settings' onClick={handlerEdit}>
+            <EditIcon sx={iconStyle} color='primary' fontSize='medium' />
+          </IconButton>
+        </Grid>
+        <div style={container}>
+          <div>
+            <Avatar sx={avatarStyle} src={image}></Avatar>
+          </div>
 
-        <div>
+          <div>
             {name?.toUpperCase()}
-          <Typography>{country}</Typography>
+            <Typography>{country}</Typography>
+          </div>
         </div>
-      </div>
-    </Paper>
+      </Paper>
+    </Container>
   );
 };

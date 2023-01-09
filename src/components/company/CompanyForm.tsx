@@ -318,57 +318,6 @@ const CompanyForm: FC = () => {
                       </FormHelperText>
                     )}
                   </FormControl>
-
-                  {/* <FormControl
-                    variant='standard'
-                    color='primary'
-                    sx={{
-                      width: '100%',
-                      marginTop: 1,
-                      marginBottom: 2,
-                      fontFamily: 'montserrat',
-                    }}
-                  >
-                    <InputLabel id='demo-simple-select-standard-label'>
-                      Nacionalidad
-                    </InputLabel>
-                    <Select
-                      labelId='demo-simple-select-standard-label'
-                      id='demo-simple-select-standard'
-                      size='small'
-                      inputProps={{ 'aria-label': 'Without label' }}
-                      placeholder='Nacionalidad'
-                      value={pais}
-                      onChange={handleChange}
-                      sx={{
-                        color: 'white',
-                        boxShadow: 'rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset',
-                        '.MuiOutlinedInput-notchedOutline': {
-                          borderColor: 'white',
-                        },
-                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                          borderColor: 'white',
-                        },
-                        '&:hover .MuiOutlinedInput-notchedOutline': {
-                          borderColor: 'white',
-                        },
-                        '.MuiSvgIcon-root ': {
-                          fill: 'white !important',
-                        },
-
-                        input: { color: 'white' },
-                        margin: '10px 0px',
-                        width: '100%',
-                      }}
-                    >
-                      {paises.map((pais) => (
-                        <MenuItem key={pais} value={pais}>
-                          {pais}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl> */}
-
                   <FormControl
                     variant='outlined'
                     color='primary'
