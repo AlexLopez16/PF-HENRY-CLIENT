@@ -21,7 +21,7 @@ import { VisibilityOff, Visibility } from '@mui/icons-material';
 import { GitHubLogin } from '../auth/GitHubLogin';
 // import { GoogleLogin } from "../auth/GoogleLogin";
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import type {} from 'redux-thunk/extend-redux';
 import { studentRegister } from '../../actions/student';
 import { GoogleLogin } from '@react-oauth/google';
@@ -33,36 +33,40 @@ import { alert } from '../AlertMail/alertMailStudent';
 import studentRegisterbg from '../../assets/studentRegister.png';
 import Logo from '../../assets/NABIJASH.png';
 import { SnackBar } from '../SnackBar/SnackBar';
+import { State } from '../../reducers/rootReducer';
 
 export const StudensForm: FC = () => {
   const Navigate = useNavigate();
   const GoBack = () => {
-    Navigate('/login');
+    Navigate('/');
   };
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-  const initialValues = {
-    name: '',
-    lastName: '',
-    email: '',
-    password: '',
-  };
-  const validationSchema = yup.object().shape({
-    name: yup.string().required('Nombre requerido'),
-    lastName: yup.string().required('Apellido requerido'),
-    email: yup.string().email('email invalido').required('Email requerido'),
-    password: yup
-      .string()
-      .required('Contraseña requerida')
-      .min(8, 'Debe contener min. 8 caracter')
-      .matches(/[0-9]/, 'Se requiere un numero')
-      .matches(/[a-z]/, 'Se requiere una letra minuscula')
-      .matches(/[A-Z]/, 'Se requiere una letra mayuscula')
-      .matches(/[^\w]/, 'Se requiere un simbolo'),
-  });
+let condicion = useSelector((state:State)=>state.response)
+
+
+    const handleClickShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
+    const initialValues = {
+        name: '',
+        lastName: '',
+        email: '',
+        password: '',
+    };
+    const validationSchema = yup.object().shape({
+        name: yup.string().required('Nombre requerido'),
+        lastName: yup.string().required('Apellido requerido'),
+        email: yup.string().email('email invalido').required('Email requerido'),
+        password: yup
+            .string()
+            .required('Contraseña requerida')
+            .min(8, 'Debe contener min. 8 caracter')
+            .matches(/[0-9]/, 'Se requiere un numero')
+            .matches(/[a-z]/, 'Se requiere una letra minuscula')
+            .matches(/[A-Z]/, 'Se requiere una letra mayuscula')
+            .matches(/[^\w]/, 'Se requiere un simbolo'),
+    });
 
   type Values = {
     name: string;
@@ -82,8 +86,10 @@ export const StudensForm: FC = () => {
         password: values.password.trim(),
       }),
     );
-
-    dispatch(alert);
+    {condicion.status>400
+        ?dispatch(alert)
+        : "null"
+    }
   };
 
   return (
@@ -128,17 +134,16 @@ export const StudensForm: FC = () => {
           <Paper
             sx={{
               width: 500,
-              height: 700,
               mt: 10,
               mb: 5,
-              p: 10,
+              p: 5,
               pt: 4,
               borderRadius: 10,
               backgroundColor: 'black',
               boxShadow:
                 'rgba(255, 255, 255, 255.16) 0px 1px 4px, rgb(255, 255, 255) 0px 0px 0px 3px',
             }}
-          >
+           >
             <Grid
               textAlign='center'
               color='primary'
@@ -147,7 +152,7 @@ export const StudensForm: FC = () => {
               }}
             >
               <Typography
-                style={{
+                sx={{
                   fontFamily: 'montserrat',
                   marginBottom: 5,
                   fontSize: 25,
@@ -211,7 +216,7 @@ export const StudensForm: FC = () => {
                     size='small'
                     fontFamily='montserrat'
                     color='primary'
-                    placeholder='apellido'
+                    placeholder='Apellido'
                     sx={{
                       
                       boxShadow: 'rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset',
@@ -283,6 +288,7 @@ export const StudensForm: FC = () => {
                     }
                   />
                   <FormControl sx={{ width: '100%', margin: '10px 0' }}>
+
                     <Field
                       as={OutlinedInput}
                       name='password'
@@ -374,17 +380,16 @@ export const StudensForm: FC = () => {
                     auto_select={false}
                   />
                 </Form>
-              )}
-            </Formik>
+                )}
+              </Formik>
 
-            <Typography
-             sx={{
-                display:'flex',
-                flexDirection: 'column'
-,                justifyContent: 'center',
+              <Typography
+               sx={{
+                  display:'flex',
+                  flexDirection: 'column',
+                 justifyContent: 'center',
                 textAlign: 'center',
                 mt: 4,
-                // pb: 20,
                 fontFamily: 'poppins',
                 fontSize: '15px',
                 color: 'white',
@@ -410,7 +415,7 @@ export const StudensForm: FC = () => {
         direction='column'
         justifyContent='flex-start'
         alignItems='center'
-      >
+       >
         <FormControl>
           <Button
             onClick={GoBack}
@@ -421,7 +426,6 @@ export const StudensForm: FC = () => {
               boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
               fontFamily: 'montserrat',
               fontWeight: 'bold',
-
               mb: 20,
             }}
           >

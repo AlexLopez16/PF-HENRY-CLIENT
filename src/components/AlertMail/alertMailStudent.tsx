@@ -1,17 +1,14 @@
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 import 'animate.css';
 
-
- export const alert =()=>{
-
-    Swal.fire({
-        title: 'Revise su E-mail para ingresar a NABIJASH',
-        showClass: {
-            popup: 'animate__animated animate__fadeInDown'
-        },
-        hideClass: {
-            popup: 'animate__animated animate__fadeOutUp'
-        }
-    })
-}
+export const alert = () => {
+  Swal.fire({
+    title: 'Excelente!',
+    text: 'Revise su correo para confirmar la cuenta',
+    imageUrl: 'https://media.tenor.com/n2Pnf0j5PlIAAAAC/mail-download.gif',
+    imageWidth: 300,
+    imageHeight: 200,
+    imageAlt: 'Custom image',
+  });
+};
