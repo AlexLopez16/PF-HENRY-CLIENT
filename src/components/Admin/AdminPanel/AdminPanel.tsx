@@ -1,8 +1,7 @@
 import { FC, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Box } from "@mui/system";
-import { disableStudent, getListStudents } from "../../../actions/student";
+import { getAdmins } from "../../../actions/Admin";
 import { validaToken } from "../../../actions/auth";
 import * as moment from "moment";
 import EditIcon from "@mui/icons-material/Edit";
@@ -24,7 +23,7 @@ import {
 import Pages from "../../ui/Pagination";
 import { PreLoader } from "../../PreLoader/PreLoader";
 
-const AdminStudent: FC = () => {
+const AdminPanel: FC = () => {
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
   const { status } = useSelector((state: State) => state.auth);
@@ -32,69 +31,21 @@ const AdminStudent: FC = () => {
     dispatch(validaToken(token));
   }
   
-  const { users } = useSelector((state: any) => state.student);
+  const { user } = useSelector((state: State) => state.student); //cambiar por admin
   useEffect(() => {
-    dispatch(getListStudents(token, false, 6, 0));
+    dispatch(getAdmins(token));
   }, [dispatch]);
 
   const [selectedCustomerIds, setSelectedCustomerIds] = useState<string[]>([]);
   const [limit, setLimit] = useState(12);
-  const [page, setPage] = useState(0);
-  const [select, setSelect] = useState<boolean>(false);
 
-  // <--- Aca esta el problema de que no seleccione todos --->
-  const handleSelectAll = (event: any) => {
-    let newSelectedCustomerIds;
-    if (event.target.checked) {
-      newSelectedCustomerIds = users.map((user: any) => user.id);
-    } else {
-      newSelectedCustomerIds = [];
-    }
-    setSelectedCustomerIds(newSelectedCustomerIds);
-    console.log(selectedCustomerIds); //--> me trae un array con 14 undefined
-  };
 
-  // <--- Este trabaja agarrando uno por uno --->
-  const handleSelectOne = (uid: string) => {
-    let newSelectedCustomerIds: string[] = [];
-    const selectedIndex = selectedCustomerIds.indexOf(uid);
+//   const handleDisable = (selectID: string) => {
+//     // selectedCustomerIds.forEach((selectID: string) =>
+//     dispatch(disableStudent(token, selectID));
+//     // );
+//   };
 
-    if (selectedIndex === -1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds,
-        uid
-      );
-    } else if (selectedIndex === 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(1)
-      );
-    } else if (selectedIndex === selectedCustomerIds.length - 1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(0, -1)
-      );
-    } else if (selectedIndex > 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(0, selectedIndex),
-        selectedCustomerIds.slice(selectedIndex + 1)
-      );
-    }
-    setSelect(true);
-    setSelectedCustomerIds(newSelectedCustomerIds);
-  };
-
-  const handleDisable = (selectID: string) => {
-    // selectedCustomerIds.forEach((selectID: string) =>
-    dispatch(disableStudent(token, selectID));
-    // );
-  };
-
-  const handleLimitChange = (event: any) => {
-    setLimit(event.target.value);
-  };
-
-  const handlePageChange = (event: any, newPage: any) => {
-    setPage(newPage);
-  };
 
   return (
     <>
@@ -112,7 +63,7 @@ const AdminStudent: FC = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {users?.slice(0, limit).map((user: any) => (
+              {user?.map((user: any) => ( //cambiar por admin
                 <TableRow
                   hover
                   key={user.uid}
@@ -146,7 +97,7 @@ const AdminStudent: FC = () => {
                   <TableCell>
                     <EditIcon />
                   </TableCell>
-                  <TableCell>
+                  {/* <TableCell>
                     <FormGroup
                       sx={{
                         display: "flex",
@@ -167,7 +118,7 @@ const AdminStudent: FC = () => {
                         label={undefined}
                       />
                     </FormGroup>
-                  </TableCell>
+                  </TableCell> */}
                 </TableRow>
               ))}
             </TableBody>
@@ -179,4 +130,4 @@ const AdminStudent: FC = () => {
   );
 };
 
-export default AdminStudent;
+export default AdminPanel;

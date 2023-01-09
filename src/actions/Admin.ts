@@ -122,3 +122,32 @@ export const getCharts = (token: string | null) => {
     }
   };
 };
+
+const login = (data: object) => ({
+  type: types.authLogin,
+  payload: data,
+});
+
+export const registerAdmin = (values: object) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      const res: object | any = await axios.post("/admin", values);
+      const { data, status } = res;
+      const { token, id, rol } = data;
+      dispatch({
+        type: types.registerAdmin,
+        payload: data,
+      });
+      if (status) {
+        localStorage.setItem("token", token);
+        dispatch(login({ data, status, id, rol }));
+      }
+    } catch (error: object | any) {
+      dispatch({
+        type: types.responseFinished,
+        payload: error.response,
+      });
+      console.log(error);
+    }
+  };
+};

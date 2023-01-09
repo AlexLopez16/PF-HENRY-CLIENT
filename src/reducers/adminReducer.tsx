@@ -1,8 +1,14 @@
 import { types } from "../types/types";
 
+interface Admins {
+  name: string,
+  lastName: string,
+  email: string
+}
+
 interface State {
   data: {},
-  admins: {}[],
+  admins: any[],
   user: {}
 }
 

@@ -51,5 +51,6 @@ export const types = {
     AdminEliminatedProject:'[admin]admin eliminated project and send email for why',
     adminGetCharts: '[admin] admin get charts' ,
     getAdmins: "[admin] get all admins",
-  getInfoAdmin: "[admin] get info admin",
+    getInfoAdmin: "[admin] get info admin",
+    registerAdmin: "[admin] Register Admin"
 };

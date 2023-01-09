@@ -62,6 +62,7 @@ export const acceptStudent = (
         }
     };
 };
+
 export const companyGetInfo = (id: string, token: string) => {
   return async (dispatch: Dispatch) => {
     try {
@@ -86,6 +87,9 @@ export const getCompany = (
 ) => {
   return async (dispatch: Dispatch) => {
     try {
+      dispatch({
+        type: types.requestInProgress,
+    });
       let query;
       if (!state) {
         query = `onlyActive=${state}`;
@@ -104,6 +108,9 @@ export const getCompany = (
         type: types.companyGetList,
         payload: res.data,
       });
+      dispatch({
+        type: types.requestFinished,
+    });
     } catch (error: any) {
       console.log(error);
     }

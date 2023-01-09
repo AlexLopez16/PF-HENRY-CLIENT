@@ -12,6 +12,9 @@ export const getListStudents = (
 ) => {
   return async (dispatch: Dispatch) => {
     try {
+      dispatch({
+        type: types.requestInProgress,
+    });
       let query;
       if (!state) {
         query = `onlyActive=${state}`;
@@ -31,6 +34,9 @@ export const getListStudents = (
         type: types.getListStudents,
         payload: res.data,
       });
+      dispatch({
+        type: types.requestFinished,
+    });
     } catch (error: any) {
       console.log(error);
     }
