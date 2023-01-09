@@ -353,6 +353,7 @@ export const HeaderFormCompany: FC<Props> = ({
                   />
 
                   <Button
+                    size='small'
                     type='submit'
                     style={{
                       borderRadius: '30px',
@@ -366,6 +367,7 @@ export const HeaderFormCompany: FC<Props> = ({
                     Guardar
                   </Button>
                   <Button
+                    size='small'
                     style={{
                       borderRadius: '30px',
                       margin: '10px 15px 10px 0',

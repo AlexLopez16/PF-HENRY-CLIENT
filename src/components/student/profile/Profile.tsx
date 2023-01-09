@@ -1,5 +1,5 @@
 import { FC, useState, useEffect } from 'react';
-import { Grid } from '@mui/material';
+import { Box, Button, Container, FormControl, Grid, Typography } from '@mui/material';
 
 import { Header } from './Header';
 import { About } from './About';
@@ -10,83 +10,133 @@ import { SkillsForm } from './SkillsForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { getStudentInfo } from '../../../actions/student';
 import { State } from '../../../reducers/rootReducer';
+import { useNavigate } from 'react-router-dom';
+import studentRegisterbg from '../../../assets/studentRegister.png';
+import Footer from '../../../pages/LandingPage/Footer';
 
 export const Profile: FC = () => {
-    const [edit, setEdit] = useState({
-        header: false,
-        about: false,
-        skills: false
-    })
+  const [edit, setEdit] = useState({
+    header: false,
+    about: false,
+    skills: false,
+  });
 
-    const dispatch = useDispatch()
-    const { data } = useSelector((state: State) => state.auth)
-    const { id } = data;
-    const token = localStorage.getItem('token') || ''
+  const Navigate = useNavigate();
+  const GoBack = () => {
+    Navigate('/projects');
+  };
 
-    useEffect(() => {
-        dispatch(getStudentInfo(id, token))
-    }, [dispatch])
+  const dispatch = useDispatch();
+  const { data } = useSelector((state: State) => state.auth);
+  const { id } = data;
+  const token = localStorage.getItem('token') || '';
 
-    interface Props {
-        description: string
-        name: string
-        lastName: string
-        tecnologies: []
-        country: string
-        image: string
-        email:string
-    }
+  useEffect(() => {
+    dispatch(getStudentInfo(id, token));
+  }, [dispatch]);
 
-    const { user } = useSelector((state: State) => state.student)
-    const { description, name, lastName, country, tecnologies, image,email } = user as Props
+  interface Props {
+    description: string;
+    name: string;
+    lastName: string;
+    tecnologies: [];
+    country: string;
+    image: string;
+    email: string;
+  }
 
-    return (
-        <Grid>
-            {
-                edit.header
-                    ? <HeaderForm
-                        edit={edit}
-                        setEdit={setEdit}
-                        name={name}
-                        lastName={lastName}
-                        country={country}
-                        email={email}
-                    />
-                    : <Header
-                        edit={edit}
-                        setEdit={setEdit}
-                        name={name}
-                        lastName={lastName}
-                        country={country}
-                        image={image}
-                       
-                    />
-            }
-            {
-                edit.about
-                    ? <AboutForm
-                        edit={edit}
-                        setEdit={setEdit}
-                        description={description}
-                    />
-                    : <About
-                        edit={edit}
-                        setEdit={setEdit}
-                        description={description}
-                    />
-            }
-            {
-                edit.skills
-                    ? <SkillsForm
-                        edit={edit}
-                        setEdit={setEdit}
-                        tecnologies={tecnologies}
-                    />
-                    : <Skills
-                        edit={edit}
-                        setEdit={setEdit}
-                    />
-            }
-        </Grid>
-    )
-}
+  const { user } = useSelector((state: State) => state.student);
+  const { description, name, lastName, country, tecnologies, image, email } =
+    user as Props;
+
+  return (
+    <Box
+      sx={{
+        backgroundImage: `url(${studentRegisterbg})`,
+      }}
+    >
+      <Container
+        maxWidth='md'
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignContent: 'center',
+          alignItems: 'center',
+          textAlign: 'center',
+          pt: 10,
+        }}
+      >
+        <Typography
+          sx={{
+            width: '80%',
+            color: 'black',
+            fontFamily: 'montserrat',
+            fontSize: 35,
+            backgroundColor: '#ffff01',
+            borderRadius: 10,
+            mt: 5,
+          }}
+        >
+          Mi perfil
+        </Typography>
+      </Container>
+      <Grid>
+        {edit.header ? (
+          <HeaderForm
+            edit={edit}
+            setEdit={setEdit}
+            name={name}
+            lastName={lastName}
+            country={country}
+            email={email}
+          />
+        ) : (
+          <Header
+            edit={edit}
+            setEdit={setEdit}
+            name={name}
+            lastName={lastName}
+            country={country}
+            image={image}
+            email={email}
+          />
+        )}
+        {edit.about ? (
+          <AboutForm edit={edit} setEdit={setEdit} description={description} />
+        ) : (
+          <About edit={edit} setEdit={setEdit} description={description} />
+        )}
+        {edit.skills ? (
+          <SkillsForm edit={edit} setEdit={setEdit} tecnologies={tecnologies} />
+        ) : (
+          <Skills edit={edit} setEdit={setEdit} />
+        )}
+      </Grid>
+      <Grid
+        container
+        direction='column'
+        justifyContent='flex-start'
+        alignItems='center'
+      >
+        <FormControl>
+          <Button
+            onClick={GoBack}
+            size='small'
+            variant='contained'
+            color='secondary'
+            sx={{
+              boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+              fontFamily: 'montserrat',
+              fontWeight: 'bold',
+              mb: 10,
+              mt:5,
+            }}
+          >
+            Regresar
+          </Button>
+        </FormControl>
+      </Grid>
+      <Footer/>
+    </Box>
+  );
+};
