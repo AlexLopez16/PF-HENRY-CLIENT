@@ -4,21 +4,27 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Box, Container } from "@mui/system";
 import * as moment from "moment";
 import {
-  Card,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Typography,
-  SelectChangeEvent,
-  ListItemButton,
-  Collapse,
-  IconButton,
+    Card,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
+    Typography,
+    SelectChangeEvent,
+    ListItemButton,
+    Collapse,
+    IconButton,
+    Checkbox,
+    InputLabel,
+    FormControl,
+    Select,
+    MenuItem,
+    Rating,
 } from "@mui/material";
 import { State } from "../../../reducers/rootReducer";
 import { getAllProject, } from "../../../actions/projects";
-import { AprovedProject } from "../../../actions/Admin";
+import { AprovedProject, cancelReview, getAllReviews } from "../../../actions/Admin";
 import Pages from "../../ui/Pagination";
 import FilterListIcon from "@mui/icons-material/FilterList";
 
@@ -36,31 +42,23 @@ import CheckIcon from "@mui/icons-material/Check";
 import AdminFilterProject from "../../AdminBar/AdminFilterProject";
 
 import { PreLoader } from "../../PreLoader/PreLoader";
-
+import ReviewCancel from "./reviewCancel";
 const AdminReviews: FC = ({ ...rest }) => {
 
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-  const token: any = localStorage.getItem("token");
+    const token: any = localStorage.getItem("token");
 
     useEffect(() => {
         dispatch(
-            getAllProject(
-                undefined,
-                undefined,
-                token,
-                undefined,
-                undefined,
-                undefined,
-                6,
-                0
-            )
+            getAllReviews(token)
+
         );
     }, [dispatch]);
 
-    const { projectsFilter } = useSelector((state: State) => state.project);
-    let projects = projectsFilter;
-
+    const { reviews } = useSelector((state: State) => state.review);
+    let target: object[] = reviews
+   
     const [selectedCustomerIds, setSelectedCustomerIds] = useState<string[]>(
         []
     );
@@ -71,24 +69,17 @@ const AdminReviews: FC = ({ ...rest }) => {
 
     const [opciones, setOpciones] = useState('Todos');
     const [open, setOpen] = useState(false);
-    const options: string[] = [
-        'Todos',
-        'Reclutamiento',
-        'En desarrollo',
-        'Terminado',
-        'En revision',
-    ];
-    const [idPrj, setId] = useState('');
+    const [idrev, setId] = useState('');
 
 
 
-  const handleSelectAll = (event: any) => {
-    let newSelectedCustomerIds;
-    if (event.target.checked) {
-      newSelectedCustomerIds = projects.map((project: any) => project.uid);
-    } else {
-      newSelectedCustomerIds = [];
-    }
+    const handleSelectAll = (event: any) => {
+        let newSelectedCustomerIds;
+        if (event.target.checked) {
+            newSelectedCustomerIds = target.map((target: any) => target.uid);
+        } else {
+            newSelectedCustomerIds = [];
+        }
 
         setSelectedCustomerIds(newSelectedCustomerIds);
     };
@@ -132,7 +123,7 @@ const AdminReviews: FC = ({ ...rest }) => {
 
     const handlecancel = (id: string) => {
         setId(id);
-        console.log(idPrj);
+        console.log(formactive);
 
         setFormactive(true);
     };
@@ -145,33 +136,8 @@ const AdminReviews: FC = ({ ...rest }) => {
         setPage(newPage);
     };
 
-  let proyectos = projects;
-  const handleChangeOptions = (event: SelectChangeEvent) => {
-    setOpciones(event.target.value);
-  };
-  opciones !== "Todos"
-    ? (proyectos = projects.filter((project: any) =>
-      project.stateOfProject.includes(opciones)
-    ))
-    : (proyectos = projects);
-  return (
-    <>
-      {/* <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">
-                        Filtrado
-                    </InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        // value={option}
-                        label="filtro"
-                        onChange={handleChangeOptions}
-                    >
-                        {options.map((option) => (
-                            <MenuItem value={option}>{option}</MenuItem>
-                        ))}
-                    </Select>
-                </FormControl> */}
+    return (
+        <>
             <PreLoader />
             <Card {...rest}>
                 <Container
@@ -182,7 +148,7 @@ const AdminReviews: FC = ({ ...rest }) => {
                     }}
                 >
                     <ListItemButton
-                        onClick={handlerClick}
+                        // onClick={handlerClick}
                         sx={{ maxWidth: 350 }}
                     >
                         {open ? (
@@ -205,21 +171,21 @@ const AdminReviews: FC = ({ ...rest }) => {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                {/* <TableCell padding="checkbox">
-                                    <Checkbox
+                                <TableCell padding="checkbox">
+                                    {/* <Checkbox
                                         checked={
                                             selectedCustomerIds.length ===
-                                            proyectos.length
+                                            target.length
                                         }
                                         color="primary"
                                         indeterminate={
                                             selectedCustomerIds.length > 0 &&
                                             selectedCustomerIds.length <
-                                                proyectos.length
+                                            target.length
                                         }
                                         onChange={handleSelectAll}
-                                    />
-                                </TableCell> */}
+                                    /> */}
+                                </TableCell>
                                 <TableCell>Nombre de proyecto</TableCell>
                                 <TableCell>Nombre de la compañia</TableCell>
                                 <TableCell
@@ -234,38 +200,38 @@ const AdminReviews: FC = ({ ...rest }) => {
                                         textAlign: 'center',
                                     }}
                                 >
-                                  Puntuacion empresa
+                                    Puntuacion empresa
                                 </TableCell>
                                 <TableCell>Puntuacion Proyecto</TableCell>
                                 <TableCell>Descripcion</TableCell>
-                                <TableCell>Desactivar</TableCell>
+                                {/* <TableCell>Desactivar</TableCell> */}
                                 <TableCell>Eliminar</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {proyectos.slice(0, limit).map((proyectos: any) => (
+                            {target.slice(0, limit).map((review: any) => (
                                 <TableRow
                                     hover
-                                    key={proyectos.uid}
+                                    key={review.project.name}
                                     selected={
                                         selectedCustomerIds.indexOf(
-                                            proyectos.uid
+                                            review.uid
                                         ) !== -1
                                     }
                                 >
-                                    {/* <TableCell padding="checkbox">
-                                        <Checkbox
+                                    <TableCell padding="checkbox">
+                                        {/* <Checkbox
                                             checked={
                                                 selectedCustomerIds.indexOf(
-                                                    proyectos.uid
+                                                    review.uid
                                                 ) !== -1
                                             }
                                             onChange={(event) =>
-                                                handleSelectOne(proyectos.uid)
+                                                handleSelectOne(review.uid)
                                             }
                                             value="true"
-                                        />
-                                    </TableCell> */}
+                                        /> */}
+                                    </TableCell>
                                     <TableCell>
                                         <Box
                                             sx={{
@@ -278,24 +244,20 @@ const AdminReviews: FC = ({ ...rest }) => {
                                                 color="textPrimary"
                                                 variant="body1"
                                             >
-                                                {proyectos.name}
+                                                {review.project.name}
                                             </Typography>
                                         </Box>
                                     </TableCell>
                                     <TableCell>
-                                        {proyectos.company &&
-                                        Array.isArray(proyectos.company)
-                                            ? proyectos.company[0].name
-                                            : proyectos.company.name}
+                                        {review.project.company.name}
+
                                     </TableCell>
                                     <TableCell
                                         sx={{
                                             textAlign: 'center',
                                         }}
                                     >
-                                        {proyectos.category
-                                            ? proyectos.category
-                                            : 'No registrado'}
+                                        {review.student.name}
                                     </TableCell>
                                     <TableCell
                                         sx={{
@@ -303,48 +265,53 @@ const AdminReviews: FC = ({ ...rest }) => {
                                             textAlign: 'center',
                                         }}
                                     >
-                                        {proyectos.stateOfProject}
+                                        <Rating name="read-only" readOnly value={review.ratingCompany} />
+
                                     </TableCell>
 
                                     <TableCell>
-                                        {proyectos.admission
-                                            ? `${moment(
-                                                  proyectos.admission
-                                              ).format('DD/MM/YYYY')}`
-                                            : 'No registrado'}
+                                        <Rating name="read-only" readOnly value={review.ratingProject} />
+
                                     </TableCell>
                                     <TableCell sx={{ maxWidth: 200 }}>
-                                        {proyectos.description}
+                                        {review.description}
                                     </TableCell>
 
-                  <TableCell sx={{ maxWidth: 200 }}>
-                    <IconButton disabled={proyectos.stateOfProject !== "En revision"}>
-                      <CheckIcon
-                        sx={{ cursor: "pointer" }}
-                        onClick={() => handleaccept(proyectos.uid)}
-                      />
-                    </IconButton>
-                  </TableCell>
+                                    {/* <TableCell sx={{ maxWidth: 200 }}>
+                                        <IconButton disabled={review.stateOfProject !== "En revision"}>
+                                            <CheckIcon
+                                                sx={{ cursor: "pointer" }}
+                                            // onClick={() => handleaccept(review.uid)}
+                                            />
+                                        </IconButton>
+                                    </TableCell> */}
 
-                  <TableCell sx={{ maxWidth: 200 }}>
-                    <IconButton disabled={proyectos.stateOfProject !== "En revision"}>
-                      <CloseIcon
+                                    <TableCell sx={{ maxWidth: 200 }}>
+                                        <IconButton>
+                                            <CloseIcon
 
-                        sx={{ cursor: "pointer" }}
-                        onClick={() => handlecancel(proyectos.uid)}
-                      />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </Box>
-      <Pages />
-      </Card>
-      
-    </>
-  );
+                                                sx={{ cursor: "pointer" }}
+                                                onClick={() => handlecancel(review.uid)}
+                                            />
+                                        </IconButton>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </Box>
+                <Pages />
+            </Card>
+            {formactive && (
+                <ReviewCancel
+                    setFormactive={setFormactive}
+                    formactive={formactive}
+                    idrev={idrev}
+                />
+            )}
+
+        </>
+    );
 };
 
 export default AdminReviews;

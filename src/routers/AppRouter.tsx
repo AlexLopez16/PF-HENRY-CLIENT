@@ -42,7 +42,8 @@ import { RatingMail } from '../components/project/RatingMail';
 import { VerifyEmail } from '../components/VerifyEmail/VerifyEmail';
 import { ProfileAdmin } from '../components/Admin/Profile/ProfileAdmin';
 import { ApplicationForm } from '../components/project/ApplicationForm';
-import AdminReviews from "../components/Admin/AdminReviews/AdminReviews";
+import AdminReviews from '../components/Admin/AdminReviews/AdminReviews';
+
 
 export const AppRouter = () => {
     let { id } = useParams();

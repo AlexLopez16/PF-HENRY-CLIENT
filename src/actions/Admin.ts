@@ -122,3 +122,42 @@ export const getCharts = (token: string | null) => {
     }
   };
 };
+
+export const getAllReviews = (token: string | null) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      const { data } = await axios.get("/admin/getreviews", {
+        headers: { "user-token": token },
+      });
+      console.log(data);
+      
+      dispatch({
+        type: types.getAllReviews,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const cancelReview=(idrev: string | null,
+  token: string,values:string
+
+) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      
+      const res = await axios.put(
+        "/admin/deletereviews",{idrev,values}, {headers: { "user-token": token }});
+      console.log(res);
+
+      dispatch({
+        type: types.AdminEliminatedProject,
+        // payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};

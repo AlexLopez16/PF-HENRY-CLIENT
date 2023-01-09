@@ -7,6 +7,7 @@ import { projectReducer } from './ProjectReducer';
 import { errorReducer } from './errorReducer';
 import { requestReducer } from './requestReducer';
 import { responseReducer } from './responseReducer';
+import { reviewReducer } from './reviewReducer';
 
 export const rootReducer = combineReducers({
     auth: authReducer,
@@ -16,7 +17,8 @@ export const rootReducer = combineReducers({
     error: errorReducer,
     request: requestReducer,
     response: responseReducer,
-    admin: adminReducer
+    admin: adminReducer,
+    review:reviewReducer
 });
 
 export type State = ReturnType<typeof rootReducer>;
