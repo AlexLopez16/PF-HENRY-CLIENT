@@ -42,7 +42,8 @@ import CheckIcon from "@mui/icons-material/Check";
 import AdminFilterProject from "../../AdminBar/AdminFilterProject";
 
 import { PreLoader } from "../../PreLoader/PreLoader";
-import ReviewCancel from "./reviewCancel";
+import ReviewCancel from "./ReviewCancel";
+
 const AdminReviews: FC = ({ ...rest }) => {
 
     const dispatch = useDispatch();
