@@ -13,12 +13,10 @@ export const ProjectPage = () => {
     const params = useParams();
     const { id }: string | any = params;
     const dispatch = useDispatch();
-    console.log(data?.name);
     // si no hay data, solicitamos la info del proyecto en especifico.
     if (!data?.name) {
         let token = localStorage.getItem('token') || '';
         dispatch(getProjectByID(token, id));
-        console.log('no hay data');
     }
 
     return (

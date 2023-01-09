@@ -60,7 +60,6 @@ interface RatingProps{
      projectName?:string
      ratingCompany?:number
      ratingProject?:number
-
 }
 
 export const RatingProject: FC<RatingProps> = ({
@@ -68,9 +67,9 @@ export const RatingProject: FC<RatingProps> = ({
     name,
     lastName,
     projectName,
-     description,
-     ratingCompany,
-     ratingProject,
+    description,
+    ratingCompany,
+    ratingProject,
 }) => {
 
 

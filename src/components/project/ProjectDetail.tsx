@@ -56,7 +56,6 @@ const ProjectDetail: FC<ProjectProps> = ({
 
     const handlerApply = () => {
         {
-            console.log('aca');
             projectId.questions.length
                 ? navigate(`/postulatedForm/${uid}`)
                 : dispatch(addStudentToProject(uid, token));
@@ -69,7 +68,8 @@ const ProjectDetail: FC<ProjectProps> = ({
     };
 
     let review = projectId.reviews;
-    console.log(projectId);
+    console.log(review);
+
     return (
         <div>
             <PreLoader />
@@ -201,10 +201,11 @@ const ProjectDetail: FC<ProjectProps> = ({
                     ''
                 )}
             </Paper>
-            {rol === 'COMPANY_ROL' &&
-            projectId.stateOfProject === 'Terminado' &&
-            review.length > 0
-                ? review.map((e: any) => (
+            {rol === 'COMPANY_ROL' ||
+            (rol === 'STUDENT_ROL' &&
+                projectId.stateOfProject === 'Terminado' &&
+                review.length > 0)
+                ? review?.map((e: any) => (
                       <RatingProject
                           avatar={e.student?.image}
                           name={e.student?.name}
