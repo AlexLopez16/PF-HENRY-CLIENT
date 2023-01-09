@@ -28,6 +28,7 @@ import { PreLoader } from '../PreLoader/PreLoader';
 import { SnackBar } from '../SnackBar/SnackBar';
 import { ProjectCardSkeleton } from './ProjectCardSkeleton';
 import { WorkedProjectCard } from './WorkedProjectCard';
+import { RequestProjectCard } from './RequestProjectCard';
 
 const MyProjectStudent: FC = () => {
     const dispatch = useDispatch();
@@ -96,112 +97,21 @@ const MyProjectStudent: FC = () => {
                                 Mis solicitudes:
                             </Typography>
                             <div>
-                                {user.project &&
-                                    user.project.map((project: any) => (
-                                        <Paper
-                                            elevation={10}
-                                            style={{
-                                                padding: '20px',
-                                                marginTop: '20px',
-                                            }}
-                                        >
-                                            <Typography
-                                                variant="subtitle2"
-                                                sx={{ color: '#898989' }}
-                                            >
-                                                {' '}
-                                                {project.category?.toUpperCase()}
-                                            </Typography>
-                                            <Typography
-                                                sx={{
-                                                    display: 'flex',
-                                                    justifyContent:
-                                                        'space-between',
-                                                    alignItems: 'center',
-                                                }}
-                                                variant="h6"
-                                            >
-                                                {project.name?.toUpperCase()}
-                                                <Button
-                                                    variant="contained"
-                                                    type="submit"
-                                                    size="small"
-                                                    color="primary"
-                                                    onClick={() =>
-                                                        handleClick(project.uid)
-                                                    }
-                                                >
-                                                    Cancelar
-                                                </Button>
-                                            </Typography>
-                                            <Box
-                                                sx={{
-                                                    display: 'block',
-                                                    marginBottom: '10px',
-                                                }}
-                                            >
-                                                <Typography
-                                                    variant="subtitle1"
-                                                    sx={{ color: '#898989' }}
-                                                >
-                                                    {project.description.slice(
-                                                        0,
-                                                        100
-                                                    )}
-                                                    ...
-                                                </Typography>
-                                                <Typography
-                                                    variant="subtitle1"
-                                                    sx={{
-                                                        color: '#898989',
-                                                    }}
-                                                >
-                                                    Estado:{' '}
-                                                    <Chip
-                                                        label={
-                                                            project.stateOfProject
-                                                        }
-                                                        color="primary"
-                                                        size="small"
-                                                    />
-                                                </Typography>
-
-                                                <Typography
-                                                    variant="subtitle1"
-                                                    sx={{ color: '#898989' }}
-                                                >
-                                                    Participantes:{' '}
-                                                    <Chip
-                                                        label={`${project.accepts?.length}/${project.participants}`}
-                                                        color="primary"
-                                                        size="small"
-                                                    />
-                                                </Typography>
-                                            </Box>
-                                            <Paper
-                                                elevation={5}
-                                                sx={{
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    // border: '1px solid',
-                                                    width: 'max-content',
-                                                    padding: '2px 4px',
-                                                    // borderRadius: '4px',
-                                                }}
-                                            >
-                                                <BusinessIcon fontSize="small" />
-                                                <Typography
-                                                    variant="subtitle2"
-                                                    sx={{
-                                                        display: 'flex',
-                                                        alignItems: 'center',
-                                                        margin: '0 5px',
-                                                    }}
-                                                >
-                                                    {project.company?.name?.toUpperCase()}
-                                                </Typography>
-                                            </Paper>
-                                        </Paper>
+                                {user?.project &&
+                                    user?.project?.map((project: any) => (
+                                        <RequestProjectCard
+                                            userId={user?.id}
+                                            projectId={project?.uid}
+                                            category={project?.category}
+                                            projectName={project?.name}
+                                            companyName={project?.company?.name}
+                                            description={project?.description}
+                                            stateOfProject={
+                                                project?.stateOfProject
+                                            }
+                                            participants={project?.participants}
+                                            accepts={project?.accepts}
+                                        />
                                     ))}
                             </div>
                         </>
