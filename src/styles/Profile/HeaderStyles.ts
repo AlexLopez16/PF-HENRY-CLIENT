@@ -1,8 +1,11 @@
 export const iconStyle = {
     borderRadius: '50%',
-    backgroundColor: '#ef5350',
-    color: '#fff',
-    padding: '5px',
+    backgroundColor: 'white',
+    color: 'black',
+    padding:'2px',
+    height:30,
+    width:30,
+    marginRight:10,
 }
 
 export const avatarStyle = {
@@ -19,17 +22,18 @@ export const avatarStyle = {
 }
 
 export const paperStyle = {
-    padding: 10,
+    padding: 5,
     maxWidth: '60%',
     margin: '50px auto'
 }
 
 export const container = {
+    maxWidth: '100%',
     zIndex: 'modal',
     fontSize: '20px',
     display: 'flex',
-    justifyContent: 'left',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
-    marginLeft: '10px',
-    marginBottom: '20px',
+    alignContent: 'space-around',
+   
 }

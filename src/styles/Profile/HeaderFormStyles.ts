@@ -21,6 +21,7 @@ export const paperStyle = {
     padding: 10,
     maxWidth: '60%',
     margin: '50px auto',
+    marginBottom: 500,
 };
 
 export const container = {
@@ -35,4 +36,5 @@ export const container = {
 export const buttonStyle = {
     borderRadius: '30px',
     margin: '10px 15px 10px 0',
+    
 };

@@ -13,6 +13,7 @@ import objetivoStudent from '../../assets/objetivostudent.png';
 import bannerLanding from '../../assets/bannerLanding.png';
 import Carousel from './Carousel';
 
+
 const LandingPage: FC = () => {
   const navigate = useNavigate();
 
