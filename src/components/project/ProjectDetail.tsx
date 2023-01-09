@@ -68,6 +68,9 @@ const ProjectDetail: FC<ProjectProps> = ({
 
     let review = projectId.reviews;
 
+    console.log(review);
+    
+
     return (
         <div>
             <PreLoader />
@@ -202,15 +205,15 @@ const ProjectDetail: FC<ProjectProps> = ({
             {rol === 'COMPANY_ROL' &&
             projectId.stateOfProject === 'Terminado' &&
             review.length > 0
-                ? review.map((e: any) => (
+                ? review?.map((e: any) => (
                       <RatingProject
-                          avatar={e.student.image}
-                          name={e.student.name}
-                          lastName={e.student.lastName}
+                          avatar={e.student?.image}
+                          name={e.student?.name}
+                          lastName={e.student?.lastName}
                           description={e.description}
                           ratingCompany={e.ratingCompany}
                           ratingProject={e.ratingProject}
-                          projectName={e.project.name}
+                          projectName={e.project?.name}
                       />
                   ))
                 : ''}

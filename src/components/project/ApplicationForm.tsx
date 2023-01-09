@@ -1,5 +1,5 @@
 import { FC, useEffect} from 'react';
-import { Formik, Form, Field} from 'formik';
+import { Formik, Form, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 import NavBar from '../NavBar/NavBar';
 import Footer from '../../pages/LandingPage/Footer';
@@ -31,10 +31,6 @@ export const ApplicationForm: FC= () => {
 
   const  question = projectId.questions
 
-  console.log(question);
-  
-  
-  console.log(projectId);
   
   const initialValues = {
     res1: '',
@@ -43,12 +39,15 @@ export const ApplicationForm: FC= () => {
   };
   
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required('* Ingresa el nombre del proyecto'),
-    description: Yup.string().required('* Ingresa una descripción del proyecto'),
+    res1: Yup.string().required('* Ingresa una respuesta'),
+    res2: Yup.string().required('* Ingresa una respuesta'),
+    res3: Yup.string().required('* Ingresa una respuesta'),
+    
   });
   
-  const onSubmit = async (values: any) => {
-    dispatch(addStudentToProject(idStd, token));
+  const onSubmit = (values: any) => {
+    // dispatch(addStudentToProject(idStd, token));
+    console.log(values);
   }
 
 return (
@@ -79,7 +78,7 @@ return (
             validationSchema={validationSchema}
             onSubmit={onSubmit}
           >
-            {(props) => (
+            
               <Form>
           
           {question.map((Res: any, index: number) => (
@@ -96,6 +95,19 @@ return (
                     fullWidth
                     color='info'
                     sx={{ mb: 2 }}
+                    helperText={
+                      <ErrorMessage name= {`res${index+1}`}>
+                          {(msg) => (
+                              <span
+                                  style={{
+                                      color: '#d6423e',
+                                  }}
+                              >
+                                  {msg}
+                              </span>
+                          )}
+                      </ErrorMessage>
+                  }
                   />
             </div>
             </Box>
@@ -108,15 +120,13 @@ return (
                   variant='contained'
                   fullWidth
                   color='primary'
-                  disabled={props.isSubmitting}
-
                 >
+
                   Aplicar a proyecto
                 </Button>
               </Form>
-            )}
-          </Formik>
-        </Paper>
+            </Formik>
+          </Paper>
       </Grid>
     </div>
     <Footer/>
