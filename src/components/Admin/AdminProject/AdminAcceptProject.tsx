@@ -1,26 +1,26 @@
-import { FC, useState, useEffect, forwardRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Box, Container } from "@mui/system";
-import * as moment from "moment";
+import { FC, useState, useEffect, forwardRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Box, Container } from '@mui/system';
+import * as moment from 'moment';
 import {
-  Card,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Typography,
-  SelectChangeEvent,
-  ListItemButton,
-  Collapse,
-  IconButton,
-} from "@mui/material";
-import { State } from "../../../reducers/rootReducer";
-import { getAllProject, } from "../../../actions/projects";
-import { AprovedProject } from "../../../actions/Admin";
-import Pages from "../../ui/Pagination";
-import FilterListIcon from "@mui/icons-material/FilterList";
+    Card,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
+    Typography,
+    SelectChangeEvent,
+    ListItemButton,
+    Collapse,
+    IconButton,
+} from '@mui/material';
+import { State } from '../../../reducers/rootReducer';
+import { clearProject, getAllProject } from '../../../actions/projects';
+import { AprovedProject } from '../../../actions/Admin';
+import Pages from '../../ui/Pagination';
+import FilterListIcon from '@mui/icons-material/FilterList';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -31,17 +31,16 @@ export interface Options {
     transform?: (part: string, index: number, parts: string[]) => string;
 }
 export declare function sentenceCase(input: string, options?: Options): string;
-import CloseIcon from "@mui/icons-material/Close";
-import CheckIcon from "@mui/icons-material/Check";
-import AdminFilterProject from "../../AdminBar/AdminFilterProject";
-import CancelMessage from "./cancelMessage";
-import { PreLoader } from "../../PreLoader/PreLoader";
+import CloseIcon from '@mui/icons-material/Close';
+import CheckIcon from '@mui/icons-material/Check';
+import AdminFilterProject from '../../AdminBar/AdminFilterProject';
+import CancelMessage from './cancelMessage';
+import { PreLoader } from '../../PreLoader/PreLoader';
 
 const AdminAcceptProject: FC = ({ ...rest }) => {
+    const dispatch = useDispatch();
 
-  const dispatch = useDispatch();
-
-  const token: any = localStorage.getItem("token");
+    const token: any = localStorage.getItem('token');
 
     useEffect(() => {
         dispatch(
@@ -56,6 +55,9 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                 0
             )
         );
+        return () => {
+            dispatch(clearProject());
+        };
     }, [dispatch]);
 
     const { projectsFilter } = useSelector((state: State) => state.project);
@@ -80,15 +82,15 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
     ];
     const [idPrj, setId] = useState('');
 
-
-
-  const handleSelectAll = (event: any) => {
-    let newSelectedCustomerIds;
-    if (event.target.checked) {
-      newSelectedCustomerIds = projects.map((project: any) => project.uid);
-    } else {
-      newSelectedCustomerIds = [];
-    }
+    const handleSelectAll = (event: any) => {
+        let newSelectedCustomerIds;
+        if (event.target.checked) {
+            newSelectedCustomerIds = projects.map(
+                (project: any) => project.uid
+            );
+        } else {
+            newSelectedCustomerIds = [];
+        }
 
         setSelectedCustomerIds(newSelectedCustomerIds);
     };
@@ -145,18 +147,18 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
         setPage(newPage);
     };
 
-  let proyectos = projects;
-  const handleChangeOptions = (event: SelectChangeEvent) => {
-    setOpciones(event.target.value);
-  };
-  opciones !== "Todos"
-    ? (proyectos = projects.filter((project: any) =>
-      project.stateOfProject.includes(opciones)
-    ))
-    : (proyectos = projects);
-  return (
-    <>
-      {/* <FormControl fullWidth>
+    let proyectos = projects;
+    const handleChangeOptions = (event: SelectChangeEvent) => {
+        setOpciones(event.target.value);
+    };
+    opciones !== 'Todos'
+        ? (proyectos = projects.filter((project: any) =>
+              project.stateOfProject.includes(opciones)
+          ))
+        : (proyectos = projects);
+    return (
+        <>
+            {/* <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">
                         Filtrado
                     </InputLabel>
@@ -317,40 +319,53 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                                         {proyectos.description}
                                     </TableCell>
 
-                  <TableCell sx={{ maxWidth: 200 }}>
-                    <IconButton disabled={proyectos.stateOfProject !== "En revision"}>
-                      <CheckIcon
-                        sx={{ cursor: "pointer" }}
-                        onClick={() => handleaccept(proyectos.uid)}
-                      />
-                    </IconButton>
-                  </TableCell>
+                                    <TableCell sx={{ maxWidth: 200 }}>
+                                        <IconButton
+                                            disabled={
+                                                proyectos.stateOfProject !==
+                                                'En revision'
+                                            }
+                                        >
+                                            <CheckIcon
+                                                sx={{ cursor: 'pointer' }}
+                                                onClick={() =>
+                                                    handleaccept(proyectos.uid)
+                                                }
+                                            />
+                                        </IconButton>
+                                    </TableCell>
 
-                  <TableCell sx={{ maxWidth: 200 }}>
-                    <IconButton disabled={proyectos.stateOfProject !== "En revision"}>
-                      <CloseIcon
-
-                        sx={{ cursor: "pointer" }}
-                        onClick={() => handlecancel(proyectos.uid)}
-                      />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </Box>
-      <Pages />
-      </Card>
-      {formactive && (
-        <CancelMessage
-          setFormactive={setFormactive}
-          formactive={formactive}
-          idPrj={idPrj}
-        />
-      )}
-    </>
-  );
+                                    <TableCell sx={{ maxWidth: 200 }}>
+                                        <IconButton
+                                            disabled={
+                                                proyectos.stateOfProject !==
+                                                'En revision'
+                                            }
+                                        >
+                                            <CloseIcon
+                                                sx={{ cursor: 'pointer' }}
+                                                onClick={() =>
+                                                    handlecancel(proyectos.uid)
+                                                }
+                                            />
+                                        </IconButton>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </Box>
+                <Pages />
+            </Card>
+            {formactive && (
+                <CancelMessage
+                    setFormactive={setFormactive}
+                    formactive={formactive}
+                    idPrj={idPrj}
+                />
+            )}
+        </>
+    );
 };
 
 export default AdminAcceptProject;
