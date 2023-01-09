@@ -4,27 +4,13 @@
  * SE QUE FALTA MODULARIZARRRRRRRR :D, lo voy a hacer despues.
  */
 
-import {
-    Alert,
-    Avatar,
-    AvatarGroup,
-    Box,
-    Button,
-    Chip,
-    Container,
-    Paper,
-    Stack,
-    Typography,
-} from '@mui/material';
+import { Alert, Container, Stack, Typography } from '@mui/material';
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../reducers/rootReducer';
 import { getStudentInfo, unApplyStudent } from '../../actions/student';
 import BusinessIcon from '@mui/icons-material/Business';
 // Dejamos importado el link porque quiza despues se pueda mostrar el detalle de cada companero.
-import { Link } from 'react-router-dom';
-
-import { PreLoader } from '../PreLoader/PreLoader';
 import { SnackBar } from '../SnackBar/SnackBar';
 import { ProjectCardSkeleton } from './ProjectCardSkeleton';
 import { WorkedProjectCard } from './WorkedProjectCard';
