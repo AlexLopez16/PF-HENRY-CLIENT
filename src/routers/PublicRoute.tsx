@@ -9,14 +9,20 @@ type Props = {
 };
 
 export const PublicRoute: FC<Props> = ({ children }) => {
-    const { logged, data }: object | any = useSelector(
+    const { logged, data, status }: object | any = useSelector(
         (state: State) => state.auth
     );
+    const dispatch = useDispatch();
 
     // Definimos url a redireccionar.
     let location: string | any = '/projects';
     if (localStorage.getItem('location')) {
         location = localStorage.getItem('location');
+    }
+    let token = localStorage.getItem('token');
+
+    if (!status && token) {
+        dispatch(validaToken(token));
     }
 
     if (!logged) return children;
