@@ -27,14 +27,14 @@ export const About: FC<Props> = ({ edit, setEdit, description }) => {
             style={paperStyle}
         >
             <div style={container}>
-                <Typography sx={{ fontWeight: 'bold' }} variant='h6'>
+                <Typography sx={{ fontWeight: 'bold', fontFamily:'montserrat', color:'#ffff01' }} variant='h5'>
                     Sobre mí
                 </Typography>
                 <IconButton aria-label="settings" onClick={handlerEdit}>
                     <EditIcon sx={iconStyle} color='primary' fontSize='medium' />
                 </IconButton>
             </div>
-            <Typography sx={{ marginLeft: '10px', marginRight: '50px' }}>
+            <Typography sx={{p: 5, fontFamily:'montserrat', fontStyle:'italic'  }}>
                 {description}
             </Typography>
         </Paper>

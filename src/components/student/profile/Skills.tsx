@@ -3,7 +3,7 @@ import { Paper, Typography, IconButton } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit';
 import { DataSkills } from './DataSkills';
 
-import { paperStyle, container, iconStyle } from '../../../styles/Profile/SkillsStyles';
+import {iconStyle } from '../../../styles/Profile/SkillsStyles';
 
 interface Props {
     edit: { header: boolean, about: boolean, skills: boolean },
@@ -21,12 +21,31 @@ export const Skills: FC<Props> = ({ edit, setEdit }) => {
 
     return (
         <Paper
-            elevation={5}
-            style={paperStyle}
+            elevation={10}
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                
+                padding: 5,
+                maxWidth: '50%',
+                margin: '10px auto',
+                backgroundColor: 'black',
+                color: 'white',
+                borderRadius: 15,
+                boxShadow:
+                  'rgba(255, 255, 255, 255.16) 0px 1px 4px, rgb(255, 255, 255) 0px 0px 0px 3px',
+            }}
         >
-            <div style={container}>
+            <div style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  fontSize: '20px',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginBottom: '20px',
+            }}>
 
-                <Typography sx={{ fontWeight: 'bold' }} variant='h6'>
+                <Typography sx={{fontFamily:'montserrat' , fontWeight: 'bold', color:'#ffff01' }} variant='h5'>
                     Habilidades
                 </Typography>
                 <IconButton aria-label="settings" onClick={handlerEdit}>
