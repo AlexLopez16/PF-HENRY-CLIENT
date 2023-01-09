@@ -27,6 +27,7 @@ import { Link } from 'react-router-dom';
 import { PreLoader } from '../PreLoader/PreLoader';
 import { SnackBar } from '../SnackBar/SnackBar';
 import { ProjectCardSkeleton } from './ProjectCardSkeleton';
+import { WorkedProjectCard } from './WorkedProjectCard';
 
 const MyProjectStudent: FC = () => {
     const dispatch = useDispatch();
@@ -43,7 +44,12 @@ const MyProjectStudent: FC = () => {
     // Definimos los objetos de informacion.
     const { user }: any = student;
     // Aca hay que trabajar con typescript para que quede mas limpia la sintaxis.
-
+    const studentData: any = user?.working?.length
+        ? user.working[0]
+        : user.project?.length
+        ? user.project
+        : null;
+    console.log(studentData);
     const handleClick = async (projectId: string | any) => {
         dispatch(
             unApplyStudent(user.id, projectId, localStorage.getItem('token'))
@@ -67,200 +73,18 @@ const MyProjectStudent: FC = () => {
                             >
                                 Mi proyecto:
                             </Typography>
-                            <div>
-                                <Paper
-                                    elevation={10}
-                                    style={{
-                                        padding: '20px',
-                                        marginTop: '20px',
-                                    }}
-                                >
-                                    <Typography
-                                        variant="subtitle2"
-                                        sx={{ color: '#898989' }}
-                                    >
-                                        {' '}
-                                        {user.working[0].category?.toUpperCase()}
-                                    </Typography>
-
-                                    <Typography
-                                        sx={{
-                                            display: 'flex',
-                                            justifyContent: 'space-between',
-                                            alignItems: 'center',
-                                        }}
-                                        variant="h6"
-                                    >
-                                        {user.working[0].name?.toUpperCase()}
-
-                                        <Button
-                                            variant="contained"
-                                            type="submit"
-                                            size="small"
-                                            color="primary"
-                                            onClick={() =>
-                                                handleClick(user.working[0].uid)
-                                            }
-                                        >
-                                            Cancelar
-                                        </Button>
-                                    </Typography>
-                                    <Box
-                                        sx={{
-                                            display: 'block',
-                                            marginBottom: '10px',
-                                        }}
-                                    >
-                                        <Typography
-                                            variant="subtitle1"
-                                            sx={{
-                                                color: '#898989',
-                                            }}
-                                        >
-                                            {user.working[0].description.slice(
-                                                0,
-                                                500
-                                            )}{' '}
-                                            ...
-                                        </Typography>
-                                        <Typography
-                                            variant="subtitle1"
-                                            sx={{ color: '#898989' }}
-                                        >
-                                            Tecnologias:{' '}
-                                            {user.working[0].requirements &&
-                                                user.working[0].requirements.map(
-                                                    (
-                                                        tecnology: string | any,
-                                                        index: number | any
-                                                    ) => (
-                                                        <>
-                                                            {' '}
-                                                            <Chip
-                                                                key={index}
-                                                                label={
-                                                                    tecnology
-                                                                }
-                                                                color="primary"
-                                                                size="small"
-                                                            />
-                                                        </>
-                                                    )
-                                                )}
-                                        </Typography>
-                                        <Typography
-                                            variant="subtitle1"
-                                            sx={{
-                                                color: '#898989',
-                                            }}
-                                        >
-                                            Estado:{' '}
-                                            <Chip
-                                                size="small"
-                                                label={
-                                                    user.working[0]
-                                                        .stateOfProject
-                                                }
-                                                color="primary"
-                                            />
-                                        </Typography>
-                                        <Typography
-                                            variant="subtitle1"
-                                            sx={{
-                                                color: '#898989',
-                                            }}
-                                        >
-                                            Fecha de inicio:{' '}
-                                            <Chip
-                                                size="small"
-                                                label={'17/02/2023'}
-                                                color="primary"
-                                            />
-                                        </Typography>
-                                        <Typography
-                                            variant="subtitle1"
-                                            sx={{
-                                                color: '#898989',
-                                            }}
-                                        >
-                                            Fecha de entrega:{' '}
-                                            <Chip
-                                                size="small"
-                                                label={'17/03/2023'}
-                                                color="primary"
-                                            />
-                                        </Typography>
-                                        <Box
-                                            sx={{
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                // marginBottom: '10px',
-                                            }}
-                                        >
-                                            <Typography
-                                                variant="subtitle1"
-                                                sx={{ color: '#898989' }}
-                                            >
-                                                {'Equipo:'}{' '}
-                                            </Typography>
-
-                                            <AvatarGroup
-                                                max={
-                                                    user.working[0].participants
-                                                }
-                                            >
-                                                {user.working[0].accepts &&
-                                                    user.working[0].accepts.map(
-                                                        (
-                                                            person: object | any
-                                                        ) => {
-                                                            return (
-                                                                <Avatar
-                                                                    alt={
-                                                                        person.name
-                                                                    }
-                                                                    src={
-                                                                        person.image !==
-                                                                        undefined
-                                                                            ? person.image
-                                                                            : person.name
-                                                                    }
-                                                                    sx={{
-                                                                        width: 30,
-                                                                        height: 30,
-                                                                    }}
-                                                                />
-                                                            );
-                                                        }
-                                                    )}
-                                            </AvatarGroup>
-                                        </Box>
-                                    </Box>
-                                    <Paper
-                                        elevation={5}
-                                        sx={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            // border: '1px solid',
-                                            width: 'max-content',
-                                            padding: '2px 4px',
-                                            // borderRadius: '4px',
-                                        }}
-                                    >
-                                        <BusinessIcon fontSize="small" />
-                                        <Typography
-                                            variant="subtitle2"
-                                            sx={{
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                margin: '0 5px',
-                                            }}
-                                        >
-                                            {user.working[0].company.name?.toUpperCase()}
-                                        </Typography>
-                                    </Paper>
-                                </Paper>
-                            </div>
+                            <WorkedProjectCard
+                                userId={user?.id}
+                                projectId={studentData?.uid}
+                                category={studentData?.category}
+                                projectName={studentData?.name}
+                                companyName={studentData?.company?.name}
+                                description={studentData?.description}
+                                requirements={studentData?.requirements}
+                                stateOfProject={studentData?.stateOfProject}
+                                participants={studentData?.participants}
+                                accepts={studentData?.accepts}
+                            />
                         </>
                     ) : user.project?.length ? (
                         <>
