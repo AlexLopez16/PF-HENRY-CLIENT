@@ -1,6 +1,7 @@
 import {
     Alert,
     Box,
+    Button,
     Container,
     Paper,
     Rating,
@@ -9,13 +10,11 @@ import {
 } from '@mui/material';
 import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Link, NavLink, useParams } from 'react-router-dom';
 import { getDetailCompany } from '../../actions/company';
 import { State } from '../../reducers/rootReducer';
 import bgComponents from '../../assets/bg.png';
-import images from '../../components/exports/images';
-import style from '../../styles/carousel.module.css';
-import { motion } from 'framer-motion';
+import { RatingProject } from '../project/RatingProject';
 
 export const CompanyDetail: FC = () => {
     const { id } = useParams();
@@ -164,49 +163,57 @@ export const CompanyDetail: FC = () => {
                                                 sx={{
                                                     padding: '10px',
                                                     marginTop: '20px',
+                                                    display: 'flex',
+                                                    justifyContent:
+                                                        'space-between',
                                                 }}
                                                 elevation={5}
                                             >
                                                 {e.name}
+                                                <Link
+                                                    to={`/projects/${e._id}`}
+                                                    style={{
+                                                        textDecoration: 'none',
+                                                        marginTop: 'auto',
+                                                        fontFamily: 'poppins',
+                                                    }}
+                                                    target="_blank"
+                                                >
+                                                    <Button
+                                                        variant="contained"
+                                                        type="submit"
+                                                        size="small"
+                                                        color="primary"
+                                                        // onClick={() =>
+                                                        //     handleClick(
+                                                        //         projectId
+                                                        //     )
+                                                        // }
+                                                    >
+                                                        Mas Info
+                                                    </Button>
+                                                </Link>
                                             </Paper>
                                         );
                                     })}
                             </Box>
 
-                            <Box>
-                                <motion.div
-                                    className={style.sliderContainer}
-                                    style={{
-                                        paddingBottom: 100,
-                                        paddingTop: 50,
-                                    }}
-                                >
-                                    <motion.div
-                                        className={style.slider}
-                                        animate={{
-                                            translateX: 160,
-                                        }}
-                                        drag="x"
-                                        dragConstraints={{
-                                            right: 0,
-                                            left: -7300,
-                                        }}
-                                    >
-                                        {images.map((image) => (
-                                            <motion.div className={style.item}>
-                                                <img
-                                                    src={image}
-                                                    alt=""
-                                                    style={{
-                                                        height: 150,
-                                                        width: 300,
-                                                        borderRadius: 30,
-                                                    }}
-                                                />
-                                            </motion.div>
-                                        ))}
-                                    </motion.div>
-                                </motion.div>
+                            <Box
+                            // sx={{
+                            //     height: 'max-content',
+                            // }}
+                            >
+                                {detail.reviews.map((review: any) => (
+                                    <RatingProject
+                                        avatar={review?.student?.image}
+                                        name={review?.student?.name}
+                                        lastName={review.student?.lastName}
+                                        description={review.description}
+                                        ratingCompany={review.ratingCompany}
+                                        ratingProject={review.ratingProject}
+                                        projectName={review?.project?.name}
+                                    />
+                                ))}
                             </Box>
                         </Paper>
                     </Box>
