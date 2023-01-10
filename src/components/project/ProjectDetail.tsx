@@ -166,12 +166,12 @@ const ProjectDetail: FC<ProjectProps> = ({
                     >
                         aplicar
                     </Button>
-                ) : (id &&
+                ) : (id && rol === 'COMPANY_ROL'&&
                       projectId &&
                       projectId?.company?._id &&
                       id === projectId.company._id &&
-                      projectId.stateOfProject === 'Terminado') ||
-                  'En reclutamiento' ? (
+                      projectId.stateOfProject === 
+                  'Reclutando')  ? (
                     <Link to={`/postulated/${uid}`}>
                         <Button
                             sx={{ marginTop: 10 }}
