@@ -171,12 +171,7 @@ const ProjectDetail: FC<ProjectProps> = ({
                   >
                     {empresa}
                   </Typography>
-                  {/* <Container
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                    }}
-                  > */}
+
                   <List>
                     <Typography
                       variant='body1'
@@ -325,10 +320,14 @@ const ProjectDetail: FC<ProjectProps> = ({
                       projectId?.company?._id &&
                       id === projectId.company._id &&
                       projectId.stateOfProject === 
-                  'Reclutando')  ? (
+                  'Reclutamiento')  ? (
                     <Link to={`/postulated/${uid}`}>
                         <Button
-                            sx={{ marginTop: 10 }}
+                               style={{
+                                boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+                                fontFamily: 'montserrat',
+                                fontWeight: 'bold',
+                              }}
                             type="submit"
                             variant="contained"
                             fullWidth
