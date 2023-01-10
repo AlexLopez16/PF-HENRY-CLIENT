@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Box, Typography, Paper, Chip, Container, Grid } from '@mui/material';
 import clip from 'text-clipper';
 import Button from '@mui/material/Button';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProjectByID } from '../../actions/projects';
 import BusinessIcon from '@mui/icons-material/Business';
@@ -136,21 +136,32 @@ const ProjectCard: FC<CardProjectProps> = ({
                                 border: '1px solid white',
                             }}
                         >
-                            <BusinessIcon fontSize="medium" color="secondary" />
-                            <Typography
-                                variant="subtitle2"
-                                sx={{
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItem: 'center',
-                                    textAlign: 'center',
-                                    fontFamily: 'montserrat',
-                                    fontWeight: 'bold',
-                                    color: 'white',
+                            <Link
+                                to={`/company/${companyId}`}
+                                style={{
+                                    textDecoration: 'none',
                                 }}
+                                // target="_blanck"
                             >
-                                {company?.toUpperCase()}
-                            </Typography>
+                                <BusinessIcon
+                                    fontSize="medium"
+                                    color="secondary"
+                                />
+                                <Typography
+                                    variant="subtitle2"
+                                    sx={{
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItem: 'center',
+                                        textAlign: 'center',
+                                        fontFamily: 'montserrat',
+                                        fontWeight: 'bold',
+                                        color: 'white',
+                                    }}
+                                >
+                                    {company?.toUpperCase()}
+                                </Typography>
+                            </Link>
                         </Paper>
                     </Container>
                     <hr
