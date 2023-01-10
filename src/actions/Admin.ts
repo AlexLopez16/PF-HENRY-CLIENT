@@ -234,6 +234,7 @@ export const rejectCompany = (
 const login = (data: object) => ({
   type: types.authLogin,
   payload: data,
+  
 });
 
 export const registerAdmin = (values: object) => {
