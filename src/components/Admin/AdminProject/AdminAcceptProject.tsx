@@ -15,10 +15,11 @@ import {
     ListItemButton,
     Collapse,
     IconButton,
+    Checkbox
 } from '@mui/material';
 import { State } from '../../../reducers/rootReducer';
 import { clearProject, getAllProject } from '../../../actions/projects';
-import { AprovedProject } from '../../../actions/Admin';
+import { AprovedProject, reclutamientoInProject } from '../../../actions/Admin';
 import Pages from '../../ui/Pagination';
 import FilterListIcon from '@mui/icons-material/FilterList';
 
@@ -67,10 +68,8 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
         []
     );
     const [limit, setLimit] = useState(12);
-    const [page, setPage] = useState(0);
     const [render, setRender] = useState(false);
     const [formactive, setFormactive] = useState(false);
-
     const [opciones, setOpciones] = useState('Todos');
     const [open, setOpen] = useState(false);
     const options: string[] = [
@@ -118,7 +117,6 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                 selectedCustomerIds.slice(selectedIndex + 1)
             );
         }
-
         setSelectedCustomerIds(newSelectedCustomerIds);
     };
     const handlerClick = () => {
@@ -130,21 +128,31 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
 
     const handleaccept = (id: string) => {
         dispatch(AprovedProject(token, id)), setRender(!render);
+        
     };
 
     const handlecancel = (id: string) => {
         setId(id);
-        console.log(idPrj);
-
         setFormactive(true);
     };
 
-    const handleLimitChange = (event: any) => {
-        setLimit(event.target.value);
-    };
-
-    const handlePageChange = (event: any, newPage: any) => {
-        setPage(newPage);
+    const handleMultiaccept = () => {
+        dispatch(reclutamientoInProject(token, selectedCustomerIds)), setRender(!render);
+        dispatch(
+            getAllProject(
+                undefined,
+                undefined,
+                token,
+                undefined,
+                undefined,
+                undefined,
+                6,
+                0
+            )
+        );
+        return () => {
+            dispatch(clearProject());
+        };
     };
 
     let proyectos = projects;
@@ -153,27 +161,11 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
     };
     opciones !== 'Todos'
         ? (proyectos = projects.filter((project: any) =>
-              project.stateOfProject.includes(opciones)
-          ))
+            project.stateOfProject.includes(opciones)
+        ))
         : (proyectos = projects);
     return (
         <>
-            {/* <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">
-                        Filtrado
-                    </InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        // value={option}
-                        label="filtro"
-                        onChange={handleChangeOptions}
-                    >
-                        {options.map((option) => (
-                            <MenuItem value={option}>{option}</MenuItem>
-                        ))}
-                    </Select>
-                </FormControl> */}
             <PreLoader />
             <Card {...rest}>
                 <Container
@@ -207,7 +199,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                {/* <TableCell padding="checkbox">
+                                <TableCell padding="checkbox">
                                     <Checkbox
                                         checked={
                                             selectedCustomerIds.length ===
@@ -217,11 +209,11 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                                         indeterminate={
                                             selectedCustomerIds.length > 0 &&
                                             selectedCustomerIds.length <
-                                                proyectos.length
+                                            proyectos.length
                                         }
                                         onChange={handleSelectAll}
                                     />
-                                </TableCell> */}
+                                </TableCell>
                                 <TableCell>Nombre</TableCell>
                                 <TableCell>Compañia</TableCell>
                                 <TableCell
@@ -242,6 +234,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                                 <TableCell>Descripcion</TableCell>
                                 <TableCell>Aceptar</TableCell>
                                 <TableCell>Rechazar</TableCell>
+
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -255,7 +248,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                                         ) !== -1
                                     }
                                 >
-                                    {/* <TableCell padding="checkbox">
+                                    <TableCell padding="checkbox">
                                         <Checkbox
                                             checked={
                                                 selectedCustomerIds.indexOf(
@@ -267,7 +260,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                                             }
                                             value="true"
                                         />
-                                    </TableCell> */}
+                                    </TableCell>
                                     <TableCell>
                                         <Box
                                             sx={{
@@ -286,7 +279,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                                     </TableCell>
                                     <TableCell>
                                         {proyectos.company &&
-                                        Array.isArray(proyectos.company)
+                                            Array.isArray(proyectos.company)
                                             ? proyectos?.company[0]?.name
                                             : proyectos?.company?.name}
                                     </TableCell>
@@ -311,8 +304,8 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                                     <TableCell>
                                         {proyectos.admission
                                             ? `${moment(
-                                                  proyectos.admission
-                                              ).format('DD/MM/YYYY')}`
+                                                proyectos.admission
+                                            ).format('DD/MM/YYYY')}`
                                             : 'No registrado'}
                                     </TableCell>
                                     <TableCell sx={{ maxWidth: 200 }}>
@@ -334,7 +327,6 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                                             />
                                         </IconButton>
                                     </TableCell>
-
                                     <TableCell sx={{ maxWidth: 200 }}>
                                         <IconButton
                                             disabled={
@@ -352,6 +344,16 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                                     </TableCell>
                                 </TableRow>
                             ))}
+                            <IconButton
+                                disabled={
+                                    selectedCustomerIds.length < 2
+                                }
+                            >
+                                <CheckIcon
+                                    sx={{ cursor: 'pointer' }}
+                                    onClick={handleMultiaccept}
+                                />
+                            </IconButton>
                         </TableBody>
                     </Table>
                 </Box>

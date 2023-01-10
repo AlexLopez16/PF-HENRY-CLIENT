@@ -62,12 +62,18 @@ export const studentReducer = (state: State = initialState, action: Action) => {
                     currentValue = action.payload;
                     users[index] = currentValue;
                 }
-            }
-
+            };
             return {
                 ...state,
                 user: { ...state.user.project, project: users },
             };
+        case types.multipleSwitchAlumno:
+        console.log(action.payload);
+            
+        return {
+                ...state,
+
+            }
         case types.unApplyStudent:
             const newUser: object | any = state.user;
             // Sacamos el proyecto del cual nos dimos de baja.
