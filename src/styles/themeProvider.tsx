@@ -20,6 +20,12 @@ const customThemProvider = createTheme({
       dark: 'green',
       contrastText: '#fff',
     },
+    warning: {
+      main: 'white',
+      light: '#ff9800',
+      dark: 'red',
+      contrastText: '#000',
+    },
   }
 });
 

@@ -15,7 +15,9 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function Footer() {
   return (
-    <Box>
+    <Box sx={{
+      position: "sticky bottom-0", 
+    }}>
      
       <Box
         sx={{
