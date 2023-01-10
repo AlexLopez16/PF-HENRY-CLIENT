@@ -21,7 +21,7 @@ const customThemProvider = createTheme({
       contrastText: '#fff',
     },
     warning: {
-      main: 'white',
+      main: '#ffff01',
       light: '#ff9800',
       dark: 'red',
       contrastText: '#000',

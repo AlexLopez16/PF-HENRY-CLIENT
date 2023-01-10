@@ -120,7 +120,7 @@ const ProjectCardMyCompany: FC<CardProjectProps> = ({
                                 marginBottom: 5,
                             }}
                         />
-                        {/* <Typography sx={{ m: 0.5 }}>{clippedDescription}</Typography> */}
+               
 
                         <Box
                             sx={{
