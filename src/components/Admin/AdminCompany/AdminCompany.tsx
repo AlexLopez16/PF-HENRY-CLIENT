@@ -21,6 +21,7 @@ import {
     TableRow,
     Typography,
     InputLabel,
+    IconButton,
 } from '@mui/material';
 import { State } from '../../../reducers/rootReducer';
 import NavBar from '../../NavBar/NavBar';
@@ -32,6 +33,10 @@ import EditIcon from '@mui/icons-material/Edit';
 import React from 'react';
 import { PreLoader } from '../../PreLoader/PreLoader';
 import Pages from '../../ui/Pagination';
+import CloseIcon from '@mui/icons-material/Close';
+import CheckIcon from '@mui/icons-material/Check';
+import { acceptCompany, rejectCompany } from '../../../actions/Admin';
+import { SnackBar } from '../../SnackBar/SnackBar';
 
 const AdminCompany: FC = ({ ...rest }) => {
     const { user }: object | any = useSelector((state: State) => state.company);
@@ -113,10 +118,23 @@ const AdminCompany: FC = ({ ...rest }) => {
         dispatch(disableCompany(token, selectID));
         // );
     };
+    const handleaccept = (id: string) => {
+        console.log(id);
+        dispatch(acceptCompany(token, id, true));
+    };
+
+    const handlecancel = (id: string) => {
+        console.log(id);
+        dispatch(rejectCompany(token, id, false));
+        // setId(id);
+        // console.log(idPrj);
+        // setFormactive(true);
+    };
 
     return (
         <>
             <PreLoader />
+            <SnackBar successMsg="Correo enviado a la compañia" />
             <Card>
                 <Box sx={{ minWidth: 900 }}>
                     <Table>
@@ -127,8 +145,10 @@ const AdminCompany: FC = ({ ...rest }) => {
                                 <TableCell>Locación</TableCell>
                                 <TableCell>Estado</TableCell>
                                 <TableCell>Fecha Registro</TableCell>
-                                <TableCell>Editar</TableCell>
+
                                 <TableCell>Cambiar Estado</TableCell>
+                                <TableCell>Aceptar</TableCell>
+                                <TableCell>Rechazar</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -181,9 +201,7 @@ const AdminCompany: FC = ({ ...rest }) => {
                                               )}`
                                             : 'No registrado'}
                                     </TableCell>
-                                    <TableCell>
-                                        <EditIcon />
-                                    </TableCell>
+
                                     <FormGroup
                                         sx={{
                                             display: 'flex',
@@ -210,6 +228,32 @@ const AdminCompany: FC = ({ ...rest }) => {
                                             label={undefined}
                                         />
                                     </FormGroup>
+
+                                    <TableCell>
+                                        <IconButton
+                                            disabled={user.verify === true}
+                                        >
+                                            <CheckIcon
+                                                sx={{ cursor: 'pointer' }}
+                                                onClick={() =>
+                                                    handleaccept(user.uid)
+                                                }
+                                            />
+                                        </IconButton>
+                                    </TableCell>
+
+                                    <TableCell>
+                                        <IconButton
+                                            disabled={user.verify === true}
+                                        >
+                                            <CloseIcon
+                                                sx={{ cursor: 'pointer' }}
+                                                onClick={() =>
+                                                    handlecancel(user.uid)
+                                                }
+                                            />
+                                        </IconButton>
+                                    </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
