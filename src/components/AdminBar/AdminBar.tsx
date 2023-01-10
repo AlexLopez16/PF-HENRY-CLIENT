@@ -145,12 +145,7 @@ export default function AccountMenu() {
                             cursor: 'default',
                         }}
                     >
-                        {/* //revisar este sector tmb */}
-                        <Avatar>
-                            {/* <IconButton>
-                            {user.name?.slice(0, 1).toUpperCase()}
-                        </IconButton> */}
-                        </Avatar>
+                        <Avatar src={user.image} >{user.name?.slice(0, 1)}</Avatar>
                         Hola {user?.name}
                     </MenuItem>
                     {data.verify && rol === 'STUDENT_ROL' ? (

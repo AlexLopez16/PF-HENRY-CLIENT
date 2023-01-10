@@ -1,13 +1,10 @@
 import { FC, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Box } from "@mui/system";
-import { disableStudent, getListStudents } from "../../../actions/student";
+import { disableAdmin, getAdmins } from "../../../actions/Admin";
 import { validaToken } from "../../../actions/auth";
 import * as moment from "moment";
-import EditIcon from "@mui/icons-material/Edit";
 import { State } from "../../../reducers/rootReducer";
-import SideBar from "../SideBar/SideBar";
 import {
   Avatar,
   Card,
@@ -24,12 +21,8 @@ import {
 } from "@mui/material";
 import Pages from "../../ui/Pagination";
 import { PreLoader } from "../../PreLoader/PreLoader";
-import { clearProject } from "../../../actions/projects";
-import AdminFilterStudent from "./AdminFilterStudent";
 
-ChartJS.register(ArcElement, Tooltip, Legend);
-
-const AdminStudent: FC = () => {
+const AdminPanel: FC = () => {
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
   const { status } = useSelector((state: State) => state.auth);
@@ -37,21 +30,20 @@ const AdminStudent: FC = () => {
     dispatch(validaToken(token));
   }
 
-  const { users } = useSelector((state: any) => state.student);
   useEffect(() => {
-    dispatch(getListStudents(token, false, 6, 0));
+    dispatch(getAdmins(token));
   }, [dispatch]);
 
-  users.forEach((e: any) => console.log(e.tecnologies))
+  //Revisar tipos y cambiarlos tambien en AdminStudent
+  const { admins } = useSelector((state: any) => state.admin);
 
   const handleDisable = (selectID: string) => {
-    dispatch(disableStudent(token, selectID));
+    dispatch(disableAdmin(token, selectID));
   };
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column" }}>
+    <>
       <PreLoader />
-      <AdminFilterStudent />
       <Card>
         <Box sx={{ minWidth: 1050 }}>
           <Table>
@@ -59,14 +51,15 @@ const AdminStudent: FC = () => {
               <TableRow>
                 <TableCell>Nombre</TableCell>
                 <TableCell>Email</TableCell>
-                <TableCell>Ubicacion</TableCell>
                 <TableCell>Estado</TableCell>
-                <TableCell>Fecha de ingreso</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {users?.map((user: any) => (
-                <TableRow hover key={user.uid}>
+              {admins?.map((user: any) => (
+                <TableRow
+                  hover
+                  key={user.uid}
+                >
                   <TableCell>
                     <Box
                       sx={{
@@ -78,22 +71,14 @@ const AdminStudent: FC = () => {
                         {user.name?.slice(0, 1)}
                       </Avatar>
                       <Typography color="textPrimary" variant="body1">
-                        {user.name ? user.name : user.username}
+                        {user.name}
                       </Typography>
                     </Box>
                   </TableCell>
                   <TableCell>
                     {user.email ? user.email : "No registrado"}
                   </TableCell>
-                  <TableCell>
-                    {user.country ? user.country : "No registrado"}
-                  </TableCell>
-                  <TableCell>{user.state ? "Activo" : "Inactivo"}</TableCell>
-                  <TableCell>
-                    {user.admission
-                      ? `${moment(user.admission).format("DD/MM/YYYY")}`
-                      : "No registrado"}
-                  </TableCell>
+                  <TableCell>{user.state ? 'Activo' : "inactivo"}</TableCell>
                   <TableCell>
                     <FormGroup
                       sx={{
@@ -123,8 +108,8 @@ const AdminStudent: FC = () => {
           <Pages />
         </Box>
       </Card>
-    </Box>
+    </>
   );
 };
 
-export default AdminStudent;
+export default AdminPanel;
