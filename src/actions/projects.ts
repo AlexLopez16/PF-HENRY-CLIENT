@@ -340,6 +340,7 @@ export const getAllProject = (
             const res = await axios.get(url, {
                 headers: { 'user-token': token },
             });
+            console.log(res.data);
             // console.log(res.data);
             dispatch({
                 type: types.projectsFilter,

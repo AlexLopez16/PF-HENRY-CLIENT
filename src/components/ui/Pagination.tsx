@@ -26,12 +26,11 @@ const Pages: FC = () => {
     let { projectsFilter } = useSelector((state: State) => state.project);
     const { users, total1 } = useSelector((state: any) => state.student);
     const { user, total2 } = useSelector((state: any) => state.company);
-
+    const { filters, total } = useSelector((state: State) => state.project);
     // let { myProjectCompany } = useSelector((state: State) => state.project);
 
     useEffect(() => {}, [projectsFilter, users, user]);
-    const { total } = useSelector((state: State) => state.project);
-    const { filters } = useSelector((state: State) => state.project);
+    // const { total } = useSelector((state: State) => state.project);
 
     let numberOfPages;
     if (total1) {

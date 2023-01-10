@@ -180,7 +180,7 @@ export const DeleteStudent = (
 export const disableCompany = (token: string | null, id: string) => {
     return async (dispatch: Dispatch) => {
         try {
-            const { data } = await axios.put(
+            const res = await axios.put(
                 `/admin/stateuser`,
                 { id },
                 { headers: { 'user-token': token } }
@@ -188,6 +188,7 @@ export const disableCompany = (token: string | null, id: string) => {
 
             dispatch({
                 type: types.disableCompany,
+                payload: res.data,
             });
         } catch (error) {
             console.log(error);

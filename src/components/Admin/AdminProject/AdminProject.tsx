@@ -148,7 +148,7 @@ const AdminProject: FC = ({ ...rest }) => {
                         unmountOnExit
                         orientation="horizontal"
                     >
-                        <AdminFilterProject source="adminProjects" />
+                        <AdminFilterProject />
                     </Collapse>
                 </Container>
 
@@ -170,7 +170,7 @@ const AdminProject: FC = ({ ...rest }) => {
                                 <TableCell>Nombre</TableCell>
                                 <TableCell>Compañia</TableCell>
                                 <TableCell>Categoria</TableCell>
-                                <TableCell>Estado</TableCell>
+                                <TableCell>Estado del proyecto</TableCell>
                                 <TableCell>Creado</TableCell>
                                 <TableCell>Activo</TableCell>
                             </TableRow>
@@ -209,7 +209,10 @@ const AdminProject: FC = ({ ...rest }) => {
                                         </Box>
                                     </TableCell>
                                     <TableCell>
-                                        {projects.company.name}
+                                        {projects.company &&
+                                        Array.isArray(projects.company)
+                                            ? projects?.company[0]?.name
+                                            : projects?.company?.name}
                                     </TableCell>
                                     <TableCell>
                                         {projects.category

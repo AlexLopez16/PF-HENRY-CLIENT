@@ -315,7 +315,7 @@ const StudentsFilter: FC = () => {
                         multiple={true}
                         size="small"
                         id="tags-outlined"
-                        options={categorys}
+                        options={categorys ? categorys : []}
                         getOptionLabel={(option: any) => option}
                         filterSelectedOptions
                         renderInput={(params) => (
