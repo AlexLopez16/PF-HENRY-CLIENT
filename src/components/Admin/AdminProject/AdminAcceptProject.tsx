@@ -42,6 +42,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
     const dispatch = useDispatch();
 
     const token: any = localStorage.getItem('token');
+    const { projectsFilter } = useSelector((state: State) => state.project);
 
     useEffect(() => {
         dispatch(
@@ -61,7 +62,6 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
         };
     }, [dispatch]);
 
-    const { projectsFilter } = useSelector((state: State) => state.project);
     let projects = projectsFilter;
 
     const [selectedCustomerIds, setSelectedCustomerIds] = useState<string[]>(
@@ -205,7 +205,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                         unmountOnExit
                         orientation="horizontal"
                     >
-                        <AdminFilterProject source="adminProjects" />
+                        <AdminFilterProject />
                     </Collapse>
                 </Container>
 
@@ -293,8 +293,8 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                                     <TableCell>
                                         {proyectos.company &&
                                         Array.isArray(proyectos.company)
-                                            ? proyectos.company[0].name
-                                            : proyectos.company.name}
+                                            ? proyectos?.company[0]?.name
+                                            : proyectos?.company?.name}
                                     </TableCell>
                                     <TableCell
                                         sx={{

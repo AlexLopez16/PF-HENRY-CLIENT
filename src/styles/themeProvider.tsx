@@ -15,18 +15,12 @@ const customThemProvider = createTheme({
       contrastText: '#000',
     },
     info: {
-      main: '#0288d1',
-      light: '#03a9f4',
-      dark: '#01579b',
+      main: 'black',
+      light: '#fff',
+      dark: 'green',
       contrastText: '#fff',
     },
-
-    // standard: {
-    //   main: '#000',
-    //   light: '#03a9f4',
-    //   dark: '#388e3c',
-    // },
-  },
+  }
 });
 
 const theme = responsiveFontSizes(customThemProvider);
