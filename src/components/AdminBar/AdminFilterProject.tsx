@@ -238,7 +238,7 @@ const AdminFilterProject: FC<Filter> = ({ source }) => {
                         </form>
                     </div>{' '}
                     <div style={{ width: 255 }}>
-                        <Autocomplete
+                         <Autocomplete
                             onChange={(e, value) => {
                                 handlerchange('c', value);
                             }}
@@ -255,7 +255,7 @@ const AdminFilterProject: FC<Filter> = ({ source }) => {
                                     placeholder="Categoría"
                                 />
                             )}
-                        />
+                        />  
                     </div>{' '}
                     <div style={{ width: 255, marginLeft: 10 }}>
                         <Autocomplete

@@ -1,10 +1,9 @@
 import { FC, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@mui/system";
-import { getAdmins } from "../../../actions/Admin";
+import { disableAdmin, getAdmins } from "../../../actions/Admin";
 import { validaToken } from "../../../actions/auth";
 import * as moment from "moment";
-import EditIcon from "@mui/icons-material/Edit";
 import { State } from "../../../reducers/rootReducer";
 import {
   Avatar,
@@ -30,22 +29,17 @@ const AdminPanel: FC = () => {
   if (!status && token) {
     dispatch(validaToken(token));
   }
-  
-  const { user } = useSelector((state: State) => state.student); //cambiar por admin
+
   useEffect(() => {
     dispatch(getAdmins(token));
   }, [dispatch]);
 
-  const [selectedCustomerIds, setSelectedCustomerIds] = useState<string[]>([]);
-  const [limit, setLimit] = useState(12);
+  //Revisar tipos y cambiarlos tambien en AdminStudent
+  const { admins } = useSelector((state: any) => state.admin);
 
-
-//   const handleDisable = (selectID: string) => {
-//     // selectedCustomerIds.forEach((selectID: string) =>
-//     dispatch(disableStudent(token, selectID));
-//     // );
-//   };
-
+  const handleDisable = (selectID: string) => {
+    dispatch(disableAdmin(token, selectID));
+  };
 
   return (
     <>
@@ -57,17 +51,14 @@ const AdminPanel: FC = () => {
               <TableRow>
                 <TableCell>Nombre</TableCell>
                 <TableCell>Email</TableCell>
-                <TableCell>Ubicacion</TableCell>
                 <TableCell>Estado</TableCell>
-                <TableCell>Fecha de ingreso</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {user?.map((user: any) => ( //cambiar por admin
+              {admins?.map((user: any) => (
                 <TableRow
                   hover
                   key={user.uid}
-                  selected={selectedCustomerIds.indexOf(user.uid) !== -1}
                 >
                   <TableCell>
                     <Box
@@ -76,7 +67,9 @@ const AdminPanel: FC = () => {
                         display: "flex",
                       }}
                     >
-                      <Avatar src={user.image} sx={{ mr: 2 }}>{user.name?.slice(0, 1)}</Avatar>
+                      <Avatar src={user.image} sx={{ mr: 2 }}>
+                        {user.name?.slice(0, 1)}
+                      </Avatar>
                       <Typography color="textPrimary" variant="body1">
                         {user.name}
                       </Typography>
@@ -85,19 +78,8 @@ const AdminPanel: FC = () => {
                   <TableCell>
                     {user.email ? user.email : "No registrado"}
                   </TableCell>
+                  <TableCell>{user.state ? 'Activo' : "inactivo"}</TableCell>
                   <TableCell>
-                    {user.country ? user.country : "No registrado"}
-                  </TableCell>
-                  <TableCell>{user.state ? "Activo" : "Inactivo"}</TableCell>
-                  <TableCell>
-                    {user.admission
-                      ? `${moment(user.admission).format("DD/MM/YYYY")}`
-                      : "No registrado"}
-                  </TableCell>
-                  <TableCell>
-                    <EditIcon />
-                  </TableCell>
-                  {/* <TableCell>
                     <FormGroup
                       sx={{
                         display: "flex",
@@ -118,7 +100,7 @@ const AdminPanel: FC = () => {
                         label={undefined}
                       />
                     </FormGroup>
-                  </TableCell> */}
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

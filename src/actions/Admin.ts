@@ -191,3 +191,21 @@ export const cancelReview=(idrev: string | null,
     }
   };
 };
+
+export const disableAdmin = (token: string | null, id: string) => {
+  return async (dispatch: Dispatch) => {
+      try {
+          const { data } = await axios.put(
+              `/admin/stateuser`,
+              { id },
+              { headers: { 'user-token': token } }
+          );
+
+          dispatch({
+              type: types.deleteOrInactiveStudent,
+          });
+      } catch (error) {
+          console.log(error);
+      }
+  };
+};

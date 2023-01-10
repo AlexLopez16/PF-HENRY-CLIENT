@@ -36,10 +36,10 @@ const buttons = [
     option: "Compañias",
     path: "/dashboard/companies",
   },
-  // {
-  //   option: "Admins",
-  //   path: "/dashboard/admins",
-  // },
+  {
+    option: "Admins",
+    path: "/dashboard/admins",
+  },
 ];
 
 const UserItemsList: FC = () => {

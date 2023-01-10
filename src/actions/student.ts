@@ -8,25 +8,32 @@ export const getListStudents = (
     token: string | null,
     state: Boolean = true,
     limit?: number | null,
-    init?: number | null
+    init?: number | null,
+    name?: string,
+    tecnologies?: string[]
 ) => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch({
         type: types.requestInProgress,
     });
-      let query;
-      if (!state) {
-        query = `onlyActive=${state}`;
-      }
-      if (limit || init) {
-        if (query) {
-          query += `&limit=${limit}&init=${init}`;
-        } else {
-          query = `limit=${limit}&init=${init}`;
-        }
-      }
-      const res = await axios.get(`/student?${query}`, {
+    //   let query;
+    //   if (!state) {
+    //     query = `onlyActive=${state}`;
+    //   }
+    //   if(name){
+    //     query += `&name=${name}`
+    //   }
+    //   if (limit || init) {
+    //     if (query) {
+    //       query += `&limit=${limit}&init=${init}`;
+    //     } else {
+    //       query = `limit=${limit}&init=${init}`;
+    //     }
+    //   }
+
+      const res = await axios.get(`/student`, {
+        params: {onlyActive: state, name, tecnologies: tecnologies?.join(','), limit, init},
         headers: { "user-token": token },
       });
 

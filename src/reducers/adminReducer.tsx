@@ -3,13 +3,16 @@ import { types } from "../types/types";
 interface Admins {
   name: string,
   lastName: string,
-  email: string
+  email: string,
+  verify: boolean,
+  state: boolean,
+  uid: string,
 }
 
 interface State {
-  data: {},
-  admins: any[],
-  user: {}
+  data: object,
+  admins: Admins[],
+  user: object
 }
 
 const initialState = {

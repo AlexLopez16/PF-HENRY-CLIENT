@@ -82,6 +82,7 @@ export const projectReducer = (state: State = initialState, action: Action) => {
 
         case types.clearProject:
             return {
+                ...state,
                 projectsFilter: [],
                 total: 0,
             };

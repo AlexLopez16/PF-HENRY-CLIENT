@@ -43,6 +43,7 @@ import { VerifyEmail } from '../components/VerifyEmail/VerifyEmail';
 import { ProfileAdmin } from '../components/Admin/Profile/ProfileAdmin';
 import { ApplicationForm } from '../components/project/ApplicationForm';
 import AdminReviews from '../components/Admin/AdminReviews/AdminReviews';
+import AdminPanel from '../components/Admin/AdminPanel/AdminPanel';
 
 
 export const AppRouter = () => {
@@ -221,6 +222,7 @@ export const AppRouter = () => {
             <Route path="projects" element={<AdminProject />}></Route>
             <Route path="aceptProjects" element={<AdminAcceptProject />}></Route>
             <Route path="profileAdmin" element={<ProfileAdmin />}></Route>
+            <Route path="admins" element={<AdminPanel/>}></Route>
           </Route>
           <Route path="/Ale" element={<Ale />} />
           <Route path="/Ampi" element={<Ampi />} />
