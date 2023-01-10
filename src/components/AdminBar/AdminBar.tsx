@@ -145,7 +145,7 @@ export default function AccountMenu() {
                             cursor: 'default',
                         }}
                     >
-                        <Avatar src={user.image} >{user.name?.slice(0, 1)}</Avatar>
+                        <Avatar src={user?.image} >{user?.name?.slice(0, 1)}</Avatar>
                         Hola {user?.name}
                     </MenuItem>
                     {data.verify && rol === 'STUDENT_ROL' ? (

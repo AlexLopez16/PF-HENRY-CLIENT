@@ -342,7 +342,7 @@ const ProjectDetail: FC<ProjectProps> = ({
                                   projectId &&
                                   projectId?.company?._id &&
                                   id === projectId.company._id &&
-                                  projectId.stateOfProject === 'Reclutando' ? (
+                                  projectId.stateOfProject === 'Reclutamiento' ? (
                                     <Link to={`/postulated/${uid}`}>
                                         <Button
                                             sx={{ marginTop: 10 }}
