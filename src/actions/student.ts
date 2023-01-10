@@ -8,40 +8,46 @@ export const getListStudents = (
     token: string | null,
     state: Boolean = true,
     limit?: number | null,
-    init?: number | null
+    init?: number | null,
+    name?: string,
+    tecnologies?: string[]
 ) => {
-    return async (dispatch: Dispatch) => {
-        try {
-            dispatch({
-                type: types.requestInProgress,
-            });
-            let query;
-            if (!state) {
-                query = `onlyActive=${state}`;
-            }
-            if (limit || init) {
-                if (query) {
-                    query += `&limit=${limit}&init=${init}`;
-                } else {
-                    query = `limit=${limit}&init=${init}`;
-                }
-            }
-            const res = await axios.get(`/student?${query}`, {
-                headers: { 'user-token': token },
-            });
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch({
+        type: types.requestInProgress,
+    });
+    //   let query;
+    //   if (!state) {
+    //     query = `onlyActive=${state}`;
+    //   }
+    //   if(name){
+    //     query += `&name=${name}`
+    //   }
+    //   if (limit || init) {
+    //     if (query) {
+    //       query += `&limit=${limit}&init=${init}`;
+    //     } else {
+    //       query = `limit=${limit}&init=${init}`;
+    //     }
+    //   }
 
-            dispatch({
-                type: types.getListStudents,
-                payload: res.data,
-            });
-            // Fin de la request.
-            dispatch({
-                type: types.requestFinished,
-            });
-        } catch (error: any) {
-            console.log(error);
-        }
-    };
+      const res = await axios.get(`/student`, {
+        params: {onlyActive: state, name, tecnologies: tecnologies?.join(','), limit, init},
+        headers: { "user-token": token },
+      });
+
+      dispatch({
+        type: types.getListStudents,
+        payload: res.data,
+      });
+      dispatch({
+        type: types.requestFinished,
+    });
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
 };
 
 export const studentRegister = (values: object) => {

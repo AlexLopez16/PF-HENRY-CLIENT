@@ -57,6 +57,7 @@ export const acceptStudent = (
         }
     };
 };
+
 export const companyGetInfo = (id: string, token: string) => {
     return async (dispatch: Dispatch) => {
         try {
@@ -79,30 +80,36 @@ export const getCompany = (
     limit?: number | null,
     init?: number | null
 ) => {
-    return async (dispatch: Dispatch) => {
-        try {
-            let query;
-            if (!state) {
-                query = `onlyActive=${state}`;
-            }
-            if (limit || init) {
-                if (query) {
-                    query += `&limit=${limit}&init=${init}`;
-                } else {
-                    query = `limit=${limit}&init=${init}`;
-                }
-            }
-            const res = await axios.get(`/company?${query}`, {
-                headers: { 'user-token': token },
-            });
-            dispatch({
-                type: types.companyGetList,
-                payload: res.data,
-            });
-        } catch (error: any) {
-            console.log(error);
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch({
+        type: types.requestInProgress,
+    });
+      let query;
+      if (!state) {
+        query = `onlyActive=${state}`;
+      }
+      if (limit || init) {
+        if (query) {
+          query += `&limit=${limit}&init=${init}`;
+        } else {
+          query = `limit=${limit}&init=${init}`;
         }
-    };
+      }
+      const res = await axios.get(`/company?${query}`, {
+        headers: { "user-token": token },
+      });
+      dispatch({
+        type: types.companyGetList,
+        payload: res.data,
+      });
+      dispatch({
+        type: types.requestFinished,
+    });
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
 };
 
 export const CompanyUpdateInfo = (id: string, token: string, data: object) => {

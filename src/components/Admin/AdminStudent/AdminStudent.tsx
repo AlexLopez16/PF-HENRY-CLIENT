@@ -9,39 +9,38 @@ import EditIcon from '@mui/icons-material/Edit';
 import { State } from '../../../reducers/rootReducer';
 import SideBar from '../SideBar/SideBar';
 import {
-    Avatar,
-    Card,
-    Checkbox,
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableRow,
-    Typography,
-    FormControlLabel,
-    Switch,
-    FormGroup,
-} from '@mui/material';
-import Pages from '../../ui/Pagination';
-import { PreLoader } from '../../PreLoader/PreLoader';
-import { clearProject } from '../../../actions/projects';
+  Avatar,
+  Card,
+  Checkbox,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Typography,
+  FormControlLabel,
+  Switch,
+  FormGroup,
+} from "@mui/material";
+import Pages from "../../ui/Pagination";
+import { PreLoader } from "../../PreLoader/PreLoader";
+import { clearProject } from "../../../actions/projects";
+import AdminFilterStudent from "./AdminFilterStudent";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const AdminStudent: FC = () => {
-    const { users } = useSelector((state: any) => state.student);
-    const dispatch = useDispatch();
-    const token = localStorage.getItem('token');
+  const dispatch = useDispatch();
+  const token = localStorage.getItem("token");
+  const { status } = useSelector((state: State) => state.auth);
+  if (!status && token) {
+    dispatch(validaToken(token));
+  }
 
-    const { status } = useSelector((state: State) => state.auth);
-
-    if (!status && token) {
-        dispatch(validaToken(token));
-    }
-
-    useEffect(() => {
-        dispatch(getListStudents(token, false, 6, 0));
-    }, [dispatch]);
+  const { users } = useSelector((state: any) => state.student);
+  useEffect(() => {
+    dispatch(getListStudents(token, false, 6, 0));
+  }, [dispatch]);
 
     const [selectedCustomerIds, setSelectedCustomerIds] = useState<string[]>(
         []
