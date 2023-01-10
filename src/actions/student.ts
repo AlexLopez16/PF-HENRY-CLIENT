@@ -70,7 +70,6 @@ export const studentRegister = (values: object) => {
                 type: types.responseFinished,
                 payload: error.response,
             });
-            console.log(error.response);
         }
     };
 };
@@ -99,7 +98,6 @@ export const getStudentInfo = (id: string, token: string) => {
                 type: types.requestFinished,
             });
         } catch (error: any) {
-            console.log(error);
             dispatch({
                 type: types.requestFinished,
             });
@@ -131,7 +129,6 @@ export const updateStudentInfo = (id: string, token: string, data: object) => {
                 payload: res,
             });
         } catch (error) {
-            console.log(error);
             dispatch({
                 type: types.requestFinished,
             });
@@ -198,7 +195,6 @@ export const addStudentToProject = (id: string, token: string) => {
                 payload: res,
             });
         } catch (error: any) {
-            console.log(error);
             dispatch({
                 type: types.requestFinished,
                 payload: error.response,
@@ -232,7 +228,7 @@ export const unApplyStudent = (
                     headers: { 'user-token': token },
                 }
             );
-            console.log(res);
+
             dispatch({
                 type: types.unApplyStudent,
                 payload: projectId,
@@ -246,7 +242,6 @@ export const unApplyStudent = (
                 payload: res,
             });
         } catch (error: any) {
-            console.log(error);
             dispatch({
                 type: types.requestFinished,
             });
@@ -261,7 +256,7 @@ export const unApplyStudent = (
 export const disableStudent = (token: string | null, id: string) => {
     return async (dispatch: Dispatch) => {
         try {
-            const { data } = await axios.put(
+            const res = await axios.put(
                 `/admin/stateuser`,
                 { id },
                 { headers: { 'user-token': token } }
@@ -269,6 +264,7 @@ export const disableStudent = (token: string | null, id: string) => {
 
             dispatch({
                 type: types.deleteOrInactiveStudent,
+                payload: res.data,
             });
         } catch (error) {
             console.log(error);

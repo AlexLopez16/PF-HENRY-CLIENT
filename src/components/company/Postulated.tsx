@@ -167,10 +167,10 @@ const Postulated: FC = ({ ...rest }) => {
     let idpostulados: string[] = []
     let idaceptados: string[] = []
 
-    projectId.students.map((student: object | any) =>
+    projectId.students?.map((student: object | any) =>
         idpostulados.push(student._id))
 
-    projectId.accepts.map((accept: object | any) =>
+    projectId.accepts?.map((accept: object | any) =>
         idaceptados.push(accept._id))
 
     for (let i = 0; i < idpostulados.length; i++) {
@@ -253,7 +253,7 @@ const Postulated: FC = ({ ...rest }) => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {projectId.students.slice(0, limit).map((student: any) => (
+                                {projectId.students?.slice(0, limit).map((student: any) => (
 
                                     <TableRow
                                         hover
@@ -382,7 +382,7 @@ const Postulated: FC = ({ ...rest }) => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {projectId.accepts.slice(0, limit).map((accept: any) => (
+                                {projectId.accepts?.slice(0, limit).map((accept: any) => (
                                     <TableRow
                                         hover
                                         key={accept._id}

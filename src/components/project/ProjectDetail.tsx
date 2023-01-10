@@ -1,6 +1,6 @@
-import { FC, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { FC, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 
 import {
     Typography,
@@ -21,29 +21,29 @@ import { RatingMail } from './RatingMail';
 import { RatingProject } from './RatingProject';
 
 interface ProjectProps {
-  name?: string;
-  empresa?: string;
-  imagenes?: string[];
-  detalle?: string;
-  cantidadDeEstudiantes?: string;
-  lenguajes?: string[];
-  estado?: string;
-  email?: string;
-  categoria?: string;
-  uid: string;
-  stateOfProject?: string[];
+    name?: string;
+    empresa?: string;
+    imagenes?: string[];
+    detalle?: string;
+    cantidadDeEstudiantes?: string;
+    lenguajes?: string[];
+    estado?: string;
+    email?: string;
+    categoria?: string;
+    uid: string;
+    stateOfProject?: string[];
 }
 
 const ProjectDetail: FC<ProjectProps> = ({
-  name,
-  empresa,
-  imagenes,
-  detalle,
-  cantidadDeEstudiantes,
-  lenguajes = ["Java"],
-  estado,
-  categoria,
-  uid,
+    name,
+    empresa,
+    imagenes,
+    detalle,
+    cantidadDeEstudiantes,
+    lenguajes = ['Java'],
+    estado,
+    categoria,
+    uid,
 }: ProjectProps) => {
     const dispatch = useDispatch();
     let token = localStorage.getItem('token') || '';
@@ -54,12 +54,13 @@ const ProjectDetail: FC<ProjectProps> = ({
 
     const navigate = useNavigate();
 
-  const handlerApply = () => {
-    {projectId.questions.length
-    ? navigate(`/postulatedForm/${uid}`)
-    : dispatch(addStudentToProject(uid, token));
-    }
-  }
+    const handlerApply = () => {
+        {
+            projectId.questions.length
+                ? navigate(`/postulatedForm/${uid}`)
+                : dispatch(addStudentToProject(uid, token));
+        }
+    };
 
     const handelClick = () => {
         dispatch(proyectFinal(uid));
@@ -67,6 +68,7 @@ const ProjectDetail: FC<ProjectProps> = ({
     };
 
     let review = projectId.reviews;
+    console.log(review);
 
     return (
         <div>
@@ -199,18 +201,19 @@ const ProjectDetail: FC<ProjectProps> = ({
                     ''
                 )}
             </Paper>
-            {rol === 'COMPANY_ROL' &&
-            projectId.stateOfProject === 'Terminado' &&
-            review.length > 0
-                ? review.map((e: any) => (
+            {rol === 'COMPANY_ROL' ||
+            (rol === 'STUDENT_ROL' &&
+                projectId.stateOfProject === 'Terminado' &&
+                review.length > 0)
+                ? review?.map((e: any) => (
                       <RatingProject
-                          avatar={e.student.image}
-                          name={e.student.name}
-                          lastName={e.student.lastName}
+                          avatar={e.student?.image}
+                          name={e.student?.name}
+                          lastName={e.student?.lastName}
                           description={e.description}
                           ratingCompany={e.ratingCompany}
                           ratingProject={e.ratingProject}
-                          projectName={e.project.name}
+                          projectName={e.project?.name}
                       />
                   ))
                 : ''}

@@ -1,14 +1,17 @@
 export const iconStyle = {
     borderRadius: '50%',
-    backgroundColor: '#ef5350',
-    color: '#fff',
+    backgroundColor: 'white',
+    color: 'black',
     padding: '5px',
+    marginTop: '15px',
+    height:30,
+    width: 30,
 }
 
 export const paperStyle = {
     padding: 10,
     maxWidth: '60%',
-    margin: '50px auto'
+    margin: '50px auto',
 }
 
 export const container = {
