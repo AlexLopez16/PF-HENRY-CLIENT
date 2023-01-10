@@ -29,7 +29,7 @@ import {
 
 import ImageIcon from '@mui/icons-material/Image';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
-import bgComponents from '../../assets/bgComponents.png';
+import bg from '../../assets/bg.png';
 import bgFormProyect from '../../assets/bgFormProyect.png';
 import { newProject } from '../../actions/projects';
 import Error from '../ui/Error';
@@ -38,11 +38,18 @@ import { fileUpload } from '../../helpers/fileUpload';
 import NavBar from '../NavBar/NavBar';
 import Footer from '../../pages/LandingPage/Footer';
 import { SnackBar } from '../SnackBar/SnackBar';
+import { Link, useNavigate } from 'react-router-dom';
 
 const ProjectForm: FC = () => {
   const nParticipants = [...Array(8)].map((_, index) => index + 1);
 
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
+  const GoBack = () => {
+    navigate('/projects');
+  };
 
   const [participants, setParticipants] = useState('1');
   const [category, setCategory] = useState('programacion-web');
@@ -197,8 +204,9 @@ const ProjectForm: FC = () => {
   return (
     <Box
       sx={{
-        backgroundImage: `url(${bgComponents})`,
+        backgroundImage: `url(${bg})`,
         maxWidth: '1920px',
+
       }}
     >
       <div>
@@ -498,6 +506,29 @@ const ProjectForm: FC = () => {
           </Paper>
         </Grid>
       </div>
+      <Grid
+                 container
+                 direction='column'
+                 justifyContent='flex-start'
+                 alignItems='center'
+                >
+                 <FormControl>
+          <Button
+            onClick={GoBack}
+            size='small'
+            variant='contained'
+            color='secondary'
+            sx={{
+              boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+              fontFamily: 'montserrat',
+              fontWeight: 'bold',
+              mb: 20,
+            }}
+          >
+            Regresar
+          </Button>
+        </FormControl>
+      </Grid>
       <Footer />
     </Box>
   );

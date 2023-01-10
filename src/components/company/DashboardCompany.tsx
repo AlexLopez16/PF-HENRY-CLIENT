@@ -42,6 +42,7 @@ const DashboardCompany: FC = () => {
                         />
                     ))}
             </Container>
+            <Pages />
         </Box>
     );
 };
