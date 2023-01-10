@@ -112,6 +112,20 @@ export const getCompany = (
   };
 };
 
+export const getDetailCompany = (id: string, token: string) => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const res = await axios.get(`/company/detail/${id}`, {
+                headers: { 'user-token': token },
+            });
+            dispatch({
+                type: types.detailCompany,
+                payload: res.data,
+            });
+        } catch (error) {}
+    };
+};
+
 export const CompanyUpdateInfo = (id: string, token: string, data: object) => {
     return async (dispatch: Dispatch) => {
         try {
