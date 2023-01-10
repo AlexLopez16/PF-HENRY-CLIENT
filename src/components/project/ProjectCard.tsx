@@ -20,6 +20,7 @@ interface CardProjectProps {
     requirements?: any;
     students: string[] | undefined;
     company?: CompanyData | any;
+    companyId: string;
     state?: boolean;
     stateOfProject?: string;
     id: string;
@@ -34,6 +35,7 @@ const ProjectCard: FC<CardProjectProps> = ({
     requirements,
     students, //los aceptados por la empresa para el project
     company,
+    companyId,
     stateOfProject,
     id,
     category,
@@ -233,18 +235,28 @@ const ProjectCard: FC<CardProjectProps> = ({
                                 fontFamily: 'montserrat',
                             }}
                         >
-                            <BusinessIcon fontSize="small" />
-                            <Typography
-                                variant="subtitle2"
-                                sx={{
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItem: 'center',
-                                    textAlign: 'center',
+                            <NavLink
+                                to={`/company/${companyId}`}
+                                style={{
+                                    textDecoration: 'none',
+                                    marginTop: 'auto',
+                                    fontFamily: 'poppins',
                                 }}
+                                // target="_blanck"
                             >
-                                {company?.toUpperCase()}
-                            </Typography>
+                                <BusinessIcon fontSize="small" />
+                                <Typography
+                                    variant="subtitle2"
+                                    sx={{
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItem: 'center',
+                                        textAlign: 'center',
+                                    }}
+                                >
+                                    {company?.toUpperCase()}
+                                </Typography>
+                            </NavLink>
                         </Paper>
                     </Container>
                     <Container

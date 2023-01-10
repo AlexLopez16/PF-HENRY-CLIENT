@@ -80,6 +80,8 @@ const ProjectsStudents: FC = () => {
 
     const { status } = useSelector((state: State) => state.auth);
 
+    console.log(projectsFilter);
+
     //   console.log('logged', logged);
     if (status === 401) {
         // console.log('401', 401);
@@ -112,6 +114,7 @@ const ProjectsStudents: FC = () => {
                                 requirements={e.requirements}
                                 students={e.accepts}
                                 company={e.company?.name}
+                                companyId={e.company?._id}
                                 state={e.state}
                                 stateOfProject={e.stateOfProject}
                                 id={e.uid}
