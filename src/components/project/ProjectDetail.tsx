@@ -64,13 +64,17 @@ const ProjectDetail: FC<ProjectProps> = ({
     navigate('/projects');
   };
 
-  const handlerApply = () => {
-    {
-      projectId.questions.length
-        ? navigate(`/postulatedForm/${uid}`)
-        : dispatch(addStudentToProject(uid, token));
-    }
-  };
+    const handlerApply = () => {
+        {
+            projectId.questions.length
+                ? navigate(`/postulatedForm/${uid}`)
+                : dispatch(addStudentToProject(uid, token));
+        }
+    };
+
+    useEffect(() => {
+        dispatch(getProjectByID(token, uid));
+    }, [dispatch]);
 
   const handelClick = () => {
     dispatch(proyectFinal(uid));
@@ -305,39 +309,34 @@ const ProjectDetail: FC<ProjectProps> = ({
               >
                 {rol === 'STUDENT_ROL' &&
                 projectId.stateOfProject !== 'Terminado' ? (
-                  <Button
-                    sx={{ marginTop: 10 }}
-                    type='submit'
-                    variant='contained'
-                    fullWidth
-                    color='primary'
-                    onClick={handlerApply}
-                    disabled={user.project?.length === 3}
-                  >
-                    aplicar
-                  </Button>
-                ) : (id &&
-                    projectId &&
-                    projectId?.company?._id &&
-                    id === projectId.company._id &&
-                    projectId.stateOfProject === 'Terminado') ||
-                  'En reclutamiento' ? (
-                  <Link to={`/postulated/${uid}`}>
                     <Button
-                      sx={{ marginTop: 5, width: '25%' }}
-                      type='submit'
-                      variant='contained'
-                      fullWidth
-                      color='secondary'
-                      style={{
-                        boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
-                        fontFamily: 'montserrat',
-                        fontWeight: 'bold',
-                      }}
+                        sx={{ marginTop: 10 }}
+                        type="submit"
+                        variant="contained"
+                        fullWidth
+                        color="primary"
+                        onClick={handlerApply}
+                        disabled={user.project?.length === 3}
                     >
-                      Postulados
+                        aplicar
                     </Button>
-                  </Link>
+                ) : (id && rol === 'COMPANY_ROL'&&
+                      projectId &&
+                      projectId?.company?._id &&
+                      id === projectId.company._id &&
+                      projectId.stateOfProject === 
+                  'Reclutando')  ? (
+                    <Link to={`/postulated/${uid}`}>
+                        <Button
+                            sx={{ marginTop: 10 }}
+                            type="submit"
+                            variant="contained"
+                            fullWidth
+                            color="primary"
+                        >
+                            Postulados
+                        </Button>
+                    </Link>
                 ) : null}
               </Box>
 

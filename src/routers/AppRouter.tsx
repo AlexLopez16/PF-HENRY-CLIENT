@@ -43,7 +43,8 @@ import { VerifyEmail } from '../components/VerifyEmail/VerifyEmail';
 import { ProfileAdmin } from '../components/Admin/Profile/ProfileAdmin';
 import { ApplicationForm } from '../components/project/ApplicationForm';
 import AdminReviews from '../components/Admin/AdminReviews/AdminReviews';
-
+import { PrivateAdmin } from './PrivateAdmin';import { CompanyDetail } from '../components/company/CompanyDetail';
+import AdminPanel from '../components/Admin/AdminPanel/AdminPanel';
 
 export const AppRouter = () => {
     let { id } = useParams();
@@ -59,6 +60,17 @@ export const AppRouter = () => {
                                 <>
                                     <NavBar />
                                     <VerifyEmail />
+                                </>
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/company/:id"
+                        element={
+                            <PrivateRoute>
+                                <>
+                                    <NavBar />
+                                    <CompanyDetail />
                                 </>
                             </PrivateRoute>
                         }
@@ -95,18 +107,19 @@ export const AppRouter = () => {
                             </PrivateRoute>
                         }
                     />
-                    <Route
-                        path="/dashboard"
-                        element={
-                            <PrivateRoute>
-                                <>
-                                    <NavBar />
+                    {/* <Route */}
+                        {/* // path="/dashboard" */}
+                        {/* // element={ */}
+                            {/* // <PrivateRoute> */}
+                                {/* <> */}
+                                    {/* <NavBar /> */}
                                     {/* <HomePage /> */}
-                                    <DashboardPage />
-                                </>
-                            </PrivateRoute>
-                        }
-                    />
+                                    {/* <DashboardPage /> */}
+                                {/* </> */}
+                            {/* </PrivateRoute> */}
+                        {/* // } */}
+                    {/* // /> */}
+                    
                     <Route
                         path="/projects"
                         element={
@@ -213,7 +226,10 @@ export const AppRouter = () => {
             }
           />
 
-          <Route path="/dashboard" element={<PrivateRoute><SideBar /></PrivateRoute>}>
+          <Route path="/dashboard" element={<PrivateAdmin><SideBar /></PrivateAdmin> }>
+
+         
+
             <Route index element={<DashboardAdmin />}></Route>
             <Route path="graphs" element={<DashboardAdmin />}></Route>
             <Route path="students" element={<AdminStudent />}></Route>

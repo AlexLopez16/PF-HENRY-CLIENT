@@ -2,46 +2,45 @@ import { FC, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Box } from '@mui/system';
-import { disableStudent, getListStudents } from '../../../actions/student';
+import { disableStudent, getListStudents, multiSwitchStudent } from '../../../actions/student';
 import { validaToken } from '../../../actions/auth';
 import * as moment from 'moment';
 import EditIcon from '@mui/icons-material/Edit';
 import { State } from '../../../reducers/rootReducer';
 import SideBar from '../SideBar/SideBar';
 import {
-    Avatar,
-    Card,
-    Checkbox,
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableRow,
-    Typography,
-    FormControlLabel,
-    Switch,
-    FormGroup,
-} from '@mui/material';
-import Pages from '../../ui/Pagination';
-import { PreLoader } from '../../PreLoader/PreLoader';
-import { clearProject } from '../../../actions/projects';
+  Avatar,
+  Card,
+  Checkbox,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Typography,
+  FormControlLabel,
+  Switch,
+  FormGroup,
+} from "@mui/material";
+import Pages from "../../ui/Pagination";
+import { PreLoader } from "../../PreLoader/PreLoader";
+import { clearProject } from "../../../actions/projects";
+import AdminFilterStudent from "./AdminFilterStudent";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const AdminStudent: FC = () => {
-    const { users } = useSelector((state: any) => state.student);
-    const dispatch = useDispatch();
-    const token = localStorage.getItem('token');
+  const dispatch = useDispatch();
+  const token = localStorage.getItem("token");
+  const { status } = useSelector((state: State) => state.auth);
+  if (!status && token) {
+    dispatch(validaToken(token));
+  }
 
-    const { status } = useSelector((state: State) => state.auth);
-
-    if (!status && token) {
-        dispatch(validaToken(token));
-    }
-
-    useEffect(() => {
-        dispatch(getListStudents(token, false, 6, 0));
-    }, [dispatch]);
+  const { users } = useSelector((state: any) => state.student);
+  useEffect(() => {
+    dispatch(getListStudents(token, false, 6, 0));
+  }, [dispatch]);
 
     const [selectedCustomerIds, setSelectedCustomerIds] = useState<string[]>(
         []
@@ -54,12 +53,11 @@ const AdminStudent: FC = () => {
     const handleSelectAll = (event: any) => {
         let newSelectedCustomerIds;
         if (event.target.checked) {
-            newSelectedCustomerIds = users.map((user: any) => user.id);
+            newSelectedCustomerIds = users.map((user: any) => user.uid);
         } else {
             newSelectedCustomerIds = [];
         }
         setSelectedCustomerIds(newSelectedCustomerIds);
-        console.log(selectedCustomerIds); //--> me trae un array con 14 undefined
     };
 
     // <--- Este trabaja agarrando uno por uno --->
@@ -91,11 +89,14 @@ const AdminStudent: FC = () => {
     };
 
     const handleDisable = (selectID: string) => {
-        // selectedCustomerIds.forEach((selectID: string) =>
         dispatch(disableStudent(token, selectID));
-        // );
-    };
 
+    };
+    const handleMultiSwitch = () => {
+
+        dispatch(multiSwitchStudent(token, selectedCustomerIds));
+        dispatch(getListStudents(token, false, 6, 0));
+    };
     const handleLimitChange = (event: any) => {
         setLimit(event.target.value);
     };
@@ -112,11 +113,27 @@ const AdminStudent: FC = () => {
                     <Table>
                         <TableHead>
                             <TableRow>
+                                <TableCell padding="checkbox">
+                                    <Checkbox
+                                        checked={
+                                            selectedCustomerIds.length ===
+                                            users.length
+                                        }
+                                        color="primary"
+                                        indeterminate={
+                                            selectedCustomerIds.length > 0 &&
+                                            selectedCustomerIds.length <
+                                            users.length
+                                        }
+                                        onChange={handleSelectAll}
+                                    />
+                                </TableCell>
                                 <TableCell>Nombre</TableCell>
                                 <TableCell>Email</TableCell>
                                 <TableCell>Ubicacion</TableCell>
                                 <TableCell>Estado</TableCell>
                                 <TableCell>Fecha de ingreso</TableCell>
+                                <TableCell>Activo</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -130,6 +147,19 @@ const AdminStudent: FC = () => {
                                         ) !== -1
                                     }
                                 >
+                                    <TableCell padding="checkbox">
+                                        <Checkbox
+                                            checked={
+                                                selectedCustomerIds.indexOf(
+                                                    user.uid
+                                                ) !== -1
+                                            }
+                                            onChange={(event) =>
+                                                handleSelectOne(user.uid)
+                                            }
+                                            value="true"
+                                        />
+                                    </TableCell>
                                     <TableCell>
                                         <Box
                                             sx={{
@@ -167,13 +197,11 @@ const AdminStudent: FC = () => {
                                     <TableCell>
                                         {user.admission
                                             ? `${moment(user.admission).format(
-                                                  'DD/MM/YYYY'
-                                              )}`
+                                                'DD/MM/YYYY'
+                                            )}`
                                             : 'No registrado'}
                                     </TableCell>
-                                    <TableCell>
-                                        <EditIcon />
-                                    </TableCell>
+
                                     <TableCell>
                                         <FormGroup
                                             sx={{
@@ -206,7 +234,21 @@ const AdminStudent: FC = () => {
                                     </TableCell>
                                 </TableRow>
                             ))}
+
+                            <FormControlLabel
+                                control={
+                                    <Switch
+
+                                        size="small"
+                                        color="primary"
+                                        onChange={handleMultiSwitch}
+                                    />
+                                }
+                                label={undefined}
+                            />
+
                         </TableBody>
+
                     </Table>
                     <Pages />
                 </Box>

@@ -3,10 +3,12 @@ import { types } from '../types/types';
 interface State {
     user: Company[];
     total2: number;
+    detail: object | any;
 }
 const initialState = {
     user: [],
     total2: 0,
+    detail: null,
 };
 
 export interface Company {
@@ -69,6 +71,11 @@ export const companyReducer = (state: State = initialState, action: Action) => {
                 ...state,
                 user: action.payload,
             };
+        case types.detailCompany:
+            return {
+                ...state,
+                detail: action.payload,
+            };
 
         case types.disableCompany:
             let newUser: Company[] = state.user;
@@ -83,6 +90,17 @@ export const companyReducer = (state: State = initialState, action: Action) => {
             return {
                 ...state,
                 user: newUser,
+            };
+
+        case types.adminEliminatedCompany:
+            let newState = state.user.filter(
+                (c: any) => c.uid != action.payload.data
+            );
+
+            return {
+                ...state,
+                user: newState,
+                total: state.total2 - 1,
             };
 
         default:
