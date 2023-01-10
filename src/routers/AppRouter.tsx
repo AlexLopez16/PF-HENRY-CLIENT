@@ -215,6 +215,7 @@ export const AppRouter = () => {
           />
 
           <Route path="/dashboard" element={<PrivateRoute><SideBar /></PrivateRoute>}>
+
             <Route index element={<DashboardAdmin />}></Route>
             <Route path="graphs" element={<DashboardAdmin />}></Route>
             <Route path="students" element={<AdminStudent />}></Route>
@@ -223,6 +224,7 @@ export const AppRouter = () => {
             <Route path="aceptProjects" element={<AdminAcceptProject />}></Route>
             <Route path="profileAdmin" element={<ProfileAdmin />}></Route>
             <Route path="admins" element={<AdminPanel/>}></Route>
+
           </Route>
           <Route path="/Ale" element={<Ale />} />
           <Route path="/Ampi" element={<Ampi />} />

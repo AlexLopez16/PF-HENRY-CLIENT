@@ -37,6 +37,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
 import { acceptCompany, rejectCompany } from '../../../actions/Admin';
 import { SnackBar } from '../../SnackBar/SnackBar';
+import AdminFilterCompany from './AdminFilterCompany';
 
 const AdminCompany: FC = ({ ...rest }) => {
     const { user }: object | any = useSelector((state: State) => state.company);
@@ -132,9 +133,10 @@ const AdminCompany: FC = ({ ...rest }) => {
     };
 
     return (
-        <>
+        <Box sx={{display: 'flex', flexDirection: 'column'}}>
             <PreLoader />
             <SnackBar successMsg="Correo enviado a la compañia" />
+            <AdminFilterCompany/>
             <Card>
                 <Box sx={{ minWidth: 900 }}>
                     <Table>
@@ -261,7 +263,7 @@ const AdminCompany: FC = ({ ...rest }) => {
                     <Pages />
                 </Box>
             </Card>
-        </>
+        </Box>
     );
 };
 

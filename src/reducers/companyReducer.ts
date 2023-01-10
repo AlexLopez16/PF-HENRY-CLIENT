@@ -1,12 +1,14 @@
 import { types } from '../types/types';
 
 interface State {
-    user: Company[];
-    total2: number;
+    user: Company[],
+    total2: number,
+    countries: string[],
 }
 const initialState = {
     user: [],
     total2: 0,
+    countries: []
 };
 
 export interface Company {
@@ -84,7 +86,11 @@ export const companyReducer = (state: State = initialState, action: Action) => {
                 ...state,
                 user: newUser,
             };
-
+        case types.getCountries:
+            return {
+                ...state,
+                countries: action.payload
+            }
         default:
             return state;
     }
