@@ -24,7 +24,7 @@ import {
   MenuItem,
 } from '@mui/material';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
-
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { registerCompany } from '../../actions/company';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -443,6 +443,7 @@ const CompanyForm: FC = () => {
       >
         <FormControl>
           <Button
+          startIcon={<ArrowBackIosNewIcon />}
             onClick={GoBack}
             size='small'
             variant='contained'

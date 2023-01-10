@@ -161,7 +161,7 @@ const ProjectCard: FC<CardProjectProps> = ({
             }}
           />
 
-          {/* <Typography sx={{ m: 0.5 }}>{clippedDescription}</Typography> */}
+ 
 
           <Box
             sx={{
@@ -186,7 +186,7 @@ const ProjectCard: FC<CardProjectProps> = ({
                       key={index}
                       color='primary'
                       size='small'
-                      variant='filled'
+                      variant='outlined'
                       label={requirement}
                       sx={{
                         background:
@@ -215,7 +215,7 @@ const ProjectCard: FC<CardProjectProps> = ({
               <Chip
                 color='primary'
                 size='small'
-                variant='filled'
+                variant='outlined'
                 label={stateOfProject}
                 sx={{
                   background:
@@ -235,7 +235,7 @@ const ProjectCard: FC<CardProjectProps> = ({
               {' '}
               Participantes:{' '}
               <Chip
-                variant='filled'
+                variant='outlined'
                 label={`${students?.length}/${participants}`}
                 color='primary'
                 size='small'

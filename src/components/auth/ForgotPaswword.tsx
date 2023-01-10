@@ -19,7 +19,7 @@ import {
   // Link,
   // FormHelperText,
 } from '@mui/material';
-
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as yup from 'yup';
 
@@ -208,6 +208,7 @@ export const ForgotPassword: FC = () => {
       alignItems='center'>
       <FormControl>
         <Button
+        startIcon={<ArrowBackIosNewIcon />}
           onClick={GoBack}
           size='small'
           variant='contained'

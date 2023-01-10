@@ -26,7 +26,7 @@ import {
   TextFieldProps,
   Box,
 } from '@mui/material';
-
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ImageIcon from '@mui/icons-material/Image';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import bg from '../../assets/bg.png';
@@ -514,6 +514,7 @@ const ProjectForm: FC = () => {
                 >
                  <FormControl>
           <Button
+           startIcon={<ArrowBackIosNewIcon />}
             onClick={GoBack}
             size='small'
             variant='contained'
