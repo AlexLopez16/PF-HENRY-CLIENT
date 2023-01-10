@@ -215,7 +215,7 @@ const ProjectForm: FC = () => {
               mb: 10,
               mt: 10,
               backgroundImage: `url(${bgFormProyect})`,
-              borderRadius:15,
+              borderRadius: 15,
             }}
           >
             <Grid
