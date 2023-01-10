@@ -5,7 +5,7 @@
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    // clearProject,
+    clearProject,
     clearProjects,
     // getCategory,
     // getProject,
@@ -80,8 +80,6 @@ const ProjectsStudents: FC = () => {
 
     const { status } = useSelector((state: State) => state.auth);
 
-    console.log(projectsFilter);
-
     //   console.log('logged', logged);
     if (status === 401) {
         // console.log('401', 401);
@@ -122,15 +120,35 @@ const ProjectsStudents: FC = () => {
                             />
                         ))
                     ) : (
-                        <Stack sx={{ width: '100%' }} spacing={1}>
-                            <Alert severity="info">
+                        <Stack
+                            sx={{
+                                width: '100%',
+                                pb: 70,
+                                pt: 15,
+                                justifyContent: 'center',
+                                display: 'flex',
+                                alignContent: 'center',
+                            }}
+                            spacing={2}
+                        >
+                            <Alert
+                                severity="info"
+                                sx={{
+                                    justifyContent: 'center',
+                                    display: 'flex',
+                                    alignContent: 'center',
+                                    borderRadius: 50,
+                                    fontFamily: 'poppins',
+                                    color: 'black',
+                                }}
+                            >
                                 No hay proyectos con los filtros aplicados!
                             </Alert>
                         </Stack>
                     )}
                 </Container>
+                <Pages />
             </Box>
-
             <Footer />
         </>
     );

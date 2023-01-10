@@ -115,6 +115,44 @@ const ProjectCard: FC<CardProjectProps> = ({
                             {name?.toUpperCase()}
                         </Typography>
                     </Container>
+                    <Container
+                        sx={{
+                            alignContent: 'center',
+                            alignItems: 'center',
+                            textAlign: 'center',
+                        }}
+                    >
+                        <Paper
+                            color="primary"
+                            elevation={5}
+                            sx={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                textAlign: 'center',
+                                justifyContent: 'space-evenly',
+                                width: 200,
+                                mb: 2,
+                                backgroundColor: 'black',
+                                border: '1px solid white',
+                            }}
+                        >
+                            <BusinessIcon fontSize="medium" color="secondary" />
+                            <Typography
+                                variant="subtitle2"
+                                sx={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItem: 'center',
+                                    textAlign: 'center',
+                                    fontFamily: 'montserrat',
+                                    fontWeight: 'bold',
+                                    color: 'white',
+                                }}
+                            >
+                                {company?.toUpperCase()}
+                            </Typography>
+                        </Paper>
+                    </Container>
                     <hr
                         style={{
                             marginBottom: 5,
@@ -149,7 +187,7 @@ const ProjectCard: FC<CardProjectProps> = ({
                                             key={index}
                                             color="primary"
                                             size="small"
-                                            variant="outlined"
+                                            variant="filled"
                                             label={requirement}
                                             sx={{
                                                 background:
@@ -160,7 +198,8 @@ const ProjectCard: FC<CardProjectProps> = ({
                                                         : '#FFFF01',
                                                 display: 'flex',
                                                 fontFamily: 'montserrat',
-                                                mt: 1,
+                                                fontWeight: 'bold',
+                                                mt: 2,
                                             }}
                                         />
                                     </>
@@ -179,7 +218,7 @@ const ProjectCard: FC<CardProjectProps> = ({
                             <Chip
                                 color="primary"
                                 size="small"
-                                variant="outlined"
+                                variant="filled"
                                 label={stateOfProject}
                                 sx={{
                                     background:
@@ -187,9 +226,10 @@ const ProjectCard: FC<CardProjectProps> = ({
                                         -1
                                             ? ''
                                             : '#FFFF01',
-                                    fontFamily: 'montserrat',
                                     display: 'flex',
-                                    mt: 1,
+                                    fontFamily: 'montserrat',
+                                    fontWeight: 'bold',
+                                    mt: 2,
                                 }}
                             />
                         </Typography>
@@ -201,64 +241,21 @@ const ProjectCard: FC<CardProjectProps> = ({
                             {' '}
                             Participantes:{' '}
                             <Chip
-                                variant="outlined"
+                                variant="filled"
                                 label={`${students?.length}/${participants}`}
                                 color="primary"
                                 size="small"
                                 sx={{
-                                    display: 'flex',
-                                    mt: 1,
                                     alignItems: 'center',
                                     justifyContent: 'center',
+                                    display: 'flex',
+                                    fontFamily: 'montserrat',
+                                    fontWeight: 'bold',
+                                    mt: 2,
                                 }}
                             />
                         </Typography>
                     </Box>
-
-                    <Container
-                        sx={{
-                            alignContent: 'center',
-                            alignItems: 'center',
-                            textAlign: 'center',
-                        }}
-                    >
-                        <Paper
-                            color="primary"
-                            elevation={5}
-                            sx={{
-                                display: 'inline-flex',
-                                alignItems: 'center',
-                                textAlign: 'center',
-                                justifyContent: 'space-around',
-                                width: 200,
-                                mb: 2,
-                                fontFamily: 'montserrat',
-                            }}
-                        >
-                            <NavLink
-                                to={`/company/${companyId}`}
-                                style={{
-                                    textDecoration: 'none',
-                                    marginTop: 'auto',
-                                    fontFamily: 'poppins',
-                                }}
-                                // target="_blanck"
-                            >
-                                <BusinessIcon fontSize="small" />
-                                <Typography
-                                    variant="subtitle2"
-                                    sx={{
-                                        display: 'flex',
-                                        justifyContent: 'center',
-                                        alignItem: 'center',
-                                        textAlign: 'center',
-                                    }}
-                                >
-                                    {company?.toUpperCase()}
-                                </Typography>
-                            </NavLink>
-                        </Paper>
-                    </Container>
                     <Container
                         sx={{
                             textAlign: 'center',
@@ -285,7 +282,7 @@ const ProjectCard: FC<CardProjectProps> = ({
                                 color="primary"
                                 onClick={handleClick}
                             >
-                                Mas info
+                                Mas info +
                             </Button>
                         </NavLink>
                     </Container>
