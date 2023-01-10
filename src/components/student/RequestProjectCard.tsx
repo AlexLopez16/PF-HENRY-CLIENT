@@ -3,12 +3,14 @@ import BusinessIcon from '@mui/icons-material/Business';
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { unApplyStudent } from '../../actions/student';
+import { NavLink } from 'react-router-dom';
 
 interface RequestProjectCardProps {
     userId: string;
     projectId: string;
     category: string;
     projectName: string;
+    companyId: string;
     companyName: string;
     description: string;
     stateOfProject: string;
@@ -21,6 +23,7 @@ export const RequestProjectCard: FC<RequestProjectCardProps> = ({
     projectId,
     category,
     projectName,
+    companyId,
     companyName,
     description,
     stateOfProject,
@@ -54,15 +57,36 @@ export const RequestProjectCard: FC<RequestProjectCardProps> = ({
                 variant="h6"
             >
                 {projectName?.toUpperCase()}
-                <Button
-                    variant="contained"
-                    type="submit"
-                    size="small"
-                    color="primary"
-                    onClick={() => handleClick(projectId)}
-                >
-                    Cancelar
-                </Button>
+                {stateOfProject != 'Terminado' ? (
+                    <Button
+                        variant="contained"
+                        type="submit"
+                        size="small"
+                        color="primary"
+                        onClick={() => handleClick(projectId)}
+                    >
+                        Cancelar
+                    </Button>
+                ) : (
+                    <NavLink
+                        to={`/company/${companyId}`}
+                        style={{
+                            textDecoration: 'none',
+                            marginTop: 'auto',
+                            fontFamily: 'poppins',
+                        }}
+                        // target="_blanck"
+                    >
+                        <Button
+                            variant="contained"
+                            type="submit"
+                            size="small"
+                            color="primary"
+                        >
+                            Ver
+                        </Button>
+                    </NavLink>
+                )}
             </Typography>
             <Box
                 sx={{

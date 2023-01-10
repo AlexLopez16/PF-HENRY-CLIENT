@@ -4,11 +4,13 @@ interface State {
     user: Company[],
     total2: number,
     countries: string[],
+    detail: object | any;
 }
 const initialState = {
     user: [],
     total2: 0,
-    countries: []
+    countries: [],
+    detail: null,
 };
 
 export interface Company {
@@ -71,6 +73,11 @@ export const companyReducer = (state: State = initialState, action: Action) => {
                 ...state,
                 user: action.payload,
             };
+        case types.detailCompany:
+            return {
+                ...state,
+                detail: action.payload,
+            };
 
         case types.disableCompany:
             let newUser: Company[] = state.user;
@@ -91,6 +98,17 @@ export const companyReducer = (state: State = initialState, action: Action) => {
                 ...state,
                 countries: action.payload
             }
+        case types.adminEliminatedCompany:
+            let newState = state.user.filter(
+                (c: any) => c.uid != action.payload.data
+            );
+
+            return {
+                ...state,
+                user: newState,
+                total: state.total2 - 1,
+            };
+
         default:
             return state;
     }

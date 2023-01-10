@@ -134,12 +134,23 @@ export const AdminEliminatedProject = (
 export const getCharts = (token: string | null) => {
     return async (dispatch: Dispatch) => {
         try {
+            dispatch({
+                type: types.requestInProgress,
+            });
             const res = await axios.get('/admin/charts', {
                 headers: { 'user-token': token },
             });
             dispatch({
                 type: types.adminGetCharts,
                 payload: res.data,
+            });
+            dispatch({
+                type: types.requestFinished,
+            });
+            // Si todo sale bien.
+            dispatch({
+                type: types.responseFinished,
+                payload: res,
             });
         } catch (error) {
             console.log(error);
@@ -208,7 +219,8 @@ export const rejectCompany = (
                     headers: { 'user-token': token },
                 }
             );
-            console.log(res.data);
+
+            dispatch({ type: types.adminEliminatedCompany, payload: res });
 
             dispatch({
                 type: types.requestFinished,
@@ -232,88 +244,153 @@ export const rejectCompany = (
 };
 
 const login = (data: object) => ({
-  type: types.authLogin,
-  payload: data,
+    type: types.authLogin,
+    payload: data,
 });
 
 export const registerAdmin = (values: object) => {
-  return async (dispatch: Dispatch) => {
-    try {
-      const res: object | any = await axios.post("/admin", values);
-      const { data, status } = res;
-      const { token, id, rol } = data;
-      dispatch({
-        type: types.registerAdmin,
-        payload: data,
-      });
-      if (status) {
-        localStorage.setItem("token", token);
-        dispatch(login({ data, status, id, rol }));
-      }
-    } catch (error: object | any) {
-      dispatch({
-        type: types.responseFinished,
-        payload: error.response,
-      });
-      console.log(error);
-    }
-  };
+    return async (dispatch: Dispatch) => {
+        try {
+            const res: object | any = await axios.post('/admin', values);
+            const { data, status } = res;
+            const { token, id, rol } = data;
+            dispatch({
+                type: types.registerAdmin,
+                payload: data,
+            });
+            if (status) {
+                localStorage.setItem('token', token);
+                dispatch(login({ data, status, id, rol }));
+            }
+        } catch (error: object | any) {
+            dispatch({
+                type: types.responseFinished,
+                payload: error.response,
+            });
+            console.log(error);
+        }
+    };
 };
 
 export const getAllReviews = (token: string | null) => {
-  return async (dispatch: Dispatch) => {
-    try {
-      const { data } = await axios.get("/admin/getreviews", {
-        headers: { "user-token": token },
-      });
-      console.log(data);
-      
-      dispatch({
-        type: types.getAllReviews,
-        payload: data,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    return async (dispatch: Dispatch) => {
+        try {
+            const { data } = await axios.get('/admin/getreviews', {
+                headers: { 'user-token': token },
+            });
+            console.log(data);
+
+            dispatch({
+                type: types.getAllReviews,
+                payload: data,
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
 };
 
-export const cancelReview=(idrev: string | null,
-  token: string,values:string
-
+export const cancelReview = (
+    idrev: string | null,
+    token: string,
+    values: string
 ) => {
-  return async (dispatch: Dispatch) => {
-    try {
-      
+    return async (dispatch: Dispatch) => {
+        try {
+            const res = await axios.put(
+                '/admin/deletereviews',
+                { idrev, values },
+                { headers: { 'user-token': token } }
+            );
+            console.log(res);
 
-      const res = await axios.put(
-        "/admin/deletereviews",{idrev,values}, {headers: { "user-token": token }});
-      console.log(res);
-
-      dispatch({
-        type: types.AdminEliminatedProject,
-        // payload: res.data,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+            dispatch({
+                type: types.AdminEliminatedProject,
+                // payload: res.data,
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
 };
 
 export const disableAdmin = (token: string | null, id: string) => {
-  return async (dispatch: Dispatch) => {
-      try {
-          const { data } = await axios.put(
-              `/admin/stateuser`,
-              { id },
-              { headers: { 'user-token': token } }
-          );
+    return async (dispatch: Dispatch) => {
+        try {
+            const { data } = await axios.put(
+                `/admin/stateuser`,
+                { id },
+                { headers: { 'user-token': token } }
+            );
 
-          dispatch({
-              type: types.deleteOrInactiveStudent,
-          });
-      } catch (error) {
-          console.log(error);
-      }
-  };
+            dispatch({
+                type: types.deleteOrInactiveStudent,
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+};
+
+export const setStateMultiple = (token: string | null, selectID: string[]) => {
+    let ids = selectID;
+    return async (dispatch: Dispatch) => {
+        try {
+            const res = await axios.put(
+                '/admin/deletemultiple',
+                { ids },
+                {
+                    headers: { 'user-token': token },
+                }
+            );
+            console.log(res);
+
+            dispatch({
+                type: types.setState,
+                // payload: res.data,
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+};
+
+export const reclutamientoInProject = (
+    token: string | null,
+    selectID: string[]
+) => {
+    console.log('id', selectID);
+    let ids = selectID;
+    return async (dispatch: Dispatch) => {
+        try {
+            dispatch({
+                type: types.requestInProgress,
+            });
+            const res = await axios.put(
+                '/admin//setEnReclutamiento',
+                { ids },
+                {
+                    headers: { 'user-token': token },
+                }
+            );
+            console.log(res.data);
+
+            dispatch({
+                type: types.setReclutamientoinProject,
+                // payload: res.data,
+            });
+
+            dispatch({
+                type: types.requestFinished,
+            });
+        } catch (error: any) {
+            dispatch({
+                type: types.requestFinished,
+            });
+            dispatch({
+                type: types.responseFinished,
+                payload: error.response,
+            });
+        }
+    };
 };

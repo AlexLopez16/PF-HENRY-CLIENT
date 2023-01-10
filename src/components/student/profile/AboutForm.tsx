@@ -102,6 +102,7 @@ export const AboutForm: FC<Props> = ({ edit, setEdit, description }) => {
               fullWidth
               inputProps={{
                 style: { color: 'white', fontFamily: 'montserrat' },
+                maxLength: 500
               }}
               sx={{
                 '.MuiOutlinedInput-notchedOutline': {

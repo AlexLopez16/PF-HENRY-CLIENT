@@ -36,12 +36,14 @@ const DashboardCompany: FC = () => {
                             requirements={p.requirements}
                             students={p.students}
                             company={p.company?.name}
+                            companyId={p?.company?._id}
                             stateOfProject={p.stateOfProject}
                             id={p.uid}
                             category={p.category}
                         />
                     ))}
             </Container>
+            <Pages />
         </Box>
     );
 };
