@@ -234,6 +234,7 @@ export const rejectCompany = (
 const login = (data: object) => ({
   type: types.authLogin,
   payload: data,
+  
 });
 
 export const registerAdmin = (values: object) => {
@@ -316,4 +317,64 @@ export const disableAdmin = (token: string | null, id: string) => {
           console.log(error);
       }
   };
+};
+
+export const setStateMultiple = (token: string | null, selectID: string[]) => {
+  let ids = selectID;
+  return async (dispatch: Dispatch) => {
+    try {
+      const res = await axios.put(
+        "/admin/deletemultiple",
+        { ids},
+        {
+          headers: { "user-token": token },
+        }
+      );
+      console.log(res);
+
+      dispatch({
+        type: types.setState,
+        // payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const reclutamientoInProject= (token: string | null, selectID: string[]) => {
+    console.log('id', selectID);
+    let ids = selectID;
+    return async (dispatch: Dispatch) => {
+        try {
+            dispatch({
+                type: types.requestInProgress,
+            });
+            const res = await axios.put(
+                '/admin//setEnReclutamiento',
+                { ids },
+                {
+                    headers: { 'user-token': token },
+                }
+            );
+            console.log(res.data);
+
+            dispatch({
+                type: types.setReclutamientoinProject,
+                // payload: res.data,
+            });
+
+            dispatch({
+                type: types.requestFinished,
+            });
+        } catch (error: any) {
+            dispatch({
+                type: types.requestFinished,
+            });
+            dispatch({
+                type: types.responseFinished,
+                payload: error.response,
+            });
+        }
+    };
 };
