@@ -43,7 +43,8 @@ import { VerifyEmail } from '../components/VerifyEmail/VerifyEmail';
 import { ProfileAdmin } from '../components/Admin/Profile/ProfileAdmin';
 import { ApplicationForm } from '../components/project/ApplicationForm';
 import AdminReviews from '../components/Admin/AdminReviews/AdminReviews';
-import { PrivateAdmin } from './PrivateAdmin';
+import { PrivateAdmin } from './PrivateAdmin';import { CompanyDetail } from '../components/company/CompanyDetail';
+import AdminPanel from '../components/Admin/AdminPanel/AdminPanel';
 
 export const AppRouter = () => {
     let { id } = useParams();
@@ -59,6 +60,17 @@ export const AppRouter = () => {
                                 <>
                                     <NavBar />
                                     <VerifyEmail />
+                                </>
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/company/:id"
+                        element={
+                            <PrivateRoute>
+                                <>
+                                    <NavBar />
+                                    <CompanyDetail />
                                 </>
                             </PrivateRoute>
                         }

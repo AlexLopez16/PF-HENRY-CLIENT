@@ -62,6 +62,10 @@ const ProjectDetail: FC<ProjectProps> = ({
         }
     };
 
+    useEffect(() => {
+        dispatch(getProjectByID(token, uid));
+    }, [dispatch]);
+
     const handelClick = () => {
         dispatch(proyectFinal(uid));
         dispatch(getProjectByID(token, uid));
