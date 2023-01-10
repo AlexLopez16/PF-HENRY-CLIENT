@@ -275,6 +275,7 @@ export const AppRouter = () => {
           />
 
           <Route path="/checkout/" element={<Checkout />} />
+          
         </Routes>
       </div>
     </BrowserRouter>
