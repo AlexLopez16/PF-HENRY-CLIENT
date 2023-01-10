@@ -3,10 +3,12 @@ import { types } from '../types/types';
 interface State {
     user: object;
     total2: number;
+    detail: object | any;
 }
 const initialState = {
     user: [],
     total2: 0,
+    detail: null,
 };
 
 type Action = {
@@ -53,6 +55,11 @@ export const companyReducer = (state: State = initialState, action: Action) => {
             return {
                 ...state,
                 user: action.payload,
+            };
+        case types.detailCompany:
+            return {
+                ...state,
+                detail: action.payload,
             };
 
         default:
