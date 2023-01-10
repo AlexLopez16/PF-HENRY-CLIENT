@@ -58,5 +58,6 @@ export const types = {
     getAllReviews: '[admin] get all reviews',
     setState: '[admin] set state if project | student | company',
     setReclutamientoinProject: '[admin] set reclutamiento in project',
+    adminEliminatedCompany: '[admin]admin eliminated company and send email',
     multipleSwitchAlumno: '[admin]switch state alumno dashAdmin',
 };

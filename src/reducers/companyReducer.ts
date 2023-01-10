@@ -92,6 +92,17 @@ export const companyReducer = (state: State = initialState, action: Action) => {
                 user: newUser,
             };
 
+        case types.adminEliminatedCompany:
+            let newState = state.user.filter(
+                (c: any) => c.uid != action.payload.data
+            );
+
+            return {
+                ...state,
+                user: newState,
+                total: state.total2 - 1,
+            };
+
         default:
             return state;
     }
