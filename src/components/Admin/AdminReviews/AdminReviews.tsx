@@ -1,8 +1,8 @@
-import { FC, useState, useEffect, forwardRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Box, Container } from "@mui/system";
-import * as moment from "moment";
+import { FC, useState, useEffect, forwardRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Box, Container } from '@mui/system';
+import * as moment from 'moment';
 import {
     Card,
     Table,
@@ -21,12 +21,16 @@ import {
     Select,
     MenuItem,
     Rating,
-} from "@mui/material";
-import { State } from "../../../reducers/rootReducer";
-import { getAllProject, } from "../../../actions/projects";
-import { AprovedProject, cancelReview, getAllReviews } from "../../../actions/Admin";
-import Pages from "../../ui/Pagination";
-import FilterListIcon from "@mui/icons-material/FilterList";
+} from '@mui/material';
+import { State } from '../../../reducers/rootReducer';
+import { getAllProject } from '../../../actions/projects';
+import {
+    AprovedProject,
+    cancelReview,
+    getAllReviews,
+} from '../../../actions/Admin';
+import Pages from '../../ui/Pagination';
+import FilterListIcon from '@mui/icons-material/FilterList';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -37,29 +41,25 @@ export interface Options {
     transform?: (part: string, index: number, parts: string[]) => string;
 }
 export declare function sentenceCase(input: string, options?: Options): string;
-import CloseIcon from "@mui/icons-material/Close";
-import CheckIcon from "@mui/icons-material/Check";
-import AdminFilterProject from "../../AdminBar/AdminFilterProject";
+import CloseIcon from '@mui/icons-material/Close';
+import CheckIcon from '@mui/icons-material/Check';
+import AdminFilterProject from '../../AdminBar/AdminFilterProject';
 
-import { PreLoader } from "../../PreLoader/PreLoader";
-import ReviewCancel from "./ReviewCancel";
+import { PreLoader } from '../../PreLoader/PreLoader';
+import ReviewCancel from './ReviewCancel';
 
 const AdminReviews: FC = ({ ...rest }) => {
-
     const dispatch = useDispatch();
 
-    const token: any = localStorage.getItem("token");
+    const token: any = localStorage.getItem('token');
 
     useEffect(() => {
-        dispatch(
-            getAllReviews(token)
-
-        );
+        dispatch(getAllReviews(token));
     }, [dispatch]);
 
     const { reviews } = useSelector((state: State) => state.review);
-    let target: object[] = reviews
-   
+    let target: object[] = reviews;
+
     const [selectedCustomerIds, setSelectedCustomerIds] = useState<string[]>(
         []
     );
@@ -71,8 +71,6 @@ const AdminReviews: FC = ({ ...rest }) => {
     const [opciones, setOpciones] = useState('Todos');
     const [open, setOpen] = useState(false);
     const [idrev, setId] = useState('');
-
-
 
     const handleSelectAll = (event: any) => {
         let newSelectedCustomerIds;
@@ -164,7 +162,7 @@ const AdminReviews: FC = ({ ...rest }) => {
                         unmountOnExit
                         orientation="horizontal"
                     >
-                        <AdminFilterProject source="adminProjects" />
+                        <AdminFilterProject />
                     </Collapse>
                 </Container>
 
@@ -251,7 +249,6 @@ const AdminReviews: FC = ({ ...rest }) => {
                                     </TableCell>
                                     <TableCell>
                                         {review.project.company.name}
-
                                     </TableCell>
                                     <TableCell
                                         sx={{
@@ -266,13 +263,19 @@ const AdminReviews: FC = ({ ...rest }) => {
                                             textAlign: 'center',
                                         }}
                                     >
-                                        <Rating name="read-only" readOnly value={review.ratingCompany} />
-
+                                        <Rating
+                                            name="read-only"
+                                            readOnly
+                                            value={review.ratingCompany}
+                                        />
                                     </TableCell>
 
                                     <TableCell>
-                                        <Rating name="read-only" readOnly value={review.ratingProject} />
-
+                                        <Rating
+                                            name="read-only"
+                                            readOnly
+                                            value={review.ratingProject}
+                                        />
                                     </TableCell>
                                     <TableCell sx={{ maxWidth: 200 }}>
                                         {review.description}
@@ -290,9 +293,10 @@ const AdminReviews: FC = ({ ...rest }) => {
                                     <TableCell sx={{ maxWidth: 200 }}>
                                         <IconButton>
                                             <CloseIcon
-
-                                                sx={{ cursor: "pointer" }}
-                                                onClick={() => handlecancel(review.uid)}
+                                                sx={{ cursor: 'pointer' }}
+                                                onClick={() =>
+                                                    handlecancel(review.uid)
+                                                }
                                             />
                                         </IconButton>
                                     </TableCell>
@@ -310,7 +314,6 @@ const AdminReviews: FC = ({ ...rest }) => {
                     idrev={idrev}
                 />
             )}
-
         </>
     );
 };
