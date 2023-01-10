@@ -1,6 +1,6 @@
 import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import {
   Typography,
@@ -64,17 +64,19 @@ const ProjectDetail: FC<ProjectProps> = ({
     navigate('/projects');
   };
 
-    const handlerApply = () => {
-        {
-            projectId.questions.length
-                ? navigate(`/postulatedForm/${uid}`)
-                : dispatch(addStudentToProject(uid, token));
-        }
-    };
+  const handlerApply = () => {
+    {
+      projectId.questions.length
+        ? navigate(`/postulatedForm/${uid}`)
+        : dispatch(addStudentToProject(uid, token));
+    }
+  };
 
-    useEffect(() => {
-        dispatch(getProjectByID(token, uid));
-    }, [dispatch]);
+  const { id: idProject }: string | any = useParams();
+
+  useEffect(() => {
+    dispatch(getProjectByID(token, idProject));
+  }, [dispatch]);
 
   const handelClick = () => {
     dispatch(proyectFinal(uid));
@@ -128,13 +130,14 @@ const ProjectDetail: FC<ProjectProps> = ({
             sx={{
               display: 'flex',
               flexDirection: 'column',
+              justifyContent:'space-around',
             }}
-          >
+            >
             <Paper
               elevation={12}
               style={{
                 height: 'fit-content',
-                padding: 50,
+                padding: 30,
                 display: 'flex',
                 flexDirection: 'column',
                 backgroundColor: 'black',
@@ -144,7 +147,7 @@ const ProjectDetail: FC<ProjectProps> = ({
               <div
                 style={{
                   display: 'flex',
-                  justifyContent: 'space-between',
+                  justifyContent: 'space-around',
                   alignItems: 'flex-end',
                 }}
               >
@@ -172,6 +175,36 @@ const ProjectDetail: FC<ProjectProps> = ({
                     {empresa}
                   </Typography>
 
+                  <List>
+                    <Typography
+                      variant='body1'
+                      sx={{
+                        fontFamily: 'montserrat',
+                        color: '#ffff01',
+                      }}
+                    >
+                      <b>Descripción: </b>
+                      <b
+                        style={{
+                          color: 'white',
+                          fontFamily: 'montserrat',
+                          fontStyle: 'italic',
+                        }}
+                      >
+                        {detalle}
+                      </b>
+                    </Typography>
+                  </List>
+                  <Typography
+                    sx={{
+                      fontFamily: 'montserrat',
+                      fontStyle: 'italic',
+                      pb: 2,
+                      color: 'white',
+                    }}
+                  >
+                    {empresa}
+                  </Typography>
                   <List>
                     <Typography
                       variant='body1'
@@ -277,87 +310,89 @@ const ProjectDetail: FC<ProjectProps> = ({
                       </b>
                     </Typography>
                   </List>
-                  {/* </Container> */}
                 </div>
                 {imagenes && (
-                  <div>
-                    <ImageList
-                      sx={{ width: 500, height: 250 }}
-                      cols={2}
-                      rowHeight={200}
-                    >
+                  <Box sx={{ width: 500, height: 350, overflowY: 'scroll' }}>
+                    <ImageList variant='masonry' cols={3} gap={8}>
                       {imagenes.map((item) => (
                         <ImageListItem key={item}>
-                          <img src={item} alt={item} />
+                          <img
+                            src={`${item}?w=248&fit=crop&auto=format`}
+                            srcSet={`${item}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                            alt={item}
+                            loading='lazy'
+                          />
                         </ImageListItem>
                       ))}
                     </ImageList>
-                  </div>
+                  </Box>
                 )}
               </div>
               <Box
                 sx={{
                   display: 'flex',
-                  justifyContent: 'space-between',
+                  justifyContent: 'space-evenly',
                   alignItems: 'center',
                 }}
               >
                 {rol === 'STUDENT_ROL' &&
                 projectId.stateOfProject !== 'Terminado' ? (
+                  <Button
+                    sx={{ marginTop: 10 }}
+                    type='submit'
+                    variant='contained'
+                    fullWidth
+                    color='primary'
+                    onClick={handlerApply}
+                    disabled={user.project?.length === 3}
+                  >
+                    aplicar
+                  </Button>
+                ) : id &&
+                  rol === 'COMPANY_ROL' &&
+                  projectId &&
+                  projectId?.company?._id &&
+                  id === projectId.company._id &&
+                  projectId.stateOfProject === 'Reclutamiento' ? (
+                  <Link to={`/postulated/${uid}`}>
                     <Button
-                        sx={{ marginTop: 10 }}
-                        type="submit"
-                        variant="contained"
-                        fullWidth
-                        color="primary"
-                        onClick={handlerApply}
-                        disabled={user.project?.length === 3}
+                      sx={{
+                        marginTop: 5,
+                        boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+                        fontFamily: 'montserrat',
+                        fontWeight: 'bold',
+                      }}
+                      type='submit'
+                      variant='contained'
+                      fullWidth
+                      color='primary'
                     >
-                        aplicar
+                      Postulados
                     </Button>
-                ) : (id && rol === 'COMPANY_ROL'&&
-                      projectId &&
-                      projectId?.company?._id &&
-                      id === projectId.company._id &&
-                      projectId.stateOfProject === 
-                  'Reclutamiento')  ? (
-                    <Link to={`/postulated/${uid}`}>
-                        <Button
-                               style={{
-                                boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
-                                fontFamily: 'montserrat',
-                                fontWeight: 'bold',
-                              }}
-                            type="submit"
-                            variant="contained"
-                            fullWidth
-                            color="primary"
-                        >
-                            Postulados
-                        </Button>
-                    </Link>
+                  </Link>
                 ) : null}
-              </Box>
 
-              {rol === 'COMPANY_ROL' &&
-              projectId.stateOfProject !== 'Terminado' ? (
-                <Button
-                  onClick={handelClick}
-                  sx={{ marginTop: 5, width: '25%' }}
-                  type='submit'
-                  variant='contained'
-                  color='warning'
-                  style={{
-                    boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
-                    fontFamily: 'montserrat',
-                    fontWeight: 'bold',
-                  }}
-                >
-                  Finalizar proyecto
-                </Button>
-              ) : (
-                ''
-              )}
+                {rol === 'COMPANY_ROL' &&
+                projectId.stateOfProject !== 'Terminado' ? (
+                  <Button
+                    onClick={handelClick}
+                    type='submit'
+                    variant='contained'
+                    color='warning'
+                    sx={{
+                      boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+                      fontFamily: 'montserrat',
+                      fontWeight: 'bold',
+                      marginTop: 5,
+                      width: '25%',
+                    }}
+                  >
+                    Finalizar proyecto
+                  </Button>
+                ) : (
+                  ''
+                )}
+              </Box>
             </Paper>
           </Container>
           {rol === 'COMPANY_ROL' ||

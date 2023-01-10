@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Box, Typography, Paper, Chip, Container, Grid } from '@mui/material';
 import clip from 'text-clipper';
 import Button from '@mui/material/Button';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProjectByID } from '../../actions/projects';
 import BusinessIcon from '@mui/icons-material/Business';
@@ -20,6 +20,7 @@ interface CardProjectProps {
   requirements?: any;
   students: string[] | undefined;
   company?: CompanyData | any;
+  companyId: string;
   state?: boolean;
   stateOfProject?: string;
   id: string;
@@ -34,6 +35,7 @@ const ProjectCard: FC<CardProjectProps> = ({
   requirements,
   students, //los aceptados por la empresa para el project
   company,
+  companyId,
   stateOfProject,
   id,
   category,
@@ -131,24 +133,26 @@ const ProjectCard: FC<CardProjectProps> = ({
                 width: 200,
                 mb: 2,
                 backgroundColor: 'black',
-                border: '1px solid white',
               }}
             >
-              <BusinessIcon fontSize='medium' color='secondary' />
-              <Typography
-                variant='subtitle2'
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItem: 'center',
-                  textAlign: 'center',
-                  fontFamily: 'montserrat',
-                  fontWeight: 'bold',
-                  color: 'white',
-                }}
-              >
-                {company?.toUpperCase()}
-              </Typography>
+              <Link to={`/company/${companyId}`}>
+                <Button variant='outlined' startIcon={<BusinessIcon />}>
+                  <Typography
+                    variant='subtitle2'
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItem: 'center',
+                      textAlign: 'center',
+                      fontFamily: 'montserrat',
+                      fontWeight: 'bold',
+                      color: '#ffff01',
+                    }}
+                  >
+                    {company?.toUpperCase()}
+                  </Typography>
+                </Button>
+              </Link>
             </Paper>
           </Container>
           <hr
@@ -269,7 +273,7 @@ const ProjectCard: FC<CardProjectProps> = ({
                 variant='outlined'
                 type='submit'
                 size='small'
-                color='primary'
+                color='secondary'
                 onClick={handleClick}
               >
                 Mas info +
