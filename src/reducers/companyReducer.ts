@@ -1,17 +1,34 @@
 import { types } from '../types/types';
 
 interface State {
-    user: object;
+    user: Company[];
     total2: number;
+    detail: object | any;
 }
 const initialState = {
     user: [],
     total2: 0,
+    detail: null,
 };
+
+export interface Company {
+    name: string;
+    country: string;
+    email: string;
+    password: string;
+    gmail: boolean;
+    premium: boolean;
+    verify: boolean;
+    project: any[];
+    invoice: any[];
+    rol: string;
+    state: boolean;
+    uid: string;
+}
 
 type Action = {
     type: String;
-    payload?: {};
+    payload?: any;
 };
 
 export const companyReducer = (state: State = initialState, action: Action) => {
@@ -53,6 +70,37 @@ export const companyReducer = (state: State = initialState, action: Action) => {
             return {
                 ...state,
                 user: action.payload,
+            };
+        case types.detailCompany:
+            return {
+                ...state,
+                detail: action.payload,
+            };
+
+        case types.disableCompany:
+            let newUser: Company[] = state.user;
+            for (let index = 0; index < newUser.length; index++) {
+                let currentValue: Company = newUser[index];
+                if (currentValue.uid === action.payload.uid) {
+                    currentValue = action.payload;
+                    newUser[index] = currentValue;
+                }
+            }
+
+            return {
+                ...state,
+                user: newUser,
+            };
+
+        case types.adminEliminatedCompany:
+            let newState = state.user.filter(
+                (c: any) => c.uid != action.payload.data
+            );
+
+            return {
+                ...state,
+                user: newState,
+                total: state.total2 - 1,
             };
 
         default:

@@ -2,11 +2,13 @@
 import { types } from '../types/types';
 
 interface State {
+    users: {}[];
     user: object | any;
     total1: number | any;
 }
 
 const initialState: object | any = {
+    users: [],
     user: {
         project: [],
     },
@@ -15,7 +17,7 @@ const initialState: object | any = {
 
 type Action = {
     type: string;
-    payload?: {};
+    payload?: Object | any;
 };
 
 export const studentReducer = (state: State = initialState, action: Action) => {
@@ -52,10 +54,26 @@ export const studentReducer = (state: State = initialState, action: Action) => {
                 user: action.payload,
             };
         case types.deleteOrInactiveStudent:
+            let users: any[] = state.users;
+            for (let index = 0; index < users?.length; index++) {
+                let currentValue: any = users[index];
+
+                if (currentValue.uid === action?.payload?.uid) {
+                    currentValue = action.payload;
+                    users[index] = currentValue;
+                }
+            };
             return {
                 ...state,
-                user: action.payload,
+                user: { ...state.user.project, project: users },
             };
+        case types.multipleSwitchAlumno:
+        console.log(action.payload);
+            
+        return {
+                ...state,
+
+            }
         case types.unApplyStudent:
             const newUser: object | any = state.user;
             // Sacamos el proyecto del cual nos dimos de baja.

@@ -57,6 +57,7 @@ export const acceptStudent = (
         }
     };
 };
+
 export const companyGetInfo = (id: string, token: string) => {
     return async (dispatch: Dispatch) => {
         try {
@@ -79,29 +80,49 @@ export const getCompany = (
     limit?: number | null,
     init?: number | null
 ) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch({
+        type: types.requestInProgress,
+    });
+      let query;
+      if (!state) {
+        query = `onlyActive=${state}`;
+      }
+      if (limit || init) {
+        if (query) {
+          query += `&limit=${limit}&init=${init}`;
+        } else {
+          query = `limit=${limit}&init=${init}`;
+        }
+      }
+      const res = await axios.get(`/company?${query}`, {
+        headers: { "user-token": token },
+      });
+      dispatch({
+        type: types.companyGetList,
+        payload: res.data,
+      });
+      dispatch({
+        type: types.requestFinished,
+    });
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
+};
+
+export const getDetailCompany = (id: string, token: string) => {
     return async (dispatch: Dispatch) => {
         try {
-            let query;
-            if (!state) {
-                query = `onlyActive=${state}`;
-            }
-            if (limit || init) {
-                if (query) {
-                    query += `&limit=${limit}&init=${init}`;
-                } else {
-                    query = `limit=${limit}&init=${init}`;
-                }
-            }
-            const res = await axios.get(`/company?${query}`, {
+            const res = await axios.get(`/company/detail/${id}`, {
                 headers: { 'user-token': token },
             });
             dispatch({
-                type: types.companyGetList,
+                type: types.detailCompany,
                 payload: res.data,
             });
-        } catch (error: any) {
-            console.log(error);
-        }
+        } catch (error) {}
     };
 };
 
@@ -166,7 +187,7 @@ export const DeleteStudent = (
 export const disableCompany = (token: string | null, id: string) => {
     return async (dispatch: Dispatch) => {
         try {
-            const { data } = await axios.put(
+            const res = await axios.put(
                 `/admin/stateuser`,
                 { id },
                 { headers: { 'user-token': token } }
@@ -174,6 +195,7 @@ export const disableCompany = (token: string | null, id: string) => {
 
             dispatch({
                 type: types.disableCompany,
+                payload: res.data,
             });
         } catch (error) {
             console.log(error);

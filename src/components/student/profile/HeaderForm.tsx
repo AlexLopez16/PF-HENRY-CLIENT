@@ -407,6 +407,7 @@ export const HeaderForm: FC<Props> = ({
                     size='small'
                     type='submit'
                     style={{
+                   
                       borderRadius: '30px',
                       margin: '10px 15px 10px 0',
                       fontFamily: 'montserrat',
