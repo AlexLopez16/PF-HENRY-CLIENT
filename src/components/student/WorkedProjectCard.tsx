@@ -81,7 +81,7 @@ export const WorkedProjectCard: FC<WorkedProjectCardProps> = ({
                     </Button>
                 ) : (
                     <NavLink
-                        to={`/company/${companyId}`}
+                        to={`/projects/${projectId}`}
                         style={{
                             textDecoration: 'none',
                             marginTop: 'auto',
