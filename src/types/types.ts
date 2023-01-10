@@ -54,7 +54,9 @@ export const types = {
     getAdmins: '[admin] get all admins',
     getInfoAdmin: '[admin] get info admin',
     getAllReviews:'[admin] get all reviews',
-    setState:'[admin] set state if project | student | company'
+    setState:'[admin] set state if project | student | company',
+    setReclutamientoinProject:'[admin] set reclutamiento in project',
+    multipleSwitchAlumno:'[admin]switch state alumno dashAdmin'
 
 
 };

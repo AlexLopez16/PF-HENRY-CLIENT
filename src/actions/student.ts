@@ -265,3 +265,24 @@ export const disableStudent = (token: string | null, id: string) => {
         }
     };
 };
+
+
+export const multiSwitchStudent = (token: string | null, id: string[]) => {
+    return async (dispatch: Dispatch) => {
+        try {
+            let ids=id
+            const res = await axios.put(
+                `/admin/deletemultiple`,
+                { ids},
+                { headers: { 'user-token': token } }
+            );
+
+            dispatch({
+                type: types.multipleSwitchAlumno,
+                payload: res.data,
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+};

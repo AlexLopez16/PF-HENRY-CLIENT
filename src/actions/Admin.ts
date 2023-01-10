@@ -292,3 +292,40 @@ export const setStateMultiple = (token: string | null, selectID: string[]) => {
     }
   };
 };
+
+export const reclutamientoInProject= (token: string | null, selectID: string[]) => {
+    console.log('id', selectID);
+    let ids = selectID;
+    return async (dispatch: Dispatch) => {
+        try {
+            dispatch({
+                type: types.requestInProgress,
+            });
+            const res = await axios.put(
+                '/admin//setEnReclutamiento',
+                { ids },
+                {
+                    headers: { 'user-token': token },
+                }
+            );
+            console.log(res.data);
+
+            dispatch({
+                type: types.setReclutamientoinProject,
+                // payload: res.data,
+            });
+
+            dispatch({
+                type: types.requestFinished,
+            });
+        } catch (error: any) {
+            dispatch({
+                type: types.requestFinished,
+            });
+            dispatch({
+                type: types.responseFinished,
+                payload: error.response,
+            });
+        }
+    };
+};

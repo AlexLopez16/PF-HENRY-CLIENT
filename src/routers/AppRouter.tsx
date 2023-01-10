@@ -221,6 +221,7 @@ export const AppRouter = () => {
             <Route path="projects" element={<AdminProject />}></Route>
             <Route path="aceptProjects" element={<AdminAcceptProject />}></Route>
             <Route path="profileAdmin" element={<ProfileAdmin />}></Route>
+            <Route path="getreviews" element={<AdminReviews />} />
           </Route>
           <Route path="/Ale" element={<Ale />} />
           <Route path="/Ampi" element={<Ampi />} />
@@ -235,7 +236,6 @@ export const AppRouter = () => {
 
           <Route path="/recoverPassword" element={<PasswordRecover />} />
           <Route path="/p" element={<ProjectsStudents />} />
-          <Route path="/getreviews" element={<AdminReviews />} />
 
 
           <Route

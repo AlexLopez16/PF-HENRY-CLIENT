@@ -31,12 +31,20 @@ export interface Options {
     transform?: (part: string, index: number, parts: string[]) => string;
 }
 import FilterListIcon from '@mui/icons-material/FilterList';
+import { validaToken } from '../../../actions/auth';
 
 export declare function sentenceCase(input: string, options?: Options): string;
 const AdminProject: FC = ({ ...rest }) => {
     const dispatch = useDispatch();
     const token: any = localStorage.getItem('token');
     const [open, setOpen] = useState(false);
+
+    const { status } = useSelector((state: State) => state.auth);
+
+    if (!status && token) {
+        dispatch(validaToken(token));
+    }
+
     useEffect(() => {
         dispatch(
             getAllProject(
@@ -109,8 +117,23 @@ const AdminProject: FC = ({ ...rest }) => {
 
     const handleMultiSwitch = () => {
         dispatch(setStateMultiple(token, selectedCustomerIds));
+        dispatch(
+            getAllProject(
+                undefined,
+                undefined,
+                token,
+                undefined,
+                undefined,
+                undefined,
+                6,
+                0
+            )
+        );
+        return () => {
+            dispatch(clearProject());
+        };
     };
-console.log(selectedCustomerIds)
+    console.log(selectedCustomerIds)
 
     const handleLimitChange = (event: any) => {
         setLimit(event.target.value);
@@ -220,7 +243,7 @@ console.log(selectedCustomerIds)
                                     </TableCell>
                                     <TableCell>
                                         {projects.company &&
-                                        Array.isArray(projects.company)
+                                            Array.isArray(projects.company)
                                             ? projects?.company[0]?.name
                                             : projects?.company?.name}
                                     </TableCell>
@@ -286,10 +309,10 @@ console.log(selectedCustomerIds)
                             label={undefined}
                         />
 
-                </Table>
-            </Box>
-            <Pages />
-        </Card>
+                    </Table>
+                </Box>
+                <Pages />
+            </Card>
         </>
     );
 };
