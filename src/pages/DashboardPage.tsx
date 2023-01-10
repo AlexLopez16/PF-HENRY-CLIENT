@@ -16,7 +16,7 @@ const DashboardPage: FC = () => {
         {projectsFilter.length ? (
           projectsFilter.map((e: any) => (
             <ProjectCard
-            key={e.uid}//agregue key
+              key={e.uid} //agregue key
               name={e.name}
               participants={e.participants}
               requirements={e.requirements}
@@ -29,8 +29,28 @@ const DashboardPage: FC = () => {
             />
           ))
         ) : (
-          <Stack sx={{ width: '100%' }} spacing={2}>
-            <Alert severity='info'>
+          <Stack
+            sx={{
+              width: '100%',
+              pb: 70,
+              pt: 15,
+              justifyContent: 'center',
+              display: 'flex',
+              alignContent: 'center',
+            }}
+            spacing={2}
+          >
+            <Alert
+              severity='info'
+              sx={{
+                justifyContent: 'center',
+                display: 'flex',
+                alignContent: 'center',
+                borderRadius: 50,
+                fontFamily: 'poppins',
+                color: 'black',
+              }}
+            >
               No hay proyectos con los filtros aplicados!
             </Alert>
           </Stack>

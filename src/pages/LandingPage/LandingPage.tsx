@@ -283,7 +283,7 @@ const LandingPage: FC = () => {
               >
                 Concluimos que, debemos aprovechar y utilizar los medios de
                 comunicación actuales para agilizar todas las metodologías de
-                inserviones laborales y crear potenciales trabajadores y
+                inservcones laborales y crear potenciales trabajadores y
                 brindarles la máxima visualización ante propuestas laborales que
                 ofrezcan las empresas dentro de la plataforma.
               </Typography>

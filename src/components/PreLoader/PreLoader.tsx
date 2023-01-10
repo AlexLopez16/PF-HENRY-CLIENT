@@ -23,6 +23,7 @@ export const PreLoader: FC = () => {
             <Backdrop
                 sx={{
                     zIndex: '10000',
+                   
                     // backdropFilter: 'blur(.5px)',
                     // backgroundColor: 'white',
                 }}
