@@ -1,20 +1,21 @@
-import { Button, TextField, Typography, Paper } from '@mui/material';
+import { Button, TextField, Typography, Paper, Box, FormControl, Grid } from '@mui/material';
 
 import Header from '../../components/NavbarLandingPage/HeaderLanding';
 import Footer from './Footer';
-
+import bg from '../../assets/bg.png';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { sendContactEmail } from '../../actions/emails';
 import { SnackBar } from '../../components/SnackBar/SnackBar';
 
-export default function ContactForm() {
+import { useNavigate } from 'react-router-dom';
 
+export default function ContactForm() {
   interface Props {
-    name: string,
-    email: string,
-    message: string
+    name: string;
+    email: string;
+    message: string;
   }
 
   interface OtherProps {
@@ -24,32 +25,42 @@ export default function ContactForm() {
   const initialValues = {
     name: '',
     email: '',
-    message: ''
-  }
+    message: '',
+  };
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required('*Ingresa tu nombre'),
-    email: Yup.string().email('*Ingresa un email valido').required('*Ingresa un email valido'),
-    message: Yup.string().required('*Ingresa un mensage')
-  })
+    email: Yup.string()
+      .email('*Ingresa un email valido')
+      .required('*Ingresa un email valido'),
+    message: Yup.string().required('*Ingresa un mensage'),
+  });
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const onSubmit = (values: Props, props: any) => {
-
-    dispatch(sendContactEmail(values))
+    dispatch(sendContactEmail(values));
 
     setTimeout(() => {
-      props.resetForm()
-      props.setSubmitting(false)
+      props.resetForm();
+      props.setSubmitting(false);
     }, 1000);
-  }
+  };
+  const navigate = useNavigate();
+
+  const GoBack = () => {
+    navigate('/');
+  };
 
   return (
     <>
-      <Paper style={{ background: 'black', height: '100vh' }}>
-
-        <Header />
+      <Header />
+      <Paper sx={{
+         backgroundImage: `url(${bg})`,
+        pt:20,
+        pb: 45,
+      }}
+      >
 
         <SnackBar
           successMsg={'Email enviado con exito'}
@@ -60,7 +71,7 @@ export default function ContactForm() {
           style={{
             width: 'fit-content',
             margin: 'auto',
-            padding: '30px'
+            padding: '30px',
           }}
         >
           <Typography
@@ -83,7 +94,6 @@ export default function ContactForm() {
           >
             {(props) => (
               <Form>
-
                 <Field
                   as={TextField}
                   name='name'
@@ -93,20 +103,16 @@ export default function ContactForm() {
                   fullWidth
                   required
                   sx={{
-                    '& .MuiInputLabel-root': { color: 'white' }, 
+                    '& .MuiInputLabel-root': { color: 'white' },
                     '& .MuiOutlinedInput-root': {
                       '& > fieldset': { borderColor: 'white' },
                     },
                     input: { color: 'white' },
-                    margin: '10px 0'
+                    margin: '10px 0',
                   }}
                   helperText={
                     <ErrorMessage name='name'>
-                      {(msg) => (
-                        <span style={{ color: 'red' }}>
-                          {msg}
-                        </span>
-                      )}
+                      {(msg) => <span style={{ color: 'red' }}>{msg}</span>}
                     </ErrorMessage>
                   }
                 />
@@ -125,15 +131,11 @@ export default function ContactForm() {
                       '& > fieldset': { borderColor: 'white' },
                     },
                     input: { color: 'white' },
-                    margin: '10px 0'
+                    margin: '10px 0',
                   }}
                   helperText={
                     <ErrorMessage name='email'>
-                      {(msg) => (
-                        <span style={{ color: 'red' }}>
-                          {msg}
-                        </span>
-                      )}
+                      {(msg) => <span style={{ color: 'red' }}>{msg}</span>}
                     </ErrorMessage>
                   }
                 />
@@ -157,11 +159,7 @@ export default function ContactForm() {
                   inputProps={{ style: { color: 'white' } }}
                   helperText={
                     <ErrorMessage name='message'>
-                      {(msg) => (
-                        <span style={{ color: 'red' }}>
-                          {msg}
-                        </span>
-                      )}
+                      {(msg) => <span style={{ color: 'red' }}>{msg}</span>}
                     </ErrorMessage>
                   }
                 />
@@ -175,7 +173,7 @@ export default function ContactForm() {
                     fontFamily: 'poppins',
                     align: 'flex-end',
                     float: 'right',
-                    margin: '10px 0'
+                    margin: '10px 0',
                   }}
                   disabled={props.isSubmitting}
                 >
@@ -185,6 +183,29 @@ export default function ContactForm() {
             )}
           </Formik>
         </div>
+        <Grid
+                 container
+                 direction='column'
+                 justifyContent='flex-start'
+                 alignItems='center'
+                >
+                 <FormControl>
+          <Button
+            onClick={GoBack}
+            size='small'
+            variant='contained'
+            color='secondary'
+            sx={{
+              boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+              fontFamily: 'montserrat',
+              fontWeight: 'bold',
+              mt:15,
+            }}
+          >
+            Regresar
+          </Button>
+        </FormControl>
+      </Grid>
       </Paper>
       <Footer />
     </>

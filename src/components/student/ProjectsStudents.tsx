@@ -5,7 +5,7 @@
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    clearProject,
+    // clearProject,
     clearProjects,
     // getCategory,
     // getProject,
@@ -112,6 +112,7 @@ const ProjectsStudents: FC = () => {
                                 requirements={e.requirements}
                                 students={e.accepts}
                                 company={e.company?.name}
+                                companyId={e.company?._id}
                                 state={e.state}
                                 stateOfProject={e.stateOfProject}
                                 id={e.uid}
@@ -119,15 +120,35 @@ const ProjectsStudents: FC = () => {
                             />
                         ))
                     ) : (
-                        <Stack sx={{ width: '100%' }} spacing={1}>
-                            <Alert severity="info">
+                        <Stack
+                            sx={{
+                                width: '100%',
+                                pb: 70,
+                                pt: 15,
+                                justifyContent: 'center',
+                                display: 'flex',
+                                alignContent: 'center',
+                            }}
+                            spacing={2}
+                        >
+                            <Alert
+                                severity="info"
+                                sx={{
+                                    justifyContent: 'center',
+                                    display: 'flex',
+                                    alignContent: 'center',
+                                    borderRadius: 50,
+                                    fontFamily: 'poppins',
+                                    color: 'black',
+                                }}
+                            >
                                 No hay proyectos con los filtros aplicados!
                             </Alert>
                         </Stack>
                     )}
                 </Container>
+                <Pages />
             </Box>
-
             <Footer />
         </>
     );

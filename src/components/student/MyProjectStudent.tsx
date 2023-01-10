@@ -66,6 +66,7 @@ const MyProjectStudent: FC = () => {
                                 category={studentData?.category}
                                 projectName={studentData?.name}
                                 companyName={studentData?.company?.name}
+                                companyId={studentData?.company?._id}
                                 description={studentData?.description}
                                 requirements={studentData?.requirements}
                                 stateOfProject={studentData?.stateOfProject}
@@ -91,6 +92,9 @@ const MyProjectStudent: FC = () => {
                                             category={project?.category}
                                             projectName={project?.name}
                                             companyName={project?.company?.name}
+                                            companyId={
+                                                studentData?.company?._id
+                                            }
                                             description={project?.description}
                                             stateOfProject={
                                                 project?.stateOfProject
