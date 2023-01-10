@@ -344,7 +344,6 @@ let condicion = useSelector((state:State)=>state.response)
                     variant='contained'
                     fullWidth
                     color='secondary'
-                    disabled={props.isSubmitting}
                   >
                     Crear cuenta
                   </Button>
