@@ -5,7 +5,7 @@
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    clearProject,
+    // clearProject,
     clearProjects,
     // getCategory,
     // getProject,
