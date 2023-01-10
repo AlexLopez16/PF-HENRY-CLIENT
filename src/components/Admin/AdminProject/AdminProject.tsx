@@ -15,15 +15,15 @@ import {
     Container,
     ListItemButton,
     Collapse,
+    Checkbox,
 } from '@mui/material';
 import { State } from '../../../reducers/rootReducer';
 import { clearProject, getAllProject } from '../../../actions/projects';
 import Switch from '@mui/material/Switch';
-import { deleteuser } from '../../../actions/Admin';
+import { deleteuser, setStateMultiple } from '../../../actions/Admin';
 import Pages from '../../ui/Pagination';
 import { PreLoader } from '../../PreLoader/PreLoader';
 import AdminFilterProject from '../../AdminBar/AdminFilterProject';
-
 export interface Options {
     splitRegexp?: RegExp | RegExp[];
     stripRegexp?: RegExp | RegExp[];
@@ -104,10 +104,13 @@ const AdminProject: FC = ({ ...rest }) => {
     };
 
     const handleSwitch = (id: string) => {
-        // selectedCustomerIds.forEach((selectID: any) =>
         dispatch(deleteuser(token, id));
-        // );
     };
+
+    const handleMultiSwitch = () => {
+        dispatch(setStateMultiple(token, selectedCustomerIds));
+    };
+console.log(selectedCustomerIds)
 
     const handleLimitChange = (event: any) => {
         setLimit(event.target.value);
@@ -156,17 +159,22 @@ const AdminProject: FC = ({ ...rest }) => {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                {/* <TableCell padding="checkbox">
-                  <Checkbox
-                    checked={selectedCustomerIds.length === projects.length}
-                    color="primary"
-                    indeterminate={
-                      selectedCustomerIds.length > 0 &&
-                      selectedCustomerIds.length < projects.length
-                    }
-                    onChange={handleSelectAll}
-                  />
-                </TableCell> */}
+                                <TableCell padding="checkbox">
+                                    <Checkbox
+                                        checked={
+                                            selectedCustomerIds.length ===
+                                            projects.length
+                                        }
+                                        color="primary"
+                                        indeterminate={
+                                            selectedCustomerIds.length > 0 &&
+                                            selectedCustomerIds.length <
+                                            projects.length
+                                        }
+                                        onChange={handleSelectAll}
+                                    />
+                                </TableCell>
+
                                 <TableCell>Nombre</TableCell>
                                 <TableCell>Compañia</TableCell>
                                 <TableCell>Categoria</TableCell>
@@ -175,6 +183,8 @@ const AdminProject: FC = ({ ...rest }) => {
                                 <TableCell>Activo</TableCell>
                             </TableRow>
                         </TableHead>
+
+
                         <TableBody>
                             {projects.slice(0, limit).map((projects: any) => (
                                 <TableRow
@@ -186,13 +196,13 @@ const AdminProject: FC = ({ ...rest }) => {
                                         ) !== -1
                                     }
                                 >
-                                    {/* <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={selectedCustomerIds.indexOf(projects.uid) !== -1}
-                      onChange={(event) => handleSelectOne(projects.uid)}
-                      value="true"
-                    />
-                  </TableCell> */}
+                                    <TableCell padding="checkbox">
+                                        <Checkbox
+                                            checked={selectedCustomerIds.indexOf(projects.uid) !== -1}
+                                            onChange={(event) => handleSelectOne(projects.uid)}
+                                            value="true"
+                                        />
+                                    </TableCell>
                                     <TableCell>
                                         <Box
                                             sx={{
@@ -223,8 +233,8 @@ const AdminProject: FC = ({ ...rest }) => {
                                     <TableCell>
                                         {projects.admission
                                             ? `${moment(
-                                                  projects.admission
-                                              ).format('DD/MM/YYYY')}`
+                                                projects.admission
+                                            ).format('DD/MM/YYYY')}`
                                             : 'No registrado'}
                                     </TableCell>
 
@@ -254,13 +264,29 @@ const AdminProject: FC = ({ ...rest }) => {
                                             label={undefined}
                                         />
                                     </FormGroup>
+
                                 </TableRow>
                             ))}
                         </TableBody>
-                    </Table>
-                </Box>
-                <Pages />
-            </Card>
+
+                        <FormControlLabel
+                            control={
+                                <Switch
+                                    defaultChecked={
+                                        projects.state
+                                    }
+                                    size="small"
+                                    color="primary"
+                                    onChange={handleMultiSwitch}
+                                />
+                            }
+                            label={undefined}
+                        />
+
+                </Table>
+            </Box>
+            <Pages />
+        </Card>
         </>
     );
 };

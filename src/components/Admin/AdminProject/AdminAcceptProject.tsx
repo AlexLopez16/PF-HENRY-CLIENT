@@ -15,6 +15,7 @@ import {
     ListItemButton,
     Collapse,
     IconButton,
+    Checkbox
 } from '@mui/material';
 import { State } from '../../../reducers/rootReducer';
 import { clearProject, getAllProject } from '../../../actions/projects';
@@ -134,9 +135,13 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
 
     const handlecancel = (id: string) => {
         setId(id);
-        console.log(idPrj);
+        console.log(selectedCustomerIds);
 
         setFormactive(true);
+    };
+
+    const handleMultiacceptaccept = (id: string) => {
+        dispatch(AprovedProject(token, id)), setRender(!render);
     };
 
     const handleLimitChange = (event: any) => {
@@ -156,6 +161,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
               project.stateOfProject.includes(opciones)
           ))
         : (proyectos = projects);
+        console.log(selectedCustomerIds);
     return (
         <>
             {/* <FormControl fullWidth>
@@ -207,7 +213,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                {/* <TableCell padding="checkbox">
+                                <TableCell padding="checkbox">
                                     <Checkbox
                                         checked={
                                             selectedCustomerIds.length ===
@@ -221,7 +227,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                                         }
                                         onChange={handleSelectAll}
                                     />
-                                </TableCell> */}
+                                </TableCell>
                                 <TableCell>Nombre</TableCell>
                                 <TableCell>Compañia</TableCell>
                                 <TableCell
@@ -255,7 +261,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                                         ) !== -1
                                     }
                                 >
-                                    {/* <TableCell padding="checkbox">
+                                    <TableCell padding="checkbox">
                                         <Checkbox
                                             checked={
                                                 selectedCustomerIds.indexOf(
@@ -267,7 +273,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                                             }
                                             value="true"
                                         />
-                                    </TableCell> */}
+                                    </TableCell>
                                     <TableCell>
                                         <Box
                                             sx={{

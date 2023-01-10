@@ -53,7 +53,8 @@ export const types = {
     adminGetCharts: '[admin] admin get charts',
     getAdmins: '[admin] get all admins',
     getInfoAdmin: '[admin] get info admin',
-    getAllReviews:'[admin] get all reviews'
+    getAllReviews:'[admin] get all reviews',
+    setState:'[admin] set state if project | student | company'
 
 
 };

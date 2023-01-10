@@ -161,3 +161,26 @@ export const cancelReview=(idrev: string | null,
     }
   };
 };
+
+export const setStateMultiple = (token: string | null, selectID: string[]) => {
+  let ids = selectID;
+  return async (dispatch: Dispatch) => {
+    try {
+      const res = await axios.put(
+        "/admin/deletemultiple",
+        { ids},
+        {
+          headers: { "user-token": token },
+        }
+      );
+      console.log(res);
+
+      dispatch({
+        type: types.setState,
+        // payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
