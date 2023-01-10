@@ -17,6 +17,10 @@ export const Checkout = () => {
 
     let token = localStorage.getItem('token') || '';
 
+    if (query.get('success')) {
+        localStorage.setItem('session_id', query.get('session_id') as string)
+    }
+
     if (!status && token) {
         dispatch(validaToken(token));
     }

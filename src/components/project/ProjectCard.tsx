@@ -156,6 +156,11 @@ const ProjectCard: FC<CardProjectProps> = ({
                                                     ) === -1
                                                         ? ''
                                                         : '#FFFF01',
+                                                color: tecnologies.indexOf(
+                                                    requirement
+                                                ) === -1
+                                                    ? '#fff'
+                                                    : 'black',
                                                 display: 'flex',
                                                 fontFamily: 'montserrat',
                                                 mt: 1,
@@ -182,9 +187,14 @@ const ProjectCard: FC<CardProjectProps> = ({
                                 sx={{
                                     background:
                                         stateOfProj.indexOf(stateOfProject) ===
-                                        -1
+                                            -1
                                             ? ''
                                             : '#FFFF01',
+                                    color: stateOfProj.indexOf(
+                                        stateOfProject
+                                    ) === -1
+                                        ? '#fff'
+                                        : 'black',
                                     fontFamily: 'montserrat',
                                     display: 'flex',
                                     mt: 1,
@@ -208,6 +218,7 @@ const ProjectCard: FC<CardProjectProps> = ({
                                     mt: 1,
                                     alignItems: 'center',
                                     justifyContent: 'center',
+                                    color: "#fff"
                                 }}
                             />
                         </Typography>

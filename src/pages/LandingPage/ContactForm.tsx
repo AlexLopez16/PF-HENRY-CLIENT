@@ -52,7 +52,7 @@ export default function ContactForm() {
         <Header />
 
         <SnackBar
-          successMsg={'Email enviado con exito'}
+          successMsg={'Email enviado con éxito, en breve recibirás respuesta'}
           errorMsg={'Ups! Algo salio mal, ocurrio un error'}
         />
 
@@ -92,6 +92,7 @@ export default function ContactForm() {
                   variant='outlined'
                   fullWidth
                   required
+                  inputProps={{ maxLength: 50 }}
                   sx={{
                     '& .MuiInputLabel-root': { color: 'white' }, 
                     '& .MuiOutlinedInput-root': {
@@ -119,6 +120,7 @@ export default function ContactForm() {
                   variant='outlined'
                   fullWidth
                   required
+                  inputProps={{ maxLength: 50 }}
                   sx={{
                     '& .MuiInputLabel-root': { color: 'white' }, //styles the label
                     '& .MuiOutlinedInput-root': {
@@ -147,6 +149,7 @@ export default function ContactForm() {
                   rows={4}
                   fullWidth
                   required
+                  // inputProps={{ maxLength: 250 }}
                   sx={{
                     '& .MuiInputLabel-root': { color: 'white' }, //styles the label
                     '& .MuiOutlinedInput-root': {
@@ -154,7 +157,7 @@ export default function ContactForm() {
                     },
                     margin: '10px 0',
                   }}
-                  inputProps={{ style: { color: 'white' } }}
+                  inputProps={{ style: { color: 'white' }, maxLength: 500 }}
                   helperText={
                     <ErrorMessage name='message'>
                       {(msg) => (

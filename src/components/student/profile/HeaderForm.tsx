@@ -255,6 +255,7 @@ export const HeaderForm: FC<Props> = ({
                     label='Nombre'
                     size='small'
                     color='primary'
+                    inputProps={{ maxLength: 50 }}
                     sx={{
                       boxShadow:
                         'rgba(255, 255, 255, 0.06) 0px 2px 4px 0px inset',
@@ -282,11 +283,12 @@ export const HeaderForm: FC<Props> = ({
                   <Field
                     variant='outlined'
                     as={TextField}
-                    name='apellido'
+                    name='lastName'
                     placeholder='Apellido'
                     label='Apellido'
                     size='small'
                     color='primary'
+                    inputProps={{ maxLength: 50 }}
                     sx={{
                       boxShadow:
                         'rgba(255, 255, 255, 0.06) 0px 2px 4px 0px inset',
@@ -311,38 +313,45 @@ export const HeaderForm: FC<Props> = ({
                       </ErrorMessage>
                     }
                   />
-                  <Field
-                    variant='outlined'
-                    as={TextField}
-                    name='mail'
-                    placeholder='Mail'
-                    label='Mail'
-                    size='small'
-                    color='primary'
-                    sx={{
-                      boxShadow:
-                        'rgba(255, 255, 255, 0.06) 0px 2px 4px 0px inset',
-                      '.MuiOutlinedInput-notchedOutline': {
-                        borderColor: 'white',
-                      },
-                      '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                        borderColor: 'white',
-                      },
-                      '&:hover .MuiOutlinedInput-notchedOutline': {
-                        borderColor: '#ffff01',
-                      },
-                      label: { color: 'white' },
-                      input: { color: 'white' },
-                      margin: '10px 0px',
-                      width: '70%',
-                      fontFamily: 'montserrat',
-                    }}
-                    helperText={
-                      <ErrorMessage name='email'>
-                        {(msg) => <span style={{ color: 'red' }}>{msg}</span>}
-                      </ErrorMessage>
-                    }
-                  />
+
+                  {
+                    !email && (
+                      <Field
+                        variant='outlined'
+                        as={TextField}
+                        name='email'
+                        placeholder='Correo'
+                        label='Correo'
+                        size='small'
+                        color='primary'
+                        inputProps={{ maxLength: 50 }}
+                        sx={{
+                          boxShadow:
+                            'rgba(255, 255, 255, 0.06) 0px 2px 4px 0px inset',
+                          '.MuiOutlinedInput-notchedOutline': {
+                            borderColor: 'white',
+                          },
+                          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                            borderColor: 'white',
+                          },
+                          '&:hover .MuiOutlinedInput-notchedOutline': {
+                            borderColor: '#ffff01',
+                          },
+                          label: { color: 'white' },
+                          input: { color: 'white' },
+                          margin: '10px 0px',
+                          width: '70%',
+                          fontFamily: 'montserrat',
+                        }}
+                        helperText={
+                          <ErrorMessage name='email'>
+                            {(msg) => <span style={{ color: 'red' }}>{msg}</span>}
+                          </ErrorMessage>
+                        }
+                      />
+                    )
+                  }
+
 
                   <FormControl
                     variant='outlined'
