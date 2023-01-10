@@ -193,6 +193,11 @@ const ProjectCard: FC<CardProjectProps> = ({
                           tecnologies.indexOf(requirement) === -1
                             ? ''
                             : '#FFFF01',
+                        color: tecnologies.indexOf(
+                          requirement
+                        ) === -1
+                          ? '#fff'
+                          : 'black',
                         display: 'flex',
                         fontFamily: 'montserrat',
                         fontWeight: 'bold',
@@ -205,7 +210,7 @@ const ProjectCard: FC<CardProjectProps> = ({
             </Typography>
 
             <Typography
-              variant='subtitle1'
+              variant="subtitle1"
               sx={{
                 color: '#e2e2e2',
                 fontFamily: 'montserrat',
@@ -213,13 +218,21 @@ const ProjectCard: FC<CardProjectProps> = ({
             >
               Estado:{' '}
               <Chip
-                color='primary'
-                size='small'
-                variant='filled'
+                color="primary"
+                size="small"
+                variant="filled"
                 label={stateOfProject}
                 sx={{
                   background:
-                    stateOfProj.indexOf(stateOfProject) === -1 ? '' : '#FFFF01',
+                    stateOfProj.indexOf(stateOfProject) ===
+                      -1
+                      ? ''
+                      : '#FFFF01',
+                  color: stateOfProj.indexOf(
+                    stateOfProject
+                  ) === -1
+                    ? '#fff'
+                    : 'black',
                   display: 'flex',
                   fontFamily: 'montserrat',
                   fontWeight: 'bold',
@@ -229,16 +242,16 @@ const ProjectCard: FC<CardProjectProps> = ({
             </Typography>
 
             <Typography
-              variant='subtitle1'
+              variant="subtitle1"
               sx={{ color: '#e2e2e2', fontFamily: 'montserrat' }}
             >
               {' '}
               Participantes:{' '}
               <Chip
-                variant='filled'
+                variant="filled"
                 label={`${students?.length}/${participants}`}
-                color='primary'
-                size='small'
+                color="primary"
+                size="small"
                 sx={{
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -246,6 +259,7 @@ const ProjectCard: FC<CardProjectProps> = ({
                   fontFamily: 'montserrat',
                   fontWeight: 'bold',
                   mt: 2,
+                  color: "#fff"
                 }}
               />
             </Typography>
@@ -270,10 +284,10 @@ const ProjectCard: FC<CardProjectProps> = ({
                   fontFamily: 'montserrat',
                   fontWeight: 'bold',
                 }}
-                variant='outlined'
-                type='submit'
-                size='small'
-                color='secondary'
+                variant="outlined"
+                type="submit"
+                size="small"
+                color="primary"
                 onClick={handleClick}
               >
                 Mas info +
