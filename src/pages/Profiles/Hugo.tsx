@@ -8,12 +8,12 @@ import {
   FormControl,
   Grid,
   Box,
-  Container
+  Container,
 } from '@mui/material';
 
 import aboutbg from '../../assets/aboutbg.png';
-import HugoS from "../../assets/team/hugo.png";
-
+import HugoS from '../../assets/team/hugo.png';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 export default function Hugo() {
   const navigate = useNavigate();
 
@@ -31,7 +31,6 @@ export default function Hugo() {
         height: '870px',
       }}
     >
-
       <FormControl
         sx={{
           px: 50,
@@ -138,6 +137,7 @@ export default function Hugo() {
       </Box>
       <FormControl>
         <Button
+          startIcon={<ArrowBackIosNewIcon />}
           onClick={back}
           size='small'
           variant='contained'
