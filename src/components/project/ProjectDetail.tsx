@@ -92,19 +92,6 @@ const ProjectDetail: FC<ProjectProps> = ({
 
   let review = projectId.reviews;
 
-const handelCheck =()=>{
-  // dispatch(getProjectByID(token, uid))
- dispatch(inProggresProject(uid))
-};
-
-// console.log(uid,"1");
-//  console.log(data,"2");
-console.log(projectId.company._id,"3");
-// console.log(user,"4");
-//  console.log(id,"4");
-
-
-
 
   return (
     <>
