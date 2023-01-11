@@ -62,19 +62,19 @@ export const MyProjectCompany: FC = () => {
 
         <Pages />
         <Container maxWidth='lg'>
-          {info.length ? (
-            info.map((e: any) => (
+          {info?.length ? (
+            info?.map((e: any) => (
               <ProjectCardMyCompany
-                name={e.name}
-                participants={e.participants}
-                requirements={e.requirements}
-                students={e.accepts}
-                company={e.company?.name}
-                state={e.state}
-                stateOfProject={e.stateOfProject}
-                id={e.uid}
-                category={e.category}
-                image={e.images}
+                name={e?.name}
+                participants={e?.participants}
+                requirements={e?.requirements}
+                students={e?.accepts}
+                company={e?.company?.name}
+                state={e?.state}
+                stateOfProject={e?.stateOfProject}
+                id={e?.uid}
+                category={e?.category}
+                image={e?.images}
               />
             ))
           ) : (

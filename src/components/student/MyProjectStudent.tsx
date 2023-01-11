@@ -15,6 +15,7 @@ import { SnackBar } from '../SnackBar/SnackBar';
 import { ProjectCardSkeleton } from './ProjectCardSkeleton';
 import { WorkedProjectCard } from './WorkedProjectCard';
 import { RequestProjectCard } from './RequestProjectCard';
+import { PreLoader } from '../PreLoader/PreLoader';
 
 const MyProjectStudent: FC = () => {
     const dispatch = useDispatch();
@@ -47,6 +48,7 @@ const MyProjectStudent: FC = () => {
     return (
         <Container maxWidth="lg">
             <SnackBar />
+            <PreLoader/>
             {inProgress ? (
                 <ProjectCardSkeleton />
             ) : (
