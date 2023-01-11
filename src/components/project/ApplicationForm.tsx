@@ -69,19 +69,20 @@ export const ApplicationForm: FC = () => {
       props.setSubmitting(false);
     }, 1000);
     //dispatch(addStudentToProject(projectId.uid, token));
-    // navigate('/myprojects');
+    navigate('/myprojects');
     console.log(values);
   };
 
   return (
     <Box
-      sx={{
-        backgroundImage: `url(${studentRegisterbg})`,
-        maxWidth: '1920px',
-      }}
+    sx={{
+      backgroundImage: `url(${studentRegisterbg})`,
+      maxWidth: '1920px',
+    }}
     >
       <div>
         <NavBar />
+      <SnackBar successMsg={"Aplicado exitoso"}/>
 
         <Grid>
           <Paper
