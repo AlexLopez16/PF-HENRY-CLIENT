@@ -1,13 +1,15 @@
 import { types } from '../types/types';
 
 interface State {
-    user: Company[];
-    total2: number;
+    user: Company[],
+    total2: number,
+    countries: string[],
     detail: object | any;
 }
 const initialState = {
     user: [],
     total2: 0,
+    countries: [],
     detail: null,
 };
 
@@ -91,7 +93,11 @@ export const companyReducer = (state: State = initialState, action: Action) => {
                 ...state,
                 user: newUser,
             };
-
+        case types.getCountries:
+            return {
+                ...state,
+                countries: action.payload
+            }
         case types.adminEliminatedCompany:
             let newState = state.user.filter(
                 (c: any) => c.uid != action.payload.data

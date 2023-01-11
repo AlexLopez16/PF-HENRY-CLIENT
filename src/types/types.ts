@@ -34,6 +34,7 @@ export const types = {
     ratingProjectCompany: '[Company] rating Project', //toy provando
     ratingProject: '[Company] rating CompanyProject',
     clearCompany: '[Company] clear get company',
+    getCountries: '[Company] get countries',
     detailCompany: '[Company] Detail Company',
 
     newProject: '[project] Create New Project',
