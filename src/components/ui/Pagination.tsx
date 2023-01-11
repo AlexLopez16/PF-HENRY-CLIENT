@@ -14,6 +14,7 @@ import { Container } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import { getListStudents } from '../../actions/student';
 import { getCompany } from '../../actions/company';
+import { getAdmins } from '../../actions/Admin';
 
 let limit;
 let init;
@@ -27,6 +28,7 @@ const Pages: FC = () => {
   const { users, total1 } = useSelector((state: any) => state.student);
   const { user, total2 } = useSelector((state: any) => state.company);
   const { filters, total } = useSelector((state: State) => state.project);
+  const { admins, total3} = useSelector((state: State) => state.admin)
   // let { myProjectCompany } = useSelector((state: State) => state.project);
 
   useEffect(() => {}, [projectsFilter, users, user]);
@@ -42,8 +44,10 @@ const Pages: FC = () => {
   if (total2) {
     numberOfPages = Math.ceil(total2 / 6);
   }
+  if(total3){
+    numberOfPages = Math.ceil(total3 / 6)
+  }
   const handlerClick = async (e: any, value: any) => {
-    // setPage({limit:value*6,init:(value*6)-6})
     limit = 6;
     init = value * 6 - 6;
     if (
@@ -125,6 +129,10 @@ const Pages: FC = () => {
 
     if (location.pathname === '/dashboard/companies') {
       dispatch(getCompany(token, false, limit, init));
+    }
+
+    if(location.pathname === '/dashboard/admins'){
+      dispatch(getAdmins(token, limit, init))
     }
   };
 
