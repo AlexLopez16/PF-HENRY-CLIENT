@@ -20,19 +20,22 @@ import bgDetailCompany from '../../assets/bgDetailCompany.png';
 import { RatingProject } from '../project/RatingProject';
 import Footer from '../../pages/LandingPage/Footer';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import { PreLoader } from '../PreLoader/PreLoader';
 
 export const CompanyDetail: FC = () => {
-  const { id } = useParams();
-  const dispatch = useDispatch();
-  const token = localStorage.getItem('token');
-  const { detail }: object | any = useSelector((state: State) => state.company);
-  useEffect(() => {
-    if (id && token) {
-      dispatch(getDetailCompany(id, token));
-    }
-  }, [dispatch]);
-  let company = null;
-  if (detail) company = detail.company;
+    const { id } = useParams();
+    const dispatch = useDispatch();
+    const token = localStorage.getItem('token');
+    const { detail }: object | any = useSelector(
+        (state: State) => state.company
+    );
+    useEffect(() => {
+        if (id && token) {
+            dispatch(getDetailCompany(id, token));
+        }
+    }, []);
+    let company = null;
+    if (detail) company = detail.company;
 
   const Navigate = useNavigate();
   const GoBack = () => {
@@ -40,6 +43,7 @@ export const CompanyDetail: FC = () => {
   };
   return (
     <>
+      <PreLoader/>
       <Box
         sx={{
           backgroundImage: `url(${bgComponents})`,
@@ -224,7 +228,7 @@ export const CompanyDetail: FC = () => {
                             marginTop: 'auto',
                             fontFamily: 'poppins',
                           }}
-                          target='_blank'
+                          // target='_blank'
                         >
                           <Button
                             variant='contained'
