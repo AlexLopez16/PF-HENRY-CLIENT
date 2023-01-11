@@ -3,12 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@mui/system";
 import { disableAdmin, getAdmins } from "../../../actions/Admin";
 import { validaToken } from "../../../actions/auth";
-import * as moment from "moment";
 import { State } from "../../../reducers/rootReducer";
 import {
   Avatar,
   Card,
-  Checkbox,
   Table,
   TableBody,
   TableCell,
@@ -18,9 +16,11 @@ import {
   FormControlLabel,
   Switch,
   FormGroup,
+  Button,
 } from "@mui/material";
 import Pages from "../../ui/Pagination";
 import { PreLoader } from "../../PreLoader/PreLoader";
+import { registerAdmin } from '../../../actions/Admin';
 
 const AdminPanel: FC = () => {
   const dispatch = useDispatch();
@@ -45,6 +45,7 @@ const AdminPanel: FC = () => {
     <>
       <PreLoader />
       <Card>
+      <Button variant="contained" onClick={() => dispatch(registerAdmin)}>Agregar administrador</Button>
         <Box sx={{ minWidth: 1050 }}>
           <Table>
             <TableHead>

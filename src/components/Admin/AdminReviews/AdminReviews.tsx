@@ -243,7 +243,7 @@ const AdminReviews: FC = ({ ...rest }) => {
                                                 color="textPrimary"
                                                 variant="body1"
                                             >
-                                                {review.project.name}
+                                                {review.project?.name}
                                             </Typography>
                                         </Box>
                                     </TableCell>
@@ -255,7 +255,7 @@ const AdminReviews: FC = ({ ...rest }) => {
                                             textAlign: 'center',
                                         }}
                                     >
-                                        {review.student.name}
+                                        {review.student?.name}
                                     </TableCell>
                                     <TableCell
                                         sx={{

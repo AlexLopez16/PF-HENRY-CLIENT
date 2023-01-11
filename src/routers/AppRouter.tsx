@@ -233,6 +233,7 @@ export const AppRouter = () => {
             <Route path="aceptProjects" element={<AdminAcceptProject />}></Route>
             <Route path="profileAdmin" element={<ProfileAdmin />}></Route>
             <Route path="admins" element={<AdminPanel />}></Route>
+            <Route path="getReviews" element={<AdminReviews/>}></Route>
           </Route>
           <Route path="/Ale" element={<Ale />} />
           <Route path="/Ampi" element={<Ampi />} />
