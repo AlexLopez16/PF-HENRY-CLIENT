@@ -91,7 +91,7 @@ const ProjectDetail: FC<ProjectProps> = ({
   }
 
   let review = projectId.reviews;
-  console.log(review);
+
 
   return (
     <>
@@ -334,11 +334,11 @@ const ProjectDetail: FC<ProjectProps> = ({
                     aplicar
                   </Button>
                 ) : id &&
-                  rol === 'COMPANY_ROL' &&
+                  rol === 'COMPANY_ROL'&&
                   projectId &&
                   projectId?.company?._id &&
                   id === projectId.company._id &&
-                  projectId.stateOfProject === 'Reclutamiento' ? (
+                  projectId.stateOfProject === 'Reclutamiento'?(
                   <Link to={`/postulated/${uid}`}>
                     <Button
                       sx={{

@@ -29,8 +29,10 @@ import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import { Premium } from '../Premium/Premium';
 import FolderIcon from '@mui/icons-material/Folder';
+// import { alert3 } from '../AlertMail/alertMailStudent';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import axios from 'axios';
+
 
 export default function AccountMenu() {
     const API_URL = process.env.REACT_APP_API || 'http://localhost:3001/api';
@@ -42,6 +44,7 @@ export default function AccountMenu() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
 
     type DataState = {
         data: {
@@ -62,6 +65,7 @@ export default function AccountMenu() {
                 ? state.company
                 : state.admin
     );
+   
 
     const token = localStorage.getItem('token') || '';
 
@@ -88,6 +92,15 @@ export default function AccountMenu() {
                 : navigate('/dashboard/profileAdmin');
     };
 
+
+
+
+
+
+
+
+
+
     // FUNCION PREMIUM
     const [openModal, setOpenModal] = useState(false);
 
@@ -95,10 +108,13 @@ export default function AccountMenu() {
 
     const adminSubscription = async () => {
 
+
+        
     }
 
     return (
         <>
+
             <Box
                 sx={{
                     justifyContent: 'right',
