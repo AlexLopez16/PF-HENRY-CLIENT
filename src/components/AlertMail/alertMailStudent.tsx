@@ -24,7 +24,7 @@ export const alert2 = () => {
   });
 };
 
-export const alert3 = async( ) => {
+export const alert3 = async () => {
 
   const { value: email } = await Swal.fire({
     title: 'Ingrese su E-mail',
@@ -32,8 +32,8 @@ export const alert3 = async( ) => {
     inputLabel: 'Para poder comunicarnos con usted',
     inputPlaceholder: 'Ingrese su E-mail'
   })
-  
+
   if (email) {
     Swal.fire(`Entered email: ${email}`)
   }
-  }
+}
