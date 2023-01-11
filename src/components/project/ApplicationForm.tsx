@@ -5,12 +5,16 @@ import NavBar from '../NavBar/NavBar';
 import Footer from '../../pages/LandingPage/Footer';
 import { Box, Button, Grid, Paper, TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getProjectByID } from '../../actions/projects';
 import { State } from '../../reducers/rootReducer';
-import { addStudentToProject } from '../../actions/student';
+import { addStudentToProject, sendResponseOfQuestions } from '../../actions/student';
+import { SnackBar } from '../SnackBar/SnackBar';
+
 
 export const ApplicationForm: FC= () => {
+
+  const navigate = useNavigate();
 
   const token = localStorage.getItem('token') || '';
 
@@ -28,6 +32,7 @@ export const ApplicationForm: FC= () => {
   let idStd = useSelector((state: State | any) => state.auth.data.id);
   
   const { projectId } = useSelector((state: State) => state.project)
+  // console.log(status)
 
   const  question = projectId.questions
 
@@ -46,7 +51,10 @@ export const ApplicationForm: FC= () => {
   });
   
   const onSubmit = (values: any) => {
-    // dispatch(addStudentToProject(idStd, token));
+    values['projectId'] = projectId.uid;
+    dispatch(sendResponseOfQuestions(values, token, projectId.uid))
+    //dispatch(addStudentToProject(projectId.uid, token));
+    // navigate('/myprojects');
     console.log(values);
   }
 
@@ -56,6 +64,7 @@ return (
       backgroundColor: 'black',
     }}
   >
+    <SnackBar/>
     <div>
       <NavBar />
       <Grid>
@@ -81,7 +90,7 @@ return (
             
               <Form>
           
-          {question.map((Res: any, index: number) => (
+          {question?.map((Res: any, index: number) => (
             <Box>
             <Grid textAlign='left' fontFamily='montserrat' sx={{ mb: 2 }}>
               <h3>{Res} </h3>

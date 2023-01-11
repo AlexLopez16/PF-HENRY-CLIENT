@@ -208,6 +208,28 @@ export const addStudentToProject = (id: string, token: string) => {
     };
 };
 
+export const sendResponseOfQuestions = (data: object | any, token: string, studentId: string) => {
+    return async (dispatch: Dispatch) => {
+        try {
+            let res = await axios.post('/response', data,{
+                headers: { 'user-token': token },
+            } )
+            res = await axios.put(`/project/${data.projectId}`, undefined, {
+                headers: { 'user-token': token },
+            });
+            dispatch({
+                type: types.responseFinished,
+                payload: res
+            })
+        } catch (error: any) {
+            dispatch({
+                type: types.responseFinished,
+                payload: error.response
+            })
+        }
+    }
+}
+
 export const unApplyStudent = (
     studentId: string | any,
     projectId: string | any,
