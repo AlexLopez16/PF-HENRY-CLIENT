@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../reducers/rootReducer';
 import { githubLogin, logout, validaToken } from '../actions/auth';
 import { SnackBar } from '../components/SnackBar/SnackBar';
+import { PreLoader } from '../components/PreLoader/PreLoader';
 
 type Props = {
     children: JSX.Element;
@@ -17,6 +18,8 @@ export const PrivateRoute: FC<Props> = ({ children }) => {
 
     if (!status && token) {
         dispatch(validaToken(token));
+
+        return <PreLoader/>
     }
 
     const location = useLocation();
@@ -43,6 +46,8 @@ export const PrivateRoute: FC<Props> = ({ children }) => {
 
     if (!status && token) {
         dispatch(validaToken(token));
+
+        return <PreLoader/>
     }
 
     return logged ? (

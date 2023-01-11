@@ -505,7 +505,6 @@ const ProjectForm: FC = () => {
                     variant='contained'
                     fullWidth
                     color='info'
-                    disabled={props.isSubmitting}
                   >
                     Publicar Proyecto
                   </Button>
