@@ -14,7 +14,7 @@ import {
   FormControl,
   Grid,
 } from '@mui/material';
-
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { State } from '../../reducers/rootReducer';
 import { addStudentToProject } from '../../actions/student';
 import { PreLoader } from '../PreLoader/PreLoader';
@@ -103,6 +103,7 @@ const ProjectDetail: FC<ProjectProps> = ({
         >
           <FormControl>
             <Button
+              startIcon={<ArrowBackIosNewIcon />}
               onClick={GoBack}
               size='small'
               variant='contained'
@@ -130,9 +131,9 @@ const ProjectDetail: FC<ProjectProps> = ({
             sx={{
               display: 'flex',
               flexDirection: 'column',
-              justifyContent:'space-around',
+              justifyContent: 'space-around',
             }}
-            >
+          >
             <Paper
               elevation={12}
               style={{

@@ -26,6 +26,7 @@ import {
   updatePhotoCompany,
 } from '../../../actions/company';
 import { SelectChangeEvent } from '@mui/material';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 interface Props {
   edit: { header: boolean };
