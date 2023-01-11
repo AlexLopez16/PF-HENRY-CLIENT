@@ -1,12 +1,25 @@
-import { FC } from 'react';
-import { Box } from '@mui/material';
+import { FC, useEffect } from 'react';
+import { Box, ListItemIcon, MenuItem } from '@mui/material';
 import UserItemsList from './userItemsList';
 import { Outlet } from 'react-router-dom';
 import Logo from '../../../assets/NABIJASH.png';
 import AccountMenu from '../../AdminBar/AdminBar';
-import { PreLoader } from '../../PreLoader/PreLoader';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { logout } from '../../../actions/auth';
+import { State } from '../../../reducers/rootReducer';
+import { getInfoAdmin } from '../../../actions/Admin';
 
 const SideBar: FC = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
+
+    const handlerLogout = () => {
+        localStorage.clear();
+        dispatch(logout());
+        navigate('/landing');
+    };
     return (
         <>
             <Box sx={{ display: 'flex', width: '100%', height: '100vh' }}>
@@ -44,8 +57,13 @@ const SideBar: FC = () => {
                         />
                     </Box>
                     <UserItemsList />
-                    <Box sx={{ position: 'absolute' }}>
-                        <AccountMenu />
+                    <Box sx={{ position: 'absolute', bottom: '20px'}}>
+                        <MenuItem onClick={handlerLogout}>
+                            <ListItemIcon>
+                                <ExitToAppIcon fontSize="small" />
+                            </ListItemIcon>
+                            Cerrar sesion
+                        </MenuItem>
                     </Box>
                 </Box>
                 <Box

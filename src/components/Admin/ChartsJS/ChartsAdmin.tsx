@@ -36,7 +36,7 @@ const ChartsAdmin: FC = () => {
     }
 
     return (
-        <>
+        <Box sx={{height: '900px'}}>
             <PreLoader />
             <Grid container spacing={3}>
                 <Grid item md={4}>
@@ -64,7 +64,7 @@ const ChartsAdmin: FC = () => {
                     </Card>
                 </Grid>
             </Grid>
-        </>
+        </Box>
     );
 };
 
