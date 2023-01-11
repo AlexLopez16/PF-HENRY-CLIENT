@@ -69,7 +69,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
     );
     const [limit, setLimit] = useState(12);
     const [render, setRender] = useState(false);
-    const [formactive, setFormactive] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
     const [opciones, setOpciones] = useState('Todos');
     const [open, setOpen] = useState(false);
     const options: string[] = [
@@ -133,7 +133,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
 
     const handlecancel = (id: string) => {
         setId(id);
-        setFormactive(true);
+        setOpenModal(true)
     };
 
     const handleMultiaccept = () => {
@@ -359,13 +359,13 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                 </Box>
                 <Pages />
             </Card>
-            {formactive && (
+            {/* {openModal && ( */}
                 <CancelMessage
-                    setFormactive={setFormactive}
-                    formactive={formactive}
+                    setOpenModal={setOpenModal}
+                    openModal={openModal}
                     idPrj={idPrj}
                 />
-            )}
+            {/* )} */}
         </>
     );
 };
