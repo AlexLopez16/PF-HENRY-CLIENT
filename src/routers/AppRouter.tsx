@@ -46,6 +46,7 @@ import AdminReviews from "../components/Admin/AdminReviews/AdminReviews";
 import { PrivateAdmin } from "./PrivateAdmin";
 import { CompanyDetail } from "../components/company/CompanyDetail";
 import AdminPanel from "../components/Admin/AdminPanel/AdminPanel";
+import AdminForm from "../components/Admin/AdminPanel/AdminForm";
 
 export const AppRouter = () => {
   let { id } = useParams();
@@ -234,6 +235,7 @@ export const AppRouter = () => {
             <Route path="profileAdmin" element={<ProfileAdmin />}></Route>
             <Route path="admins" element={<AdminPanel />}></Route>
             <Route path="getReviews" element={<AdminReviews/>}></Route>
+            <Route path="createAdmin" element ={<AdminForm/>}></Route>
           </Route>
           <Route path="/Ale" element={<Ale />} />
           <Route path="/Ampi" element={<Ampi />} />
