@@ -4,11 +4,16 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
+  Avatar,
+  MenuItem,
 } from "@mui/material";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import { NavLink } from "react-router-dom";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
+import { useDispatch, useSelector } from "react-redux";
+import { State } from "../../../reducers/rootReducer";
+import { getInfoAdmin } from "../../../actions/Admin";
 
 const linkStyle = {
   textDecoration: "none",
@@ -47,7 +52,16 @@ const buttons = [
 ];
 
 const UserItemsList: FC = () => {
+  const dispatch = useDispatch();
+  const token = localStorage.getItem("token") || "";
+  const { data } = useSelector((state: State) => state.auth);
+  const { id, rol } = data;
+  const { user } = useSelector((state: State) => state.admin);
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    dispatch(getInfoAdmin(id, token));
+  });
   const handleClick = () => {
     setOpen(!open);
   };
@@ -96,7 +110,6 @@ const UserItemsList: FC = () => {
           </NavLink>
         </ListItem>
       </Collapse>
-      
     </List>
   );
 };
