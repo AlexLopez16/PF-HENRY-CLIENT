@@ -27,7 +27,7 @@ export const CompanyDetail: FC = () => {
         if (id && token) {
             dispatch(getDetailCompany(id, token));
         }
-    }, [detail]);
+    }, [dispatch]);
     let company = null;
     if (detail) company = detail.company;
 
