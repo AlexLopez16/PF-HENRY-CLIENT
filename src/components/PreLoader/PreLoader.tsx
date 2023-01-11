@@ -8,7 +8,7 @@ export const PreLoader: FC = () => {
     // Traemos el estado del request.
     const { inProgress } = useSelector((state: State) => state.request);
     // Estado para mostrar PreLoader.
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(true);
     useEffect(() => {
         if (inProgress) handleOpen();
         else handleClose();
@@ -19,7 +19,7 @@ export const PreLoader: FC = () => {
     const handleClose = () => {
         setTimeout(() => {
             setOpen(false);
-        }, 2000)
+        }, 1000)
     };
     return (
         <div>

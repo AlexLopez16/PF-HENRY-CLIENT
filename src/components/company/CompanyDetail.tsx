@@ -20,6 +20,7 @@ import bgDetailCompany from '../../assets/bgDetailCompany.png';
 import { RatingProject } from '../project/RatingProject';
 import Footer from '../../pages/LandingPage/Footer';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import { PreLoader } from '../PreLoader/PreLoader';
 
 export const CompanyDetail: FC = () => {
     const { id } = useParams();
@@ -42,6 +43,7 @@ export const CompanyDetail: FC = () => {
   };
   return (
     <>
+      <PreLoader/>
       <Box
         sx={{
           backgroundImage: `url(${bgComponents})`,
@@ -226,7 +228,7 @@ export const CompanyDetail: FC = () => {
                             marginTop: 'auto',
                             fontFamily: 'poppins',
                           }}
-                          target='_blank'
+                          // target='_blank'
                         >
                           <Button
                             variant='contained'

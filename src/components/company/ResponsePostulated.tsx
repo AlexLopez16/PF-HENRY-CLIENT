@@ -55,7 +55,8 @@ export const ResponsePostulated: FC<ResponsePostulatedProps> = ({
                                 return (
                                     <Paper elevation={5} sx={{
                                         margin: '10px',
-                                        padding: '10px'
+                                        padding: '10px',
+                                        minWidth: '500px'
                                     }}>
                                     <Typography
                                         variant="h6"
