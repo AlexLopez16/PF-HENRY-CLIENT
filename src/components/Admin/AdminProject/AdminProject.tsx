@@ -32,6 +32,7 @@ export interface Options {
 }
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { validaToken } from '../../../actions/auth';
+import { SnackBar } from '../../SnackBar/SnackBar';
 
 export declare function sentenceCase(input: string, options?: Options): string;
 const AdminProject: FC = ({ ...rest }) => {
@@ -148,6 +149,7 @@ const AdminProject: FC = ({ ...rest }) => {
     };
     return (
         <>
+        <SnackBar successMsg={"cambio exitoso"}/>
             <PreLoader />
             <>{/* <Filters /> */}</>
             <Card {...rest}>

@@ -43,6 +43,7 @@ const AdminPanel: FC = () => {
 
   return (
     <>
+    
       <PreLoader />
       <Card>
       <Button variant="contained" onClick={() => dispatch(registerAdmin)}>Agregar administrador</Button>

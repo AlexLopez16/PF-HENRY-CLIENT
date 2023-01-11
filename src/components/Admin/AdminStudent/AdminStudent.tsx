@@ -11,41 +11,42 @@ import { validaToken } from "../../../actions/auth";
 import * as moment from "moment";
 import { State } from "../../../reducers/rootReducer";
 import {
-  Avatar,
-  Card,
-  Checkbox,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Typography,
-  FormControlLabel,
-  Switch,
-  FormGroup,
-  Container,
-  ListItemButton,
-  Collapse,
+    Avatar,
+    Card,
+    Checkbox,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
+    Typography,
+    FormControlLabel,
+    Switch,
+    FormGroup,
+    Container,
+    ListItemButton,
+    Collapse,
 } from "@mui/material";
 import FilterListIcon from '@mui/icons-material/FilterList';
 import Pages from "../../ui/Pagination";
 import { PreLoader } from "../../PreLoader/PreLoader";
 import AdminFilterStudent from "./AdminFilterStudent";
+import { SnackBar } from '../../SnackBar/SnackBar';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const AdminStudent: FC = () => {
-  const dispatch = useDispatch();
-  const token = localStorage.getItem("token");
-  const { status } = useSelector((state: State) => state.auth);
-  if (!status && token) {
-    dispatch(validaToken(token));
-  }
+    const dispatch = useDispatch();
+    const token = localStorage.getItem("token");
+    const { status } = useSelector((state: State) => state.auth);
+    if (!status && token) {
+        dispatch(validaToken(token));
+    }
 
-  const { users } = useSelector((state: any) => state.student);
-  useEffect(() => {
-    dispatch(getListStudents(token, false, 6, 0));
-  }, [dispatch]);
+    const { users } = useSelector((state: any) => state.student);
+    useEffect(() => {
+        dispatch(getListStudents(token, false, 6, 0));
+    }, [dispatch]);
 
   const [selectedCustomerIds, setSelectedCustomerIds] = useState<string[]>([]);
   const [open, setOpen] = useState(false);
@@ -98,6 +99,7 @@ const AdminStudent: FC = () => {
 
   return (
     <>
+            <SnackBar successMsg={"Cambio de estado exitoso"} />
       <PreLoader />
       <Card>
         <Container
