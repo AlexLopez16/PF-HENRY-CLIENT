@@ -63,6 +63,7 @@ const AdminPanel: FC = () => {
                                 <TableCell>Nombre</TableCell>
                                 <TableCell>Email</TableCell>
                                 <TableCell>Estado</TableCell>
+                                <TableCell>Cambiar estado</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
