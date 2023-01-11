@@ -294,13 +294,14 @@ export const LoginScreen: FC = () => {
                       <span style={{ color: '#8d8a8a' }}>O</span>
                     </Divider>
                     <GitHubLogin />
-                    <div style={{ marginTop: '10px' }}>
+                    <div style={{ marginTop: '10px', alignItems:'center', display:'flex', justifyContent:'center' }}>
                       <GoogleLogin
                         logo_alignment='center'
                         type='standard'
                         theme='outline'
                         shape='square'
                         size='large'
+                  
                         onSuccess={(credentialResponse: any) => {
                           dispatch(
                             gmailLogin(credentialResponse.credential, ''),
