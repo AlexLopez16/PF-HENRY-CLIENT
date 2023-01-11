@@ -255,7 +255,7 @@ const AdminReviews: FC = ({ ...rest }) => {
                                             textAlign: 'center',
                                         }}
                                     >
-                                        {review.student.name}
+                                        {review.student?.name}
                                     </TableCell>
                                     <TableCell
                                         sx={{

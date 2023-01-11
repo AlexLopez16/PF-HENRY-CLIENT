@@ -28,6 +28,7 @@ import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import { Premium } from '../Premium/Premium';
 import FolderIcon from '@mui/icons-material/Folder';
+// import { alert3 } from '../AlertMail/alertMailStudent';
 
 export default function AccountMenu() {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -49,6 +50,15 @@ export default function AccountMenu() {
             ? state.company
             : state.admin
     );
+   
+    
+//  useEffect (()=>{
+//  rol === "STUDENT_ROL" && user.github === false && user.email 
+//  ? dispatch(alert3):""
+//  },[dispatch])
+
+
+
 
     const token = localStorage.getItem('token') || '';
 
