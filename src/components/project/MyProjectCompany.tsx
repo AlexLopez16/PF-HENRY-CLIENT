@@ -44,6 +44,7 @@ export const MyProjectCompany: FC = () => {
             alignContent: 'center',
             alignItems: 'center',
             textAlign: 'center',
+            width:'52%',
           }}
         >
           <Typography
@@ -61,7 +62,11 @@ export const MyProjectCompany: FC = () => {
         </Container>
 
         <Pages />
-        <Container maxWidth='lg'>
+        <Container  sx={{
+          display:'flex',
+          flexDirection:'column',
+          
+        }}>
           {info?.length ? (
             info?.map((e: any) => (
               <ProjectCardMyCompany

@@ -326,9 +326,9 @@ export const LoginScreen: FC = () => {
                 sx={{
                   display: 'flex',
                   alignContent: 'space-around',
-    // flex-wrap: wrap;
-    // flex-direction: column;
-    // justify-content: space-between;
+                  flexWrap: 'wrap',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
                 }}
               >
                 <Typography
@@ -350,7 +350,7 @@ export const LoginScreen: FC = () => {
                       color: '#ffff01',
                     }}
                   >
-                    <br/>
+                    <br />
                     Regístrate
                   </Link>
                 </Typography>
@@ -366,7 +366,7 @@ export const LoginScreen: FC = () => {
         >
           <FormControl>
             <Button
-            startIcon={<ArrowBackIosNewIcon />}
+              startIcon={<ArrowBackIosNewIcon />}
               onClick={GoBack}
               size='small'
               variant='contained'
