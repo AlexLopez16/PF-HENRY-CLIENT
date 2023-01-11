@@ -341,7 +341,6 @@ export const StudensForm: FC = () => {
                     variant='contained'
                     fullWidth
                     color='secondary'
-                    disabled={props.isSubmitting}
                   >
                     Crear cuenta
                   </Button>

@@ -32,6 +32,9 @@ export interface Options {
 }
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { validaToken } from '../../../actions/auth';
+import Stack from '@mui/material/Stack/Stack';
+import Alert from '@mui/material/Alert/Alert';
+import { SnackBar } from '../../SnackBar/SnackBar';
 
 export declare function sentenceCase(input: string, options?: Options): string;
 const AdminProject: FC = ({ ...rest }) => {
@@ -65,6 +68,7 @@ const AdminProject: FC = ({ ...rest }) => {
 
     const { projectsFilter } = useSelector((state: State) => state.project);
     let projects = projectsFilter;
+    console.log(projects);
     const [selectedCustomerIds, setSelectedCustomerIds] = useState<string[]>(
         []
     );
@@ -133,7 +137,7 @@ const AdminProject: FC = ({ ...rest }) => {
             dispatch(clearProject());
         };
     };
-    console.log(selectedCustomerIds)
+    console.log(selectedCustomerIds);
 
     const handleLimitChange = (event: any) => {
         setLimit(event.target.value);
@@ -148,6 +152,7 @@ const AdminProject: FC = ({ ...rest }) => {
     };
     return (
         <>
+            <SnackBar successMsg={'cambio exitoso'} />
             <PreLoader />
             <>{/* <Filters /> */}</>
             <Card {...rest}>
@@ -177,140 +182,155 @@ const AdminProject: FC = ({ ...rest }) => {
                         <AdminFilterProject />
                     </Collapse>
                 </Container>
-
-                <Box sx={{ minWidth: 1050 }}>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell padding="checkbox">
-                                    <Checkbox
-                                        checked={
-                                            selectedCustomerIds.length ===
-                                            projects.length
-                                        }
-                                        color="primary"
-                                        indeterminate={
-                                            selectedCustomerIds.length > 0 &&
-                                            selectedCustomerIds.length <
-                                            projects.length
-                                        }
-                                        onChange={handleSelectAll}
-                                    />
-                                </TableCell>
-
-                                <TableCell>Nombre</TableCell>
-                                <TableCell>Compañia</TableCell>
-                                <TableCell>Categoria</TableCell>
-                                <TableCell>Estado del proyecto</TableCell>
-                                <TableCell>Creado</TableCell>
-                                <TableCell>Activo</TableCell>
-                            </TableRow>
-                        </TableHead>
-
-
-                        <TableBody>
-                            {projects.slice(0, limit).map((projects: any) => (
-                                <TableRow
-                                    hover
-                                    key={projects.uid}
-                                    selected={
-                                        selectedCustomerIds.indexOf(
-                                            projects.uid
-                                        ) !== -1
-                                    }
-                                >
+                {!projects.length ? (
+                    <TableBody>
+                        <Stack sx={{ width: '100%' }} spacing={1}>
+                            <Alert severity="info">
+                                No hay proyectos con los filtros aplicados!
+                            </Alert>
+                        </Stack>
+                    </TableBody>
+                ) : (
+                    <Box sx={{ minWidth: 1050 }}>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
                                     <TableCell padding="checkbox">
                                         <Checkbox
-                                            checked={selectedCustomerIds.indexOf(projects.uid) !== -1}
-                                            onChange={(event) => handleSelectOne(projects.uid)}
-                                            value="true"
+                                            checked={
+                                                selectedCustomerIds.length ===
+                                                projects.length
+                                            }
+                                            color="primary"
+                                            indeterminate={
+                                                selectedCustomerIds.length >
+                                                    0 &&
+                                                selectedCustomerIds.length <
+                                                    projects.length
+                                            }
+                                            onChange={handleSelectAll}
                                         />
                                     </TableCell>
-                                    <TableCell>
-                                        <Box
-                                            sx={{
-                                                alignItems: 'center',
-                                                display: 'flex',
-                                            }}
+
+                                    <TableCell>Nombre</TableCell>
+                                    <TableCell>Compañia</TableCell>
+                                    <TableCell>Categoria</TableCell>
+                                    <TableCell>Estado del proyecto</TableCell>
+                                    <TableCell>Creado</TableCell>
+                                    <TableCell>Activo</TableCell>
+                                </TableRow>
+                            </TableHead>
+
+                            <TableBody>
+                                {projects
+                                    .slice(0, limit)
+                                    .map((projects: any) => (
+                                        <TableRow
+                                            hover
+                                            key={projects.uid}
+                                            selected={
+                                                selectedCustomerIds.indexOf(
+                                                    projects.uid
+                                                ) !== -1
+                                            }
                                         >
-                                            <Typography
-                                                color="textPrimary"
-                                                variant="body1"
-                                            >
-                                                {projects.name}
-                                            </Typography>
-                                        </Box>
-                                    </TableCell>
-                                    <TableCell>
-                                        {projects.company &&
-                                            Array.isArray(projects.company)
-                                            ? projects?.company[0]?.name
-                                            : projects?.company?.name}
-                                    </TableCell>
-                                    <TableCell>
-                                        {projects.category
-                                            ? projects.category
-                                            : 'No registrado'}
-                                    </TableCell>
-                                    <TableCell>
-                                        {projects.stateOfProject}
-                                    </TableCell>
-
-                                    <TableCell>
-                                        {projects.admission
-                                            ? `${moment(
-                                                projects.admission
-                                            ).format('DD/MM/YYYY')}`
-                                            : 'No registrado'}
-                                    </TableCell>
-
-                                    <FormGroup
-                                        sx={{
-                                            display: 'flex',
-                                            justifyContent: 'center',
-                                            alignItems: 'center',
-                                            mt: 3,
-                                        }}
-                                    >
-                                        <FormControlLabel
-                                            control={
-                                                <Switch
-                                                    defaultChecked={
-                                                        projects.state
+                                            <TableCell padding="checkbox">
+                                                <Checkbox
+                                                    checked={
+                                                        selectedCustomerIds.indexOf(
+                                                            projects.uid
+                                                        ) !== -1
                                                     }
-                                                    size="small"
-                                                    color="primary"
-                                                    onChange={() =>
-                                                        handleSwitch(
+                                                    onChange={(event) =>
+                                                        handleSelectOne(
                                                             projects.uid
                                                         )
                                                     }
+                                                    value="true"
                                                 />
-                                            }
-                                            label={undefined}
-                                        />
-                                    </FormGroup>
+                                            </TableCell>
+                                            <TableCell>
+                                                <Box
+                                                    sx={{
+                                                        alignItems: 'center',
+                                                        display: 'flex',
+                                                    }}
+                                                >
+                                                    <Typography
+                                                        color="textPrimary"
+                                                        variant="body1"
+                                                    >
+                                                        {projects.name}
+                                                    </Typography>
+                                                </Box>
+                                            </TableCell>
+                                            <TableCell>
+                                                {projects.company &&
+                                                Array.isArray(projects.company)
+                                                    ? projects?.company[0]?.name
+                                                    : projects?.company?.name}
+                                            </TableCell>
+                                            <TableCell>
+                                                {projects.category
+                                                    ? projects.category
+                                                    : 'No registrado'}
+                                            </TableCell>
+                                            <TableCell>
+                                                {projects.stateOfProject}
+                                            </TableCell>
 
-                                </TableRow>
-                            ))}
-                        </TableBody>
+                                            <TableCell>
+                                                {projects.admission
+                                                    ? `${moment(
+                                                          projects.admission
+                                                      ).format('DD/MM/YYYY')}`
+                                                    : 'No registrado'}
+                                            </TableCell>
 
-                        <FormControlLabel
-                            control={
-                                <Switch
-                                    defaultChecked={
-                                        projects.state
-                                    }
-                                    size="small"
-                                    color="primary"
-                                    onChange={handleMultiSwitch}
-                                />
-                            }
-                            label={undefined}
-                        />
+                                            <FormGroup
+                                                sx={{
+                                                    display: 'flex',
+                                                    justifyContent: 'center',
+                                                    alignItems: 'center',
+                                                    mt: 3,
+                                                }}
+                                            >
+                                                <FormControlLabel
+                                                    control={
+                                                        <Switch
+                                                            defaultChecked={
+                                                                projects.state
+                                                            }
+                                                            size="small"
+                                                            color="primary"
+                                                            onChange={() =>
+                                                                handleSwitch(
+                                                                    projects.uid
+                                                                )
+                                                            }
+                                                        />
+                                                    }
+                                                    label={undefined}
+                                                />
+                                            </FormGroup>
+                                        </TableRow>
+                                    ))}
+                            </TableBody>
 
-                    </Table>
-                </Box>
+                            <FormControlLabel
+                                control={
+                                    <Switch
+                                        defaultChecked={projects.state}
+                                        size="small"
+                                        color="primary"
+                                        onChange={handleMultiSwitch}
+                                    />
+                                }
+                                label={undefined}
+                            />
+                        </Table>
+                    </Box>
+                )}
                 <Pages />
             </Card>
         </>
