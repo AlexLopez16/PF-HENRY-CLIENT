@@ -15,6 +15,7 @@ import { useLocation } from 'react-router-dom';
 import { getListStudents } from '../../actions/student';
 import { getCompany } from '../../actions/company';
 import { getAdmins } from '../../actions/Admin';
+import { getAllReviews } from '../../actions/Admin';
 
 let limit;
 let init;
@@ -28,10 +29,11 @@ const Pages: FC = () => {
   const { users, total1 } = useSelector((state: any) => state.student);
   const { user, total2 } = useSelector((state: any) => state.company);
   const { filters, total } = useSelector((state: State) => state.project);
-  const { admins, total3} = useSelector((state: State) => state.admin)
+  const { reviews, total3, filterReview } = useSelector((state: State) => state.review);
+  const { admins, total4} = useSelector((state: State) => state.admin)
   // let { myProjectCompany } = useSelector((state: State) => state.project);
 
-  useEffect(() => {}, [projectsFilter, users, user]);
+  useEffect(() => {}, [projectsFilter, users, user, reviews]);
   // const { total } = useSelector((state: State) => state.project);
 
   let numberOfPages;
@@ -46,6 +48,9 @@ const Pages: FC = () => {
   }
   if(total3){
     numberOfPages = Math.ceil(total3 / 6)
+  }
+  if (total4) {
+    numberOfPages = Math.ceil(total4 / 6);
   }
   const handlerClick = async (e: any, value: any) => {
     limit = 6;
@@ -134,6 +139,13 @@ const Pages: FC = () => {
     if(location.pathname === '/dashboard/admins'){
       dispatch(getAdmins(token, limit, init))
     }
+
+    if (location.pathname === '/dashboard/getreviews') {
+      dispatch(getAllReviews(token, limit, init, null));
+      if (filterReview) {
+        dispatch(getAllReviews(token, limit, init, filterReview));
+      }
+    }
   };
 
   return (
@@ -147,8 +159,6 @@ const Pages: FC = () => {
           onChange={handlerClick}
           showFirstButton
           showLastButton
-          hidePrevButton
-          hideNextButton
         />
       </Stack>
     </Container>

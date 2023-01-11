@@ -8,7 +8,7 @@ import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { sendContactEmail } from '../../actions/emails';
 import { SnackBar } from '../../components/SnackBar/SnackBar';
-
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useNavigate } from 'react-router-dom';
 
 export default function ContactForm() {
@@ -194,6 +194,7 @@ export default function ContactForm() {
                 >
                  <FormControl>
           <Button
+          startIcon={<ArrowBackIosNewIcon />}
             onClick={GoBack}
             size='small'
             variant='contained'

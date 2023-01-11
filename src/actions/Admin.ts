@@ -279,10 +279,27 @@ export const registerAdmin = (values: object, success: () => void) => {
     };
 };
 
-export const getAllReviews = (token: string | null) => {
+export const getAllReviews = (
+    token: string | null,
+    limit: number | any,
+    init: number | any,
+    name: string | any
+) => {
     return async (dispatch: Dispatch) => {
+        let query;
+        if (name) {
+            query = `name=${name}`;
+        }
+        if (limit || init) {
+            // console.log(limit, init);
+            if (query) {
+                query += `&limit=${limit}&init=${init}`;
+            } else {
+                query = `limit=${limit}&init=${init}`;
+            }
+        }
         try {
-            const { data } = await axios.get('/admin/getreviews', {
+            const { data } = await axios.get(`/admin/getreviews?${query}`, {
                 headers: { 'user-token': token },
             });
             console.log(data);
@@ -326,6 +343,20 @@ export const cancelReview = (
             });
             console.log(error);
         }
+    };
+};
+
+export const clearReviews = () => {
+    return {
+        type: types.getAllProjects,
+        payload: { getreviews: [], total: 0 },
+    };
+};
+
+export const filterReviews = (search: string | any) => {
+    return {
+        type: types.filterReview,
+        payload: search,
     };
 };
 

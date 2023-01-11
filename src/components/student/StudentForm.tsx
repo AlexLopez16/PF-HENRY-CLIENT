@@ -20,7 +20,7 @@ import * as yup from 'yup';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import { GitHubLogin } from '../auth/GitHubLogin';
 // import { GoogleLogin } from "../auth/GoogleLogin";
-
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useDispatch, useSelector } from 'react-redux';
 import type {} from 'redux-thunk/extend-redux';
 import { studentRegister } from '../../actions/student';
@@ -42,31 +42,30 @@ export const StudensForm: FC = () => {
   };
   const [showPassword, setShowPassword] = useState(false);
 
-let condicion = useSelector((state:State)=>state.response)
+  let condicion = useSelector((state: State) => state.response);
 
-
-    const handleClickShowPassword = () => {
-        setShowPassword(!showPassword);
-    };
-    const initialValues = {
-        name: '',
-        lastName: '',
-        email: '',
-        password: '',
-    };
-    const validationSchema = yup.object().shape({
-        name: yup.string().required('Nombre requerido'),
-        lastName: yup.string().required('Apellido requerido'),
-        email: yup.string().email('email invalido').required('Email requerido'),
-        password: yup
-            .string()
-            .required('Contraseña requerida')
-            .min(8, 'Debe contener min. 8 caracter')
-            .matches(/[0-9]/, 'Se requiere un numero')
-            .matches(/[a-z]/, 'Se requiere una letra minuscula')
-            .matches(/[A-Z]/, 'Se requiere una letra mayuscula')
-            .matches(/[^\w]/, 'Se requiere un simbolo'),
-    });
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+  const initialValues = {
+    name: '',
+    lastName: '',
+    email: '',
+    password: '',
+  };
+  const validationSchema = yup.object().shape({
+    name: yup.string().required('Nombre requerido'),
+    lastName: yup.string().required('Apellido requerido'),
+    email: yup.string().email('email invalido').required('Email requerido'),
+    password: yup
+      .string()
+      .required('Contraseña requerida')
+      .min(8, 'Debe contener min. 8 caracter')
+      .matches(/[0-9]/, 'Se requiere un numero')
+      .matches(/[a-z]/, 'Se requiere una letra minuscula')
+      .matches(/[A-Z]/, 'Se requiere una letra mayuscula')
+      .matches(/[^\w]/, 'Se requiere un simbolo'),
+  });
 
   type Values = {
     name: string;
@@ -86,9 +85,8 @@ let condicion = useSelector((state:State)=>state.response)
         password: values.password.trim(),
       }),
     );
-    {condicion.status>400
-        ?dispatch(alert)
-        : "null"
+    {
+      condicion.status > 400 ? dispatch(alert) : 'null';
     }
   };
 
@@ -143,7 +141,7 @@ let condicion = useSelector((state:State)=>state.response)
               boxShadow:
                 'rgba(255, 255, 255, 255.16) 0px 1px 4px, rgb(255, 255, 255) 0px 0px 0px 3px',
             }}
-           >
+          >
             <Grid
               textAlign='center'
               color='primary'
@@ -180,7 +178,6 @@ let condicion = useSelector((state:State)=>state.response)
                     color='primary'
                     inputProps={{ maxLength: 50 }}
                     sx={{
-                    
                       boxShadow: 'rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset',
                       '.MuiOutlinedInput-notchedOutline': {
                         borderColor: 'white',
@@ -220,7 +217,6 @@ let condicion = useSelector((state:State)=>state.response)
                     placeholder='Apellido'
                     inputProps={{ maxLength: 50 }}
                     sx={{
-                      
                       boxShadow: 'rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset',
                       '.MuiOutlinedInput-notchedOutline': {
                         borderColor: 'white',
@@ -260,7 +256,6 @@ let condicion = useSelector((state:State)=>state.response)
                     placeholder='Email'
                     inputProps={{ maxLength: 50 }}
                     sx={{
-                      
                       boxShadow: 'rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset',
                       '.MuiOutlinedInput-notchedOutline': {
                         borderColor: 'white',
@@ -291,7 +286,6 @@ let condicion = useSelector((state:State)=>state.response)
                     }
                   />
                   <FormControl sx={{ width: '100%', margin: '10px 0' }}>
-
                     <Field
                       as={OutlinedInput}
                       name='password'
@@ -341,7 +335,7 @@ let condicion = useSelector((state:State)=>state.response)
                     sx={{
                       fontFamily: 'montserrat',
                       fontWeight: 'bold',
-                      mb:1,
+                      mb: 1,
                     }}
                     type='submit'
                     variant='contained'
@@ -356,11 +350,10 @@ let condicion = useSelector((state:State)=>state.response)
                       mt: 1,
                     }}
                   >
-                    <span style={{color:'white'}}>O</span>
+                    <span style={{ color: 'white' }}>O</span>
                   </Divider>
                   <GitHubLogin />
                   <GoogleLogin
-                   
                     logo_alignment='center'
                     type='standard'
                     theme='outline'
@@ -382,14 +375,14 @@ let condicion = useSelector((state:State)=>state.response)
                     auto_select={false}
                   />
                 </Form>
-                )}
-              </Formik>
+              )}
+            </Formik>
 
-              <Typography
-               sx={{
-                  display:'flex',
-                  flexDirection: 'column',
-                 justifyContent: 'center',
+            <Typography
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
                 textAlign: 'center',
                 mt: 4,
                 fontFamily: 'poppins',
@@ -401,14 +394,13 @@ let condicion = useSelector((state:State)=>state.response)
               <Link
                 to='/login'
                 style={{
-                    textDecoration: 'none',
-                    color: '#ffff01',
-                  }}
+                  textDecoration: 'none',
+                  color: '#ffff01',
+                }}
               >
                 Ingresa
               </Link>
             </Typography>
-          
           </Paper>
         </Grid>
       </div>
@@ -417,9 +409,10 @@ let condicion = useSelector((state:State)=>state.response)
         direction='column'
         justifyContent='flex-start'
         alignItems='center'
-       >
+      >
         <FormControl>
           <Button
+            startIcon={<ArrowBackIosNewIcon />}
             onClick={GoBack}
             size='small'
             variant='contained'

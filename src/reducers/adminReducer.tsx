@@ -13,14 +13,14 @@ interface State {
   data: object,
   admins: Admins[],
   user: object,
-  total3: number
+  total4: number
 }
 
 const initialState = {
   data: {},
   admins: [],
   user: {},
-  total3: 0
+  total4: 0
 };
 
 type Action = {
@@ -37,7 +37,7 @@ export const adminReducer = (state: State = initialState, action: Action) => {
       return {
         ...state,
         admins: admins,
-        total3: total
+        total4: total
       }
     case types.getInfoAdmin:
       return {

@@ -8,11 +8,12 @@ import {
   FormControl,
   Grid,
   Box,
-  Container
+  Container,
 } from '@mui/material';
 
 import aboutbg from '../../assets/aboutbg.png';
-import IgnacioNicoletti from "../../assets/team/nacho.png";
+import IgnacioNicoletti from '../../assets/team/nacho.png';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 export default function Nacho() {
   const navigate = useNavigate();
@@ -31,7 +32,6 @@ export default function Nacho() {
         height: '870px',
       }}
     >
-
       <FormControl
         sx={{
           px: 50,
@@ -139,6 +139,7 @@ export default function Nacho() {
       </Box>
       <FormControl>
         <Button
+          startIcon={<ArrowBackIosNewIcon />}
           onClick={back}
           size='small'
           variant='contained'

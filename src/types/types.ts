@@ -61,5 +61,6 @@ export const types = {
     setReclutamientoinProject: '[admin] set reclutamiento in project',
     adminEliminatedCompany: '[admin]admin eliminated company and send email',
     multipleSwitchAlumno: '[admin]switch state alumno dashAdmin',
-    AdminEliminatedReview:'[admin delete review',
+    filterReview: '[admin]filter review',
+    AdminEliminatedReview: '[admin delete review',
 };
