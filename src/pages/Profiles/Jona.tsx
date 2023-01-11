@@ -14,6 +14,7 @@ import {
 import aboutbg from '../../assets/aboutbg.png';
 import Jonathan from '../../assets/team/jona.png';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import Footer from '../LandingPage/Footer';
 
 export default function Jona() {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ export default function Jona() {
     navigate('/AboutUs');
   };
   return (
+    <>
     <Grid
       container
       direction='column'
@@ -159,5 +161,7 @@ export default function Jona() {
         </Button>
       </FormControl>
     </Grid>
+    <Footer />
+    </>
   );
 }

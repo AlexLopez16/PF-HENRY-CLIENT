@@ -19,8 +19,8 @@ import { State } from '../../reducers/rootReducer';
 import { addStudentToProject } from '../../actions/student';
 import { PreLoader } from '../PreLoader/PreLoader';
 import { SnackBar } from '../SnackBar/SnackBar';
-import { inProggresProject, proyectFinal } from '../../actions/company';
-import { getProjectByID } from '../../actions/projects';
+import { proyectFinal } from '../../actions/company';
+import { changeStateOfProject, getProjectByID } from '../../actions/projects';
 import { RatingMail } from './RatingMail';
 import { RatingProject } from './RatingProject';
 import Footer from '../../pages/LandingPage/Footer';
@@ -57,6 +57,10 @@ const ProjectDetail: FC<ProjectProps> = ({
   let id = useSelector((state: State | any) => state.auth.data.id);
   const { projectId } = useSelector((state: State) => state.project);
   const { user }: any = useSelector((state: State) => state.student);
+  const { user: company } = useSelector((state: State) => state.company)
+
+  console.log({ company })
+  console.log({ name })
 
   const navigate = useNavigate();
 
@@ -79,9 +83,12 @@ const ProjectDetail: FC<ProjectProps> = ({
   }, [dispatch]);
 
   const handelClick = () => {
-    dispatch(proyectFinal(uid));
-    dispatch(getProjectByID(token, uid));
+    dispatch(changeStateOfProject(uid, token, 'Terminado'));
   };
+
+  const handleDesarrollo = () => {
+    dispatch(changeStateOfProject(uid, token, 'En desarrollo'))
+  }
 
   let review = projectId.reviews;
 
@@ -318,17 +325,17 @@ console.log(projectId.company._id,"3");
                 }}
               >
                 {rol === 'STUDENT_ROL' &&
-                projectId.stateOfProject === 'Reclutamiento' ? (
+                  projectId.stateOfProject !== 'Terminado' ? (
                   <Button
                     sx={{
-                      width:'50%',
+                      width: '50%',
                       display: 'flex',
                       justifyContent: 'center',
                       alignItem: 'center',
                       textAlign: 'center',
                       fontFamily: 'montserrat',
                       fontWeight: 'bold',
-                      mt:5,
+                      mt: 5,
                     }}
                     type='submit'
                     variant='contained'
@@ -364,28 +371,10 @@ console.log(projectId.company._id,"3");
                 ) : null}
 
                 {rol === 'COMPANY_ROL' &&
-                projectId.stateOfProject === 'En desarrollo'? (
-                  <Button
-                    onClick={handelClick}
-                    type='submit'
-                    variant='contained'
-                    color='warning'
-                    sx={{
-                      boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
-                      fontFamily: 'montserrat',
-                      fontWeight: 'bold',
-                      marginTop: 5,
-                      width: '25%',
-                    }}
-                  >
-                    Finalizar proyecto
-                  </Button>
-                ) : (
-                  rol === 'COMPANY_ROL' &&
-                  projectId.stateOfProject === 'Reclutamiento'?  
+                  projectId.stateOfProject === 'En desarrollo' && company?.name === empresa && (
                     <Button
-                      onClick={handelCheck}
-                      // type='submit'
+                      onClick={handelClick}
+                      type='submit'
                       variant='contained'
                       color='warning'
                       sx={{
@@ -396,27 +385,49 @@ console.log(projectId.company._id,"3");
                         width: '25%',
                       }}
                     >
-                      Iniciar proyecto
+                      Finalizar proyecto
                     </Button>
-                :"")}
+                  )
+                }
+
+                {rol === 'COMPANY_ROL' &&
+                  projectId.stateOfProject === 'Reclutamiento' && company?.name === empresa && (
+                    <Button
+                      onClick={handleDesarrollo}
+                      type='submit'
+                      variant='contained'
+                      color='warning'
+                      sx={{
+                        boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+                        fontFamily: 'montserrat',
+                        fontWeight: 'bold',
+                        marginTop: 5,
+                        width: '25%',
+                      }}
+                    >
+                      Iniciar Proyecto
+                    </Button>
+                  )
+                }
+
               </Box>
             </Paper>
           </Container>
           {rol === 'COMPANY_ROL' ||
-          (rol === 'STUDENT_ROL' &&
-            projectId.stateOfProject === 'Terminado' &&
-            review.length > 0)
+            (rol === 'STUDENT_ROL' &&
+              projectId.stateOfProject === 'Terminado' &&
+              review.length > 0)
             ? review?.map((e: any) => (
-                <RatingProject
-                  avatar={e.student?.image}
-                  name={e.student?.name}
-                  lastName={e.student?.lastName}
-                  description={e.description}
-                  ratingCompany={e.ratingCompany}
-                  ratingProject={e.ratingProject}
-                  projectName={e.project?.name}
-                />
-              ))
+              <RatingProject
+                avatar={e.student?.image}
+                name={e.student?.name}
+                lastName={e.student?.lastName}
+                description={e.description}
+                ratingCompany={e.ratingCompany}
+                ratingProject={e.ratingProject}
+                projectName={e.project?.name}
+              />
+            ))
             : ''}
         </div>
       </Box>

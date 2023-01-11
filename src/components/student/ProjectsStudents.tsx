@@ -2,50 +2,32 @@
  * Redisenado por Hugo.
  * PD: Si no te gusta nos podemos cagar bien a trompadas porque esta bien feo.
  */
-import { FC, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  // clearProject,
-  clearProjects,
-  // getCategory,
-  // getProject,
-  getProjectsFilter,
-} from "../../actions/projects";
-import ProjectCard from "../project/ProjectCard";
-import { State } from "../../reducers/rootReducer";
-// import Autocomplete from '@mui/material/Autocomplete';
-// import TextField from '@mui/material/TextField';
-// import Paper from '@mui/material/Paper';
-// import FormControl from '@mui/material/FormControl/FormControl';
-// import InputLabel from '@mui/material/InputLabel/InputLabel';
-// import Select from '@mui/material/Select/Select';
-// import MenuItem from '@mui/material/MenuItem/MenuItem';
-import { Box } from "@mui/system";
-import Alert from "@mui/material/Alert/Alert";
-import Stack from "@mui/material/Stack/Stack";
-import {
-  Navigate,
-  //  useSearchParams
-} from "react-router-dom";
-import { types } from "../../types/types";
-import {
-  Container,
-  //  IconButton, Input, Typography
-} from "@mui/material";
-// import SearchIcon from '@mui/icons-material/Search';
-import StudentsFilter from "./StudentsFilter";
-import Pages from "../ui/Pagination";
-import { PreLoader } from "../PreLoader/PreLoader";
-import Footer from "../../pages/LandingPage/Footer";
+import { FC, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearProjects, getProjectsFilter } from '../../actions/projects';
+import ProjectCard from '../project/ProjectCard';
+import { State } from '../../reducers/rootReducer';
+
+import { Box } from '@mui/system';
+import Alert from '@mui/material/Alert/Alert';
+import Stack from '@mui/material/Stack/Stack';
+import { Navigate } from 'react-router-dom';
+import { types } from '../../types/types';
+import { Container } from '@mui/material';
+
+import StudentsFilter from './StudentsFilter';
+import Pages from '../ui/Pagination';
+import { PreLoader } from '../PreLoader/PreLoader';
+import Footer from '../../pages/LandingPage/Footer';
 
 import bgComponents from "../../assets/bgComponents.png";
 import { Alert3 } from "../AlertMail/alertMailStudent";
 
 const ProjectsStudents: FC = () => {
   const dispatch = useDispatch();
-  const token = localStorage.getItem("token") || "";
+  const token = localStorage.getItem('token') || '';
 
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [inputFilter, setInput] = useState({
     state: undefined,
     tecnologies: undefined,
@@ -62,8 +44,8 @@ const ProjectsStudents: FC = () => {
         inputFilter.categorie,
         inputFilter.state,
         6,
-        0
-      )
+        0,
+      ),
     );
     return () => {
       dispatch(clearProjects({ projects: [], total: 0 }));

@@ -65,4 +65,5 @@ export const types = {
     multipleSwitchAlumno: '[admin]switch state alumno dashAdmin',
     filterReview: '[admin]filter review',
     AdminEliminatedReview: '[admin delete review',
+    clearAdmin: '[admin] clear state',
 };
