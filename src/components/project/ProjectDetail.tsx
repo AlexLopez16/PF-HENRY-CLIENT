@@ -66,7 +66,7 @@ const ProjectDetail: FC<ProjectProps> = ({
 
   const handlerApply = () => {
     {
-      projectId.questions.length
+      projectId?.questions?.length
         ? navigate(`/postulatedForm/${uid}`)
         : dispatch(addStudentToProject(uid, token));
     }

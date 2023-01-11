@@ -2,6 +2,7 @@ import { FC, useState, useEffect } from 'react';
 import { Backdrop, CircularProgress } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { State } from '../../reducers/rootReducer';
+import bgComponents from '../../assets/bg.png';
 
 export const PreLoader: FC = () => {
     // Traemos el estado del request.
@@ -16,7 +17,9 @@ export const PreLoader: FC = () => {
         setOpen(true);
     };
     const handleClose = () => {
-        setOpen(false);
+        setTimeout(() => {
+            setOpen(false);
+        }, 2000)
     };
     return (
         <div>
@@ -24,8 +27,9 @@ export const PreLoader: FC = () => {
                 sx={{
                     zIndex: '10000',
                    
-                    // backdropFilter: 'blur(.5px)',
+                    // backdropFilter: 'blur(10px)',
                     // backgroundColor: 'white',
+                    backgroundImage: `url(${bgComponents})`,
                 }}
                 open={open}
             >
