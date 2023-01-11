@@ -355,3 +355,22 @@ export const getAllProject = (
 export const clearProject = () => {
     return { type: types.clearProject };
 };
+
+export const changeStateOfProject = (id: string, token: string, state: string) => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const res = await axios.put(
+                `/project/edit/${id}`,
+                { stateOfProject: `${state}` },
+                { headers: { 'user-token': token } }
+            );
+
+            dispatch({
+                type: types.getProjectById,
+                payload: res.data,
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+};

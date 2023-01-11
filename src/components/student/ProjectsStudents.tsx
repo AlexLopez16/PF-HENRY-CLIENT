@@ -20,7 +20,8 @@ import Pages from '../ui/Pagination';
 import { PreLoader } from '../PreLoader/PreLoader';
 import Footer from '../../pages/LandingPage/Footer';
 
-import bgComponents from '../../assets/bgComponents.png';
+import bgComponents from "../../assets/bgComponents.png";
+import { Alert3 } from "../AlertMail/alertMailStudent";
 
 const ProjectsStudents: FC = () => {
   const dispatch = useDispatch();
@@ -55,14 +56,29 @@ const ProjectsStudents: FC = () => {
 
   let info = projectsFilter;
 
-  const { status } = useSelector((state: State) => state.auth);
+  interface props {
+    status: number;
+    data: {
+      id: string;
+      rol: string;
+      email:any
+    };
+  }
+
+  const { status, data }:props = useSelector((state: State) => state.auth);
+
+
+   useEffect (()=>{
+ data.rol === "STUDENT_ROL" && !data.email
+ ? Alert3(data.id):""
+ },[])
 
   if (status === 401) {
     localStorage.clear();
     dispatch({
       type: types.authLogin,
     });
-    return <Navigate to='/login' />;
+    return <Navigate to="/login" />;
   }
 
   return (
@@ -77,7 +93,8 @@ const ProjectsStudents: FC = () => {
         <PreLoader />
         <StudentsFilter />
         <Pages />
-        <Container maxWidth='lg'>
+       
+        <Container maxWidth="lg">
           {info.length ? (
             info.map((e: any) => (
               <ProjectCard
@@ -97,24 +114,24 @@ const ProjectsStudents: FC = () => {
           ) : (
             <Stack
               sx={{
-                width: '100%',
+                width: "100%",
                 pb: 70,
                 pt: 15,
-                justifyContent: 'center',
-                display: 'flex',
-                alignContent: 'center',
+                justifyContent: "center",
+                display: "flex",
+                alignContent: "center",
               }}
               spacing={2}
             >
               <Alert
-                severity='info'
+                severity="info"
                 sx={{
-                  justifyContent: 'center',
-                  display: 'flex',
-                  alignContent: 'center',
+                  justifyContent: "center",
+                  display: "flex",
+                  alignContent: "center",
                   borderRadius: 50,
-                  fontFamily: 'poppins',
-                  color: 'black',
+                  fontFamily: "poppins",
+                  color: "black",
                 }}
               >
                 No hay proyectos con los filtros aplicados!

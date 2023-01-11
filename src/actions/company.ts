@@ -240,3 +240,19 @@ export const getCountries = (token: string | null) => {
     }
   };
 };
+export const inProggresProject= (uid:string) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      const res = await axios.put('/inProggresProject', {uid});
+
+      dispatch({
+        type: types.inProggres,    
+      });
+    } catch (error) {
+      console.log(error);
+      console.log("algo")
+    }
+  };
+};
+
+
