@@ -13,7 +13,7 @@ import {
 
 import aboutbg from '../../assets/aboutbg.png';
 import Alejandro from "../../assets/team/rivo.png";
-
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 export default function Ale() {
   const navigate = useNavigate();
@@ -138,6 +138,7 @@ export default function Ale() {
       </Box>
       <FormControl>
         <Button
+        startIcon={<ArrowBackIosNewIcon />}
           onClick={back}
           size='small'
           variant='contained'

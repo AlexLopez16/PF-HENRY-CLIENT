@@ -8,12 +8,12 @@ import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
 import {
-    Box,
-    Typography,
-    Paper,
-    CardHeader,
-    Avatar,
-    List,
+  Box,
+  Typography,
+  Paper,
+  CardHeader,
+  Avatar,
+  List,
 } from '@mui/material';
 import { useSelector } from 'react-redux';
 
@@ -52,64 +52,73 @@ import { useSelector } from 'react-redux';
 // };
 
 interface RatingProps {
-    avatar?: string;
-    name?: string;
-    lastName?: string;
-    description?: string;
-    projectName?: string;
-    ratingCompany?: number;
-    ratingProject?: number;
+  avatar?: string;
+  name?: string;
+  lastName?: string;
+  description?: string;
+  projectName?: string;
+  ratingCompany?: number;
+  ratingProject?: number;
 }
 
 export const RatingProject: FC<RatingProps> = ({
-    avatar,
-    name,
-    lastName,
-    projectName,
-    description,
-    ratingCompany,
-    ratingProject,
+  avatar,
+  name,
+  lastName,
+  projectName,
+  description,
+  ratingCompany,
+  ratingProject,
 }) => {
-    return (
-        <Paper
-            elevation={10}
-            style={{
-                width: 400,
-                height: '100%',
-                padding: 20,
-                margin: '50px auto',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}
+  return (
+    <Paper
+      elevation={10}
+      style={{
+        width: 400,
+        height: '100%',
+        padding: 20,
+        margin: '50px auto',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 20,
+      }}
+    >
+      <CardHeader
+        avatar={<Avatar src={avatar} sx={{ width: 80, height: 80 }} />}
+      />
+      <Typography sx={{ maxWidth: 360, display: 'flex' }} variant='body1'>
+        {name} {lastName}
+      </Typography>
+
+      <Typography variant='h6' sx={{ fontFamily: 'montserrat', mb: 1 }}>
+        {projectName}{' '}
+      </Typography>
+
+      <List component='div' disablePadding>
+        <Typography
+          sx={{
+            fontFamily: 'montserrat',
+            mb: 1,
+            maxWidth: 360,
+            display: 'flex',
+            fontStyle: 'italic',
+          }}
+          variant='body1'
         >
-            <CardHeader
-                avatar={<Avatar src={avatar} sx={{ width: 80, height: 80 }} />}
-            />
-            <Typography sx={{ maxWidth: 360, display: 'flex' }} variant="body1">
-                {name} {lastName}
-            </Typography>
+          {description}
+        </Typography>
+      </List>
+      <Typography component='legend' sx={{ fontFamily: 'poppins' }}>
+        Nivel de satisfaccion con la empresa
+      </Typography>
+      <Rating name='read-only' readOnly value={ratingCompany} sx={{ mb: 2 }} />
 
-            <Typography variant="h6">{projectName}</Typography>
-
-            <List component="div" disablePadding>
-                <Typography
-                    sx={{ maxWidth: 360, display: 'flex' }}
-                    variant="body1"
-                >
-                    {description}
-                </Typography>
-            </List>
-            <Typography component="legend">
-                Nivel de satisfaccion con la empresa
-            </Typography>
-            <Rating name="read-only" readOnly value={ratingCompany} />
-
-            <Typography component="legend">
-                Nivel de satisfaccion del proyecto
-            </Typography>
-            <Rating name="read-only" readOnly value={ratingProject} />
-        </Paper>
-    );
+      <Typography component='legend' sx={{ fontFamily: 'poppins' }}>
+        Nivel de satisfaccion del proyecto
+      </Typography>
+      <Rating name='read-only' readOnly value={ratingProject} sx={{ mb: 2 }} />
+    </Paper>
+  );
 };

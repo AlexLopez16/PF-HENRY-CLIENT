@@ -8,12 +8,12 @@ import {
   FormControl,
   Grid,
   Box,
-  Container
+  Container,
 } from '@mui/material';
 
-import aboutbg from "../../assets/aboutbg.png";
-import Silvana from "../../assets/team/silvana.png";
-
+import aboutbg from '../../assets/aboutbg.png';
+import Silvana from '../../assets/team/silvana.png';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 export default function Sil() {
   const navigate = useNavigate();
@@ -32,7 +32,6 @@ export default function Sil() {
         height: '870px',
       }}
     >
-     
       <FormControl
         sx={{
           px: 50,
@@ -139,6 +138,7 @@ export default function Sil() {
       </Box>
       <FormControl>
         <Button
+          startIcon={<ArrowBackIosNewIcon />}
           onClick={back}
           size='small'
           variant='contained'

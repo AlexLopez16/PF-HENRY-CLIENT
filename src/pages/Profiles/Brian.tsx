@@ -13,7 +13,7 @@ import {
 
 import aboutbg from '../../assets/aboutbg.png';
 import BrianPaez from "../../assets/team/brian.png";
-
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 export default function Brian() {
   const navigate = useNavigate();
 
@@ -139,6 +139,7 @@ export default function Brian() {
       </Box>
       <FormControl>
         <Button
+            startIcon={<ArrowBackIosNewIcon />}
           onClick={back}
           size='small'
           variant='contained'

@@ -2,11 +2,13 @@ import { types } from '../types/types';
 
 interface State {
     reviews: object[];
-    total2: number;
+    total3: number;
+    filterReview: string | any;
 }
 const initialState = {
     reviews: [],
-    total2: 0,
+    total3: 0,
+    filterReview: undefined,
 };
 
 type Action = {
@@ -17,10 +19,18 @@ type Action = {
 export const reviewReducer = (state: State = initialState, action: Action) => {
     switch (action.type) {
         case types.getAllReviews:
+            const { getreviews, total }: Object | any = action.payload;
             return {
                 ...state,
-                reviews:action.payload,
+                reviews: getreviews,
+                total3: total,
             };
+        case types.filterReview:
+            return {
+                ...state,
+                filterReview: action.payload,
+            };
+
         default:
             return state;
     }
