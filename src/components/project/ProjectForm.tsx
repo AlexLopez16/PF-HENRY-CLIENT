@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Autocomplete } from 'formik-mui';
@@ -7,24 +7,24 @@ import { Autocomplete } from 'formik-mui';
 import * as Yup from 'yup';
 
 import {
-    Grid,
-    Button,
-    Paper,
-    FormControlLabel,
-    Radio,
-    RadioGroup,
-    SelectChangeEvent,
-    FormControl,
-    FormLabel,
-    InputLabel,
-    MenuItem,
-    Select,
-    TextField,
-    FilledInput,
-    IconButton,
-    InputAdornment,
-    TextFieldProps,
-    Box,
+  Grid,
+  Button,
+  Paper,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+  SelectChangeEvent,
+  FormControl,
+  FormLabel,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  FilledInput,
+  IconButton,
+  InputAdornment,
+  TextFieldProps,
+  Box,
 } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ImageIcon from '@mui/icons-material/Image';
@@ -39,11 +39,12 @@ import NavBar from '../NavBar/NavBar';
 import Footer from '../../pages/LandingPage/Footer';
 import { SnackBar } from '../SnackBar/SnackBar';
 import { Link, useNavigate } from 'react-router-dom';
+import { State } from '../../reducers/rootReducer';
 
 const ProjectForm: FC = () => {
-    const nParticipants = [...Array(8)].map((_, index) => index + 1);
+  const nParticipants = [...Array(8)].map((_, index) => index + 1);
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -92,7 +93,9 @@ const ProjectForm: FC = () => {
       test: (arr) => arr?.length !== 0,
     }),
   });
-
+  let {data}:any= useSelector((state: State) => state.auth)
+  let iduser = data.id //Se usa para corroborar si tiene 3 proyectos publicados
+  
   const onSubmit = async (values: any, props: any) => {
     const listRequeriments: any = values.requirements?.map((e: any) => e.name);
 
@@ -106,19 +109,22 @@ const ProjectForm: FC = () => {
         .catch((err) => console.log(err));
     }
 
-        const data = {
-            name: values.name,
-            description: values.description,
-            participants: participants,
-            requirements: listRequeriments,
-            category: values?.category || category,
-            images: imagesUrl,
-            questions: [values.question1, values.question2, values.question3]
-        };
+    const data = {
+      name: values.name,
+      description: values.description,
+      participants: participants,
+      requirements: listRequeriments,
+      category: values?.category || category,
+      images: imagesUrl,
+      questions: [values.question1, values.question2, values.question3],
+    
+
+    };
 
     // setImages([...images, ...data]);
 
-    dispatch(newProject(data, token));
+    dispatch(newProject(data,token));
+
 
     setTimeout(() => {
       props.resetForm();
@@ -179,22 +185,22 @@ const ProjectForm: FC = () => {
     { name: 'TypeScript' },
     { name: 'Vue' },
 
-        //con CTRL + Shift + P y selecciono en orden ascendente
-    ];
+    //con CTRL + Shift + P y selecciono en orden ascendente
+  ];
 
-    //Upload Images
-    const handleFilesChange = async (
-        event: React.ChangeEvent<HTMLInputElement | {}>
-    ) => {
-        const files = (event.target as HTMLInputElement).files || [];
-        const data = Array.from(files);
+  //Upload Images
+  const handleFilesChange = async (
+    event: React.ChangeEvent<HTMLInputElement | {}>
+  ) => {
+    const files = (event.target as HTMLInputElement).files || [];
+    const data = Array.from(files);
 
-        setImages([
-            ...images,
-            ...data
-        ])
+    setImages([
+      ...images,
+      ...data
+    ])
 
-    };
+  };
 
   const imageClick = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -205,7 +211,12 @@ const ProjectForm: FC = () => {
     setImages(filter);
   };
 
-    return (
+
+
+
+
+
+  return (
     <Box
       sx={{
         backgroundImage: `url(${bg})`,
@@ -260,7 +271,7 @@ const ProjectForm: FC = () => {
                     fontFamily='montserrat'
                     color='info'
                     sx={{ mb: 2 }}
-                                        inputProps={{ maxLength: 50 }}
+                    inputProps={{ maxLength: 50 }}
                     helperText={
                       <ErrorMessage name='name'>
                         {(msg) => (
@@ -287,7 +298,7 @@ const ProjectForm: FC = () => {
                     required
                     color='info'
                     sx={{ mb: 2 }}
-                                        inputProps={{ maxLength: 500 }}
+                    inputProps={{ maxLength: 500 }}
                     helperText={
                       <ErrorMessage name='description'>
                         {(msg) => (
@@ -344,7 +355,7 @@ const ProjectForm: FC = () => {
                       required
                       color='info'
                       sx={{ mb: 2 }}
-                                            inputProps={{ maxLength: 50 }}
+                      inputProps={{ maxLength: 50 }}
                     />
                   )}
 
@@ -392,7 +403,7 @@ const ProjectForm: FC = () => {
                     fullWidth
                     color='info'
                     sx={{ mb: 2 }}
-                                        inputProps={{ maxLength: 100 }}
+                    inputProps={{ maxLength: 100 }}
                   />
 
                   <Field
@@ -403,19 +414,19 @@ const ProjectForm: FC = () => {
                     fullWidth
                     color='info'
                     sx={{ mb: 2 }}
-                                        inputProps={{ maxLength: 100 }}
+                    inputProps={{ maxLength: 100 }}
                   />
 
-                                    <Field
-                                        as={TextField}
-                                        name="question3"
-                                        label="Pregunta teorica 3"
-                                        placeholder="¿Que quisieras preguntarle a tu nuevo Henry?"
-                                        fullWidth
-                                        color="info"
-                                        sx={{ mb: 2 }}
-                                        inputProps={{ maxLength: 100 }}
-                                    />
+                  <Field
+                    as={TextField}
+                    name="question3"
+                    label="Pregunta teorica 3"
+                    placeholder="¿Que quisieras preguntarle a tu nuevo Henry?"
+                    fullWidth
+                    color="info"
+                    sx={{ mb: 2 }}
+                    inputProps={{ maxLength: 100 }}
+                  />
 
                   <FormControl fullWidth>
                     <InputLabel color='info' id='demo-simple-select-label'>
@@ -515,12 +526,12 @@ const ProjectForm: FC = () => {
         </Grid>
       </div>
       <Grid
-                 container
-                 direction='column'
-                 justifyContent='flex-start'
-                 alignItems='center'
-                >
-                 <FormControl>
+        container
+        direction='column'
+        justifyContent='flex-start'
+        alignItems='center'
+      >
+        <FormControl>
           <Button
            startIcon={<ArrowBackIosNewIcon />}
             onClick={GoBack}
