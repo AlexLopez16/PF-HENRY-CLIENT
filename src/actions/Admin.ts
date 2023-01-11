@@ -278,9 +278,9 @@ export const registerAdmin = (values: object) => {
 
 export const getAllReviews = (
     token: string | null,
-    limit: number | null,
-    init: number | null,
-    name: string | null
+    limit: number | any,
+    init: number | any,
+    name: string | any
 ) => {
     return async (dispatch: Dispatch) => {
         let query;

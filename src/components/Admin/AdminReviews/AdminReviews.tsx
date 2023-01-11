@@ -50,7 +50,7 @@ const AdminReviews: FC = ({ ...rest }) => {
     const token: any = localStorage.getItem('token');
     const { reviews } = useSelector((state: State) => state.review);
     useEffect(() => {
-        dispatch(getAllReviews(token, 6, 0, null));
+        dispatch(getAllReviews(token, 6, 0, undefined));
         return () => {
             dispatch(clearReviews());
         };
