@@ -61,13 +61,14 @@ const ProjectCardMyCompany: FC<CardProjectProps> = ({
     >
       <Paper
         elevation={10}
-        style={{
-          padding: 20,
-          marginTop: 20,
-          width: 950,
-          borderRadius: 15,
+        sx={{
+          display: 'flex',
+          p: 5,
+          mt: 2,
+          mb: 2,
+          width: '60%',
+          borderRadius: 10,
           backgroundColor: 'black',
-          marginBottom: 15,
         }}
       >
         <Container fixed>

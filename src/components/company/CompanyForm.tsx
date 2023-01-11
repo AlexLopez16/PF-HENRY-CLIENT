@@ -36,8 +36,8 @@ import { GoogleLogin } from '@react-oauth/google';
 import { gmailLogin } from '../../actions/auth';
 import Header from '../NavbarLandingPage/HeaderLanding';
 import Footer from '../../pages/LandingPage/Footer';
-import companyRegisterbg from '../../assets/companyRegisterbg.png';
-import Logo from '../../assets/NABIJASH.png';
+import bgComponents from '../../assets/bgComponents.png';
+import logoBlack from '../../assets/logoBlack.png';
 import { alert } from '../AlertMail/alertMailStudent';
 import { SnackBar } from '../SnackBar/SnackBar';
 import { State } from '../../reducers/rootReducer';
@@ -123,7 +123,7 @@ const CompanyForm: FC = () => {
   return (
     <Box
       sx={{
-        backgroundImage: `url(${companyRegisterbg})`,
+        backgroundImage: `url(${bgComponents})`,
         maxWidth: '1920px',
       }}
     >
@@ -137,7 +137,7 @@ const CompanyForm: FC = () => {
           alignItems='center'
         >
           <img
-            src={Logo}
+            src={logoBlack}
             style={{
               justifyContent: 'center',
               marginTop: 35,
@@ -167,8 +167,6 @@ const CompanyForm: FC = () => {
               pt: 4,
               borderRadius: 10,
               backgroundColor: 'black',
-              boxShadow:
-                'rgba(255, 255, 255, 255.16) 0px 1px 4px, rgb(255, 255, 255) 0px 0px 0px 3px',
             }}
           >
             <Grid
