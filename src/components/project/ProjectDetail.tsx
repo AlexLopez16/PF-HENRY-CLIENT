@@ -86,11 +86,16 @@ const ProjectDetail: FC<ProjectProps> = ({
   let review = projectId.reviews;
 
 const handelCheck =()=>{
+  // dispatch(getProjectByID(token, uid))
  dispatch(inProggresProject(uid))
- dispatch(getProjectByID(token, uid))
 };
 
-console.log(uid);
+// console.log(uid,"1");
+//  console.log(data,"2");
+console.log(projectId.company._id,"3");
+// console.log(user,"4");
+//  console.log(id,"4");
+
 
 
 
@@ -313,7 +318,7 @@ console.log(uid);
                 }}
               >
                 {rol === 'STUDENT_ROL' &&
-                projectId.stateOfProject !== 'Terminado' ? (
+                projectId.stateOfProject === 'Reclutamiento' ? (
                   <Button
                     sx={{
                       width:'50%',
@@ -335,11 +340,11 @@ console.log(uid);
                     aplicar
                   </Button>
                 ) : id &&
-                  rol === 'COMPANY_ROL' &&
+                  rol === 'COMPANY_ROL'&&
                   projectId &&
                   projectId?.company?._id &&
                   id === projectId.company._id &&
-                  projectId.stateOfProject === 'Reclutamiento'|| projectId.stateOfProject !== 'Terminado' ? (
+                  projectId.stateOfProject === 'Reclutamiento'?(
                   <Link to={`/postulated/${uid}`}>
                     <Button
                       sx={{
