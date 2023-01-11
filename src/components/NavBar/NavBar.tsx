@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState } from 'react';
 import {
   AppBar,
   Box,
@@ -6,17 +6,17 @@ import {
   Container,
   Toolbar,
   Typography,
-} from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { State } from "../../reducers/rootReducer";
-import AccountMenu from "../AdminBar/AdminBar";
-import { getStudentInfo } from "../../actions/student";
-import { IconButton, MenuItem } from "@mui/material";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import { Link, useNavigate } from "react-router-dom";
-
-import Logo from "../../assets/NABIJASH.png";
+} from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { State } from '../../reducers/rootReducer';
+import AccountMenu from '../AdminBar/AdminBar';
+import { getStudentInfo } from '../../actions/student';
+import { IconButton, MenuItem } from '@mui/material';
+import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
+import { Link, useNavigate } from 'react-router-dom';
+import logoBlackNav from '../../assets/logoBlackNav.png';
+import Logo from '../../assets/NABIJASH.png';
 
 const NavBar: FC = () => {
   const navigate = useNavigate();
@@ -25,49 +25,49 @@ const NavBar: FC = () => {
   const { data }: any = useSelector((state: State) => state.auth);
   const rol = data.rol;
   const dispatch = useDispatch();
-  const token: string = localStorage.getItem("token") || "";
+  const token: string = localStorage.getItem('token') || '';
 
   useEffect(() => {
-    rol === "STUDENT_ROL" ? dispatch(getStudentInfo(data.id, token)) : null;
+    rol === 'STUDENT_ROL' ? dispatch(getStudentInfo(data.id, token)) : null;
   }, [dispatch]);
 
   // Paths y opciones de boton para el student.
   const studentButtons = [
     {
-      option: "Proyectos",
-      path: "/projects",
+      option: 'Proyectos',
+      path: '/projects',
     },
     {
-      option: "Mis Proyectos",
-      path: "/myprojects",
+      option: 'Mis Proyectos',
+      path: '/myprojects',
     },
   ];
 
   // Paths y opciones de boton para el company.
   const companyButtons = [
     {
-      option: "Proyectos",
-      path: "/projects",
+      option: 'Proyectos',
+      path: '/projects',
     },
     {
-      option: "Crear Proyecto",
-      path: "/newproject",
+      option: 'Crear Proyecto',
+      path: '/newproject',
     },
     {
-      option: "Mis Proyectos",
-      path: "/myprojects",
+      option: 'Mis Proyectos',
+      path: '/myprojects',
     },
   ];
 
   // Paths y opciones de boton para el admin.
   const adminButtons = [
     {
-      option: "Dashboard",
-      path: "/dashboard",
+      option: 'Dashboard',
+      path: '/dashboard',
     },
     {
-      option: "Proyectos",
-      path: "/projects",
+      option: 'Proyectos',
+      path: '/projects',
     },
     // {
     //     option: 'My Project',
@@ -78,17 +78,17 @@ const NavBar: FC = () => {
   // Paths para el usuario que tiene que verificar su cuenta.
   const verifyButtons = [
     {
-      option: "Verificar",
-      path: "/verifyemail",
+      option: 'Verificar',
+      path: '/verifyemail',
     },
   ];
 
   const buttonList =
-    rol === "STUDENT_ROL" && data.verify
+    rol === 'STUDENT_ROL' && data.verify
       ? studentButtons
-      : rol === "COMPANY_ROL" && data.verify
+      : rol === 'COMPANY_ROL' && data.verify
       ? companyButtons
-      : rol === "ADMIN_ROL" && data.verify
+      : rol === 'ADMIN_ROL' && data.verify
       ? adminButtons
       : verifyButtons;
 
@@ -104,152 +104,158 @@ const NavBar: FC = () => {
   };
 
   return (
-    <AppBar position="sticky">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            // component="a"
-            // href="/dashboard"
-            onClick={() => navigate("/projects")}
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-              cursor: "pointer",
-            }}
-          >
-            <img
-              src={Logo}
-              alt="Logo"
-              style={{
-                background: "black",
-                width: "auto",
-                maxHeight: "50px",
-              }}
-            />
-            {/* LOGO */}
-          </Typography>
-
-          <Box
-            sx={{
-              flexGrow: 1,
-              display: { xs: "flex", md: "none" },
-            }}
-          >
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+    <AppBar
+      position='sticky'
+      color='primary'
+      sx={{
+        fontColor: 'black',
+        fontFamily: 'poppins',
+        display: 'flex',
+      }}
+    >
+      <Container
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-around',
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+          }}
+        >
+          <Toolbar disableGutters>
+            <Typography
+              variant='h4'
+              noWrap
+              onClick={() => navigate('/projects')}
               sx={{
-                display: { xs: "block", md: "none" },
+                display: 'flex',
+                textDecoration: 'none',
+                cursor: 'pointer',
+              }}
+            >
+              <img
+                src={logoBlackNav}
+                style={{
+                  height: '50%',
+                  width: '50%',
+                }}
+              />
+            </Typography>
+
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: { xs: 'flex', md: 'none' },
+              }}
+            >
+              <IconButton
+                size='large'
+                aria-label='account of current user'
+                aria-controls='menu-appbar'
+                aria-haspopup='true'
+                onClick={handleOpenNavMenu}
+                color='inherit'
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id='menu-appbar'
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: 'block', md: 'none' },
+                }}
+              >
+                {buttonList.map((button) => (
+                  <Link key={button.option} to={button.path}>
+                    <MenuItem onClick={handleCloseNavMenu}>
+                      <Typography textAlign='center'>
+                        {button.option}
+                      </Typography>
+                    </MenuItem>
+                  </Link>
+                ))}
+              </Menu>
+            </Box>
+
+            <Typography
+              variant='h5'
+              noWrap
+              onClick={() => navigate('/projects')}
+              sx={{
+                mr: 2,
+                display: { xs: 'flex', md: 'none' },
+                flexGrow: 1,
+                fontFamily: 'montserrat',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
+                cursor: 'pointer',
+              }}
+            >
+              {/* LOGO */}
+            </Typography>
+            <Typography
+              variant='h5'
+              noWrap
+              onClick={() => navigate('/projects')}
+              sx={{
+                mr: 2,
+                display: { xs: 'flex', md: 'none' },
+                flexGrow: 1,
+                fontFamily: 'montserrat',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
+                cursor: 'pointer',
+              }}
+            ></Typography>
+
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: { xs: 'none', md: 'flex', fontFamily: 'poppins' },
               }}
             >
               {buttonList.map((button) => (
                 <Link key={button.option} to={button.path}>
-                  <MenuItem onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{button.option}</Typography>
-                  </MenuItem>
+                  <Button
+                    onClick={handleCloseNavMenu}
+                    sx={{
+                      m: 2,
+                      color: 'black',
+                      fontFamily: 'poppins',
+                      display: 'flex',
+                      justifyContent: 'space-evenly',
+                      border: '1px solid black',
+                      '&:hover .MuiOutlinedInput-notchedOutline': {
+                        borderColorHover: '#ffff01',
+                      },
+                    }}
+                  >
+                    {button.option}
+                  </Button>
                 </Link>
               ))}
-            </Menu>
-          </Box>
+            </Box>
 
-          <Typography
-            variant="h5"
-            noWrap
-            onClick={() => navigate("/projects")}
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-              cursor: "pointer",
-            }}
-          >
-            <img
-              src={Logo}
-              alt="Logo"
-              style={{
-                background: "black",
-                width: "auto",
-                maxHeight: "50px",
-              }}
-            />
-            {/* LOGO */}
-          </Typography>
-          <Typography
-            variant="h5"
-            noWrap
-            onClick={() => navigate("/projects")}
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-              cursor: "pointer",
-            }}
-          >
-            LOGO
-          </Typography>
-
-          <Box
-            sx={{
-              flexGrow: 1,
-              display: { xs: "none", md: "flex" },
-            }}
-          >
-            {buttonList.map((button) => (
-              <Link key={button.option} to={button.path}>
-                <Button
-                  onClick={handleCloseNavMenu}
-                  sx={{
-                    my: 2,
-                    color: "black",
-                    display: "block",
-                  }}
-                >
-                  {button.option}
-                </Button>
-              </Link>
-            ))}
-          </Box>
-
-          <AccountMenu />
-        </Toolbar>
+            <AccountMenu />
+          </Toolbar>
+        </Box>
       </Container>
     </AppBar>
   );

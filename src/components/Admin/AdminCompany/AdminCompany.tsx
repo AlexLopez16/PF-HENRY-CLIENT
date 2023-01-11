@@ -55,7 +55,6 @@ const AdminCompany: FC = () => {
   }, [dispatch]);
 
   const [selectedCustomerIds, setSelectedCustomerIds] = useState<any[]>([]);
-  const [limit, setLimit] = useState(12);
   const [open, setOpen] = useState(false);
   const [checked, setChecked] = React.useState(true);
 
@@ -109,18 +108,16 @@ const AdminCompany: FC = () => {
                 <TableCell>Locación</TableCell>
                 <TableCell>Estado</TableCell>
                 <TableCell>Fecha Registro</TableCell>
-
                 <TableCell>Cambiar Estado</TableCell>
                 <TableCell>Aceptar</TableCell>
                 <TableCell>Rechazar</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {users?.slice(0, limit).map((user: any) => (
+              {users?.map((user: any) => (
                 <TableRow
                   hover
                   key={user.uid}
-                  selected={selectedCustomerIds.indexOf(user.uid) !== -1}
                 >
                   <TableCell>
                     <Box

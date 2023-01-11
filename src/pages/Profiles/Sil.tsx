@@ -14,6 +14,7 @@ import {
 import aboutbg from '../../assets/aboutbg.png';
 import Silvana from '../../assets/team/silvana.png';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import Footer from '../LandingPage/Footer';
 
 export default function Sil() {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ export default function Sil() {
     navigate('/AboutUs');
   };
   return (
+    <>
     <Grid
       container
       direction='column'
@@ -154,5 +156,7 @@ export default function Sil() {
         </Button>
       </FormControl>
     </Grid>
+    <Footer />
+    </>
   );
 }
