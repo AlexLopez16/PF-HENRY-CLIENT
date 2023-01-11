@@ -209,7 +209,7 @@ const AdminReviews: FC = ({ ...rest }) => {
                                                 color="textPrimary"
                                                 variant="body1"
                                             >
-                                                {review.project.name}
+                                                {review.project?.name}
                                             </Typography>
                                         </Box>
                                     </TableCell>

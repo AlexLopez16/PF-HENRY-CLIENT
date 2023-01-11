@@ -10,7 +10,6 @@ import * as moment from "moment";
 import {
     Avatar,
     Card,
-    Checkbox,
     Table,
     TableBody,
     TableCell,
@@ -37,12 +36,12 @@ import { acceptCompany, rejectCompany } from "../../../actions/Admin";
 import { SnackBar } from "../../SnackBar/SnackBar";
 import AdminFilterCompany from "./AdminFilterCompany";
 
-const AdminCompany: FC = ({ ...rest }) => {
+const AdminCompany: FC = () => {
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
   const { user }: object | any = useSelector((state: State) => state.company);
   const users = user;
-  const { logged, status } = useSelector((state: State) => state.auth);
+  const { status } = useSelector((state: State) => state.auth);
 
   if (!status && token) {
     dispatch(validaToken(token));
@@ -60,52 +59,8 @@ const AdminCompany: FC = ({ ...rest }) => {
   const [open, setOpen] = useState(false);
   const [checked, setChecked] = React.useState(true);
 
-  const handleSelectAll = (event: any) => {
-    let newSelectedCustomerIds;
-
-    if (event.target.checked) {
-      newSelectedCustomerIds = users.map((user: any) => user.id);
-    } else {
-      newSelectedCustomerIds = [];
-    }
-
-    setSelectedCustomerIds(newSelectedCustomerIds);
-  };
-
-  const handleSelectOne = (event: any, uid: any) => {
-    const selectedIndex = selectedCustomerIds.indexOf(uid);
-    let newSelectedCustomerIds: any = [];
-
-    if (selectedIndex === -1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds,
-        uid
-      );
-    } else if (selectedIndex === 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(1)
-      );
-    } else if (selectedIndex === selectedCustomerIds.length - 1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(0, -1)
-      );
-    } else if (selectedIndex > 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(0, selectedIndex),
-        selectedCustomerIds.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelectedCustomerIds(newSelectedCustomerIds);
-  };
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(event.target.checked);
-  };
   const handleDisable = (selectID: string) => {
-    // selectedCustomerIds.forEach((selectID: any) =>
     dispatch(disableCompany(token, selectID));
-    // );
   };
   const handleaccept = (id: string) => {
     console.log(id);
@@ -115,9 +70,6 @@ const AdminCompany: FC = ({ ...rest }) => {
   const handlecancel = (id: string) => {
     console.log(id);
     dispatch(rejectCompany(token, id, false));
-    // setId(id);
-    // console.log(idPrj);
-    // setFormactive(true);
   };
 
   return (
