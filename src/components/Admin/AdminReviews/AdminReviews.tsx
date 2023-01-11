@@ -2,7 +2,7 @@ import { FC, useState, useEffect, forwardRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Box, Container } from '@mui/system';
-import * as moment from 'moment';
+
 import {
     Card,
     Table,
@@ -11,21 +11,14 @@ import {
     TableHead,
     TableRow,
     Typography,
-    SelectChangeEvent,
     ListItemButton,
     Collapse,
     IconButton,
-    Checkbox,
-    InputLabel,
-    FormControl,
-    Select,
-    MenuItem,
     Rating,
     Stack,
     Alert,
 } from '@mui/material';
 import { State } from '../../../reducers/rootReducer';
-import { getAllProject } from '../../../actions/projects';
 import {
     AprovedProject,
     cancelReview,
@@ -45,12 +38,11 @@ export interface Options {
 }
 export declare function sentenceCase(input: string, options?: Options): string;
 import CloseIcon from '@mui/icons-material/Close';
-import CheckIcon from '@mui/icons-material/Check';
 import AdminFilterProject from '../../AdminBar/AdminFilterProject';
-
 import { PreLoader } from '../../PreLoader/PreLoader';
 import ReviewCancel from './ReviewCancel';
 import AdminReviewsFilter from './AdminReviewsFilter';
+import { SnackBar } from '../../SnackBar/SnackBar';
 
 const AdminReviews: FC = ({ ...rest }) => {
     const dispatch = useDispatch();
@@ -73,7 +65,7 @@ const AdminReviews: FC = ({ ...rest }) => {
     const [limit, setLimit] = useState(6);
     const [page, setPage] = useState(0);
     const [render, setRender] = useState(false);
-    const [formactive, setFormactive] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
 
     const [opciones, setOpciones] = useState('Todos');
     const [open, setOpen] = useState(false);
@@ -129,9 +121,7 @@ const AdminReviews: FC = ({ ...rest }) => {
 
     const handlecancel = (id: string) => {
         setId(id);
-        console.log(formactive);
-
-        setFormactive(true);
+        setOpenModal(true);
     };
 
     const handleLimitChange = (event: any) => {
@@ -149,6 +139,7 @@ const AdminReviews: FC = ({ ...rest }) => {
 
     return (
         <>
+            <SnackBar successMsg={'Borrado exitoso'} />
             <PreLoader />
             <Card {...rest}>
                 <Container
@@ -317,15 +308,6 @@ const AdminReviews: FC = ({ ...rest }) => {
                                                 {review.description}
                                             </TableCell>
 
-                                            {/* <TableCell sx={{ maxWidth: 200 }}>
-                                        <IconButton disabled={review.stateOfProject !== "En revision"}>
-                                            <CheckIcon
-                                                sx={{ cursor: "pointer" }}
-                                            // onClick={() => handleaccept(review.uid)}
-                                            />
-                                        </IconButton>
-                                    </TableCell> */}
-
                                             <TableCell sx={{ maxWidth: 200 }}>
                                                 <IconButton>
                                                     <CloseIcon
@@ -348,13 +330,12 @@ const AdminReviews: FC = ({ ...rest }) => {
                 )}
                 <Pages />
             </Card>
-            {formactive && (
-                <ReviewCancel
-                    setFormactive={setFormactive}
-                    formactive={formactive}
-                    idrev={idrev}
-                />
-            )}
+
+            <ReviewCancel
+                setOpenModal={setOpenModal}
+                openModal={openModal}
+                idrev={idrev}
+            />
         </>
     );
 };

@@ -34,6 +34,7 @@ export const types = {
     ratingProjectCompany: '[Company] rating Project', //toy provando
     ratingProject: '[Company] rating CompanyProject',
     clearCompany: '[Company] clear get company',
+    getCountries: '[Company] get countries',
     detailCompany: '[Company] Detail Company',
 
     newProject: '[project] Create New Project',
@@ -61,4 +62,5 @@ export const types = {
     adminEliminatedCompany: '[admin]admin eliminated company and send email',
     multipleSwitchAlumno: '[admin]switch state alumno dashAdmin',
     filterReview: '[admin]filter review',
+    AdminEliminatedReview: '[admin delete review',
 };

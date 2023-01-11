@@ -18,6 +18,7 @@ import {
   Typography,
   FormHelperText,
   Box,
+  Container,
 } from '@mui/material';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import Divider from '@mui/material/Divider';
@@ -116,7 +117,7 @@ export const LoginScreen: FC = () => {
                 height: 600,
                 mt: 10,
                 mb: 10,
-                p: 10,
+                p: 5,
                 pt: 6,
                 borderRadius: 10,
                 backgroundColor: 'black',
@@ -321,56 +322,65 @@ export const LoginScreen: FC = () => {
                   </Form>
                 )}
               </Formik>
-
-              <Typography
+              <Container
                 sx={{
-                  justifyContent: 'center',
-                  textAlign: 'center',
-                  mt: 2,
-                  pb: 20,
-                  fontFamily: 'poppins',
-                  fontSize: '15px',
-                  color: 'white',
+                  display: 'flex',
+                  alignContent: 'space-around',
+    // flex-wrap: wrap;
+    // flex-direction: column;
+    // justify-content: space-between;
                 }}
               >
-                ¿Aún no has creado tu cuenta?
-                <Link
-                  to='/register'
-                  style={{
-                    textDecoration: 'none',
-                    color: '#ffff01',
-                    paddingLeft: 20,
+                <Typography
+                  sx={{
+                    justifyContent: 'center',
+                    textAlign: 'center',
+                    mt: 2,
+
+                    fontFamily: 'poppins',
+                    fontSize: '15px',
+                    color: 'white',
                   }}
                 >
-                  Regístrate
-                </Link>
-              </Typography>
+                  ¿Aún no has creado tu cuenta?
+                  <Link
+                    to='/register'
+                    style={{
+                      textDecoration: 'none',
+                      color: '#ffff01',
+                    }}
+                  >
+                    <br/>
+                    Regístrate
+                  </Link>
+                </Typography>
+              </Container>
             </Paper>
           </Grid>
         </div>
         <Grid
-        container
-        direction='column'
-        justifyContent='flex-start'
-        alignItems='center'
-       >
-        <FormControl>
-          <Button
-            onClick={GoBack}
-            size='small'
-            variant='contained'
-            color='secondary'
-            sx={{
-              boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
-              fontFamily: 'montserrat',
-              fontWeight: 'bold',
-              mb: 20,
-            }}
-          >
-            Regresar
-          </Button>
-        </FormControl>
-      </Grid>
+          container
+          direction='column'
+          justifyContent='flex-start'
+          alignItems='center'
+        >
+          <FormControl>
+            <Button
+              onClick={GoBack}
+              size='small'
+              variant='contained'
+              color='secondary'
+              sx={{
+                boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+                fontFamily: 'montserrat',
+                fontWeight: 'bold',
+                mb: 20,
+              }}
+            >
+              Regresar
+            </Button>
+          </FormControl>
+        </Grid>
       </Box>
       <Footer />
     </>

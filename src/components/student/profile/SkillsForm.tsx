@@ -205,6 +205,45 @@ export const SkillsForm: FC<Props> = ({ edit, setEdit, tecnologies }) => {
             <Select
               color='primary'
               size='small'
+              value={input}
+              onChange={handleInputChange}
+              displayEmpty
+              inputProps={{
+                style: { color: 'white', fontFamily: 'montserrat' },
+              }}
+              sx={{
+                width: '200px',
+                margin: '0px 10px',
+                color: 'white',
+                boxShadow: 'rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset',
+                '.MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'white',
+                },
+                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'white',
+                },
+                '&:hover .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'white',
+                },
+                '.MuiSvgIcon-root ': {
+                  fill: 'white !important',
+                },
+                input: { color: 'white' },
+              }}
+            >
+              <MenuItem value=''>
+                <p>Tecnologías</p>
+              </MenuItem>
+              {tecnologias.map((tecnologia) => (
+                <MenuItem key={tecnologia} value={tecnologia}>
+                  {tecnologia}
+                </MenuItem>
+              ))}
+            </Select>
+
+            <Select
+              color='primary'
+              size='small'
               value={option}
               onChange={handleChange}
               displayEmpty
@@ -228,46 +267,6 @@ export const SkillsForm: FC<Props> = ({ edit, setEdit, tecnologies }) => {
                 '.MuiSvgIcon-root ': {
                   fill: 'white !important',
                 },
-
-                input: { color: 'white' },
-              }}
-            >
-              <MenuItem value=''>
-                <p>Tecnologías</p>
-              </MenuItem>
-              {tecnologias.map((tecnologia) => (
-                <MenuItem key={tecnologia} value={tecnologia}>
-                  {tecnologia}
-                </MenuItem>
-              ))}
-            </Select>
-
-            <Select
-              size='small'
-              value={option}
-              onChange={handleInputChange}
-              displayEmpty
-              inputProps={{
-                style: { color: 'white', fontFamily: 'montserrat' },
-              }}
-              sx={{
-                width: '200px',
-                margin: '0px 10px',
-                color: 'white',
-                boxShadow: 'rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset',
-                '.MuiOutlinedInput-notchedOutline': {
-                  borderColor: 'white',
-                },
-                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                  borderColor: 'white',
-                },
-                '&:hover .MuiOutlinedInput-notchedOutline': {
-                  borderColor: 'white',
-                },
-                '.MuiSvgIcon-root ': {
-                  fill: 'white !important',
-                },
-
                 input: { color: 'white' },
               }}
             >

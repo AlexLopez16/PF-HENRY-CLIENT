@@ -149,8 +149,12 @@ const Pages: FC = () => {
                     size="small"
                     sx={{ alignSelf: 'center', fontStyle: 'bolder' }}
                     count={numberOfPages}
-                    color="secondary"
+                    color="primary"
                     onChange={handlerClick}
+                    showFirstButton
+                    showLastButton
+                    hidePrevButton
+                    hideNextButton
                 />
             </Stack>
         </Container>
