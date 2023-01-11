@@ -2,17 +2,21 @@ import axios from 'axios';
 import { Dispatch } from 'redux';
 import { types } from '../types/types';
 
-export const getAdmins = (token: string | null, limit: number, init: number) => {
+export const getAdmins = (
+    token: string | null,
+    limit: number,
+    init: number
+) => {
     return async (dispatch: Dispatch) => {
         try {
             const { data } = await axios.get('/admin/getAdmin', {
                 headers: { 'user-token': token },
-                params: { limit, init }
+                params: { limit, init },
             });
             dispatch({
                 type: types.getAdmins,
                 payload: data,
-            });            
+            });
         } catch (error: any) {
             console.log(error);
         }
@@ -299,6 +303,9 @@ export const getAllReviews = (
             }
         }
         try {
+            dispatch({
+                type: types.requestInProgress,
+            });
             const { data } = await axios.get(`/admin/getreviews?${query}`, {
                 headers: { 'user-token': token },
             });
@@ -307,6 +314,9 @@ export const getAllReviews = (
             dispatch({
                 type: types.getAllReviews,
                 payload: data,
+            });
+            dispatch({
+                type: types.requestFinished,
             });
         } catch (error) {
             console.log(error);
@@ -442,5 +452,12 @@ export const reclutamientoInProject = (
                 payload: error.response,
             });
         }
+    };
+};
+
+export const clearAdmin = () => {
+    return {
+        type: types.getAdmins,
+        payload: { total: 0, admin: [] },
     };
 };
