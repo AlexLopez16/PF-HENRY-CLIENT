@@ -266,6 +266,10 @@ export const disableStudent = (token: string | null, id: string) => {
                 type: types.deleteOrInactiveStudent,
                 payload: res.data,
             });
+            dispatch({
+                type: types.responseFinished,
+                payload: res,
+            });
         } catch (error) {
             console.log(error);
         }
@@ -286,8 +290,16 @@ export const multiSwitchStudent = (token: string | null, id: string[]) => {
             dispatch({
                 type: types.multipleSwitchAlumno,
                 payload: res.data,
+                
+            });
+            dispatch({
+                type: types.responseFinished,
+                payload: res,
             });
         } catch (error) {
+            dispatch({
+                type: types.requestFinished,
+            });
             console.log(error);
         }
     };

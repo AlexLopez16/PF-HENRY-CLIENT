@@ -21,6 +21,7 @@ export const types = {
     addStudentToProject: '[student] Add student to project',
     unApplyStudent: '[student] Un Applu student to project',
     deleteOrInactiveStudent: '[student] inactive student to data base',
+    updateMail:"[student] update mail", 
 
     registerCompany: '[company] Register Company',
     companyGetInfo: '[company] Get info company',
@@ -34,7 +35,9 @@ export const types = {
     ratingProjectCompany: '[Company] rating Project', //toy provando
     ratingProject: '[Company] rating CompanyProject',
     clearCompany: '[Company] clear get company',
+    getCountries: '[Company] get countries',
     detailCompany: '[Company] Detail Company',
+    inProggres:"[company] in proggres project",//prueva
 
     newProject: '[project] Create New Project',
     getProjects: '[project] Get Projects',
@@ -60,4 +63,5 @@ export const types = {
     setReclutamientoinProject: '[admin] set reclutamiento in project',
     adminEliminatedCompany: '[admin]admin eliminated company and send email',
     multipleSwitchAlumno: '[admin]switch state alumno dashAdmin',
+    AdminEliminatedReview:'[admin delete review',
 };

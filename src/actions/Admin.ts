@@ -51,6 +51,10 @@ export const deleteuser = (token: string | null, selectID: string) => {
                 type: types.deleteOrInactiveStudent,
                 payload: res.data,
             });
+            dispatch({
+                type: types.responseFinished,
+                payload: res,
+            });
         } catch (error) {
             console.log(error);
         }
@@ -302,13 +306,21 @@ export const cancelReview = (
                 { idrev, values },
                 { headers: { 'user-token': token } }
             );
-            console.log(res);
 
             dispatch({
-                type: types.AdminEliminatedProject,
+                type: types.AdminEliminatedReview,
                 // payload: res.data,
             });
-        } catch (error) {
+            console.log(res);
+            dispatch({
+                type: types.responseFinished,
+                payload: res,
+            });
+        } catch (error: object | any) {
+            dispatch({
+                type: types.responseFinished,
+                payload: error.response,
+            });
             console.log(error);
         }
     };
@@ -348,6 +360,10 @@ export const setStateMultiple = (token: string | null, selectID: string[]) => {
             dispatch({
                 type: types.setState,
                 // payload: res.data,
+            });
+            dispatch({
+                type: types.responseFinished,
+                payload: res,
             });
         } catch (error) {
             console.log(error);

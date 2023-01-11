@@ -36,13 +36,12 @@ const MyProjectStudent: FC = () => {
         : user.project?.length
         ? user.project
         : null;
-    console.log(studentData);
     const handleClick = async (projectId: string | any) => {
         dispatch(
             unApplyStudent(user.id, projectId, localStorage.getItem('token'))
         );
     };
-    // console.log(user.working)
+ 
 
     return (
         <Container maxWidth="lg">
@@ -66,6 +65,7 @@ const MyProjectStudent: FC = () => {
                                 category={studentData?.category}
                                 projectName={studentData?.name}
                                 companyName={studentData?.company?.name}
+                                companyId={studentData?.company?._id}
                                 description={studentData?.description}
                                 requirements={studentData?.requirements}
                                 stateOfProject={studentData?.stateOfProject}
@@ -91,6 +91,9 @@ const MyProjectStudent: FC = () => {
                                             category={project?.category}
                                             projectName={project?.name}
                                             companyName={project?.company?.name}
+                                            companyId={
+                                                studentData?.company?._id
+                                            }
                                             description={project?.description}
                                             stateOfProject={
                                                 project?.stateOfProject

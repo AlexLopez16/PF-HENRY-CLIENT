@@ -2,7 +2,7 @@ import { FC, useState, useEffect, forwardRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Box, Container } from '@mui/system';
-import * as moment from 'moment';
+
 import {
     Card,
     Table,
@@ -11,22 +11,14 @@ import {
     TableHead,
     TableRow,
     Typography,
-    SelectChangeEvent,
     ListItemButton,
     Collapse,
     IconButton,
-    Checkbox,
-    InputLabel,
-    FormControl,
-    Select,
-    MenuItem,
     Rating,
 } from '@mui/material';
 import { State } from '../../../reducers/rootReducer';
-import { getAllProject } from '../../../actions/projects';
 import {
     AprovedProject,
-    cancelReview,
     getAllReviews,
 } from '../../../actions/Admin';
 import Pages from '../../ui/Pagination';
@@ -42,11 +34,10 @@ export interface Options {
 }
 export declare function sentenceCase(input: string, options?: Options): string;
 import CloseIcon from '@mui/icons-material/Close';
-import CheckIcon from '@mui/icons-material/Check';
 import AdminFilterProject from '../../AdminBar/AdminFilterProject';
-
 import { PreLoader } from '../../PreLoader/PreLoader';
 import ReviewCancel from './ReviewCancel';
+import { SnackBar } from '../../SnackBar/SnackBar';
 
 const AdminReviews: FC = ({ ...rest }) => {
     const dispatch = useDispatch();
@@ -66,7 +57,7 @@ const AdminReviews: FC = ({ ...rest }) => {
     const [limit, setLimit] = useState(12);
     const [page, setPage] = useState(0);
     const [render, setRender] = useState(false);
-    const [formactive, setFormactive] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
 
     const [opciones, setOpciones] = useState('Todos');
     const [open, setOpen] = useState(false);
@@ -122,9 +113,8 @@ const AdminReviews: FC = ({ ...rest }) => {
 
     const handlecancel = (id: string) => {
         setId(id);
-        console.log(formactive);
-
-        setFormactive(true);
+        setOpenModal(true)
+        
     };
 
     const handleLimitChange = (event: any) => {
@@ -137,6 +127,7 @@ const AdminReviews: FC = ({ ...rest }) => {
 
     return (
         <>
+        <SnackBar successMsg={"Borrado exitoso"}/>
             <PreLoader />
             <Card {...rest}>
                 <Container
@@ -147,7 +138,6 @@ const AdminReviews: FC = ({ ...rest }) => {
                     }}
                 >
                     <ListItemButton
-                        // onClick={handlerClick}
                         sx={{ maxWidth: 350 }}
                     >
                         {open ? (
@@ -171,19 +161,6 @@ const AdminReviews: FC = ({ ...rest }) => {
                         <TableHead>
                             <TableRow>
                                 <TableCell padding="checkbox">
-                                    {/* <Checkbox
-                                        checked={
-                                            selectedCustomerIds.length ===
-                                            target.length
-                                        }
-                                        color="primary"
-                                        indeterminate={
-                                            selectedCustomerIds.length > 0 &&
-                                            selectedCustomerIds.length <
-                                            target.length
-                                        }
-                                        onChange={handleSelectAll}
-                                    /> */}
                                 </TableCell>
                                 <TableCell>Nombre de proyecto</TableCell>
                                 <TableCell>Nombre de la compañia</TableCell>
@@ -219,17 +196,6 @@ const AdminReviews: FC = ({ ...rest }) => {
                                     }
                                 >
                                     <TableCell padding="checkbox">
-                                        {/* <Checkbox
-                                            checked={
-                                                selectedCustomerIds.indexOf(
-                                                    review.uid
-                                                ) !== -1
-                                            }
-                                            onChange={(event) =>
-                                                handleSelectOne(review.uid)
-                                            }
-                                            value="true"
-                                        /> */}
                                     </TableCell>
                                     <TableCell>
                                         <Box
@@ -255,7 +221,7 @@ const AdminReviews: FC = ({ ...rest }) => {
                                             textAlign: 'center',
                                         }}
                                     >
-                                        {review.student?.name}
+                                        {review.student?.name ? review?.student?.name : review.student?.username}
                                     </TableCell>
                                     <TableCell
                                         sx={{
@@ -281,15 +247,6 @@ const AdminReviews: FC = ({ ...rest }) => {
                                         {review.description}
                                     </TableCell>
 
-                                    {/* <TableCell sx={{ maxWidth: 200 }}>
-                                        <IconButton disabled={review.stateOfProject !== "En revision"}>
-                                            <CheckIcon
-                                                sx={{ cursor: "pointer" }}
-                                            // onClick={() => handleaccept(review.uid)}
-                                            />
-                                        </IconButton>
-                                    </TableCell> */}
-
                                     <TableCell sx={{ maxWidth: 200 }}>
                                         <IconButton>
                                             <CloseIcon
@@ -307,13 +264,13 @@ const AdminReviews: FC = ({ ...rest }) => {
                 </Box>
                 <Pages />
             </Card>
-            {formactive && (
+         
                 <ReviewCancel
-                    setFormactive={setFormactive}
-                    formactive={formactive}
+                    setOpenModal={setOpenModal}
+                    openModal={openModal}
                     idrev={idrev}
                 />
-            )}
+        
         </>
     );
 };
