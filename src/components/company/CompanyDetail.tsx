@@ -10,15 +10,17 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import { Link, useNavigate, useParams } from 'react-router-dom';
 import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getDetailCompany } from '../../actions/company';
 import { State } from '../../reducers/rootReducer';
 import bgComponents from '../../assets/bgComponents.png';
+import bgDetailCompany from '../../assets/bgDetailCompany.png';
 import { RatingProject } from '../project/RatingProject';
 import Footer from '../../pages/LandingPage/Footer';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+
 export const CompanyDetail: FC = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -31,161 +33,171 @@ export const CompanyDetail: FC = () => {
   }, [detail]);
   let company = null;
   if (detail) company = detail.company;
+
   const Navigate = useNavigate();
   const GoBack = () => {
     Navigate('/projects');
   };
-
   return (
     <>
       <Box
         sx={{
           backgroundImage: `url(${bgComponents})`,
-          padding: '20px',
-          pb: 15,
-          pt: 5,
+          width: '100%',
         }}
       >
-        <Grid
-          container
-          direction='column'
-          justifyContent='flex-start'
-          alignItems='center'
-        >
-          <FormControl>
-            <Button
-              startIcon={<ArrowBackIosNewIcon />}
-              onClick={GoBack}
-              size='small'
-              variant='contained'
-              color='secondary'
-              sx={{
-                boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
-                fontFamily: 'montserrat',
-                fontWeight: 'bold',
-                mb: 5,
-                mt: 5,
-              }}
-            >
-              Regresar
-            </Button>
-          </FormControl>
-        </Grid>
         {detail ? (
-          <Container maxWidth='lg'>
-            <Box>
-              <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'space-around',
-                }}
-              >
-                <Box>
-                  <Typography
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      color: 'white',
-                      fontfamily: 'motserrat',
-                    }}
-                    variant='h4'
-                  >
-                    {company?.name}.
-                  </Typography>
-                  <Typography
-                    variant='subtitle1'
-                    sx={{
-                      color: 'black',
-                      fontFamily: 'poppins',
-                    }}
-                  >
-                    {company?.country}.
-                  </Typography>
-                </Box>
-
-                <Box
+          <Container
+            sx={{
+              mb: 10,
+              pt: 10,
+            }}
+          >
+            <Grid
+              container
+              direction='column'
+              justifyContent='flex-start'
+              alignItems='center'
+            >
+              <FormControl>
+                <Button
+                  startIcon={<ArrowBackIosNewIcon />}
+                  onClick={GoBack}
+                  size='small'
+                  variant='contained'
+                  color='secondary'
                   sx={{
-                    display: 'flex',
-                    gap: 2,
+                    boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+                    fontFamily: 'montserrat',
+                    fontWeight: 'bold',
+                    mb: 10,
                   }}
                 >
-                  <Box
-                    sx={{
-                      padding: '10px',
-                      width: 'max-content',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      color: 'white',
-                    }}
-                  >
-                    <Typography
-                      component='legend'
-                      sx={{
-                        fontFamily: 'poppins',
-                      }}
-                    >
-                      Rating de la empresa
-                    </Typography>
-                    <Box
-                      sx={{
-                        padding: '2px',
-                        backgroundColor: 'white',
-                        borderRadius: '50px',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      }}
-                    >
-                      <Rating
-                        name='read-only'
-                        readOnly
-                        value={detail.ratingCompany}
-                      />
-                    </Box>
-                  </Box>
-                  <Box
-                    sx={{
-                      padding: '10px',
-                      width: 'max-content',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      color: 'white',
-                    }}
-                  >
-                    <Typography
-                      component='legend'
-                      sx={{
-                        fontFamily: 'poppins',
-                      }}
-                    >
-                      Rating de los proyectos
-                    </Typography>
-                    <Box
-                      sx={{
-                        padding: '2px',
-                        backgroundColor: 'white',
-                        borderRadius: '50px',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      }}
-                    >
-                      <Rating
-                        name='read-only'
-                        readOnly
-                        value={detail.ratingProjects}
-                      />
-                    </Box>
-                  </Box>
-                </Box>
+                  Regresar
+                </Button>
+              </FormControl>
+            </Grid>
+            <Paper
+              elevation={10}
+              sx={{
+                backgroundImage: `url(${bgDetailCompany})`,
+                p: 10,
+                borderRadius: 15,
+                mb: 30,
+              }}
+            >
+              <Box>
+                <Typography
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    fontFamily: 'montserrat',
+                    color: '#ffff01',
+                  }}
+                  variant='h3'
+                >
+                  {company?.name}.
+                </Typography>
+                <Typography
+                  variant='subtitle1'
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    fontFamily: 'poppins',
+                    color: 'white',
+                    fontStyle: 'italic',
+                    mb: 5,
+                  }}
+                >
+                  {company?.country}.
+                </Typography>
               </Box>
+              <Container
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'space-evenly',
+                }}
+              >
+                {' '}
+                {/*company name*/}
+                <Box
+                  sx={{
+                    width: 'max-content',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    color: 'white',
+                  }}
+                >
+                  <Typography
+                    component='legend'
+                    sx={{
+                      fontFamily: 'montserrat',
+                    }}
+                  >
+                    Rating de la empresa
+                  </Typography>
+                  <Box
+                    sx={{
+                      mt: 1,
+                      p: '3px',
+                      backgroundColor: 'white',
+                      borderRadius: '50px',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <Rating
+                      name='read-only'
+                      readOnly
+                      value={detail.ratingCompany}
+                    />
+                  </Box>
+                </Box>{' '}
+                {/*rating compañia*/}
+                <Box
+                  sx={{
+                    width: 'max-content',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    color: 'white',
+                  }}
+                >
+                  <Typography
+                    component='legend'
+                    sx={{
+                      fontFamily: 'montserrat',
+                    }}
+                  >
+                    Rating de los proyectos
+                  </Typography>
+                  <Box
+                    sx={{
+                      mt: 1,
+                      p: '3px',
+                      backgroundColor: 'white',
+                      borderRadius: '50px',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <Rating
+                      name='read-only'
+                      readOnly
+                      value={detail.ratingProjects}
+                    />
+                  </Box>
+                  {/*rating project*/}
+                </Box>
+              </Container>
               <Box
                 sx={{
-                  pt: 5,
-                  width: 600,
+                  width: '80%',
                   margin: '0 auto',
                 }}
               >
@@ -194,32 +206,23 @@ export const CompanyDetail: FC = () => {
                     return (
                       <Paper
                         sx={{
-                          padding: 2,
-                          marginTop: 2,
+                          width: '100%',
+                          p: 2,
+                          mt: 5,
+                          borderRadius:5,
                           display: 'flex',
                           justifyContent: 'space-between',
-                          backgroundColor: 'black',
                         }}
-                        elevation={5}
+                        elevation={10}
                       >
-                        <Typography
-                          sx={{
-                            display: 'flex',
-                            color: 'white',
-                            fontFamily: 'montserrat',
-                            fontWeight: 'bold',
-                            alignItems: 'center',
-                          }}
-                        >
-                          {e.name}
-                        </Typography>
+                        {e.name}
+
                         <Link
                           to={`/projects/${e._id}`}
                           style={{
                             textDecoration: 'none',
                             marginTop: 'auto',
                             fontFamily: 'poppins',
-                            display: 'flex',
                           }}
                           target='_blank'
                         >
@@ -229,12 +232,11 @@ export const CompanyDetail: FC = () => {
                             size='small'
                             color='primary'
                             sx={{
-                              boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
-                              fontFamily: 'montserrat',
-                              fontWeight: 'bold',
+                              fontFamily: 'poppins',
+                              borderRadius:3,
                             }}
                           >
-                            Más Info +
+                            Mas Info +
                           </Button>
                         </Link>
                       </Paper>
@@ -255,38 +257,39 @@ export const CompanyDetail: FC = () => {
                   />
                 ))}
               </Box>
-            </Box>
+            </Paper>
           </Container>
         ) : (
-          <Stack
-            spacing={2}
-            sx={{
-              width: '100%',
-              pb: 70,
-              pt: 15,
-              justifyContent: 'center',
-              display: 'flex',
-              alignContent: 'center',
-            }}
-          >
-            <Alert
-              severity='info'
+          <Container>
+            <Stack
+              spacing={2}
               sx={{
+                width: '100%',
+                pb: 70,
+                pt: 25,
                 justifyContent: 'center',
                 display: 'flex',
                 alignContent: 'center',
-                borderRadius: 50,
-                fontFamily: 'poppins',
-                color: 'black',
               }}
             >
-              {' '}
-              Empresa no encontrada!
-            </Alert>
-          </Stack>
+              <Alert
+                severity='info'
+                sx={{
+                  justifyContent: 'center',
+                  display: 'flex',
+                  alignContent: 'center',
+                  borderRadius: 50,
+                  fontFamily: 'poppins',
+                  color: 'black',
+                }}
+              >
+                Empresa no encontrada!
+              </Alert>
+            </Stack>
+          </Container>
         )}
+        <Footer />
       </Box>
-      <Footer />
     </>
   );
 };

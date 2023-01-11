@@ -155,7 +155,8 @@ const CompanyForm: FC = () => {
               borderRadius: 5,
             }}
           >
-           ¡Crea proyectos, publícalos y encuentra #TalentosHenry para obtener grandes resultados!
+            ¡Crea proyectos, publícalos y encuentra #TalentosHenry para obtener
+            grandes resultados!
           </Typography>
           <Paper
             sx={{
@@ -198,13 +199,14 @@ const CompanyForm: FC = () => {
               {(props) => (
                 <Form>
                   <Field
-                  variant='outlined'
+                    variant='outlined'
                     as={TextField}
                     name='name'
                     placeholder='Nombre'
                     size='small'
                     fontFamily='montserrat'
                     color='primary'
+                    inputProps={{ maxLength: 50 }}
                     sx={{
                       boxShadow: 'rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset',
                       '.MuiOutlinedInput-notchedOutline': {
@@ -243,6 +245,7 @@ const CompanyForm: FC = () => {
                     fontFamily='montserrat'
                     color='primary'
                     placeholder='Email'
+                    inputProps={{ maxLength: 50 }}
                     sx={{
                       boxShadow: 'rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset',
                       '.MuiOutlinedInput-notchedOutline': {
@@ -443,7 +446,7 @@ const CompanyForm: FC = () => {
       >
         <FormControl>
           <Button
-          startIcon={<ArrowBackIosNewIcon />}
+            startIcon={<ArrowBackIosNewIcon />}
             onClick={GoBack}
             size='small'
             variant='contained'

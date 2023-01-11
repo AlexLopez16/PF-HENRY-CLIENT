@@ -160,9 +160,6 @@ const ProjectCard: FC<CardProjectProps> = ({
               marginBottom: 5,
             }}
           />
-
- 
-
           <Box
             sx={{
               display: 'flex',
@@ -193,6 +190,10 @@ const ProjectCard: FC<CardProjectProps> = ({
                           tecnologies.indexOf(requirement) === -1
                             ? ''
                             : '#FFFF01',
+                        color:
+                          tecnologies.indexOf(requirement) === -1
+                            ? '#fff'
+                            : 'black',
                         display: 'flex',
                         fontFamily: 'montserrat',
                         fontWeight: 'bold',
@@ -220,6 +221,10 @@ const ProjectCard: FC<CardProjectProps> = ({
                 sx={{
                   background:
                     stateOfProj.indexOf(stateOfProject) === -1 ? '' : '#FFFF01',
+                  color:
+                    stateOfProj.indexOf(stateOfProject) === -1
+                      ? '#fff'
+                      : 'black',
                   display: 'flex',
                   fontFamily: 'montserrat',
                   fontWeight: 'bold',
@@ -246,6 +251,7 @@ const ProjectCard: FC<CardProjectProps> = ({
                   fontFamily: 'montserrat',
                   fontWeight: 'bold',
                   mt: 2,
+                  color: '#fff',
                 }}
               />
             </Typography>
@@ -273,7 +279,7 @@ const ProjectCard: FC<CardProjectProps> = ({
                 variant='outlined'
                 type='submit'
                 size='small'
-                color='secondary'
+                color='primary'
                 onClick={handleClick}
               >
                 Mas info +

@@ -176,6 +176,7 @@ export const StudensForm: FC = () => {
                     size='small'
                     fontFamily='montserrat'
                     color='primary'
+                    inputProps={{ maxLength: 50 }}
                     sx={{
                       boxShadow: 'rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset',
                       '.MuiOutlinedInput-notchedOutline': {
@@ -214,6 +215,7 @@ export const StudensForm: FC = () => {
                     fontFamily='montserrat'
                     color='primary'
                     placeholder='Apellido'
+                    inputProps={{ maxLength: 50 }}
                     sx={{
                       boxShadow: 'rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset',
                       '.MuiOutlinedInput-notchedOutline': {
@@ -252,6 +254,7 @@ export const StudensForm: FC = () => {
                     fontFamily='montserrat'
                     color='primary'
                     placeholder='Email'
+                    inputProps={{ maxLength: 50 }}
                     sx={{
                       boxShadow: 'rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset',
                       '.MuiOutlinedInput-notchedOutline': {

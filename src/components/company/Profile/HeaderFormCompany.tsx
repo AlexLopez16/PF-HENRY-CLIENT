@@ -243,6 +243,7 @@ export const HeaderFormCompany: FC<Props> = ({
                     label='Nombre'
                     size='small'
                     color='primary'
+                    inputProps={{ maxLength: 50 }}
                     sx={{
                       boxShadow:
                         'rgba(255, 255, 255, 0.06) 0px 2px 4px 0px inset',
@@ -325,6 +326,7 @@ export const HeaderFormCompany: FC<Props> = ({
                     color='primary'
                     fullWidth
                     fontFamily='montserrat'
+                    inputProps={{ maxLength: 100 }}
                     sx={{
                       color: 'white',
                       boxShadow: 'rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset',
