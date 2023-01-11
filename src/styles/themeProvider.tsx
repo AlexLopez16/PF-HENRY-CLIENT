@@ -1,3 +1,4 @@
+import { amber, deepPurple } from '@mui/material/colors';
 import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 
 const customThemProvider = createTheme({
@@ -19,6 +20,7 @@ const customThemProvider = createTheme({
       light: '#fff',
       dark: 'green',
       contrastText: '#fff',
+  
     },
     warning: {
       main: '#ffff01',
@@ -26,7 +28,7 @@ const customThemProvider = createTheme({
       dark: 'red',
       contrastText: '#000',
     },
-  }
+  },
 });
 
 const theme = responsiveFontSizes(customThemProvider);

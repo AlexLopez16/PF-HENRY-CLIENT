@@ -1,20 +1,26 @@
 import {
-    Alert,
-    Box,
-    Button,
-    Container,
-    Paper,
-    Rating,
-    Stack,
-    Typography,
+  Alert,
+  Box,
+  Button,
+  Container,
+  FormControl,
+  Grid,
+  Paper,
+  Rating,
+  Stack,
+  Typography,
 } from '@mui/material';
 import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, NavLink, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getDetailCompany } from '../../actions/company';
 import { State } from '../../reducers/rootReducer';
-import bgComponents from '../../assets/bg.png';
+import bgComponents from '../../assets/bgComponents.png';
+import bgDetailCompany from '../../assets/bgDetailCompany.png';
 import { RatingProject } from '../project/RatingProject';
+import Footer from '../../pages/LandingPage/Footer';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import { PreLoader } from '../PreLoader/PreLoader';
 
 export const CompanyDetail: FC = () => {
     const { id } = useParams();
@@ -27,208 +33,267 @@ export const CompanyDetail: FC = () => {
         if (id && token) {
             dispatch(getDetailCompany(id, token));
         }
-    }, [dispatch]);
+    }, []);
     let company = null;
     if (detail) company = detail.company;
 
-    return (
-        <Box
+  const Navigate = useNavigate();
+  const GoBack = () => {
+    Navigate('/projects');
+  };
+  return (
+    <>
+      <PreLoader/>
+      <Box
+        sx={{
+          backgroundImage: `url(${bgComponents})`,
+          width: '100%',
+        }}
+      >
+        {detail ? (
+          <Container
             sx={{
-                // backgroundImage: `url(${bgComponents})`,
-                width: '100%',
-                height: '100vh',
-                padding: '20px',
+              mb: 10,
+              pt: 10,
             }}
-        >
-            {detail ? (
-                <Container maxWidth="lg">
-                    <Box>
-                        <Paper
-                            elevation={10}
-                            style={{
-                                padding: '20px',
-                                // marginTop: '20px',
-                                // height: '300rem',
-                                backgroundImage: `url(${bgComponents})`,
-                                objectFit: 'cover',
-                                objectPosition: 'center',
-                            }}
-                        >
-                            <Box
-                                sx={{
-                                    display: 'flex',
-                                    justifyContent: 'space-between',
-                                }}
-                            >
-                                <Box>
-                                    <Typography
-                                        sx={{
-                                            display: 'flex',
-                                            justifyContent: 'space-between',
-                                            alignItems: 'center',
-                                            color: 'white',
-                                        }}
-                                        variant="h6"
-                                    >
-                                        {company?.name}.
-                                    </Typography>
-                                    <Typography
-                                        variant="subtitle1"
-                                        sx={{
-                                            color: '#898989',
-                                        }}
-                                    >
-                                        {company?.country}.
-                                    </Typography>
-                                </Box>
-
-                                <Box
-                                    sx={{
-                                        display: 'flex',
-                                        gap: '10px',
-                                    }}
-                                >
-                                    <Box
-                                        sx={{
-                                            padding: '10px',
-                                            width: 'max-content',
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            alignItems: 'center',
-                                            color: 'white',
-                                        }}
-                                    >
-                                        <Typography component="legend">
-                                            Rating de la empresa
-                                        </Typography>
-                                        <Box
-                                            sx={{
-                                                padding: '2px',
-                                                backgroundColor: 'white',
-                                                borderRadius: '50px',
-                                                display: 'flex',
-                                                justifyContent: 'center',
-                                                alignItems: 'center',
-                                            }}
-                                        >
-                                            <Rating
-                                                name="read-only"
-                                                readOnly
-                                                value={detail.ratingCompany}
-                                            />
-                                        </Box>
-                                    </Box>
-                                    <Box
-                                        sx={{
-                                            padding: '10px',
-                                            width: 'max-content',
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            alignItems: 'center',
-                                            color: 'white',
-                                        }}
-                                    >
-                                        <Typography component="legend">
-                                            Rating de los proyectos
-                                        </Typography>
-                                        <Box
-                                            sx={{
-                                                padding: '2px',
-                                                backgroundColor: 'white',
-                                                borderRadius: '50px',
-                                                display: 'flex',
-                                                justifyContent: 'center',
-                                                alignItems: 'center',
-                                            }}
-                                        >
-                                            <Rating
-                                                name="read-only"
-                                                readOnly
-                                                value={detail.ratingProjects}
-                                            />
-                                        </Box>
-                                    </Box>
-                                </Box>
-                            </Box>
-                            <Box
-                                sx={{
-                                    width: '500px',
-                                    margin: '0 auto',
-                                }}
-                            >
-                                {company?.project &&
-                                    company?.project.map((e: any) => {
-                                        return (
-                                            <Paper
-                                                sx={{
-                                                    padding: '10px',
-                                                    marginTop: '20px',
-                                                    display: 'flex',
-                                                    justifyContent:
-                                                        'space-between',
-                                                }}
-                                                elevation={5}
-                                            >
-                                                {e.name}
-                                                <Link
-                                                    to={`/projects/${e._id}`}
-                                                    style={{
-                                                        textDecoration: 'none',
-                                                        marginTop: 'auto',
-                                                        fontFamily: 'poppins',
-                                                    }}
-                                                    target="_blank"
-                                                >
-                                                    <Button
-                                                        variant="contained"
-                                                        type="submit"
-                                                        size="small"
-                                                        color="primary"
-                                                        // onClick={() =>
-                                                        //     handleClick(
-                                                        //         projectId
-                                                        //     )
-                                                        // }
-                                                    >
-                                                        Mas Info
-                                                    </Button>
-                                                </Link>
-                                            </Paper>
-                                        );
-                                    })}
-                            </Box>
-
-                            <Box
-                            // sx={{
-                            //     height: 'max-content',
-                            // }}
-                            >
-                                {detail.reviews.map((review: any) => (
-                                    <RatingProject
-                                        avatar={review?.student?.image}
-                                        name={review?.student?.name}
-                                        lastName={review.student?.lastName}
-                                        description={review.description}
-                                        ratingCompany={review.ratingCompany}
-                                        ratingProject={review.ratingProject}
-                                        projectName={review?.project?.name}
-                                    />
-                                ))}
-                            </Box>
-                        </Paper>
-                    </Box>
-                </Container>
-            ) : (
-                <Stack
-                    spacing={2}
-                    sx={{
-                        margin: '20px auto',
-                        maxWidth: 'fit-content',
-                    }}
+          >
+            <Grid
+              container
+              direction='column'
+              justifyContent='flex-start'
+              alignItems='center'
+            >
+              <FormControl>
+                <Button
+                  startIcon={<ArrowBackIosNewIcon />}
+                  onClick={GoBack}
+                  size='small'
+                  variant='contained'
+                  color='secondary'
+                  sx={{
+                    boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+                    fontFamily: 'montserrat',
+                    fontWeight: 'bold',
+                    mb: 10,
+                  }}
                 >
-                    <Alert severity="info">Empresa no encontrada!</Alert>
-                </Stack>
-            )}
-        </Box>
-    );
+                  Regresar
+                </Button>
+              </FormControl>
+            </Grid>
+            <Paper
+              elevation={10}
+              sx={{
+                backgroundImage: `url(${bgDetailCompany})`,
+                p: 10,
+                borderRadius: 15,
+                mb: 30,
+              }}
+            >
+              <Box>
+                <Typography
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    fontFamily: 'montserrat',
+                    color: '#ffff01',
+                  }}
+                  variant='h3'
+                >
+                  {company?.name}.
+                </Typography>
+                <Typography
+                  variant='subtitle1'
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    fontFamily: 'poppins',
+                    color: 'white',
+                    fontStyle: 'italic',
+                    mb: 5,
+                  }}
+                >
+                  {company?.country}.
+                </Typography>
+              </Box>
+              <Container
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'space-evenly',
+                }}
+              >
+                {' '}
+                {/*company name*/}
+                <Box
+                  sx={{
+                    width: 'max-content',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    color: 'white',
+                  }}
+                >
+                  <Typography
+                    component='legend'
+                    sx={{
+                      fontFamily: 'montserrat',
+                    }}
+                  >
+                    Rating de la empresa
+                  </Typography>
+                  <Box
+                    sx={{
+                      mt: 1,
+                      p: '3px',
+                      backgroundColor: 'white',
+                      borderRadius: '50px',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <Rating
+                      name='read-only'
+                      readOnly
+                      value={detail.ratingCompany}
+                    />
+                  </Box>
+                </Box>{' '}
+                {/*rating compañia*/}
+                <Box
+                  sx={{
+                    width: 'max-content',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    color: 'white',
+                  }}
+                >
+                  <Typography
+                    component='legend'
+                    sx={{
+                      fontFamily: 'montserrat',
+                    }}
+                  >
+                    Rating de los proyectos
+                  </Typography>
+                  <Box
+                    sx={{
+                      mt: 1,
+                      p: '3px',
+                      backgroundColor: 'white',
+                      borderRadius: '50px',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <Rating
+                      name='read-only'
+                      readOnly
+                      value={detail.ratingProjects}
+                    />
+                  </Box>
+                  {/*rating project*/}
+                </Box>
+              </Container>
+              <Box
+                sx={{
+                  width: '80%',
+                  margin: '0 auto',
+                }}
+              >
+                {company?.project &&
+                  company?.project.map((e: any) => {
+                    return (
+                      <Paper
+                        sx={{
+                          width: '100%',
+                          p: 2,
+                          mt: 5,
+                          borderRadius:5,
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                        }}
+                        elevation={10}
+                      >
+                        {e.name}
+
+                        <Link
+                          to={`/projects/${e._id}`}
+                          style={{
+                            textDecoration: 'none',
+                            marginTop: 'auto',
+                            fontFamily: 'poppins',
+                          }}
+                          // target='_blank'
+                        >
+                          <Button
+                            variant='contained'
+                            type='submit'
+                            size='small'
+                            color='primary'
+                            sx={{
+                              fontFamily: 'poppins',
+                              borderRadius:3,
+                            }}
+                          >
+                            Mas Info +
+                          </Button>
+                        </Link>
+                      </Paper>
+                    );
+                  })}
+              </Box>
+
+              <Box>
+                {detail.reviews.map((review: any) => (
+                  <RatingProject
+                    avatar={review?.student?.image}
+                    name={review?.student?.name}
+                    lastName={review.student?.lastName}
+                    description={review.description}
+                    ratingCompany={review.ratingCompany}
+                    ratingProject={review.ratingProject}
+                    projectName={review?.project?.name}
+                  />
+                ))}
+              </Box>
+            </Paper>
+          </Container>
+        ) : (
+          <Container>
+            <Stack
+              spacing={2}
+              sx={{
+                width: '100%',
+                pb: 70,
+                pt: 25,
+                justifyContent: 'center',
+                display: 'flex',
+                alignContent: 'center',
+              }}
+            >
+              <Alert
+                severity='info'
+                sx={{
+                  justifyContent: 'center',
+                  display: 'flex',
+                  alignContent: 'center',
+                  borderRadius: 50,
+                  fontFamily: 'poppins',
+                  color: 'black',
+                }}
+              >
+                Empresa no encontrada!
+              </Alert>
+            </Stack>
+          </Container>
+        )}
+        <Footer />
+      </Box>
+    </>
+  );
 };

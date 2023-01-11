@@ -15,10 +15,14 @@ import {
     Collapse,
     IconButton,
     Rating,
+    Stack,
+    Alert,
 } from '@mui/material';
 import { State } from '../../../reducers/rootReducer';
 import {
     AprovedProject,
+    cancelReview,
+    clearReviews,
     getAllReviews,
 } from '../../../actions/Admin';
 import Pages from '../../ui/Pagination';
@@ -37,24 +41,28 @@ import CloseIcon from '@mui/icons-material/Close';
 import AdminFilterProject from '../../AdminBar/AdminFilterProject';
 import { PreLoader } from '../../PreLoader/PreLoader';
 import ReviewCancel from './ReviewCancel';
+import AdminReviewsFilter from './AdminReviewsFilter';
 import { SnackBar } from '../../SnackBar/SnackBar';
 
 const AdminReviews: FC = ({ ...rest }) => {
     const dispatch = useDispatch();
 
     const token: any = localStorage.getItem('token');
-
-    useEffect(() => {
-        dispatch(getAllReviews(token));
-    }, [dispatch]);
-
     const { reviews } = useSelector((state: State) => state.review);
+    useEffect(() => {
+        dispatch(getAllReviews(token, 6, 0, undefined));
+        return () => {
+            dispatch(clearReviews());
+        };
+    }, [dispatch, token]);
+
+    console.log(reviews);
     let target: object[] = reviews;
 
     const [selectedCustomerIds, setSelectedCustomerIds] = useState<string[]>(
         []
     );
-    const [limit, setLimit] = useState(12);
+    const [limit, setLimit] = useState(6);
     const [page, setPage] = useState(0);
     const [render, setRender] = useState(false);
     const [openModal, setOpenModal] = useState(false);
@@ -113,8 +121,7 @@ const AdminReviews: FC = ({ ...rest }) => {
 
     const handlecancel = (id: string) => {
         setId(id);
-        setOpenModal(true)
-        
+        setOpenModal(true);
     };
 
     const handleLimitChange = (event: any) => {
@@ -124,10 +131,15 @@ const AdminReviews: FC = ({ ...rest }) => {
     const handlePageChange = (event: any, newPage: any) => {
         setPage(newPage);
     };
+    const handlerClickFilter = () => {
+        setOpen(!open);
+    };
+
+    console.log('target', target);
 
     return (
         <>
-        <SnackBar successMsg={"Borrado exitoso"}/>
+            <SnackBar successMsg={'Borrado exitoso'} />
             <PreLoader />
             <Card {...rest}>
                 <Container
@@ -138,6 +150,7 @@ const AdminReviews: FC = ({ ...rest }) => {
                     }}
                 >
                     <ListItemButton
+                        onClick={handlerClickFilter}
                         sx={{ maxWidth: 350 }}
                     >
                         {open ? (
@@ -152,125 +165,177 @@ const AdminReviews: FC = ({ ...rest }) => {
                         unmountOnExit
                         orientation="horizontal"
                     >
-                        <AdminFilterProject />
+                        <AdminReviewsFilter />
                     </Collapse>
                 </Container>
-
-                <Box sx={{ minWidth: 1050 }}>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell padding="checkbox">
-                                </TableCell>
-                                <TableCell>Nombre de proyecto</TableCell>
-                                <TableCell>Nombre de la compañia</TableCell>
-                                <TableCell
-                                    sx={{
-                                        textAlign: 'center',
-                                    }}
-                                >
-                                    Alumno
-                                </TableCell>
-                                <TableCell
-                                    sx={{
-                                        textAlign: 'center',
-                                    }}
-                                >
-                                    Puntuacion empresa
-                                </TableCell>
-                                <TableCell>Puntuacion Proyecto</TableCell>
-                                <TableCell>Descripcion</TableCell>
-                                {/* <TableCell>Desactivar</TableCell> */}
-                                <TableCell>Eliminar</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {target.slice(0, limit).map((review: any) => (
-                                <TableRow
-                                    hover
-                                    key={review.project.name}
-                                    selected={
-                                        selectedCustomerIds.indexOf(
-                                            review.uid
-                                        ) !== -1
-                                    }
-                                >
+                {!target.length ? (
+                    <TableBody>
+                        <Stack sx={{ width: '100%' }} spacing={1}>
+                            <Alert severity="info">
+                                No hay proyectos con los filtros aplicados!
+                            </Alert>
+                        </Stack>
+                    </TableBody>
+                ) : (
+                    <Box sx={{ minWidth: 1050 }}>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
                                     <TableCell padding="checkbox">
+                                        {/* <Checkbox
+                                        checked={
+                                            selectedCustomerIds.length ===
+                                            target.length
+                                        }
+                                        color="primary"
+                                        indeterminate={
+                                            selectedCustomerIds.length > 0 &&
+                                            selectedCustomerIds.length <
+                                            target.length
+                                        }
+                                        onChange={handleSelectAll}
+                                    /> */}
                                     </TableCell>
-                                    <TableCell>
-                                        <Box
-                                            sx={{
-                                                alignItems: 'center',
-                                                display: 'flex',
-                                            }}
-                                        >
-                                            <Typography
-                                                sx={{ maxWidth: 140 }}
-                                                color="textPrimary"
-                                                variant="body1"
-                                            >
-                                                {review.project.name}
-                                            </Typography>
-                                        </Box>
-                                    </TableCell>
-                                    <TableCell>
-                                        {review.project.company.name}
+                                    <TableCell>Nombre de proyecto</TableCell>
+                                    <TableCell>Nombre de la compañia</TableCell>
+                                    <TableCell
+                                        sx={{
+                                            textAlign: 'center',
+                                        }}
+                                    >
+                                        Alumno
                                     </TableCell>
                                     <TableCell
                                         sx={{
                                             textAlign: 'center',
                                         }}
                                     >
-                                        {review.student?.name ? review?.student?.name : review.student?.username}
+                                        Puntuacion empresa
                                     </TableCell>
-                                    <TableCell
-                                        sx={{
-                                            width: 310,
-                                            textAlign: 'center',
-                                        }}
-                                    >
-                                        <Rating
-                                            name="read-only"
-                                            readOnly
-                                            value={review.ratingCompany}
-                                        />
-                                    </TableCell>
-
-                                    <TableCell>
-                                        <Rating
-                                            name="read-only"
-                                            readOnly
-                                            value={review.ratingProject}
-                                        />
-                                    </TableCell>
-                                    <TableCell sx={{ maxWidth: 200 }}>
-                                        {review.description}
-                                    </TableCell>
-
-                                    <TableCell sx={{ maxWidth: 200 }}>
-                                        <IconButton>
-                                            <CloseIcon
-                                                sx={{ cursor: 'pointer' }}
-                                                onClick={() =>
-                                                    handlecancel(review.uid)
-                                                }
-                                            />
-                                        </IconButton>
-                                    </TableCell>
+                                    <TableCell>Puntuacion Proyecto</TableCell>
+                                    <TableCell>Descripcion</TableCell>
+                                    {/* <TableCell>Desactivar</TableCell> */}
+                                    <TableCell>Eliminar</TableCell>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </Box>
+                            </TableHead>
+                            <TableBody>
+                                {target &&
+                                    target.map((review: any) => (
+                                        <TableRow
+                                            hover
+                                            key={review && review.uid}
+                                            selected={
+                                                selectedCustomerIds.indexOf(
+                                                    review.uid
+                                                ) !== -1
+                                            }
+                                        >
+                                            <TableCell padding="checkbox">
+                                                {/* <Checkbox
+                                            checked={
+                                                selectedCustomerIds.indexOf(
+                                                    review.uid
+                                                ) !== -1
+                                            }
+                                            onChange={(event) =>
+                                                handleSelectOne(review.uid)
+                                            }
+                                            value="true"
+                                        /> */}
+                                            </TableCell>
+                                            <TableCell>
+                                                <Box
+                                                    sx={{
+                                                        alignItems: 'center',
+                                                        display: 'flex',
+                                                    }}
+                                                >
+                                                    <Typography
+                                                        sx={{ maxWidth: 140 }}
+                                                        color="textPrimary"
+                                                        variant="body1"
+                                                    >
+                                                        {review &&
+                                                        Array.isArray(
+                                                            review.project
+                                                        )
+                                                            ? review.project[0]
+                                                                  ?.name
+                                                            : review.project
+                                                                  ?.name}
+                                                    </Typography>
+                                                </Box>
+                                            </TableCell>
+                                            <TableCell>
+                                                {review &&
+                                                Array.isArray(review.project)
+                                                    ? review.project[0]
+                                                          .company[0].name
+                                                    : review.project?.company
+                                                          ?.name}
+                                            </TableCell>
+                                            <TableCell
+                                                sx={{
+                                                    textAlign: 'center',
+                                                }}
+                                            >
+                                                {review &&
+                                                Array.isArray(review.student)
+                                                    ? review.student[0]?.name
+                                                    : review?.student?.name}
+                                            </TableCell>
+                                            <TableCell
+                                                sx={{
+                                                    width: 310,
+                                                    textAlign: 'center',
+                                                }}
+                                            >
+                                                <Rating
+                                                    name="read-only"
+                                                    readOnly
+                                                    value={review.ratingCompany}
+                                                />
+                                            </TableCell>
+
+                                            <TableCell>
+                                                <Rating
+                                                    name="read-only"
+                                                    readOnly
+                                                    value={review.ratingProject}
+                                                />
+                                            </TableCell>
+                                            <TableCell sx={{ maxWidth: 200 }}>
+                                                {review.description}
+                                            </TableCell>
+
+                                            <TableCell sx={{ maxWidth: 200 }}>
+                                                <IconButton>
+                                                    <CloseIcon
+                                                        sx={{
+                                                            cursor: 'pointer',
+                                                        }}
+                                                        onClick={() =>
+                                                            handlecancel(
+                                                                review.uid
+                                                            )
+                                                        }
+                                                    />
+                                                </IconButton>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                            </TableBody>
+                        </Table>
+                    </Box>
+                )}
                 <Pages />
             </Card>
-         
-                <ReviewCancel
-                    setOpenModal={setOpenModal}
-                    openModal={openModal}
-                    idrev={idrev}
-                />
-        
+
+            <ReviewCancel
+                setOpenModal={setOpenModal}
+                openModal={openModal}
+                idrev={idrev}
+            />
         </>
     );
 };

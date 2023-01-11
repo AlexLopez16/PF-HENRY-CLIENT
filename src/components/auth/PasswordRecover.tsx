@@ -38,7 +38,7 @@ import Footer from '../../pages/LandingPage/Footer';
 import logo from '../../assets/NABIJASH.png';
 import { SnackBar } from '../SnackBar/SnackBar';
 import bg from '../../assets/bg.png';
-
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 export const PasswordRecover: FC = () => {
   const Navigate = useNavigate();
   const GoBack = () => {
@@ -312,6 +312,7 @@ export const PasswordRecover: FC = () => {
       >
         <FormControl>
           <Button
+          startIcon={<ArrowBackIosNewIcon />}
             onClick={GoBack}
             size='small'
             variant='contained'

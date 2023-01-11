@@ -14,7 +14,7 @@ import {
   FormControl,
   Grid,
 } from '@mui/material';
-
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { State } from '../../reducers/rootReducer';
 import { addStudentToProject } from '../../actions/student';
 import { PreLoader } from '../PreLoader/PreLoader';
@@ -66,7 +66,7 @@ const ProjectDetail: FC<ProjectProps> = ({
 
   const handlerApply = () => {
     {
-      projectId.questions.length
+      projectId?.questions?.length
         ? navigate(`/postulatedForm/${uid}`)
         : dispatch(addStudentToProject(uid, token));
     }
@@ -111,6 +111,7 @@ console.log(uid);
         >
           <FormControl>
             <Button
+              startIcon={<ArrowBackIosNewIcon />}
               onClick={GoBack}
               size='small'
               variant='contained'
@@ -138,9 +139,9 @@ console.log(uid);
             sx={{
               display: 'flex',
               flexDirection: 'column',
-              justifyContent:'space-around',
+              justifyContent: 'space-around',
             }}
-            >
+          >
             <Paper
               elevation={12}
               style={{
@@ -169,38 +170,6 @@ console.log(uid);
                       }}
                     >
                       {name}
-                    </Typography>
-                  </List>
-
-                  <Typography
-                    sx={{
-                      fontFamily: 'montserrat',
-                      fontStyle: 'italic',
-                      pb: 2,
-                      color: 'white',
-                    }}
-                  >
-                    {empresa}
-                  </Typography>
-
-                  <List>
-                    <Typography
-                      variant='body1'
-                      sx={{
-                        fontFamily: 'montserrat',
-                        color: '#ffff01',
-                      }}
-                    >
-                      <b>Descripción: </b>
-                      <b
-                        style={{
-                          color: 'white',
-                          fontFamily: 'montserrat',
-                          fontStyle: 'italic',
-                        }}
-                      >
-                        {detalle}
-                      </b>
                     </Typography>
                   </List>
                   <Typography
@@ -345,38 +314,52 @@ console.log(uid);
               >
                 {rol === 'STUDENT_ROL' &&
                 projectId.stateOfProject !== 'Terminado' ? (
+                  <Button
+                    sx={{
+                      width:'50%',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItem: 'center',
+                      textAlign: 'center',
+                      fontFamily: 'montserrat',
+                      fontWeight: 'bold',
+                      mt:5,
+                    }}
+                    type='submit'
+                    variant='contained'
+                    fullWidth
+                    color='primary'
+                    onClick={handlerApply}
+                    disabled={user.project?.length === 3}
+                  >
+                    aplicar
+                  </Button>
+                ) : id &&
+                  rol === 'COMPANY_ROL' &&
+                  projectId &&
+                  projectId?.company?._id &&
+                  id === projectId.company._id &&
+                  projectId.stateOfProject === 'Reclutamiento'|| projectId.stateOfProject !== 'Terminado' ? (
+                  <Link to={`/postulated/${uid}`}>
                     <Button
-                        sx={{ marginTop: 10 }}
-                        type="submit"
-                        variant="contained"
-                        fullWidth
-                        color="primary"
-                        onClick={handlerApply}
-                        disabled={user.project?.length === 3}
+                      sx={{
+                        marginTop: 5,
+                        boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+                        fontFamily: 'montserrat',
+                        fontWeight: 'bold',
+                      }}
+                      type='submit'
+                      variant='contained'
+                      fullWidth
+                      color='primary'
                     >
-                        aplicar
+                      Postulados
                     </Button>
-                ) : (id && rol === 'COMPANY_ROL'&&
-                      projectId &&
-                      projectId?.company?._id &&
-                      id === projectId.company._id &&
-                      projectId.stateOfProject === 
-                  'Reclutamiento'|| projectId.stateOfProject ==="Terminado")  ? (
-                    <Link to={`/postulated/${uid}`}>
-                        <Button
-                            sx={{ marginTop: 10 }}
-                            type="submit"
-                            variant="contained"
-                            fullWidth
-                            color="primary"
-                        >
-                            Postulados
-                        </Button>
-                    </Link>
+                  </Link>
                 ) : null}
 
                 {rol === 'COMPANY_ROL' &&
-                projectId.stateOfProject === 'En desarrollo' ? (
+                projectId.stateOfProject === 'En desarrollo'? (
                   <Button
                     onClick={handelClick}
                     type='submit'

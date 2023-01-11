@@ -12,13 +12,15 @@ interface Admins {
 interface State {
   data: object,
   admins: Admins[],
-  user: object
+  user: object,
+  total4: number
 }
 
 const initialState = {
   data: {},
   admins: [],
-  user: {}
+  user: {},
+  total4: 0
 };
 
 type Action = {
@@ -31,9 +33,11 @@ type Action = {
 export const adminReducer = (state: State = initialState, action: Action) => {
   switch (action.type) {
     case types.getAdmins: 
+    const { total, admins }: any = action.payload;
       return {
         ...state,
-        admins: action.payload
+        admins: admins,
+        total4: total
       }
     case types.getInfoAdmin:
       return {

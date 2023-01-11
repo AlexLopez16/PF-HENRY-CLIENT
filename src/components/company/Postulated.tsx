@@ -34,6 +34,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import { acceptStudent, DeleteStudent } from '../../actions/company';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
+import { ResponsePostulated } from './ResponsePostulated';
 
 
 const Postulated: FC = ({ ...rest }) => {
@@ -66,10 +67,12 @@ const Postulated: FC = ({ ...rest }) => {
 
     const handlerAccept = (idstd: string) => {
         dispatch(acceptStudent(id, idstd, token));
+        dispatch(getProjectByID(token, id));
     };
 
     const handlerDelete = (idstd: string) => {
         dispatch(DeleteStudent(id, idstd, token));
+        dispatch(getProjectByID(token, id));
     };
 
     const handleSelectAllPostulated = (event: any) => {
@@ -194,6 +197,7 @@ const Postulated: FC = ({ ...rest }) => {
                 justifyContent: 'space-around',
 
             }}>
+           
             <>
                 <PreLoader />
                 {/*TABLA DE STUDENT POSTULADOS*/}
@@ -248,6 +252,7 @@ const Postulated: FC = ({ ...rest }) => {
                                     <TableCell>Descripcion</TableCell>
                                     <TableCell>Pais</TableCell>
                                     <TableCell>Tecnologias</TableCell>
+                                    {projectId?.questions?.length ? <TableCell>Respuesta</TableCell> : null}
                                     <TableCell>Aceptar</TableCell>
                                     <TableCell>Todos</TableCell>
                                 </TableRow>
@@ -294,6 +299,16 @@ const Postulated: FC = ({ ...rest }) => {
                                                 <p>{`${skill}: ${exp}`}</p>
                                             )):"Aun no posee tecnologias"}
                                         </TableCell>
+                                        {projectId?.questions?.length && 
+                                            (
+                                                <TableCell>
+                                                    <ResponsePostulated 
+                                                        responses={student?.responses?.find((e: any) => e.projectId == projectId?.uid)} 
+                                                        questions={projectId?.questions}
+                                                    />
+                                                </TableCell> 
+                                            )
+                                        }
                                         <TableCell sx={{ maxWidth: 200 }}>
                                             <IconButton
                                             // disabled={encuentra}

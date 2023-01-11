@@ -22,7 +22,7 @@ import {
 } from '@mui/material';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import Divider from '@mui/material/Divider';
-
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { GitHubLogin } from './GitHubLogin';
 import { GoogleLogin } from '@react-oauth/google';
 
@@ -366,6 +366,7 @@ export const LoginScreen: FC = () => {
         >
           <FormControl>
             <Button
+            startIcon={<ArrowBackIosNewIcon />}
               onClick={GoBack}
               size='small'
               variant='contained'

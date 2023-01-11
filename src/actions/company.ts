@@ -107,6 +107,9 @@ export const getCompany = (
 export const getDetailCompany = (id: string, token: string) => {
     return async (dispatch: Dispatch) => {
         try {
+            dispatch({
+                type: types.requestInProgress,
+             });
             const res = await axios.get(`/company/detail/${id}`, {
                 headers: { 'user-token': token },
             });
@@ -114,7 +117,15 @@ export const getDetailCompany = (id: string, token: string) => {
                 type: types.detailCompany,
                 payload: res.data,
             });
-        } catch (error) {}
+            dispatch({
+              type: types.requestFinished,
+          });
+        } catch (error) {
+            console.log(error)
+            dispatch({
+                type: types.requestFinished,
+            });
+        }
     };
 };
 

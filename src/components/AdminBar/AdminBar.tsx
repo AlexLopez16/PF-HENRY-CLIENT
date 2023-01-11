@@ -133,7 +133,7 @@ export default function AccountMenu() {
                         <Avatar
                             src={user?.image}
                             sx={{ width: 32, height: 32 }}
-                        ></Avatar>
+                        >{user.name?.slice(0, 1)}</Avatar>
                     </IconButton>
                 </Tooltip>
             </Box>

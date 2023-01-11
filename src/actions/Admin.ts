@@ -2,17 +2,18 @@ import axios from 'axios';
 import { Dispatch } from 'redux';
 import { types } from '../types/types';
 
-export const getAdmins = (token: string | null) => {
+export const getAdmins = (token: string | null, limit: number, init: number) => {
     return async (dispatch: Dispatch) => {
         try {
             const { data } = await axios.get('/admin/getAdmin', {
                 headers: { 'user-token': token },
+                params: { limit, init }
             });
             dispatch({
                 type: types.getAdmins,
-                payload: data.admins,
-            });
-        } catch (error) {
+                payload: data,
+            });            
+        } catch (error: any) {
             console.log(error);
         }
     };
@@ -252,7 +253,7 @@ const login = (data: object) => ({
     payload: data,
 });
 
-export const registerAdmin = (values: object) => {
+export const registerAdmin = (values: object, success: () => void) => {
     return async (dispatch: Dispatch) => {
         try {
             const res: object | any = await axios.post('/admin', values);
@@ -262,10 +263,12 @@ export const registerAdmin = (values: object) => {
                 type: types.registerAdmin,
                 payload: data,
             });
-            if (status) {
-                localStorage.setItem('token', token);
-                dispatch(login({ data, status, id, rol }));
-            }
+            dispatch({
+                type: types.responseFinished,
+                payload: data,
+            });
+
+            success();
         } catch (error: object | any) {
             dispatch({
                 type: types.responseFinished,
@@ -276,10 +279,27 @@ export const registerAdmin = (values: object) => {
     };
 };
 
-export const getAllReviews = (token: string | null) => {
+export const getAllReviews = (
+    token: string | null,
+    limit: number | any,
+    init: number | any,
+    name: string | any
+) => {
     return async (dispatch: Dispatch) => {
+        let query;
+        if (name) {
+            query = `name=${name}`;
+        }
+        if (limit || init) {
+            // console.log(limit, init);
+            if (query) {
+                query += `&limit=${limit}&init=${init}`;
+            } else {
+                query = `limit=${limit}&init=${init}`;
+            }
+        }
         try {
-            const { data } = await axios.get('/admin/getreviews', {
+            const { data } = await axios.get(`/admin/getreviews?${query}`, {
                 headers: { 'user-token': token },
             });
             console.log(data);
@@ -323,6 +343,20 @@ export const cancelReview = (
             });
             console.log(error);
         }
+    };
+};
+
+export const clearReviews = () => {
+    return {
+        type: types.getAllProjects,
+        payload: { getreviews: [], total: 0 },
+    };
+};
+
+export const filterReviews = (search: string | any) => {
+    return {
+        type: types.filterReview,
+        payload: search,
     };
 };
 
