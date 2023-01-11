@@ -21,17 +21,19 @@ import {
 import Pages from "../../ui/Pagination";
 import { PreLoader } from "../../PreLoader/PreLoader";
 import { registerAdmin } from '../../../actions/Admin';
+import { useNavigate } from "react-router-dom";
 
 const AdminPanel: FC = () => {
   const dispatch = useDispatch();
+  const navigate =  useNavigate()
   const token = localStorage.getItem("token");
-  const { status } = useSelector((state: State) => state.auth);
+  const { status, data } = useSelector((state: State) => state.auth);
   if (!status && token) {
     dispatch(validaToken(token));
   }
 
   useEffect(() => {
-    dispatch(getAdmins(token));
+    dispatch(getAdmins(token, 6, 0));
   }, [dispatch]);
 
   //Revisar tipos y cambiarlos tambien en AdminStudent
@@ -46,7 +48,7 @@ const AdminPanel: FC = () => {
     
       <PreLoader />
       <Card>
-      <Button variant="contained" onClick={() => dispatch(registerAdmin)}>Agregar administrador</Button>
+      <Button variant="contained" onClick={() => navigate('/dashboard/createAdmin')}>Agregar administrador</Button>
         <Box sx={{ minWidth: 1050 }}>
           <Table>
             <TableHead>
@@ -96,6 +98,7 @@ const AdminPanel: FC = () => {
                             defaultChecked={user.state ? true : false}
                             size="small"
                             color="primary"
+                            disabled={user.email === (data as any).email}
                             onChange={() => handleDisable(user.uid)}
                           />
                         }
