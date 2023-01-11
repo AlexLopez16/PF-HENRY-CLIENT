@@ -49,9 +49,13 @@ export const ApplicationForm: FC = () => {
         res3: Yup.string().required('* Ingresa una respuesta'),
     });
 
-    const onSubmit = (values: any) => {
+    const onSubmit = (values: any, props: any) => {
         values['projectId'] = projectId.uid;
         dispatch(sendResponseOfQuestions(values, token, projectId.uid));
+        setTimeout(() => {
+            props.resetForm();
+            props.setSubmitting(false);
+        },1000)
         //dispatch(addStudentToProject(projectId.uid, token));
         // navigate('/myprojects');
         console.log(values);
@@ -91,55 +95,57 @@ export const ApplicationForm: FC = () => {
                             validationSchema={validationSchema}
                             onSubmit={onSubmit}
                         >
-                            <Form>
-                                {question?.map((Res: any, index: number) => (
-                                    <Box>
-                                        <Grid
-                                            textAlign="left"
-                                            fontFamily="montserrat"
-                                            sx={{ mb: 2 }}
-                                        >
-                                            <h3>{Res} </h3>
-                                        </Grid>
-                                        <div>
-                                            <Field
-                                                as={TextField}
-                                                name={`res${index + 1}`}
-                                                label="Respuesta"
-                                                fullWidth
-                                                color="info"
+                            {(props) => (
+                                <Form>
+                                    {question?.map((Res: any, index: number) => (
+                                        <Box>
+                                            <Grid
+                                                textAlign="left"
+                                                fontFamily="montserrat"
                                                 sx={{ mb: 2 }}
-                                                inputProps={{ maxLength: 100 }}
-                                                helperText={
-                                                    <ErrorMessage
-                                                        name={`res${index + 1}`}
-                                                    >
-                                                        {(msg) => (
-                                                            <span
-                                                                style={{
-                                                                    color: '#d6423e',
-                                                                }}
-                                                            >
-                                                                {msg}
-                                                            </span>
-                                                        )}
-                                                    </ErrorMessage>
-                                                }
-                                            />
-                                        </div>
-                                    </Box>
-                                ))}
+                                            >
+                                                <h3>{Res} </h3>
+                                            </Grid>
+                                            <div>
+                                                <Field
+                                                    as={TextField}
+                                                    name={`res${index + 1}`}
+                                                    label="Respuesta"
+                                                    fullWidth
+                                                    color="info"
+                                                    sx={{ mb: 2 }}
+                                                    inputProps={{ maxLength: 100 }}
+                                                    helperText={
+                                                        <ErrorMessage
+                                                            name={`res${index + 1}`}
+                                                        >
+                                                            {(msg) => (
+                                                                <span
+                                                                    style={{
+                                                                        color: '#d6423e',
+                                                                    }}
+                                                                >
+                                                                    {msg}
+                                                                </span>
+                                                            )}
+                                                        </ErrorMessage>
+                                                    }
+                                                />
+                                            </div>
+                                        </Box>
+                                    ))}
 
-                                <Button
-                                    sx={{ marginTop: 2, fontFamily: 'poppins' }}
-                                    type="submit"
-                                    variant="contained"
-                                    fullWidth
-                                    color="primary"
-                                >
-                                    Aplicar al proyecto.
-                                </Button>
-                            </Form>
+                                    <Button
+                                        sx={{ marginTop: 2, fontFamily: 'poppins' }}
+                                        type="submit"
+                                        variant="contained"
+                                        fullWidth
+                                        color="primary"
+                                    >
+                                        Aplicar al proyecto.
+                                    </Button>
+                                </Form>
+                             )}
                         </Formik>
                     </Paper>
                 </Grid>

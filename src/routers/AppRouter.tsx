@@ -173,9 +173,9 @@ export const AppRouter = () => {
           <Route
             path="/postulatedForm/:id"
             element={
-              // <PrivateRoute>
+              <PrivateRoute>
               <ApplicationForm />
-              // </PrivateRoute>
+              </PrivateRoute>
             }
           />
           <Route
