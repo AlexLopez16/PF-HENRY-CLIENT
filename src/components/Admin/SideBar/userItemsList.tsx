@@ -37,6 +37,10 @@ const buttons = [
     path: "/dashboard/companies",
   },
   {
+    option: "Admins",
+    path: "/dashboard/admins",
+  },
+  {
     option: "Reviews",
     path: "/dashboard/getreviews",
   },

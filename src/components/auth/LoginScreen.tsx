@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import type {} from 'redux-thunk/extend-redux';
+import type { } from 'redux-thunk/extend-redux';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -22,7 +22,7 @@ import {
 } from '@mui/material';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import Divider from '@mui/material/Divider';
-
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { GitHubLogin } from './GitHubLogin';
 import { GoogleLogin } from '@react-oauth/google';
 
@@ -326,9 +326,9 @@ export const LoginScreen: FC = () => {
                 sx={{
                   display: 'flex',
                   alignContent: 'space-around',
-    // flex-wrap: wrap;
-    // flex-direction: column;
-    // justify-content: space-between;
+                  flexWrap: 'wrap',
+                  flexDirection: 'column',
+                  // justify-content: space-between;
                 }}
               >
                 <Typography
@@ -350,7 +350,7 @@ export const LoginScreen: FC = () => {
                       color: '#ffff01',
                     }}
                   >
-                    <br/>
+                    <br />
                     Regístrate
                   </Link>
                 </Typography>
@@ -366,6 +366,7 @@ export const LoginScreen: FC = () => {
         >
           <FormControl>
             <Button
+              startIcon={<ArrowBackIosNewIcon />}
               onClick={GoBack}
               size='small'
               variant='contained'

@@ -51,6 +51,10 @@ export const deleteuser = (token: string | null, selectID: string) => {
                 type: types.deleteOrInactiveStudent,
                 payload: res.data,
             });
+            dispatch({
+                type: types.responseFinished,
+                payload: res,
+            });
         } catch (error) {
             console.log(error);
         }
@@ -272,10 +276,27 @@ export const registerAdmin = (values: object) => {
     };
 };
 
-export const getAllReviews = (token: string | null) => {
+export const getAllReviews = (
+    token: string | null,
+    limit: number | any,
+    init: number | any,
+    name: string | any
+) => {
     return async (dispatch: Dispatch) => {
+        let query;
+        if (name) {
+            query = `name=${name}`;
+        }
+        if (limit || init) {
+            // console.log(limit, init);
+            if (query) {
+                query += `&limit=${limit}&init=${init}`;
+            } else {
+                query = `limit=${limit}&init=${init}`;
+            }
+        }
         try {
-            const { data } = await axios.get('/admin/getreviews', {
+            const { data } = await axios.get(`/admin/getreviews?${query}`, {
                 headers: { 'user-token': token },
             });
             console.log(data);
@@ -302,15 +323,37 @@ export const cancelReview = (
                 { idrev, values },
                 { headers: { 'user-token': token } }
             );
-            console.log(res);
 
             dispatch({
-                type: types.AdminEliminatedProject,
+                type: types.AdminEliminatedReview,
                 // payload: res.data,
             });
-        } catch (error) {
+            console.log(res);
+            dispatch({
+                type: types.responseFinished,
+                payload: res,
+            });
+        } catch (error: object | any) {
+            dispatch({
+                type: types.responseFinished,
+                payload: error.response,
+            });
             console.log(error);
         }
+    };
+};
+
+export const clearReviews = () => {
+    return {
+        type: types.getAllProjects,
+        payload: { getreviews: [], total: 0 },
+    };
+};
+
+export const filterReviews = (search: string | any) => {
+    return {
+        type: types.filterReview,
+        payload: search,
     };
 };
 
@@ -348,6 +391,10 @@ export const setStateMultiple = (token: string | null, selectID: string[]) => {
             dispatch({
                 type: types.setState,
                 // payload: res.data,
+            });
+            dispatch({
+                type: types.responseFinished,
+                payload: res,
             });
         } catch (error) {
             console.log(error);

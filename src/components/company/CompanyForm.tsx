@@ -24,7 +24,7 @@ import {
   MenuItem,
 } from '@mui/material';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
-
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { registerCompany } from '../../actions/company';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -155,7 +155,8 @@ const CompanyForm: FC = () => {
               borderRadius: 5,
             }}
           >
-           ¡Crea proyectos, publícalos y encuentra #TalentosHenry para obtener grandes resultados!
+            ¡Crea proyectos, publícalos y encuentra #TalentosHenry para obtener
+            grandes resultados!
           </Typography>
           <Paper
             sx={{
@@ -198,7 +199,7 @@ const CompanyForm: FC = () => {
               {(props) => (
                 <Form>
                   <Field
-                  variant='outlined'
+                    variant='outlined'
                     as={TextField}
                     name='name'
                     placeholder='Nombre'
@@ -374,7 +375,6 @@ const CompanyForm: FC = () => {
                     variant='contained'
                     fullWidth
                     color='secondary'
-                    disabled={props.isSubmitting}
                   >
                     Crear cuenta
                   </Button>
@@ -445,6 +445,7 @@ const CompanyForm: FC = () => {
       >
         <FormControl>
           <Button
+            startIcon={<ArrowBackIosNewIcon />}
             onClick={GoBack}
             size='small'
             variant='contained'

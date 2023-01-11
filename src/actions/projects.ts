@@ -166,13 +166,7 @@ export const getProjectsFilter = (
                 type: types.requestFinished,
             });
         } catch (error: any) {
-            // console.log(error.response.data.errors[0].msg);
-            if (error.response.status === 401) {
-                dispatch({
-                    type: types.clearAuthLogin,
-                    payload: error.response.status,
-                });
-            }
+            console.log(error.response.data.errors[0].msg);
         }
     };
 };
@@ -350,13 +344,7 @@ export const getAllProject = (
                 type: types.requestFinished,
             });
         } catch (error: any) {
-            // console.log(error.response.data.errors[0].msg);
-            if (error.response.status === 401) {
-                dispatch({
-                    type: types.clearAuthLogin,
-                    payload: error.response.status,
-                });
-            }
+            console.log(error.response.data.errors[0].msg);
         }
     };
 };

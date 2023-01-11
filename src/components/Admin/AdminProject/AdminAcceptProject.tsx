@@ -15,7 +15,9 @@ import {
     ListItemButton,
     Collapse,
     IconButton,
-    Checkbox
+    Checkbox,
+    Stack,
+    Alert,
 } from '@mui/material';
 import { State } from '../../../reducers/rootReducer';
 import { clearProject, getAllProject } from '../../../actions/projects';
@@ -69,7 +71,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
     );
     const [limit, setLimit] = useState(12);
     const [render, setRender] = useState(false);
-    const [formactive, setFormactive] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
     const [opciones, setOpciones] = useState('Todos');
     const [open, setOpen] = useState(false);
     const options: string[] = [
@@ -128,16 +130,16 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
 
     const handleaccept = (id: string) => {
         dispatch(AprovedProject(token, id)), setRender(!render);
-        
     };
 
     const handlecancel = (id: string) => {
         setId(id);
-        setFormactive(true);
+        setOpenModal(true)
     };
 
     const handleMultiaccept = () => {
-        dispatch(reclutamientoInProject(token, selectedCustomerIds)), setRender(!render);
+        dispatch(reclutamientoInProject(token, selectedCustomerIds)),
+            setRender(!render);
         dispatch(
             getAllProject(
                 undefined,
@@ -161,8 +163,8 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
     };
     opciones !== 'Todos'
         ? (proyectos = projects.filter((project: any) =>
-            project.stateOfProject.includes(opciones)
-        ))
+              project.stateOfProject.includes(opciones)
+          ))
         : (proyectos = projects);
     return (
         <>
@@ -194,178 +196,198 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
                         <AdminFilterProject />
                     </Collapse>
                 </Container>
-
-                <Box sx={{ minWidth: 1050 }}>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell padding="checkbox">
-                                    <Checkbox
-                                        checked={
-                                            selectedCustomerIds.length ===
-                                            proyectos.length
-                                        }
-                                        color="primary"
-                                        indeterminate={
-                                            selectedCustomerIds.length > 0 &&
-                                            selectedCustomerIds.length <
-                                            proyectos.length
-                                        }
-                                        onChange={handleSelectAll}
-                                    />
-                                </TableCell>
-                                <TableCell>Nombre</TableCell>
-                                <TableCell>Compañia</TableCell>
-                                <TableCell
-                                    sx={{
-                                        textAlign: 'center',
-                                    }}
-                                >
-                                    Categoria
-                                </TableCell>
-                                <TableCell
-                                    sx={{
-                                        textAlign: 'center',
-                                    }}
-                                >
-                                    Estado
-                                </TableCell>
-                                <TableCell>Creado</TableCell>
-                                <TableCell>Descripcion</TableCell>
-                                <TableCell>Aceptar</TableCell>
-                                <TableCell>Rechazar</TableCell>
-
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {proyectos.slice(0, limit).map((proyectos: any) => (
-                                <TableRow
-                                    hover
-                                    key={proyectos.uid}
-                                    selected={
-                                        selectedCustomerIds.indexOf(
-                                            proyectos.uid
-                                        ) !== -1
-                                    }
-                                >
+                {!projects.length ? (
+                    <TableBody>
+                        <Stack sx={{ width: '100%' }} spacing={1}>
+                            <Alert severity="info">
+                                No hay proyectos con los filtros aplicados!
+                            </Alert>
+                        </Stack>
+                    </TableBody>
+                ) : (
+                    <Box sx={{ minWidth: 1050 }}>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
                                     <TableCell padding="checkbox">
                                         <Checkbox
                                             checked={
+                                                selectedCustomerIds.length ===
+                                                proyectos.length
+                                            }
+                                            color="primary"
+                                            indeterminate={
+                                                selectedCustomerIds.length >
+                                                    0 &&
+                                                selectedCustomerIds.length <
+                                                    proyectos.length
+                                            }
+                                            onChange={handleSelectAll}
+                                        />
+                                    </TableCell>
+                                    <TableCell>Nombre</TableCell>
+                                    <TableCell>Compañia</TableCell>
+                                    <TableCell
+                                        sx={{
+                                            textAlign: 'center',
+                                        }}
+                                    >
+                                        Categoria
+                                    </TableCell>
+                                    <TableCell
+                                        sx={{
+                                            textAlign: 'center',
+                                        }}
+                                    >
+                                        Estado
+                                    </TableCell>
+                                    <TableCell>Creado</TableCell>
+                                    <TableCell>Descripcion</TableCell>
+                                    <TableCell>Aceptar</TableCell>
+                                    <TableCell>Rechazar</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {proyectos
+                                    .slice(0, limit)
+                                    .map((proyectos: any) => (
+                                        <TableRow
+                                            hover
+                                            key={proyectos.uid}
+                                            selected={
                                                 selectedCustomerIds.indexOf(
                                                     proyectos.uid
                                                 ) !== -1
                                             }
-                                            onChange={(event) =>
-                                                handleSelectOne(proyectos.uid)
-                                            }
-                                            value="true"
-                                        />
-                                    </TableCell>
-                                    <TableCell>
-                                        <Box
-                                            sx={{
-                                                alignItems: 'center',
-                                                display: 'flex',
-                                            }}
                                         >
-                                            <Typography
-                                                sx={{ maxWidth: 140 }}
-                                                color="textPrimary"
-                                                variant="body1"
+                                            <TableCell padding="checkbox">
+                                                <Checkbox
+                                                    checked={
+                                                        selectedCustomerIds.indexOf(
+                                                            proyectos.uid
+                                                        ) !== -1
+                                                    }
+                                                    onChange={(event) =>
+                                                        handleSelectOne(
+                                                            proyectos.uid
+                                                        )
+                                                    }
+                                                    value="true"
+                                                />
+                                            </TableCell>
+                                            <TableCell>
+                                                <Box
+                                                    sx={{
+                                                        alignItems: 'center',
+                                                        display: 'flex',
+                                                    }}
+                                                >
+                                                    <Typography
+                                                        sx={{ maxWidth: 140 }}
+                                                        color="textPrimary"
+                                                        variant="body1"
+                                                    >
+                                                        {proyectos.name}
+                                                    </Typography>
+                                                </Box>
+                                            </TableCell>
+                                            <TableCell>
+                                                {proyectos.company &&
+                                                Array.isArray(proyectos.company)
+                                                    ? proyectos?.company[0]
+                                                          ?.name
+                                                    : proyectos?.company?.name}
+                                            </TableCell>
+                                            <TableCell
+                                                sx={{
+                                                    textAlign: 'center',
+                                                }}
                                             >
-                                                {proyectos.name}
-                                            </Typography>
-                                        </Box>
-                                    </TableCell>
-                                    <TableCell>
-                                        {proyectos.company &&
-                                            Array.isArray(proyectos.company)
-                                            ? proyectos?.company[0]?.name
-                                            : proyectos?.company?.name}
-                                    </TableCell>
-                                    <TableCell
-                                        sx={{
-                                            textAlign: 'center',
-                                        }}
-                                    >
-                                        {proyectos.category
-                                            ? proyectos.category
-                                            : 'No registrado'}
-                                    </TableCell>
-                                    <TableCell
-                                        sx={{
-                                            width: 310,
-                                            textAlign: 'center',
-                                        }}
-                                    >
-                                        {proyectos.stateOfProject}
-                                    </TableCell>
+                                                {proyectos.category
+                                                    ? proyectos.category
+                                                    : 'No registrado'}
+                                            </TableCell>
+                                            <TableCell
+                                                sx={{
+                                                    width: 310,
+                                                    textAlign: 'center',
+                                                }}
+                                            >
+                                                {proyectos.stateOfProject}
+                                            </TableCell>
 
-                                    <TableCell>
-                                        {proyectos.admission
-                                            ? `${moment(
-                                                proyectos.admission
-                                            ).format('DD/MM/YYYY')}`
-                                            : 'No registrado'}
-                                    </TableCell>
-                                    <TableCell sx={{ maxWidth: 200 }}>
-                                        {proyectos.description}
-                                    </TableCell>
+                                            <TableCell>
+                                                {proyectos.admission
+                                                    ? `${moment(
+                                                          proyectos.admission
+                                                      ).format('DD/MM/YYYY')}`
+                                                    : 'No registrado'}
+                                            </TableCell>
+                                            <TableCell sx={{ maxWidth: 200 }}>
+                                                {proyectos.description}
+                                            </TableCell>
 
-                                    <TableCell sx={{ maxWidth: 200 }}>
-                                        <IconButton
-                                            disabled={
-                                                proyectos.stateOfProject !==
-                                                'En revision'
-                                            }
-                                        >
-                                            <CheckIcon
-                                                sx={{ cursor: 'pointer' }}
-                                                onClick={() =>
-                                                    handleaccept(proyectos.uid)
-                                                }
-                                            />
-                                        </IconButton>
-                                    </TableCell>
-                                    <TableCell sx={{ maxWidth: 200 }}>
-                                        <IconButton
-                                            disabled={
-                                                proyectos.stateOfProject !==
-                                                'En revision'
-                                            }
-                                        >
-                                            <CloseIcon
-                                                sx={{ cursor: 'pointer' }}
-                                                onClick={() =>
-                                                    handlecancel(proyectos.uid)
-                                                }
-                                            />
-                                        </IconButton>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                            <IconButton
-                                disabled={
-                                    selectedCustomerIds.length < 2
-                                }
-                            >
-                                <CheckIcon
-                                    sx={{ cursor: 'pointer' }}
-                                    onClick={handleMultiaccept}
-                                />
-                            </IconButton>
-                        </TableBody>
-                    </Table>
-                </Box>
+                                            <TableCell sx={{ maxWidth: 200 }}>
+                                                <IconButton
+                                                    disabled={
+                                                        proyectos.stateOfProject !==
+                                                        'En revision'
+                                                    }
+                                                >
+                                                    <CheckIcon
+                                                        sx={{
+                                                            cursor: 'pointer',
+                                                        }}
+                                                        onClick={() =>
+                                                            handleaccept(
+                                                                proyectos.uid
+                                                            )
+                                                        }
+                                                    />
+                                                </IconButton>
+                                            </TableCell>
+                                            <TableCell sx={{ maxWidth: 200 }}>
+                                                <IconButton
+                                                    disabled={
+                                                        proyectos.stateOfProject !==
+                                                        'En revision'
+                                                    }
+                                                >
+                                                    <CloseIcon
+                                                        sx={{
+                                                            cursor: 'pointer',
+                                                        }}
+                                                        onClick={() =>
+                                                            handlecancel(
+                                                                proyectos.uid
+                                                            )
+                                                        }
+                                                    />
+                                                </IconButton>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                <IconButton
+                                    disabled={selectedCustomerIds.length < 2}
+                                >
+                                    <CheckIcon
+                                        sx={{ cursor: 'pointer' }}
+                                        onClick={handleMultiaccept}
+                                    />
+                                </IconButton>
+                            </TableBody>
+                        </Table>
+                    </Box>
+                )}
                 <Pages />
             </Card>
-            {formactive && (
+            {/* {openModal && ( */}
                 <CancelMessage
-                    setFormactive={setFormactive}
-                    formactive={formactive}
+                    setOpenModal={setOpenModal}
+                    openModal={openModal}
                     idPrj={idPrj}
                 />
-            )}
+            {/* )} */}
         </>
     );
 };

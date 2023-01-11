@@ -13,7 +13,7 @@ import {
 
 import aboutbg from '../../assets/aboutbg.png';
 import Amparo from "../../assets/team/ampi.png";
-
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 export default function Ampi() {
   const navigate = useNavigate();
 
@@ -139,6 +139,7 @@ export default function Ampi() {
       </Box>
       <FormControl>
         <Button
+         startIcon={<ArrowBackIosNewIcon />}
           onClick={back}
           size='small'
           variant='contained'
