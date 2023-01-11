@@ -66,7 +66,7 @@ const ProjectDetail: FC<ProjectProps> = ({
 
   const handlerApply = () => {
     {
-      projectId.questions.length
+      projectId?.questions?.length
         ? navigate(`/postulatedForm/${uid}`)
         : dispatch(addStudentToProject(uid, token));
     }
@@ -162,38 +162,6 @@ const ProjectDetail: FC<ProjectProps> = ({
                       }}
                     >
                       {name}
-                    </Typography>
-                  </List>
-
-                  <Typography
-                    sx={{
-                      fontFamily: 'montserrat',
-                      fontStyle: 'italic',
-                      pb: 2,
-                      color: 'white',
-                    }}
-                  >
-                    {empresa}
-                  </Typography>
-
-                  <List>
-                    <Typography
-                      variant='body1'
-                      sx={{
-                        fontFamily: 'montserrat',
-                        color: '#ffff01',
-                      }}
-                    >
-                      <b>Descripción: </b>
-                      <b
-                        style={{
-                          color: 'white',
-                          fontFamily: 'montserrat',
-                          fontStyle: 'italic',
-                        }}
-                      >
-                        {detalle}
-                      </b>
                     </Typography>
                   </List>
                   <Typography
@@ -339,7 +307,16 @@ const ProjectDetail: FC<ProjectProps> = ({
                 {rol === 'STUDENT_ROL' &&
                 projectId.stateOfProject !== 'Terminado' ? (
                   <Button
-                    sx={{ marginTop: 10 }}
+                    sx={{
+                      width:'50%',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItem: 'center',
+                      textAlign: 'center',
+                      fontFamily: 'montserrat',
+                      fontWeight: 'bold',
+                      mt:5,
+                    }}
                     type='submit'
                     variant='contained'
                     fullWidth

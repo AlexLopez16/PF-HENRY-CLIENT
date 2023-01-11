@@ -47,6 +47,9 @@ export const getProjectByID = (token: string, id: string) => {
 };
 
 export const newProject = (data: object, token: string) => {
+    
+    console.log(data);
+    
     return async (dispatch: Dispatch) => {
         try {
             dispatch({

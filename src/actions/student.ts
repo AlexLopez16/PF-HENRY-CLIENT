@@ -208,6 +208,41 @@ export const addStudentToProject = (id: string, token: string) => {
     };
 };
 
+export const sendResponseOfQuestions = (data: object | any, token: string, studentId: string) => {
+    return async (dispatch: Dispatch) => {
+        try {
+            dispatch({
+                type: types.requestInProgress,
+            });
+            // await addStudentToProject(data.projectId, token);
+            let res = await axios.put(`/project/${data.projectId}`, undefined, {
+                headers: { 'user-token': token },
+            });
+            res = await axios.post('/response', data,{
+                headers: { 'user-token': token },
+            } )
+            // res = await axios.put(`/project/${data.projectId}`, undefined, {
+            //     headers: { 'user-token': token },
+            // });
+            dispatch({
+                type: types.responseFinished,
+                payload: res
+            })
+            dispatch({
+                type: types.requestFinished,
+            });
+        } catch (error: any) {
+            dispatch({
+                type: types.responseFinished,
+                payload: error.response
+            })
+            dispatch({
+                type: types.requestFinished,
+            });
+        }
+    }
+}
+
 export const unApplyStudent = (
     studentId: string | any,
     projectId: string | any,

@@ -2,17 +2,22 @@ import axios from 'axios';
 import { Dispatch } from 'redux';
 import { types } from '../types/types';
 
-export const getAdmins = (token: string | null) => {
+export const getAdmins = (
+    token: string | null,
+    limit: number,
+    init: number
+) => {
     return async (dispatch: Dispatch) => {
         try {
             const { data } = await axios.get('/admin/getAdmin', {
                 headers: { 'user-token': token },
+                params: { limit, init },
             });
             dispatch({
                 type: types.getAdmins,
-                payload: data.admins,
+                payload: data,
             });
-        } catch (error) {
+        } catch (error: any) {
             console.log(error);
         }
     };
@@ -252,7 +257,7 @@ const login = (data: object) => ({
     payload: data,
 });
 
-export const registerAdmin = (values: object) => {
+export const registerAdmin = (values: object, success: () => void) => {
     return async (dispatch: Dispatch) => {
         try {
             const res: object | any = await axios.post('/admin', values);
@@ -262,10 +267,12 @@ export const registerAdmin = (values: object) => {
                 type: types.registerAdmin,
                 payload: data,
             });
-            if (status) {
-                localStorage.setItem('token', token);
-                dispatch(login({ data, status, id, rol }));
-            }
+            dispatch({
+                type: types.responseFinished,
+                payload: data,
+            });
+
+            success();
         } catch (error: object | any) {
             dispatch({
                 type: types.responseFinished,
@@ -296,6 +303,9 @@ export const getAllReviews = (
             }
         }
         try {
+            dispatch({
+                type: types.requestInProgress,
+            });
             const { data } = await axios.get(`/admin/getreviews?${query}`, {
                 headers: { 'user-token': token },
             });
@@ -304,6 +314,9 @@ export const getAllReviews = (
             dispatch({
                 type: types.getAllReviews,
                 payload: data,
+            });
+            dispatch({
+                type: types.requestFinished,
             });
         } catch (error) {
             console.log(error);
@@ -439,5 +452,12 @@ export const reclutamientoInProject = (
                 payload: error.response,
             });
         }
+    };
+};
+
+export const clearAdmin = () => {
+    return {
+        type: types.getAdmins,
+        payload: { total: 0, admin: [] },
     };
 };
