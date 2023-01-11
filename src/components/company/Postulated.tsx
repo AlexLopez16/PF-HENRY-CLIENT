@@ -67,10 +67,12 @@ const Postulated: FC = ({ ...rest }) => {
 
     const handlerAccept = (idstd: string) => {
         dispatch(acceptStudent(id, idstd, token));
+        dispatch(getProjectByID(token, id));
     };
 
     const handlerDelete = (idstd: string) => {
         dispatch(DeleteStudent(id, idstd, token));
+        dispatch(getProjectByID(token, id));
     };
 
     const handleSelectAllPostulated = (event: any) => {
@@ -297,17 +299,16 @@ const Postulated: FC = ({ ...rest }) => {
                                                 <p>{`${skill}: ${exp}`}</p>
                                             )):"Aun no posee tecnologias"}
                                         </TableCell>
-                                        {projectId?.questions?.length 
-                                        ? 
-                                        <TableCell>
-                                            {}
-                                            <ResponsePostulated 
-                                                responses={student?.responses?.find((e: any) => e.projectId == projectId?.uid)} 
-                                                questions={projectId?.questions}
-                                            />
-                                        </TableCell> 
-                                        : 
-                                        null}
+                                        {projectId?.questions?.length && 
+                                            (
+                                                <TableCell>
+                                                    <ResponsePostulated 
+                                                        responses={student?.responses?.find((e: any) => e.projectId == projectId?.uid)} 
+                                                        questions={projectId?.questions}
+                                                    />
+                                                </TableCell> 
+                                            )
+                                        }
                                         <TableCell sx={{ maxWidth: 200 }}>
                                             <IconButton
                                             // disabled={encuentra}
