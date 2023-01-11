@@ -307,7 +307,16 @@ const ProjectDetail: FC<ProjectProps> = ({
                 {rol === 'STUDENT_ROL' &&
                 projectId.stateOfProject !== 'Terminado' ? (
                   <Button
-                    sx={{ marginTop: 10 }}
+                    sx={{
+                      width:'50%',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItem: 'center',
+                      textAlign: 'center',
+                      fontFamily: 'montserrat',
+                      fontWeight: 'bold',
+                      mt:5,
+                    }}
                     type='submit'
                     variant='contained'
                     fullWidth
