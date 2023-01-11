@@ -164,38 +164,6 @@ const ProjectDetail: FC<ProjectProps> = ({
                       {name}
                     </Typography>
                   </List>
-
-                  <Typography
-                    sx={{
-                      fontFamily: 'montserrat',
-                      fontStyle: 'italic',
-                      pb: 2,
-                      color: 'white',
-                    }}
-                  >
-                    {empresa}
-                  </Typography>
-
-                  <List>
-                    <Typography
-                      variant='body1'
-                      sx={{
-                        fontFamily: 'montserrat',
-                        color: '#ffff01',
-                      }}
-                    >
-                      <b>Descripción: </b>
-                      <b
-                        style={{
-                          color: 'white',
-                          fontFamily: 'montserrat',
-                          fontStyle: 'italic',
-                        }}
-                      >
-                        {detalle}
-                      </b>
-                    </Typography>
-                  </List>
                   <Typography
                     sx={{
                       fontFamily: 'montserrat',

@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Autocomplete } from 'formik-mui';
@@ -7,24 +7,24 @@ import { Autocomplete } from 'formik-mui';
 import * as Yup from 'yup';
 
 import {
-    Grid,
-    Button,
-    Paper,
-    FormControlLabel,
-    Radio,
-    RadioGroup,
-    SelectChangeEvent,
-    FormControl,
-    FormLabel,
-    InputLabel,
-    MenuItem,
-    Select,
-    TextField,
-    FilledInput,
-    IconButton,
-    InputAdornment,
-    TextFieldProps,
-    Box,
+  Grid,
+  Button,
+  Paper,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+  SelectChangeEvent,
+  FormControl,
+  FormLabel,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  FilledInput,
+  IconButton,
+  InputAdornment,
+  TextFieldProps,
+  Box,
 } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ImageIcon from '@mui/icons-material/Image';
@@ -40,11 +40,12 @@ import Footer from '../../pages/LandingPage/Footer';
 import { SnackBar } from '../SnackBar/SnackBar';
 import { Link, useNavigate } from 'react-router-dom';
 import { PreLoader } from '../PreLoader/PreLoader';
+import { State } from '../../reducers/rootReducer';
 
 const ProjectForm: FC = () => {
-    const nParticipants = [...Array(8)].map((_, index) => index + 1);
+  const nParticipants = [...Array(8)].map((_, index) => index + 1);
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
     const navigate = useNavigate();
 
@@ -190,15 +191,15 @@ const ProjectForm: FC = () => {
         { name: 'TypeScript' },
         { name: 'Vue' },
 
-        //con CTRL + Shift + P y selecciono en orden ascendente
-    ];
+    //con CTRL + Shift + P y selecciono en orden ascendente
+  ];
 
-    //Upload Images
-    const handleFilesChange = async (
-        event: React.ChangeEvent<HTMLInputElement | {}>
-    ) => {
-        const files = (event.target as HTMLInputElement).files || [];
-        const data = Array.from(files);
+  //Upload Images
+  const handleFilesChange = async (
+    event: React.ChangeEvent<HTMLInputElement | {}>
+  ) => {
+    const files = (event.target as HTMLInputElement).files || [];
+    const data = Array.from(files);
 
         setImages([...images, ...data]);
     };
