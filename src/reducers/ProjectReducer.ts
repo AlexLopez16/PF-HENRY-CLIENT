@@ -143,7 +143,7 @@ export const projectReducer = (state: State = initialState, action: Action) => {
 
             };
 
-
+            
         default:
             return state;
     }

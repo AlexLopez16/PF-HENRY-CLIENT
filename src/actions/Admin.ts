@@ -391,12 +391,12 @@ export const setStateMultiple = (token: string | null, selectID: string[]) => {
             );
 
             dispatch({
-                type: types.setState,
-                // payload: res.data,
-            });
-            dispatch({
                 type: types.responseFinished,
                 payload: res,
+            });
+            dispatch({
+                type: types.setState,
+                payload: res.data,
             });
         } catch (error) {
             console.log(error);
