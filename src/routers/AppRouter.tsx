@@ -249,7 +249,7 @@ export const AppRouter = () => {
           <Route path="/forgotPassword" element={<ForgotPassword />} />
           <Route path="/recoverPassword" element={<PasswordRecover />} />
           <Route path="/p" element={<ProjectsStudents />} />
-          <Route path="/getreviews" element={<AdminReviews />} />
+          
           <Route
             path="/postulated/:id"
             element={
