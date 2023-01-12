@@ -233,7 +233,7 @@ const ProjectForm: FC = () => {
               m: '50px auto',
               mb: 10,
               mt: 10,
-              backgroundImage: `url(${bgForm})`,
+              backgroundColor: '#c0c3c5',
               borderRadius: 15,
             }}
           >
@@ -282,7 +282,6 @@ const ProjectForm: FC = () => {
                       </ErrorMessage>
                     }
                   />
-
                   <Field
                     as={TextField}
                     name='description'
@@ -294,7 +293,7 @@ const ProjectForm: FC = () => {
                     required
                     color='info'
                     sx={{ mb: 2 }}
-                    inputProps={{ maxLength: 500 }}
+                    inputProps={{ maxLength: 100 }}
                     helperText={
                       <ErrorMessage name='description'>
                         {(msg) => (
@@ -344,14 +343,15 @@ const ProjectForm: FC = () => {
                   {category === 'other' && (
                     <Field
                       as={TextField}
+                      labelId='demo-simple-select-label'
+                      id='demo-simple-select'
                       name='category'
                       placeholder='Nombre de la categoría'
                       label='Nombre de la categoría'
-                      fullWidth
                       required
                       color='info'
                       sx={{ mb: 2 }}
-                      inputProps={{ maxLength: 50 }}
+                      inputProps={{ style: { color: 'red' } }}
                     />
                   )}
 
@@ -363,10 +363,10 @@ const ProjectForm: FC = () => {
                     multiple
                     size='small'
                     color='info'
-                    renderInput={(
-                      // params: AutocompleteRenderInputParams
-                      params: TextFieldProps,
-                    ) => (
+                    sx={{
+                      color: '#ffff01',
+                    }}
+                    renderInput={(params: TextFieldProps) => (
                       <TextField
                         {...params}
                         color='info'
@@ -388,7 +388,6 @@ const ProjectForm: FC = () => {
                         }
                       />
                     )}
-                    sx={{ mb: 2 }}
                   />
 
                   <Field
