@@ -81,8 +81,8 @@ export const ApplicationForm: FC = () => {
     >
       <div>
         <NavBar />
-      <SnackBar successMsg={"Aplicado exitoso"}/>
-
+        <SnackBar />
+        <PreLoader />
         <Grid>
           <Paper
             elevation={10}
@@ -219,93 +219,6 @@ export const ApplicationForm: FC = () => {
           </Button>
         </FormControl>
       </Grid>
-      <Footer />
-    </Box>
-  );
-
-  return (
-    <Box
-      sx={{
-        backgroundColor: 'black',
-      }}
-    >
-      <SnackBar />
-      <PreLoader />
-      <div>
-        <NavBar />
-        <Grid>
-          <Paper
-            elevation={10}
-            style={{
-              width: 500,
-              height: '100%',
-              padding: 20,
-              margin: '50px auto',
-              marginBottom: 153,
-              marginTop: 100,
-            }}
-          >
-            <Grid textAlign='center' fontFamily='montserrat' sx={{ mb: 10 }}>
-              <h2>Test de Aplicacion</h2>
-            </Grid>
-            <Formik
-              initialValues={initialValues}
-              validationSchema={validationSchema}
-              onSubmit={onSubmit}
-            >
-              {(props) => (
-                <Form>
-                  {question?.map((Res: any, index: number) => (
-                    <Box>
-                      <Grid
-                        textAlign='left'
-                        fontFamily='montserrat'
-                        sx={{ mb: 2 }}
-                      >
-                        <h3>{Res} </h3>
-                      </Grid>
-                      <div>
-                        <Field
-                          as={TextField}
-                          name={`res${index + 1}`}
-                          label='Respuesta'
-                          fullWidth
-                          color='info'
-                          sx={{ mb: 2 }}
-                          inputProps={{ maxLength: 100 }}
-                          helperText={
-                            <ErrorMessage name={`res${index + 1}`}>
-                              {(msg) => (
-                                <span
-                                  style={{
-                                    color: '#d6423e',
-                                  }}
-                                >
-                                  {msg}
-                                </span>
-                              )}
-                            </ErrorMessage>
-                          }
-                        />
-                      </div>
-                    </Box>
-                  ))}
-
-                  <Button
-                    sx={{ marginTop: 2, fontFamily: 'poppins' }}
-                    type='submit'
-                    variant='contained'
-                    fullWidth
-                    color='primary'
-                  >
-                    Aplicar al proyecto.
-                  </Button>
-                </Form>
-              )}
-            </Formik>
-          </Paper>
-        </Grid>
-      </div>
       <Footer />
     </Box>
   );
