@@ -124,6 +124,7 @@ const StudentsFilter: FC = () => {
     'R',
     'React Native',
     'React',
+    'Redux',
     'Ruby',
     'Solidity',
     'Swift',
