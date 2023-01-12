@@ -335,23 +335,25 @@ const StudentsFilter: FC = () => {
           />
         </div>
         <div style={{ width: 255 }}>
-          <FormControl sx={{ width: '100%', padding: 0 }}>
+          <FormControl sx={{ width: '100%', padding: 0, color: 'white' }}>
             <InputLabel
               id='vacantes-label'
               size='small'
+              variant='outlined'
               sx={{
-                padding: 0,
-
-                '.MuiSvgIcon-root ': {
-                  fill: 'black !important',
+                styledInput,
+                width: 245,
+                '& .MuiInputLabel-root': { color: '#ffff01' },
+                '& .MuiOutlinedInput-root': {
+                  '& > fieldset': { borderColor: '#ffff01' },
                 },
+                input: { color: 'black ' },
               }}
             >
               Ordenar por participantes
             </InputLabel>
             <Select
               size='small'
-              color='secondary'
               sx={{
                 padding: 0,
                 '.MuiSvgIcon-root ': {

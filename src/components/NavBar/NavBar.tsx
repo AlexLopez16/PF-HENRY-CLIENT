@@ -128,6 +128,7 @@ const NavBar: FC = () => {
             textDecoration: 'none',
             alignItems: 'center',
             cursor: 'pointer',
+            mt: 1,
           }}
         >
           <img

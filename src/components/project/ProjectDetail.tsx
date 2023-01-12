@@ -83,7 +83,8 @@ const ProjectDetail: FC<ProjectProps> = ({
   }, [dispatch]);
 
   const handelClick = () => {
-    dispatch(changeStateOfProject(uid, token, 'Terminado'));
+    // dispatch(changeStateOfProject(uid, token, 'Terminado'));
+    dispatch(proyectFinal(idProject, token));
   };
 
   const handleDesarrollo = () => {
