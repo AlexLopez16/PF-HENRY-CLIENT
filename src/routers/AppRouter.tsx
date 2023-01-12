@@ -47,6 +47,7 @@ import { PrivateAdmin } from "./PrivateAdmin";
 import { CompanyDetail } from "../components/company/CompanyDetail";
 import AdminPanel from "../components/Admin/AdminPanel/AdminPanel";
 import AdminForm from "../components/Admin/AdminPanel/AdminForm";
+import { PreLoader } from "../components/PreLoader/PreLoader";
 
 export const AppRouter = () => {
   let { id } = useParams();

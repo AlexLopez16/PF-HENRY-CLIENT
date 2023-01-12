@@ -82,7 +82,8 @@ export const ApplicationForm: FC = () => {
     >
       <div>
         <NavBar />
-
+        <SnackBar />
+        <PreLoader />
         <Grid>
           <Paper
             elevation={10}
