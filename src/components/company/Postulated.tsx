@@ -252,6 +252,7 @@ const Postulated: FC = ({ ...rest }) => {
           </Grid>
           <>
             <PreLoader />
+            <SnackBar />
             {/*TABLA DE STUDENT POSTULADOS*/}
 
             <Card
