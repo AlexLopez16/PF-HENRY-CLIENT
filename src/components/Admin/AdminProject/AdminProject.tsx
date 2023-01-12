@@ -14,6 +14,7 @@ import {
   FormGroup,
   Container,
   Checkbox,
+  Button,
 } from "@mui/material";
 import { State } from "../../../reducers/rootReducer";
 import { clearProject, getAllProject } from "../../../actions/projects";
@@ -32,6 +33,7 @@ import { validaToken } from "../../../actions/auth";
 import Stack from "@mui/material/Stack/Stack";
 import Alert from "@mui/material/Alert/Alert";
 import { SnackBar } from "../../SnackBar/SnackBar";
+import { useResetProjection } from "framer-motion";
 
 export declare function sentenceCase(input: string, options?: Options): string;
 const AdminProject: FC = ({ ...rest }) => {
@@ -44,6 +46,9 @@ const AdminProject: FC = ({ ...rest }) => {
   if (!status && token) {
     dispatch(validaToken(token));
   }
+
+  const { projectsFilter } = useSelector((state: State) => state.project);
+  let projects = projectsFilter;
 
   useEffect(() => {
     dispatch(
@@ -63,9 +68,6 @@ const AdminProject: FC = ({ ...rest }) => {
     };
   }, [dispatch]);
 
-  const { projectsFilter } = useSelector((state: State) => state.project);
-  let projects = projectsFilter;
-  
   const [selectedCustomerIds, setSelectedCustomerIds] = useState<string[]>([]);
   const [limit, setLimit] = useState(12);
   const [page, setPage] = useState(0);
@@ -126,6 +128,7 @@ const AdminProject: FC = ({ ...rest }) => {
         0
       )
     );
+
     return () => {
       dispatch(clearProject());
     };
@@ -146,16 +149,24 @@ const AdminProject: FC = ({ ...rest }) => {
     <>
       <SnackBar successMsg={"cambio exitoso"} />
       <PreLoader />
-      <>{/* <Filters /> */}</>
       <Card {...rest}>
         <Container
           maxWidth="lg"
           sx={{
             display: "flex",
             marginLeft: 0,
+            justifyContent: "space-between",
+            padding: "20px",
           }}
         >
           <AdminFilterProject />
+          <Button
+            onClick={handleMultiSwitch}
+            variant="contained"
+            sx={{ ml: "10px" }}
+          >
+            Cambiar estado
+          </Button>
         </Container>
         {!projects.length ? (
           <TableBody>
@@ -191,72 +202,53 @@ const AdminProject: FC = ({ ...rest }) => {
                 </TableRow>
               </TableHead>
 
-                            <TableBody>
-                                {projects?.slice(0, limit)
-                                ?.map((projects: any) => (
-                                        <TableRow
-                                            hover
-                                            key={projects?.uid}
-                                            selected={
-                                                selectedCustomerIds.indexOf(
-                                                    projects?.uid
-                                                ) !== -1
-                                            }
-                                        >
-                                            <TableCell padding="checkbox">
-                                                <Checkbox
-                                                    checked={
-                                                        selectedCustomerIds.indexOf(
-                                                            projects?.uid
-                                                        ) !== -1
-                                                    }
-                                                    onChange={(event) =>
-                                                        handleSelectOne(
-                                                            projects?.uid
-                                                        )
-                                                    }
-                                                    value="true"
-                                                />
-                                            </TableCell>
-                                            <TableCell>
-                                                <Box
-                                                    sx={{
-                                                        alignItems: 'center',
-                                                        display: 'flex',
-                                                    }}
-                                                >
-                                                    <Typography
-                                                        color="textPrimary"
-                                                        variant="body1"
-                                                    >
-                                                        {projects?.name}
-                                                    </Typography>
-                                                </Box>
-                                            </TableCell>
-                                            <TableCell>
-                                                {projects.company &&
-                                                Array.isArray(projects?.company)
-                                                    ? projects?.company[0]?.name
-                                                    : projects?.company?.name}
-                                            </TableCell>
-                                            <TableCell>
-                                                {projects?.category
-                                                    ? projects?.category
-                                                    : 'No registrado'}
-                                            </TableCell>
-                                            <TableCell>
-                                               
-                                               
-                                                {projects?.state===true? "Activo":"Inactivo"}
-                                            </TableCell>
+              <TableBody>
+                {projects?.slice(0, limit)?.map((projects: any) => (
+                  <TableRow
+                    hover
+                    key={projects?.uid}
+                    selected={selectedCustomerIds.indexOf(projects?.uid) !== -1}
+                  >
+                    <TableCell padding="checkbox">
+                      <Checkbox
+                        checked={
+                          selectedCustomerIds.indexOf(projects?.uid) !== -1
+                        }
+                        onChange={(event) => handleSelectOne(projects?.uid)}
+                        value="true"
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <Box
+                        sx={{
+                          alignItems: "center",
+                          display: "flex",
+                        }}
+                      >
+                        <Typography color="textPrimary" variant="body1">
+                          {projects?.name}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                    <TableCell>
+                      {projects.company && Array.isArray(projects?.company)
+                        ? projects?.company[0]?.name
+                        : projects?.company?.name}
+                    </TableCell>
+                    <TableCell>
+                      {projects?.category
+                        ? projects?.category
+                        : "No registrado"}
+                    </TableCell>
+                    <TableCell>
+                      {projects?.state === true ? "Activo" : "Inactivo"}
+                    </TableCell>
 
-                                            <TableCell>
-                                                {projects?.admission
-                                                    ? `${moment(
-                                                          projects?.admission
-                                                      ).format('DD/MM/YYYY')}`
-                                                    : 'No registrado'}
-                                            </TableCell>
+                    <TableCell>
+                      {projects?.admission
+                        ? `${moment(projects?.admission).format("DD/MM/YYYY")}`
+                        : "No registrado"}
+                    </TableCell>
 
                     <FormGroup
                       sx={{
@@ -269,7 +261,7 @@ const AdminProject: FC = ({ ...rest }) => {
                       <FormControlLabel
                         control={
                           <Switch
-                            defaultChecked={projects?.state}
+                            checked={projects.state}
                             size="small"
                             color="primary"
                             onChange={() => handleSwitch(projects?.uid)}
@@ -281,18 +273,6 @@ const AdminProject: FC = ({ ...rest }) => {
                   </TableRow>
                 ))}
               </TableBody>
-
-              <FormControlLabel
-                control={
-                  <Switch
-                    defaultChecked={projects?.state}
-                    size="small"
-                    color="primary"
-                    onChange={handleMultiSwitch}
-                  />
-                }
-                label={undefined}
-              />
             </Table>
           </Box>
         )}
