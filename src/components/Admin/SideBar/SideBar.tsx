@@ -24,7 +24,7 @@ const SideBar: FC = () => {
         sx={{
           display: "flex",
           width: "100%",
-          height: "100vh",
+          // height: "100vh",
           background: `url(${bgDetailCompany})`,
           backgroundRepeat: "repeat",
         }}
