@@ -324,7 +324,7 @@ export const multiSwitchStudent = (token: string | null, id: string[]) => {
 
             dispatch({
                 type: types.multipleSwitchAlumno,
-                payload: res.data,
+                payload: ids,
                 
             });
             dispatch({
