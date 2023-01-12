@@ -98,7 +98,7 @@ const AdminStudent: FC = () => {
 
   return (
     <>
-      <SnackBar successMsg={"Cambio de estado exitoso"} />
+      <SnackBar successMsg={"Cambio exitoso"} />
       <PreLoader />
       <Card>
         <Container
@@ -200,7 +200,6 @@ const AdminStudent: FC = () => {
                           control={
                             <Switch
                               checked={user.state}
-                              //defaultChecked={user.state}
                               size="small"
                               color="primary"
                               onChange={() => handleDisable(user.uid)}

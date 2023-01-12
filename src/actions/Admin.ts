@@ -50,7 +50,6 @@ export const deleteuser = (token: string | null, selectID: string) => {
                     headers: { 'user-token': token },
                 }
             );
-            console.log(res);
 
             dispatch({
                 type: types.deleteOrInactiveStudent,
@@ -398,11 +397,10 @@ export const setStateMultiple = (token: string | null, selectID: string[]) => {
                     headers: { 'user-token': token },
                 }
             );
-            console.log(res);
 
             dispatch({
                 type: types.setState,
-                // payload: res.data,
+                payload: res.data,
             });
             dispatch({
                 type: types.responseFinished,

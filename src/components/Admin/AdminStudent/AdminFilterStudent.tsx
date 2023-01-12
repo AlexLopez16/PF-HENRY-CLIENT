@@ -33,7 +33,6 @@ const AdminFilterStudent: FC = () => {
   };
 
   return (
-    // <Container>
     <Box
       sx={{
         width: "auto",
@@ -61,7 +60,6 @@ const AdminFilterStudent: FC = () => {
         </form>
       </div>
     </Box>
-    // </Container>
   );
 };
 

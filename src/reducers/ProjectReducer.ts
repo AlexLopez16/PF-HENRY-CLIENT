@@ -112,7 +112,6 @@ export const projectReducer = (state: State = initialState, action: Action) => {
 
                 return value
             })
-console.log(action.payload);
 
             // return {
             //     ...state,

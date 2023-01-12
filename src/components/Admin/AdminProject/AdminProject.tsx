@@ -14,6 +14,7 @@ import {
   FormGroup,
   Container,
   Checkbox,
+  Button,
 } from "@mui/material";
 import { State } from "../../../reducers/rootReducer";
 import { clearProject, getAllProject } from "../../../actions/projects";
@@ -32,6 +33,7 @@ import { validaToken } from "../../../actions/auth";
 import Stack from "@mui/material/Stack/Stack";
 import Alert from "@mui/material/Alert/Alert";
 import { SnackBar } from "../../SnackBar/SnackBar";
+import { useResetProjection } from "framer-motion";
 
 export declare function sentenceCase(input: string, options?: Options): string;
 const AdminProject: FC = ({ ...rest }) => {
@@ -58,14 +60,14 @@ const AdminProject: FC = ({ ...rest }) => {
         0
       )
     );
-    return () => {
-      dispatch(clearProject());
-    };
+    // return () => {
+    //   dispatch(clearProject());
+    // };
   }, [dispatch]);
 
   const { projectsFilter } = useSelector((state: State) => state.project);
   let projects = projectsFilter;
-  console.log(projects);
+
   const [selectedCustomerIds, setSelectedCustomerIds] = useState<string[]>([]);
   const [limit, setLimit] = useState(12);
   const [page, setPage] = useState(0);
@@ -126,9 +128,9 @@ const AdminProject: FC = ({ ...rest }) => {
         0
       )
     );
-    return () => {
-      dispatch(clearProject());
-    };
+    // return () => {
+    //   dispatch(clearProject());
+    // };
   };
   console.log(selectedCustomerIds);
 
@@ -154,9 +156,14 @@ const AdminProject: FC = ({ ...rest }) => {
           sx={{
             display: "flex",
             marginLeft: 0,
+            justifyContent: "space-between",
+            padding: "20px",
           }}
         >
           <AdminFilterProject />
+            <Button onClick={handleMultiSwitch} variant="contained" sx={{ml: '10px'}}>
+            Cambiar estado
+          </Button>
         </Container>
         {!projects.length ? (
           <TableBody>
@@ -193,7 +200,7 @@ const AdminProject: FC = ({ ...rest }) => {
               </TableHead>
 
               <TableBody>
-                {projects.slice(0, limit).map((projects: any) => (
+                {projects?.map((projects: any) => (
                   <TableRow
                     hover
                     key={projects.uid}
@@ -228,7 +235,7 @@ const AdminProject: FC = ({ ...rest }) => {
                     <TableCell>
                       {projects.category ? projects.category : "No registrado"}
                     </TableCell>
-                    <TableCell>{projects.stateOfProject}</TableCell>
+                    <TableCell>{projects.state ? 'Activo' : 'Inactivo'}</TableCell>
 
                     <TableCell>
                       {projects.admission
@@ -247,7 +254,7 @@ const AdminProject: FC = ({ ...rest }) => {
                       <FormControlLabel
                         control={
                           <Switch
-                            defaultChecked={projects.state}
+                            checked={projects.state}
                             size="small"
                             color="primary"
                             onChange={() => handleSwitch(projects.uid)}
@@ -259,18 +266,6 @@ const AdminProject: FC = ({ ...rest }) => {
                   </TableRow>
                 ))}
               </TableBody>
-
-              <FormControlLabel
-                control={
-                  <Switch
-                    defaultChecked={projects.state}
-                    size="small"
-                    color="primary"
-                    onChange={handleMultiSwitch}
-                  />
-                }
-                label={undefined}
-              />
             </Table>
           </Box>
         )}
