@@ -93,9 +93,9 @@ const ProjectForm: FC = () => {
       message: '*Selecciona por lo menos un requerimiento',
       test: (arr) => arr?.length !== 0,
     }),
-    question1: Yup.string().required('* Ingresa una respuesta'),
-    question2: Yup.string().required('* Ingresa una respuesta'),
-    question3: Yup.string().required('* Ingresa una respuesta'),
+    question1: Yup.string().required('* Ingresa una pregunta'),
+    question2: Yup.string().required('* Ingresa una pregunta'),
+    question3: Yup.string().required('* Ingresa una pregunta'),
   });
 
   const onSubmit = async (values: any, props: any) => {
