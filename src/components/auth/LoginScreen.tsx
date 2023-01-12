@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import type {} from 'redux-thunk/extend-redux';
+import type { } from 'redux-thunk/extend-redux';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -18,10 +18,11 @@ import {
   Typography,
   FormHelperText,
   Box,
+  Container,
 } from '@mui/material';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import Divider from '@mui/material/Divider';
-
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { GitHubLogin } from './GitHubLogin';
 import { GoogleLogin } from '@react-oauth/google';
 
@@ -116,7 +117,7 @@ export const LoginScreen: FC = () => {
                 height: 600,
                 mt: 10,
                 mb: 10,
-                p: 10,
+                p: 5,
                 pt: 6,
                 borderRadius: 10,
                 backgroundColor: 'black',
@@ -293,13 +294,14 @@ export const LoginScreen: FC = () => {
                       <span style={{ color: '#8d8a8a' }}>O</span>
                     </Divider>
                     <GitHubLogin />
-                    <div style={{ marginTop: '10px' }}>
+                    <div style={{ marginTop: '10px', alignItems:'center', display:'flex', justifyContent:'center' }}>
                       <GoogleLogin
                         logo_alignment='center'
                         type='standard'
                         theme='outline'
                         shape='square'
                         size='large'
+                  
                         onSuccess={(credentialResponse: any) => {
                           dispatch(
                             gmailLogin(credentialResponse.credential, ''),
@@ -321,56 +323,66 @@ export const LoginScreen: FC = () => {
                   </Form>
                 )}
               </Formik>
-
-              <Typography
+              <Container
                 sx={{
-                  justifyContent: 'center',
-                  textAlign: 'center',
-                  mt: 2,
-                  pb: 20,
-                  fontFamily: 'poppins',
-                  fontSize: '15px',
-                  color: 'white',
+                  display: 'flex',
+                  alignContent: 'space-around',
+                  flexWrap: 'wrap',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
                 }}
               >
-                ¿Aún no has creado tu cuenta?
-                <Link
-                  to='/register'
-                  style={{
-                    textDecoration: 'none',
-                    color: '#ffff01',
-                    paddingLeft: 20,
+                <Typography
+                  sx={{
+                    justifyContent: 'center',
+                    textAlign: 'center',
+                    mt: 2,
+
+                    fontFamily: 'poppins',
+                    fontSize: '15px',
+                    color: 'white',
                   }}
                 >
-                  Regístrate
-                </Link>
-              </Typography>
+                  ¿Aún no has creado tu cuenta?
+                  <Link
+                    to='/register'
+                    style={{
+                      textDecoration: 'none',
+                      color: '#ffff01',
+                    }}
+                  >
+                    <br />
+                    Regístrate
+                  </Link>
+                </Typography>
+              </Container>
             </Paper>
           </Grid>
         </div>
         <Grid
-        container
-        direction='column'
-        justifyContent='flex-start'
-        alignItems='center'
-       >
-        <FormControl>
-          <Button
-            onClick={GoBack}
-            size='small'
-            variant='contained'
-            color='secondary'
-            sx={{
-              boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
-              fontFamily: 'montserrat',
-              fontWeight: 'bold',
-              mb: 20,
-            }}
-          >
-            Regresar
-          </Button>
-        </FormControl>
-      </Grid>
+          container
+          direction='column'
+          justifyContent='flex-start'
+          alignItems='center'
+        >
+          <FormControl>
+            <Button
+              startIcon={<ArrowBackIosNewIcon />}
+              onClick={GoBack}
+              size='small'
+              variant='contained'
+              color='secondary'
+              sx={{
+                boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+                fontFamily: 'montserrat',
+                fontWeight: 'bold',
+                mb: 20,
+              }}
+            >
+              Regresar
+            </Button>
+          </FormControl>
+        </Grid>
       </Box>
       <Footer />
     </>

@@ -184,13 +184,14 @@ const LandingPage: FC = () => {
                   textAlign: 'center',
                   color: 'white',
                   fontFamily: 'montserrat',
+                  lineHeight: '2.5rem'
                 }}
               >
                 Nuestra propuesta es brindar a los alumnos la oportunidad de
                 adquirir experiencia en proyectos reales y colaborar con talento
                 digital a PyMES, Emprendedores, Asociaciones u ONG’s. Podrán
                 disponer de un equipo de #Programadores y/o #DataScientists con
-                dedicación full-time.
+                dedicación Full-Time.
               </Typography>
             </Container>
             <Grid container alignItems='center' justifyContent='center'>
@@ -219,12 +220,12 @@ const LandingPage: FC = () => {
                   textAlign: 'center',
                   color: 'white',
                   fontFamily: 'montserrat',
+                  lineHeight: '2.5rem'
                 }}
               >
                 Lograr que empresas y estudiantes se conecten, por eso queremos
                 ayudar directamente a esos talentos nacientes del bootcamp y
-                compañias que estén dispuestas a participar de esta nueva
-                propuesta.
+                compañias que estén dispuestas a participar en esta propuesta.
               </Typography>
               <Grid container alignItems='center' justifyContent='center'>
                 <img
@@ -247,6 +248,7 @@ const LandingPage: FC = () => {
                   textAlign: 'center',
                   color: 'white',
                   fontFamily: 'montserrat',
+                  lineHeight: '2.5rem'
                 }}
               >
                 Como usuarios, los estudiantes tendrán a disposicion todos los
@@ -276,14 +278,14 @@ const LandingPage: FC = () => {
                   textAlign: 'center',
                   color: 'white',
                   fontFamily: 'montserrat',
-                  pb: 4,
-                  pt: 4,
+                  padding: 4,
                   borderRadius: 10,
+                  lineHeight: '3rem'
                 }}
               >
                 Concluimos que, debemos aprovechar y utilizar los medios de
                 comunicación actuales para agilizar todas las metodologías de
-                inserviones laborales y crear potenciales trabajadores y
+                inserciones laborales y crear potenciales trabajadores y
                 brindarles la máxima visualización ante propuestas laborales que
                 ofrezcan las empresas dentro de la plataforma.
               </Typography>
@@ -406,8 +408,7 @@ const LandingPage: FC = () => {
                       textAlign: 'center',
                     }}
                   >
-                    Amamos lo que hacemos. Trabajamos, compartimos y vivimos la
-                    misión de Workana, y por eso queremos siempre hacer más y
+                    Amamos lo que hacemos. Trabajamos y por eso queremos siempre hacer más y
                     hacerlo mejor.
                   </Typography>
                 </Box>
@@ -523,7 +524,8 @@ const LandingPage: FC = () => {
                 flexWrap: 'wrap',
               }}
             >
-              El futuro; creado por Henry’s
+              {/* El futuro; creado por Henry’s */}
+              Empresas que confían en NABIJASH
             </Typography>
             <Container sx={{}}>
               <Grid
@@ -532,7 +534,7 @@ const LandingPage: FC = () => {
                 justifyContent='center'
                 flexDirection='column'
               >
-                <Typography
+                {/* <Typography
                   variant='h5'
                   sx={{
                     width: 750,
@@ -542,12 +544,13 @@ const LandingPage: FC = () => {
                     textAlign: 'center',
                     color: 'white',
                     fontFamily: 'montserrat',
+                    lineHeight: '2.5rem'
                   }}
                 >
                   Estamos orgullosos de poder satisfacer las necesidades de
                   todos nuestros clientes que, con confianza avalan nuestro
                   desempeño.
-                </Typography>
+                </Typography> */}
               </Grid>
             </Container>
           </Grid>

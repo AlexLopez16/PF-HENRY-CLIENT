@@ -23,6 +23,7 @@ export const ProjectCardSkeleton = () => {
                         width: '150px',
                         height: '25px',
                         marginTop: '20px',
+                        
                     }}
                 />
             </Box>
@@ -32,6 +33,7 @@ export const ProjectCardSkeleton = () => {
                 style={{
                     padding: '20px',
                     marginTop: '20px',
+                  
                 }}
             >
                 <Stack>

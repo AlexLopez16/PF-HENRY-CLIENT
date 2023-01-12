@@ -5,16 +5,14 @@
  */
 
 import {
-    Alert,
-    Avatar,
-    AvatarGroup,
-    Box,
-    Button,
-    Chip,
-    Container,
-    Paper,
-    Stack,
-    Typography,
+  Alert,
+  Box,
+  Button,
+  Container,
+  FormControl,
+  Grid,
+  Stack,
+  Typography,
 } from '@mui/material';
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,381 +20,186 @@ import { State } from '../../reducers/rootReducer';
 import { getStudentInfo, unApplyStudent } from '../../actions/student';
 import BusinessIcon from '@mui/icons-material/Business';
 // Dejamos importado el link porque quiza despues se pueda mostrar el detalle de cada companero.
-import { Link } from 'react-router-dom';
-
-import { PreLoader } from '../PreLoader/PreLoader';
 import { SnackBar } from '../SnackBar/SnackBar';
 import { ProjectCardSkeleton } from './ProjectCardSkeleton';
+import { WorkedProjectCard } from './WorkedProjectCard';
+import { RequestProjectCard } from './RequestProjectCard';
+import { PreLoader } from '../PreLoader/PreLoader';
+import studentRegisterbg from '../../assets/studentRegister.png';
+import Footer from '../../pages/LandingPage/Footer';
+import { Link, useNavigate } from 'react-router-dom';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 const MyProjectStudent: FC = () => {
-    const dispatch = useDispatch();
-    // Traemos el id del estado.
-    const { auth, student }: any = useSelector((state: State) => state);
-    const { inProgress } = useSelector((state: State) => state.request);
-    // Traemos el token del local storage.
-    const token = localStorage.getItem('token') || '';
-    // Traemos toda la info del student.
-    useEffect(() => {
-        dispatch(getStudentInfo(auth.data.id, token));
-    }, [dispatch]);
+  const dispatch = useDispatch();
+  // Traemos el id del estado.
+  const { auth, student }: any = useSelector((state: State) => state);
+  const { inProgress } = useSelector((state: State) => state.request);
+  // Traemos el token del local storage.
+  const token = localStorage.getItem('token') || '';
+  // Traemos toda la info del student.
+  useEffect(() => {
+    dispatch(getStudentInfo(auth.data.id, token));
+  }, [dispatch]);
 
-    // Definimos los objetos de informacion.
-    const { user }: any = student;
-    // Aca hay que trabajar con typescript para que quede mas limpia la sintaxis.
+  // Definimos los objetos de informacion.
+  const { user }: any = student;
+  // Aca hay que trabajar con typescript para que quede mas limpia la sintaxis.
+  const studentData: any = user?.working?.length
+    ? user.working[0]
+    : user.project?.length
+    ? user.project
+    : null;
+  console.log(studentData);
+  const handleClick = async (projectId: string | any) => {
+    dispatch(unApplyStudent(user.id, projectId, localStorage.getItem('token')));
+  };
+  // console.log(user.working)
+  const navigate = useNavigate();
 
-    const handleClick = async (projectId: string | any) => {
-        dispatch(
-            unApplyStudent(user.id, projectId, localStorage.getItem('token'))
-        );
-    };
-    // console.log(user.working)
+  const GoBack = () => {
+    navigate('/projects');
+  };
 
-    return (
-        <Container maxWidth="lg">
-            <SnackBar />
-            {inProgress ? (
-                <ProjectCardSkeleton />
-            ) : (
+  return (
+    <>
+      {' '}
+      <Box
+        sx={{
+          backgroundImage: `url(${studentRegisterbg})`,
+          pb: 40,
+          pt: 10,
+        }}
+      >
+        <Container
+          sx={{
+            alignContent: 'center',
+            alignItems: 'center',
+            textAlign: 'center',
+            width: '52%',
+          }}
+        >
+          <Grid
+            container
+            direction='column'
+            justifyContent='flex-start'
+            alignItems='center'
+          >
+            <FormControl>
+              <Button
+                startIcon={<ArrowBackIosNewIcon />}
+                onClick={GoBack}
+                size='small'
+                variant='contained'
+                color='secondary'
+                sx={{
+                  boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+                  fontFamily: 'montserrat',
+                  fontWeight: 'bold',
+                  mb: 10,
+                }}
+              >
+                Regresar
+              </Button>
+            </FormControl>
+          </Grid>
+          <SnackBar />
+          <PreLoader />
+          {inProgress ? (
+            <ProjectCardSkeleton />
+          ) : (
+            <>
+              {user.working?.length ? (
                 <>
-                    {user.working?.length ? (
-                        <>
-                            <Typography
-                                variant="h6"
-                                align="center"
-                                sx={{ margin: '20px 0' }}
-                            >
-                                Mi proyecto:
-                            </Typography>
-                            <div>
-                                <Paper
-                                    elevation={10}
-                                    style={{
-                                        padding: '20px',
-                                        marginTop: '20px',
-                                    }}
-                                >
-                                    <Typography
-                                        variant="subtitle2"
-                                        sx={{ color: '#898989' }}
-                                    >
-                                        {' '}
-                                        {user.working[0].category?.toUpperCase()}
-                                    </Typography>
-
-                                    <Typography
-                                        sx={{
-                                            display: 'flex',
-                                            justifyContent: 'space-between',
-                                            alignItems: 'center',
-                                        }}
-                                        variant="h6"
-                                    >
-                                        {user.working[0].name?.toUpperCase()}
-
-                                        <Button
-                                            variant="contained"
-                                            type="submit"
-                                            size="small"
-                                            color="primary"
-                                            onClick={() =>
-                                                handleClick(user.working[0].uid)
-                                            }
-                                        >
-                                            Cancelar
-                                        </Button>
-                                    </Typography>
-                                    <Box
-                                        sx={{
-                                            display: 'block',
-                                            marginBottom: '10px',
-                                        }}
-                                    >
-                                        <Typography
-                                            variant="subtitle1"
-                                            sx={{
-                                                color: '#898989',
-                                            }}
-                                        >
-                                            {user.working[0].description.slice(
-                                                0,
-                                                500
-                                            )}{' '}
-                                            ...
-                                        </Typography>
-                                        <Typography
-                                            variant="subtitle1"
-                                            sx={{ color: '#898989' }}
-                                        >
-                                            Tecnologias:{' '}
-                                            {user.working[0].requirements &&
-                                                user.working[0].requirements.map(
-                                                    (
-                                                        tecnology: string | any,
-                                                        index: number | any
-                                                    ) => (
-                                                        <>
-                                                            {' '}
-                                                            <Chip
-                                                                key={index}
-                                                                label={
-                                                                    tecnology
-                                                                }
-                                                                color="primary"
-                                                                size="small"
-                                                            />
-                                                        </>
-                                                    )
-                                                )}
-                                        </Typography>
-                                        <Typography
-                                            variant="subtitle1"
-                                            sx={{
-                                                color: '#898989',
-                                            }}
-                                        >
-                                            Estado:{' '}
-                                            <Chip
-                                                size="small"
-                                                label={
-                                                    user.working[0]
-                                                        .stateOfProject
-                                                }
-                                                color="primary"
-                                            />
-                                        </Typography>
-                                        <Typography
-                                            variant="subtitle1"
-                                            sx={{
-                                                color: '#898989',
-                                            }}
-                                        >
-                                            Fecha de inicio:{' '}
-                                            <Chip
-                                                size="small"
-                                                label={'17/02/2023'}
-                                                color="primary"
-                                            />
-                                        </Typography>
-                                        <Typography
-                                            variant="subtitle1"
-                                            sx={{
-                                                color: '#898989',
-                                            }}
-                                        >
-                                            Fecha de entrega:{' '}
-                                            <Chip
-                                                size="small"
-                                                label={'17/03/2023'}
-                                                color="primary"
-                                            />
-                                        </Typography>
-                                        <Box
-                                            sx={{
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                // marginBottom: '10px',
-                                            }}
-                                        >
-                                            <Typography
-                                                variant="subtitle1"
-                                                sx={{ color: '#898989' }}
-                                            >
-                                                {'Equipo:'}{' '}
-                                            </Typography>
-
-                                            <AvatarGroup
-                                                max={
-                                                    user.working[0].participants
-                                                }
-                                            >
-                                                {user.working[0].accepts &&
-                                                    user.working[0].accepts.map(
-                                                        (
-                                                            person: object | any
-                                                        ) => {
-                                                            return (
-                                                                <Avatar
-                                                                    alt={
-                                                                        person.name
-                                                                    }
-                                                                    src={
-                                                                        person.image !==
-                                                                        undefined
-                                                                            ? person.image
-                                                                            : person.name
-                                                                    }
-                                                                    sx={{
-                                                                        width: 30,
-                                                                        height: 30,
-                                                                    }}
-                                                                />
-                                                            );
-                                                        }
-                                                    )}
-                                            </AvatarGroup>
-                                        </Box>
-                                    </Box>
-                                    <Paper
-                                        elevation={5}
-                                        sx={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            // border: '1px solid',
-                                            width: 'max-content',
-                                            padding: '2px 4px',
-                                            // borderRadius: '4px',
-                                        }}
-                                    >
-                                        <BusinessIcon fontSize="small" />
-                                        <Typography
-                                            variant="subtitle2"
-                                            sx={{
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                margin: '0 5px',
-                                            }}
-                                        >
-                                            {user.working[0].company.name?.toUpperCase()}
-                                        </Typography>
-                                    </Paper>
-                                </Paper>
-                            </div>
-                        </>
-                    ) : user.project?.length ? (
-                        <>
-                            <Typography
-                                variant="h6"
-                                align="center"
-                                sx={{ margin: '20px 0' }}
-                            >
-                                Mis solicitudes:
-                            </Typography>
-                            <div>
-                                {user.project &&
-                                    user.project.map((project: any) => (
-                                        <Paper
-                                            elevation={10}
-                                            style={{
-                                                padding: '20px',
-                                                marginTop: '20px',
-                                            }}
-                                        >
-                                            <Typography
-                                                variant="subtitle2"
-                                                sx={{ color: '#898989' }}
-                                            >
-                                                {' '}
-                                                {project.category?.toUpperCase()}
-                                            </Typography>
-                                            <Typography
-                                                sx={{
-                                                    display: 'flex',
-                                                    justifyContent:
-                                                        'space-between',
-                                                    alignItems: 'center',
-                                                }}
-                                                variant="h6"
-                                            >
-                                                {project.name?.toUpperCase()}
-                                                <Button
-                                                    variant="contained"
-                                                    type="submit"
-                                                    size="small"
-                                                    color="primary"
-                                                    onClick={() =>
-                                                        handleClick(project.uid)
-                                                    }
-                                                >
-                                                    Cancelar
-                                                </Button>
-                                            </Typography>
-                                            <Box
-                                                sx={{
-                                                    display: 'block',
-                                                    marginBottom: '10px',
-                                                }}
-                                            >
-                                                <Typography
-                                                    variant="subtitle1"
-                                                    sx={{ color: '#898989' }}
-                                                >
-                                                    {project.description.slice(
-                                                        0,
-                                                        100
-                                                    )}
-                                                    ...
-                                                </Typography>
-                                                <Typography
-                                                    variant="subtitle1"
-                                                    sx={{
-                                                        color: '#898989',
-                                                    }}
-                                                >
-                                                    Estado:{' '}
-                                                    <Chip
-                                                        label={
-                                                            project.stateOfProject
-                                                        }
-                                                        color="primary"
-                                                        size="small"
-                                                    />
-                                                </Typography>
-
-                                                <Typography
-                                                    variant="subtitle1"
-                                                    sx={{ color: '#898989' }}
-                                                >
-                                                    Participantes:{' '}
-                                                    <Chip
-                                                        label={`${project.accepts?.length}/${project.participants}`}
-                                                        color="primary"
-                                                        size="small"
-                                                    />
-                                                </Typography>
-                                            </Box>
-                                            <Paper
-                                                elevation={5}
-                                                sx={{
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    // border: '1px solid',
-                                                    width: 'max-content',
-                                                    padding: '2px 4px',
-                                                    // borderRadius: '4px',
-                                                }}
-                                            >
-                                                <BusinessIcon fontSize="small" />
-                                                <Typography
-                                                    variant="subtitle2"
-                                                    sx={{
-                                                        display: 'flex',
-                                                        alignItems: 'center',
-                                                        margin: '0 5px',
-                                                    }}
-                                                >
-                                                    {project.company?.name?.toUpperCase()}
-                                                </Typography>
-                                            </Paper>
-                                        </Paper>
-                                    ))}
-                            </div>
-                        </>
-                    ) : (
-                        <Stack
-                            spacing={2}
-                            sx={{
-                                margin: '20px auto',
-                                maxWidth: 'fit-content',
-                            }}
-                        >
-                            <Alert severity="info">
-                                No estas aplicando a ningun proyecto!
-                            </Alert>
-                        </Stack>
-                    )}
+                  <WorkedProjectCard
+                    userId={user?.id}
+                    projectId={studentData?.uid}
+                    category={studentData?.category}
+                    projectName={studentData?.name}
+                    companyName={studentData?.company?.name}
+                    companyId={studentData?.company?._id}
+                    description={studentData?.description}
+                    requirements={studentData?.requirements}
+                    stateOfProject={studentData?.stateOfProject}
+                    participants={studentData?.participants}
+                    accepts={studentData?.accepts}
+                  />
                 </>
-            )}
+              ) : user.project?.length ? (
+                <>
+                 <Container
+          sx={{
+            alignContent: 'center',
+            alignItems: 'center',
+            textAlign: 'center',
+            width:'52%',
+          }}
+        >
+          <Typography
+            sx={{
+              color: 'black',
+              fontFamily: 'montserrat',
+              fontSize: 35,
+              backgroundColor: 'white',
+              borderRadius: 15,
+              mb: 10,
+            }}
+          >
+            Mis Proyectos
+          </Typography>
         </Container>
-    );
+                  <div>
+                    {user?.project &&
+                      user?.project?.map((project: any) => (
+                        <RequestProjectCard
+                          userId={user?.id}
+                          projectId={project?.uid}
+                          category={project?.category}
+                          projectName={project?.name}
+                          companyName={project?.company?.name}
+                          companyId={studentData?.company?._id}
+                          description={project?.description}
+                          stateOfProject={project?.stateOfProject}
+                          participants={project?.participants}
+                          accepts={project?.accepts}
+                        />
+                      ))}
+                  </div>
+                </>
+              ) : (
+                <Stack
+                  spacing={2}
+                  sx={{
+                    width: '100%',
+                    pb: 50,
+                    pt: 30,
+                    justifyContent: 'center',
+                    display: 'flex',
+                    alignContent: 'center',
+                  }}
+                >
+                  <Alert
+                    severity='info'
+                    sx={{
+                      justifyContent: 'center',
+                      display: 'flex',
+                      alignContent: 'center',
+                      borderRadius: 50,
+                      fontFamily: 'poppins',
+                      color: 'black',
+                    }}
+                  >
+                    No estas aplicando a ningun proyecto!
+                  </Alert>
+                </Stack>
+              )}
+            </>
+          )}
+        </Container>
+        <Box />
+      </Box>
+      <Footer />
+    </>
+  );
 };
 export default MyProjectStudent;

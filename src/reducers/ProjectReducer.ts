@@ -1,9 +1,14 @@
+import { CallToActionSharp } from '@mui/icons-material';
+import { AdminEliminatedProject } from '../actions/Admin';
 import { types } from '../types/types';
 
 interface State {
     projects: {}[];
     projectsFilter: {}[];
     projectId: {};
+    category: string[];
+    myProjectCompany: {}[];
+    total: number;
     filters: {
         typeOfOrder: string;
         tecnologies: string[];
@@ -82,9 +87,62 @@ export const projectReducer = (state: State = initialState, action: Action) => {
 
         case types.clearProject:
             return {
+                ...state,
                 projectsFilter: [],
                 total: 0,
             };
+
+        case types.AdminAprovedProject:
+
+            const actualrec = state.projectsFilter.map((project: any) => {
+                let value = { ...project }
+                if (project.uid === action.payload.uid) {
+
+                    return value = action.payload
+                }
+
+                return value
+            })
+            return {
+                ...state,
+                projectsFilter: actualrec
+            };
+
+        case types.AdminEliminatedProject:
+            let newState = state.projectsFilter.filter(
+                (pr: any) => pr.uid != action.payload.id
+            );
+
+            // for (pr in state.projectsFilter) {
+            //     if (pr.id === action.payload.id) {
+            //         pr = action.payload.info;
+            //     }
+            // }
+
+            return {
+                ...state,
+                projectsFilter: newState,
+                total: state.total - 1,
+            };
+
+        case types.deleteOrInactiveStudent:
+            const actual = state.projectsFilter.map((project: any) => {
+                let value = { ...project }
+                if (project.uid === action.payload.uid) {
+
+                    return value = action.payload
+
+                }
+
+                return value
+            })
+            return {
+                ...state,
+                // projectsFilter: [...state.projectsFilter, ...action.payload],
+                projectsFilter: actual,
+
+            };
+
 
         default:
             return state;

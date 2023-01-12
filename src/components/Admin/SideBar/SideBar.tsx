@@ -1,26 +1,46 @@
-import { FC } from "react";
-import { Box } from "@mui/material";
+import { FC, useEffect } from "react";
+import { Box, ListItem, ListItemButton, ListItemText, ListItemIcon, MenuItem } from "@mui/material";
 import UserItemsList from "./userItemsList";
 import { Outlet } from "react-router-dom";
-import Logo from "../../../assets/NABIJASH.png";
-import AccountMenu from "../../AdminBar/AdminBar";
-import { PreLoader } from "../../PreLoader/PreLoader";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../../../actions/auth";
+import bgDetailCompany from "../../../assets/bgDetailCompany.png";
+import logoWhiteNav from '../../../assets/logoWhiteNav.png'
 
 const SideBar: FC = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handlerLogout = () => {
+    localStorage.clear();
+    dispatch(logout());
+    navigate("/landing");
+  };
   return (
     <>
-    <PreLoader/>
-      <Box sx={{ display: "flex", width: "100%", height: "100vh" }}>
+      <Box
+        sx={{
+          display: "flex",
+          width: "100%",
+          height: "100vh",
+          background: `url(${bgDetailCompany})`,
+          backgroundRepeat: "repeat",
+        }}
+      >
         <Box
           sx={{
             position: "fixed",
             top: 0,
             left: 0,
-            background: "#fff",
             width: "350px",
-            height: "100vh",
+            minHeight: "100vh",
             color: "#272727",
             boxShadow: 1,
+            zIndex: 10001,
+            ml: '20px',
+            mb: '20px'
           }}
         >
           <Box
@@ -28,14 +48,14 @@ const SideBar: FC = () => {
             sx={{
               width: "100%",
               height: "68px",
-              backgroundColor: "black",
+              backgroundColor: "rgba(0,0,0,0)",
               flexDirection: "row",
               justifyContent: "center",
               alignItems: "center",
             }}
           >
             <img
-              src={Logo}
+              src={logoWhiteNav}
               alt="Logo"
               style={{
                 background: "black",
@@ -44,17 +64,21 @@ const SideBar: FC = () => {
               }}
             />
           </Box>
-          <UserItemsList />
-          <Box sx={{ position: "absolute" }}>
-            <AccountMenu />
+          <Box sx={{ background: '#fff',  height: 'calc(100vh - 90px)', borderRadius: '4px' }}>
+            <UserItemsList />
+            <ListItem sx={{ position: "absolute", bottom: "30px" }}>
+                <ListItemButton onClick={handlerLogout}>
+                    <ExitToAppIcon />
+                    <ListItemText primary="Cerrar sesion" sx={{ pl: 2 }} />
+                </ListItemButton>
+            </ListItem>
           </Box>
         </Box>
         <Box
-          display={"flex"}
           sx={{
-            ml: "350px",
+            ml: "370px",
             p: "2em",
-            flexDirection: "row",
+            display: "flex",
             justifyContent: "center",
             alignItems: "center",
             width: "100%",

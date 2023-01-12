@@ -8,11 +8,13 @@ import {
   FormControl,
   Grid,
   Box,
-  Container
+  Container,
 } from '@mui/material';
 
 import aboutbg from '../../assets/aboutbg.png';
-import Jonathan from "../../assets/team/jona.png";
+import Jonathan from '../../assets/team/jona.png';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import Footer from '../LandingPage/Footer';
 
 export default function Jona() {
   const navigate = useNavigate();
@@ -21,6 +23,7 @@ export default function Jona() {
     navigate('/AboutUs');
   };
   return (
+    <>
     <Grid
       container
       direction='column'
@@ -46,14 +49,13 @@ export default function Jona() {
             fontStyle: 'italic',
           }}
         >
-          "Soy una persona proactiva en
-          todo sentido, mi objetivo más fuerte es crecer en el ámbito en el que
-          me desarrolle, generar un buen grupo y aportar mi conocimiento pleno
-          para la empresa. Siempre con ganas de aprender día a día y obteniendo
-          resultados óptimos. Me gusta trabajar en equipo, me interesa que todos
-          formemos parte de un mismo objetivo y llegar a tener la satisfacción
-          de un desafío superado. Me considero eficaz en cada tarea a realizar,
-          resolutivo, práctico y rápido."
+          "Soy una persona proactiva en todo sentido, mi objetivo más fuerte es
+          crecer en el ámbito en el que me desarrolle, generar un buen grupo y
+          aportar mi conocimiento pleno para la empresa. Siempre con ganas de
+          aprender día a día y obteniendo resultados óptimos. Me gusta trabajar
+          en equipo, me interesa que todos formemos parte de un mismo objetivo y
+          llegar a tener la satisfacción de un desafío superado. Me considero
+          eficaz en cada tarea a realizar, resolutivo, práctico y rápido."
         </Typography>
       </FormControl>
       <Box
@@ -143,6 +145,7 @@ export default function Jona() {
       </Box>
       <FormControl>
         <Button
+          startIcon={<ArrowBackIosNewIcon />}
           onClick={back}
           size='small'
           variant='contained'
@@ -158,5 +161,7 @@ export default function Jona() {
         </Button>
       </FormControl>
     </Grid>
+    <Footer />
+    </>
   );
 }

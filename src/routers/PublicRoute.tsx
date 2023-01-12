@@ -27,7 +27,7 @@ export const PublicRoute: FC<Props> = ({ children }) => {
 
     if (!logged) return children;
 
-    if (!data.verify)
+    if (!data.verify && data.rol === 'STUDENT_ROL')
         return (
             <>
                 <Navigate to={'/verifyemail'} />

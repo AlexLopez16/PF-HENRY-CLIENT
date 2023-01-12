@@ -8,12 +8,13 @@ import {
   FormControl,
   Grid,
   Box,
-  Container
+  Container,
 } from '@mui/material';
 
-import aboutbg from "../../assets/aboutbg.png";
-import Silvana from "../../assets/team/silvana.png";
-
+import aboutbg from '../../assets/aboutbg.png';
+import Silvana from '../../assets/team/silvana.png';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import Footer from '../LandingPage/Footer';
 
 export default function Sil() {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ export default function Sil() {
     navigate('/AboutUs');
   };
   return (
+    <>
     <Grid
       container
       direction='column'
@@ -32,7 +34,6 @@ export default function Sil() {
         height: '870px',
       }}
     >
-     
       <FormControl
         sx={{
           px: 50,
@@ -139,6 +140,7 @@ export default function Sil() {
       </Box>
       <FormControl>
         <Button
+          startIcon={<ArrowBackIosNewIcon />}
           onClick={back}
           size='small'
           variant='contained'
@@ -154,5 +156,7 @@ export default function Sil() {
         </Button>
       </FormControl>
     </Grid>
+    <Footer />
+    </>
   );
 }

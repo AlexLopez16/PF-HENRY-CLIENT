@@ -43,7 +43,12 @@ import { VerifyEmail } from '../components/VerifyEmail/VerifyEmail';
 import { ProfileAdmin } from '../components/Admin/Profile/ProfileAdmin';
 import { ApplicationForm } from '../components/project/ApplicationForm';
 import AdminReviews from '../components/Admin/AdminReviews/AdminReviews';
-
+import { PrivateAdmin } from './PrivateAdmin';
+import { CompanyDetail } from '../components/company/CompanyDetail';
+import AdminPanel from '../components/Admin/AdminPanel/AdminPanel';
+import AdminForm from '../components/Admin/AdminPanel/AdminForm';
+import { VerifyEmailCompany } from '../components/VerifyEmail/VerifyEmailCompany';
+import { PreLoader } from '../components/PreLoader/PreLoader';
 
 export const AppRouter = () => {
     let { id } = useParams();
@@ -59,6 +64,27 @@ export const AppRouter = () => {
                                 <>
                                     <NavBar />
                                     <VerifyEmail />
+                                </>
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/verifyemailWithCompany"
+                        element={
+                            <PublicRoute>
+                                <>
+                                    <VerifyEmailCompany />
+                                </>
+                            </PublicRoute>
+                        }
+                    />
+                    <Route
+                        path="/company/:id"
+                        element={
+                            <PrivateRoute>
+                                <>
+                                    <NavBar />
+                                    <CompanyDetail />
                                 </>
                             </PrivateRoute>
                         }
@@ -95,18 +121,18 @@ export const AppRouter = () => {
                             </PrivateRoute>
                         }
                     />
-                    <Route
-                        path="/dashboard"
-                        element={
-                            <PrivateRoute>
-                                <>
-                                    <NavBar />
-                                    {/* <HomePage /> */}
-                                    <DashboardPage />
-                                </>
-                            </PrivateRoute>
-                        }
-                    />
+                    {/* <Route */}
+                    {/* // path="/dashboard" */}
+                    {/* // element={ */}
+                    {/* // <PrivateRoute> */}
+                    {/* <> */}
+                    {/* <NavBar /> */}
+                    {/* <HomePage /> */}
+                    {/* <DashboardPage /> */}
+                    {/* </> */}
+                    {/* </PrivateRoute> */}
+                    {/* // } */}
+                    {/* // /> */}
                     <Route
                         path="/projects"
                         element={
@@ -160,107 +186,139 @@ export const AppRouter = () => {
                     <Route
                         path="/postulatedForm/:id"
                         element={
+                            <PrivateRoute>
+                                <ApplicationForm />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/aboutUs"
+                        element={
                             // <PrivateRoute>
-                            <ApplicationForm />
+                            <AboutUsPage />
                             // </PrivateRoute>
                         }
                     />
-
-          <Route
-            path="/aboutUs"
-            element={
-              // <PrivateRoute>
-              <AboutUsPage />
-              // </PrivateRoute>
-            }
-          />
-          <Route
-            path="/landing"
-            element={
-              // <PrivateRoute>
-              <LandingPage />
-              // </PrivateRoute>
-            }
-          />
-          <Route
-            path="/contact"
-            element={
-              // <PrivateRoute>
-              <ContactForm />
-              // </PrivateRoute>
-            }
-          />
-          <Route
-            path="/profileCompany"
-            element={
-              <PrivateRoute>
-                <>
-                  <NavBar />
-                  <ProfileCompany />
-                </>
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <PrivateRoute>
-                <>
-                  <NavBar />
-                  <Profile />
-                </>
-              </PrivateRoute>
-            }
-          />
-
-          <Route path="/dashboard" element={<PrivateRoute><SideBar /></PrivateRoute>}>
-            <Route index element={<DashboardAdmin />}></Route>
-            <Route path="graphs" element={<DashboardAdmin />}></Route>
-            <Route path="students" element={<AdminStudent />}></Route>
-            <Route path="companies" element={<AdminCompany />}></Route>
-            <Route path="projects" element={<AdminProject />}></Route>
-            <Route path="aceptProjects" element={<AdminAcceptProject />}></Route>
-            <Route path="profileAdmin" element={<ProfileAdmin />}></Route>
-          </Route>
-          <Route path="/Ale" element={<Ale />} />
-          <Route path="/Ampi" element={<Ampi />} />
-          <Route path="/Brian" element={<Brian />} />
-          <Route path="/Hugo" element={<Hugo />} />
-          <Route path="/Jona" element={<Jona />} />
-          <Route path="/Nachito" element={<Nachito />} />
-          <Route path="/Nacho" element={<Nacho />} />
-          <Route path="/Sil" element={<Sil />} />
-
-          <Route path="/forgotPassword" element={<ForgotPassword />} />
-
-          <Route path="/recoverPassword" element={<PasswordRecover />} />
-          <Route path="/p" element={<ProjectsStudents />} />
-          <Route path="/getreviews" element={<AdminReviews />} />
-
-
-          <Route
-            path="/postulated/:id"
-            element={
-              <PrivateRoute>
-                <>
-                  <NavBar />
-                  <Postulated />
-                </>
-              </PrivateRoute>
-            }
-          />
-           <Route
-            path="/rating"
-            element={
-              <>
-                <RatingMail />
-              </>
-            }
-          />
-
-          <Route path="/checkout/" element={<Checkout />} />
-        </Routes>
-      </div>
-    </BrowserRouter>
-  );
+                    <Route
+                        path="/landing"
+                        element={
+                            // <PrivateRoute>
+                            <LandingPage />
+                            // </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/contact"
+                        element={
+                            // <PrivateRoute>
+                            <ContactForm />
+                            // </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/profileCompany"
+                        element={
+                            <PrivateRoute>
+                                <>
+                                    <NavBar />
+                                    <ProfileCompany />
+                                </>
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/profile"
+                        element={
+                            <PrivateRoute>
+                                <>
+                                    <NavBar />
+                                    <Profile />
+                                </>
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/dashboard"
+                        element={
+                            <PrivateAdmin>
+                                <SideBar />
+                            </PrivateAdmin>
+                        }
+                    >
+                        <Route index element={<DashboardAdmin />}></Route>
+                        <Route
+                            path="graphs"
+                            element={<DashboardAdmin />}
+                        ></Route>
+                        <Route
+                            path="students"
+                            element={<AdminStudent />}
+                        ></Route>
+                        <Route
+                            path="companies"
+                            element={<AdminCompany />}
+                        ></Route>
+                        <Route
+                            path="projects"
+                            element={<AdminProject />}
+                        ></Route>
+                        <Route
+                            path="aceptProjects"
+                            element={<AdminAcceptProject />}
+                        ></Route>
+                        <Route
+                            path="profileAdmin"
+                            element={<ProfileAdmin />}
+                        ></Route>
+                        <Route path="admins" element={<AdminPanel />}></Route>
+                        <Route
+                            path="getReviews"
+                            element={<AdminReviews />}
+                        ></Route>
+                        <Route
+                            path="createAdmin"
+                            element={<AdminForm />}
+                        ></Route>
+                    </Route>
+                    <Route path="/Ale" element={<Ale />} />
+                    <Route path="/Ampi" element={<Ampi />} />
+                    <Route path="/Brian" element={<Brian />} />
+                    <Route path="/Hugo" element={<Hugo />} />
+                    <Route path="/Jona" element={<Jona />} />
+                    <Route path="/Nachito" element={<Nachito />} />
+                    <Route path="/Nacho" element={<Nacho />} />
+                    <Route path="/Sil" element={<Sil />} />
+                    <Route
+                        path="/forgotPassword"
+                        element={<ForgotPassword />}
+                    />
+                    <Route
+                        path="/recoverPassword"
+                        element={<PasswordRecover />}
+                    />
+                    <Route path="/p" element={<ProjectsStudents />} />
+                    <Route
+                        path="/postulated/:id"
+                        element={
+                            <PrivateRoute>
+                                <>
+                                    <NavBar />
+                                    <Postulated />
+                                </>
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/rating"
+                        element={
+                            <>
+                                <RatingMail />
+                            </>
+                        }
+                    />
+                    <Route path="/checkout/" element={<Checkout />} />
+                </Routes>
+            </div>
+        </BrowserRouter>
+    );
 };

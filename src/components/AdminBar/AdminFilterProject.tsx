@@ -1,13 +1,13 @@
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {Filters,getAllProject,getCategory,} from '../../actions/projects';
+import { Filters, getAllProject, getCategory } from '../../actions/projects';
 import { State } from '../../reducers/rootReducer';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { Box } from '@mui/system';
-import { Navigate} from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { types } from '../../types/types';
-import { Container, IconButton, Input} from '@mui/material';
+import { Container, IconButton, Input } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
@@ -16,11 +16,11 @@ const styledInput = {
     right: 10,
     '&:hover': {},
 };
-interface Filter {
-    source?: string;
-}
+// interface Filter {
+//     source?: string;
+// }
 
-const AdminFilterProject: FC<Filter> = ({ source }) => {
+const AdminFilterProject: FC = () => {
     const dispatch = useDispatch();
     let token = localStorage.getItem('token') || '';
     const [search, setSearch] = useState('');
@@ -92,12 +92,10 @@ const AdminFilterProject: FC<Filter> = ({ source }) => {
     // const init=limit-6
 
     let info = projectsFilter;
-  
 
     const { status } = useSelector((state: State) => state.auth);
-   
+
     if (status === 401) {
-      
         localStorage.clear();
         dispatch({
             type: types.authLogin,
@@ -166,14 +164,13 @@ const AdminFilterProject: FC<Filter> = ({ source }) => {
     };
 
     const handleDelete = () => {
-
-        setSearch('')
+        setSearch('');
         dispatch(
             getAllProject(
                 inputFilter.typeOfOrder,
                 inputFilter.tecnologies,
                 token,
-                "",
+                '',
                 inputFilter.categorie,
                 inputFilter.state,
                 undefined,
@@ -184,101 +181,96 @@ const AdminFilterProject: FC<Filter> = ({ source }) => {
             Filters(
                 inputFilter.typeOfOrder,
                 inputFilter.tecnologies,
-                "",
+                '',
                 inputFilter.categorie,
                 inputFilter.state
             )
         );
-    }
+    };
 
     return (
         <Container>
-            {source && source === 'adminProjects' ? (
-                <Box
-                    sx={{
-                        width: 1350,
-                        // marginLeft: '-200px',
-                        marginTop: '20px',
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        justifyContent: 'space-between 5',
-                        alignItems: 'center',
-                    }}
-                >
-                    <div>
-                        <form onSubmit={handleSubmit}>
-                            <Input
-                                placeholder="Buscar por nombre del proyecto o compañia"
-                                onChange={(e) => handlerchanges(e.target.value)}
-                                sx={{
-                                    styledInput,
-                                    width: 330,
-                                    marginLeft: 0,
-                                }}
-                                value={search}
-                            ></Input>
-
-                            <IconButton
-                                aria-label="search"
-                                sx={{ padding: 0, }}
-
-
-                            >
-                                {search.length ? <HighlightOffIcon
-                                    onClick={handleDelete}
-                                /> : ""}
-                            </IconButton>
-                            <IconButton
-                                type="submit"
-                                aria-label="search"
-                                sx={{ marginRight: 8 }}
-                            >
-                                <SearchIcon />
-                            </IconButton>
-                        </form>
-                    </div>{' '}
-                    <div style={{ width: 255 }}>
-                        <Autocomplete
-                            onChange={(e, value) => {
-                                handlerchange('c', value);
+            <Box
+                sx={{
+                    width: 1350,
+                    // marginLeft: '-200px',
+                    marginTop: '20px',
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    justifyContent: 'space-between 5',
+                    alignItems: 'center',
+                }}
+            >
+                <div>
+                    <form onSubmit={handleSubmit}>
+                        <Input
+                            placeholder="Buscar por nombre del proyecto o compañia"
+                            onChange={(e) => handlerchanges(e.target.value)}
+                            sx={{
+                                styledInput,
+                                width: 330,
+                                marginLeft: 0,
                             }}
-                            multiple={true}
-                            size="small"
-                            id="tags-outlined"
-                            options={categorys}
-                            getOptionLabel={(option: any) => option}
-                            filterSelectedOptions
-                            renderInput={(params) => (
-                                <TextField
-                                    {...params}
-                                    label="Filtar por Categoría "
-                                    placeholder="Categoría"
-                                />
+                            value={search}
+                        ></Input>
+
+                        <IconButton aria-label="search" sx={{ padding: 0 }}>
+                            {search?.length ? (
+                                <HighlightOffIcon onClick={handleDelete} />
+                            ) : (
+                                ''
                             )}
-                        />
-                    </div>{' '}
-                    <div style={{ width: 255, marginLeft: 10 }}>
-                        <Autocomplete
-                            onChange={(e, value) => {
-                                handlerchange('e', value);
-                            }}
-                            multiple={true}
-                            size="small"
-                            id="tags-outlined"
-                            options={stateOfProject}
-                            getOptionLabel={(option) => option}
-                            filterSelectedOptions
-                            renderInput={(params) => (
-                                <TextField
-                                    {...params}
-                                    label="Filtar por Estado del proyecto "
-                                    placeholder="Estado del proyecto"
-                                />
-                            )}
-                        />
-                    </div>
-                </Box>
-            ) : null}
+                        </IconButton>
+                        <IconButton
+                            type="submit"
+                            aria-label="search"
+                            sx={{ marginRight: 8 }}
+                        >
+                            <SearchIcon />
+                        </IconButton>
+                    </form>
+                </div>{' '}
+                <div style={{ width: 255 }}>
+                    <Autocomplete
+                        onChange={(e, value) => {
+                            handlerchange('c', value);
+                        }}
+                        multiple={true}
+                        size="small"
+                        id="tags-outlined"
+                        options={categorys ? categorys : []}
+                        getOptionLabel={(option: any) => option}
+                        filterSelectedOptions
+                        renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                label="Filtar por Categoría "
+                                placeholder="Categoría"
+                            />
+                        )}
+                    />
+                </div>{' '}
+                <div style={{ width: 255, marginLeft: 10 }}>
+                    <Autocomplete
+                        onChange={(e, value) => {
+                            handlerchange('e', value);
+                        }}
+                        multiple={true}
+                        size="small"
+                        id="tags-outlined"
+                        options={stateOfProject}
+                        getOptionLabel={(option) => option}
+                        filterSelectedOptions
+                        renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                label="Filtar por Estado del proyecto "
+                                placeholder="Estado del proyecto"
+                            />
+                        )}
+                    />
+                </div>
+            </Box>
         </Container>
     );
 };

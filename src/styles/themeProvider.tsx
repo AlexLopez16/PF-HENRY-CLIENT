@@ -1,3 +1,4 @@
+import { amber, deepPurple } from '@mui/material/colors';
 import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 
 const customThemProvider = createTheme({
@@ -15,17 +16,18 @@ const customThemProvider = createTheme({
       contrastText: '#000',
     },
     info: {
-      main: '#0288d1',
-      light: '#03a9f4',
-      dark: '#01579b',
+      main: 'black',
+      light: '#fff',
+      dark: 'green',
       contrastText: '#fff',
+  
     },
-
-    // standard: {
-    //   main: '#000',
-    //   light: '#03a9f4',
-    //   dark: '#388e3c',
-    // },
+    warning: {
+      main: '#ffff01',
+      light: '#ff9800',
+      dark: 'red',
+      contrastText: '#000',
+    },
   },
 });
 

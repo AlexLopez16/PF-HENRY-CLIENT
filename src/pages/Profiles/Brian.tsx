@@ -13,7 +13,8 @@ import {
 
 import aboutbg from '../../assets/aboutbg.png';
 import BrianPaez from "../../assets/team/brian.png";
-
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import Footer from '../LandingPage/Footer';
 export default function Brian() {
   const navigate = useNavigate();
 
@@ -21,6 +22,7 @@ export default function Brian() {
     navigate('/AboutUs');
   };
   return (
+    <>
     <Grid
       container
       direction='column'
@@ -139,6 +141,7 @@ export default function Brian() {
       </Box>
       <FormControl>
         <Button
+            startIcon={<ArrowBackIosNewIcon />}
           onClick={back}
           size='small'
           variant='contained'
@@ -154,5 +157,7 @@ export default function Brian() {
         </Button>
       </FormControl>
     </Grid>
+    <Footer />
+    </>
   );
 }

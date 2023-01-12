@@ -13,6 +13,8 @@ import { State } from '../../../reducers/rootReducer';
 import { useNavigate } from 'react-router-dom';
 import studentRegisterbg from '../../../assets/studentRegister.png';
 import Footer from '../../../pages/LandingPage/Footer';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import { PreLoader } from '../../PreLoader/PreLoader';
 
 export const Profile: FC = () => {
   const [edit, setEdit] = useState({
@@ -55,6 +57,7 @@ export const Profile: FC = () => {
         backgroundImage: `url(${studentRegisterbg})`,
       }}
     >
+      <PreLoader/>
       <Container
         maxWidth='md'
         sx={{
@@ -120,6 +123,7 @@ export const Profile: FC = () => {
       >
         <FormControl>
           <Button
+                startIcon={<ArrowBackIosNewIcon />}
             onClick={GoBack}
             size='small'
             variant='contained'

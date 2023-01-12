@@ -47,6 +47,9 @@ export const getProjectByID = (token: string, id: string) => {
 };
 
 export const newProject = (data: object, token: string) => {
+    
+    console.log(data);
+    
     return async (dispatch: Dispatch) => {
         try {
             dispatch({
@@ -166,13 +169,7 @@ export const getProjectsFilter = (
                 type: types.requestFinished,
             });
         } catch (error: any) {
-            // console.log(error.response.data.errors[0].msg);
-            if (error.response.status === 401) {
-                dispatch({
-                    type: types.clearAuthLogin,
-                    payload: error.response.status,
-                });
-            }
+            console.log(error.response.data.errors[0].msg);
         }
     };
 };
@@ -340,6 +337,7 @@ export const getAllProject = (
             const res = await axios.get(url, {
                 headers: { 'user-token': token },
             });
+            console.log(res.data);
             // console.log(res.data);
             dispatch({
                 type: types.projectsFilter,
@@ -349,17 +347,46 @@ export const getAllProject = (
                 type: types.requestFinished,
             });
         } catch (error: any) {
-            // console.log(error.response.data.errors[0].msg);
-            if (error.response.status === 401) {
-                dispatch({
-                    type: types.clearAuthLogin,
-                    payload: error.response.status,
-                });
-            }
+            console.log(error.response.data.errors[0].msg);
         }
     };
 };
 
 export const clearProject = () => {
     return { type: types.clearProject };
+};
+
+export const changeStateOfProject = (id: string, token: string, state: string) => {
+    return async (dispatch: Dispatch) => {
+        try {
+            dispatch({
+                type: types.requestInProgress,
+            })
+            const res = await axios.put(
+                `/project/edit/${id}`,
+                { stateOfProject: `${state}` },
+                { headers: { 'user-token': token } }
+            );
+            dispatch({
+                type: types.getProjectById,
+                payload: res.data,
+            });
+            dispatch({
+                type: types.requestFinished,
+            })
+            dispatch({
+                type: types.responseFinished,
+                payload: res,
+            })
+        } catch (error: any) {
+            console.log(error);
+            dispatch({
+                type: types.requestFinished,
+            })
+            dispatch({
+                type: types.responseFinished,
+                payload: error.response,
+            })
+        }
+    };
 };
