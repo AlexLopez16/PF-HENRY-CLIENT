@@ -183,6 +183,7 @@ const ProjectForm: FC = () => {
     { name: 'R' },
     { name: 'React Native' },
     { name: 'React' },
+    { name: 'Redux' },
     { name: 'Ruby' },
     { name: 'Solidity' },
     { name: 'Swift' },
