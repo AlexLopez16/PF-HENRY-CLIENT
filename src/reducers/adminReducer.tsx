@@ -69,27 +69,26 @@ export const adminReducer = (state: State = initialState, action: Action): State
       let data = action.payload as GraphResponse;
 
       data.companies.state.datasets[0].backgroundColor = [
-        'rgb(255, 255, 1)',
-        'rgb(0, 0, 0)',
+        'rgb(11, 180, 255)',
+        'rgb(230, 0, 73)',
       ];
 
       data.companies.premium.datasets[0].backgroundColor = [
-        'rgb(255, 255, 1)',
-        'rgb(0, 0, 0)',
+        'rgb(11, 180, 255)',
+        'rgb(230, 0, 73)',
       ];
 
       data.students.state.datasets[0].backgroundColor = [
-        'rgb(255, 255, 1)',        
-        'rgb(0, 0, 0)',
-      ];
-      
-      data.projects.state.datasets[0].backgroundColor = [
-        'rgb(255, 255, 1)',
-        'rgb(240, 240, 240 )',
-        'rgb(0, 0, 0)',
-        'rgb(128, 128, 128)',
+        'rgb(11, 180, 255)',
+        'rgb(230, 0, 73)',
       ];
 
+      data.projects.state.datasets[0].backgroundColor = [
+        'rgb(230, 0, 73)',
+        'rgb(11, 180, 255)',
+        'rgb(230, 216, 0)',
+        'rgb(255, 163, 0)',
+      ];
       return {
         ...state,
         data: action.payload,
