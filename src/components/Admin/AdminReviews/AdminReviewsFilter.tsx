@@ -106,7 +106,6 @@ const AdminReviewsFilter: FC = () => {
         return <Navigate to="/login" />;
     }
     const handlerchanges = (e: any) => {
-        console.log(e);
         setSearch(e);
     };
     const handleSubmit = (e: any) => {

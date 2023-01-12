@@ -189,16 +189,11 @@ const AdminFilterProject: FC = () => {
     };
 
     return (
-        <Container>
             <Box
                 sx={{
-                    width: 1350,
-                    // marginLeft: '-200px',
-                    marginTop: '20px',
+                    width: 'auto',
                     display: 'flex',
-                    flexWrap: 'wrap',
-                    justifyContent: 'space-between 5',
-                    alignItems: 'center',
+                    justifyContent: 'space-between',
                 }}
             >
                 <div>
@@ -271,7 +266,6 @@ const AdminFilterProject: FC = () => {
                     />
                 </div>
             </Box>
-        </Container>
     );
 };
 

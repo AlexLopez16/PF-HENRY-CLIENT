@@ -52,7 +52,6 @@ const ReviewCancel: FC<Props> = ({ idrev, openModal, setOpenModal }) => {
         dispatch(cancelReview(idrev, token, values));
         dispatch(getAllReviews(token, 6, 0, undefined));
     };
-console.log(idrev);
 
     return (
         <div>

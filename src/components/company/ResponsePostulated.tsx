@@ -28,8 +28,6 @@ export const ResponsePostulated: FC<ResponsePostulatedProps> = ({
     const handleClose = () => {
         setOpen(false);
     };
-    console.log(responses);
-    console.log(questions);
     return (
         <div>
             <Button

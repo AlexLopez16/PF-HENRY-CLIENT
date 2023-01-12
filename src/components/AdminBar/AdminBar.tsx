@@ -65,7 +65,7 @@ export default function AccountMenu() {
                 ? state.company
                 : state.admin
     );
-   
+
 
     const token = localStorage.getItem('token') || '';
 
@@ -92,25 +92,9 @@ export default function AccountMenu() {
                 : navigate('/dashboard/profileAdmin');
     };
 
-
-
-
-
-
-
-
-
-
     // FUNCION PREMIUM
     const [openModal, setOpenModal] = useState(false);
-
     const session_id = localStorage.getItem('session_id') || ''
-
-    const adminSubscription = async () => {
-
-
-        
-    }
 
     return (
         <>
@@ -196,7 +180,7 @@ export default function AccountMenu() {
                                 {/* <ListItemIcon>
                                 <FolderIcon fontSize="small" />
                             </ListItemIcon> */}
-                                Postulaciones: {user?.project?.length ? user?.project?.length : 0}/3
+                                Postulaciones: {user?.project?.length ? user?.project?.length : 0}/{user.premium===false?"1":"3"}
                             </MenuItem>
                         </>
                     ) : data.verify && rol === 'COMPANY_ROL' ? (
@@ -209,10 +193,11 @@ export default function AccountMenu() {
                                     marginLeft: 3,
                                 }}
                             >
-                                {/* <ListItemIcon>
-                                <FolderIcon fontSize="small" />
-                            </ListItemIcon> */}
-                                Proyectos: {user?.project?.length ? user?.project?.length : 0}/3
+                                {
+                                    user?.premium
+                                        ? `Proyectos: ${user?.project?.length ? user?.project?.length : "0"}/3`
+                                        : `Proyectos: ${user?.project?.length ? user?.project?.length : "0"}/1`
+                                }
                             </MenuItem>
                         </>
                     ) : null}
@@ -247,9 +232,9 @@ export default function AccountMenu() {
                             />
                             <button
                                 type="submit"
-                                style={{border: 'none', background: 'inherit'}}
+                                style={{ border: 'none', background: 'inherit' }}
                             >
-                                <MenuItem onClick={adminSubscription}>
+                                <MenuItem>
                                     <ListItemIcon>
                                         <ManageAccountsIcon fontSize="small" />
                                     </ListItemIcon>

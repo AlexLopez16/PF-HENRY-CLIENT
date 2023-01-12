@@ -56,9 +56,9 @@ export const ApplicationForm: FC = () => {
   };
 
   const validationSchema = Yup.object().shape({
-    res1: Yup.string().required('* Ingresa una respuesta'),
-    res2: Yup.string().required('* Ingresa una respuesta'),
-    res3: Yup.string().required('* Ingresa una respuesta'),
+    res1: Yup.string().required('* Ingresa una pregunta'),
+    res2: Yup.string().required('* Ingresa una pregunta'),
+    res3: Yup.string().required('* Ingresa una pregunta'),
   });
 
   const onSubmit = (values: any, props: any) => {
@@ -158,7 +158,7 @@ export const ApplicationForm: FC = () => {
                           margin: '10px 0px',
                           width: '100%',
                         }}
-                        inputProps={{ maxLength: 50 }}
+                        inputProps={{ maxLength: 100 }}
                         helperText={
                           <ErrorMessage name={`res${index + 1}`}>
                             {(msg) => (

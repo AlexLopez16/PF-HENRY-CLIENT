@@ -47,9 +47,6 @@ export const getProjectByID = (token: string, id: string) => {
 };
 
 export const newProject = (data: object, token: string) => {
-    
-    console.log(data);
-    
     return async (dispatch: Dispatch) => {
         try {
             dispatch({
@@ -273,7 +270,6 @@ export const getAllProject = (
 ) => {
     return async (dispatch: Dispatch) => {
         try {
-            // console.log(limit, init);
             dispatch({
                 type: types.requestInProgress,
             });
@@ -322,7 +318,6 @@ export const getAllProject = (
             }
 
             if (limit || init) {
-                // console.log(limit, init);
                 if (query) {
                     query += `&limit=${limit}&init=${init}`;
                 } else {
@@ -337,8 +332,6 @@ export const getAllProject = (
             const res = await axios.get(url, {
                 headers: { 'user-token': token },
             });
-            console.log(res.data);
-            // console.log(res.data);
             dispatch({
                 type: types.projectsFilter,
                 payload: res.data,

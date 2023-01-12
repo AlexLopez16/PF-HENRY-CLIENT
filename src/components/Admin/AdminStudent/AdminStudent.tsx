@@ -102,167 +102,130 @@ const AdminStudent: FC = () => {
         dispatch(getListStudents(token, false, 6, 0));
     };
 
-    return (
-        <>
-            <SnackBar successMsg={'Cambio de estado exitoso'} />
-            <PreLoader />
-            <Card>
-                <Container
-                    maxWidth="lg"
-                    sx={{
-                        display: 'flex',
-                        marginLeft: 0,
-                        justifyContent: 'space-between',
-                        padding: '20px',
-                    }}
-                >
-                    <AdminFilterStudent />
-                    <Button onClick={handleMultiSwitch} variant="contained">
-                        Cambiar estado
-                    </Button>
-                </Container>
-                {!users.length ? (
-                    <TableBody>
-                        <Stack sx={{ width: '100%' }} spacing={1}>
-                            <Alert severity="info">
-                                No se encontro el alumno!
-                            </Alert>
-                        </Stack>
-                    </TableBody>
-                ) : (
-                    <Box sx={{ minWidth: 1050 }}>
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell padding="checkbox">
-                                        <Checkbox
-                                            checked={
-                                                selectedCustomerIds.length ===
-                                                users.length
-                                            }
-                                            color="primary"
-                                            indeterminate={
-                                                selectedCustomerIds.length >
-                                                    0 &&
-                                                selectedCustomerIds.length <
-                                                    users.length
-                                            }
-                                            onChange={handleSelectAll}
-                                        />
-                                    </TableCell>
-                                    <TableCell>Nombre</TableCell>
-                                    <TableCell>Email</TableCell>
-                                    <TableCell>Ubicacion</TableCell>
-                                    <TableCell>Estado</TableCell>
-                                    <TableCell>Fecha de ingreso</TableCell>
-                                    <TableCell>Activo</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {users?.map((user: any) => (
-                                    <TableRow
-                                        hover
-                                        key={user.uid}
-                                        selected={
-                                            selectedCustomerIds.indexOf(
-                                                user.uid
-                                            ) !== -1
-                                        }
-                                    >
-                                        <TableCell padding="checkbox">
-                                            <Checkbox
-                                                checked={
-                                                    selectedCustomerIds.indexOf(
-                                                        user.uid
-                                                    ) !== -1
-                                                }
-                                                onChange={(event) =>
-                                                    handleSelectOne(user.uid)
-                                                }
-                                                value="true"
-                                            />
-                                        </TableCell>
-                                        <TableCell>
-                                            <Box
-                                                sx={{
-                                                    alignItems: 'center',
-                                                    display: 'flex',
-                                                }}
-                                            >
-                                                <Avatar
-                                                    src={user.image}
-                                                    sx={{ mr: 2 }}
-                                                >
-                                                    {user.name?.slice(0, 1)}
-                                                </Avatar>
-                                                <Typography
-                                                    color="textPrimary"
-                                                    variant="body1"
-                                                >
-                                                    {user.name
-                                                        ? user.name
-                                                        : user.username}
-                                                </Typography>
-                                            </Box>
-                                        </TableCell>
-                                        <TableCell>
-                                            {user.email
-                                                ? user.email
-                                                : 'No registrado'}
-                                        </TableCell>
-                                        <TableCell>
-                                            {user.country
-                                                ? user.country
-                                                : 'No registrado'}
-                                        </TableCell>
-                                        <TableCell>
-                                            {user.state ? 'Activo' : 'Inactivo'}
-                                        </TableCell>
-                                        <TableCell>
-                                            {user.admission
-                                                ? `${moment(
-                                                      user.admission
-                                                  ).format('DD/MM/YYYY')}`
-                                                : 'No registrado'}
-                                        </TableCell>
+  return (
+    <>
+      <SnackBar successMsg={"Cambio exitoso"} />
+      <PreLoader />
+      <Card>
+        <Container
+          maxWidth="lg"
+          sx={{
+            display: "flex",
+            marginLeft: 0,
+            justifyContent: "space-between",
+            padding: "20px",
+          }}
+        >
+          <AdminFilterStudent />
+          <Button onClick={handleMultiSwitch} variant="contained">
+            Cambiar estado
+          </Button>
+        </Container>
+        {!users.length ? (
+          <TableBody>
+            <Stack sx={{ width: "100%" }} spacing={1}>
+              <Alert severity="info">No se encontro el alumno!</Alert>
+            </Stack>
+          </TableBody>
+        ) : (
+          <Box sx={{ minWidth: 1050 }}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell padding="checkbox">
+                    <Checkbox
+                      checked={selectedCustomerIds.length === users.length}
+                      color="primary"
+                      indeterminate={
+                        selectedCustomerIds.length > 0 &&
+                        selectedCustomerIds.length < users.length
+                      }
+                      onChange={handleSelectAll}
+                    />
+                  </TableCell>
+                  <TableCell>Nombre</TableCell>
+                  <TableCell>Email</TableCell>
+                  <TableCell>Ubicacion</TableCell>
+                  <TableCell>Estado</TableCell>
+                  <TableCell>Fecha de ingreso</TableCell>
+                  <TableCell>Activo</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {users?.map((user: any) => (
+                  <TableRow
+                    hover
+                    key={user.uid}
+                    selected={selectedCustomerIds.indexOf(user.uid) !== -1}
+                  >
+                    <TableCell padding="checkbox">
+                      <Checkbox
+                        checked={selectedCustomerIds.indexOf(user.uid) !== -1}
+                        onChange={(event) => handleSelectOne(user.uid)}
+                        value="true"
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <Box
+                        sx={{
+                          alignItems: "center",
+                          display: "flex",
+                        }}
+                      >
+                        <Avatar src={user.image} sx={{ mr: 2 }}>
+                          {user.name?.slice(0, 1)}
+                        </Avatar>
+                        <Typography color="textPrimary" variant="body1">
+                          {user.name ? user.name : user.username}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                    <TableCell>
+                      {user.email ? user.email : "No registrado"}
+                    </TableCell>
+                    <TableCell>
+                      {user.country ? user.country : "No registrado"}
+                    </TableCell>
+                    <TableCell>{user.state ? "Activo" : "Inactivo"}</TableCell>
+                    <TableCell>
+                      {user.admission
+                        // ? `${moment(user.admission).format("DD/MM/YYYY")}`
+                        ? `${new Date(user.admission).toLocaleDateString()}`
+                        : "No registrado"}
+                    </TableCell>
 
-                                        <TableCell>
-                                            <FormGroup
-                                                sx={{
-                                                    display: 'flex',
-                                                    justifyContent: 'center',
-                                                    alignItems: 'center',
-                                                    mt: 3,
-                                                }}
-                                            >
-                                                <FormControlLabel
-                                                    control={
-                                                        <Switch
-                                                            checked={user.state}
-                                                            //defaultChecked={user.state}
-                                                            size="small"
-                                                            color="primary"
-                                                            onChange={() =>
-                                                                handleDisable(
-                                                                    user.uid
-                                                                )
-                                                            }
-                                                        />
-                                                    }
-                                                    label={undefined}
-                                                />
-                                            </FormGroup>
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                        <Pages />
-                    </Box>
-                )}
-            </Card>
-        </>
-    );
+                    <TableCell>
+                      <FormGroup
+                        sx={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          mt: 3,
+                        }}
+                      >
+                        <FormControlLabel
+                          control={
+                            <Switch
+                              checked={user.state}
+                              size="small"
+                              color="primary"
+                              onChange={() => handleDisable(user.uid)}
+                            />
+                          }
+                          label={undefined}
+                        />
+                      </FormGroup>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+            <Pages />
+          </Box>
+        )}
+      </Card>
+    </>
+  );
 };
 
 export default AdminStudent;

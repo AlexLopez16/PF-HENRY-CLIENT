@@ -1,4 +1,4 @@
-import { Box, Button, Chip, Paper, Typography } from '@mui/material';
+import { Box, Button, Chip, Container, Paper, Typography } from '@mui/material';
 import BusinessIcon from '@mui/icons-material/Business';
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
@@ -38,19 +38,26 @@ export const RequestProjectCard: FC<RequestProjectCardProps> = ({
     <Paper
       elevation={10}
       sx={{
-        p: 3,
+        p: 5,
         mt: 5,
         borderRadius: 5,
-        backgroundColor:'red'
+        backgroundColor: 'black',
+        boxShadow:
+          'rgba(255, 255, 255, 255.16) 0px 1px 4px, rgb(255, 255, 255) 0px 0px 0px 3px',
       }}
     >
       <Typography
         variant='h5'
-        sx={{ color: 'white', fontFamily: 'montserrat', mb: 2 }}
+        sx={{ fontFamily: 'montserrat',fontWeight:'bolder', mb: 3, color: '#ffff01' }}
       >
         {' '}
         {category?.toUpperCase()}
       </Typography>
+      <hr
+        style={{
+          marginBottom: 20,
+        }}
+      />
       <Typography
         sx={{
           display: 'flex',
@@ -58,8 +65,9 @@ export const RequestProjectCard: FC<RequestProjectCardProps> = ({
           alignItems: 'center',
           color: '#ffff01',
           fontFamily: 'montserrat',
+          fontWeight: 'bold',
         }}
-        variant='h5'
+        variant='h6'
       >
         {projectName?.toUpperCase()}
         {stateOfProject != 'Terminado' ? (
@@ -69,6 +77,9 @@ export const RequestProjectCard: FC<RequestProjectCardProps> = ({
             size='small'
             color='secondary'
             onClick={() => handleClick(projectId)}
+            sx={{
+              fontFamily: 'poppins',
+            }}
           >
             Cancelar
           </Button>
@@ -92,62 +103,71 @@ export const RequestProjectCard: FC<RequestProjectCardProps> = ({
           </NavLink>
         )}
       </Typography>
-      <Box
+      <Container
         sx={{
-          display: 'block',
-          mb: '10px',
+          display: 'flex',
+          justifyContent: 'center',
         }}
       >
-        <Typography
-          variant='subtitle1'
+        <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            color: '#ffff01',
-            fontFamily: 'montserrat',
+            display: 'block',
+            mb: '10px',
           }}
         >
-          {description?.slice(0, 100)}
-        </Typography>
-        <Typography
-          variant='subtitle1'
-          sx={{
-            color: 'white',
-          }}
-        >
-          Estado:{' '}
-          <Chip
-            label={stateOfProject}
-            color='primary'
-            size='small'
+          <Typography
+            variant='subtitle1'
             sx={{
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              fontFamily: 'montserrat',
+              color: 'white',
+              fontFamily: 'poppins',
             }}
-          />
-        </Typography>
+          >
+            {description?.slice(0, 100)}
+          </Typography>
+          <Typography
+            variant='subtitle1'
+            sx={{ color: 'white', mt: 3, fontFamily: 'montserrat' }}
+          >
+            Estado:{' '}
+            <Chip
+              label={stateOfProject}
+              color='secondary'
+              size='small'
+              variant='outlined'
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                fontFamily: 'montserrat',
+                mt: 2,
+              }}
+            />
+          </Typography>
 
-        <Typography
-          variant='subtitle1'
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            color: '#ffff01',
-            fontFamily: 'montserrat',
-          }}
-        >
-          Participantes:{' '}
-          <Chip
-            label={`${accepts?.length}/${participants}`}
-            color='primary'
-            size='small'
-          />
-        </Typography>
-      </Box>
+          <Typography
+            variant='subtitle1'
+            sx={{
+              display: 'flex',
+              flexDirection:'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              color: '#ffff01',
+              fontFamily: 'montserrat',
+              mt: 3,
+            }}
+          >
+            Participantes:{' '}
+            <Chip
+              label={`${accepts?.length}/${participants}`}
+              color='primary'
+              size='small'
+            />
+          </Typography>
+        </Box>
+      </Container>
       <Paper
         elevation={5}
         sx={{
@@ -155,7 +175,6 @@ export const RequestProjectCard: FC<RequestProjectCardProps> = ({
           alignItems: 'center',
           width: 'max-content',
           padding: '2px 4px',
-     
         }}
       >
         <BusinessIcon fontSize='small' />
