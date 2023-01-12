@@ -5,7 +5,7 @@ import { Button, Typography, Box, Grid, Container } from '@mui/material';
 import Header from '../../components/NavbarLandingPage/HeaderLanding';
 import Footer from './Footer';
 
-import bg from '../../assets/bg.png';
+import bgLanding from '../../assets/bgLanding.png';
 import logo from '../../assets/NABIJASH.png';
 import objetivo from '../../assets/objetivo.png';
 import objetivoCompany from '../../assets/objetivocompany.png';
@@ -30,7 +30,7 @@ const LandingPage: FC = () => {
       <Grid direction='column' justifyContent='center' alignItems='center'>
         <Box
           sx={{
-            backgroundImage: `url(${bg})`,
+            backgroundImage: `url(${bgLanding})`,
             maxWidth: '1920px',
           }}
         >

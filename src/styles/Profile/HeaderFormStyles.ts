@@ -11,11 +11,11 @@ export const iconStyle = {
 export const avatarStyle = {
     display:'flex',
     borderRadius: '50%',
-    backgroundColor: '#f5f5f5',
+    backgroundColor: 'black',
     color: '#fff',
-    padding: '5px',
-    width: '120px',
-    height: '120px',
+    padding: 5,
+    width: 120,
+    height: 120,
     margin: '0 50px',
 };
 

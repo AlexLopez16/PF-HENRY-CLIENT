@@ -57,15 +57,15 @@ const ProjectDetail: FC<ProjectProps> = ({
   let id = useSelector((state: State | any) => state.auth.data.id);
   const { projectId } = useSelector((state: State) => state.project);
   const { user }: any = useSelector((state: State) => state.student);
-  const { user: company } = useSelector((state: State) => state.company)
+  const { user: company } = useSelector((state: State) => state.company);
 
-  console.log({ company })
-  console.log({ name })
+  console.log({ company });
+  console.log({ name });
 
   const navigate = useNavigate();
 
   const GoBack = () => {
-    navigate('/projects');
+    navigate('/myprojects');
   };
 
   const handlerApply = () => {
@@ -87,11 +87,10 @@ const ProjectDetail: FC<ProjectProps> = ({
   };
 
   const handleDesarrollo = () => {
-    dispatch(changeStateOfProject(uid, token, 'En desarrollo'))
-  }
+    dispatch(changeStateOfProject(uid, token, 'En desarrollo'));
+  };
 
   let review = projectId.reviews;
-
 
   return (
     <>
@@ -312,7 +311,7 @@ const ProjectDetail: FC<ProjectProps> = ({
                 }}
               >
                 {rol === 'STUDENT_ROL' &&
-                  projectId.stateOfProject !== 'Terminado' ? (
+                projectId.stateOfProject !== 'Terminado' ? (
                   <Button
                     sx={{
                       width: '50%',
@@ -333,12 +332,13 @@ const ProjectDetail: FC<ProjectProps> = ({
                   >
                     aplicar
                   </Button>
-                ) : id &&
-                  rol === 'COMPANY_ROL'&&
-                  projectId &&
-                  projectId?.company?._id &&
-                  id === projectId.company._id &&
-                  projectId.stateOfProject === 'Reclutamiento' ||   projectId.stateOfProject === 'En desarrollo'?(
+                ) : (id &&
+                    rol === 'COMPANY_ROL' &&
+                    projectId &&
+                    projectId?.company?._id &&
+                    id === projectId.company._id &&
+                    projectId.stateOfProject === 'Reclutamiento') ||
+                  projectId.stateOfProject === 'En desarrollo' ? (
                   <Link to={`/postulated/${uid}`}>
                     <Button
                       sx={{
@@ -358,7 +358,8 @@ const ProjectDetail: FC<ProjectProps> = ({
                 ) : null}
 
                 {rol === 'COMPANY_ROL' &&
-                  projectId.stateOfProject === 'En desarrollo' && company?.name === empresa && (
+                  projectId.stateOfProject === 'En desarrollo' &&
+                  company?.name === empresa && (
                     <Button
                       onClick={handelClick}
                       type='submit'
@@ -374,11 +375,11 @@ const ProjectDetail: FC<ProjectProps> = ({
                     >
                       Finalizar proyecto
                     </Button>
-                  )
-                }
+                  )}
 
                 {rol === 'COMPANY_ROL' &&
-                  projectId.stateOfProject === 'Reclutamiento' && company?.name === empresa && (
+                  projectId.stateOfProject === 'Reclutamiento' &&
+                  company?.name === empresa && (
                     <Button
                       onClick={handleDesarrollo}
                       type='submit'
@@ -394,27 +395,25 @@ const ProjectDetail: FC<ProjectProps> = ({
                     >
                       Iniciar Proyecto
                     </Button>
-                  )
-                }
-
+                  )}
               </Box>
             </Paper>
           </Container>
           {rol === 'COMPANY_ROL' ||
-            (rol === 'STUDENT_ROL' &&
-              projectId.stateOfProject === 'Terminado' &&
-              review.length > 0)
+          (rol === 'STUDENT_ROL' &&
+            projectId.stateOfProject === 'Terminado' &&
+            review.length > 0)
             ? review?.map((e: any) => (
-              <RatingProject
-                avatar={e.student?.image}
-                name={e.student?.name}
-                lastName={e.student?.lastName}
-                description={e.description}
-                ratingCompany={e.ratingCompany}
-                ratingProject={e.ratingProject}
-                projectName={e.project?.name}
-              />
-            ))
+                <RatingProject
+                  avatar={e.student?.image}
+                  name={e.student?.name}
+                  lastName={e.student?.lastName}
+                  description={e.description}
+                  ratingCompany={e.ratingCompany}
+                  ratingProject={e.ratingProject}
+                  projectName={e.project?.name}
+                />
+              ))
             : ''}
         </div>
       </Box>
