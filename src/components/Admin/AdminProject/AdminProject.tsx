@@ -65,7 +65,7 @@ const AdminProject: FC = ({ ...rest }) => {
 
   const { projectsFilter } = useSelector((state: State) => state.project);
   let projects = projectsFilter;
-  console.log(projects);
+  
   const [selectedCustomerIds, setSelectedCustomerIds] = useState<string[]>([]);
   const [limit, setLimit] = useState(12);
   const [page, setPage] = useState(0);
@@ -130,7 +130,6 @@ const AdminProject: FC = ({ ...rest }) => {
       dispatch(clearProject());
     };
   };
-  console.log(selectedCustomerIds);
 
   const handleLimitChange = (event: any) => {
     setLimit(event.target.value);
@@ -173,11 +172,11 @@ const AdminProject: FC = ({ ...rest }) => {
                 <TableRow>
                   <TableCell padding="checkbox">
                     <Checkbox
-                      checked={selectedCustomerIds.length === projects.length}
+                      checked={selectedCustomerIds?.length === projects?.length}
                       color="primary"
                       indeterminate={
-                        selectedCustomerIds.length > 0 &&
-                        selectedCustomerIds.length < projects.length
+                        selectedCustomerIds?.length > 0 &&
+                        selectedCustomerIds?.length < projects?.length
                       }
                       onChange={handleSelectAll}
                     />
@@ -193,15 +192,14 @@ const AdminProject: FC = ({ ...rest }) => {
               </TableHead>
 
                             <TableBody>
-                                {projects
-                                    .slice(0, limit)
-                                    .map((projects: any) => (
+                                {projects?.slice(0, limit)
+                                ?.map((projects: any) => (
                                         <TableRow
                                             hover
-                                            key={projects.uid}
+                                            key={projects?.uid}
                                             selected={
                                                 selectedCustomerIds.indexOf(
-                                                    projects.uid
+                                                    projects?.uid
                                                 ) !== -1
                                             }
                                         >
@@ -209,12 +207,12 @@ const AdminProject: FC = ({ ...rest }) => {
                                                 <Checkbox
                                                     checked={
                                                         selectedCustomerIds.indexOf(
-                                                            projects.uid
+                                                            projects?.uid
                                                         ) !== -1
                                                     }
                                                     onChange={(event) =>
                                                         handleSelectOne(
-                                                            projects.uid
+                                                            projects?.uid
                                                         )
                                                     }
                                                     value="true"
@@ -231,31 +229,31 @@ const AdminProject: FC = ({ ...rest }) => {
                                                         color="textPrimary"
                                                         variant="body1"
                                                     >
-                                                        {projects.name}
+                                                        {projects?.name}
                                                     </Typography>
                                                 </Box>
                                             </TableCell>
                                             <TableCell>
                                                 {projects.company &&
-                                                Array.isArray(projects.company)
+                                                Array.isArray(projects?.company)
                                                     ? projects?.company[0]?.name
                                                     : projects?.company?.name}
                                             </TableCell>
                                             <TableCell>
-                                                {projects.category
-                                                    ? projects.category
+                                                {projects?.category
+                                                    ? projects?.category
                                                     : 'No registrado'}
                                             </TableCell>
                                             <TableCell>
                                                
                                                
-                                                {projects.state===true? "Activo":"Inactivo"}
+                                                {projects?.state===true? "Activo":"Inactivo"}
                                             </TableCell>
 
                                             <TableCell>
-                                                {projects.admission
+                                                {projects?.admission
                                                     ? `${moment(
-                                                          projects.admission
+                                                          projects?.admission
                                                       ).format('DD/MM/YYYY')}`
                                                     : 'No registrado'}
                                             </TableCell>
@@ -271,10 +269,10 @@ const AdminProject: FC = ({ ...rest }) => {
                       <FormControlLabel
                         control={
                           <Switch
-                            defaultChecked={projects.state}
+                            defaultChecked={projects?.state}
                             size="small"
                             color="primary"
-                            onChange={() => handleSwitch(projects.uid)}
+                            onChange={() => handleSwitch(projects?.uid)}
                           />
                         }
                         label={undefined}
@@ -287,7 +285,7 @@ const AdminProject: FC = ({ ...rest }) => {
               <FormControlLabel
                 control={
                   <Switch
-                    defaultChecked={projects.state}
+                    defaultChecked={projects?.state}
                     size="small"
                     color="primary"
                     onChange={handleMultiSwitch}
