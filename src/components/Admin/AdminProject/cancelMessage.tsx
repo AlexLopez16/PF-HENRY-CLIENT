@@ -32,7 +32,6 @@ const CancelMessage: FC<Props> = ({ idPrj, openModal, setOpenModal }) => {
     });
 
     const onSubmit = (values: any) => {
-        console.log('info', values, 'idprj', idPrj);
         dispatch(AdminEliminatedProject(idPrj, token, values));
 
         dispatch(

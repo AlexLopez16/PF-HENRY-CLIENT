@@ -45,8 +45,6 @@ export const acceptStudent = (
     studentId: string,
     token: string | any
 ) => {
-    console.log(studentId);
-
     return async (dispatch: Dispatch) => {
         try {
             dispatch({
@@ -292,7 +290,6 @@ export const inProggresProject = (uid: string) => {
             });
         } catch (error) {
             console.log(error);
-            console.log('algo');
         }
     };
 };

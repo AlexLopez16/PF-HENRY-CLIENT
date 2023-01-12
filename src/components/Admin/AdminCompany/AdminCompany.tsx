@@ -61,12 +61,10 @@ const AdminCompany: FC = () => {
     dispatch(disableCompany(token, selectID));
   };
   const handleaccept = (id: string) => {
-    console.log(id);
     dispatch(acceptCompany(token, id, true));
   };
 
   const handlecancel = (id: string) => {
-    console.log(id);
     dispatch(rejectCompany(token, id, false));
   };
 

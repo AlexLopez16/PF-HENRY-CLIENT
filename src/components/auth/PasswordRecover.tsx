@@ -99,7 +99,6 @@ export const PasswordRecover: FC = () => {
 
   const onSubmit: any = (valores: any, { resetForm }: any) => {
     resetForm();
-    console.log(valores);
     dispatch(recoverPassword(valores.confirmPassword, token));
     // setSendRequest(true);
     // setTimeout(() => setSendRequest(false), 5000);
