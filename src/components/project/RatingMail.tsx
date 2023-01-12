@@ -27,6 +27,8 @@ import { postReview } from '../../actions/revius';
 import TextField from '@mui/material/TextField';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
+import { PreLoader } from '../PreLoader/PreLoader';
+import { SnackBar } from '../SnackBar/SnackBar';
 import NavBar from '../NavBar/NavBar';
 import Footer from '../../pages/LandingPage/Footer';
 
@@ -116,7 +118,7 @@ export const RatingMail = () => {
     };
 
     dispatch(postReview(data, tok));
-    Navigate('/myprojects');
+    // Navigate('/myprojects');
   };
 
   return (
@@ -133,6 +135,8 @@ export const RatingMail = () => {
         }}
       >
         <div>
+          <PreLoader />
+          <SnackBar />
           <Paper
             elevation={10}
             style={{
@@ -212,59 +216,93 @@ export const RatingMail = () => {
                     />
                   </div>
                 </Box>
-
-                <Typography
-                  component='legend'
-                  sx={{
-                    fontFamily: 'montserrat',
-                  }}
-                >
-                  Nivel de satisfaccion con la empresa
-                </Typography>
-                <Rating
-                  name='simple-controlled'
-                  value={ratingCompany}
-                  onChange={(event, newRatingCompany) => {
-                    setRatingCompany(newRatingCompany);
-                  }}
-                />
-
-                <div>
-                  <Box>
-                    <Typography
-                      component='legend'
-                      sx={{
-                        fontFamily: 'montserrat',
-                      }}
-                    >
-                      Nivel de satisfaccion del proyecto
-                    </Typography>
-                    <Rating
-                      name='simple-controlled'
-                      value={ratingProject}
-                      onChange={(event, newRatingProject) => {
-                        setRatingProject(newRatingProject);
-                      }}
-                    />
+                <Form>
+                  <Box sx={{ width: '100%', maxWidth: 500 }}>
+                    <div>
+                      <Typography variant='h6'>{`${project}`}:</Typography>
+                    </div>
+                    <div>
+                      <Field
+                        as={TextField}
+                        name='description'
+                        label='description'
+                        size='small'
+                        multiline
+                        inputProps={{ maxLength: 200 }}
+                        rows={5}
+                        color='info'
+                        sx={{ width: '100%', margin: '10px 0' }}
+                        helperText={
+                          <ErrorMessage name='description'>
+                            {(message) => (
+                              <span
+                                style={{
+                                  color: '#d6423e',
+                                }}
+                              >
+                                {message}
+                              </span>
+                            )}
+                          </ErrorMessage>
+                        }
+                      />
+                    </div>
                   </Box>
-                  <Box
+
+                  <Typography
+                    component='legend'
                     sx={{
-                      display: 'flex',
-                      justifyContent: 'right',
+                      fontFamily: 'montserrat',
                     }}
                   >
-                    <Button
-                      type='submit'
-                      style={{
-                        fontFamily: 'poppins',
-                        borderRadius: 5,
+                    Nivel de satisfaccion con la empresa
+                  </Typography>
+                  <Rating
+                    name='simple-controlled'
+                    value={ratingCompany}
+                    onChange={(event, newRatingCompany) => {
+                      setRatingCompany(newRatingCompany);
+                    }}
+                  />
+
+                  <div>
+                    <Box>
+                      <Typography
+                        component='legend'
+                        sx={{
+                          fontFamily: 'montserrat',
+                        }}
+                      >
+                        Nivel de satisfaccion del proyecto
+                      </Typography>
+                      <Rating
+                        name='simple-controlled'
+                        value={ratingProject}
+                        onChange={(event, newRatingProject) => {
+                          setRatingProject(newRatingProject);
+                        }}
+                      />
+                    </Box>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        justifyContent: 'right',
                       }}
-                      variant='contained'
                     >
-                      Enviar
-                    </Button>
-                  </Box>
-                </div>
+                      <Button
+                        type='submit'
+                        style={{
+                          fontFamily: 'poppins',
+                          borderRadius: 5,
+                        }}
+                        variant='contained'
+                      >
+                        Enviar
+                      </Button>
+                    </Box>
+                  </div>
+                </Form>
+                /
               </Form>
             </Formik>
           </Paper>

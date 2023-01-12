@@ -250,10 +250,12 @@ export const clearGetCompany = () => {
     return { type: types.clearCompany };
 };
 
-export const proyectFinal = (uid: string | any) => {
+export const proyectFinal = (uid: string | any, token: string) => {
     return async (dispatch: Dispatch) => {
         try {
-            const res = await axios.put(`/company/final`, { uid });
+            const res = await axios.put(`/company/final`, { uid }, 
+                { headers: { 'user-token': token } }
+            );
             dispatch({
                 type: types.ratingProjectCompany,
                 // payload: res.data
