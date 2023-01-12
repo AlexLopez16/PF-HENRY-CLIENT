@@ -398,7 +398,7 @@ const ProjectForm: FC = () => {
                     fullWidth
                     color='info'
                     sx={{ mb: 2 }}
-                    inputProps={{ maxLength: 50 }}
+                    inputProps={{ maxLength: 100 }}
                     helperText={
                       <ErrorMessage name='question1'>
                         {(msg) => (
@@ -422,7 +422,7 @@ const ProjectForm: FC = () => {
                     fullWidth
                     color='info'
                     sx={{ mb: 2 }}
-                    inputProps={{ maxLength: 50 }}
+                    inputProps={{ maxLength: 100 }}
                     helperText={
                       <ErrorMessage name='question2'>
                         {(msg) => (
@@ -446,7 +446,7 @@ const ProjectForm: FC = () => {
                     fullWidth
                     color='info'
                     sx={{ mb: 2 }}
-                    inputProps={{ maxLength: 50 }}
+                    inputProps={{ maxLength: 100 }}
                     helperText={
                       <ErrorMessage name='question3'>
                         {(msg) => (

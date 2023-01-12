@@ -282,9 +282,10 @@ const AdminProject: FC = ({ ...rest }) => {
 
                                             <TableCell>
                                                 {projects.admission
-                                                    ? `${moment(
-                                                          projects.admission
-                                                      ).format('DD/MM/YYYY')}`
+                                                    // ? `${moment(
+                                                    //       projects.admission
+                                                    //   ).format('DD/MM/YYYY')}`
+                                                    ? `${new Date(projects.admission).toLocaleDateString()}`
                                                     : 'No registrado'}
                                             </TableCell>
 

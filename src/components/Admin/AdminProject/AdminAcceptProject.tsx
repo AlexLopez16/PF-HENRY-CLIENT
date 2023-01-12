@@ -318,9 +318,10 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
 
                                             <TableCell>
                                                 {proyectos.admission
-                                                    ? `${moment(
-                                                          proyectos.admission
-                                                      ).format('DD/MM/YYYY')}`
+                                                    // ? `${moment(
+                                                    //       proyectos.admission
+                                                    //   ).format('DD/MM/YYYY')}`
+                                                    ? `${new Date(proyectos.admission).toLocaleDateString()}`
                                                     : 'No registrado'}
                                             </TableCell>
                                             <TableCell sx={{ maxWidth: 200 }}>

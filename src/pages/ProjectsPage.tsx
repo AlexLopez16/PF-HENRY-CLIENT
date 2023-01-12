@@ -11,45 +11,6 @@ import Pages from '../components/ui/Pagination';
 import ProjectsStudents from '../components/student/ProjectsStudents';
 
 const ProjectsPage: FC = () => {
-    // const dispatch = useDispatch();
-    // const token = localStorage.getItem('token') || '';
-
-    // const [search, setSearch] = useState('');
-    // const [inputFilter, setInput] = useState({
-    //     state: undefined,
-    //     tecnologies: undefined,
-    //     typeOfOrder: undefined,
-    //     categorie: undefined,
-    // });
-    // useEffect(() => {
-    //     dispatch(
-    //         getProjectsFilter(
-    //             inputFilter.typeOfOrder,
-    //             inputFilter.tecnologies,
-    //             token,
-    //             search,
-    //             inputFilter.categorie,
-    //             inputFilter.state,
-    //             6,
-    //             0
-    //         )
-    //     );
-    // }, [dispatch, token, inputFilter]);
-
-    // const { projectsFilter } = useSelector((state: State) => state.project);
-
-    // let info = projectsFilter;
-
-    // const { status } = useSelector((state: State) => state.auth);
-
-    // if (status === 401) {
-    //     localStorage.clear();
-    //     dispatch({
-    //         type: types.authLogin,
-    //     });
-    //     return <Navigate to="/login" />;
-    // }
-
     return (
         <Box>
             <ProjectsStudents />

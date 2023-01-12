@@ -1,9 +1,11 @@
+import { useEffect } from 'react';
 import { Button, Paper } from '@mui/material';
 import NavBar from '../components/NavBar/NavBar';
 import { useSelector, useDispatch } from 'react-redux';
 import { State } from '../reducers/rootReducer';
 import { validaToken } from '../actions/auth';
 import { useNavigate } from 'react-router';
+import { companyGetInfo } from '../actions/company';
 
 export const Checkout = () => {
     const API_URL = process.env.REACT_APP_API || 'http://localhost:3001/api';
@@ -41,6 +43,11 @@ export const Checkout = () => {
         textAlign: 'center',
         borderRadius: '20px',
     };
+
+    useEffect(() => {
+        dispatch(companyGetInfo(data?.id, token))
+    }, [])
+
 
     return (
         <>

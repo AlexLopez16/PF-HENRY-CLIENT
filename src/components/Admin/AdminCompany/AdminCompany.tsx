@@ -142,8 +142,9 @@ const AdminCompany: FC = () => {
                   <TableCell>{user.state ? "Activo" : "Inactivo"}</TableCell>
 
                   <TableCell>
-                    {user.admission
-                      ? `${moment(user.admission).format("DD/MM/YYYY")}`
+                    {user?.admission
+                      // ? `${moment(user.admission).format("DD/MM/YYYY")}`
+                      ? `${new Date(user.admission).toLocaleDateString()}`
                       : "No registrado"}
                   </TableCell>
 
