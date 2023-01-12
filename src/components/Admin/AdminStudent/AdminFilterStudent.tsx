@@ -33,44 +33,35 @@ const AdminFilterStudent: FC = () => {
   };
 
   return (
-    <Container>
-      <Box
-        sx={{
-          width: 1350,
-          marginTop: "20px",
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "space-between 5",
-          alignItems: "center",
-        }}
-      >
-        <div>
-          <form onSubmit={handleSubmit}>
-            <Input
-              placeholder="Buscar por nombre del alumno"
-              onChange={(e) => handlerchanges(e.target.value)}
-              sx={{
-                styledInput,
-                width: 330,
-                marginLeft: 0,
-              }}
-              value={search}
-            ></Input>
+    // <Container>
+    <Box
+      sx={{
+        width: "auto",
+      }}
+    >
+      <div>
+        <form onSubmit={handleSubmit}>
+          <Input
+            placeholder="Buscar por nombre del alumno"
+            onChange={(e) => handlerchanges(e.target.value)}
+            sx={{
+              styledInput,
+              width: 330,
+              marginLeft: 0,
+            }}
+            value={search}
+          ></Input>
 
-            <IconButton aria-label="search" sx={{ padding: 0 }}>
-              {search.length ? <HighlightOffIcon onClick={handleDelete} /> : ""}
-            </IconButton>
-            <IconButton
-              type="submit"
-              aria-label="search"
-              sx={{ marginRight: 8 }}
-            >
-              <SearchIcon />
-            </IconButton>
-          </form>
-        </div>
-      </Box>
-    </Container>
+          <IconButton aria-label="search" sx={{ padding: 0 }}>
+            {search.length ? <HighlightOffIcon onClick={handleDelete} /> : ""}
+          </IconButton>
+          <IconButton type="submit" aria-label="search" sx={{ marginRight: 8 }}>
+            <SearchIcon />
+          </IconButton>
+        </form>
+      </div>
+    </Box>
+    // </Container>
   );
 };
 

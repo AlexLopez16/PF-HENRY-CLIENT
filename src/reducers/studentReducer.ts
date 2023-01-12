@@ -62,21 +62,17 @@ export const studentReducer = (state: State = initialState, action: Action) => {
                     currentValue = action.payload;
                     users[index] = currentValue;
                 }
-            };
+            }
             return {
                 ...state,
                 user: { ...state.user.project, project: users },
             };
         case types.multipleSwitchAlumno:
-        console.log(action.payload);
-            
-        return {
+            return {
                 ...state,
-
-            }
+            };
         case types.unApplyStudent:
             const newUser: object | any = state.user;
-            // Sacamos el proyecto del cual nos dimos de baja.
             const filterProjects: object | any = state.user.project.filter(
                 (e: object | any) => e.uid != action.payload
             );
@@ -85,6 +81,12 @@ export const studentReducer = (state: State = initialState, action: Action) => {
             return {
                 ...state,
                 user: newUser,
+            };
+        case types.clearStudentAdmin:
+            return {
+                ...state,
+                users: action.payload.users,
+                total1: action.payload.total,
             };
         default:
             return state;

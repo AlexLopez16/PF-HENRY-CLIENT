@@ -168,7 +168,7 @@ const AdminReviewsFilter: FC = () => {
                 <div>
                     <form onSubmit={handleSubmit}>
                         <Input
-                            placeholder="Buscar por nombre del proyecto,compañia o estudiante"
+                            placeholder="Buscar por nombre del proyecto, compañia o estudiante"
                             onChange={(e) => handlerchanges(e.target.value)}
                             sx={{
                                 styledInput,
