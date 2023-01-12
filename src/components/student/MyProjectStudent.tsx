@@ -50,7 +50,6 @@ const MyProjectStudent: FC = () => {
     : user.project?.length
     ? user.project
     : null;
-  console.log(studentData);
   const handleClick = async (projectId: string | any) => {
     dispatch(unApplyStudent(user.id, projectId, localStorage.getItem('token')));
   };

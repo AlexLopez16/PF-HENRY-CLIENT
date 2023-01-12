@@ -66,7 +66,6 @@ export const deleteuser = (token: string | null, selectID: string) => {
 };
 
 export const AprovedProject = (token: string | null, selectID: string) => {
-    console.log('id', selectID);
     let id = selectID;
     return async (dispatch: Dispatch) => {
         try {
@@ -169,8 +168,6 @@ export const acceptCompany = (
     id: string,
     acept: boolean
 ) => {
-    console.log('id', id);
-
     return async (dispatch: Dispatch) => {
         try {
             dispatch({
@@ -211,8 +208,6 @@ export const rejectCompany = (
     id: string,
     acept: boolean
 ) => {
-    console.log('id', id);
-
     return async (dispatch: Dispatch) => {
         try {
             dispatch({
@@ -292,7 +287,6 @@ export const getAllReviews = (
             query = `name=${name}`;
         }
         if (limit || init) {
-            // console.log(limit, init);
             if (query) {
                 query += `&limit=${limit}&init=${init}`;
             } else {
@@ -306,7 +300,6 @@ export const getAllReviews = (
             const { data } = await axios.get(`/admin/getreviews?${query}`, {
                 headers: { 'user-token': token },
             });
-            console.log(data);
 
             dispatch({
                 type: types.getAllReviews,
@@ -338,7 +331,6 @@ export const cancelReview = (
                 type: types.AdminEliminatedReview,
                 // payload: res.data,
             });
-            console.log(res);
             dispatch({
                 type: types.responseFinished,
                 payload: res,
@@ -416,7 +408,6 @@ export const reclutamientoInProject = (
     token: string | null,
     selectID: string[]
 ) => {
-    console.log('id', selectID);
     let ids = selectID;
     return async (dispatch: Dispatch) => {
         try {
@@ -430,7 +421,6 @@ export const reclutamientoInProject = (
                     headers: { 'user-token': token },
                 }
             );
-            console.log(res.data);
 
             dispatch({
                 type: types.setReclutamientoinProject,

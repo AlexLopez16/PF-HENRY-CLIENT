@@ -61,17 +61,18 @@ const ProjectsStudents: FC = () => {
     data: {
       id: string;
       rol: string;
-      email:any
+      email: any
     };
   }
 
-  const { status, data }:props = useSelector((state: State) => state.auth);
+  const { status, data }: props = useSelector((state: State) => state.auth);
+  const { user } = useSelector((state: State) => state.student);
 
-
-   useEffect (()=>{
- data.rol === "STUDENT_ROL" && !data.email
- ? Alert3(data.id):""
- },[])
+  useEffect(() => {
+    data.rol === "STUDENT_ROL" && user.email === null
+      ? Alert3(data.id)
+      : ""
+  }, [])
 
   if (status === 401) {
     localStorage.clear();
@@ -93,7 +94,7 @@ const ProjectsStudents: FC = () => {
         <PreLoader />
         <StudentsFilter />
         <Pages />
-       
+
         <Container maxWidth="lg">
           {info.length ? (
             info.map((e: any) => (

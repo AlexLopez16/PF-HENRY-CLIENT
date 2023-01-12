@@ -56,7 +56,6 @@ const AdminReviews: FC = ({ ...rest }) => {
     };
   }, [dispatch, token]);
 
-  console.log(reviews);
   let target: object[] = reviews;
 
   const [selectedCustomerIds, setSelectedCustomerIds] = useState<string[]>([]);

@@ -52,8 +52,6 @@ export const HeaderFormAdmin: FC<Props> = ({
     const { image } = user;
     const token = localStorage.getItem('token') || '';
     const [pais, setPais] = useState(country);
-    console.log(user);
-    
 
     const handlerEdit = () => {
         setEdit({

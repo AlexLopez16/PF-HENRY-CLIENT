@@ -13,11 +13,8 @@ export const HomePage = () => {
     const { rol }: string | any = useSelector(
         (state: State | any) => state.auth.data
     );
-    console.log(rol);
 
     let role = rol;
-
-    console.log(role);
 
     return role === 'STUDENT_ROL' ? (
         <>

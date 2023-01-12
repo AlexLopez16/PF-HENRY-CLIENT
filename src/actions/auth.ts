@@ -16,11 +16,8 @@ export const validaToken = (token: string) => {
             const { data, status } = await axios.get('/token', {
                 headers: { 'user-token': token },
             });
-            // console.log(data);
             const { id, rol, state } = data;
             if (status) {
-                // console.log(status);
-                // console.log(rol);
                 localStorage.setItem('token', token);
                 dispatch(login({ data, status, id, rol, userState: state }));
             }
@@ -99,7 +96,6 @@ export const isVerify = (email: string | any) => {
             const res = await axios.get(`/account/confirm/isverify/${email}`);
         } catch (error: object | any) {
             // Guardamos respuesta de la request.
-            // console.log(error);
             dispatch({
                 type: types.responseFinished,
                 payload: error.response,
@@ -239,7 +235,6 @@ export const recoverPassword = (password: string, token: string | any) => {
                 type: types.responseFinished,
                 payload: res,
             });
-            // console.log(res.data);
         } catch (error: any) {
             // console.log(error);
             dispatch({

@@ -61,12 +61,10 @@ const AdminCompany: FC = () => {
     dispatch(disableCompany(token, selectID));
   };
   const handleaccept = (id: string) => {
-    console.log(id);
     dispatch(acceptCompany(token, id, true));
   };
 
   const handlecancel = (id: string) => {
-    console.log(id);
     dispatch(rejectCompany(token, id, false));
   };
 
@@ -130,11 +128,12 @@ const AdminCompany: FC = () => {
 
                     <TableCell>{user.state ? "Activo" : "Inactivo"}</TableCell>
 
-                    <TableCell>
-                      {user.admission
-                        ? `${moment(user.admission).format("DD/MM/YYYY")}`
-                        : "No registrado"}
-                    </TableCell>
+                  <TableCell>
+                    {user?.admission
+                      // ? `${moment(user.admission).format("DD/MM/YYYY")}`
+                      ? `${new Date(user.admission).toLocaleDateString()}`
+                      : "No registrado"}
+                  </TableCell>
 
                     <FormGroup
                       sx={{

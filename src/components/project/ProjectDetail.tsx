@@ -59,9 +59,6 @@ const ProjectDetail: FC<ProjectProps> = ({
   const { user }: any = useSelector((state: State) => state.student);
   const { user: company } = useSelector((state: State) => state.company);
 
-  console.log({ company });
-  console.log({ name });
-
   const navigate = useNavigate();
 
   const GoBack = () => {

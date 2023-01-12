@@ -183,8 +183,6 @@ const Postulated: FC = ({ ...rest }) => {
         );
     };
 
-    console.log(selectedCustomerIdPostulated);
-
     //ACTIVA O DESACTIVA EL BOTON DE ACEPTARLO
     let encuentra = false;
     let idpostulados: string[] = [];

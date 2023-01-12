@@ -244,11 +244,14 @@ const AdminProject: FC = ({ ...rest }) => {
                       {projects?.state === true ? "Activo" : "Inactivo"}
                     </TableCell>
 
-                    <TableCell>
-                      {projects?.admission
-                        ? `${moment(projects?.admission).format("DD/MM/YYYY")}`
-                        : "No registrado"}
-                    </TableCell>
+                                            <TableCell>
+                                                {projects.admission
+                                                    // ? `${moment(
+                                                    //       projects.admission
+                                                    //   ).format('DD/MM/YYYY')}`
+                                                    ? `${new Date(projects.admission).toLocaleDateString()}`
+                                                    : 'No registrado'}
+                                            </TableCell>
 
                     <FormGroup
                       sx={{
@@ -261,7 +264,7 @@ const AdminProject: FC = ({ ...rest }) => {
                       <FormControlLabel
                         control={
                           <Switch
-                            checked={projects.state}
+                            checked={projects?.state}
                             size="small"
                             color="primary"
                             onChange={() => handleSwitch(projects?.uid)}

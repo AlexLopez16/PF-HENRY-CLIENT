@@ -1,9 +1,11 @@
+import { useEffect } from 'react';
 import { Box, Button, Container, Paper } from '@mui/material';
 import NavBar from '../components/NavBar/NavBar';
 import { useSelector, useDispatch } from 'react-redux';
 import { State } from '../reducers/rootReducer';
 import { validaToken } from '../actions/auth';
 import { useNavigate } from 'react-router';
+import { companyGetInfo } from '../actions/company';
 import bgDetailCompany from '../assets/bgDetailCompany.png';
 
 export const Checkout = () => {
@@ -42,6 +44,11 @@ export const Checkout = () => {
     borderRadius: '20px',
     backgroundColor: 'black',
   };
+
+    useEffect(() => {
+        dispatch(companyGetInfo(data?.id, token))
+    }, [])
+
 
   return (
     <>
