@@ -9,11 +9,12 @@ import { useTheme } from '@emotion/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCharts } from '../../../actions/Admin';
 import { PreLoader } from '../../PreLoader/PreLoader';
+import { State } from '../../../reducers/rootReducer';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const ChartsAdmin: FC = () => {
-    const { data } = useSelector((state: any) => state.admin);
+    const { data } = useSelector((state: State) => state.admin);
     const dispatch = useDispatch();
     const theme: any = useTheme();
     let token = localStorage.getItem('token');
@@ -21,50 +22,53 @@ const ChartsAdmin: FC = () => {
     const sx = {
         py: 5,
         boxShadow: 0,
+        display: 'flex',
+        flexDirection: 'column',
         textAlign: 'center',
         justifyContent: 'center',
+        alignItems: 'center',
+        height: '430px',
+        background: 'rgba(255,255,255,.9)'
     };
 
     useEffect(() => {
         dispatch(getCharts(token));
     }, [dispatch]);
 
-    // console.log(data?.students.state);
-
-    if (!data.students) {
+    if (!data?.students) {
         return <></>;
-    }
+    }    
 
     return (
-        <Box sx={{height: '900px'}}>
-            <PreLoader />
+        <>
             <Grid container spacing={3}>
-                <Grid item md={4}>
+                <Grid item xs={12} md={6}>
                     <Card sx={sx}>
                         <Typography>Estudiantes</Typography>
-                        <Doughnut data={data.students.state} />
+                        <Doughnut data={data.students.state}/>
                     </Card>
                 </Grid>
-                <Grid item md={4}>
-                    <Card sx={sx}>
-                        <Typography>Compañias</Typography>
-                        <Doughnut data={data.companies.state} />
-                    </Card>
-                </Grid>
-                <Grid item md={4}>
-                    <Card sx={sx}>
-                        <Typography>Compañias</Typography>
-                        <Doughnut data={data.companies.premium} />
-                    </Card>
-                </Grid>
-                <Grid item md={4}>
+                <Grid item xs={12} md={6}>
                     <Card sx={sx}>
                         <Typography>Proyectos</Typography>
                         <Doughnut data={data.projects.state} />
                     </Card>
                 </Grid>
+                <Grid item xs={12} md={6}>
+                    <Card sx={sx}>
+                        <Typography>Compañias</Typography>
+                        <Doughnut data={data.companies.state} />
+                    </Card>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                    <Card sx={sx}>
+                        <Typography>Compañias</Typography>
+                        <Doughnut data={data.companies.premium} />
+                    </Card>
+                </Grid>
             </Grid>
-        </Box>
+            <PreLoader />
+        </>
     );
 };
 

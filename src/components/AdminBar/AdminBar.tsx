@@ -180,7 +180,7 @@ export default function AccountMenu() {
                                 {/* <ListItemIcon>
                                 <FolderIcon fontSize="small" />
                             </ListItemIcon> */}
-                                Postulaciones: {user?.project?.length ? user?.project?.length : 0}/3
+                                Postulaciones: {user?.project?.length ? user?.project?.length : 0}/{user.premium===false?"1":"3"}
                             </MenuItem>
                         </>
                     ) : data.verify && rol === 'COMPANY_ROL' ? (

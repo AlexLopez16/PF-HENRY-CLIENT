@@ -8,23 +8,25 @@ import {
 } from "../../../actions/company";
 import * as moment from "moment";
 import {
-    Avatar,
-    Card,
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableRow,
-    Typography,
-    FormControlLabel,
-    Switch,
-    FormGroup,
-    Container,
-    ListItemButton,
-    Collapse,
-    IconButton,
-  } from "@mui/material";
-import FilterListIcon from '@mui/icons-material/FilterList';
+  Avatar,
+  Card,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Typography,
+  FormControlLabel,
+  Switch,
+  FormGroup,
+  Container,
+  ListItemButton,
+  Collapse,
+  IconButton,
+  Stack,
+  Alert,
+} from "@mui/material";
+import FilterListIcon from "@mui/icons-material/FilterList";
 import { State } from "../../../reducers/rootReducer";
 import { validaToken } from "../../../actions/auth";
 import React from "react";
@@ -54,9 +56,6 @@ const AdminCompany: FC = () => {
     };
   }, [dispatch]);
 
-  const [selectedCustomerIds, setSelectedCustomerIds] = useState<any[]>([]);
-  const [open, setOpen] = useState(false);
-  const [checked, setChecked] = React.useState(true);
 
   const handleDisable = (selectID: string) => {
     dispatch(disableCompany(token, selectID));
@@ -83,63 +82,53 @@ const AdminCompany: FC = () => {
             marginLeft: 0,
           }}
         >
-          <ListItemButton onClick={() => setOpen(!open)} sx={{ maxWidth: 350 }}>
-            {open ? (
-              <FilterListIcon> </FilterListIcon>
-            ) : (
-              <FilterListIcon> </FilterListIcon>
-            )}
-          </ListItemButton>{" "}
-          <Collapse
-            in={open}
-            timeout="auto"
-            unmountOnExit
-            orientation="horizontal"
-          >
-            <AdminFilterCompany />
-          </Collapse>
+          <AdminFilterCompany />
         </Container>
-        <Box sx={{ minWidth: 900 }}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Nombre</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>Locación</TableCell>
-                <TableCell>Estado</TableCell>
-                <TableCell>Fecha Registro</TableCell>
-                <TableCell>Cambiar Estado</TableCell>
-                <TableCell>Aceptar</TableCell>
-                <TableCell>Rechazar</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {users?.map((user: any) => (
-                <TableRow
-                  hover
-                  key={user.uid}
-                >
-                  <TableCell>
-                    <Box
-                      sx={{
-                        alignItems: "center",
-                        display: "flex",
-                      }}
-                    >
-                      <Avatar src={user.image} sx={{ mr: 2 }}>
-                        {user.name[0]}
-                      </Avatar>
-                      <Typography color="textPrimary" variant="body1">
-                        {user.name}
-                      </Typography>
-                    </Box>
-                  </TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>
-                    {user.country ? user.country : "No registrado"}
-                  </TableCell>
+        {!users.length ? (
+          <TableBody>
+            <Stack sx={{ width: "100%" }} spacing={1}>
+              <Alert severity="info">No se encontro la compañia!</Alert>
+            </Stack>
+          </TableBody>
+        ) : (
+          <Box sx={{ minWidth: 900 }}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Nombre</TableCell>
+                  <TableCell>Email</TableCell>
+                  <TableCell>Locación</TableCell>
+                  <TableCell>Estado</TableCell>
+                  <TableCell>Fecha Registro</TableCell>
+                  <TableCell>Cambiar Estado</TableCell>
+                  <TableCell>Aceptar</TableCell>
+                  <TableCell>Rechazar</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {users?.map((user: any) => (
+                  <TableRow hover key={user.uid}>
+                    <TableCell>
+                      <Box
+                        sx={{
+                          alignItems: "center",
+                          display: "flex",
+                        }}
+                      >
+                        <Avatar src={user.image} sx={{ mr: 2 }}>
+                          {user.name[0]}
+                        </Avatar>
+                        <Typography color="textPrimary" variant="body1">
+                          {user.name}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                    <TableCell>{user.email}</TableCell>
+                    <TableCell>
+                      {user.country ? user.country : "No registrado"}
+                    </TableCell>
 
-                  <TableCell>{user.state ? "Activo" : "Inactivo"}</TableCell>
+                    <TableCell>{user.state ? "Activo" : "Inactivo"}</TableCell>
 
                   <TableCell>
                     {user?.admission
@@ -148,50 +137,51 @@ const AdminCompany: FC = () => {
                       : "No registrado"}
                   </TableCell>
 
-                  <FormGroup
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      mt: 3,
-                    }}
-                  >
-                    <FormControlLabel
-                      control={
-                        <Switch
-                          defaultChecked={user.state ? true : false}
-                          size="small"
-                          color="primary"
-                          onChange={() => handleDisable(user.uid)}
+                    <FormGroup
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        mt: 3,
+                      }}
+                    >
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            defaultChecked={user.state ? true : false}
+                            size="small"
+                            color="primary"
+                            onChange={() => handleDisable(user.uid)}
+                          />
+                        }
+                        label={undefined}
+                      />
+                    </FormGroup>
+
+                    <TableCell>
+                      <IconButton disabled={user.verify === true}>
+                        <CheckIcon
+                          sx={{ cursor: "pointer" }}
+                          onClick={() => handleaccept(user.uid)}
                         />
-                      }
-                      label={undefined}
-                    />
-                  </FormGroup>
+                      </IconButton>
+                    </TableCell>
 
-                  <TableCell>
-                    <IconButton disabled={user.verify === true}>
-                      <CheckIcon
-                        sx={{ cursor: "pointer" }}
-                        onClick={() => handleaccept(user.uid)}
-                      />
-                    </IconButton>
-                  </TableCell>
-
-                  <TableCell>
-                    <IconButton disabled={user.verify === true}>
-                      <CloseIcon
-                        sx={{ cursor: "pointer" }}
-                        onClick={() => handlecancel(user.uid)}
-                      />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-          <Pages />
-        </Box>
+                    <TableCell>
+                      <IconButton disabled={user.verify === true}>
+                        <CloseIcon
+                          sx={{ cursor: "pointer" }}
+                          onClick={() => handlecancel(user.uid)}
+                        />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+            <Pages />
+          </Box>
+        )}
       </Card>
     </>
   );
