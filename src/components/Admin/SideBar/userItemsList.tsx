@@ -4,16 +4,23 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
-  Avatar,
-  MenuItem,
 } from "@mui/material";
-import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import { NavLink } from "react-router-dom";
 import { FC, useEffect, useState } from "react";
-import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../../reducers/rootReducer";
 import { getInfoAdmin } from "../../../actions/Admin";
+import {
+  ExpandLess,
+  ExpandMore,
+  DashboardTwoTone,
+  AssignmentIndTwoTone,
+  BusinessCenterTwoTone,
+  SupervisorAccountTwoTone,
+  RateReviewTwoTone,
+  AssignmentTwoTone,
+  AssignmentTurnedInTwoTone,
+} from "@mui/icons-material";
 
 const linkStyle = {
   textDecoration: "none",
@@ -32,22 +39,27 @@ const buttons = [
   {
     option: "Inicio",
     path: "/dashboard/graphs",
+    icon: <DashboardTwoTone />,
   },
   {
     option: "Alumnos",
     path: "/dashboard/students",
+    icon: <AssignmentIndTwoTone />,
   },
   {
     option: "Compañias",
     path: "/dashboard/companies",
+    icon: <BusinessCenterTwoTone />,
   },
   {
     option: "Admins",
     path: "/dashboard/admins",
+    icon: <SupervisorAccountTwoTone />,
   },
   {
     option: "Reviews",
     path: "/dashboard/getreviews",
+    icon: <RateReviewTwoTone />,
   },
 ];
 
@@ -61,7 +73,7 @@ const UserItemsList: FC = () => {
 
   useEffect(() => {
     dispatch(getInfoAdmin(id, token));
-  });
+  }, []);
   const handleClick = () => {
     setOpen(!open);
   };
@@ -75,7 +87,7 @@ const UserItemsList: FC = () => {
               style={({ isActive }) => (isActive ? activeLinkStyle : linkStyle)}
             >
               <ListItemButton>
-                <FormatListBulletedIcon />
+                {button.icon}
                 <ListItemText primary={button.option} sx={{ pl: 2 }} />
               </ListItemButton>
             </NavLink>
@@ -93,7 +105,7 @@ const UserItemsList: FC = () => {
             style={({ isActive }) => (isActive ? activeLinkStyle : linkStyle)}
           >
             <ListItemButton sx={{ pl: 6 }}>
-              <FormatListBulletedIcon />
+              <AssignmentTwoTone />
               <ListItemText primary="Proyectos" sx={{ pl: 2 }} />
             </ListItemButton>
           </NavLink>
@@ -104,7 +116,7 @@ const UserItemsList: FC = () => {
             style={({ isActive }) => (isActive ? activeLinkStyle : linkStyle)}
           >
             <ListItemButton sx={{ pl: 6 }}>
-              <FormatListBulletedIcon />
+              <AssignmentTurnedInTwoTone />
               <ListItemText primary="Aceptacion de proyectos" sx={{ pl: 2 }} />
             </ListItemButton>
           </NavLink>

@@ -380,7 +380,8 @@ export const disableAdmin = (token: string | null, id: string) => {
             );
 
             dispatch({
-                type: types.deleteOrInactiveStudent,
+                type: types.disableAdmin,
+                payload: data
             });
         } catch (error) {
             console.log(error);
