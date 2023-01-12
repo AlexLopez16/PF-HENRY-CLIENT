@@ -93,18 +93,34 @@ export const projectReducer = (state: State = initialState, action: Action) => {
             };
 
         case types.AdminAprovedProject:
-            let newProjects: any[] = state.projectsFilter;
-            for (let index = 0; index < newProjects.length; index++) {
-                let currentValue = newProjects[index];
-                if (currentValue.uid === action.payload.uid) {
-                    currentValue = action.payload;
-                    newProjects[index] = currentValue;
-                }
-            }
+            // let newProjects: any[] = state.projectsFilter;
+            // for (let index = 0; index < newProjects.length; index++) {
+            //     let currentValue = newProjects[index];
+            //     if (currentValue.uid === action.payload.uid) {
+            //         currentValue = action.payload;
+            //         newProjects[index] = currentValue;
+            //     }
+            // }
 
+
+            const actualrec = state.projectsFilter.map((project: any) => {
+                let value = { ...project }
+                if (project.uid === action.payload.uid) {
+
+                    return value = action.payload
+                }
+
+                return value
+            })
+console.log(action.payload);
+
+            // return {
+            //     ...state,
+            //     user: newProjects,
+            // };
             return {
                 ...state,
-                user: newProjects,
+                projectsFilter:actualrec
             };
 
         case types.AdminEliminatedProject:
@@ -125,17 +141,23 @@ export const projectReducer = (state: State = initialState, action: Action) => {
             };
 
         case types.deleteOrInactiveStudent:
-            let pr: any;
-            for (pr in state.projectsFilter) {
-                if (pr.uid === action.payload.uid) {
-                    pr = action.payload;
-                }
-            }
+            const actual = state.projectsFilter.map((project: any) => {
+                let value = { ...project }
+                if (project.uid === action.payload.uid) {
 
+                    return value = action.payload
+
+                }
+
+                return value
+            })
             return {
                 ...state,
-                projectsFilter: [...state.projectsFilter],
+                // projectsFilter: [...state.projectsFilter, ...action.payload],
+                projectsFilter: actual,
+
             };
+
 
         default:
             return state;

@@ -17,7 +17,7 @@ import {
 
 import { buttonStyle } from '../../styles/Profile/HeaderFormStyles';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { postReview } from '../../actions/revius';
 import TextField from '@mui/material/TextField';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
@@ -71,7 +71,7 @@ function IconContainer(props: IconContainerProps) {
 export const RatingMail = () => {
     const [ratingProject, setRatingProject] = React.useState<number | null>(2);
     const [ratingCompany, setRatingCompany] = React.useState<number | null>(2);
-
+    const Navigate = useNavigate();
     const dispatch = useDispatch();
 
     type Values = {
@@ -109,6 +109,7 @@ export const RatingMail = () => {
         };
 
         dispatch(postReview(data, tok));
+        Navigate('/myprojects');
     };
 
     return (
