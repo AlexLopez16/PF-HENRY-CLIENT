@@ -216,8 +216,8 @@ export const RatingMail = () => {
                     />
                   </div>
                 </Box>
-                <Form>
-                  <Box sx={{ width: '100%', maxWidth: 500 }}>
+                {/* <Form> */}
+                {/* <Box sx={{ width: '100%', maxWidth: 500 }}>
                     <div>
                       <Typography variant='h6'>{`${project}`}:</Typography>
                     </div>
@@ -247,62 +247,62 @@ export const RatingMail = () => {
                         }
                       />
                     </div>
-                  </Box>
+                  </Box> */}
 
-                  <Typography
-                    component='legend'
-                    sx={{
-                      fontFamily: 'montserrat',
-                    }}
-                  >
-                    Nivel de satisfaccion con la empresa
-                  </Typography>
-                  <Rating
-                    name='simple-controlled'
-                    value={ratingCompany}
-                    onChange={(event, newRatingCompany) => {
-                      setRatingCompany(newRatingCompany);
-                    }}
-                  />
+                <Typography
+                  component='legend'
+                  sx={{
+                    fontFamily: 'montserrat',
+                  }}
+                >
+                  Nivel de satisfaccion con la empresa
+                </Typography>
+                <Rating
+                  name='simple-controlled'
+                  value={ratingCompany}
+                  onChange={(event, newRatingCompany) => {
+                    setRatingCompany(newRatingCompany);
+                  }}
+                />
 
-                  <div>
-                    <Box>
-                      <Typography
-                        component='legend'
-                        sx={{
-                          fontFamily: 'montserrat',
-                        }}
-                      >
-                        Nivel de satisfaccion del proyecto
-                      </Typography>
-                      <Rating
-                        name='simple-controlled'
-                        value={ratingProject}
-                        onChange={(event, newRatingProject) => {
-                          setRatingProject(newRatingProject);
-                        }}
-                      />
-                    </Box>
-                    <Box
+                <div>
+                  <Box>
+                    <Typography
+                      component='legend'
                       sx={{
-                        display: 'flex',
-                        justifyContent: 'right',
+                        fontFamily: 'montserrat',
                       }}
                     >
-                      <Button
-                        type='submit'
-                        style={{
-                          fontFamily: 'poppins',
-                          borderRadius: 5,
-                        }}
-                        variant='contained'
-                      >
-                        Enviar
-                      </Button>
-                    </Box>
-                  </div>
-                </Form>
-                /
+                      Nivel de satisfaccion del proyecto
+                    </Typography>
+                    <Rating
+                      name='simple-controlled'
+                      value={ratingProject}
+                      onChange={(event, newRatingProject) => {
+                        setRatingProject(newRatingProject);
+                      }}
+                    />
+                  </Box>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'right',
+                    }}
+                  >
+                    <Button
+                      type='submit'
+                      style={{
+                        fontFamily: 'poppins',
+                        borderRadius: 5,
+                      }}
+                      variant='contained'
+                    >
+                      Enviar
+                    </Button>
+                  </Box>
+                </div>
+                {/* </Form> */}
+
               </Form>
             </Formik>
           </Paper>
