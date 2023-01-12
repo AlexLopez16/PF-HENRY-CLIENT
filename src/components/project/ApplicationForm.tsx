@@ -70,7 +70,6 @@ export const ApplicationForm: FC = () => {
     }, 1000);
     //dispatch(addStudentToProject(projectId.uid, token));
     navigate('/myprojects');
-    console.log(values);
   };
 
   return (
