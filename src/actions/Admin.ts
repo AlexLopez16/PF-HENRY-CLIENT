@@ -81,8 +81,6 @@ export const AprovedProject = (token: string | null, selectID: string) => {
                     headers: { 'user-token': token },
                 }
             );
-            console.log(res.data);
-
             dispatch({
                 type: types.AdminAprovedProject,
                 payload: res.data,

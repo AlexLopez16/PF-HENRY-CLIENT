@@ -43,6 +43,9 @@ export const acceptStudent = (
 
   return async (dispatch: Dispatch) => {
     try {
+      dispatch({
+        type: types.requestInProgress,
+      })
       const res = await axios.put(
         `/project/accept/${id}`,
         { studentId },
@@ -52,8 +55,22 @@ export const acceptStudent = (
         type: types.getProjectById,
         payload: res.data,
       });
-    } catch (error) {
+      dispatch({
+        type: types.requestFinished,
+      })
+      dispatch({
+        type: types.responseFinished,
+        payload: res,
+      })
+    } catch (error :any) {
       console.log(error);
+      dispatch({
+        type: types.requestFinished,
+      })
+      dispatch({
+        type: types.responseFinished,
+        payload: error.response,
+      })
     }
   };
 };
@@ -172,6 +189,9 @@ export const DeleteStudent = (
 ) => {
   return async (dispatch: Dispatch) => {
     try {
+      dispatch({
+        type: types.requestInProgress,
+      })
       const res = await axios.put(
         `/project/denied/${id}`,
         { studentId },
@@ -181,8 +201,22 @@ export const DeleteStudent = (
         type: types.getProjectById,
         payload: res.data,
       });
-    } catch (error) {
+      dispatch({
+        type: types.requestFinished,
+      })
+      dispatch({
+        type: types.responseFinished,
+        payload: res,
+      })
+    } catch (error: any) {
       console.log(error);
+      dispatch({
+        type: types.requestFinished,
+      })
+      dispatch({
+        type: types.responseFinished,
+        payload: error.response,
+      })
     }
   };
 };
