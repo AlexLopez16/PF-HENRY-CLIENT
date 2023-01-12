@@ -12,42 +12,48 @@ export const getListStudents = (
     name?: string,
     tecnologies?: string[]
 ) => {
-  return async (dispatch: Dispatch) => {
-    try {
-      dispatch({
-        type: types.requestInProgress,
-    });
-    //   let query;
-    //   if (!state) {
-    //     query = `onlyActive=${state}`;
-    //   }
-    //   if(name){
-    //     query += `&name=${name}`
-    //   }
-    //   if (limit || init) {
-    //     if (query) {
-    //       query += `&limit=${limit}&init=${init}`;
-    //     } else {
-    //       query = `limit=${limit}&init=${init}`;
-    //     }
-    //   }
+    return async (dispatch: Dispatch) => {
+        try {
+            dispatch({
+                type: types.requestInProgress,
+            });
+            //   let query;
+            //   if (!state) {
+            //     query = `onlyActive=${state}`;
+            //   }
+            //   if(name){
+            //     query += `&name=${name}`
+            //   }
+            //   if (limit || init) {
+            //     if (query) {
+            //       query += `&limit=${limit}&init=${init}`;
+            //     } else {
+            //       query = `limit=${limit}&init=${init}`;
+            //     }
+            //   }
 
-      const res = await axios.get(`/student`, {
-        params: {onlyActive: state, name, tecnologies: tecnologies?.join(','), limit, init},
-        headers: { "user-token": token },
-      });
+            const res = await axios.get(`/student`, {
+                params: {
+                    onlyActive: state,
+                    name,
+                    tecnologies: tecnologies?.join(','),
+                    limit,
+                    init,
+                },
+                headers: { 'user-token': token },
+            });
 
-      dispatch({
-        type: types.getListStudents,
-        payload: res.data,
-      });
-      dispatch({
-        type: types.requestFinished,
-    });
-    } catch (error: any) {
-      console.log(error);
-    }
-  };
+            dispatch({
+                type: types.getListStudents,
+                payload: res.data,
+            });
+            dispatch({
+                type: types.requestFinished,
+            });
+        } catch (error: any) {
+            console.log(error);
+        }
+    };
 };
 
 export const studentRegister = (values: object) => {
@@ -208,7 +214,11 @@ export const addStudentToProject = (id: string, token: string) => {
     };
 };
 
-export const sendResponseOfQuestions = (data: object | any, token: string, studentId: string) => {
+export const sendResponseOfQuestions = (
+    data: object | any,
+    token: string,
+    studentId: string
+) => {
     return async (dispatch: Dispatch) => {
         try {
             dispatch({
@@ -218,30 +228,30 @@ export const sendResponseOfQuestions = (data: object | any, token: string, stude
             let res = await axios.put(`/project/${data.projectId}`, undefined, {
                 headers: { 'user-token': token },
             });
-            res = await axios.post('/response', data,{
+            res = await axios.post('/response', data, {
                 headers: { 'user-token': token },
-            } )
+            });
             // res = await axios.put(`/project/${data.projectId}`, undefined, {
             //     headers: { 'user-token': token },
             // });
             dispatch({
                 type: types.responseFinished,
-                payload: res
-            })
+                payload: res,
+            });
             dispatch({
                 type: types.requestFinished,
             });
         } catch (error: any) {
             dispatch({
                 type: types.responseFinished,
-                payload: error.response
-            })
+                payload: error.response,
+            });
             dispatch({
                 type: types.requestFinished,
             });
         }
-    }
-}
+    };
+};
 
 export const unApplyStudent = (
     studentId: string | any,
@@ -311,21 +321,19 @@ export const disableStudent = (token: string | null, id: string) => {
     };
 };
 
-
 export const multiSwitchStudent = (token: string | null, id: string[]) => {
     return async (dispatch: Dispatch) => {
         try {
-            let ids=id
+            let ids = id;
             const res = await axios.put(
                 `/admin/deletemultiple`,
-                { ids},
+                { ids },
                 { headers: { 'user-token': token } }
             );
 
             dispatch({
                 type: types.multipleSwitchAlumno,
                 payload: ids,
-                
             });
             dispatch({
                 type: types.responseFinished,
@@ -337,5 +345,12 @@ export const multiSwitchStudent = (token: string | null, id: string[]) => {
             });
             console.log(error);
         }
+    };
+};
+
+export const clearStudent = () => {
+    return {
+        type: types.clearStudentAdmin,
+        payload: { users: [], total: 0 },
     };
 };
