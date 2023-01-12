@@ -209,350 +209,285 @@ const Postulated: FC = ({ ...rest }) => {
     }
     //ACTIVA O DESACTIVA EL BOTON DE ACEPTARLO
 
-    return (
-        <>
-            <Box
-
+  return (
+    <>
+      <Box
+        sx={{
+          backgroundImage: `url(${bgComponents})`,
+          pb: 30,
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-around',
+            paddingTop: 50,
+          }}
+        >
+          {' '}
+          <Grid
+            container
+            direction='column'
+            justifyContent='flex-start'
+            alignItems='center'
+          >
+            <FormControl>
+              <Button
+                startIcon={<ArrowBackIosNewIcon />}
+                onClick={GoBack}
+                size='small'
+                variant='contained'
+                color='secondary'
                 sx={{
-                    backgroundImage: `url(${bgComponents})`,
-                    pb: 15,
+                  boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+                  fontFamily: 'montserrat',
+                  fontWeight: 'bold',
+                  mb: 5,
                 }}
+              >
+                Regresar
+              </Button>
+            </FormControl>
+          </Grid>
+          <>
+            <PreLoader />
+            {/*TABLA DE STUDENT POSTULADOS*/}
+
+            <Card
+              {...rest}
+              sx={{
+                mt: 30,
+                m: 5,
+                p: 5,
+                borderRadius: 5,
+                backgroundColor: 'black',
+              }}
             >
-                <div
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'space-around',
-                        paddingTop: 50,
+              <h3
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  textAlign: 'center',
+                  marginBottom: 10,
+                  padding: 10,
+                  fontFamily: 'montserrat',
+                  border: '1px solid white',
+                  borderRadius: 20,
+                  color: '#ffff01',
+                }}
+              >
+                Postulados
+              </h3>
+              <Box sx={{ minWidth: 1050 }}>
+                <Table>
+                  <TableHead
+                    sx={{
+                      alignItems: 'center',
+                      justifyContent: 'center',
                     }}
-                >
-                    {' '}
-                    <Grid
-                        container
-                        direction="column"
-                        justifyContent="flex-start"
-                        alignItems="center"
-                    >
-                        <FormControl>
-                            <Button
-                                startIcon={<ArrowBackIosNewIcon />}
-                                onClick={GoBack}
-                                size="small"
-                                variant="contained"
-                                color="secondary"
-                                sx={{
-                                    boxShadow:
-                                        'rgba(0, 0, 0, 0.35) 0px 5px 15px',
-                                    fontFamily: 'montserrat',
-                                    fontWeight: 'bold',
-                                    mb: 5,
-                                }}
-                            >
-                                Regresar
-                            </Button>
-                        </FormControl>
-                    </Grid>
-                    <>
-                        <PreLoader />
-                        <SnackBar/>
-                        {/*TABLA DE STUDENT POSTULADOS*/}
-
-                        <Card
-                            {...rest}
-                            sx={{
-                                mt: 30,
-                                m: 5,
-                                p: 5,
-                                borderRadius: 5,
-                                backgroundColor: 'black',
-                            }}
+                  >
+                    <TableRow>
+                      <TableCell padding='checkbox'>
+                        <Checkbox
+                          sx={{
+                            color: 'white',
+                          }}
+                          checked={
+                            selectedCustomerIdPostulated.length ===
+                            projects.length
+                          }
+                          color='primary'
+                          indeterminate={
+                            selectedCustomerIdPostulated.length > 0 &&
+                            selectedCustomerIdPostulated.length <
+                              projects.length
+                          }
+                          onChange={handleSelectAllPostulated}
+                        />
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          color: 'white',
+                          textAlign: 'center',
+                        }}
+                      >
+                        <PersonIcon />
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          fontFamily: 'montserrat',
+                          fontWeight: 'bold',
+                          color: 'white',
+                          textAlign: 'center',
+                        }}
+                      >
+                        Nombre
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          fontFamily: 'montserrat',
+                          fontWeight: 'bold',
+                          color: 'white',
+                          textAlign: 'center',
+                        }}
+                      >
+                        Apellido
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          fontFamily: 'montserrat',
+                          fontWeight: 'bold',
+                          color: 'white',
+                          textAlign: 'center',
+                        }}
+                      >
+                        Email
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          fontFamily: 'montserrat',
+                          fontWeight: 'bold',
+                          color: 'white',
+                          textAlign: 'center',
+                        }}
+                      >
+                        Descripcion
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          fontFamily: 'montserrat',
+                          fontWeight: 'bold',
+                          color: 'white',
+                          textAlign: 'center',
+                        }}
+                      >
+                        Pais
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          fontFamily: 'montserrat',
+                          fontWeight: 'bold',
+                          color: 'white',
+                          textAlign: 'center',
+                        }}
+                      >
+                        Tecnologias
+                      </TableCell>
+                      {projectId?.questions?.length ? (
+                        <TableCell
+                          sx={{
+                            fontFamily: 'montserrat',
+                            fontWeight: 'bold',
+                            color: 'white',
+                            textAlign: 'center',
+                          }}
                         >
-                            {/* <Container
-  maxWidth="lg"
-  sx={{
-    display: "flex",
-    marginLeft: 0,
-  }}
->
-  <ListItemButton onClick={handlerClick} sx={{ maxWidth: 350 }}>
-    {open ? (
-      <FilterListIcon> </FilterListIcon>
-    ) : (
-      <FilterListIcon> </FilterListIcon>
-    )}
-  </ListItemButton>{" "}
-  <Collapse
-    in={open}
-    timeout="auto"
-    unmountOnExit
-    orientation="horizontal"
-  >
-    <AdminFilterProject source="adminProjects" />
-  </Collapse>
-</Container> */}
-
-                            <h3
-                                style={{
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    textAlign: 'center',
-                                    marginBottom: 10,
-                                    padding: 10,
-                                    fontFamily: 'montserrat',
-                                    border: '1px solid white',
-                                    borderRadius: 20,
-                                    color: '#ffff01',
-                                }}
+                          Respuesta
+                        </TableCell>
+                      ) : null}
+                      <TableCell
+                        sx={{
+                          fontFamily: 'montserrat',
+                          fontWeight: 'bold',
+                          color: 'white',
+                          textAlign: 'center',
+                        }}
+                      >
+                        Aceptar
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          fontFamily: 'montserrat',
+                          fontWeight: 'bold',
+                          color: 'white',
+                          textAlign: 'center',
+                        }}
+                      >
+                        Todos
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {projectId.students?.slice(0, limit).map((student: any) => (
+                      <TableRow
+                        hover
+                        key={student._id}
+                        selected={
+                          selectedCustomerIdPostulated.indexOf(student._id) !==
+                          -1
+                        }
+                      >
+                        <TableCell padding='checkbox'>
+                          <Checkbox
+                            sx={{
+                              color: 'white',
+                            }}
+                            checked={
+                              selectedCustomerIdPostulated.indexOf(
+                                student._id,
+                              ) !== -1
+                            }
+                            onChange={(_event) =>
+                              handleSelectOnePostulated(student._id)
+                            }
+                            value='true'
+                          />
+                        </TableCell>
+                        <Avatar src={student.image} sx={{ m: 1 }}></Avatar>
+                        <TableCell>
+                          <Box
+                            sx={{
+                              alignItems: 'center',
+                              display: 'flex',
+                            }}
+                          >
+                            <Typography
+                              color='textPrimary'
+                              variant='body1'
+                              sx={{
+                                fontFamily: 'montserrat',
+                                color: 'white',
+                                textAlign: 'center',
+                              }}
                             >
-                                Postulados
-                            </h3>
-                            <Box sx={{ minWidth: 1050 }}>
-                                <Table>
-                                    <TableHead
-                                        sx={{
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                        }}
-                                    >
-                                        <TableRow>
-                                            <TableCell padding="checkbox">
-                                                <Checkbox
-                                                    sx={{
-                                                        color: 'white',
-                                                    }}
-                                                    checked={
-                                                        selectedCustomerIdPostulated.length ===
-                                                        projects.length
-                                                    }
-                                                    color="primary"
-                                                    indeterminate={
-                                                        selectedCustomerIdPostulated.length >
-                                                            0 &&
-                                                        selectedCustomerIdPostulated.length <
-                                                            projects.length
-                                                    }
-                                                    onChange={
-                                                        handleSelectAllPostulated
-                                                    }
-                                                />
-                                            </TableCell>
-                                            <TableCell
-                                                sx={{
-                                                    color: 'white',
-                                                    textAlign: 'center',
-                                                }}
-                                            >
-                                                <PersonIcon />
-                                            </TableCell>
-                                            <TableCell
-                                                sx={{
-                                                    fontFamily: 'montserrat',
-                                                    fontWeight: 'bold',
-                                                    color: 'white',
-                                                    textAlign: 'center',
-                                                }}
-                                            >
-                                                Nombre
-                                            </TableCell>
-                                            <TableCell
-                                                sx={{
-                                                    fontFamily: 'montserrat',
-                                                    fontWeight: 'bold',
-                                                    color: 'white',
-                                                    textAlign: 'center',
-                                                }}
-                                            >
-                                                Apellido
-                                            </TableCell>
-                                            <TableCell
-                                                sx={{
-                                                    fontFamily: 'montserrat',
-                                                    fontWeight: 'bold',
-                                                    color: 'white',
-                                                    textAlign: 'center',
-                                                }}
-                                            >
-                                                Email
-                                            </TableCell>
-                                            <TableCell
-                                                sx={{
-                                                    fontFamily: 'montserrat',
-                                                    fontWeight: 'bold',
-                                                    color: 'white',
-                                                    textAlign: 'center',
-                                                }}
-                                            >
-                                                Descripcion
-                                            </TableCell>
-                                            <TableCell
-                                                sx={{
-                                                    fontFamily: 'montserrat',
-                                                    fontWeight: 'bold',
-                                                    color: 'white',
-                                                    textAlign: 'center',
-                                                }}
-                                            >
-                                                Pais
-                                            </TableCell>
-                                            <TableCell
-                                                sx={{
-                                                    fontFamily: 'montserrat',
-                                                    fontWeight: 'bold',
-                                                    color: 'white',
-                                                    textAlign: 'center',
-                                                }}
-                                            >
-                                                Tecnologias
-                                            </TableCell>
-                                            {projectId?.questions?.length ? (
-                                                <TableCell
-                                                    sx={{
-                                                        fontFamily:
-                                                            'montserrat',
-                                                        fontWeight: 'bold',
-                                                        color: 'white',
-                                                        textAlign: 'center',
-                                                    }}
-                                                >
-                                                    Respuesta
-                                                </TableCell>
-                                            ) : null}
-                                            <TableCell
-                                                sx={{
-                                                    fontFamily: 'montserrat',
-                                                    fontWeight: 'bold',
-                                                    color: 'white',
-                                                    textAlign: 'center',
-                                                }}
-                                            >
-                                                Aceptar
-                                            </TableCell>
-                                            <TableCell
-                                                sx={{
-                                                    fontFamily: 'montserrat',
-                                                    fontWeight: 'bold',
-                                                    color: 'white',
-                                                    textAlign: 'center',
-                                                }}
-                                            >
-                                                Todos
-                                            </TableCell>
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        {projectId.students
-                                            ?.slice(0, limit)
-                                            .map((student: any) => (
-                                                <TableRow
-                                                    hover
-                                                    key={student._id}
-                                                    selected={
-                                                        selectedCustomerIdPostulated.indexOf(
-                                                            student._id
-                                                        ) !== -1
-                                                    }
-                                                >
-                                                    <TableCell padding="checkbox">
-                                                        <Checkbox
-                                                            sx={{
-                                                                color: 'white',
-                                                            }}
-                                                            checked={
-                                                                selectedCustomerIdPostulated.indexOf(
-                                                                    student._id
-                                                                ) !== -1
-                                                            }
-                                                            onChange={(
-                                                                _event
-                                                            ) =>
-                                                                handleSelectOnePostulated(
-                                                                    student._id
-                                                                )
-                                                            }
-                                                            value="true"
-                                                        />
-                                                    </TableCell>
-                                                    <TableCell>
-
-                                                    
-                                                    <Box
-                                                            sx={{
-                                                                display: 'flex',
-                                                                justifyContent:
-                                                                    'center',
-                                                                alignItems:
-                                                                    'center',
-                                                                // backgroundColor: 'red'
-                                                            }}
-                                                        >
-
-                                                    <Avatar
-                                                        src={student.image}
-                                                        sx={{ m: 1 }}
-                                                        ></Avatar>
-                                                        </Box>
-                                                        </TableCell>
-                                                    <TableCell>
-                                                        {/* <Box
-                                                            sx={{
-                                                                alignItems:
-                                                                    'center',
-                                                                display: 'flex',
-                                                            }}
-                                                        > */}
-                                                            <Typography
-                                                                color="textPrimary"
-                                                                variant="body1"
-                                                                sx={{
-                                                                    fontFamily:
-                                                                        'montserrat',
-                                                                    color: 'white',
-                                                                    textAlign:
-                                                                        'center',
-                                                                }}
-                                                            >
-                                                                {student.name
-                                                                    ? student.name
-                                                                    : student.username}
-                                                            </Typography>
-                                                        {/* </Box> */}
-                                                    </TableCell>
-                                                    <TableCell
-                                                        sx={{
-                                                            fontFamily:
-                                                                'montserrat',
-                                                            color: 'white',
-                                                            textAlign: 'center',
-                                                        }}
-                                                    >
-                                                        {student.lastName
-                                                            ? student.lastName
-                                                            : 'Aun no posee apellido'}
-                                                    </TableCell>
-                                                    <TableCell
-                                                        sx={{
-                                                            fontFamily:
-                                                                'montserrat',
-                                                            color: 'white',
-                                                            textAlign: 'center',
-                                                        }}
-                                                    >
-                                                        {student.email
-                                                            ? student.email
-                                                            : 'Aun no posee e-mail'}
-                                                    </TableCell>
-                                                    <TableCell
-                                                        sx={{
-                                                            fontFamily:
-                                                                'montserrat',
-                                                            color: 'white',
-                                                            textAlign: 'center',
-                                                        }}
-                                                    >
-                                                        {student.description
-                                                            ? student.description
-                                                            : 'Aun no posee descripcion'}
-                                                    </TableCell>
+                              {student.name ? student.name : student.username}
+                            </Typography>
+                          </Box>
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            fontFamily: 'montserrat',
+                            color: 'white',
+                            textAlign: 'center',
+                          }}
+                        >
+                          {student.lastName
+                            ? student.lastName
+                            : 'Aun no posee apellido'}
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            fontFamily: 'montserrat',
+                            color: 'white',
+                            textAlign: 'center',
+                          }}
+                        >
+                          {student.email
+                            ? student.email
+                            : 'Aun no posee e-mail'}
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            fontFamily: 'montserrat',
+                            color: 'white',
+                            textAlign: 'center',
+                          }}
+                        >
+                          {student.descripcion
+                            ? student.descripcion
+                            : 'Aun no posee descripcion'}
+                        </TableCell>
 
                                                     <TableCell
                                                         sx={{
