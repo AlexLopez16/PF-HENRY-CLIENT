@@ -30,7 +30,7 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ImageIcon from '@mui/icons-material/Image';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import bg from '../../assets/bg.png';
-import bgFormProyect from '../../assets/bgFormProyect.png';
+import bgForm from '../../assets/bgForm.png';
 import { newProject } from '../../actions/projects';
 import Error from '../ui/Error';
 import deleteIcon from '../../assets/delete-icon.svg';
@@ -232,7 +232,7 @@ const ProjectForm: FC = () => {
               m: '50px auto',
               mb: 10,
               mt: 10,
-              backgroundImage: `url(${bgFormProyect})`,
+              backgroundImage: `url(${bgForm})`,
               borderRadius: 15,
             }}
           >
