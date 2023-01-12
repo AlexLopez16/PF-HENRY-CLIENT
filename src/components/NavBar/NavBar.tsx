@@ -113,150 +113,142 @@ const NavBar: FC = () => {
         display: 'flex',
       }}
     >
-      <Container
+      <Box
         sx={{
           display: 'flex',
           justifyContent: 'space-around',
         }}
       >
-        <Box
+        <Typography
+          variant='h4'
+          noWrap
+          onClick={() => navigate('/projects')}
           sx={{
             display: 'flex',
+            textDecoration: 'none',
+            alignItems: 'center',
+            cursor: 'pointer',
           }}
         >
-          <Toolbar disableGutters>
-            <Typography
-              variant='h4'
-              noWrap
-              onClick={() => navigate('/projects')}
-              sx={{
-                display: 'flex',
-                textDecoration: 'none',
-                cursor: 'pointer',
-              }}
+          <img
+            src={logoBlackNav}
+            style={{
+              height: 50,
+              width: 150,
+            }}
+          />
+        </Typography>
+        <Toolbar disableGutters>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: 'flex', md: 'none' },
+            }}
+          >
+            <IconButton
+              size='large'
+              aria-label='account of current user'
+              aria-controls='menu-appbar'
+              aria-haspopup='true'
+              onClick={handleOpenNavMenu}
+              color='inherit'
             >
-              <img
-                src={logoBlackNav}
-                style={{
-                  height: '50%',
-                  width: '50%',
-                }}
-              />
-            </Typography>
-
-            <Box
-              sx={{
-                flexGrow: 1,
-                display: { xs: 'flex', md: 'none' },
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id='menu-appbar'
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
               }}
-            >
-              <IconButton
-                size='large'
-                aria-label='account of current user'
-                aria-controls='menu-appbar'
-                aria-haspopup='true'
-                onClick={handleOpenNavMenu}
-                color='inherit'
-              >
-                <MenuIcon />
-              </IconButton>
-              <Menu
-                id='menu-appbar'
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{
-                  display: { xs: 'block', md: 'none' },
-                }}
-              >
-                {buttonList.map((button) => (
-                  <Link key={button.option} to={button.path}>
-                    <MenuItem onClick={handleCloseNavMenu}>
-                      <Typography textAlign='center'>
-                        {button.option}
-                      </Typography>
-                    </MenuItem>
-                  </Link>
-                ))}
-              </Menu>
-            </Box>
-
-            <Typography
-              variant='h5'
-              noWrap
-              onClick={() => navigate('/projects')}
-              sx={{
-                mr: 2,
-                display: { xs: 'flex', md: 'none' },
-                flexGrow: 1,
-                fontFamily: 'montserrat',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-                cursor: 'pointer',
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
               }}
-            >
-              {/* LOGO */}
-            </Typography>
-            <Typography
-              variant='h5'
-              noWrap
-              onClick={() => navigate('/projects')}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
               sx={{
-                mr: 2,
-                display: { xs: 'flex', md: 'none' },
-                flexGrow: 1,
-                fontFamily: 'montserrat',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-                cursor: 'pointer',
-              }}
-            ></Typography>
-
-            <Box
-              sx={{
-                flexGrow: 1,
-                display: { xs: 'none', md: 'flex', fontFamily: 'poppins' },
+                display: { xs: 'block', md: 'none' },
               }}
             >
               {buttonList.map((button) => (
                 <Link key={button.option} to={button.path}>
-                  <Button
-                    onClick={handleCloseNavMenu}
-                    sx={{
-                      m: 2,
-                      color: 'black',
-                      fontFamily: 'poppins',
-                      display: 'flex',
-                      justifyContent: 'space-evenly',
-                      border: '1px solid black',
-                      '&:hover .MuiOutlinedInput-notchedOutline': {
-                        borderColorHover: '#ffff01',
-                      },
-                    }}
-                  >
-                    {button.option}
-                  </Button>
+                  <MenuItem onClick={handleCloseNavMenu}>
+                    <Typography textAlign='center'>{button.option}</Typography>
+                  </MenuItem>
                 </Link>
               ))}
-            </Box>
+            </Menu>
+          </Box>
 
-            <AccountMenu />
-          </Toolbar>
-        </Box>
-      </Container>
+          <Typography
+            variant='h5'
+            noWrap
+            onClick={() => navigate('/projects')}
+            sx={{
+              mr: 2,
+              display: { xs: 'flex', md: 'none' },
+              flexGrow: 1,
+              fontFamily: 'montserrat',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+              cursor: 'pointer',
+            }}
+          >
+            {/* LOGO */}
+          </Typography>
+          <Typography
+            variant='h5'
+            noWrap
+            onClick={() => navigate('/projects')}
+            sx={{
+              mr: 2,
+              display: { xs: 'flex', md: 'none' },
+              flexGrow: 1,
+              fontFamily: 'montserrat',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+              cursor: 'pointer',
+            }}
+          ></Typography>
+
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: 'none', md: 'flex', fontFamily: 'poppins' },
+            }}
+          >
+            {buttonList.map((button) => (
+              <Link key={button.option} to={button.path}>
+                <Button
+                  onClick={handleCloseNavMenu}
+                  sx={{
+                    m: 2,
+                    color: 'black',
+                    fontFamily: 'poppins',
+                    display: 'flex',
+                    justifyContent: 'space-evenly',
+                    border: '1px solid black',
+                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                      borderColorHover: '#ffff01',
+                    },
+                  }}
+                >
+                  {button.option}
+                </Button>
+              </Link>
+            ))}
+          </Box>
+
+          <AccountMenu />
+        </Toolbar>
+      </Box>
     </AppBar>
   );
 };
