@@ -359,18 +359,34 @@ export const clearProject = () => {
 export const changeStateOfProject = (id: string, token: string, state: string) => {
     return async (dispatch: Dispatch) => {
         try {
+            dispatch({
+                type: types.requestInProgress,
+            })
             const res = await axios.put(
                 `/project/edit/${id}`,
                 { stateOfProject: `${state}` },
                 { headers: { 'user-token': token } }
             );
-
             dispatch({
                 type: types.getProjectById,
                 payload: res.data,
             });
-        } catch (error) {
+            dispatch({
+                type: types.requestFinished,
+            })
+            dispatch({
+                type: types.responseFinished,
+                payload: res,
+            })
+        } catch (error: any) {
             console.log(error);
+            dispatch({
+                type: types.requestFinished,
+            })
+            dispatch({
+                type: types.responseFinished,
+                payload: error.response,
+            })
         }
     };
 };

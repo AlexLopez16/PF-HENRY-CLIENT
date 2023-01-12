@@ -48,6 +48,7 @@ import { CompanyDetail } from '../components/company/CompanyDetail';
 import AdminPanel from '../components/Admin/AdminPanel/AdminPanel';
 import AdminForm from '../components/Admin/AdminPanel/AdminForm';
 import { VerifyEmailCompany } from '../components/VerifyEmail/VerifyEmailCompany';
+import { PreLoader } from '../components/PreLoader/PreLoader';
 
 export const AppRouter = () => {
     let { id } = useParams();
@@ -296,7 +297,6 @@ export const AppRouter = () => {
                         element={<PasswordRecover />}
                     />
                     <Route path="/p" element={<ProjectsStudents />} />
-                    <Route path="/getreviews" element={<AdminReviews />} />
                     <Route
                         path="/postulated/:id"
                         element={
