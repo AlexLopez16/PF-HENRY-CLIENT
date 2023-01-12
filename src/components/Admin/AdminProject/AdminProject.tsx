@@ -13,8 +13,6 @@ import {
   FormControlLabel,
   FormGroup,
   Container,
-  ListItemButton,
-  Collapse,
   Checkbox,
 } from "@mui/material";
 import { State } from "../../../reducers/rootReducer";
@@ -30,7 +28,6 @@ export interface Options {
   delimiter?: string;
   transform?: (part: string, index: number, parts: string[]) => string;
 }
-import FilterListIcon from "@mui/icons-material/FilterList";
 import { validaToken } from "../../../actions/auth";
 import Stack from "@mui/material/Stack/Stack";
 import Alert from "@mui/material/Alert/Alert";

@@ -164,7 +164,7 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
     : (proyectos = projects);
   return (
     <>
-      <PreLoader />
+      {/* <PreLoader /> */}
       <Card {...rest}>
         <Container
           maxWidth="lg"

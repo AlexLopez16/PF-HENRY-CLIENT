@@ -14,6 +14,7 @@ import {
 import aboutbg from '../../assets/aboutbg.png';
 import IgnacioSanchez from '../../assets/team/nachito.png';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import Footer from '../LandingPage/Footer';
 
 export default function Nachito() {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ export default function Nachito() {
     navigate('/AboutUs');
   };
   return (
+    <>
     <Grid
       container
       direction='column'
@@ -155,5 +157,7 @@ export default function Nachito() {
         </Button>
       </FormControl>
     </Grid>
+    <Footer />
+    </>
   );
 }

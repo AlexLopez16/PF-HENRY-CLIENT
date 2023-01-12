@@ -25,6 +25,7 @@ interface Props {
   country?: string;
   image?: string;
   website?: string;
+  email?:string;
 }
 
 export const HeaderCompany: FC<Props> = ({
@@ -34,6 +35,7 @@ export const HeaderCompany: FC<Props> = ({
   country,
   image,
   website,
+  email
 }) => {
   const handlerEdit = () => {
     setEdit({
@@ -114,6 +116,17 @@ export const HeaderCompany: FC<Props> = ({
             >
               {website}
             </Typography>
+            <Typography
+              sx={{
+                color: '#ffff01',
+                mt: 2,
+                fontSize: 20,
+              }}
+            >
+             {email}
+            </Typography>
+
+
           </div>
         </div>
       </Paper>

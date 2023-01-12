@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import type {} from 'redux-thunk/extend-redux';
+import type { } from 'redux-thunk/extend-redux';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -294,13 +294,14 @@ export const LoginScreen: FC = () => {
                       <span style={{ color: '#8d8a8a' }}>O</span>
                     </Divider>
                     <GitHubLogin />
-                    <div style={{ marginTop: '10px' }}>
+                    <div style={{ marginTop: '10px', alignItems:'center', display:'flex', justifyContent:'center' }}>
                       <GoogleLogin
                         logo_alignment='center'
                         type='standard'
                         theme='outline'
                         shape='square'
                         size='large'
+                  
                         onSuccess={(credentialResponse: any) => {
                           dispatch(
                             gmailLogin(credentialResponse.credential, ''),
@@ -326,9 +327,9 @@ export const LoginScreen: FC = () => {
                 sx={{
                   display: 'flex',
                   alignContent: 'space-around',
-    // flex-wrap: wrap;
-    // flex-direction: column;
-    // justify-content: space-between;
+                  flexWrap: 'wrap',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
                 }}
               >
                 <Typography
@@ -350,7 +351,7 @@ export const LoginScreen: FC = () => {
                       color: '#ffff01',
                     }}
                   >
-                    <br/>
+                    <br />
                     Regístrate
                   </Link>
                 </Typography>
@@ -366,7 +367,7 @@ export const LoginScreen: FC = () => {
         >
           <FormControl>
             <Button
-            startIcon={<ArrowBackIosNewIcon />}
+              startIcon={<ArrowBackIosNewIcon />}
               onClick={GoBack}
               size='small'
               variant='contained'

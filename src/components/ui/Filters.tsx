@@ -84,8 +84,6 @@ export const Filters = () => {
         "Swift",
         "TypeScript",
         "Vue",
-
-
     ];
 
     const stateOfProject = ['Reclutamiento', 'En desarrollo', 'Terminado'];

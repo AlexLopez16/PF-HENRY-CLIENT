@@ -133,7 +133,6 @@ const AdminReviews: FC = ({ ...rest }) => {
     setOpen(!open);
   };
 
-  console.log("target", target);
 
   return (
     <>

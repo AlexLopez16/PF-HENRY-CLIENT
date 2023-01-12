@@ -2,14 +2,12 @@ import { FC, useEffect } from "react";
 import { Box, ListItem, ListItemButton, ListItemText, ListItemIcon, MenuItem } from "@mui/material";
 import UserItemsList from "./userItemsList";
 import { Outlet } from "react-router-dom";
-import Logo from "../../../assets/NABIJASH.png";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../../actions/auth";
-// import bgComponents from '../../assets/bgComponents.png';
-import bgComponents from "../../../assets/bgComponents.png";
 import bgDetailCompany from "../../../assets/bgDetailCompany.png";
+import logoWhiteNav from '../../../assets/logoWhiteNav.png'
 
 const SideBar: FC = () => {
   const dispatch = useDispatch();
@@ -57,7 +55,7 @@ const SideBar: FC = () => {
             }}
           >
             <img
-              src={Logo}
+              src={logoWhiteNav}
               alt="Logo"
               style={{
                 background: "black",
