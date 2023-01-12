@@ -47,6 +47,9 @@ const AdminProject: FC = ({ ...rest }) => {
     dispatch(validaToken(token));
   }
 
+  const { projectsFilter } = useSelector((state: State) => state.project);
+  let projects = projectsFilter;
+
   useEffect(() => {
     dispatch(
       getAllProject(
@@ -60,13 +63,10 @@ const AdminProject: FC = ({ ...rest }) => {
         0
       )
     );
-    // return () => {
-    //   dispatch(clearProject());
-    // };
+    return () => {
+      dispatch(clearProject());
+    };
   }, [dispatch]);
-
-  const { projectsFilter } = useSelector((state: State) => state.project);
-  let projects = projectsFilter;
 
   const [selectedCustomerIds, setSelectedCustomerIds] = useState<string[]>([]);
   const [limit, setLimit] = useState(12);
@@ -128,11 +128,11 @@ const AdminProject: FC = ({ ...rest }) => {
         0
       )
     );
-    // return () => {
-    //   dispatch(clearProject());
-    // };
+
+    return () => {
+      dispatch(clearProject());
+    };
   };
-  console.log(selectedCustomerIds);
 
   const handleLimitChange = (event: any) => {
     setLimit(event.target.value);
@@ -149,7 +149,6 @@ const AdminProject: FC = ({ ...rest }) => {
     <>
       <SnackBar successMsg={"cambio exitoso"} />
       <PreLoader />
-      <>{/* <Filters /> */}</>
       <Card {...rest}>
         <Container
           maxWidth="lg"
@@ -161,7 +160,11 @@ const AdminProject: FC = ({ ...rest }) => {
           }}
         >
           <AdminFilterProject />
-            <Button onClick={handleMultiSwitch} variant="contained" sx={{ml: '10px'}}>
+          <Button
+            onClick={handleMultiSwitch}
+            variant="contained"
+            sx={{ ml: "10px" }}
+          >
             Cambiar estado
           </Button>
         </Container>
@@ -180,11 +183,11 @@ const AdminProject: FC = ({ ...rest }) => {
                 <TableRow>
                   <TableCell padding="checkbox">
                     <Checkbox
-                      checked={selectedCustomerIds.length === projects.length}
+                      checked={selectedCustomerIds?.length === projects?.length}
                       color="primary"
                       indeterminate={
-                        selectedCustomerIds.length > 0 &&
-                        selectedCustomerIds.length < projects.length
+                        selectedCustomerIds?.length > 0 &&
+                        selectedCustomerIds?.length < projects?.length
                       }
                       onChange={handleSelectAll}
                     />
@@ -200,18 +203,18 @@ const AdminProject: FC = ({ ...rest }) => {
               </TableHead>
 
               <TableBody>
-                {projects?.map((projects: any) => (
+                {projects?.slice(0, limit)?.map((projects: any) => (
                   <TableRow
                     hover
-                    key={projects.uid}
-                    selected={selectedCustomerIds.indexOf(projects.uid) !== -1}
+                    key={projects?.uid}
+                    selected={selectedCustomerIds.indexOf(projects?.uid) !== -1}
                   >
                     <TableCell padding="checkbox">
                       <Checkbox
                         checked={
-                          selectedCustomerIds.indexOf(projects.uid) !== -1
+                          selectedCustomerIds.indexOf(projects?.uid) !== -1
                         }
-                        onChange={(event) => handleSelectOne(projects.uid)}
+                        onChange={(event) => handleSelectOne(projects?.uid)}
                         value="true"
                       />
                     </TableCell>
@@ -223,23 +226,27 @@ const AdminProject: FC = ({ ...rest }) => {
                         }}
                       >
                         <Typography color="textPrimary" variant="body1">
-                          {projects.name}
+                          {projects?.name}
                         </Typography>
                       </Box>
                     </TableCell>
                     <TableCell>
-                      {projects.company && Array.isArray(projects.company)
+                      {projects.company && Array.isArray(projects?.company)
                         ? projects?.company[0]?.name
                         : projects?.company?.name}
                     </TableCell>
                     <TableCell>
-                      {projects.category ? projects.category : "No registrado"}
+                      {projects?.category
+                        ? projects?.category
+                        : "No registrado"}
                     </TableCell>
-                    <TableCell>{projects.state ? 'Activo' : 'Inactivo'}</TableCell>
+                    <TableCell>
+                      {projects?.state === true ? "Activo" : "Inactivo"}
+                    </TableCell>
 
                     <TableCell>
-                      {projects.admission
-                        ? `${moment(projects.admission).format("DD/MM/YYYY")}`
+                      {projects?.admission
+                        ? `${moment(projects?.admission).format("DD/MM/YYYY")}`
                         : "No registrado"}
                     </TableCell>
 
@@ -257,7 +264,7 @@ const AdminProject: FC = ({ ...rest }) => {
                             checked={projects.state}
                             size="small"
                             color="primary"
-                            onChange={() => handleSwitch(projects.uid)}
+                            onChange={() => handleSwitch(projects?.uid)}
                           />
                         }
                         label={undefined}

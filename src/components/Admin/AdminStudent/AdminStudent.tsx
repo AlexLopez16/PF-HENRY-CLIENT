@@ -1,100 +1,106 @@
-import { FC, useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Box } from "@mui/system";
+import { FC, useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Box } from '@mui/system';
 import {
-  disableStudent,
-  getListStudents,
-  multiSwitchStudent,
-} from "../../../actions/student";
-import { validaToken } from "../../../actions/auth";
-import * as moment from "moment";
-import { State } from "../../../reducers/rootReducer";
+    clearStudent,
+    disableStudent,
+    getListStudents,
+    multiSwitchStudent,
+} from '../../../actions/student';
+import { validaToken } from '../../../actions/auth';
+import * as moment from 'moment';
+import { State } from '../../../reducers/rootReducer';
 import {
-  Avatar,
-  Card,
-  Checkbox,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Typography,
-  FormControlLabel,
-  Switch,
-  FormGroup,
-  Container,
-  Stack,
-  Alert,
-  Button,
-} from "@mui/material";
-import Pages from "../../ui/Pagination";
-import { PreLoader } from "../../PreLoader/PreLoader";
-import AdminFilterStudent from "./AdminFilterStudent";
-import { SnackBar } from "../../SnackBar/SnackBar";
+    Avatar,
+    Card,
+    Checkbox,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
+    Typography,
+    FormControlLabel,
+    Switch,
+    FormGroup,
+    Container,
+    Stack,
+    Alert,
+    Button,
+} from '@mui/material';
+import Pages from '../../ui/Pagination';
+import { PreLoader } from '../../PreLoader/PreLoader';
+import AdminFilterStudent from './AdminFilterStudent';
+import { SnackBar } from '../../SnackBar/SnackBar';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const AdminStudent: FC = () => {
-  const dispatch = useDispatch();
-  const token = localStorage.getItem("token");
-  const { status } = useSelector((state: State) => state.auth);
-  if (!status && token) {
-    dispatch(validaToken(token));
-  }
-
-  const { users } = useSelector((state: any) => state.student);
-  useEffect(() => {
-    dispatch(getListStudents(token, false, 6, 0));
-  }, [dispatch]);
-
-  const [selectedCustomerIds, setSelectedCustomerIds] = useState<string[]>([]);
-  const [select, setSelect] = useState<boolean>(false);
-
-  const handleSelectAll = (event: any) => {
-    let newSelectedCustomerIds;
-    if (event.target.checked) {
-      newSelectedCustomerIds = users.map((user: any) => user.uid);
-    } else {
-      newSelectedCustomerIds = [];
+    const dispatch = useDispatch();
+    const token = localStorage.getItem('token');
+    const { status } = useSelector((state: State) => state.auth);
+    if (!status && token) {
+        dispatch(validaToken(token));
     }
-    setSelectedCustomerIds(newSelectedCustomerIds);
-  };
 
-  const handleSelectOne = (uid: string) => {
-    let newSelectedCustomerIds: string[] = [];
-    const selectedIndex = selectedCustomerIds.indexOf(uid);
+    const { users } = useSelector((state: any) => state.student);
+    useEffect(() => {
+        dispatch(getListStudents(token, false, 6, 0));
+        return () => {
+            dispatch(clearStudent());
+        };
+    }, [dispatch]);
 
-    if (selectedIndex === -1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds,
-        uid
-      );
-    } else if (selectedIndex === 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(1)
-      );
-    } else if (selectedIndex === selectedCustomerIds.length - 1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(0, -1)
-      );
-    } else if (selectedIndex > 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(0, selectedIndex),
-        selectedCustomerIds.slice(selectedIndex + 1)
-      );
-    }
-    setSelect(false);
-    setSelectedCustomerIds(newSelectedCustomerIds);
-  };
+    const [selectedCustomerIds, setSelectedCustomerIds] = useState<string[]>(
+        []
+    );
+    const [select, setSelect] = useState<boolean>(false);
 
-  const handleDisable = (selectID: string) => {
-    dispatch(disableStudent(token, selectID));
-  };
-  const handleMultiSwitch = () => {
-    dispatch(multiSwitchStudent(token, selectedCustomerIds));
-    dispatch(getListStudents(token, false, 6, 0));
-  };
+    const handleSelectAll = (event: any) => {
+        let newSelectedCustomerIds;
+        if (event.target.checked) {
+            newSelectedCustomerIds = users.map((user: any) => user.uid);
+        } else {
+            newSelectedCustomerIds = [];
+        }
+        setSelectedCustomerIds(newSelectedCustomerIds);
+    };
+
+    const handleSelectOne = (uid: string) => {
+        let newSelectedCustomerIds: string[] = [];
+        const selectedIndex = selectedCustomerIds.indexOf(uid);
+
+        if (selectedIndex === -1) {
+            newSelectedCustomerIds = newSelectedCustomerIds.concat(
+                selectedCustomerIds,
+                uid
+            );
+        } else if (selectedIndex === 0) {
+            newSelectedCustomerIds = newSelectedCustomerIds.concat(
+                selectedCustomerIds.slice(1)
+            );
+        } else if (selectedIndex === selectedCustomerIds.length - 1) {
+            newSelectedCustomerIds = newSelectedCustomerIds.concat(
+                selectedCustomerIds.slice(0, -1)
+            );
+        } else if (selectedIndex > 0) {
+            newSelectedCustomerIds = newSelectedCustomerIds.concat(
+                selectedCustomerIds.slice(0, selectedIndex),
+                selectedCustomerIds.slice(selectedIndex + 1)
+            );
+        }
+        setSelect(false);
+        setSelectedCustomerIds(newSelectedCustomerIds);
+    };
+
+    const handleDisable = (selectID: string) => {
+        dispatch(disableStudent(token, selectID));
+    };
+    const handleMultiSwitch = () => {
+        dispatch(multiSwitchStudent(token, selectedCustomerIds));
+        dispatch(getListStudents(token, false, 6, 0));
+    };
 
   return (
     <>

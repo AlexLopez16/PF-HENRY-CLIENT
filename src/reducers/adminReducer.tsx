@@ -36,7 +36,7 @@ interface State {
   data: GraphResponse | null;
   admins: Admins[];
   user: Admins | {};
-  total4: number;  
+  total4: number;
 }
 
 const initialState: State = {

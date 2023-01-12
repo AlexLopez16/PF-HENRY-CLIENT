@@ -22,6 +22,8 @@ import { postReview } from '../../actions/revius';
 import TextField from '@mui/material/TextField';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
+import { PreLoader } from '../PreLoader/PreLoader';
+import { SnackBar } from '../SnackBar/SnackBar';
 
 const StyledRating = styled(Rating)(({ theme }) => ({
     '& .MuiRating-iconEmpty .MuiSvgIcon-root': {
@@ -109,11 +111,13 @@ export const RatingMail = () => {
         };
 
         dispatch(postReview(data, tok));
-        Navigate('/myprojects');
+        // Navigate('/myprojects');
     };
 
     return (
         <div>
+            <PreLoader/>
+            <SnackBar/>
             <Paper
                 elevation={10}
                 style={{
@@ -151,6 +155,7 @@ export const RatingMail = () => {
                                     label="description"
                                     size="small"
                                     multiline
+                                    inputProps={{ maxLength: 200 }}
                                     rows={5}
                                     color="info"
                                     sx={{ width: '100%', margin: '10px 0' }}

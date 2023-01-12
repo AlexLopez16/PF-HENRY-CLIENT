@@ -93,15 +93,6 @@ export const projectReducer = (state: State = initialState, action: Action) => {
             };
 
         case types.AdminAprovedProject:
-            // let newProjects: any[] = state.projectsFilter;
-            // for (let index = 0; index < newProjects.length; index++) {
-            //     let currentValue = newProjects[index];
-            //     if (currentValue.uid === action.payload.uid) {
-            //         currentValue = action.payload;
-            //         newProjects[index] = currentValue;
-            //     }
-            // }
-
 
             const actualrec = state.projectsFilter.map((project: any) => {
                 let value = { ...project }
@@ -112,14 +103,9 @@ export const projectReducer = (state: State = initialState, action: Action) => {
 
                 return value
             })
-
-            // return {
-            //     ...state,
-            //     user: newProjects,
-            // };
             return {
                 ...state,
-                projectsFilter:actualrec
+                projectsFilter: actualrec
             };
 
         case types.AdminEliminatedProject:
@@ -157,7 +143,7 @@ export const projectReducer = (state: State = initialState, action: Action) => {
 
             };
 
-
+            
         default:
             return state;
     }
