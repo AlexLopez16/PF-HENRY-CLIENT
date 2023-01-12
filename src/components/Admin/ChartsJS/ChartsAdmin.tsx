@@ -27,8 +27,8 @@ const ChartsAdmin: FC = () => {
         textAlign: 'center',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '430px',
-        background: 'rgba(255,255,255,.9)'
+        height: 350,
+        background: '#fff'
     };
 
     useEffect(() => {
