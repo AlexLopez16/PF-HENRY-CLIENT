@@ -277,6 +277,7 @@ const AdminProject: FC = ({ ...rest }) => {
                                             </TableCell>
                                             <TableCell>
                                                
+                                               
                                                 {projects.state===true? "Activo":"Inactivo"}
                                             </TableCell>
 
