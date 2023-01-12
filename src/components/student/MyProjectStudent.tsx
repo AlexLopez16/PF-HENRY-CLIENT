@@ -4,7 +4,16 @@
  * SE QUE FALTA MODULARIZARRRRRRRR :D, lo voy a hacer despues.
  */
 
-import { Alert, Box, Button, Container, FormControl, Grid, Stack, Typography } from '@mui/material';
+import {
+  Alert,
+  Box,
+  Button,
+  Container,
+  FormControl,
+  Grid,
+  Stack,
+  Typography,
+} from '@mui/material';
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../reducers/rootReducer';
@@ -58,7 +67,7 @@ const MyProjectStudent: FC = () => {
       <Box
         sx={{
           backgroundImage: `url(${studentRegisterbg})`,
-          pb: 30,
+          pb: 40,
           pt: 10,
         }}
       >
@@ -70,6 +79,30 @@ const MyProjectStudent: FC = () => {
             width: '52%',
           }}
         >
+          <Grid
+            container
+            direction='column'
+            justifyContent='flex-start'
+            alignItems='center'
+          >
+            <FormControl>
+              <Button
+                startIcon={<ArrowBackIosNewIcon />}
+                onClick={GoBack}
+                size='small'
+                variant='contained'
+                color='secondary'
+                sx={{
+                  boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+                  fontFamily: 'montserrat',
+                  fontWeight: 'bold',
+                  mb: 10,
+                }}
+              >
+                Regresar
+              </Button>
+            </FormControl>
+          </Grid>
           <SnackBar />
           <PreLoader />
           {inProgress ? (
@@ -78,13 +111,6 @@ const MyProjectStudent: FC = () => {
             <>
               {user.working?.length ? (
                 <>
-                  <Typography
-                    variant='h6'
-                    align='center'
-                    sx={{ margin: '20px 0' }}
-                  >
-                    Mi proyecto:
-                  </Typography>
                   <WorkedProjectCard
                     userId={user?.id}
                     projectId={studentData?.uid}
@@ -101,13 +127,27 @@ const MyProjectStudent: FC = () => {
                 </>
               ) : user.project?.length ? (
                 <>
-                  <Typography
-                    variant='h6'
-                    align='center'
-                    sx={{ margin: '20px 0' }}
-                  >
-                    Mis solicitudes:
-                  </Typography>
+                 <Container
+          sx={{
+            alignContent: 'center',
+            alignItems: 'center',
+            textAlign: 'center',
+            width:'52%',
+          }}
+        >
+          <Typography
+            sx={{
+              color: 'black',
+              fontFamily: 'montserrat',
+              fontSize: 35,
+              backgroundColor: 'white',
+              borderRadius: 15,
+              mb: 10,
+            }}
+          >
+            Mis Proyectos
+          </Typography>
+        </Container>
                   <div>
                     {user?.project &&
                       user?.project?.map((project: any) => (
@@ -125,30 +165,6 @@ const MyProjectStudent: FC = () => {
                         />
                       ))}
                   </div>
-                  <Grid
-        container
-        direction='column'
-        justifyContent='flex-start'
-        alignItems='center'
-      >
-        <FormControl>
-          <Button
-            startIcon={<ArrowBackIosNewIcon />}
-            onClick={GoBack}
-            size='small'
-            variant='contained'
-            color='secondary'
-            sx={{
-              boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
-              fontFamily: 'montserrat',
-              fontWeight: 'bold',
-              mb: 20,
-            }}
-          >
-            Regresar
-          </Button>
-        </FormControl>
-      </Grid>
                 </>
               ) : (
                 <Stack

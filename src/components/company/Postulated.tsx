@@ -208,7 +208,7 @@ const Postulated: FC = ({ ...rest }) => {
       <Box
         sx={{
           backgroundImage: `url(${bgComponents})`,
-          pb: 15,
+          pb: 30,
         }}
       >
         <div
@@ -258,30 +258,6 @@ const Postulated: FC = ({ ...rest }) => {
                 backgroundColor: 'black',
               }}
             >
-              {/* <Container
-  maxWidth="lg"
-  sx={{
-    display: "flex",
-    marginLeft: 0,
-  }}
->
-  <ListItemButton onClick={handlerClick} sx={{ maxWidth: 350 }}>
-    {open ? (
-      <FilterListIcon> </FilterListIcon>
-    ) : (
-      <FilterListIcon> </FilterListIcon>
-    )}
-  </ListItemButton>{" "}
-  <Collapse
-    in={open}
-    timeout="auto"
-    unmountOnExit
-    orientation="horizontal"
-  >
-    <AdminFilterProject source="adminProjects" />
-  </Collapse>
-</Container> */}
-
               <h3
                 style={{
                   justifyContent: 'center',
@@ -585,30 +561,6 @@ const Postulated: FC = ({ ...rest }) => {
                 backgroundColor: 'black',
               }}
             >
-              {/* <Container
-  maxWidth="lg"
-  sx={{
-    display: "flex",
-    marginLeft: 0,
-  }}
->
-  <ListItemButton onClick={handlerClick} sx={{ maxWidth: 350 }}>
-    {open ? (
-      <FilterListIcon> </FilterListIcon>
-    ) : (
-      <FilterListIcon> </FilterListIcon>
-    )}
-  </ListItemButton>{" "}
-  <Collapse
-    in={open}
-    timeout="auto"
-    unmountOnExit
-    orientation="horizontal"
-  >
-    <AdminFilterProject source="adminProjects" />
-  </Collapse>
-</Container> */}
-
               <h3
                 style={{
                   justifyContent: 'center',
@@ -646,7 +598,6 @@ const Postulated: FC = ({ ...rest }) => {
                           onChange={handleSelectAllPostulated}
                         />
                       </TableCell>
-                      <TableCell></TableCell>
                       <TableCell
                         sx={{
                           color: 'white',
@@ -758,7 +709,14 @@ const Postulated: FC = ({ ...rest }) => {
                           selectedCustomerIdsAccepts.indexOf(accept._id) !== -1
                         }
                       >
-                        <TableCell padding='checkbox'>
+                        <TableCell
+                          padding='checkbox'
+                          sx={{
+                            fontFamily: 'montserrat',
+                            color: 'white',
+                            textAlign: 'center',
+                          }}
+                        >
                           <Checkbox
                             checked={
                               selectedCustomerIdsAccepts.indexOf(accept._id) !==
