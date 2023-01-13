@@ -7,7 +7,7 @@ export const GitHubLogin: FC = () => {
 
     return (
         <Link
-            href={`https://github.com/login/oauth/authorize?client_id=87e69cf79c2019d84894&redirect_uri=${URI}/auth?&scope=user:email`}
+            href={`https://github.com/login/oauth/authorize?client_id=${process.env.CLIENT_ID}&redirect_uri=${URI}/auth?&scope=user:email`}
             underline="none"
         >
             <Button
