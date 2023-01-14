@@ -95,7 +95,7 @@ export default function AccountMenu() {
     // FUNCION PREMIUM
     const [openModal, setOpenModal] = useState(false);
     const session_id = localStorage.getItem('session_id') || ''
-console.log(user);
+
 
     return (
         <>
