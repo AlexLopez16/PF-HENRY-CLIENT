@@ -94,9 +94,7 @@ export const getProjectsFilter = (
     return async (dispatch: Dispatch) => {
         try {
             // console.log(limit, init);
-            dispatch({
-                type: types.requestInProgress,
-            });
+
             let query;
 
             if (name) {
@@ -161,9 +159,6 @@ export const getProjectsFilter = (
             dispatch({
                 type: types.projectsFilter,
                 payload: res.data,
-            });
-            dispatch({
-                type: types.requestFinished,
             });
         } catch (error: any) {
             console.log(error.response.data.errors[0].msg);
@@ -349,12 +344,16 @@ export const clearProject = () => {
     return { type: types.clearProject };
 };
 
-export const changeStateOfProject = (id: string, token: string, state: string) => {
+export const changeStateOfProject = (
+    id: string,
+    token: string,
+    state: string
+) => {
     return async (dispatch: Dispatch) => {
         try {
             dispatch({
                 type: types.requestInProgress,
-            })
+            });
             const res = await axios.put(
                 `/project/edit/${id}`,
                 { stateOfProject: `${state}` },
@@ -366,20 +365,20 @@ export const changeStateOfProject = (id: string, token: string, state: string) =
             });
             dispatch({
                 type: types.requestFinished,
-            })
+            });
             dispatch({
                 type: types.responseFinished,
                 payload: res,
-            })
+            });
         } catch (error: any) {
             console.log(error);
             dispatch({
                 type: types.requestFinished,
-            })
+            });
             dispatch({
                 type: types.responseFinished,
                 payload: error.response,
-            })
+            });
         }
     };
 };
