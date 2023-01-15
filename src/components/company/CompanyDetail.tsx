@@ -37,10 +37,12 @@ export const CompanyDetail: FC = () => {
     let company = null;
     if (detail) company = detail.company;
 
+    
   const Navigate = useNavigate();
   const GoBack = () => {
     Navigate('/projects');
   };
+
   return (
     <>
       <PreLoader/>
@@ -116,6 +118,21 @@ export const CompanyDetail: FC = () => {
                   }}
                 >
                   {company?.country}.
+                </Typography>
+                <Typography
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    fontFamily: 'montserrat',
+                    color: '#ffff01',
+                    mb: 5,
+                  }}
+                  variant='h5'
+                ><a target="_blank" href={`http://${company?.website}`}>
+
+                  {company?.website}.
+                </a>
                 </Typography>
               </Box>
               <Container

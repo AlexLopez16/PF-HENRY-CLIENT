@@ -68,4 +68,5 @@ export const types = {
     AdminEliminatedReview: '[admin delete review',
     clearAdmin: '[admin] clear state',
     disableAdmin: '[admin] disable admin',
+    clearReviews: '[admin] clear reviews',
 };
