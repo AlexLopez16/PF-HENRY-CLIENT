@@ -62,7 +62,7 @@ const ProjectDetail: FC<ProjectProps> = ({
     const navigate = useNavigate();
 
     const GoBack = () => {
-        navigate('/myprojects');
+        navigate('/projects');
     };
 
     const handlerApply = () => {
