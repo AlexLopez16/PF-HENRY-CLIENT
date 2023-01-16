@@ -118,11 +118,12 @@ export const RatingMail = () => {
     };
 
     dispatch(postReview(data, tok));
-    // Navigate('/myprojects');
+    Navigate('/projects');
   };
 
   return (
     <>
+    <SnackBar/>
       <NavBar />
       <Box
         sx={{
@@ -194,12 +195,13 @@ export const RatingMail = () => {
                       label='Description'
                       size='small'
                       multiline
-                      rows={5}
+                      rows={3}
                       color='info'
                       sx={{
                         width: '100%',
                         margin: '10px 0',
                       }}
+                      inputProps={{ maxLength: 300 }}
                       helperText={
                         <ErrorMessage name='description'>
                           {(message) => (
