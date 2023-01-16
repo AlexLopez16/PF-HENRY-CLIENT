@@ -31,9 +31,9 @@ interface CardProjectProps {
 const ProjectCard: FC<CardProjectProps> = ({
   name,
   description,
-  participants, //lo que se necesitan para el proyecto
+  participants,
   requirements,
-  students, //los aceptados por la empresa para el project
+  students,
   company,
   companyId,
   stateOfProject,
@@ -73,7 +73,7 @@ const ProjectCard: FC<CardProjectProps> = ({
           style={{
             padding: 20,
             marginTop: 20,
-            width: 950,
+            width: '90%',
             borderRadius: 15,
             backgroundColor: 'black',
             marginBottom: 15,
@@ -85,9 +85,12 @@ const ProjectCard: FC<CardProjectProps> = ({
           <Container>
             <Container
               sx={{
+                display: ' flex',
+                justifyContent: 'center',
                 alignContent: 'center',
                 alignItems: 'center',
                 textAlign: 'center',
+                flexWrap: 'wrap',
               }}
             >
               <Typography
@@ -176,109 +179,103 @@ const ProjectCard: FC<CardProjectProps> = ({
               sx={{
                 display: 'flex',
                 alignContent: 'center',
-                alignItems: 'center',
+                alignItems: 'flex-start',
                 textAlign: 'center',
                 justifyContent: 'space-around',
+                flexWrap: 'wrap',
               }}
             >
-              <Box
+              <Typography
+                variant='subtitle1'
+                sx={{ color: '#e2e2e2', fontFamily: 'montserrat', mt: 2 }}
+              >
+                Requerimientos:
+                {requirements.map(
+                  (requirement: string | any, index: number | any) => (
+                    <>
+                      {' '}
+                      <Chip
+                        key={index}
+                        color='primary'
+                        size='small'
+                        variant='outlined'
+                        label={requirement}
+                        sx={{
+                          background:
+                            tecnologies.indexOf(requirement) === -1
+                              ? ''
+                              : '#FFFF01',
+                          color:
+                            tecnologies.indexOf(requirement) === -1
+                              ? '#fff'
+                              : 'black',
+                          display: 'flex',
+                          fontFamily: 'montserrat',
+                          fontWeight: 'bold',
+                          mt: 2,
+                          mb: 2,
+                        }}
+                      />
+                    </>
+                  ),
+                )}
+              </Typography>
+
+              <Typography
+                variant='subtitle1'
                 sx={{
-                  display: 'flex',
-                  justifyContent: 'space-around',
-                  alignItem: 'center',
-                  textAlign: 'center',
-                  mb: 5,
-                  pb: 2,
+                  color: '#e2e2e2',
+                  fontFamily: 'montserrat',
+                  mt: 2,
                 }}
               >
-                <Typography
-                  variant='subtitle1'
-                  sx={{ color: '#e2e2e2', fontFamily: 'montserrat' }}
-                >
-                  Requerimientos:
-                  {requirements.map(
-                    (requirement: string | any, index: number | any) => (
-                      <>
-                        {' '}
-                        <Chip
-                          key={index}
-                          color='primary'
-                          size='small'
-                          variant='outlined'
-                          label={requirement}
-                          sx={{
-                            background:
-                              tecnologies.indexOf(requirement) === -1
-                                ? ''
-                                : '#FFFF01',
-                            color:
-                              tecnologies.indexOf(requirement) === -1
-                                ? '#fff'
-                                : 'black',
-                            display: 'flex',
-                            fontFamily: 'montserrat',
-                            fontWeight: 'bold',
-                            mt: 2,
-                          }}
-                        />
-                      </>
-                    ),
-                  )}
-                </Typography>
-
-                <Typography
-                  variant='subtitle1'
+                Estado:{' '}
+                <Chip
+                  color='primary'
+                  size='small'
+                  variant='outlined'
+                  label={stateOfProject}
                   sx={{
-                    color: '#e2e2e2',
+                    background:
+                      stateOfProj.indexOf(stateOfProject) === -1
+                        ? ''
+                        : '#FFFF01',
+                    color:
+                      stateOfProj.indexOf(stateOfProject) === -1
+                        ? '#fff'
+                        : 'black',
+                    display: 'flex',
                     fontFamily: 'montserrat',
+                    fontWeight: 'bold',
+                    mt: 2,
+                    mb: 2,
                   }}
-                >
-                  Estado:{' '}
-                  <Chip
-                    color='primary'
-                    size='small'
-                    variant='outlined'
-                    label={stateOfProject}
-                    sx={{
-                      background:
-                        stateOfProj.indexOf(stateOfProject) === -1
-                          ? ''
-                          : '#FFFF01',
-                      color:
-                        stateOfProj.indexOf(stateOfProject) === -1
-                          ? '#fff'
-                          : 'black',
-                      display: 'flex',
-                      fontFamily: 'montserrat',
-                      fontWeight: 'bold',
-                      mt: 2,
-                    }}
-                  />
-                </Typography>
+                />
+              </Typography>
 
-                <Typography
-                  variant='subtitle1'
-                  sx={{ color: '#e2e2e2', fontFamily: 'montserrat' }}
-                >
-                  {' '}
-                  Participantes:{' '}
-                  <Chip
-                    variant='outlined'
-                    label={`${students?.length}/${participants}`}
-                    color='primary'
-                    size='small'
-                    sx={{
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      display: 'flex',
-                      fontFamily: 'montserrat',
-                      fontWeight: 'bold',
-                      mt: 2,
-                      color: '#fff',
-                    }}
-                  />
-                </Typography>
-              </Box>
+              <Typography
+                variant='subtitle1'
+                sx={{ color: '#e2e2e2', fontFamily: 'montserrat', mt: 2 }}
+              >
+                {' '}
+                Participantes:{' '}
+                <Chip
+                  variant='outlined'
+                  label={`${students?.length}/${participants}`}
+                  color='primary'
+                  size='small'
+                  sx={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    display: 'flex',
+                    fontFamily: 'montserrat',
+                    fontWeight: 'bold',
+                    mt: 2,
+                    mb: 2,
+                    color: '#fff',
+                  }}
+                />
+              </Typography>
             </Container>
             <Container
               sx={{

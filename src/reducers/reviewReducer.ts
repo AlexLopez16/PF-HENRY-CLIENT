@@ -31,6 +31,14 @@ export const reviewReducer = (state: State = initialState, action: Action) => {
                 filterReview: action.payload,
             };
 
+        case types.clearReviews:
+            const { getreview, total3 }: Object | any = action.payload;
+            return {
+                ...state,
+                reviews: getreview,
+                total3: total3,
+            };
+
         default:
             return state;
     }
