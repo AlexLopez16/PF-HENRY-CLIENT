@@ -359,7 +359,9 @@ const ProjectForm: FC = () => {
                       required
                       color='info'
                       sx={{ mb: 2 }}
-                      inputProps={{ style: { color: 'red' } }}
+                      inputProps={{
+                        style: { color: 'red' },
+                      }}
                     />
                   )}
 

@@ -2,9 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     getAllProject,
-    // clearProjects,
     getMyProjectsCompany,
-    // getProject,
     getProjectsFilter,
 } from '../../actions/projects';
 import { State } from '../../reducers/rootReducer';
@@ -20,7 +18,12 @@ import { AdminPanelSettingsSharp } from '@mui/icons-material';
 
 let limit;
 let init;
-const Pages: FC = () => {
+
+interface props {
+    isLoading?: boolean
+}
+
+const Pages: FC<props> = ({ isLoading }) => {
     let location = useLocation();
 
     let dispatch = useDispatch();
@@ -36,30 +39,23 @@ const Pages: FC = () => {
         (state: State) => state.review
     );
     const { admins, total4 } = useSelector((state: State) => state.admin);
-    // let { myProjectCompany } = useSelector((state: State) => state.project);
 
     useEffect(() => {}, [projectsFilter, users, user, reviews, admins]);
-    // const { total } = useSelector((state: State) => state.project);
 
     let numberOfPages;
     if (total1) {
-        console.log('estudiante', total1);
         numberOfPages = Math.ceil(total1 / 6);
     }
     if (total) {
-        console.log('proyectos', total);
         numberOfPages = Math.ceil(total / 6);
     }
     if (total2) {
-        console.log('compania', total2);
         numberOfPages = Math.ceil(total2 / 6);
     }
     if (total3) {
-        console.log('review', total3);
         numberOfPages = Math.ceil(total3 / 6);
     }
     if (total4) {
-        console.log('admin', total4);
         numberOfPages = Math.ceil(total4 / 6);
     }
     const handlerClick = async (e: any, value: any) => {
@@ -159,7 +155,7 @@ const Pages: FC = () => {
     };
 
     return (
-        <Container sx={{ marginTop: 5, marginBottom: 5 }} maxWidth="lg">
+        <Container sx={{ marginTop: 5, marginBottom: 5, display: isLoading ? 'none' : '' }} maxWidth="lg">
             <Stack spacing={2}>
                 <Pagination
                     size="small"
