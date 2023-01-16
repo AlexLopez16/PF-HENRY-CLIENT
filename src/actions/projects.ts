@@ -95,7 +95,7 @@ export const getProjectsFilter = (
         try {
             // console.log(limit, init);
 
-            let query;
+            let query: string | undefined;
 
             if (name) {
                 query = `name=${name}`;
@@ -106,6 +106,7 @@ export const getProjectsFilter = (
                 tecnologies.forEach((e: string) => (tecnologias += e + ','));
                 //tranforma el array a string con comas
                 tecnologias = tecnologias.substring(0, tecnologias.length - 1); //si es una palabra saca la coma
+                tecnologias = encodeURIComponent(tecnologias);
                 if (query) {
                     query += `&tecnologies=${tecnologias}`;
                 } else {
