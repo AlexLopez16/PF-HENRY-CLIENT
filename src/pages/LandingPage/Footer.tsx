@@ -15,21 +15,17 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function Footer() {
   return (
-    <Box sx={{
-      position: "sticky bottom-0", 
-    }}>
-     
-      <Box
-        sx={{
-          backgroundColor: '#1b384a',
-          display: 'flex',
-          justifyContent: 'center',
-        }}
-      >
+    <Box
+      sx={{
+        position: 'sticky bottom-0',
+        backgroundColor: '#1b384a',
+      }}
+    >
+      <Container>
         <Container
           sx={{
-            alignContent: 'center',
-            alignItems: 'center',
+            display: 'flex',
+            justifyContent: 'center',
             pb: 1,
             pt: 1,
           }}
@@ -38,37 +34,34 @@ export default function Footer() {
             src={logo}
             style={{
               marginBottom: 10,
-              
               height: 50,
-              marginLeft: '42%',
-            }}
-          />
-
-          <hr
-            style={{
-              marginBottom: 10,
-            }}
-          />
-          <Box
-            sx={{
               alignItems: 'center',
-              width: '100%',
-              justifyContent: 'space-between',
             }}
-          >
-            <Typography
-              sx={{
-                color: 'white',
-                fontSize: 15,
-                marginLeft: '42.5%',
-              }}
-              variant='caption'
-            >
-              Copyright © NABIJASH
-            </Typography>
-          </Box>
+          />
         </Container>
-      </Box>
+        <hr
+          style={{
+            marginBottom: 10,
+          }}
+        />
+        <Container
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Typography
+            sx={{
+              color: 'white',
+              fontSize: 15,
+            }}
+            variant='caption'
+          >
+            Copyright © NABIJASH
+          </Typography>
+        </Container>
+      </Container>
     </Box>
   );
 }

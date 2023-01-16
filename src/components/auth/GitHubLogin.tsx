@@ -15,8 +15,10 @@ export const GitHubLogin: FC = () => {
                 fullWidth
                 color="secondary"
                 
-                style={{ textTransform: 'none', margin: '10px 0px', backgroundColor:'black',  boxShadow:
-                'rgba(255, 255, 255, 255.16) 0px 1px 4px, rgb(255, 255, 255) 0px 0px 0px 3px',}}
+                style={{ textTransform: 'none', margin: '10px 0px', backgroundColor:'black',  
+                boxShadow:
+                'rgba(255, 255, 255, 255.16) 0px 1px 1px, rgb(255, 255, 255) 0px 0px 0px 1px',
+            }}
             >
                 <GitHubIcon sx={{ color: 'white', margin: '0px 5px', }} />
                 <span style={{ color: 'white', fontFamily:'montserrat', fontWeight:'bold', marginLeft:10  }}>
