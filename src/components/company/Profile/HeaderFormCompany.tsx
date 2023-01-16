@@ -182,8 +182,8 @@ export const HeaderFormCompany: FC<Props> = ({
                 >
                   <Avatar
                     sx={{
-                      height: '35%',
-                      width: '35%',
+                      height: 100,
+                      width: 100,
                       boxShadow:
                         'rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;',
                       mb: 1,

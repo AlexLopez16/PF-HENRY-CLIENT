@@ -21,7 +21,6 @@ import Logo from '../../assets/NABIJASH.png';
 const NavBar: FC = () => {
   const navigate = useNavigate();
 
-  // Traemos el rol.
   const { data }: any = useSelector((state: State) => state.auth);
   const rol = data.rol;
   const dispatch = useDispatch();
@@ -31,7 +30,6 @@ const NavBar: FC = () => {
     rol === 'STUDENT_ROL' ? dispatch(getStudentInfo(data.id, token)) : null;
   }, [dispatch]);
 
-  // Paths y opciones de boton para el student.
   const studentButtons = [
     {
       option: 'Proyectos',
@@ -43,7 +41,6 @@ const NavBar: FC = () => {
     },
   ];
 
-  // Paths y opciones de boton para el company.
   const companyButtons = [
     {
       option: 'Proyectos',
@@ -59,7 +56,6 @@ const NavBar: FC = () => {
     },
   ];
 
-  // Paths y opciones de boton para el admin.
   const adminButtons = [
     {
       option: 'Dashboard',
@@ -69,13 +65,8 @@ const NavBar: FC = () => {
       option: 'Proyectos',
       path: '/projects',
     },
-    // {
-    //     option: 'My Project',
-    //     path: '/myproject',
-    // },
   ];
 
-  // Paths para el usuario que tiene que verificar su cuenta.
   const verifyButtons = [
     {
       option: 'Verificar',
@@ -129,6 +120,7 @@ const NavBar: FC = () => {
             alignItems: 'center',
             cursor: 'pointer',
             mt: 1,
+            color: 'black',
           }}
         >
           <img
@@ -176,8 +168,18 @@ const NavBar: FC = () => {
             >
               {buttonList.map((button) => (
                 <Link key={button.option} to={button.path}>
-                  <MenuItem onClick={handleCloseNavMenu}>
-                    <Typography textAlign='center'>{button.option}</Typography>
+                  <MenuItem
+                    onClick={handleCloseNavMenu}
+                  >
+                    <Typography
+                      textAlign='center'
+                      sx={{
+                        fontFamily: 'Montserrat',
+                        color: 'black',
+                      }}
+                    >
+                      {button.option}
+                    </Typography>
                   </MenuItem>
                 </Link>
               ))}

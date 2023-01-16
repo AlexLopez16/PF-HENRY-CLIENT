@@ -1,10 +1,10 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useNavigate } from 'react-router';
 import ScrollToTop from 'react-scroll-to-top';
 import { Button, Typography, Box, Grid, Container } from '@mui/material';
 import Header from '../../components/NavbarLandingPage/HeaderLanding';
 import Footer from './Footer';
-
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import bgLanding from '../../assets/bgLanding.png';
 import logo from '../../assets/NABIJASH.png';
 import objetivo from '../../assets/objetivo.png';
@@ -23,6 +23,9 @@ const LandingPage: FC = () => {
   const companyClick = () => {
     navigate('/signup/company');
   };
+
+
+
 
   return (
     <>
@@ -47,18 +50,11 @@ const LandingPage: FC = () => {
                   borderRadius: 20,
                 }}
               >
-                🡅
+                <ArrowUpwardIcon />
               </p>
             }
           />
           <Container>
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'flex-end',
-                pt: 10,
-              }}
-            ></Box>
             <Box
               sx={{
                 justifyContent: 'center',
@@ -109,6 +105,7 @@ const LandingPage: FC = () => {
                     display: 'inline-flex',
                     borderRadius: 7,
                     fontFamily: 'poppins',
+                    mt:2,
                   }}
                 >
                   Ser parte del proyecto
@@ -123,6 +120,7 @@ const LandingPage: FC = () => {
                     color: 'black',
                     borderRadius: 7,
                     fontFamily: 'poppins',
+                    mt:2,
                   }}
                 >
                   Crear proyecto

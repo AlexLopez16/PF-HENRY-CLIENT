@@ -44,7 +44,7 @@ export const MyProjectCompany: FC = () => {
             alignContent: 'center',
             alignItems: 'center',
             textAlign: 'center',
-            width:'52%',
+            width:'100%',
           }}
         >
           <Typography

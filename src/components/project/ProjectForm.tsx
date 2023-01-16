@@ -25,11 +25,12 @@ import {
   InputAdornment,
   TextFieldProps,
   Box,
+  Container,
 } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ImageIcon from '@mui/icons-material/Image';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
-import bg from '../../assets/bg.png';
+import bgComponents from '../../assets/bgComponents.png';
 import bgForm from '../../assets/bgForm.png';
 import { newProject } from '../../actions/projects';
 import Error from '../ui/Error';
@@ -215,7 +216,7 @@ const ProjectForm: FC = () => {
   return (
     <Box
       sx={{
-        backgroundImage: `url(${bg})`,
+        backgroundImage: `url(${bgComponents})`,
         maxWidth: '1920px',
       }}
     >
@@ -223,17 +224,24 @@ const ProjectForm: FC = () => {
         <PreLoader />
         <NavBar />
         <SnackBar successMsg=' Solicitud enviada con exito' />
-        <Grid>
+
+        <Container
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
           <Paper
             elevation={10}
             sx={{
-              width: 500,
+              width: 600,
               height: '100%',
               p: 5,
               m: '50px auto',
               mb: 10,
               mt: 10,
-              backgroundColor: '#c0c3c5',
+              backgroundColor: 'white',
               borderRadius: 15,
             }}
           >
@@ -241,14 +249,14 @@ const ProjectForm: FC = () => {
               textAlign='center'
               fontFamily='montserrat'
               sx={{
-                fontFamily: 'montserrat',
+                fontFamily: 'poppins',
                 marginBottom: 2,
                 fontSize: 20,
                 fontWeight: 'bold',
                 color: 'black',
               }}
             >
-              <h2>Crear proyecto</h2>
+              <h2>Nuevo proyecto</h2>
             </Grid>
             <Formik
               initialValues={initialValues}
@@ -362,17 +370,20 @@ const ProjectForm: FC = () => {
                     getOptionLabel={(option: any) => option.name}
                     multiple
                     size='small'
-                    color='info'
                     sx={{
-                      color: '#ffff01',
+                      mb: 2,
                     }}
                     renderInput={(params: TextFieldProps) => (
                       <TextField
+                        variant='outlined'
                         {...params}
                         color='info'
                         name='requirements'
                         label='Requerimientos'
                         placeholder='Requerimientos'
+                        style={{
+                          color: 'red',
+                        }}
                         helperText={
                           <ErrorMessage name='requirements'>
                             {(msg) => (
@@ -557,7 +568,7 @@ const ProjectForm: FC = () => {
               )}
             </Formik>
           </Paper>
-        </Grid>
+        </Container>
       </div>
       <Grid
         container
