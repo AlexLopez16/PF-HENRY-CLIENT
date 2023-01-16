@@ -239,141 +239,160 @@ const StudentsFilter: FC = () => {
     );
   };
   return (
-    <Container>
-      <Box
+    <>
+      <Container
         sx={{
-          width: 1350,
-          marginLeft: '-80px',
-          marginTop: '20px',
           display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'space-between',
+          justifyContent: 'center',
           alignItems: 'center',
         }}
       >
-        <div style={{ width: 260 }}>
-          <Autocomplete
-            onChange={(e, value) => {
-              handlerchange('e', value);
-            }}
-            sx={{}}
-            multiple={true}
-            size='small'
-            id='tags-outlined'
-            options={stateOfProject}
-            getOptionLabel={(option) => option}
-            filterSelectedOptions
-            renderInput={(params) => (
-              <TextField
-                sx={{
-                  '.MuiSvgIcon-root ': {
-                    fill: 'black !important',
-                  },
-                  input: { color: 'white' },
-                }}
-                {...params}
-                label='Filtar por Estado del proyecto '
-                placeholder='Estado del proyecto'
-              />
-            )}
-          />
-        </div>
-        <div style={{ width: 255 }}>
-          <Autocomplete
-            sx={{}}
-            onChange={(e, value) => {
-              handlerchange('t', value);
-            }}
-            color='primary'
-            multiple={true}
-            size='small'
-            id='tags-outlined'
-            value={filtros}
-            options={tecnologias}
-            getOptionLabel={(option) => option}
-            filterSelectedOptions
-            renderInput={(params) => (
-              <TextField
-                sx={{
-                  '.MuiSvgIcon-root ': {
-                    fill: 'black !important',
-                  },
-                  input: { color: 'white' },
-                }}
-                {...params}
-                label='Filtar por Tecnologia'
-                placeholder='Tecnologia'
-              />
-            )}
-          />
-        </div>
-
-        <div style={{ width: 255 }}>
-          <Autocomplete
-            onChange={(e, value) => {
-              handlerchange('c', value);
-            }}
-            multiple={true}
-            size='small'
-            id='tags-outlined'
-            options={categorys ? categorys : []}
-            getOptionLabel={(option: any) => option}
-            filterSelectedOptions
-            renderInput={(params) => (
-              <TextField
-                sx={{
-                  '.MuiSvgIcon-root ': {
-                    fill: 'black !important',
-                  },
-                  input: { color: 'white' },
-                }}
-                {...params}
-                label='Filtar por Categoría '
-                placeholder='Categoría'
-              />
-            )}
-          />
-        </div>
-        <div style={{ width: 255 }}>
-          <FormControl sx={{ width: '100%', padding: 0, color: 'white' }}>
-            <InputLabel
-              id='vacantes-label'
-              size='small'
-              variant='outlined'
-              sx={{
-                styledInput,
-                width: 245,
-                '& .MuiInputLabel-root': { color: '#ffff01' },
-                '& .MuiOutlinedInput-root': {
-                  '& > fieldset': { borderColor: '#ffff01' },
-                },
-                input: { color: 'black ' },
-              }}
-            >
-              Ordenar por participantes
-            </InputLabel>
-            <Select
-              size='small'
-              sx={{
-                padding: 0,
-                '.MuiSvgIcon-root ': {
-                  fill: 'black !important',
-                },
-              }}
-              id='vacantes'
-              labelId='vacantes-label'
-              label='Ordenar por participantes'
-              name='vacantes'
+        <Container
+          sx={{
+            marginTop: '20px',
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+          }}
+        >
+          <div style={{ width: 260 }}>
+            <Autocomplete
               onChange={(e, value) => {
-                handlerchange('o', value);
+                handlerchange('e', value);
               }}
-            >
-              <MenuItem value={'desc'}>Mayor a Menor</MenuItem>
+              multiple={true}
+              size='small'
+              id='tags-outlined'
+              options={stateOfProject}
+              getOptionLabel={(option) => option}
+              filterSelectedOptions
+              renderInput={(params) => (
+                <TextField
+                  sx={{
+                    '.MuiSvgIcon-root ': {
+                      fill: 'black !important',
+                    },
+                    input: { color: 'white' },
+                    mb: 1,
+                  }}
+                  {...params}
+                  label='Filtar por Estado del proyecto '
+                  placeholder='Estado del proyecto'
+                />
+              )}
+            />
+          </div>
+          <div style={{ width: 255 }}>
+            <Autocomplete
+              sx={{}}
+              onChange={(e, value) => {
+                handlerchange('t', value);
+              }}
+              color='primary'
+              multiple={true}
+              size='small'
+              id='tags-outlined'
+              value={filtros}
+              options={tecnologias}
+              getOptionLabel={(option) => option}
+              filterSelectedOptions
+              renderInput={(params) => (
+                <TextField
+                  sx={{
+                    '.MuiSvgIcon-root ': {
+                      fill: 'black !important',
+                    },
+                    input: { color: 'white' },
+                    mb: 1,
+                  }}
+                  {...params}
+                  label='Filtar por Tecnologia'
+                  placeholder='Tecnologia'
+                />
+              )}
+            />
+          </div>
 
-              <MenuItem value={'asc'}>Menor a Mayor</MenuItem>
-            </Select>
-          </FormControl>
-        </div>
+          <div style={{ width: 255 }}>
+            <Autocomplete
+              onChange={(e, value) => {
+                handlerchange('c', value);
+              }}
+              multiple={true}
+              size='small'
+              id='tags-outlined'
+              options={categorys ? categorys : []}
+              getOptionLabel={(option: any) => option}
+              filterSelectedOptions
+              renderInput={(params) => (
+                <TextField
+                  sx={{
+                    '.MuiSvgIcon-root ': {
+                      fill: 'black !important',
+                    },
+                    input: { color: 'white' },
+                    mb: 1,
+                  }}
+                  {...params}
+                  label='Filtar por Categoría '
+                  placeholder='Categoría'
+                />
+              )}
+            />
+          </div>
+          <div style={{ width: 255 }}>
+            <FormControl sx={{ width: '100%', padding: 0, color: 'white' }}>
+              <InputLabel
+                id='vacantes-label'
+                size='small'
+                variant='outlined'
+                sx={{
+                  styledInput,
+                  width: 245,
+                  '& .MuiInputLabel-root': { color: '#ffff01' },
+                  '& .MuiOutlinedInput-root': {
+                    '& > fieldset': { borderColor: '#ffff01' },
+                  },
+                  input: { color: 'black ' },
+                  mb: 1,
+                }}
+              >
+                Ordenar por participantes
+              </InputLabel>
+              <Select
+                size='small'
+                sx={{
+                  padding: 0,
+                  '.MuiSvgIcon-root ': {
+                    fill: 'black !important',
+                  },
+                  mb: 1,
+                }}
+                id='vacantes'
+                labelId='vacantes-label'
+                label='Ordenar por participantes'
+                name='vacantes'
+                onChange={(e, value) => {
+                  handlerchange('o', value);
+                }}
+              >
+                <MenuItem value={'desc'}>Mayor a Menor</MenuItem>
+
+                <MenuItem value={'asc'}>Menor a Mayor</MenuItem>
+              </Select>
+            </FormControl>
+          </div>
+        </Container>
+      </Container>
+      <Container
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          mt: 5,
+        }}
+      >
         <div
           style={{
             marginLeft: 10,
@@ -407,8 +426,8 @@ const StudentsFilter: FC = () => {
             </IconButton>
           </form>
         </div>
-      </Box>
-    </Container>
+      </Container>
+    </>
   );
 };
 
