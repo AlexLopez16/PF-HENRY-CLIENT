@@ -13,7 +13,6 @@ import objetivoStudent from '../../assets/objetivostudent.png';
 import bannerLanding from '../../assets/bannerLanding.png';
 import Carousel from './Carousel';
 
-
 const LandingPage: FC = () => {
   const navigate = useNavigate();
 
@@ -23,9 +22,6 @@ const LandingPage: FC = () => {
   const companyClick = () => {
     navigate('/signup/company');
   };
-
-
-
 
   return (
     <>
@@ -105,7 +101,7 @@ const LandingPage: FC = () => {
                     display: 'inline-flex',
                     borderRadius: 7,
                     fontFamily: 'poppins',
-                    mt:2,
+                    mt: 2,
                   }}
                 >
                   Ser parte del proyecto
@@ -120,7 +116,7 @@ const LandingPage: FC = () => {
                     color: 'black',
                     borderRadius: 7,
                     fontFamily: 'poppins',
-                    mt:2,
+                    mt: 2,
                   }}
                 >
                   Crear proyecto
@@ -182,7 +178,7 @@ const LandingPage: FC = () => {
                   textAlign: 'center',
                   color: 'white',
                   fontFamily: 'montserrat',
-                  lineHeight: '2.5rem'
+                  lineHeight: '2.5rem',
                 }}
               >
                 Nuestra propuesta es brindar a los alumnos la oportunidad de
@@ -218,7 +214,7 @@ const LandingPage: FC = () => {
                   textAlign: 'center',
                   color: 'white',
                   fontFamily: 'montserrat',
-                  lineHeight: '2.5rem'
+                  lineHeight: '2.5rem',
                 }}
               >
                 Lograr que empresas y estudiantes se conecten, por eso queremos
@@ -246,7 +242,7 @@ const LandingPage: FC = () => {
                   textAlign: 'center',
                   color: 'white',
                   fontFamily: 'montserrat',
-                  lineHeight: '2.5rem'
+                  lineHeight: '2.5rem',
                 }}
               >
                 Como usuarios, los estudiantes tendrán a disposicion todos los
@@ -278,7 +274,7 @@ const LandingPage: FC = () => {
                   fontFamily: 'montserrat',
                   padding: 4,
                   borderRadius: 10,
-                  lineHeight: '3rem'
+                  lineHeight: '3rem',
                 }}
               >
                 Concluimos que, debemos aprovechar y utilizar los medios de
@@ -406,8 +402,8 @@ const LandingPage: FC = () => {
                       textAlign: 'center',
                     }}
                   >
-                    Amamos lo que hacemos. Trabajamos y por eso queremos siempre hacer más y
-                    hacerlo mejor.
+                    Amamos lo que hacemos. Trabajamos y por eso queremos siempre
+                    hacer más y hacerlo mejor.
                   </Typography>
                 </Box>
                 <Box>
