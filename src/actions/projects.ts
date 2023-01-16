@@ -347,8 +347,10 @@ export const clearProject = () => {
 export const changeStateOfProject = (
     id: string,
     token: string,
-    state: string
+    state: string,
+    project: object
 ) => {
+    
     return async (dispatch: Dispatch) => {
         try {
             dispatch({
@@ -356,7 +358,7 @@ export const changeStateOfProject = (
             });
             const res = await axios.put(
                 `/project/edit/${id}`,
-                { stateOfProject: `${state}` },
+                { stateOfProject: `${state}`, project },
                 { headers: { 'user-token': token } }
             );
             dispatch({

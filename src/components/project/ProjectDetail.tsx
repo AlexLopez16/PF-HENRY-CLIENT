@@ -84,11 +84,14 @@ const ProjectDetail: FC<ProjectProps> = ({
         dispatch(proyectFinal(idProject, token));
     };
 
+    let project = projectId
     const handleDesarrollo = () => {
-        dispatch(changeStateOfProject(uid, token, 'En desarrollo'));
+        dispatch(changeStateOfProject(uid, token, 'En desarrollo', project));
     };
 
     let review = projectId.reviews;
+    console.log(project);
+
 
     return (
         <>
@@ -331,9 +334,9 @@ const ProjectDetail: FC<ProjectProps> = ({
                                 }}
                             >
                                 {rol === 'STUDENT_ROL' &&
-                                user?.working?.length ? null : rol ===
-                                      'STUDENT_ROL' &&
-                                  projectId.stateOfProject !== 'Terminado' ? (
+                                    user?.working?.length ? null : rol ===
+                                        'STUDENT_ROL' &&
+                                        projectId.stateOfProject !== 'Terminado' ? (
                                     <Button
                                         sx={{
                                             width: '50%',
@@ -355,14 +358,14 @@ const ProjectDetail: FC<ProjectProps> = ({
                                         aplicar
                                     </Button>
                                 ) : (id &&
-                                      rol === 'COMPANY_ROL' &&
-                                      projectId &&
-                                      projectId?.company?._id &&
-                                      id === projectId.company._id &&
-                                      projectId.stateOfProject ===
-                                          'Reclutamiento') ||
-                                  projectId.stateOfProject ===
-                                      'En desarrollo' ? (
+                                    rol === 'COMPANY_ROL' &&
+                                    projectId &&
+                                    projectId?.company?._id &&
+                                    id === projectId.company._id &&
+                                    projectId.stateOfProject ===
+                                    'Reclutamiento') ||
+                                    projectId.stateOfProject ===
+                                    'En desarrollo' ? (
                                     <Link to={`/postulated/${uid}`}>
                                         <Button
                                             sx={{
@@ -384,7 +387,7 @@ const ProjectDetail: FC<ProjectProps> = ({
 
                                 {rol === 'COMPANY_ROL' &&
                                     projectId.stateOfProject ===
-                                        'En desarrollo' &&
+                                    'En desarrollo' &&
                                     company?.name === empresa && (
                                         <Button
                                             onClick={handelClick}
@@ -406,7 +409,7 @@ const ProjectDetail: FC<ProjectProps> = ({
 
                                 {rol === 'COMPANY_ROL' &&
                                     projectId.stateOfProject ===
-                                        'Reclutamiento' &&
+                                    'Reclutamiento' &&
                                     company?.name === empresa && (
                                         <Button
                                             onClick={handleDesarrollo}
@@ -429,20 +432,20 @@ const ProjectDetail: FC<ProjectProps> = ({
                         </Paper>
                     </Container>
                     {rol === 'COMPANY_ROL' ||
-                    (rol === 'STUDENT_ROL' &&
-                        projectId.stateOfProject === 'Terminado' &&
-                        review.length > 0)
+                        (rol === 'STUDENT_ROL' &&
+                            projectId.stateOfProject === 'Terminado' &&
+                            review.length > 0)
                         ? review?.map((e: any) => (
-                              <RatingProject
-                                  avatar={e.student?.image}
-                                  name={e.student?.name}
-                                  lastName={e.student?.lastName}
-                                  description={e.description}
-                                  ratingCompany={e.ratingCompany}
-                                  ratingProject={e.ratingProject}
-                                  projectName={e.project?.name}
-                              />
-                          ))
+                            <RatingProject
+                                avatar={e.student?.image}
+                                name={e.student?.name}
+                                lastName={e.student?.lastName}
+                                description={e.description}
+                                ratingCompany={e.ratingCompany}
+                                ratingProject={e.ratingProject}
+                                projectName={e.project?.name}
+                            />
+                        ))
                         : ''}
                 </div>
             </Box>

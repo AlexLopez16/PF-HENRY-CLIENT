@@ -2,7 +2,6 @@ import { FC, useState, useEffect, forwardRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Box, Container } from "@mui/system";
-import * as moment from "moment";
 import {
   Card,
   Table,
@@ -11,9 +10,6 @@ import {
   TableHead,
   TableRow,
   Typography,
-  SelectChangeEvent,
-  ListItemButton,
-  Collapse,
   IconButton,
   Checkbox,
   Stack,
@@ -23,7 +19,6 @@ import { State } from "../../../reducers/rootReducer";
 import { clearProject, getAllProject } from "../../../actions/projects";
 import { AprovedProject, reclutamientoInProject } from "../../../actions/Admin";
 import Pages from "../../ui/Pagination";
-import FilterListIcon from "@mui/icons-material/FilterList";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -38,7 +33,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import CheckIcon from "@mui/icons-material/Check";
 import AdminFilterProject from "../../AdminBar/AdminFilterProject";
 import CancelMessage from "./cancelMessage";
-import { PreLoader } from "../../PreLoader/PreLoader";
 
 const AdminAcceptProject: FC = ({ ...rest }) => {
   const dispatch = useDispatch();
@@ -117,12 +111,6 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
     }
     setSelectedCustomerIds(newSelectedCustomerIds);
   };
-  const handlerClick = () => {
-    setOpen(!open);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   const handleaccept = (id: string) => {
     dispatch(AprovedProject(token, id)), setRender(!render);
@@ -154,17 +142,16 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
   };
 
   let proyectos = projects;
-  const handleChangeOptions = (event: SelectChangeEvent) => {
-    setOpciones(event.target.value);
-  };
+ 
   opciones !== "Todos"
     ? (proyectos = projects.filter((project: any) =>
         project.stateOfProject.includes(opciones)
       ))
     : (proyectos = projects);
+    
   return (
     <>
-      {/* <PreLoader /> */}
+
       <Card {...rest}>
         <Container
           maxWidth="lg"
@@ -278,9 +265,6 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
 
                                             <TableCell>
                                                 {proyectos.admission
-                                                    // ? `${moment(
-                                                    //       proyectos.admission
-                                                    //   ).format('DD/MM/YYYY')}`
                                                     ? `${new Date(proyectos.admission).toLocaleDateString()}`
                                                     : 'No registrado'}
                                             </TableCell>
@@ -326,13 +310,11 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
         )}
         <Pages />
       </Card>
-      {/* {openModal && ( */}
       <CancelMessage
         setOpenModal={setOpenModal}
         openModal={openModal}
         idPrj={idPrj}
       />
-      {/* )} */}
     </>
   );
 };
