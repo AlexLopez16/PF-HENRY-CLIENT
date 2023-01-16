@@ -22,6 +22,7 @@ interface Props {
   country?: string;
   image?: string;
   email?: string;
+  lenguage?:string[];
 }
 
 export const Header: FC<Props> = ({
@@ -32,6 +33,7 @@ export const Header: FC<Props> = ({
   country,
   image,
   email,
+  lenguage,
 }) => {
   const handlerEdit = () => {
     setEdit({
@@ -39,6 +41,7 @@ export const Header: FC<Props> = ({
       header: !edit.header,
     });
   };
+
 
   return (
     <Container
@@ -124,6 +127,16 @@ export const Header: FC<Props> = ({
           >
             {email}
           </Typography>
+          <Typography
+            sx={{
+              color: '#ffff01',
+              mt: 2,
+              fontSize: 20,
+            }}
+          >
+            {lenguage?.map(e=>e+",")}
+          </Typography>
+
         </div>
       </Paper>
     </Container>
