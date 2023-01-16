@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AppBar, Button, Tab, Tabs, Toolbar } from '@mui/material';
+import { AppBar, Button, Container, Tab, Tabs, Toolbar } from '@mui/material';
 import { useNavigate } from 'react-router';
 
 import logoBlackNav from '../../assets/logoBlackNav.png';
@@ -9,10 +9,14 @@ const Header = () => {
   const navigate = useNavigate();
 
   return (
-    <AppBar position='sticky' color='primary' sx={{ fontColor: 'black' }}>
+    <AppBar
+      position='sticky'
+      color='primary'
+      sx={{ fontColor: 'black', px: 2 }}
+    >
       <Toolbar
         sx={{
-          justifyContent: 'space-between',
+          justifyContent: 'space-evenly',
         }}
       >
         <img
@@ -23,9 +27,11 @@ const Header = () => {
             width: '10%',
           }}
         />
-        <div
-          style={{
-            paddingRight: '5%',
+        <Container
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
           }}
         >
           <Tab
@@ -53,7 +59,7 @@ const Header = () => {
             onClick={() => navigate('/contact')}
             label='Contacto'
           />
-        </div>
+        </Container>
         <Button
           color='primary'
           style={{
