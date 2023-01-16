@@ -1,7 +1,6 @@
 import { FC, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@mui/system";
-import * as moment from "moment";
 import {
   Card,
   Table,
@@ -23,19 +22,12 @@ import { deleteuser, setStateMultiple } from "../../../actions/Admin";
 import Pages from "../../ui/Pagination";
 import { PreLoader } from "../../PreLoader/PreLoader";
 import AdminFilterProject from "../../AdminBar/AdminFilterProject";
-export interface Options {
-  splitRegexp?: RegExp | RegExp[];
-  stripRegexp?: RegExp | RegExp[];
-  delimiter?: string;
-  transform?: (part: string, index: number, parts: string[]) => string;
-}
 import { validaToken } from "../../../actions/auth";
 import Stack from "@mui/material/Stack/Stack";
 import Alert from "@mui/material/Alert/Alert";
 import { SnackBar } from "../../SnackBar/SnackBar";
-import { useResetProjection } from "framer-motion";
+import { AdminTable, AdminTableFilters } from "../AdminTable/AdminTable";
 
-export declare function sentenceCase(input: string, options?: Options): string;
 const AdminProject: FC = ({ ...rest }) => {
   const dispatch = useDispatch();
   const token: any = localStorage.getItem("token");
@@ -148,17 +140,13 @@ const AdminProject: FC = ({ ...rest }) => {
   return (
     <>
       <SnackBar successMsg={"cambio exitoso"} />
-      <PreLoader />
-      <Card {...rest}>
-        <Container
-          maxWidth="lg"
-          sx={{
-            display: "flex",
-            marginLeft: 0,
-            justifyContent: "space-between",
-            padding: "20px",
-          }}
-        >
+      <AdminTable
+        columns={7}
+        rows={6}
+        hasData={projects?.length > 0}
+        noDataMessage="No hay proyectos con los filtros aplicados!"
+      >
+        <AdminTableFilters>
           <AdminFilterProject />
           <Button
             onClick={handleMultiSwitch}
@@ -167,120 +155,105 @@ const AdminProject: FC = ({ ...rest }) => {
           >
             Cambiar estado
           </Button>
-        </Container>
-        {!projects.length ? (
-          <TableBody>
-            <Stack sx={{ width: "100%" }} spacing={1}>
-              <Alert severity="info">
-                No hay proyectos con los filtros aplicados!
-              </Alert>
-            </Stack>
-          </TableBody>
-        ) : (
-          <Box sx={{ minWidth: 1050 }}>
-            <Table>
-              <TableHead>
-                <TableRow>
+        </AdminTableFilters>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell padding="checkbox">
+                  <Checkbox
+                    checked={selectedCustomerIds?.length === projects?.length}
+                    color="primary"
+                    indeterminate={
+                      selectedCustomerIds?.length > 0 &&
+                      selectedCustomerIds?.length < projects?.length
+                    }
+                    onChange={handleSelectAll}
+                  />
+                </TableCell>
+
+                <TableCell>Nombre</TableCell>
+                <TableCell>Compañia</TableCell>
+                <TableCell>Categoria</TableCell>
+                <TableCell>Estado del proyecto</TableCell>
+                <TableCell>Creado</TableCell>
+                <TableCell>Activo</TableCell>
+              </TableRow>
+            </TableHead>
+
+            <TableBody>
+              {projects?.slice(0, limit)?.map((projects: any) => (
+                <TableRow
+                  hover
+                  key={projects?.uid}
+                  selected={selectedCustomerIds.indexOf(projects?.uid) !== -1}
+                >
                   <TableCell padding="checkbox">
                     <Checkbox
-                      checked={selectedCustomerIds?.length === projects?.length}
-                      color="primary"
-                      indeterminate={
-                        selectedCustomerIds?.length > 0 &&
-                        selectedCustomerIds?.length < projects?.length
+                      checked={
+                        selectedCustomerIds.indexOf(projects?.uid) !== -1
                       }
-                      onChange={handleSelectAll}
+                      onChange={(event) => handleSelectOne(projects?.uid)}
+                      value="true"
                     />
                   </TableCell>
-
-                  <TableCell>Nombre</TableCell>
-                  <TableCell>Compañia</TableCell>
-                  <TableCell>Categoria</TableCell>
-                  <TableCell>Estado del proyecto</TableCell>
-                  <TableCell>Creado</TableCell>
-                  <TableCell>Activo</TableCell>
-                </TableRow>
-              </TableHead>
-
-              <TableBody>
-                {projects?.slice(0, limit)?.map((projects: any) => (
-                  <TableRow
-                    hover
-                    key={projects?.uid}
-                    selected={selectedCustomerIds.indexOf(projects?.uid) !== -1}
-                  >
-                    <TableCell padding="checkbox">
-                      <Checkbox
-                        checked={
-                          selectedCustomerIds.indexOf(projects?.uid) !== -1
-                        }
-                        onChange={(event) => handleSelectOne(projects?.uid)}
-                        value="true"
-                      />
-                    </TableCell>
-                    <TableCell>
-                      <Box
-                        sx={{
-                          alignItems: "center",
-                          display: "flex",
-                        }}
-                      >
-                        <Typography color="textPrimary" variant="body1">
-                          {projects?.name}
-                        </Typography>
-                      </Box>
-                    </TableCell>
-                    <TableCell>
-                      {projects.company && Array.isArray(projects?.company)
-                        ? projects?.company[0]?.name
-                        : projects?.company?.name}
-                    </TableCell>
-                    <TableCell>
-                      {projects?.category
-                        ? projects?.category
-                        : "No registrado"}
-                    </TableCell>
-                    <TableCell>
-                      {projects?.state === true ? "Activo" : "Inactivo"}
-                    </TableCell>
-
-                                            <TableCell>
-                                                {projects.admission
-                                                    // ? `${moment(
-                                                    //       projects.admission
-                                                    //   ).format('DD/MM/YYYY')}`
-                                                    ? `${new Date(projects.admission).toLocaleDateString()}`
-                                                    : 'No registrado'}
-                                            </TableCell>
-
-                    <FormGroup
+                  <TableCell>
+                    <Box
                       sx={{
-                        display: "flex",
-                        justifyContent: "center",
                         alignItems: "center",
-                        mt: 3,
+                        display: "flex",
                       }}
                     >
-                      <FormControlLabel
-                        control={
-                          <Switch
-                            checked={projects?.state}
-                            size="small"
-                            color="primary"
-                            onChange={() => handleSwitch(projects?.uid)}
-                          />
-                        }
-                        label={undefined}
-                      />
-                    </FormGroup>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </Box>
-        )}
-        <Pages />
-      </Card>
+                      <Typography color="textPrimary" variant="body1">
+                        {projects?.name}
+                      </Typography>
+                    </Box>
+                  </TableCell>
+                  <TableCell>
+                    {projects.company && Array.isArray(projects?.company)
+                      ? projects?.company[0]?.name
+                      : projects?.company?.name}
+                  </TableCell>
+                  <TableCell>
+                    {projects?.category ? projects?.category : "No registrado"}
+                  </TableCell>
+                  <TableCell>
+                    {projects?.state === true ? "Activo" : "Inactivo"}
+                  </TableCell>
+
+                  <TableCell>
+                    {projects.admission
+                      ? // ? `${moment(
+                        //       projects.admission
+                        //   ).format('DD/MM/YYYY')}`
+                        `${new Date(projects.admission).toLocaleDateString()}`
+                      : "No registrado"}
+                  </TableCell>
+
+                  <FormGroup
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      mt: 3,
+                    }}
+                  >
+                    <FormControlLabel
+                      control={
+                        <Switch
+                          checked={projects?.state}
+                          size="small"
+                          color="primary"
+                          onChange={() => handleSwitch(projects?.uid)}
+                        />
+                      }
+                      label={undefined}
+                    />
+                  </FormGroup>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+      </AdminTable>
     </>
   );
 };
