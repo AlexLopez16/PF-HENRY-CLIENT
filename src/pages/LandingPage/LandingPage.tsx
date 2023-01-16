@@ -1,10 +1,10 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useNavigate } from 'react-router';
 import ScrollToTop from 'react-scroll-to-top';
 import { Button, Typography, Box, Grid, Container } from '@mui/material';
 import Header from '../../components/NavbarLandingPage/HeaderLanding';
 import Footer from './Footer';
-
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import bgLanding from '../../assets/bgLanding.png';
 import logo from '../../assets/NABIJASH.png';
 import objetivo from '../../assets/objetivo.png';
@@ -12,7 +12,6 @@ import objetivoCompany from '../../assets/objetivocompany.png';
 import objetivoStudent from '../../assets/objetivostudent.png';
 import bannerLanding from '../../assets/bannerLanding.png';
 import Carousel from './Carousel';
-
 
 const LandingPage: FC = () => {
   const navigate = useNavigate();
@@ -47,18 +46,11 @@ const LandingPage: FC = () => {
                   borderRadius: 20,
                 }}
               >
-                🡅
+                <ArrowUpwardIcon />
               </p>
             }
           />
           <Container>
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'flex-end',
-                pt: 10,
-              }}
-            ></Box>
             <Box
               sx={{
                 justifyContent: 'center',
@@ -109,6 +101,7 @@ const LandingPage: FC = () => {
                     display: 'inline-flex',
                     borderRadius: 7,
                     fontFamily: 'poppins',
+                    mt: 2,
                   }}
                 >
                   Ser parte del proyecto
@@ -123,6 +116,7 @@ const LandingPage: FC = () => {
                     color: 'black',
                     borderRadius: 7,
                     fontFamily: 'poppins',
+                    mt: 2,
                   }}
                 >
                   Crear proyecto
@@ -184,7 +178,7 @@ const LandingPage: FC = () => {
                   textAlign: 'center',
                   color: 'white',
                   fontFamily: 'montserrat',
-                  lineHeight: '2.5rem'
+                  lineHeight: '2.5rem',
                 }}
               >
                 Nuestra propuesta es brindar a los alumnos la oportunidad de
@@ -220,7 +214,7 @@ const LandingPage: FC = () => {
                   textAlign: 'center',
                   color: 'white',
                   fontFamily: 'montserrat',
-                  lineHeight: '2.5rem'
+                  lineHeight: '2.5rem',
                 }}
               >
                 Lograr que empresas y estudiantes se conecten, por eso queremos
@@ -248,7 +242,7 @@ const LandingPage: FC = () => {
                   textAlign: 'center',
                   color: 'white',
                   fontFamily: 'montserrat',
-                  lineHeight: '2.5rem'
+                  lineHeight: '2.5rem',
                 }}
               >
                 Como usuarios, los estudiantes tendrán a disposicion todos los
@@ -280,7 +274,7 @@ const LandingPage: FC = () => {
                   fontFamily: 'montserrat',
                   padding: 4,
                   borderRadius: 10,
-                  lineHeight: '3rem'
+                  lineHeight: '3rem',
                 }}
               >
                 Concluimos que, debemos aprovechar y utilizar los medios de
@@ -408,8 +402,8 @@ const LandingPage: FC = () => {
                       textAlign: 'center',
                     }}
                   >
-                    Amamos lo que hacemos. Trabajamos y por eso queremos siempre hacer más y
-                    hacerlo mejor.
+                    Amamos lo que hacemos. Trabajamos y por eso queremos siempre
+                    hacer más y hacerlo mejor.
                   </Typography>
                 </Box>
                 <Box>
