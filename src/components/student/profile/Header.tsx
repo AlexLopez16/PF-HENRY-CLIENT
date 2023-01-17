@@ -133,7 +133,7 @@ export const Header: FC<Props> = ({
               fontSize: 20,
             }}
           >
-            {lenguage?.map((e) => e + ',')}
+            {lenguage?.join(", ")}
           </Typography>
           <IconButton aria-label='settings' onClick={handlerEdit}>
             <EditIcon sx={iconStyle} color='primary' fontSize='medium' />
