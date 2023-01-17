@@ -90,7 +90,7 @@ export const AdminTable: FC<adminTableProps> = ({
       const t = setTimeout(() => {
         setIsLoading(false);
         clearTimeout(t);
-      }, 1000);
+      }, 1200);
     }
   }, [inProgress]);
 
