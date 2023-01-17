@@ -103,9 +103,6 @@ const CompanyForm: FC = () => {
 
   let condicion = useSelector((state: State) => state.response);
 
-  // const componentVerifyCompany = () => {
-  //     Navigate('/verifyemailWithCompany');
-  // };
 
   const onSubmit = (values: any) => {
     dispatch(
@@ -130,7 +127,6 @@ const CompanyForm: FC = () => {
     <Box
       sx={{
         backgroundImage: `url(${bgComponents})`,
-        maxWidth: '1920px',
       }}
     >
       <div>
@@ -174,7 +170,6 @@ const CompanyForm: FC = () => {
             <Paper
               sx={{
                 width: '50%',
-
                 mt: 10,
                 mb: 5,
                 p: 5,
