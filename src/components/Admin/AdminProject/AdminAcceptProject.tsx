@@ -99,12 +99,6 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
     }
     setSelectedCustomerIds(newSelectedCustomerIds);
   };
-  const handlerClick = () => {
-    setOpen(!open);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   const handleaccept = (id: string) => {
     dispatch(AprovedProject(token, id)), setRender(!render);
@@ -136,14 +130,13 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
   };
 
   let proyectos = projects;
-  const handleChangeOptions = (event: SelectChangeEvent) => {
-    setOpciones(event.target.value);
-  };
+ 
   opciones !== "Todos"
     ? (proyectos = projects.filter((project: any) =>
         project.stateOfProject.includes(opciones)
       ))
     : (proyectos = projects);
+    
   return (
     <>
       <AdminTable
