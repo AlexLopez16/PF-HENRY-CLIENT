@@ -32,19 +32,18 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 const MyProjectStudent: FC = () => {
   const dispatch = useDispatch();
-  // Traemos el id del estado.
+
   const { auth, student }: any = useSelector((state: State) => state);
   const { inProgress } = useSelector((state: State) => state.request);
-  // Traemos el token del local storage.
+
   const token = localStorage.getItem('token') || '';
-  // Traemos toda la info del student.
+
   useEffect(() => {
     dispatch(getStudentInfo(auth.data.id, token));
   }, [dispatch]);
 
-  // Definimos los objetos de informacion.
   const { user }: any = student;
-  // Aca hay que trabajar con typescript para que quede mas limpia la sintaxis.
+
   const studentData: any = user?.working?.length
     ? user.working[0]
     : user.project?.length
@@ -53,7 +52,7 @@ const MyProjectStudent: FC = () => {
   const handleClick = async (projectId: string | any) => {
     dispatch(unApplyStudent(user.id, projectId, localStorage.getItem('token')));
   };
-  // console.log(user.working)
+
   const navigate = useNavigate();
 
   const GoBack = () => {
@@ -75,7 +74,7 @@ const MyProjectStudent: FC = () => {
             alignContent: 'center',
             alignItems: 'center',
             textAlign: 'center',
-            width: '52%',
+            flecDirection: 'column',
           }}
         >
           <Grid
@@ -126,27 +125,26 @@ const MyProjectStudent: FC = () => {
                 </>
               ) : user.project?.length ? (
                 <>
-                 <Container
-          sx={{
-            alignContent: 'center',
-            alignItems: 'center',
-            textAlign: 'center',
-            width:'52%',
-          }}
-        >
-          <Typography
-            sx={{
-              color: 'black',
-              fontFamily: 'montserrat',
-              fontSize: 35,
-              backgroundColor: 'white',
-              borderRadius: 15,
-              mb: 10,
-            }}
-          >
-            Mis Proyectos
-          </Typography>
-        </Container>
+                  <Container
+                    sx={{
+                      alignContent: 'center',
+                      alignItems: 'center',
+                      textAlign: 'center',
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        color: 'black',
+                        fontFamily: 'montserrat',
+                        fontSize: 35,
+                        backgroundColor: 'white',
+                        borderRadius: 15,
+                        mb: 10,
+                      }}
+                    >
+                      Mis Proyectos
+                    </Typography>
+                  </Container>
                   <div>
                     {user?.project &&
                       user?.project?.map((project: any) => (

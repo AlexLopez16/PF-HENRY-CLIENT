@@ -265,7 +265,7 @@ const LandingPage: FC = () => {
             </Container>
             <Container>
               <Typography
-                variant='h4'
+                variant='h5'
                 sx={{
                   mt: 20,
                   backgroundColor: '#1b384a',
