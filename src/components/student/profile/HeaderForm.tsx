@@ -35,7 +35,7 @@ interface Props {
   lastName?: string;
   country?: string;
   email?: string;
-  lenguage?:string[]
+  lenguage?: string[]
 }
 
 export const HeaderForm: FC<Props> = ({
@@ -55,7 +55,7 @@ export const HeaderForm: FC<Props> = ({
   const token = localStorage.getItem('token') || '';
   const [pais, setPais] = useState(country);
   // const [idioma, setIdioma] = useState(lenguage);
-  const [idioma, setIdioma] = useState<string[] | any>([lenguage]);
+  const [idioma, setIdioma] = useState<string[] | any>([]);
 
   const handlerEdit = () => {
     setEdit({
@@ -87,7 +87,7 @@ export const HeaderForm: FC<Props> = ({
         lastName: values.lastName,
         country: pais,
         email: email,
-        lenguage:idioma
+        lenguage: idioma
       }),
     );
     setEdit({
@@ -142,7 +142,7 @@ export const HeaderForm: FC<Props> = ({
   const handleChange = (event: SelectChangeEvent) => {
     setPais(event.target.value as string);
   };
-  
+
   // form edit profile
 
   const handleChangeIdioma = (event: SelectChangeEvent<typeof idioma>) => {
@@ -150,7 +150,7 @@ export const HeaderForm: FC<Props> = ({
     const {
       target: { value },
     } = event;
-    
+
     setIdioma(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
@@ -391,7 +391,7 @@ export const HeaderForm: FC<Props> = ({
                       alignContent: 'space-around',
                       textAlign: 'left',
                     }}
-                    
+
                   >
                     <Select
                       inputProps={{ 'aria-label': 'Without label' }}
@@ -447,7 +447,7 @@ export const HeaderForm: FC<Props> = ({
                       inputProps={{ 'aria-label': 'Without label' }}
                       color='secondary'
                       multiple
-                      value={idioma}
+                      value={user.lenguage}
                       displayEmpty
                       onChange={handleChangeIdioma}
                       sx={{
