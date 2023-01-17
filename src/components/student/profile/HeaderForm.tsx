@@ -25,6 +25,12 @@ import {
 } from '../../../actions/student';
 import { State } from '../../../reducers/rootReducer';
 import { SelectChangeEvent } from '@mui/material';
+import Checkbox from '@mui/material/Checkbox';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import ListItemText from '@mui/material/ListItemText';
+
+
 
 interface Props {
   edit: { header: boolean; about: boolean; skills: boolean };
@@ -35,7 +41,7 @@ interface Props {
   lastName?: string;
   country?: string;
   email?: string;
-  lenguage?:string[]
+  lenguage?: string[]
 }
 
 export const HeaderForm: FC<Props> = ({
@@ -54,8 +60,10 @@ export const HeaderForm: FC<Props> = ({
   const { image } = user;
   const token = localStorage.getItem('token') || '';
   const [pais, setPais] = useState(country);
-  // const [idioma, setIdioma] = useState(lenguage);
-  const [idioma, setIdioma] = useState<string[] | any>([lenguage]);
+
+  const [idioma, setIdioma] = useState<string[] | any>(lenguage);
+  console.log(lenguage);
+
 
   const handlerEdit = () => {
     setEdit({
@@ -87,7 +95,7 @@ export const HeaderForm: FC<Props> = ({
         lastName: values.lastName,
         country: pais,
         email: email,
-        lenguage:idioma
+        lenguage: idioma
       }),
     );
     setEdit({
@@ -135,14 +143,14 @@ export const HeaderForm: FC<Props> = ({
     'Ingles',
     'Francés',
     'Español',
-    'chino mandarín',
-
+    'Chino mandarín',
+    'Italiano',
   ]
 
   const handleChange = (event: SelectChangeEvent) => {
     setPais(event.target.value as string);
   };
-  
+
   // form edit profile
 
   const handleChangeIdioma = (event: SelectChangeEvent<typeof idioma>) => {
@@ -150,7 +158,7 @@ export const HeaderForm: FC<Props> = ({
     const {
       target: { value },
     } = event;
-    
+
     setIdioma(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
@@ -391,7 +399,7 @@ export const HeaderForm: FC<Props> = ({
                       alignContent: 'space-around',
                       textAlign: 'left',
                     }}
-                    
+
                   >
                     <Select
                       inputProps={{ 'aria-label': 'Without label' }}
@@ -429,6 +437,7 @@ export const HeaderForm: FC<Props> = ({
                     </Select>
                   </FormControl>
 
+
                   <FormControl
                     variant='outlined'
                     color='primary'
@@ -443,13 +452,8 @@ export const HeaderForm: FC<Props> = ({
                       textAlign: 'left',
                     }}
                   >
+                    <InputLabel id="demo-multiple-checkbox-label"></InputLabel>
                     <Select
-                      inputProps={{ 'aria-label': 'Without label' }}
-                      color='secondary'
-                      multiple
-                      value={idioma}
-                      displayEmpty
-                      onChange={handleChangeIdioma}
                       sx={{
                         color: 'white',
                         boxShadow: 'rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset',
@@ -468,17 +472,25 @@ export const HeaderForm: FC<Props> = ({
                         label: { color: 'white' },
                         input: { color: 'white' },
                       }}
+                      labelId="demo-multiple-checkbox-label"
+                      id="demo-multiple-checkbox"
+                      multiple
+                      value={idioma}
+                      onChange={handleChangeIdioma}
+                      input={<OutlinedInput label="Selecciona tus idiomas" />}
+                      renderValue={(value) => value.join(', ')}
+                    // MenuProps={MenuProps}
                     >
-                      <MenuItem value=''>
-                        <p>Selecciona tus idioma</p>
-                      </MenuItem>
-                      {idiomas.map((idioma) => (
-                        <MenuItem key={idioma} value={idioma}>
-                          {idioma}
+                      {idiomas.map((name) => (
+                        <MenuItem key={name} value={name}>
+                          <Checkbox checked={idioma.indexOf(name) > -1} />
+                          <ListItemText primary={name} />
                         </MenuItem>
                       ))}
                     </Select>
                   </FormControl>
+
+
 
                   <Button
                     size='small'
@@ -513,7 +525,7 @@ export const HeaderForm: FC<Props> = ({
             </Form>
           )}
         </Formik>
-      </Paper>
-    </Container>
+      </Paper >
+    </Container >
   );
 };

@@ -29,6 +29,9 @@ export const validaToken = (token: string) => {
                 error.response.data.errors[0].msg ===
                 'Tu cuenta ha sido inactivada, por favor llena el formulario de contactanos para darte respuesta'
             ) {
+
+                // localStorage.clear()
+                // localStorage.setItem("location", "/login")
                 dispatch(gitHubInactivateLogOut());
                 dispatch({
                     type: types.requestFinished,

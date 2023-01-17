@@ -351,6 +351,7 @@ const CompanyForm: FC = () => {
                         inputProps={{
                           'aria-label': 'Without label',
                         }}
+
                         sx={{
                           color: 'white',
                           boxShadow:
@@ -361,6 +362,7 @@ const CompanyForm: FC = () => {
                           '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
                             borderColor: 'white',
                           },
+
                           '&:hover .MuiOutlinedInput-notchedOutline': {
                             borderColor: 'white',
                           },
