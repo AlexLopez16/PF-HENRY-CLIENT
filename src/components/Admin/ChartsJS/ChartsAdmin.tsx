@@ -67,7 +67,6 @@ const ChartsAdmin: FC = () => {
                     </Card>
                 </Grid>
             </Grid>
-            <PreLoader />
         </>
     );
 };
