@@ -1,5 +1,4 @@
 import amazonLogo from '../../assets/LogosMarcas/amazonLogo.jpg';
-import playLogo from '../../assets/LogosMarcas/playLogo.jpg';
 import bbvaLogo from '../../assets/LogosMarcas/bbvaLogo.jpg';
 import bkLogo from '../../assets/LogosMarcas/bkLogo.png';
 import chanelLogo from '../../assets/LogosMarcas/chanelLogo.png';
@@ -46,7 +45,6 @@ export default [
   amazonLogo,
   nikeLogo,
   hyundaiLogo,
-  playLogo,
   lenovoLogo,
   swissLogo,
   telecentroLogo,

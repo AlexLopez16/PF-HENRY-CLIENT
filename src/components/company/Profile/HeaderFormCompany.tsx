@@ -122,8 +122,6 @@ export const HeaderFormCompany: FC<Props> = ({
     setPais(event.target.value as string);
   };
 
-  // COMPONENTE MODIFICAR PERFIL
-
   return (
     <Container
       maxWidth='md'
@@ -283,7 +281,7 @@ export const HeaderFormCompany: FC<Props> = ({
                   >
                     <Select
                       inputProps={{ 'aria-label': 'Without label' }}
-                      color='secondary'
+                      color='primary'
                       value={pais}
                       displayEmpty
                       onChange={handleChange}
@@ -306,9 +304,8 @@ export const HeaderFormCompany: FC<Props> = ({
                         input: { color: 'white' },
                       }}
                     >
-                      <MenuItem value=''>
-                        <p>Selecciona un país</p>
-                      </MenuItem>
+                      <p>Selecciona un país</p>
+
                       {paises.map((pais) => (
                         <MenuItem key={pais} value={pais}>
                           {pais}
