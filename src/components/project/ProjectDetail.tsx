@@ -92,6 +92,8 @@ const ProjectDetail: FC<ProjectProps> = ({
     console.log(project);
 
 
+
+
     return (
         <>
             <Box
@@ -323,9 +325,13 @@ const ProjectDetail: FC<ProjectProps> = ({
                                 }}
                             >
                                 {rol === 'STUDENT_ROL' &&
-                                    user?.working?.length ? null : rol ===
-                                        'STUDENT_ROL' &&
-                                        projectId.stateOfProject !== 'Terminado' ? (
+
+
+          user.project.some((e:any) => e.uid === projectId.uid ) ||
+                                user?.working?.length ? null : rol ===
+                                      'STUDENT_ROL' &&
+                                  projectId.stateOfProject !== 'Terminado' ? (
+
                                     <Button
                                         sx={{
                                             width: '50%',
