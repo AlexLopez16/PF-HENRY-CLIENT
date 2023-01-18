@@ -24,20 +24,18 @@ export default function Nacho() {
   };
   return (
     <>
-      <Grid
-        container
-        direction='column'
-        justifyContent='flex-start'
-        alignItems='center'
+      <Box
         sx={{
           backgroundImage: `url(${aboutbg})`,
-          height: '870px',
         }}
       >
-        <FormControl
+        <Container
           sx={{
-            px: 50,
-            mt: 10,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'column',
+            flexWrap: 'wrap',
           }}
         >
           <Typography
@@ -47,99 +45,97 @@ export default function Nacho() {
               fontFamily: 'montserrat',
               fontSize: '20px',
               fontStyle: 'italic',
+              mt: 15,
+              backgroundColor: 'black',
+              borderRadius: 5,
             }}
           >
             "Soy una persona que le motiva la programación, soy capaz de
             entender los conceptos con rapidez y me desenvuelvo con facilidad
             dentro de un grupo."
           </Typography>
-        </FormControl>
-        <Box
-          sx={{
-            height: '450px',
-            width: '450px',
-            backgroundColor: '#1b384a',
-            borderRadius: '20px',
-            boxShadow:
-              'box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;',
-            mt: 10,
-          }}
-        >
-          <Typography
-            gutterBottom
-            variant='h5'
-            color='white'
-            fontFamily='montserrat'
-            textAlign='center'
-            marginTop='20px'
-          >
-            Ignacio Nicoletti
-          </Typography>
-          <CardMedia
+          <Box
             sx={{
-              height: '300px',
-              width: '300px',
+              height: '100%',
+              width: '100%',
+              backgroundColor: '#1b384a',
               borderRadius: '20px',
-              mt: '10px',
-              boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
-              ml: 9.3,
+              boxShadow:
+                'box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;',
+              mt: 10,
             }}
-            component='img'
-            image={IgnacioNicoletti}
-            alt='profilephoto'
-          />
-          <CardContent>
+          >
             <Typography
               gutterBottom
-              variant='subtitle1'
+              variant='h5'
               color='white'
               fontFamily='montserrat'
               textAlign='center'
-            ></Typography>
-            <CardActions
-              sx={{
-                justifyContent: 'center',
-              }}
+              marginTop='20px'
             >
-              <Button
-                href='https://github.com/ignacio-nicoletti'
-                rel='noopener noreferrer'
-                target='_blank'
-                size='small'
-                variant='contained'
-                color='secondary'
-                sx={{
-                  boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
-                  fontFamily: 'montserrat',
-                  fontWeight: 'bold',
-                }}
-              >
-                GitHub
-              </Button>
-              <Button
-                href='https://www.linkedin.com/in/ignacio-nicoletti/'
-                rel='noopener noreferrer'
-                target='_blank'
-                size='small'
-                variant='contained'
-                color='secondary'
-                sx={{
-                  boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
-                  fontFamily: 'montserrat',
-                  fontWeight: 'bold',
-                }}
-              >
-                LinkedIn
-              </Button>
-            </CardActions>
+              Ignacio Nicoletti
+            </Typography>
             <Container
               sx={{
-                textAlign: 'center',
+                display: 'flex',
+                flexWrap: 'wrap',
+                flexDirection: 'column',
+                alignContent: 'center',
               }}
-            ></Container>
-          </CardContent>
-        </Box>
-        <FormControl>
+            >
+              <CardMedia
+                sx={{
+                  height: 300,
+                  width: 300,
+                  borderRadius: 5,
+                  mt: 2,
+                  boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+                }}
+                component='img'
+                image={IgnacioNicoletti}
+                alt='profilephoto'
+              />
+              <CardContent>
+                <CardActions
+                  sx={{
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Button
+                    href='https://github.com/ignacio-nicoletti'
+                    rel='noopener noreferrer'
+                    target='_blank'
+                    size='small'
+                    variant='contained'
+                    color='secondary'
+                    sx={{
+                      boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+                      fontFamily: 'montserrat',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    GitHub
+                  </Button>
+                  <Button
+                    href='https://www.linkedin.com/in/ignacio-nicoletti/'
+                    rel='noopener noreferrer'
+                    target='_blank'
+                    size='small'
+                    variant='contained'
+                    color='secondary'
+                    sx={{
+                      boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+                      fontFamily: 'montserrat',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    LinkedIn
+                  </Button>
+                </CardActions>
+              </CardContent>
+            </Container>
+          </Box>
+
           <Button
             startIcon={<ArrowBackIosNewIcon />}
             onClick={back}
@@ -151,12 +147,13 @@ export default function Nacho() {
               fontFamily: 'montserrat',
               fontWeight: 'bold',
               mt: 8,
+              mb: 10,
             }}
           >
             Regresar
           </Button>
-        </FormControl>
-      </Grid>
+        </Container>
+      </Box>
       <Footer />
     </>
   );

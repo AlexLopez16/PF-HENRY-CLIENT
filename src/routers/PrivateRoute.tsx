@@ -18,8 +18,7 @@ export const PrivateRoute: FC<Props> = ({ children }) => {
 
     if (!status && token) {
         dispatch(validaToken(token));
-
-        return <PreLoader/>
+        return <PreLoader />
     }
 
     const location = useLocation();
@@ -47,7 +46,7 @@ export const PrivateRoute: FC<Props> = ({ children }) => {
     if (!status && token) {
         dispatch(validaToken(token));
 
-        return <PreLoader/>
+        return <PreLoader />
     }
 
     return logged ? (

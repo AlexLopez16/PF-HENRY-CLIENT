@@ -45,11 +45,13 @@ export const Profile: FC = () => {
     country: string;
     image: string;
     email: string;
+    lenguage:[];
   }
 
   const { user } = useSelector((state: State) => state.student);
-  const { description, name, lastName, country, tecnologies, image, email } =
+  const { description, name, lastName, country, tecnologies, image, email,lenguage } =
     user as Props;
+console.log(lenguage);
 
   return (
     <Box
@@ -92,6 +94,7 @@ export const Profile: FC = () => {
             lastName={lastName}
             country={country}
             email={email}
+            lenguage={lenguage}
           />
         ) : (
           <Header
@@ -102,6 +105,8 @@ export const Profile: FC = () => {
             country={country}
             image={image}
             email={email}
+            lenguage={lenguage}
+           
           />
         )}
         {edit.about ? (

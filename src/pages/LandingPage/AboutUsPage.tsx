@@ -73,6 +73,8 @@ const AboutUsPage: FC = () => {
               textAlign: 'center',
               color: 'white',
               fontFamily: 'montserrat',
+              backgroundColor:'black',
+              borderRadius:5,
             }}
           >
             Somos un equipo que se creo durante el recorrido del bootcamp de
@@ -103,6 +105,8 @@ const AboutUsPage: FC = () => {
               textAlign: 'center',
               color: 'white',
               fontFamily: 'montserrat',
+              backgroundColor:'black',
+              borderRadius:5,
             }}
           >
             Nuestros objetivos siempre se destacan por la creación y desarrollo

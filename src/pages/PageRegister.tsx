@@ -1,27 +1,22 @@
 import { FC } from 'react';
-import { Button, Typography, Box, Grid } from '@mui/material';
+import { Button, Typography, Box, Grid, Container } from '@mui/material';
 import { Link } from 'react-router-dom';
 import style from '../styles/register.module.css';
 import registerbg from '../assets/registerbg.png';
 import Header from '../components/NavbarLandingPage/HeaderLanding';
+import Footer from './LandingPage/Footer';
 
 export const Register: FC = () => {
   return (
     <>
-      <Header />
       <Box
         sx={{
           backgroundImage: `url(${registerbg})`,
-          height: '940px',
-          textAlign: 'center',
+          pb: 50,
         }}
       >
-        <Grid
-          container
-          direction='column'
-          justifyContent='center'
-          alignItems='center'
-        >
+        <Header />
+        <Container>
           <Typography
             sx={{
               color: 'white',
@@ -32,24 +27,27 @@ export const Register: FC = () => {
               textAlign: 'center',
               justifyContent: 'center',
               display: 'flex',
+              backgroundColor:'black',
+              borderRadius:5,
             }}
           >
             Como empresa crea un proyecto, o como alumno se parte de uno.
           </Typography>
 
-          <Grid
-            container
-            direction='row'
-            justifyContent='center'
-            alignItems='center'
+          <Container
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              flexWrap: 'wrap',
+            }}
           >
             <div className={style.content_left}>
-              <Link className={style.link} to='/signup/student'>
+              <Link to='/signup/student'>
                 <Button
                   color='primary'
-                  style={{
+                  sx={{
                     fontFamily: 'poppins',
-                    marginTop: 280,
+                    marginTop: 30,
                     position: 'relative',
                   }}
                   variant='contained'
@@ -59,12 +57,12 @@ export const Register: FC = () => {
               </Link>
             </div>
             <div className={style.content_right}>
-              <Link className={style.link} to='/signup/company'>
+              <Link to='/signup/company'>
                 <Button
                   color='primary'
-                  style={{
+                  sx={{
                     fontFamily: 'poppins',
-                    marginTop: 280,
+                    marginTop: 30,
                     position: 'relative',
                   }}
                   variant='contained'
@@ -73,9 +71,10 @@ export const Register: FC = () => {
                 </Button>
               </Link>
             </div>
-          </Grid>
-        </Grid>
+          </Container>
+        </Container>
       </Box>
+      <Footer />
     </>
   );
 };

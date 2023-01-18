@@ -122,8 +122,6 @@ export const HeaderFormCompany: FC<Props> = ({
     setPais(event.target.value as string);
   };
 
-  // COMPONENTE MODIFICAR PERFIL
-
   return (
     <Container
       maxWidth='md'
@@ -182,8 +180,8 @@ export const HeaderFormCompany: FC<Props> = ({
                 >
                   <Avatar
                     sx={{
-                      height: '35%',
-                      width: '35%',
+                      height: 100,
+                      width: 100,
                       boxShadow:
                         'rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;',
                       mb: 1,
@@ -283,7 +281,7 @@ export const HeaderFormCompany: FC<Props> = ({
                   >
                     <Select
                       inputProps={{ 'aria-label': 'Without label' }}
-                      color='secondary'
+                      color='primary'
                       value={pais}
                       displayEmpty
                       onChange={handleChange}
@@ -306,9 +304,8 @@ export const HeaderFormCompany: FC<Props> = ({
                         input: { color: 'white' },
                       }}
                     >
-                      <MenuItem value=''>
-                        <p>Selecciona un país</p>
-                      </MenuItem>
+                      <p>Selecciona un país</p>
+
                       {paises.map((pais) => (
                         <MenuItem key={pais} value={pais}>
                           {pais}

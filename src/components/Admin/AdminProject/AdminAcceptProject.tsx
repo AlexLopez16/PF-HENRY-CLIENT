@@ -1,10 +1,8 @@
 import { FC, useState, useEffect, forwardRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Box, Container } from "@mui/system";
-import * as moment from "moment";
+import { Box } from "@mui/system";
+
 import {
-  Card,
   Table,
   TableBody,
   TableCell,
@@ -12,33 +10,17 @@ import {
   TableRow,
   Typography,
   SelectChangeEvent,
-  ListItemButton,
-  Collapse,
   IconButton,
   Checkbox,
-  Stack,
-  Alert,
 } from "@mui/material";
 import { State } from "../../../reducers/rootReducer";
 import { clearProject, getAllProject } from "../../../actions/projects";
 import { AprovedProject, reclutamientoInProject } from "../../../actions/Admin";
-import Pages from "../../ui/Pagination";
-import FilterListIcon from "@mui/icons-material/FilterList";
-
-ChartJS.register(ArcElement, Tooltip, Legend);
-
-export interface Options {
-  splitRegexp?: RegExp | RegExp[];
-  stripRegexp?: RegExp | RegExp[];
-  delimiter?: string;
-  transform?: (part: string, index: number, parts: string[]) => string;
-}
-export declare function sentenceCase(input: string, options?: Options): string;
 import CloseIcon from "@mui/icons-material/Close";
 import CheckIcon from "@mui/icons-material/Check";
 import AdminFilterProject from "../../AdminBar/AdminFilterProject";
 import CancelMessage from "./cancelMessage";
-import { PreLoader } from "../../PreLoader/PreLoader";
+import { AdminTable, AdminTableFilters } from "../AdminTable/AdminTable";
 
 const AdminAcceptProject: FC = ({ ...rest }) => {
   const dispatch = useDispatch();
@@ -117,12 +99,6 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
     }
     setSelectedCustomerIds(newSelectedCustomerIds);
   };
-  const handlerClick = () => {
-    setOpen(!open);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   const handleaccept = (id: string) => {
     dispatch(AprovedProject(token, id)), setRender(!render);
@@ -154,185 +130,163 @@ const AdminAcceptProject: FC = ({ ...rest }) => {
   };
 
   let proyectos = projects;
-  const handleChangeOptions = (event: SelectChangeEvent) => {
-    setOpciones(event.target.value);
-  };
+ 
   opciones !== "Todos"
     ? (proyectos = projects.filter((project: any) =>
         project.stateOfProject.includes(opciones)
       ))
     : (proyectos = projects);
+    
   return (
     <>
-      {/* <PreLoader /> */}
-      <Card {...rest}>
-        <Container
-          maxWidth="lg"
-          sx={{
-            display: "flex",
-            marginLeft: 0,
-          }}
-        >
+      <AdminTable
+        rows={6}
+        columns={8}
+        hasData={proyectos?.length > 0}
+        noDataMessage=" No hay proyectos con los filtros aplicados!"
+      >
+        <AdminTableFilters>
           <AdminFilterProject />
-        </Container>
-        {!projects.length ? (
+        </AdminTableFilters>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell padding="checkbox">
+                <Checkbox
+                  checked={selectedCustomerIds.length === proyectos.length}
+                  color="primary"
+                  indeterminate={
+                    selectedCustomerIds.length > 0 &&
+                    selectedCustomerIds.length < proyectos.length
+                  }
+                  onChange={handleSelectAll}
+                />
+              </TableCell>
+              <TableCell>Nombre</TableCell>
+              <TableCell>Compañia</TableCell>
+              <TableCell
+                sx={{
+                  textAlign: "center",
+                }}
+              >
+                Categoria
+              </TableCell>
+              <TableCell
+                sx={{
+                  textAlign: "center",
+                }}
+              >
+                Estado
+              </TableCell>
+              <TableCell>Creado</TableCell>
+              <TableCell>Descripcion</TableCell>
+              <TableCell>Aceptar</TableCell>
+              <TableCell>Rechazar</TableCell>
+            </TableRow>
+          </TableHead>
           <TableBody>
-            <Stack sx={{ width: "100%" }} spacing={1}>
-              <Alert severity="info">
-                No hay proyectos con los filtros aplicados!
-              </Alert>
-            </Stack>
-          </TableBody>
-        ) : (
-          <Box sx={{ minWidth: 1050 }}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={selectedCustomerIds.length === proyectos.length}
-                      color="primary"
-                      indeterminate={
-                        selectedCustomerIds.length > 0 &&
-                        selectedCustomerIds.length < proyectos.length
-                      }
-                      onChange={handleSelectAll}
-                    />
-                  </TableCell>
-                  <TableCell>Nombre</TableCell>
-                  <TableCell>Compañia</TableCell>
-                  <TableCell
-                    sx={{
-                      textAlign: "center",
-                    }}
-                  >
-                    Categoria
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      textAlign: "center",
-                    }}
-                  >
-                    Estado
-                  </TableCell>
-                  <TableCell>Creado</TableCell>
-                  <TableCell>Descripcion</TableCell>
-                  <TableCell>Aceptar</TableCell>
-                  <TableCell>Rechazar</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {proyectos.slice(0, limit).map((proyectos: any) => (
-                  <TableRow
-                    hover
-                    key={proyectos.uid}
-                    selected={selectedCustomerIds.indexOf(proyectos.uid) !== -1}
-                  >
-                    <TableCell padding="checkbox">
-                      <Checkbox
-                        checked={
-                          selectedCustomerIds.indexOf(proyectos.uid) !== -1
-                        }
-                        onChange={(event) => handleSelectOne(proyectos.uid)}
-                        value="true"
-                      />
-                    </TableCell>
-                    <TableCell>
-                      <Box
-                        sx={{
-                          alignItems: "center",
-                          display: "flex",
-                        }}
-                      >
-                        <Typography
-                          sx={{ maxWidth: 140 }}
-                          color="textPrimary"
-                          variant="body1"
-                        >
-                          {proyectos.name}
-                        </Typography>
-                      </Box>
-                    </TableCell>
-                    <TableCell>
-                      {proyectos.company && Array.isArray(proyectos.company)
-                        ? proyectos?.company[0]?.name
-                        : proyectos?.company?.name}
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        textAlign: "center",
-                      }}
-                    >
-                      {proyectos.category
-                        ? proyectos.category
-                        : "No registrado"}
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        width: 310,
-                        textAlign: "center",
-                      }}
-                    >
-                      {proyectos.stateOfProject}
-                    </TableCell>
-
-                                            <TableCell>
-                                                {proyectos.admission
-                                                    // ? `${moment(
-                                                    //       proyectos.admission
-                                                    //   ).format('DD/MM/YYYY')}`
-                                                    ? `${new Date(proyectos.admission).toLocaleDateString()}`
-                                                    : 'No registrado'}
-                                            </TableCell>
-                                            <TableCell sx={{ maxWidth: 200 }}>
-                                                {proyectos.description}
-                                            </TableCell>
-
-                    <TableCell sx={{ maxWidth: 200 }}>
-                      <IconButton
-                        disabled={proyectos.stateOfProject !== "En revision"}
-                      >
-                        <CheckIcon
-                          sx={{
-                            cursor: "pointer",
-                          }}
-                          onClick={() => handleaccept(proyectos.uid)}
-                        />
-                      </IconButton>
-                    </TableCell>
-                    <TableCell sx={{ maxWidth: 200 }}>
-                      <IconButton
-                        disabled={proyectos.stateOfProject !== "En revision"}
-                      >
-                        <CloseIcon
-                          sx={{
-                            cursor: "pointer",
-                          }}
-                          onClick={() => handlecancel(proyectos.uid)}
-                        />
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                ))}
-                <IconButton disabled={selectedCustomerIds.length < 2}>
-                  <CheckIcon
-                    sx={{ cursor: "pointer" }}
-                    onClick={handleMultiaccept}
+            {proyectos?.map((proyectos: any) => (
+              <TableRow
+                hover
+                key={proyectos.uid}
+                selected={selectedCustomerIds.indexOf(proyectos.uid) !== -1}
+              >
+                <TableCell padding="checkbox">
+                  <Checkbox
+                    checked={selectedCustomerIds.indexOf(proyectos.uid) !== -1}
+                    onChange={(event) => handleSelectOne(proyectos.uid)}
+                    value="true"
                   />
-                </IconButton>
-              </TableBody>
-            </Table>
-          </Box>
-        )}
-        <Pages />
-      </Card>
-      {/* {openModal && ( */}
+                </TableCell>
+                <TableCell>
+                  <Box
+                    sx={{
+                      alignItems: "center",
+                      display: "flex",
+                    }}
+                  >
+                    <Typography
+                      sx={{ maxWidth: 140 }}
+                      color="textPrimary"
+                      variant="body1"
+                    >
+                      {proyectos.name}
+                    </Typography>
+                  </Box>
+                </TableCell>
+                <TableCell>
+                  {proyectos.company && Array.isArray(proyectos.company)
+                    ? proyectos?.company[0]?.name
+                    : proyectos?.company?.name}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    textAlign: "center",
+                  }}
+                >
+                  {proyectos.category ? proyectos.category : "No registrado"}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    width: 310,
+                    textAlign: "center",
+                  }}
+                >
+                  {proyectos.stateOfProject}
+                </TableCell>
+
+                <TableCell>
+                  {proyectos.admission
+                    ? // ? `${moment(
+                      //       proyectos.admission
+                      //   ).format('DD/MM/YYYY')}`
+                      `${new Date(proyectos.admission).toLocaleDateString()}`
+                    : "No registrado"}
+                </TableCell>
+                <TableCell sx={{ maxWidth: 200 }}>
+                  {proyectos.description}
+                </TableCell>
+
+                <TableCell sx={{ maxWidth: 200 }}>
+                  <IconButton
+                    disabled={proyectos.stateOfProject !== "En revision"}
+                  >
+                    <CheckIcon
+                      sx={{
+                        cursor: "pointer",
+                      }}
+                      onClick={() => handleaccept(proyectos.uid)}
+                    />
+                  </IconButton>
+                </TableCell>
+                <TableCell sx={{ maxWidth: 200 }}>
+                  <IconButton
+                    disabled={proyectos.stateOfProject !== "En revision"}
+                  >
+                    <CloseIcon
+                      sx={{
+                        cursor: "pointer",
+                      }}
+                      onClick={() => handlecancel(proyectos.uid)}
+                    />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+            <IconButton disabled={selectedCustomerIds.length < 2}>
+              <CheckIcon
+                sx={{ cursor: "pointer" }}
+                onClick={handleMultiaccept}
+              />
+            </IconButton>
+          </TableBody>
+        </Table>
+      </AdminTable>
       <CancelMessage
         setOpenModal={setOpenModal}
         openModal={openModal}
         idPrj={idPrj}
       />
-      {/* )} */}
     </>
   );
 };

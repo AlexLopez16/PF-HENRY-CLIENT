@@ -3,16 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import {
-    Typography,
-    Paper,
-    List,
-    Button,
-    ImageList,
-    ImageListItem,
-    Box,
-    Container,
-    FormControl,
-    Grid,
+  Typography,
+  Paper,
+  List,
+  Button,
+  ImageList,
+  ImageListItem,
+  Box,
+  Container,
+  FormControl,
+  Grid,
 } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { State } from '../../reducers/rootReducer';
@@ -27,68 +27,70 @@ import Footer from '../../pages/LandingPage/Footer';
 import bgComponents from '../../assets/bgComponents.png';
 
 interface ProjectProps {
-    name?: string;
-    empresa?: string;
-    imagenes?: string[];
-    detalle?: string;
-    cantidadDeEstudiantes?: string;
-    lenguajes?: string[];
-    estado?: string;
-    email?: string;
-    categoria?: string;
-    uid: string;
-    stateOfProject?: string[];
+  name?: string;
+  empresa?: string;
+  imagenes?: string[];
+  detalle?: string;
+  cantidadDeEstudiantes?: string;
+  lenguajes?: string[];
+  estado?: string;
+  email?: string;
+  categoria?: string;
+  uid: string;
+  stateOfProject?: string[];
 }
 
 const ProjectDetail: FC<ProjectProps> = ({
-    name,
-    empresa,
-    imagenes,
-    detalle,
-    cantidadDeEstudiantes,
-    lenguajes = ['Java'],
-    estado,
-    categoria,
-    uid,
+  name,
+  empresa,
+  imagenes,
+  detalle,
+  cantidadDeEstudiantes,
+  lenguajes = ['Java'],
+  estado,
+  categoria,
+  uid,
 }: ProjectProps) => {
-    const dispatch = useDispatch();
-    let token = localStorage.getItem('token') || '';
-    let rol = useSelector((state: State | any) => state.auth.data.rol);
-    let id = useSelector((state: State | any) => state.auth.data.id);
-    const { projectId } = useSelector((state: State) => state.project);
-    const { user }: any = useSelector((state: State) => state.student);
-    const { user: company } = useSelector((state: State) => state.company);
+  const dispatch = useDispatch();
+  let token = localStorage.getItem('token') || '';
+  let rol = useSelector((state: State | any) => state.auth.data.rol);
+  let id = useSelector((state: State | any) => state.auth.data.id);
+  const { projectId } = useSelector((state: State) => state.project);
+  const { user }: any = useSelector((state: State) => state.student);
+  const { user: company } = useSelector((state: State) => state.company);
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const GoBack = () => {
-        navigate('/projects');
-    };
+  const GoBack = () => {
+    navigate('/projects');
+  };
 
-    const handlerApply = () => {
-        {
-            projectId?.questions?.length
-                ? navigate(`/postulatedForm/${uid}`)
-                : dispatch(addStudentToProject(uid, token));
-        }
-    };
+  const handlerApply = () => {
+    {
+      projectId?.questions?.length
+        ? navigate(`/postulatedForm/${uid}`)
+        : dispatch(addStudentToProject(uid, token));
+    }
+  };
 
-    const { id: idProject }: string | any = useParams();
+  const { id: idProject }: string | any = useParams();
 
-    useEffect(() => {
-        dispatch(getProjectByID(token, idProject));
-    }, [dispatch]);
+  useEffect(() => {
+    dispatch(getProjectByID(token, idProject));
+  }, [dispatch]);
 
-    const handelClick = () => {
-        // dispatch(changeStateOfProject(uid, token, 'Terminado'));
-        dispatch(proyectFinal(idProject, token));
-    };
+  const handelClick = () => {
+    dispatch(proyectFinal(idProject, token));
+  };
 
+    let project = projectId
     const handleDesarrollo = () => {
-        dispatch(changeStateOfProject(uid, token, 'En desarrollo'));
+        dispatch(changeStateOfProject(uid, token, 'En desarrollo', project));
     };
 
     let review = projectId.reviews;
+    console.log(project);
+
 
 
 
@@ -201,79 +203,69 @@ const ProjectDetail: FC<ProjectProps> = ({
                                         </Typography>
                                     </List>
 
-                                    <List>
-                                        <Typography
-                                            variant="body1"
-                                            sx={{
-                                                fontFamily: 'montserrat',
-                                                color: 'white',
-                                            }}
-                                        >
-                                            <b style={{ color: '#ffff01' }}>
-                                                Requerimientos:{' '}
-                                            </b>{' '}
-                                            <b
-                                                style={{
-                                                    color: 'white',
-                                                    fontFamily: 'montserrat',
-                                                    fontStyle: 'italic',
-                                                }}
-                                            >
-                                                {lenguajes
-                                                    ?.map(
-                                                        (lenguaje) => lenguaje
-                                                    )
-                                                    .join(', ')}
-                                            </b>
-                                        </Typography>
-                                    </List>
+                  <List>
+                    <Typography
+                      variant='body1'
+                      sx={{
+                        fontFamily: 'montserrat',
+                        color: 'white',
+                      }}
+                    >
+                      <b style={{ color: '#ffff01' }}>Requerimientos: </b>{' '}
+                      <b
+                        style={{
+                          color: 'white',
+                          fontFamily: 'montserrat',
+                          fontStyle: 'italic',
+                        }}
+                      >
+                        {lenguajes?.map((lenguaje) => lenguaje).join(', ')}
+                      </b>
+                    </Typography>
+                  </List>
 
-                                    <List>
-                                        <Typography
-                                            variant="body1"
-                                            sx={{
-                                                fontFamily: 'montserrat',
-                                                color: 'white',
-                                            }}
-                                        >
-                                            <b style={{ color: '#ffff01' }}>
-                                                Participantes:{' '}
-                                            </b>{' '}
-                                            <b
-                                                style={{
-                                                    fontFamily: 'montserrat',
-                                                    color: 'white',
-                                                    fontStyle: 'italic',
-                                                }}
-                                            >
-                                                {cantidadDeEstudiantes}
-                                            </b>
-                                        </Typography>
-                                    </List>
+                  <List>
+                    <Typography
+                      variant='body1'
+                      sx={{
+                        fontFamily: 'montserrat',
+                        color: 'white',
+                      }}
+                    >
+                      <b style={{ color: '#ffff01' }}>Participantes: </b>{' '}
+                      <b
+                        style={{
+                          fontFamily: 'montserrat',
+                          color: 'white',
+                          fontStyle: 'italic',
+                        }}
+                      >
+                        {cantidadDeEstudiantes}
+                      </b>
+                    </Typography>
+                  </List>
 
-                                    <List>
-                                        <Typography
-                                            variant="body1"
-                                            sx={{
-                                                fontFamily: 'montserrat',
-                                                color: 'white',
-                                            }}
-                                        >
-                                            <b style={{ color: '#ffff01' }}>
-                                                Categoría:{' '}
-                                            </b>
-                                            <b
-                                                style={{
-                                                    fontFamily: 'montserrat',
-                                                    color: 'white',
-                                                    fontStyle: 'italic',
-                                                }}
-                                            >
-                                                {' '}
-                                                {categoria}
-                                            </b>
-                                        </Typography>
-                                    </List>
+                  <List>
+                    <Typography
+                      variant='body1'
+                      sx={{
+                        fontFamily: 'montserrat',
+                        color: 'white',
+                      }}
+                    >
+                      <b style={{ color: '#ffff01' }}>Categoría: </b>
+                      <b
+                        style={{
+                          fontFamily: 'montserrat',
+                          color: 'white',
+                          fontStyle: 'italic',
+                        }}
+                      >
+                        {' '}
+                        {categoria}
+                      </b>
+                    </Typography>
+                  </List>
 
                                     <List>
                                         <Typography
@@ -334,10 +326,12 @@ const ProjectDetail: FC<ProjectProps> = ({
                             >
                                 {rol === 'STUDENT_ROL' &&
 
+
           user.project.some((e:any) => e.uid === projectId.uid ) ||
                                 user?.working?.length ? null : rol ===
                                       'STUDENT_ROL' &&
                                   projectId.stateOfProject !== 'Terminado' ? (
+
                                     <Button
                                         sx={{
                                             width: '50%',
@@ -359,14 +353,14 @@ const ProjectDetail: FC<ProjectProps> = ({
                                         aplicar
                                     </Button>
                                 ) : (id &&
-                                      rol === 'COMPANY_ROL' &&
-                                      projectId &&
-                                      projectId?.company?._id &&
-                                      id === projectId.company._id &&
-                                      projectId.stateOfProject ===
-                                          'Reclutamiento') ||
-                                  projectId.stateOfProject ===
-                                      'En desarrollo' ? (
+                                    rol === 'COMPANY_ROL' &&
+                                    projectId &&
+                                    projectId?.company?._id &&
+                                    id === projectId.company._id &&
+                                    projectId.stateOfProject ===
+                                    'Reclutamiento') ||
+                                    projectId.stateOfProject ===
+                                    'En desarrollo' ? (
                                     <Link to={`/postulated/${uid}`}>
                                         <Button
                                             sx={{
@@ -388,7 +382,7 @@ const ProjectDetail: FC<ProjectProps> = ({
 
                                 {rol === 'COMPANY_ROL' &&
                                     projectId.stateOfProject ===
-                                        'En desarrollo' &&
+                                    'En desarrollo' &&
                                     company?.name === empresa && (
                                         <Button
                                             onClick={handelClick}
@@ -410,7 +404,7 @@ const ProjectDetail: FC<ProjectProps> = ({
 
                                 {rol === 'COMPANY_ROL' &&
                                     projectId.stateOfProject ===
-                                        'Reclutamiento' &&
+                                    'Reclutamiento' &&
                                     company?.name === empresa && (
                                         <Button
                                             onClick={handleDesarrollo}
@@ -433,20 +427,20 @@ const ProjectDetail: FC<ProjectProps> = ({
                         </Paper>
                     </Container>
                     {rol === 'COMPANY_ROL' ||
-                    (rol === 'STUDENT_ROL' &&
-                        projectId.stateOfProject === 'Terminado' &&
-                        review.length > 0)
+                        (rol === 'STUDENT_ROL' &&
+                            projectId.stateOfProject === 'Terminado' &&
+                            review.length > 0)
                         ? review?.map((e: any) => (
-                              <RatingProject
-                                  avatar={e.student?.image}
-                                  name={e.student?.name}
-                                  lastName={e.student?.lastName}
-                                  description={e.description}
-                                  ratingCompany={e.ratingCompany}
-                                  ratingProject={e.ratingProject}
-                                  projectName={e.project?.name}
-                              />
-                          ))
+                            <RatingProject
+                                avatar={e.student?.image}
+                                name={e.student?.name}
+                                lastName={e.student?.lastName}
+                                description={e.description}
+                                ratingCompany={e.ratingCompany}
+                                ratingProject={e.ratingProject}
+                                projectName={e.project?.name}
+                            />
+                        ))
                         : ''}
                 </div>
             </Box>
