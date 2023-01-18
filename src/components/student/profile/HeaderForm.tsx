@@ -35,7 +35,7 @@ interface Props {
   lastName?: string;
   country?: string;
   email?: string;
-  lenguage?:string[]
+  lenguage?: string[]
 }
 
 export const HeaderForm: FC<Props> = ({
@@ -87,7 +87,7 @@ export const HeaderForm: FC<Props> = ({
         lastName: values.lastName,
         country: pais,
         email: email,
-        lenguage:idioma
+        lenguage: idioma
       }),
     );
     setEdit({
@@ -136,13 +136,12 @@ export const HeaderForm: FC<Props> = ({
     'Francés',
     'Español',
     'chino mandarín',
-
   ]
 
   const handleChange = (event: SelectChangeEvent) => {
     setPais(event.target.value as string);
   };
-  
+
   // form edit profile
 
   const handleChangeIdioma = (event: SelectChangeEvent<typeof idioma>) => {
@@ -150,7 +149,7 @@ export const HeaderForm: FC<Props> = ({
     const {
       target: { value },
     } = event;
-    
+
     setIdioma(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
