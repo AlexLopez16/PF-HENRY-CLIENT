@@ -91,9 +91,6 @@ const ProjectDetail: FC<ProjectProps> = ({
     let review = projectId.reviews;
 
 
-      console.log(user.project.some((e:any) => e.uid === projectId.uid ))
-    //  console.log( projectId.uid)
-    //  console.log(user.project)
 
     return (
         <>
