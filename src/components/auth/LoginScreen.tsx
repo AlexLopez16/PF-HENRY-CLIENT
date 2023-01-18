@@ -368,12 +368,12 @@ export const LoginScreen: FC = () => {
                                                         onSuccess={(
                                                             credentialResponse: any
                                                         ) => {
-                                                            // dispatch(
-                                                            //     gmailLogin(
-                                                            //         credentialResponse.credential,
-                                                            //         ''
-                                                            //     )
-                                                            // );
+                                                            dispatch(
+                                                                gmailLogin(
+                                                                    credentialResponse.credential,
+                                                                    ''
+                                                                )
+                                                            );
 
                                                             setTimeout(
                                                                 () =>
@@ -381,7 +381,7 @@ export const LoginScreen: FC = () => {
                                                                         `/typeofuser?token=${credentialResponse.credential}`
                                                                     ),
 
-                                                                1000
+                                                                2000
                                                             );
                                                         }}
                                                         onError={() => {
