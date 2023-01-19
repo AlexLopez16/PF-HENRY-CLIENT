@@ -96,6 +96,7 @@ export default function AccountMenu() {
     const [openModal, setOpenModal] = useState(false);
     const session_id = localStorage.getItem('session_id') || ''
 
+
     return (
         <>
 
@@ -195,8 +196,8 @@ export default function AccountMenu() {
                             >
                                 {
                                     user?.premium
-                                        ? `Proyectos: ${user?.project?.length ? user?.project?.length : "0"}/3`
-                                        : `Proyectos: ${user?.project?.length ? user?.project?.length : "0"}/1`
+                                        ? `Proyectos: ${user?.project?.length ? user.project?.length:"0"}/3`
+                                        : `Proyectos: ${user?.project?.length ? user.project?.length : "0"}/3`
                                 }
                             </MenuItem>
                         </>

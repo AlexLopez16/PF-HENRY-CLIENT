@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@mui/system";
 import { clearAdmin, disableAdmin, getAdmins } from "../../../actions/Admin";
@@ -19,10 +19,9 @@ import {
   Button,
 } from "@mui/material";
 import Pages from "../../ui/Pagination";
-import { PreLoader } from "../../PreLoader/PreLoader";
-import { registerAdmin } from "../../../actions/Admin";
 import { useNavigate } from "react-router-dom";
 import { SnackBar } from "../../SnackBar/SnackBar";
+import { AdminTable, AdminTableFilters } from "../AdminTable/AdminTable";
 
 const AdminPanel: FC = () => {
   const dispatch = useDispatch();
@@ -50,8 +49,13 @@ const AdminPanel: FC = () => {
   return (
     <>
       <SnackBar successMsg={"Cambio de estado exitoso"} />
-      <PreLoader />
-      <Card>
+      <AdminTable
+        columns={4}
+        rows={6}
+        hasData={admins?.length > 0}
+        noDataMessage="No se encontro al administrador"
+      >
+        <AdminTableFilters>
         <Button
           variant="contained"
           onClick={() => navigate("/dashboard/createAdmin")}
@@ -59,7 +63,7 @@ const AdminPanel: FC = () => {
         >
           Agregar administrador
         </Button>
-        <Box sx={{ minWidth: 1050 }}>
+        </AdminTableFilters>
           <Table>
             <TableHead>
               <TableRow>
@@ -118,9 +122,7 @@ const AdminPanel: FC = () => {
               ))}
             </TableBody>
           </Table>
-          <Pages />
-        </Box>
-      </Card>
+      </AdminTable>
     </>
   );
 };

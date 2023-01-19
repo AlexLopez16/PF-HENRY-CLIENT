@@ -1,8 +1,6 @@
-import { FC, useState, useEffect, forwardRef } from "react";
+import { FC, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Box, Container } from "@mui/system";
-
+import { Box } from "@mui/system";
 import {
   Card,
   Table,
@@ -11,38 +9,20 @@ import {
   TableHead,
   TableRow,
   Typography,
-  ListItemButton,
-  Collapse,
   IconButton,
   Rating,
-  Stack,
-  Alert,
 } from "@mui/material";
 import { State } from "../../../reducers/rootReducer";
 import {
   AprovedProject,
-  cancelReview,
   clearReviews,
   getAllReviews,
 } from "../../../actions/Admin";
-import Pages from "../../ui/Pagination";
-import FilterListIcon from "@mui/icons-material/FilterList";
-
-ChartJS.register(ArcElement, Tooltip, Legend);
-
-export interface Options {
-  splitRegexp?: RegExp | RegExp[];
-  stripRegexp?: RegExp | RegExp[];
-  delimiter?: string;
-  transform?: (part: string, index: number, parts: string[]) => string;
-}
-export declare function sentenceCase(input: string, options?: Options): string;
 import CloseIcon from "@mui/icons-material/Close";
-import AdminFilterProject from "../../AdminBar/AdminFilterProject";
-import { PreLoader } from "../../PreLoader/PreLoader";
 import ReviewCancel from "./ReviewCancel";
 import AdminReviewsFilter from "./AdminReviewsFilter";
 import { SnackBar } from "../../SnackBar/SnackBar";
+import { AdminTable, AdminTableFilters } from "../AdminTable/AdminTable";
 
 const AdminReviews: FC = ({ ...rest }) => {
   const dispatch = useDispatch();
@@ -54,7 +34,7 @@ const AdminReviews: FC = ({ ...rest }) => {
     return () => {
       dispatch(clearReviews());
     };
-  }, [dispatch, token]);
+  }, [dispatch]);
 
   let target: object[] = reviews;
 
@@ -132,36 +112,23 @@ const AdminReviews: FC = ({ ...rest }) => {
     setOpen(!open);
   };
 
-
   return (
     <>
       <SnackBar successMsg={"Borrado exitoso"} />
-      <PreLoader />
-      <Card {...rest}>
-        <Container
-          maxWidth="lg"
-          sx={{
-            display: "flex",
-            marginLeft: 0,
-          }}
-        >
+      <AdminTable
+        columns={7}
+        rows={6}
+        hasData={target?.length > 0}
+        noDataMessage="No hay reviews con los filtros aplicados!"
+      >
+        <AdminTableFilters>
           <AdminReviewsFilter />
-        </Container>
-        {!target.length ? (
-          <TableBody>
-            <Stack sx={{ width: "100%" }} spacing={1}>
-              <Alert severity="info">
-                No hay review con los filtros aplicados!
-              </Alert>
-            </Stack>
-          </TableBody>
-        ) : (
-          <Box sx={{ minWidth: 1050 }}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell padding="checkbox">
-                    {/* <Checkbox
+        </AdminTableFilters>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell padding="checkbox">
+                {/* <Checkbox
                                         checked={
                                             selectedCustomerIds.length ===
                                             target.length
@@ -174,39 +141,39 @@ const AdminReviews: FC = ({ ...rest }) => {
                                         }
                                         onChange={handleSelectAll}
                                     /> */}
-                  </TableCell>
-                  <TableCell>Nombre de proyecto</TableCell>
-                  <TableCell>Nombre de la compañia</TableCell>
-                  <TableCell
-                    sx={{
-                      textAlign: "center",
-                    }}
-                  >
-                    Alumno
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      textAlign: "center",
-                    }}
-                  >
-                    Puntuacion empresa
-                  </TableCell>
-                  <TableCell>Puntuacion Proyecto</TableCell>
-                  <TableCell>Descripcion</TableCell>
-                  {/* <TableCell>Desactivar</TableCell> */}
-                  <TableCell>Eliminar</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {target &&
-                  target.map((review: any) => (
-                    <TableRow
-                      hover
-                      key={review && review.uid}
-                      selected={selectedCustomerIds.indexOf(review.uid) !== -1}
-                    >
-                      <TableCell padding="checkbox">
-                        {/* <Checkbox
+              </TableCell>
+              <TableCell>Nombre de proyecto</TableCell>
+              <TableCell>Nombre de la compañia</TableCell>
+              <TableCell
+                sx={{
+                  textAlign: "center",
+                }}
+              >
+                Alumno
+              </TableCell>
+              <TableCell
+                sx={{
+                  textAlign: "center",
+                }}
+              >
+                Puntuacion empresa
+              </TableCell>
+              <TableCell>Puntuacion Proyecto</TableCell>
+              <TableCell>Descripcion</TableCell>
+              {/* <TableCell>Desactivar</TableCell> */}
+              <TableCell>Eliminar</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {target &&
+              target.map((review: any) => (
+                <TableRow
+                  hover
+                  key={review && review.uid}
+                  selected={selectedCustomerIds.indexOf(review.uid) !== -1}
+                >
+                  <TableCell padding="checkbox">
+                    {/* <Checkbox
                                             checked={
                                                 selectedCustomerIds.indexOf(
                                                     review.uid
@@ -217,81 +184,78 @@ const AdminReviews: FC = ({ ...rest }) => {
                                             }
                                             value="true"
                                         /> */}
-                      </TableCell>
-                      <TableCell>
-                        <Box
-                          sx={{
-                            alignItems: "center",
-                            display: "flex",
-                          }}
-                        >
-                          <Typography
-                            sx={{ maxWidth: 140 }}
-                            color="textPrimary"
-                            variant="body1"
-                          >
-                            {review && Array.isArray(review.project)
-                              ? review.project[0]?.name
-                              : review.project?.name}
-                          </Typography>
-                        </Box>
-                      </TableCell>
-                      <TableCell>
+                  </TableCell>
+                  <TableCell>
+                    <Box
+                      sx={{
+                        alignItems: "center",
+                        display: "flex",
+                      }}
+                    >
+                      <Typography
+                        sx={{ maxWidth: 140 }}
+                        color="textPrimary"
+                        variant="body1"
+                      >
                         {review && Array.isArray(review.project)
-                          ? review.project[0].company[0].name
-                          : review.project?.company?.name}
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          textAlign: "center",
-                        }}
-                      >
-                        {review && Array.isArray(review.student)
-                          ? review.student[0]?.name
-                          : review?.student?.name}
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          width: 310,
-                          textAlign: "center",
-                        }}
-                      >
-                        <Rating
-                          name="read-only"
-                          readOnly
-                          value={review.ratingCompany}
-                        />
-                      </TableCell>
+                          ? review.project[0]?.name
+                          : review.project?.name}
+                      </Typography>
+                    </Box>
+                  </TableCell>
+                  <TableCell>
+                    {review && Array.isArray(review.project)
+                      ? review.project[0].company[0].name
+                      : review.project?.company?.name}
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      textAlign: "center",
+                    }}
+                  >
+                    {review && Array.isArray(review.student)
+                      ? review.student[0]?.name
+                      : review?.student?.name}
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      width: 310,
+                      textAlign: "center",
+                    }}
+                  >
+                    <Rating
+                      name="read-only"
+                      readOnly
+                      value={review.ratingCompany}
+                    />
+                  </TableCell>
 
-                      <TableCell>
-                        <Rating
-                          name="read-only"
-                          readOnly
-                          value={review.ratingProject}
-                        />
-                      </TableCell>
-                      <TableCell sx={{ maxWidth: 200 }}>
-                        {review.description}
-                      </TableCell>
+                  <TableCell>
+                    <Rating
+                      name="read-only"
+                      readOnly
+                      value={review.ratingProject}
+                    />
+                  </TableCell>
+                  <TableCell sx={{ maxWidth: 200 }}>
+                    {review.description}
+                  </TableCell>
 
-                      <TableCell sx={{ maxWidth: 200 }}>
-                        <IconButton>
-                          <CloseIcon
-                            sx={{
-                              cursor: "pointer",
-                            }}
-                            onClick={() => handlecancel(review.uid)}
-                          />
-                        </IconButton>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-              </TableBody>
-            </Table>
-          </Box>
-        )}
-        <Pages />
-      </Card>
+                  <TableCell sx={{ maxWidth: 200 }}>
+                    <IconButton>
+                      <CloseIcon
+                        sx={{
+                          cursor: "pointer",
+                        }}
+                        onClick={() => handlecancel(review.uid)}
+                      />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))}
+          </TableBody>
+        </Table>
+      </AdminTable>
 
       <ReviewCancel
         setOpenModal={setOpenModal}

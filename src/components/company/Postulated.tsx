@@ -900,8 +900,8 @@ const Postulated: FC = ({ ...rest }) => {
                                                             textAlign: 'center',
                                                         }}
                                                     >
-                                                        {student?.descripcion
-                                                            ? student?.descripcion
+                                                        {student?.description
+                                                            ? student?.description
                                                             : 'Aun no posee descripcion'}
                                                     </TableCell>
 

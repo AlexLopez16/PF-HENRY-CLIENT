@@ -22,6 +22,7 @@ interface Props {
   country?: string;
   image?: string;
   email?: string;
+  lenguage?: string[];
 }
 
 export const Header: FC<Props> = ({
@@ -32,6 +33,7 @@ export const Header: FC<Props> = ({
   country,
   image,
   email,
+  lenguage,
 }) => {
   const handlerEdit = () => {
     setEdit({
@@ -55,38 +57,38 @@ export const Header: FC<Props> = ({
         elevation={10}
         sx={{
           display: 'flex',
-          flexDirection: 'row-reverse',
           alignContent: 'center',
           alignItems: 'center',
           textAlign: 'center',
           justifyContent: 'space-evenly',
           height: '100%',
-          width: '60%',
-          borderRadius: 15,
+          width: '80%',
+          borderRadius: 10,
           backgroundColor: 'black',
-          mt: 10,
           boxShadow:
             'rgba(255, 255, 255, 255.16) 0px 1px 4px, rgb(255, 255, 255) 0px 0px 0px 3px',
         }}
       >
         <SnackBar />
-        <Grid textAlign='center'>
-          <IconButton aria-label='settings' onClick={handlerEdit}>
-            <EditIcon sx={iconStyle} color='primary' fontSize='medium' />
-          </IconButton>
-        </Grid>
-        <div style={container}>
+        <Grid textAlign='center'></Grid>
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
           <Avatar
             sx={{
-              height: 120,
-              width: 120,
+              height: 100,
+              width: 100,
               boxShadow:
                 'rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;',
             }}
             src={image}
           ></Avatar>
         </div>
-
         <div
           style={{
             color: 'white',
@@ -124,6 +126,18 @@ export const Header: FC<Props> = ({
           >
             {email}
           </Typography>
+          <Typography
+            sx={{
+              color: '#ffff01',
+              mt: 2,
+              fontSize: 20,
+            }}
+          >
+            {lenguage?.join(", ")}
+          </Typography>
+          <IconButton aria-label='settings' onClick={handlerEdit}>
+            <EditIcon sx={iconStyle} color='primary' fontSize='medium' />
+          </IconButton>
         </div>
       </Paper>
     </Container>

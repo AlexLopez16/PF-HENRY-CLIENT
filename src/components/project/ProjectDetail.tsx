@@ -62,7 +62,7 @@ const ProjectDetail: FC<ProjectProps> = ({
   const navigate = useNavigate();
 
   const GoBack = () => {
-    navigate('/myprojects');
+    navigate('/projects');
   };
 
   const handlerApply = () => {
@@ -80,124 +80,128 @@ const ProjectDetail: FC<ProjectProps> = ({
   }, [dispatch]);
 
   const handelClick = () => {
-    // dispatch(changeStateOfProject(uid, token, 'Terminado'));
     dispatch(proyectFinal(idProject, token));
   };
 
-  const handleDesarrollo = () => {
-    dispatch(changeStateOfProject(uid, token, 'En desarrollo'));
-  };
+    let project = projectId
+    const handleDesarrollo = () => {
+        dispatch(changeStateOfProject(uid, token, 'En desarrollo', project));
+    };
 
-  let review = projectId.reviews;
+    let review = projectId.reviews;
+    console.log(project);
 
-  return (
-    <>
-      <Box
-        sx={{
-          backgroundImage: `url(${bgComponents})`,
-          p: 20,
-          pt: 10,
-        }}
-      >
-        <Grid
-          container
-          direction='column'
-          justifyContent='flex-start'
-          alignItems='center'
-        >
-          <FormControl>
-            <Button
-              startIcon={<ArrowBackIosNewIcon />}
-              onClick={GoBack}
-              size='small'
-              variant='contained'
-              color='secondary'
-              sx={{
-                boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
-                fontFamily: 'montserrat',
-                fontWeight: 'bold',
-                mb: 10,
-              }}
-            >
-              Regresar
-            </Button>
-          </FormControl>
-        </Grid>
-        <div>
-          <PreLoader />
-          {rol === 'STUDENT_ROL' ? (
-            <SnackBar
-              successMsg='Aplicaste correctamente.'
-              errorMsg='Error al aplicar.'
-            />
-          ) : null}
-          <Container
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-around',
-            }}
-          >
-            <Paper
-              elevation={12}
-              style={{
-                height: 'fit-content',
-                padding: 30,
-                display: 'flex',
-                flexDirection: 'column',
-                backgroundColor: 'black',
-                borderRadius: 30,
-              }}
-            >
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-around',
-                  alignItems: 'flex-end',
+
+
+
+    return (
+        <>
+            <Box
+                sx={{
+                    backgroundImage: `url(${bgComponents})`,
+                    p: 20,
+                    pt: 10,
                 }}
-              >
+            >
+                <Grid
+                    container
+                    direction="column"
+                    justifyContent="flex-start"
+                    alignItems="center"
+                >
+                    <FormControl>
+                        <Button
+                            startIcon={<ArrowBackIosNewIcon />}
+                            onClick={GoBack}
+                            size="small"
+                            variant="contained"
+                            color="secondary"
+                            sx={{
+                                boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+                                fontFamily: 'montserrat',
+                                fontWeight: 'bold',
+                                mb: 10,
+                            }}
+                        >
+                            Regresar
+                        </Button>
+                    </FormControl>
+                </Grid>
                 <div>
-                  <List>
-                    <Typography
-                      variant='h4'
-                      sx={{
-                        fontFamily: 'montserrat',
-                        color: 'white',
-                      }}
-                    >
-                      {name}
-                    </Typography>
-                  </List>
-                  <Typography
-                    sx={{
-                      fontFamily: 'montserrat',
-                      fontStyle: 'italic',
-                      pb: 2,
-                      color: 'white',
-                    }}
-                  >
-                    {empresa}
-                  </Typography>
-                  <List>
-                    <Typography
-                      variant='body1'
-                      sx={{
-                        fontFamily: 'montserrat',
-                        color: '#ffff01',
-                      }}
-                    >
-                      <b>Descripción: </b>
-                      <b
-                        style={{
-                          color: 'white',
-                          fontFamily: 'montserrat',
-                          fontStyle: 'italic',
+                    <PreLoader />
+                    {rol === 'STUDENT_ROL' ? (
+                        <SnackBar
+                            successMsg="Aplicaste correctamente."
+                            errorMsg="Error al aplicar."
+                        />
+                    ) : null}
+                    <Container
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'space-around',
                         }}
-                      >
-                        {detalle}
-                      </b>
-                    </Typography>
-                  </List>
+                    >
+                        <Paper
+                            elevation={12}
+                            style={{
+                                height: 'fit-content',
+                                padding: 30,
+                                display: 'flex',
+                                flexDirection: 'column',
+                                backgroundColor: 'black',
+                                borderRadius: 30,
+                            }}
+                        >
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'space-around',
+                                    alignItems: 'flex-end',
+                                }}
+                            >
+                                <div>
+                                    <List>
+                                        <Typography
+                                            variant="h4"
+                                            sx={{
+                                                fontFamily: 'montserrat',
+                                                color: 'white',
+                                            }}
+                                        >
+                                            {name}
+                                        </Typography>
+                                    </List>
+                                    <Typography
+                                        sx={{
+                                            fontFamily: 'montserrat',
+                                            fontStyle: 'italic',
+                                            pb: 2,
+                                            color: 'white',
+                                        }}
+                                    >
+                                        {empresa}
+                                    </Typography>
+                                    <List>
+                                        <Typography
+                                            variant="body1"
+                                            sx={{
+                                                fontFamily: 'montserrat',
+                                                color: '#ffff01',
+                                            }}
+                                        >
+                                            <b>Descripción: </b>
+                                            <b
+                                                style={{
+                                                    color: 'white',
+                                                    fontFamily: 'montserrat',
+                                                    fontStyle: 'italic',
+                                                }}
+                                            >
+                                                {detalle}
+                                            </b>
+                                        </Typography>
+                                    </List>
 
                   <List>
                     <Typography
@@ -263,161 +267,186 @@ const ProjectDetail: FC<ProjectProps> = ({
                     </Typography>
                   </List>
 
-                  <List>
-                    <Typography
-                      variant='body1'
-                      sx={{
-                        fontFamily: 'montserrat',
-                        color: 'white',
-                      }}
-                    >
-                      <b style={{ color: '#ffff01' }}>Estado del proyecto: </b>
-                      <b
-                        style={{
-                          fontFamily: 'montserrat',
-                          color: 'white',
-                          fontStyle: 'italic',
-                        }}
-                      >
-                        {estado}
-                      </b>
-                    </Typography>
-                  </List>
+                                    <List>
+                                        <Typography
+                                            variant="body1"
+                                            sx={{
+                                                fontFamily: 'montserrat',
+                                                color: 'white',
+                                            }}
+                                        >
+                                            <b style={{ color: '#ffff01' }}>
+                                                Estado del proyecto:{' '}
+                                            </b>
+                                            <b
+                                                style={{
+                                                    fontFamily: 'montserrat',
+                                                    color: 'white',
+                                                    fontStyle: 'italic',
+                                                }}
+                                            >
+                                                {estado}
+                                            </b>
+                                        </Typography>
+                                    </List>
+                                </div>
+                                {imagenes && (
+                                    <Box
+                                        sx={{
+                                            width: 500,
+                                            height: 350,
+                                            overflowY: 'scroll',
+                                        }}
+                                    >
+                                        <ImageList
+                                            variant="masonry"
+                                            cols={3}
+                                            gap={8}
+                                        >
+                                            {imagenes.map((item) => (
+                                                <ImageListItem key={item}>
+                                                    <img
+                                                        src={`${item}?w=248&fit=crop&auto=format`}
+                                                        srcSet={`${item}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                                        alt={item}
+                                                        loading="lazy"
+                                                    />
+                                                </ImageListItem>
+                                            ))}
+                                        </ImageList>
+                                    </Box>
+                                )}
+                            </div>
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    justifyContent: 'space-evenly',
+                                    alignItems: 'center',
+                                }}
+                            >
+                                {rol === 'STUDENT_ROL' &&
+
+
+          user.project.some((e:any) => e.uid === projectId.uid ) ||
+                                user?.working?.length ? null : rol ===
+                                      'STUDENT_ROL' &&
+                                  projectId.stateOfProject !== 'Terminado' ? (
+
+                                    <Button
+                                        sx={{
+                                            width: '50%',
+                                            display: 'flex',
+                                            justifyContent: 'center',
+                                            alignItem: 'center',
+                                            textAlign: 'center',
+                                            fontFamily: 'montserrat',
+                                            fontWeight: 'bold',
+                                            mt: 5,
+                                        }}
+                                        type="submit"
+                                        variant="contained"
+                                        fullWidth
+                                        color="primary"
+                                        onClick={handlerApply}
+                                        disabled={user.project?.length === 3}
+                                    >
+                                        aplicar
+                                    </Button>
+                                ) : (id &&
+                                    rol === 'COMPANY_ROL' &&
+                                    projectId &&
+                                    projectId?.company?._id &&
+                                    id === projectId.company._id &&
+                                    projectId.stateOfProject ===
+                                    'Reclutamiento') ||
+                                    projectId.stateOfProject ===
+                                    'En desarrollo' ? (
+                                    <Link to={`/postulated/${uid}`}>
+                                        <Button
+                                            sx={{
+                                                marginTop: 5,
+                                                boxShadow:
+                                                    'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+                                                fontFamily: 'montserrat',
+                                                fontWeight: 'bold',
+                                            }}
+                                            type="submit"
+                                            variant="contained"
+                                            fullWidth
+                                            color="primary"
+                                        >
+                                            Postulados
+                                        </Button>
+                                    </Link>
+                                ) : null}
+
+                                {rol === 'COMPANY_ROL' &&
+                                    projectId.stateOfProject ===
+                                    'En desarrollo' &&
+                                    company?.name === empresa && (
+                                        <Button
+                                            onClick={handelClick}
+                                            type="submit"
+                                            variant="contained"
+                                            color="warning"
+                                            sx={{
+                                                boxShadow:
+                                                    'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+                                                fontFamily: 'montserrat',
+                                                fontWeight: 'bold',
+                                                marginTop: 5,
+                                                width: '25%',
+                                            }}
+                                        >
+                                            Finalizar proyecto
+                                        </Button>
+                                    )}
+
+                                {rol === 'COMPANY_ROL' &&
+                                    projectId.stateOfProject ===
+                                    'Reclutamiento' &&
+                                    company?.name === empresa && (
+                                        <Button
+                                            onClick={handleDesarrollo}
+                                            type="submit"
+                                            variant="contained"
+                                            color="warning"
+                                            sx={{
+                                                boxShadow:
+                                                    'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+                                                fontFamily: 'montserrat',
+                                                fontWeight: 'bold',
+                                                marginTop: 5,
+                                                width: '25%',
+                                            }}
+                                        >
+                                            Iniciar Proyecto
+                                        </Button>
+                                    )}
+                            </Box>
+                        </Paper>
+                    </Container>
+                    {rol === 'COMPANY_ROL' ||
+                        (rol === 'STUDENT_ROL' &&
+                            projectId.stateOfProject === 'Terminado' &&
+                            review.length > 0)
+                        ? review?.map((e: any) => (
+                            <RatingProject
+                                avatar={e.student?.image}
+                                name={e.student?.name}
+                                lastName={e.student?.lastName}
+                                description={e.description}
+                                ratingCompany={e.ratingCompany}
+                                ratingProject={e.ratingProject}
+                                projectName={e.project?.name}
+                            />
+                        ))
+                        : ''}
                 </div>
-                {imagenes && (
-                  <Box sx={{ width: 500, height: 350, overflowY: 'scroll' }}>
-                    <ImageList variant='masonry' cols={3} gap={8}>
-                      {imagenes.map((item) => (
-                        <ImageListItem key={item}>
-                          <img
-                            src={`${item}?w=248&fit=crop&auto=format`}
-                            srcSet={`${item}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                            alt={item}
-                            loading='lazy'
-                          />
-                        </ImageListItem>
-                      ))}
-                    </ImageList>
-                  </Box>
-                )}
-              </div>
-              <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'space-evenly',
-                  alignItems: 'center',
-                }}
-              >
-                {rol === 'STUDENT_ROL' &&
-                projectId.stateOfProject !== 'Terminado' ? (
-                  <Button
-                    sx={{
-                      width: '50%',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItem: 'center',
-                      textAlign: 'center',
-                      fontFamily: 'montserrat',
-                      fontWeight: 'bold',
-                      mt: 5,
-                    }}
-                    type='submit'
-                    variant='contained'
-                    fullWidth
-                    color='primary'
-                    onClick={handlerApply}
-                    disabled={user.project?.length === 3}
-                  >
-                    aplicar
-                  </Button>
-                ) : (id &&
-                    rol === 'COMPANY_ROL' &&
-                    projectId &&
-                    projectId?.company?._id &&
-                    id === projectId.company._id &&
-                    projectId.stateOfProject === 'Reclutamiento') ||
-                  projectId.stateOfProject === 'En desarrollo' ? (
-                  <Link to={`/postulated/${uid}`}>
-                    <Button
-                      sx={{
-                        marginTop: 5,
-                        boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
-                        fontFamily: 'montserrat',
-                        fontWeight: 'bold',
-                      }}
-                      type='submit'
-                      variant='contained'
-                      fullWidth
-                      color='primary'
-                    >
-                      Postulados
-                    </Button>
-                  </Link>
-                ) : null}
-
-                {rol === 'COMPANY_ROL' &&
-                  projectId.stateOfProject === 'En desarrollo' &&
-                  company?.name === empresa && (
-                    <Button
-                      onClick={handelClick}
-                      type='submit'
-                      variant='contained'
-                      color='warning'
-                      sx={{
-                        boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
-                        fontFamily: 'montserrat',
-                        fontWeight: 'bold',
-                        marginTop: 5,
-                        width: '25%',
-                      }}
-                    >
-                      Finalizar proyecto
-                    </Button>
-                  )}
-
-                {rol === 'COMPANY_ROL' &&
-                  projectId.stateOfProject === 'Reclutamiento' &&
-                  company?.name === empresa && (
-                    <Button
-                      onClick={handleDesarrollo}
-                      type='submit'
-                      variant='contained'
-                      color='warning'
-                      sx={{
-                        boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
-                        fontFamily: 'montserrat',
-                        fontWeight: 'bold',
-                        marginTop: 5,
-                        width: '25%',
-                      }}
-                    >
-                      Iniciar Proyecto
-                    </Button>
-                  )}
-              </Box>
-            </Paper>
-          </Container>
-          {rol === 'COMPANY_ROL' ||
-          (rol === 'STUDENT_ROL' &&
-            projectId.stateOfProject === 'Terminado' &&
-            review.length > 0)
-            ? review?.map((e: any) => (
-                <RatingProject
-                  avatar={e.student?.image}
-                  name={e.student?.name}
-                  lastName={e.student?.lastName}
-                  description={e.description}
-                  ratingCompany={e.ratingCompany}
-                  ratingProject={e.ratingProject}
-                  projectName={e.project?.name}
-                />
-              ))
-            : ''}
-        </div>
-      </Box>
-      <Footer />
-    </>
-  );
+            </Box>
+            <Footer />
+        </>
+    );
 };
 
 export default ProjectDetail;

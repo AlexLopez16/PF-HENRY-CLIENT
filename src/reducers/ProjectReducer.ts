@@ -143,7 +143,12 @@ export const projectReducer = (state: State = initialState, action: Action) => {
 
             };
 
-            
+            case types.ratingProjectCompany:
+                return {
+                    ...state,
+                    projectId: action.payload,
+                };
+
         default:
             return state;
     }

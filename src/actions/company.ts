@@ -256,7 +256,7 @@ export const proyectFinal = (uid: string | any, token: string) => {
             );
             dispatch({
                 type: types.ratingProjectCompany,
-                // payload: res.data
+                 payload: res.data
             });
         } catch (error) {
             console.log(error);

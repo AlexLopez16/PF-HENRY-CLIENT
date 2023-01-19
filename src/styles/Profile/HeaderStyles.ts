@@ -5,7 +5,8 @@ export const iconStyle = {
     padding:'2px',
     height:30,
     width:30,
-    marginRight:10,
+    justifyContent:'center',
+    alignItems:'center'
 }
 
 export const avatarStyle = {
@@ -30,7 +31,6 @@ export const paperStyle = {
 
 export const container = {
     maxWidth: '100%',
-    zIndex: 'modal',
     fontSize: '20px',
     display: 'flex',
     justifyContent: 'space-evenly',

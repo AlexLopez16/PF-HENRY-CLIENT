@@ -25,6 +25,12 @@ import {
 } from '../../../actions/student';
 import { State } from '../../../reducers/rootReducer';
 import { SelectChangeEvent } from '@mui/material';
+import Checkbox from '@mui/material/Checkbox';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import ListItemText from '@mui/material/ListItemText';
+
+
 
 interface Props {
   edit: { header: boolean; about: boolean; skills: boolean };
@@ -35,6 +41,7 @@ interface Props {
   lastName?: string;
   country?: string;
   email?: string;
+  lenguage?: string[]
 }
 
 export const HeaderForm: FC<Props> = ({
@@ -44,6 +51,7 @@ export const HeaderForm: FC<Props> = ({
   lastName,
   country,
   email,
+  lenguage,
 }) => {
   const dispatch = useDispatch();
   const { data } = useSelector((state: State) => state.auth);
@@ -52,6 +60,10 @@ export const HeaderForm: FC<Props> = ({
   const { image } = user;
   const token = localStorage.getItem('token') || '';
   const [pais, setPais] = useState(country);
+
+  const [idioma, setIdioma] = useState<string[] | any>(lenguage);
+  console.log(lenguage);
+
 
   const handlerEdit = () => {
     setEdit({
@@ -83,6 +95,7 @@ export const HeaderForm: FC<Props> = ({
         lastName: values.lastName,
         country: pais,
         email: email,
+        lenguage: idioma
       }),
     );
     setEdit({
@@ -126,11 +139,31 @@ export const HeaderForm: FC<Props> = ({
     'Venezuela',
   ];
 
+  const idiomas: string[] = [
+    'Ingles',
+    'Francés',
+    'Español',
+    'Chino mandarín',
+    'Italiano',
+  ]
+
   const handleChange = (event: SelectChangeEvent) => {
     setPais(event.target.value as string);
   };
 
   // form edit profile
+
+  const handleChangeIdioma = (event: SelectChangeEvent<typeof idioma>) => {
+    // setIdioma(event.target.value as string);
+    const {
+      target: { value },
+    } = event;
+
+    setIdioma(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
+  };
 
   return (
     <Container
@@ -366,12 +399,13 @@ export const HeaderForm: FC<Props> = ({
                       alignContent: 'space-around',
                       textAlign: 'left',
                     }}
+
                   >
                     <Select
                       inputProps={{ 'aria-label': 'Without label' }}
                       color='secondary'
                       value={pais}
-                      displayEmpty
+                      // displayEmpty
                       onChange={handleChange}
                       sx={{
                         color: 'white',
@@ -403,11 +437,66 @@ export const HeaderForm: FC<Props> = ({
                     </Select>
                   </FormControl>
 
+
+                  <FormControl
+                    variant='outlined'
+                    color='primary'
+                    size='small'
+                    sx={{
+                      width: '70%',
+                      marginTop: 1,
+                      marginBottom: 2,
+                      display: 'inline-flex',
+                      justifyContent: 'space-around',
+                      alignContent: 'space-around',
+                      textAlign: 'left',
+                    }}
+                  >
+                    <InputLabel id="demo-multiple-checkbox-label"></InputLabel>
+                    <Select
+                      sx={{
+                        color: 'white',
+                        boxShadow: 'rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset',
+                        '.MuiOutlinedInput-notchedOutline': {
+                          borderColor: 'white',
+                        },
+                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                          borderColor: 'white',
+                        },
+                        '&:hover .MuiOutlinedInput-notchedOutline': {
+                          borderColor: 'white',
+                        },
+                        '.MuiSvgIcon-root ': {
+                          fill: 'white !important',
+                        },
+                        label: { color: 'white' },
+                        input: { color: 'white' },
+                      }}
+                      labelId="demo-multiple-checkbox-label"
+                      id="demo-multiple-checkbox"
+                      multiple
+                      value={idioma}
+                      onChange={handleChangeIdioma}
+                      input={<OutlinedInput label="Selecciona tus idiomas" />}
+                      renderValue={(value) => value.join(', ')}
+                    // MenuProps={MenuProps}
+                    >
+                      {idiomas.map((name) => (
+                        <MenuItem key={name} value={name}>
+                          <Checkbox checked={idioma.indexOf(name) > -1} />
+                          <ListItemText primary={name} />
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+
+
+
                   <Button
                     size='small'
                     type='submit'
                     style={{
-                   
+
                       borderRadius: '30px',
                       margin: '10px 15px 10px 0',
                       fontFamily: 'montserrat',
@@ -436,7 +525,7 @@ export const HeaderForm: FC<Props> = ({
             </Form>
           )}
         </Formik>
-      </Paper>
-    </Container>
+      </Paper >
+    </Container >
   );
 };
