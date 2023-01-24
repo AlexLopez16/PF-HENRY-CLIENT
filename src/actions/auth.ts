@@ -29,6 +29,8 @@ export const validaToken = (token: string) => {
                 error.response.data.errors[0].msg ===
                 'Tu cuenta ha sido inactivada, por favor llena el formulario de contactanos para darte respuesta'
             ) {
+                // localStorage.clear()
+                // localStorage.setItem("location", "/login")
                 dispatch(gitHubInactivateLogOut());
                 dispatch({
                     type: types.requestFinished,
@@ -153,12 +155,20 @@ export const gmailLogin = (tok: string, userType?: string) => {
                 tok,
                 userType,
             });
-            const { token, id, rol } = res.data;
-            let data = res.data;
-            let status = res.status;
-            if (status) {
-                localStorage.setItem('token', token);
-                dispatch(login({ data, status, token, id, rol }));
+            if (res.data.msg === 'registrar usuario') {
+                // console.log(res);
+                // dispatch({
+                //     type: types.responseFinished,
+                //     payload: res,
+                // });
+            } else {
+                const { token, id, rol } = res.data;
+                let data = res.data;
+                let status = res.status;
+                if (status) {
+                    localStorage.setItem('token', token);
+                    dispatch(login({ data, status, token, id, rol }));
+                }
             }
         } catch (error: any) {
             // console.log(error);

@@ -347,8 +347,8 @@ export const cancelReview = (
 
 export const clearReviews = () => {
     return {
-        type: types.getAllProjects,
-        payload: { getreviews: [], total: 0 },
+        type: types.clearReviews,
+        payload: { getreview: [], total3: 0 },
     };
 };
 
@@ -370,7 +370,7 @@ export const disableAdmin = (token: string | null, id: string) => {
 
             dispatch({
                 type: types.disableAdmin,
-                payload: data
+                payload: data,
             });
         } catch (error) {
             console.log(error);
@@ -445,6 +445,6 @@ export const reclutamientoInProject = (
 export const clearAdmin = () => {
     return {
         type: types.getAdmins,
-        payload: { total: 0, admin: [] },
+        payload: { total: 0, admins: [] },
     };
 };

@@ -94,10 +94,8 @@ export const getProjectsFilter = (
     return async (dispatch: Dispatch) => {
         try {
             // console.log(limit, init);
-            dispatch({
-                type: types.requestInProgress,
-            });
-            let query;
+
+            let query: string | undefined;
 
             if (name) {
                 query = `name=${name}`;
@@ -108,6 +106,7 @@ export const getProjectsFilter = (
                 tecnologies.forEach((e: string) => (tecnologias += e + ','));
                 //tranforma el array a string con comas
                 tecnologias = tecnologias.substring(0, tecnologias.length - 1); //si es una palabra saca la coma
+                tecnologias = encodeURIComponent(tecnologias);
                 if (query) {
                     query += `&tecnologies=${tecnologias}`;
                 } else {
@@ -161,9 +160,6 @@ export const getProjectsFilter = (
             dispatch({
                 type: types.projectsFilter,
                 payload: res.data,
-            });
-            dispatch({
-                type: types.requestFinished,
             });
         } catch (error: any) {
             console.log(error.response.data.errors[0].msg);
@@ -349,15 +345,21 @@ export const clearProject = () => {
     return { type: types.clearProject };
 };
 
-export const changeStateOfProject = (id: string, token: string, state: string) => {
+export const changeStateOfProject = (
+    id: string,
+    token: string,
+    state: string,
+    project: object
+) => {
+    
     return async (dispatch: Dispatch) => {
         try {
             dispatch({
                 type: types.requestInProgress,
-            })
+            });
             const res = await axios.put(
                 `/project/edit/${id}`,
-                { stateOfProject: `${state}` },
+                { stateOfProject: `${state}`, project },
                 { headers: { 'user-token': token } }
             );
             dispatch({
@@ -366,20 +368,20 @@ export const changeStateOfProject = (id: string, token: string, state: string) =
             });
             dispatch({
                 type: types.requestFinished,
-            })
+            });
             dispatch({
                 type: types.responseFinished,
                 payload: res,
-            })
+            });
         } catch (error: any) {
             console.log(error);
             dispatch({
                 type: types.requestFinished,
-            })
+            });
             dispatch({
                 type: types.responseFinished,
                 payload: error.response,
-            })
+            });
         }
     };
 };

@@ -50,6 +50,7 @@ import AdminForm from '../components/Admin/AdminPanel/AdminForm';
 import { VerifyEmailCompany } from '../components/VerifyEmail/VerifyEmailCompany';
 import { PreLoader } from '../components/PreLoader/PreLoader';
 import { PageNotFound } from '../components/PageNotFound/PageNotFound';
+import { TypeOfUser } from '../pages/TypeOfUser';
 
 export const AppRouter = () => {
     let { id } = useParams();
@@ -165,6 +166,14 @@ export const AppRouter = () => {
                                     <MyProjectsPage />
                                 </>
                             </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/typeofuser"
+                        element={
+                            <PublicRoute>
+                                <TypeOfUser />
+                            </PublicRoute>
                         }
                     />
                     <Route
@@ -318,7 +327,7 @@ export const AppRouter = () => {
                         }
                     />
                     <Route path="/checkout/" element={<Checkout />} />
-                    <Route path="/*" element={<PageNotFound/>}/>
+                    <Route path="/*" element={<PageNotFound />} />
                 </Routes>
             </div>
         </BrowserRouter>
