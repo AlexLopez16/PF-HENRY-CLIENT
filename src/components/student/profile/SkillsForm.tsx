@@ -41,7 +41,7 @@ export const SkillsForm: FC<Props> = ({ edit, setEdit, tecnologies }) => {
   const { id } = data;
   const token = localStorage.getItem('token') || '';
 
-  const tecnologias = [
+  let tecnologias = [
     'Airflow',
     '.Net',
     'Angular',
@@ -144,6 +144,11 @@ export const SkillsForm: FC<Props> = ({ edit, setEdit, tecnologies }) => {
       skills: !edit.skills,
     });
   };
+
+  if (skills.length) {
+    const skillsArray = skills.map(({ skill }) => skill)
+    tecnologias = tecnologias.filter(tecnologia => !skillsArray.includes(tecnologia))
+  }
 
   return (
     <Paper elevation={5} style={paperStyle}>
